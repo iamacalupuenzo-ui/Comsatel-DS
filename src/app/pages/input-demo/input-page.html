@@ -20,7 +20,7 @@
             @case ('leading-dropdown') {
               <cs-input-group>
                 <cs-input-group-addon>
-                  <cs-input-dropdown [options]="phoneCodes" [value]="pgPhoneCode()" (valueChange)="pgPhoneCode.set($event)"></cs-input-dropdown>
+                  <cs-input-dropdown [options]="phoneCodes" [value]="pgPhoneCode()" (valueChange)="pgPhoneCode.set($event)" [size]="pgSize()" [embedded]="true"></cs-input-dropdown>
                 </cs-input-group-addon>
                 <cs-input-group-input placeholder="Número de teléfono" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()"></cs-input-group-input>
               </cs-input-group>
@@ -30,7 +30,7 @@
                 <cs-input-group-addon><cs-input-group-text>$</cs-input-group-text></cs-input-group-addon>
                 <cs-input-group-input placeholder="0.00" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()"></cs-input-group-input>
                 <cs-input-group-addon align="inline-end">
-                  <cs-input-dropdown [options]="currencies" [value]="pgCurrency()" (valueChange)="pgCurrency.set($event)"></cs-input-dropdown>
+                  <cs-input-dropdown [options]="currencies" [value]="pgCurrency()" (valueChange)="pgCurrency.set($event)" [size]="pgSize()" [embedded]="true"></cs-input-dropdown>
                 </cs-input-group-addon>
               </cs-input-group>
             }
@@ -154,7 +154,7 @@
         </cs-input-group>
         <cs-input-group>
           <cs-input-group-addon>
-            <cs-input-dropdown [options]="phoneCodes" [value]="pgPhoneCode()" (valueChange)="pgPhoneCode.set($event)"></cs-input-dropdown>
+            <cs-input-dropdown [options]="phoneCodes" [value]="pgPhoneCode()" (valueChange)="pgPhoneCode.set($event)" [embedded]="true"></cs-input-dropdown>
           </cs-input-group-addon>
           <cs-input-group-input placeholder="Número de teléfono"></cs-input-group-input>
         </cs-input-group>
@@ -162,7 +162,7 @@
           <cs-input-group-addon><cs-input-group-text>$</cs-input-group-text></cs-input-group-addon>
           <cs-input-group-input placeholder="0.00"></cs-input-group-input>
           <cs-input-group-addon align="inline-end">
-            <cs-input-dropdown [options]="currencies" [value]="pgCurrency()" (valueChange)="pgCurrency.set($event)"></cs-input-dropdown>
+            <cs-input-dropdown [options]="currencies" [value]="pgCurrency()" (valueChange)="pgCurrency.set($event)" [embedded]="true"></cs-input-dropdown>
           </cs-input-group-addon>
         </cs-input-group>
         <cs-input-group>

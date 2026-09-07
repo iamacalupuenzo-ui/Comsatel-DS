@@ -1,11 +1,36 @@
 :host {
   display: inline-flex;
 }
+:host(.cs-input-dropdown-host--embedded) {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+:host(.cs-input-dropdown-host--full) {
+  display: flex;
+  width: 100%;
+}
 
 .cs-input-dropdown {
   display: inline-flex;
   flex-direction: column;
   gap: var(--layout-gap-xs);
+}
+.cs-input-dropdown--embedded {
+  display: flex;
+  width: 100%;
+}
+.cs-input-dropdown--embedded .cs-input-dropdown__wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.cs-input-dropdown--full {
+  display: flex;
+  width: 100%;
+}
+.cs-input-dropdown__wrap--full {
+  width: 100%;
 }
 
 .cs-input-dropdown__label {
@@ -53,6 +78,22 @@
 .cs-input-dropdown__trigger:disabled {
   background-color: var(--color-background-neutral-subtle);
   cursor: not-allowed;
+}
+/* Embebido en un cs-input-group-addon: el grupo ya da el borde/fondo/
+   anillo de foco compartidos (ver .cs-input-group:has(...) en
+   input-group.css) — este trigger deja de dibujar los suyos para no
+   quedar como un "select" completo anidado dentro de otro campo. La
+   altura sigue viniendo del binding [style.height.px]="tok.height" (igual
+   que en modo no-embebido) en vez de height:100% — un porcentaje ahí no
+   resuelve de forma confiable a través del display:contents del addon. */
+.cs-input-dropdown__trigger--embedded {
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+}
+.cs-input-dropdown__trigger--embedded:disabled {
+  background-color: transparent;
 }
 
 .cs-input-dropdown__value {

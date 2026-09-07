@@ -1,4 +1,8 @@
-<div class="cs-input-dropdown">
+<div
+  class="cs-input-dropdown"
+  [class.cs-input-dropdown--embedded]="embedded"
+  [class.cs-input-dropdown--full]="fullWidth"
+>
   @if (label) {
     <span class="cs-input-dropdown__label">
       {{ label }}
@@ -8,7 +12,7 @@
     </span>
   }
 
-  <div class="cs-input-dropdown__wrap">
+  <div class="cs-input-dropdown__wrap" [class.cs-input-dropdown__wrap--full]="fullWidth">
     <!-- Span oculto: mide la opción más ancha para que el trigger nunca cambie de tamaño al seleccionar. -->
     <span
       #measure
@@ -26,11 +30,13 @@
       aria-haspopup="listbox"
       [attr.aria-expanded]="open()"
       [attr.aria-controls]="menuId"
+      [attr.data-slot]="embedded ? 'input-group-control' : null"
       [disabled]="disabled"
       class="cs-input-dropdown__trigger"
+      [class.cs-input-dropdown__trigger--embedded]="embedded"
       [style.height.px]="tok.height"
       [style.min-width.px]="minWidth()"
-      [style.padding-inline.px]="tok.paddingX"
+      [style.padding-inline.px]="embedded ? null : tok.paddingX"
       [style.font-size]="tok.fontSize"
       [style.line-height]="tok.lineHeight"
       [style.color]="textColor"

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, ViewChild, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, Output, ViewChild, signal } from '@angular/core';
 import { Icon } from '../icons/icon';
 import { INPUT_TOKENS } from './dropdown-tokens';
 import type { DropdownSize, InputDropdownOption } from './dropdown-types';
@@ -24,6 +24,34 @@ export class InputDropdown implements AfterViewInit, OnChanges {
   @Input() size: DropdownSize = 'md';
   @Input() disabled = false;
   @Input() required = false;
+  // Modo embebido — para usarlo dentro de un cs-input-group-addon (ej. el
+  // selector de código de país de un campo de teléfono). El trigger deja de
+  // dibujar su propio borde/fondo/anillo de foco (el grupo ya los da) y
+  // expone data-slot="input-group-control" para que
+  // .cs-input-group:has(...) reaccione a su foco/apertura igual que
+  // reacciona al <input> real. Sin esto, un InputDropdown metido en un
+  // grupo se veía como un "select" completo anidado dentro de otro campo
+  // completo — doble marco, y sin escalar con el tamaño del grupo si nadie
+  // le pasaba [size] a mano (hallazgo real: Playground de Input, tipo
+  // "Dropdown al inicio"/"al final").
+  @Input() embedded = false;
+  // Estira el trigger a lo ancho de su contenedor en vez de encogerse a su
+  // contenido (:host es inline-flex por defecto). El propio trigger ya es
+  // width:100% de su wrap — falta que host/wrap dejen de ser "auto" y
+  // pasen a ocupar el 100% real del padre. Distinto de `embedded`: acá SÍ
+  // conserva su borde/fondo propios (sigue viéndose como un campo
+  // completo), solo cambia de ancho. Caso real: el campo de hora de
+  // DateTimePicker vive en un wrapper de ancho fijo (FIELD_WIDTH) pero el
+  // trigger se quedaba en su ancho de contenido natural, dejando un hueco
+  // enorme entre el valor mostrado y el botón de limpiar de al lado.
+  @Input() fullWidth = false;
+
+  @HostBinding('class.cs-input-dropdown-host--embedded') get isEmbeddedHost(): boolean {
+    return this.embedded;
+  }
+  @HostBinding('class.cs-input-dropdown-host--full') get isFullWidthHost(): boolean {
+    return this.fullWidth;
+  }
 
   protected readonly open = signal(false);
   protected readonly focused = signal(false);
@@ -63,11 +91,13 @@ export class InputDropdown implements AfterViewInit, OnChanges {
   }
 
   get borderColor(): string {
+    if (this.embedded) return 'transparent';
     if (this.disabled) return 'var(--color-border-neutral-subtle)';
     if (this.focused() || this.open()) return 'var(--color-border-brand-default)';
     return 'var(--color-border-neutral-default)';
   }
   get extraShadow(): string {
+    if (this.embedded) return 'none';
     return !this.disabled && (this.focused() || this.open()) ? '0 0 0 2px var(--color-border-brand-subtle)' : 'none';
   }
   get textColor(): string {
