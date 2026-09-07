@@ -1,0 +1,72 @@
+<div class="cs-calendar">
+  <div class="cs-calendar__header">
+    <div class="cs-calendar__nav-group">
+      <button
+        type="button"
+        class="cs-calendar__nav-btn"
+        aria-label="Año anterior"
+        (click)="shiftYear(-1)"
+      >
+        <cs-icon name="chevrons-left" [size]="14"></cs-icon>
+      </button>
+      <button
+        type="button"
+        class="cs-calendar__nav-btn"
+        aria-label="Mes anterior"
+        (click)="shiftMonth(-1)"
+      >
+        <cs-icon name="chevron-left" [size]="14"></cs-icon>
+      </button>
+    </div>
+
+    <span class="cs-calendar__label" [ngStyle]="labelStyle()">{{ label() }}</span>
+
+    <div class="cs-calendar__nav-group">
+      <button
+        type="button"
+        class="cs-calendar__nav-btn"
+        aria-label="Mes siguiente"
+        (click)="shiftMonth(1)"
+      >
+        <cs-icon name="chevron-right" [size]="14"></cs-icon>
+      </button>
+      <button
+        type="button"
+        class="cs-calendar__nav-btn"
+        aria-label="Año siguiente"
+        (click)="shiftYear(1)"
+      >
+        <cs-icon name="chevrons-right" [size]="14"></cs-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="cs-calendar__weekdays" role="row">
+    @for (w of weekdays(); track w) {
+      <span class="cs-calendar__weekday" [ngStyle]="weekdayStyle">{{ w }}</span>
+    }
+  </div>
+
+  <div class="cs-calendar__grid" role="grid">
+    @for (week of weeks(); track $index) {
+      <div class="cs-calendar__week" role="row">
+        @for (cell of week; track cell.iso) {
+          <div class="cs-calendar__cell" [ngStyle]="cellStyle(cell)">
+            <button
+              type="button"
+              role="gridcell"
+              class="cs-calendar__day"
+              [disabled]="isDisabled(cell.iso)"
+              [attr.aria-selected]="isSelected(cell.iso) || isRangeEdge(cell.iso)"
+              [attr.aria-current]="isToday(cell.iso) ? 'date' : null"
+              [ngStyle]="dayStyle(cell)"
+              (click)="onDayClick(cell)"
+              (mouseenter)="hoveredIso.set(cell.iso)"
+              (mouseleave)="hoveredIso.set(null)"
+            >{{ cell.day }}</button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

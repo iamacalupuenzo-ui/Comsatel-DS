@@ -1,0 +1,126 @@
+/* Puerto del Tooltip de React (tooltip.tsx). React usa @base-ui/react con
+   Floating UI para posicionamiento dinámico y detección de colisión con el
+   viewport; acá, sin esa dependencia, el posicionamiento es CSS puro
+   (absolute + transform) según la propiedad `side` — cubre el caso común de
+   un trigger que no está pegado al borde del viewport. Mostrar/ocultar es
+   CSS-only vía :hover/:focus-within, sin JavaScript de por medio. */
+:host {
+  position: relative;
+  display: inline-flex;
+}
+
+.cs-tooltip__trigger {
+  display: inline-flex;
+}
+
+.cs-tooltip__popup {
+  position: absolute;
+  z-index: var(--elevation-z-index-tooltip);
+  max-width: 20rem;
+  width: max-content;
+  padding: var(--layout-padding-xs) var(--layout-padding-md);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-background-neutral-strongest);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95);
+  transition:
+    opacity var(--motion-duration-fast) var(--motion-easing-default),
+    transform var(--motion-duration-fast) var(--motion-easing-default),
+    visibility 0s linear var(--motion-duration-fast);
+  pointer-events: none;
+}
+
+:host(:hover) .cs-tooltip__popup,
+:host(:focus-within) .cs-tooltip__popup {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition-delay: 400ms, 400ms, 0s;
+}
+
+/* Posición por lado */
+.cs-tooltip__popup--top {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  margin-bottom: 8px;
+}
+:host(:hover) .cs-tooltip__popup--top,
+:host(:focus-within) .cs-tooltip__popup--top {
+  transform: translateX(-50%) scale(1);
+}
+
+.cs-tooltip__popup--bottom {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  margin-top: 8px;
+}
+:host(:hover) .cs-tooltip__popup--bottom,
+:host(:focus-within) .cs-tooltip__popup--bottom {
+  transform: translateX(-50%) scale(1);
+}
+
+.cs-tooltip__popup--left {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%) scale(0.95);
+  margin-right: 8px;
+}
+:host(:hover) .cs-tooltip__popup--left,
+:host(:focus-within) .cs-tooltip__popup--left {
+  transform: translateY(-50%) scale(1);
+}
+
+.cs-tooltip__popup--right {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%) scale(0.95);
+  margin-left: 8px;
+}
+:host(:hover) .cs-tooltip__popup--right,
+:host(:focus-within) .cs-tooltip__popup--right {
+  transform: translateY(-50%) scale(1);
+}
+
+/* Flecha */
+.cs-tooltip__arrow {
+  position: absolute;
+  width: 8px;
+  height: 4px;
+}
+.cs-tooltip__arrow--top {
+  bottom: -4px;
+  left: 50%;
+  margin-left: -4px;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background-color: var(--color-background-neutral-strongest);
+}
+.cs-tooltip__arrow--bottom {
+  top: -4px;
+  left: 50%;
+  margin-left: -4px;
+  clip-path: polygon(50% 0, 0 100%, 100% 100%);
+  background-color: var(--color-background-neutral-strongest);
+}
+.cs-tooltip__arrow--left {
+  right: -4px;
+  top: 50%;
+  margin-top: -4px;
+  width: 4px;
+  height: 8px;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  background-color: var(--color-background-neutral-strongest);
+}
+.cs-tooltip__arrow--right {
+  left: -4px;
+  top: 50%;
+  margin-top: -4px;
+  width: 4px;
+  height: 8px;
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  background-color: var(--color-background-neutral-strongest);
+}

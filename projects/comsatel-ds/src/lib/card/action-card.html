@@ -1,0 +1,29 @@
+<div class="cs-action-card">
+  <div class="cs-action-card__main">
+    @if (showLogo) {
+      <div class="cs-action-card__logo">
+        <ng-content select="[logo]"></ng-content>
+      </div>
+    }
+    <div class="cs-action-card__text">
+      @if (title) {
+        <p class="cs-action-card__title">{{ title }}</p>
+      }
+      @if (description) {
+        <p class="cs-action-card__description">{{ description }}</p>
+      }
+    </div>
+  </div>
+
+  @if (showToggle) {
+    <cs-toggle size="md" [checked]="toggleChecked"></cs-toggle>
+  }
+
+  @if (showButton) {
+    <cs-button variant="default" size="sm" class="cs-action-card__button">{{ buttonLabel }}</cs-button>
+  }
+
+  @if (showLabel) {
+    <span class="cs-action-card__label">{{ label }}</span>
+  }
+</div>

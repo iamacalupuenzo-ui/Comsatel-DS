@@ -1,0 +1,22 @@
+<div class="cs-preview-card">
+  <div class="cs-preview-card__preview">
+    @if (showImage) {
+      <ng-content select="[image]"></ng-content>
+    } @else {
+      <span class="cs-preview-card__preview-label">Preview</span>
+    }
+  </div>
+  <div class="cs-preview-card__footer">
+    <div class="cs-preview-card__info">
+      @if (showLogo) {
+        <div class="cs-preview-card__logo">
+          <ng-content select="[logo]"></ng-content>
+        </div>
+      }
+      <p class="cs-preview-card__name">{{ name }}</p>
+    </div>
+    <cs-button variant="tertiary" size="xs" (click)="options.emit()">
+      <cs-icon name="more-horizontal" [size]="16"></cs-icon>
+    </cs-button>
+  </div>
+</div>

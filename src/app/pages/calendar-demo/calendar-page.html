@@ -1,0 +1,127 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Calendar</p>
+  <h1 class="title">Calendar</h1>
+  <p class="description">
+    Grilla de fechas para elegir un día, un rango o navegar mes a mes, con nombres de mes y día en
+    español y estilos basados en tokens de diseño.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta los controles para explorar el calendario.</p>
+
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <cs-calendar [defaultMonth]="12" [defaultYear]="2026" [weekStartDay]="pgWeekStart()"></cs-calendar>
+    </app-demo-shell>
+  </section>
+
+  <!-- Selección -->
+  <section class="section">
+    <h2 class="section__title" id="selection">Selección</h2>
+    <p class="section__intro">Una fecha seleccionada y, opcionalmente, una elegida previamente (ej. el otro extremo de un rango) con un estilo distinto.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-calendar
+  [defaultMonth]=&quot;12&quot;
+  [defaultYear]=&quot;2026&quot;
+  [previouslySelected]=&quot;['2026-12-06']&quot;
+  [selected]=&quot;['2026-12-08']&quot;
+></cs-calendar>"
+    >
+      <cs-calendar [defaultMonth]="12" [defaultYear]="2026" [previouslySelected]="['2026-12-06']" [selected]="['2026-12-08']"></cs-calendar>
+    </app-demo-shell>
+  </section>
+
+  <!-- Selección de rango -->
+  <section class="section">
+    <h2 class="section__title" id="range-selection">Selección de rango</h2>
+    <p class="section__intro">Dos clics definen el rango — el componente ordena las fechas y dibuja la banda continua entre ambas.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-calendar
+  [defaultMonth]=&quot;12&quot;
+  [defaultYear]=&quot;2026&quot;
+  [selected]=&quot;pendingStart ? [pendingStart] : []&quot;
+  [rangeSelected]=&quot;range ?? undefined&quot;
+  (dateChange)=&quot;onRangeChange($event)&quot;
+></cs-calendar>"
+    >
+      <cs-calendar
+        [defaultMonth]="12"
+        [defaultYear]="2026"
+        [selected]="pendingStart() ? [pendingStart()!] : []"
+        [rangeSelected]="range() ?? undefined"
+        (dateChange)="onRangeChange($event)"
+      ></cs-calendar>
+    </app-demo-shell>
+  </section>
+
+  <!-- Fechas deshabilitadas -->
+  <section class="section">
+    <h2 class="section__title" id="disabled-dates">Fechas deshabilitadas</h2>
+    <p class="section__intro">Fechas puntuales que no se pueden seleccionar.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="const fechasDeshabilitadas = [
+  '2026-12-07', '2026-12-08', '2026-12-09',
+  '2026-12-16', '2026-12-17', '2026-12-18',
+];
+
+<cs-calendar [defaultMonth]=&quot;12&quot; [defaultYear]=&quot;2026&quot; [disabled]=&quot;fechasDeshabilitadas&quot;></cs-calendar>"
+    >
+      <cs-calendar [defaultMonth]="12" [defaultYear]="2026" [disabled]="disabledDates"></cs-calendar>
+    </app-demo-shell>
+  </section>
+
+  <!-- Rango deshabilitado -->
+  <section class="section">
+    <h2 class="section__title" id="disabled-range">Rango deshabilitado</h2>
+    <p class="section__intro">minDate/maxDate deshabilitan todo lo anterior o posterior a ese límite (no inclusive).</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-calendar
+  [defaultMonth]=&quot;12&quot;
+  [defaultYear]=&quot;2026&quot;
+  minDate=&quot;2026-12-10&quot;
+  maxDate=&quot;2026-12-20&quot;
+></cs-calendar>"
+    >
+      <cs-calendar [defaultMonth]="12" [defaultYear]="2026" minDate="2026-12-10" maxDate="2026-12-20"></cs-calendar>
+    </app-demo-shell>
+  </section>
+
+  <!-- Localización -->
+  <section class="section">
+    <h2 class="section__title" id="localization">Localización</h2>
+    <p class="section__intro">Los nombres de mes y día salen de Intl.DateTimeFormat('es', …) — siempre en español, sin mecanismo de cambio de idioma en esta plataforma.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="// Los nombres de mes y día siempre salen en español (Intl.DateTimeFormat('es', …)).
+<cs-calendar [defaultMonth]=&quot;12&quot; [defaultYear]=&quot;2026&quot; [weekStartDay]=&quot;1&quot;></cs-calendar>"
+    >
+      <cs-calendar [defaultMonth]="12" [defaultYear]="2026" [weekStartDay]="1"></cs-calendar>
+    </app-demo-shell>
+  </section>
+
+  <!-- Props -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">defaultMonth</code><code class="table__type">number</code><code class="table__default">mes actual</code><span class="table__desc">Mes inicial (1-12), no controlado.</span></div>
+      <div class="table__row"><code class="table__name">defaultYear</code><code class="table__type">number</code><code class="table__default">año actual</code><span class="table__desc">Año inicial, no controlado.</span></div>
+      <div class="table__row"><code class="table__name">month</code><code class="table__type">number</code><code class="table__default">—</code><span class="table__desc">Mes controlado (1-12).</span></div>
+      <div class="table__row"><code class="table__name">year</code><code class="table__type">number</code><code class="table__default">—</code><span class="table__desc">Año controlado.</span></div>
+      <div class="table__row"><code class="table__name">selected</code><code class="table__type">string[]</code><code class="table__default">[]</code><span class="table__desc">Fechas seleccionadas, formato "YYYY-MM-DD".</span></div>
+      <div class="table__row"><code class="table__name">previouslySelected</code><code class="table__type">string[]</code><code class="table__default">[]</code><span class="table__desc">Fechas elegidas previamente (ej. el otro extremo de un rango).</span></div>
+      <div class="table__row"><code class="table__name">rangeSelected</code><code class="table__type">[string, string]</code><code class="table__default">—</code><span class="table__desc">Rango a resaltar como banda continua — no requiere orden, el componente ordena internamente.</span></div>
+      <div class="table__row"><code class="table__name">disabled</code><code class="table__type">string[]</code><code class="table__default">[]</code><span class="table__desc">Fechas puntuales deshabilitadas.</span></div>
+      <div class="table__row"><code class="table__name">minDate</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Deshabilita toda fecha anterior a esta (no inclusive).</span></div>
+      <div class="table__row"><code class="table__name">maxDate</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Deshabilita toda fecha posterior a esta (no inclusive).</span></div>
+      <div class="table__row"><code class="table__name">weekStartDay</code><code class="table__type">0 | 1</code><code class="table__default">0</code><span class="table__desc">0 = domingo, 1 = lunes.</span></div>
+      <div class="table__row"><code class="table__name">(dateChange)</code><code class="table__type">EventEmitter&lt;string&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en una fecha habilitada.</span></div>
+      <div class="table__row"><code class="table__name">(monthChange)</code><code class="table__type">EventEmitter&lt;{{ '{' }}month, year{{ '}' }}&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al navegar de mes o año.</span></div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,52 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+/* Anatomía */
+.anatomy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--layout-gap-lg); }
+.anatomy-card { border-radius: var(--radius-lg); border: 1px solid var(--color-border-neutral-subtle); background-color: var(--elevation-surface-default); overflow: hidden; }
+.anatomy-card__strip { display: flex; height: 32px; }
+.anatomy-card__strip span { flex: 1; }
+.anatomy-card__body { padding: var(--layout-padding-lg); }
+.anatomy-card__label { margin: 0 0 var(--layout-padding-xs); font-size: var(--font-size-content-note); font-weight: var(--font-weight-emphasis); color: var(--color-text-base-bolder); }
+.anatomy-card__desc { margin: 0; font-size: var(--font-size-label-small); line-height: 1.5; color: var(--color-text-base-subtle); }
+
+/* Roles */
+.panel { border-radius: var(--radius-md); border: 1px solid var(--color-border-neutral-subtle); overflow: hidden; }
+.role-row {
+  display: flex; align-items: center; gap: var(--layout-gap-xl); padding: var(--layout-padding-lg) var(--layout-padding-xl);
+  border-top: 1px solid var(--color-border-divider);
+}
+.role-row:first-child { border-top: none; }
+.role-row:hover { background-color: var(--color-interaction-hovered); }
+.role-row__name { width: 112px; flex-shrink: 0; }
+.role-row__name p { margin: 0; font-size: var(--font-size-content-note); font-weight: var(--font-weight-emphasis); color: var(--color-text-base-bolder); }
+.role-row__name code { font-family: monospace; font-size: var(--font-size-label-micro); color: var(--color-text-base-subtlest); }
+.role-row__desc { flex: 1; margin: 0; font-size: var(--font-size-content-note); line-height: 1.5; color: var(--color-text-base-subtle); }
+.role-row__swatches { display: flex; gap: var(--layout-gap-xs); flex-shrink: 0; }
+.role-row__swatches span { width: 20px; height: 20px; border-radius: var(--radius-xs); border: 1px solid var(--color-border-neutral-subtle); }
+
+/* Énfasis */
+.emphasis-row { display: flex; gap: var(--layout-gap-md); }
+.emphasis-item { flex: 1; }
+.emphasis-item__swatch { height: 40px; border-radius: var(--radius-md); }
+.emphasis-item__label { margin: var(--layout-padding-sm) 0 0; font-size: var(--font-size-label-small); font-weight: var(--font-weight-accent); color: var(--color-text-base-bolder); }
+.emphasis-item__var { display: block; font-family: monospace; font-size: var(--font-size-label-micro); color: var(--color-text-base-subtlest); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Estados */
+.states-row { display: flex; flex-wrap: wrap; gap: var(--layout-gap-lg); }
+.state-item { display: flex; flex-direction: column; align-items: center; gap: var(--layout-gap-sm); }
+.state-item__chip { width: 80px; height: 32px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: var(--font-size-label-small); font-weight: var(--font-weight-accent); }
+.state-item__label { margin: 0; font-size: var(--font-size-label-small); color: var(--color-text-base-subtle); }
+
+/* Explorar */
+.subpage-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--layout-gap-lg); }
+.subpage-card {
+  display: block; border-radius: var(--radius-lg); border: 1px solid var(--color-border-neutral-subtle);
+  background-color: var(--elevation-surface-default); padding: var(--layout-padding-xl); text-decoration: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.subpage-card:hover { border-color: var(--color-border-brand-default); background-color: var(--color-background-brand-subtlest); }
+.subpage-card__title { margin: 0 0 var(--layout-padding-xs); font-size: var(--font-size-content-note); font-weight: var(--font-weight-emphasis); color: var(--color-text-base-bolder); }
+.subpage-card:hover .subpage-card__title { color: var(--color-text-brand-default); }
+.subpage-card__desc { margin: 0; font-size: var(--font-size-label-small); line-height: 1.5; color: var(--color-text-base-subtle); }

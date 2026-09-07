@@ -1,0 +1,11 @@
+<div class="cs-spotlight-card">
+  <cs-feature-spotlight-card [avatars]="avatars"></cs-feature-spotlight-card>
+  <div class="cs-spotlight-card__footer">
+    @if (title) {
+      <p class="cs-spotlight-card__title">{{ title }}</p>
+    }
+    @if (description) {
+      <p class="cs-spotlight-card__description">{{ description }}</p>
+    }
+  </div>
+</div>

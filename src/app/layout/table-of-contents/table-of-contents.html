@@ -1,0 +1,17 @@
+@if (items().length > 0) {
+  <aside class="toc">
+    <p class="toc__label">Contenido</p>
+    <ul class="toc__list">
+      @for (item of items(); track item.id) {
+        <li [style.padding-left.px]="item.level === 3 ? 8 : 0">
+          <a
+            [href]="'#' + item.id"
+            (click)="onItemClick(item.id, $event)"
+            class="toc__link"
+            [class.toc__link--active]="activeId() === item.id"
+          >{{ item.text }}</a>
+        </li>
+      }
+    </ul>
+  </aside>
+}

@@ -1,0 +1,86 @@
+<div class="cs-dropdown" [class.cs-dropdown--right]="position === 'right'">
+  @if (trigger === 'button') {
+    <button
+      type="button"
+      class="cs-dropdown__trigger cs-dropdown__trigger--button"
+      [class.cs-dropdown__trigger--open]="open()"
+      aria-haspopup="menu"
+      [attr.aria-expanded]="open()"
+      [attr.aria-controls]="menuId"
+      [style.height.px]="tok.height"
+      [style.padding-inline.px]="tok.paddingInline"
+      [style.font-size]="tok.fontSize"
+      [style.line-height]="tok.lineHeight"
+      (click)="toggle()"
+    >
+      {{ label }}
+      <cs-icon name="chevron-down" [size]="tok.iconSize" class="cs-dropdown__chevron" [class.cs-dropdown__chevron--open]="open()"></cs-icon>
+    </button>
+  } @else {
+    <button
+      type="button"
+      class="cs-dropdown__trigger cs-dropdown__trigger--icon"
+      [class.cs-dropdown__trigger--open]="open()"
+      aria-haspopup="menu"
+      [attr.aria-expanded]="open()"
+      [attr.aria-controls]="menuId"
+      [style.width.px]="iconTriggerSize"
+      [style.height.px]="iconTriggerSize"
+      (click)="toggle()"
+    >
+      <cs-icon name="more-horizontal" [size]="iconTriggerSize - 4"></cs-icon>
+    </button>
+  }
+
+  @if (open()) {
+    <div
+      [id]="menuId"
+      role="menu"
+      class="cs-dropdown__menu"
+      [style.width.px]="menuWidth"
+      [style.top.px]="menuTop"
+      [style.left]="position === 'right' ? 'auto' : '0'"
+      [style.right]="position === 'right' ? '0' : 'auto'"
+    >
+      @if (header) {
+        <div class="cs-dropdown__header">{{ header }}</div>
+        <div class="cs-dropdown__divider cs-dropdown__divider--after-header"></div>
+      }
+
+      @for (group of groups; track $index; let gi = $index) {
+        <div>
+          @if (group.header) {
+            <div
+              class="cs-dropdown__group-header"
+              [class.cs-dropdown__group-header--first]="gi === 0 && !header"
+            >{{ group.header }}</div>
+          }
+
+          <div
+            [attr.role]="isGroupSelectable(group) ? 'group' : null"
+            [attr.aria-label]="isGroupSelectable(group) ? group.header : null"
+            class="cs-dropdown__items"
+          >
+            @for (item of group.items; track $index) {
+              <div>
+                <cs-dropdown-item
+                  [item]="item"
+                  [size]="size"
+                  [selectionMode]="modeOf(group)"
+                  (itemSelect)="onItemSelect($event, modeOf(group))"
+                ></cs-dropdown-item>
+                @if (item.dividerAfter) {
+                  <div class="cs-dropdown__divider cs-dropdown__divider--inline"></div>
+                }
+              </div>
+            }
+          </div>
+
+          @if (gi < groups.length - 1) {
+            <div class="cs-dropdown__divider cs-dropdown__divider--inline"></div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

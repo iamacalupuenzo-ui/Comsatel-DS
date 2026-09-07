@@ -1,0 +1,73 @@
+/* Puerto 1:1 del Avatar de React (avatar.tsx). */
+:host {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.cs-avatar__circle {
+  position: relative;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.cs-avatar__circle--absolute {
+  position: absolute;
+  inset: 0;
+}
+
+.cs-avatar__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cs-avatar__placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-brand-bolder);
+}
+
+.cs-avatar__initials {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-family-content);
+  letter-spacing: var(--font-letter-spacing-content);
+  font-weight: var(--font-weight-accent);
+  text-align: center;
+  white-space: nowrap;
+  color: var(--color-text-brand-bolder);
+}
+
+.cs-avatar__wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.cs-avatar__indicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: var(--radius-full);
+  border-width: var(--layout-border-thick);
+  border-style: solid;
+  border-color: var(--elevation-surface-default);
+  overflow: hidden;
+}
+.cs-avatar__company-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cs-avatar__company-icon {
+  width: 100%;
+  height: 100%;
+  padding: 1px;
+  color: var(--color-text-brand-bolder);
+}

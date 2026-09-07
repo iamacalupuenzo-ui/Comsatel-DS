@@ -1,0 +1,41 @@
+@import '../../shared/styles/doc-page.css';
+
+:host {
+  display: block;
+}
+
+/* Excepción intencional: el hero de la landing usa el paso más grande de la
+   escala de heading, no el heading-large estándar de .title. */
+.title {
+  font-size: var(--font-size-heading-display);
+  line-height: var(--font-line-height-heading-display);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--layout-gap-xl);
+}
+.card {
+  display: block;
+  padding: var(--layout-padding-2xl);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease;
+}
+.card:hover {
+  border-color: var(--color-border-brand-default);
+}
+.card h2 {
+  margin: 0 0 var(--layout-padding-sm);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-heading-small);
+  color: var(--color-text-base-boldest);
+}
+.card p {
+  margin: 0;
+  font-size: var(--font-size-content-ui);
+  color: var(--color-text-base-subtle);
+}

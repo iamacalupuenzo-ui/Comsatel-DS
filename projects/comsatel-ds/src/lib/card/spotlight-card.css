@@ -1,0 +1,38 @@
+.cs-spotlight-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Ancho fijo propio de esta tarjeta ilustrativa (no un token de layout) —
+     mismo criterio que FIELD_WIDTH en DateTimePicker. */
+  width: 211px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-default);
+  background-color: var(--color-background-neutral-subtlest);
+  box-shadow: var(--shadow-xs);
+}
+
+.cs-spotlight-card__footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-2xs);
+  padding-inline: var(--layout-padding-xl);
+  padding-top: var(--layout-padding-md);
+  padding-bottom: var(--layout-padding-lg);
+  border-top: 1px solid var(--color-border-divider);
+}
+
+.cs-spotlight-card__title {
+  margin: 0;
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-bolder);
+}
+
+.cs-spotlight-card__description {
+  margin: 0;
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-base-subtle);
+}

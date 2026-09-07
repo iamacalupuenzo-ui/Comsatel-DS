@@ -1,0 +1,59 @@
+<div class="demo-shell">
+  <div class="demo-shell__canvas" [attr.data-theme]="mode()">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="demo-shell__toolbar">
+    @if (controls.length > 0) {
+      <div class="demo-shell__toolbar-group">
+        <svg class="demo-shell__sliders-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 5H3" /><path d="M12 19H3" /><path d="M14 3v4" /><path d="M16 17v4" /><path d="M21 12h-9" /><path d="M21 19h-5" /><path d="M21 5h-7" /><path d="M8 10v4" /><path d="M8 12H3" />
+        </svg>
+        <span class="demo-shell__toolbar-label">Controles</span>
+      </div>
+    }
+
+    <div class="demo-shell__toolbar-group">
+      <span class="demo-shell__toolbar-label">Tema</span>
+      <div class="demo-shell__theme-switch">
+        <button
+          type="button"
+          class="demo-shell__theme-btn"
+          [class.demo-shell__theme-btn--active]="mode() === 'light'"
+          (click)="onChange('mode', 'light')"
+        >light</button>
+        <button
+          type="button"
+          class="demo-shell__theme-btn"
+          [class.demo-shell__theme-btn--active]="mode() === 'dark'"
+          (click)="onChange('mode', 'dark')"
+        >dark</button>
+      </div>
+    </div>
+
+    @for (ctrl of controls; track ctrl.key) {
+      @if (ctrl.kind === 'select') {
+        <div class="demo-shell__toolbar-group">
+          <span class="demo-shell__toolbar-label">{{ ctrl.label }}</span>
+          <cs-input-dropdown
+            size="xs"
+            [options]="optionsFor(ctrl)"
+            [value]="$any(valueOf(ctrl.key))"
+            (valueChange)="onChange(ctrl.key, $event)"
+          ></cs-input-dropdown>
+        </div>
+      } @else {
+        <div class="demo-shell__toolbar-group demo-shell__toolbar-group--clickable" (click)="onChange(ctrl.key, !valueOf(ctrl.key))">
+          <span class="demo-shell__toolbar-label">{{ ctrl.label }}</span>
+          <div class="demo-shell__toggle" [class.demo-shell__toggle--on]="valueOf(ctrl.key)">
+            <div class="demo-shell__toggle-thumb"></div>
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <div class="demo-shell__code">
+    <app-code-block [code]="code()"></app-code-block>
+  </div>
+</div>

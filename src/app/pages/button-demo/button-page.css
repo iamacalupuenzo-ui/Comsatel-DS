@@ -1,0 +1,68 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+/* Tamaños */
+.size-row {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-3xl);
+  padding: var(--layout-padding-xl) var(--layout-padding-2xl);
+  background-color: var(--elevation-surface-default);
+}
+.size-row--divider { border-top: 1px solid var(--color-border-divider); }
+.size-row__button { flex-shrink: 0; width: 6rem; }
+.size-row__info { flex: 1; min-width: 0; }
+.size-row__heading {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-sm);
+  margin-bottom: var(--layout-padding-2xs);
+}
+.size-row__label { font-size: var(--font-size-content-note); font-weight: var(--font-weight-emphasis); color: var(--color-text-base-boldest); }
+.size-row__code {
+  font-family: monospace;
+  font-size: var(--font-size-label-micro);
+  padding: 1px var(--layout-padding-sm);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-background-neutral-subtlest);
+  color: var(--color-text-base-subtle);
+}
+.size-row__usage { margin: 0; font-size: var(--font-size-label-small); color: var(--color-text-base-subtle); }
+
+/* Ancho completo */
+.full-width-wrap { width: 100%; }
+
+/* Estado cargando: switch propio de la demo (no es cs-toggle: acá se
+   documenta el estado del BOTÓN, no el componente Toggle en sí). */
+.col--start { align-items: flex-start; }
+.switch-field {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-sm);
+  cursor: pointer;
+  user-select: none;
+}
+.switch-field__track {
+  position: relative;
+  flex-shrink: 0;
+  width: 36px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-neutral-bolder);
+  transition: background-color var(--motion-duration-leaving) var(--motion-easing-default);
+}
+.switch-field__track--on { background-color: var(--color-background-brand-default); }
+.switch-field__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  background-color: white;
+  box-shadow: var(--shadow-xs);
+  transition: left var(--motion-duration-leaving) var(--motion-easing-default);
+}
+.switch-field__track--on .switch-field__thumb { left: 18px; }
+.switch-field__label { font-size: var(--font-size-content-ui); font-weight: var(--font-weight-accent); color: var(--color-text-base-default); }

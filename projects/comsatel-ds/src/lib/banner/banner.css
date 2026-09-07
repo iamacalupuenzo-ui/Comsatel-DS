@@ -1,0 +1,101 @@
+/* Puerto 1:1 del Banner de React (banner.tsx). */
+:host {
+  display: block;
+}
+
+.cs-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--layout-gap-md);
+  padding: var(--layout-padding-lg);
+  border: 1px solid;
+  border-radius: var(--radius-lg);
+}
+
+.cs-banner__icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.cs-banner__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.cs-banner__title,
+.cs-banner__body,
+.cs-banner__action {
+  margin: 0;
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-caption);
+  line-height: var(--font-line-height-content-caption);
+  letter-spacing: var(--font-letter-spacing-content);
+}
+
+.cs-banner__title {
+  font-weight: var(--font-weight-emphasis);
+  margin-bottom: 2px;
+}
+.cs-banner__body {
+  font-weight: var(--font-weight-regular);
+}
+.cs-banner__body:empty {
+  display: none;
+}
+
+.cs-banner__action {
+  display: block;
+  margin-top: var(--layout-padding-sm);
+  padding: 0;
+  border: none;
+  background: none;
+  font-weight: var(--font-weight-emphasis);
+  text-decoration: underline;
+  cursor: pointer;
+  color: inherit;
+}
+
+.cs-banner__dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  padding: 2px;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  transition: opacity var(--motion-duration-leaving) var(--motion-easing-default);
+}
+.cs-banner__dismiss:hover {
+  opacity: 0.6;
+}
+
+/* Variantes */
+.cs-banner--brand {
+  background-color: var(--color-background-brand-subtle);
+  border-color: var(--color-border-brand-default);
+  color: var(--color-text-brand-bolder);
+}
+.cs-banner--neutral {
+  background-color: var(--color-background-neutral-default);
+  border-color: var(--color-border-neutral-default);
+  color: var(--color-text-base-bolder);
+}
+.cs-banner--danger {
+  background-color: var(--color-background-danger-subtle);
+  border-color: var(--color-border-danger-default);
+  color: var(--color-text-danger-bolder);
+}
+.cs-banner--success {
+  background-color: var(--color-background-success-subtle);
+  border-color: var(--color-border-success-default);
+  color: var(--color-text-success-bolder);
+}
+.cs-banner--warning {
+  background-color: var(--color-background-warning-subtle);
+  border-color: var(--color-border-warning-default);
+  color: var(--color-text-warning-bolder);
+}

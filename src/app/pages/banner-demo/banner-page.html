@@ -1,0 +1,180 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Banner</p>
+  <h1 class="title">Banner</h1>
+  <p class="description">
+    Un banner muestra un mensaje contextual persistente en la parte superior de una página o
+    sección. Soporta cinco variantes semánticas, título opcional, cierre y acciones inline.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta los controles para explorar las variantes y opciones del banner.</p>
+
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <cs-banner
+        class="banner-max"
+        [variant]="pgVariant()"
+        [title]="pgShowTitle() ? 'Anuncio de función' : undefined"
+        [icon]="pgIcon()"
+        [action]="pgShowAction() ? { label: 'Saber más' } : undefined"
+        [dismissible]="pgDismissible()"
+      >
+        Ahorraste <strong>16 horas</strong> en los últimos <strong>30 días</strong> gracias a que
+        Comsatel genera issues automáticamente por ti.
+      </cs-banner>
+    </app-demo-shell>
+  </section>
+
+  <!-- Variantes -->
+  <section class="section">
+    <h2 class="section__title" id="variants">Variantes</h2>
+    <p class="section__intro">Cinco variantes semánticas: brand, neutral, danger, success y warning.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-banner variant=&quot;brand&quot;>Mensaje de marca</cs-banner>
+<cs-banner variant=&quot;neutral&quot;>Mensaje neutro</cs-banner>
+<cs-banner variant=&quot;danger&quot;>Mensaje de peligro</cs-banner>
+<cs-banner variant=&quot;success&quot;>Mensaje de éxito</cs-banner>
+<cs-banner variant=&quot;warning&quot;>Mensaje de advertencia</cs-banner>"
+    >
+      <div class="banner-stack">
+        @for (v of variants; track v) {
+          <cs-banner class="banner-max" [variant]="v">
+            Ahorraste <strong>16 horas</strong> en los últimos <strong>30 días</strong> gracias a que
+            Comsatel genera issues automáticamente por ti.
+          </cs-banner>
+        }
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Con título -->
+  <section class="section">
+    <h2 class="section__title" id="with-title">Con título</h2>
+    <p class="section__intro">Agrega la propiedad <code class="inline-code">title</code> para mensajes que necesitan un encabezado claro sobre la descripción.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-banner variant=&quot;brand&quot; title=&quot;Nueva función disponible&quot;>
+  Comsatel ahora genera issues automáticamente.
+</cs-banner>
+<cs-banner variant=&quot;danger&quot; title=&quot;Pago fallido&quot;>
+  Tu tarjeta fue rechazada. Actualiza tu información de facturación.
+</cs-banner>"
+    >
+      <div class="banner-stack">
+        <cs-banner class="banner-max" variant="brand" title="Nueva función disponible">
+          Comsatel ahora genera issues automáticamente. Actívalo en la configuración de tu proyecto.
+        </cs-banner>
+        <cs-banner class="banner-max" variant="success" title="Despliegue exitoso">
+          La versión <strong>2.4.1</strong> ya está en producción.
+        </cs-banner>
+        <cs-banner class="banner-max" variant="danger" title="Pago fallido">
+          Tu tarjeta fue rechazada. Actualiza tu información de facturación para continuar.
+        </cs-banner>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Con acción -->
+  <section class="section">
+    <h2 class="section__title" id="with-action">Con acción</h2>
+    <p class="section__intro">Pasa la propiedad <code class="inline-code">action</code> para renderizar un botón de texto inline debajo del mensaje.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-banner
+  variant=&quot;warning&quot;
+  title=&quot;La prueba termina pronto&quot;
+  [action]=&quot;{ label: 'Mejorar ahora' }&quot;
+>
+  Tu prueba expira en 3 días.
+</cs-banner>"
+    >
+      <div class="banner-stack">
+        <cs-banner class="banner-max" variant="brand" title="Nueva función disponible" [action]="{ label: 'Saber más' }">
+          Comsatel ahora genera issues automáticamente para ahorrarte tiempo.
+        </cs-banner>
+        <cs-banner class="banner-max" variant="warning" title="La prueba termina pronto" [action]="{ label: 'Mejorar ahora' }">
+          Tu prueba expira en 3 días. Mejora tu plan para conservar todas las funciones.
+        </cs-banner>
+        <cs-banner class="banner-max" variant="neutral" [action]="{ label: 'Ver historial de cambios' }">
+          Hay una nueva versión de Comsatel disponible con mejoras de rendimiento.
+        </cs-banner>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Descartable -->
+  <section class="section">
+    <h2 class="section__title" id="dismissible">Descartable</h2>
+    <p class="section__intro">Activa <code class="inline-code">dismissible</code> para renderizar un botón de cierre. El padre controla la visibilidad vía estado.</p>
+
+    <app-demo-shell
+      [controls]="[]"
+      code="const [visible, setVisible] = useState(true);
+
+<cs-banner
+  variant=&quot;brand&quot;
+  title=&quot;Nueva función disponible&quot;
+  [dismissible]=&quot;true&quot;
+  (dismiss)=&quot;setVisible(false)&quot;
+>
+  Comsatel ahora genera issues automáticamente.
+</cs-banner>"
+    >
+      <div class="banner-stack">
+        @if (allDismissed()) {
+          <div class="dismissed-notice">
+            <span>Todos los banners fueron cerrados</span>
+            <button type="button" class="dismissed-notice__reset" (click)="resetDismissed()">Reiniciar</button>
+          </div>
+        } @else {
+          @for (b of dismissibleBanners; track b.variant) {
+            @if (!dismissed()[b.variant]) {
+              <cs-banner class="banner-max" [variant]="b.variant" [title]="b.title" [dismissible]="true" (dismiss)="dismissOne(b.variant)">
+                {{ b.msg }}
+              </cs-banner>
+            }
+          }
+        }
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Sin ícono -->
+  <section class="section">
+    <h2 class="section__title" id="no-icon">Sin ícono</h2>
+    <p class="section__intro">Establece <code class="inline-code">[icon]="false"</code> para mensajes de baja prioridad que no necesitan un indicador visual.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-banner variant=&quot;neutral&quot; [icon]=&quot;false&quot;>
+  Este espacio de trabajo está en modo solo lectura.
+</cs-banner>
+<cs-banner variant=&quot;brand&quot; [icon]=&quot;false&quot; title=&quot;Mantenimiento programado&quot;>
+  Comsatel no estará disponible el domingo de 2 a 4 AM UTC.
+</cs-banner>"
+    >
+      <div class="banner-stack">
+        <cs-banner class="banner-max" variant="neutral" [icon]="false">
+          Este espacio de trabajo está en modo solo lectura. Contacta a tu administrador para obtener acceso.
+        </cs-banner>
+        <cs-banner class="banner-max" variant="brand" [icon]="false" title="Mantenimiento programado">
+          Comsatel no estará disponible el domingo de 2:00 a 4:00 AM UTC.
+        </cs-banner>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">variant</code><code class="table__type">BannerVariant</code><code class="table__default">"brand"</code><span class="table__desc">Variante de color semántica. Controla el fondo, borde, ícono y color de texto.</span></div>
+      <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Encabezado opcional renderizado sobre el contenido en peso semibold.</span></div>
+      <div class="table__row"><code class="table__name">icon</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra u oculta el ícono principal.</span></div>
+      <div class="table__row"><code class="table__name">action</code><code class="table__type">{{ '{ label: string }' }}</code><code class="table__default">—</code><span class="table__desc">Renderiza un botón de texto inline debajo del contenido del mensaje.</span></div>
+      <div class="table__row"><code class="table__name">dismissible</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Si es true, renderiza un botón de cierre. El padre es responsable de ocultar el banner.</span></div>
+    </div>
+  </section>
+</div>

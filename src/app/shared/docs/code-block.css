@@ -1,0 +1,40 @@
+/* Sin borde ni radio propio: se apoya en que el contenedor que lo envuelve
+   (.static-block, o el propio <app-demo-shell>) ya recorta las esquinas con
+   overflow: hidden. */
+:host {
+  display: block;
+}
+
+.code-block {
+  position: relative;
+  background-color: var(--color-background-neutral-subtle);
+}
+
+.code-block__copy {
+  position: absolute;
+  top: var(--layout-padding-lg);
+  right: var(--layout-padding-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-xs);
+  padding: var(--layout-padding-2xs) var(--layout-padding-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-neutral-subtle);
+  background-color: var(--elevation-surface-default);
+  color: var(--color-text-base-subtle);
+  font-size: var(--font-size-label-small);
+  cursor: pointer;
+  transition: background-color var(--motion-duration-leaving) var(--motion-easing-default);
+}
+.code-block__copy:hover { background-color: var(--color-interaction-hovered); }
+.code-block__copy svg { width: 12px; height: 12px; }
+
+.code-block__pre {
+  margin: 0;
+  padding: var(--layout-padding-xl) var(--layout-padding-6xl) var(--layout-padding-xl) var(--layout-padding-2xl);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: monospace;
+  font-size: var(--font-size-content-note);
+  color: var(--color-text-base-default);
+}

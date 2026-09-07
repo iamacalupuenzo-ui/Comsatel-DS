@@ -1,0 +1,49 @@
+.cs-card-banner {
+  display: flex;
+  flex-direction: column;
+  padding: var(--layout-padding-xl);
+  gap: var(--layout-gap-md);
+  border-radius: var(--radius-lg);
+  border: 1px solid;
+  box-shadow: var(--shadow-xs);
+}
+
+.cs-card-banner__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cs-card-banner__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--layout-padding-xs) var(--layout-padding-md);
+  border-radius: var(--radius-full);
+  border: 1px solid;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  font-weight: var(--font-weight-accent);
+  white-space: nowrap;
+}
+
+.cs-card-banner__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-2xs);
+}
+
+.cs-card-banner__title {
+  margin: 0;
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-bolder);
+}
+
+.cs-card-banner__description {
+  margin: 0;
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-base-subtle);
+}

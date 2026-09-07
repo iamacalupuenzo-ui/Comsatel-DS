@@ -1,0 +1,45 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+/* Zona de preview: espacio generoso abajo para que el menú desplegado no
+   quede visualmente pegado al borde del Canvas (mismo criterio que React,
+   que reserva paddingBottom extra en cada demo de Dropdown). */
+.stage {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: var(--layout-padding-lg);
+  padding-bottom: var(--layout-padding-6xl);
+}
+.stage--row {
+  align-items: flex-start;
+  gap: var(--layout-gap-4xl);
+}
+.stage--col {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--layout-gap-xl);
+  max-width: 280px;
+  padding-bottom: var(--layout-padding-4xl);
+}
+.stage--wide { max-width: 280px; }
+
+.stage__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--layout-gap-md);
+}
+.stage__label {
+  font-size: var(--font-size-content-note);
+  color: var(--color-text-base-subtle);
+}
+
+.guide-group-label {
+  margin: 0 0 var(--layout-padding-lg);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-subtle);
+}
+.guide-grid--spaced { margin-bottom: var(--layout-padding-4xl); }

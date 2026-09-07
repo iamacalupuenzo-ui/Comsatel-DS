@@ -1,0 +1,16 @@
+<div class="cs-feature-spotlight-card">
+  @for (pos of positions; track $index) {
+    <div
+      class="cs-feature-spotlight-card__slot"
+      [style.left]="pos.x"
+      [style.top]="pos.y"
+      [style.z-index]="pos.z"
+    >
+      <cs-avatar
+        [size]="sizeName(pos.size)"
+        [src]="avatars[$index]"
+        [placeholderBg]="placeholderColor($index)"
+      ></cs-avatar>
+    </div>
+  }
+</div>

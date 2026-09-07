@@ -1,0 +1,10 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+/* Reserva espacio para el popover del calendario, que se abre hacia abajo
+   dentro del Canvas de DemoShell — sin esto queda flotando sobre el
+   Toolbar (mismo bug C9 ya encontrado en React). */
+.dtp-demo {
+  padding-bottom: 320px;
+}

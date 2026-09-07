@@ -1,0 +1,75 @@
+/* Generado a partir de typography.mjs del sistema de diseno React -- ver
+   D:/Investigacion/Sistema-de-dise-o-Comsatel/src/lib/tokens/typography.mjs.
+   Si esa fuente cambia (nuevo textStyle, nueva escala), regenerar este archivo
+   y volver a aplicar la excepcion de abajo -- todo lo demas debe seguir
+   igual entre las dos plataformas.
+
+   EXCEPCION INTENCIONAL: --font-primitive-family-secondary usa Public Sans en
+   vez de Inter. Decision tomada para esta plataforma Angular (2026-09-06,
+   comparacion objetiva de x-height/ancho contra Inter, Geist, Inter Tight,
+   IBM Plex Sans y Satoshi) -- Public Sans tiene una x-height mas baja (0.54
+   contra 0.58 de Inter), se ve mas chica/compacta a igual tamano en px.
+   El sistema de diseno React se queda en Inter -- esta excepcion NO se debe
+   portar de vuelta hacia alla. */
+
+:root {
+  --font-primitive-size-2xs: 0.625rem;
+  --font-primitive-size-micro: 0.6875rem;
+  --font-primitive-size-xs: 0.75rem;
+  --font-primitive-size-ui: 0.8125rem;
+  --font-primitive-size-sm: 0.875rem;
+  --font-primitive-size-md: 1rem;
+  --font-primitive-size-lg: 1.125rem;
+  --font-primitive-size-xl: 1.25rem;
+  --font-primitive-size-2xl: 1.5rem;
+  --font-primitive-size-3xl: 1.75rem;
+  --font-primitive-size-4xl: 2rem;
+  --font-primitive-size-5xl: 2.25rem;
+  --font-primitive-size-6xl: 2.5rem;
+  --font-primitive-size-7xl: 3rem;
+  --font-primitive-size-8xl: 3.5rem;
+  --font-primitive-size-9xl: 4rem;
+  --font-primitive-family-primary: "Manrope", sans-serif;
+  --font-primitive-family-secondary: "Public Sans", sans-serif;
+  --font-primitive-weight-100: 100;
+  --font-primitive-weight-200: 200;
+  --font-primitive-weight-300: 300;
+  --font-primitive-weight-400: 400;
+  --font-primitive-weight-500: 500;
+  --font-primitive-weight-600: 600;
+  --font-primitive-weight-700: 700;
+  --font-primitive-weight-800: 800;
+  --font-primitive-weight-900: 900;
+  --font-family-heading: var(--font-primitive-family-primary);
+  --font-family-content: var(--font-primitive-family-secondary);
+  --font-weight-regular: var(--font-primitive-weight-400);
+  --font-weight-accent: var(--font-primitive-weight-500);
+  --font-weight-emphasis: var(--font-primitive-weight-600);
+  --font-weight-bold: var(--font-primitive-weight-700);
+  --font-letter-spacing-heading: -0.02em;
+  --font-letter-spacing-content: 0em;
+  --font-size-heading-display: var(--font-primitive-size-7xl);
+  --font-line-height-heading-display: calc(var(--font-size-heading-display) * 1.25);
+  --font-size-heading-large: var(--font-primitive-size-5xl);
+  --font-line-height-heading-large: calc(var(--font-size-heading-large) * 1.2222222222222223);
+  --font-size-heading-medium: var(--font-primitive-size-3xl);
+  --font-line-height-heading-medium: calc(var(--font-size-heading-medium) * 1.2857142857142858);
+  --font-size-heading-small: var(--font-primitive-size-2xl);
+  --font-line-height-heading-small: calc(var(--font-size-heading-small) * 1.3333333333333333);
+  --font-size-content-feature: var(--font-primitive-size-xl);
+  --font-line-height-content-feature: calc(var(--font-size-content-feature) * 1.5);
+  --font-size-content-highlight: var(--font-primitive-size-lg);
+  --font-line-height-content-highlight: calc(var(--font-size-content-highlight) * 1.5);
+  --font-size-content-body: var(--font-primitive-size-md);
+  --font-line-height-content-body: calc(var(--font-size-content-body) * 1.5);
+  --font-size-content-caption: var(--font-primitive-size-sm);
+  --font-line-height-content-caption: calc(var(--font-size-content-caption) * 1.5);
+  --font-size-content-ui: var(--font-primitive-size-ui);
+  --font-line-height-content-ui: calc(var(--font-size-content-ui) * 1.5);
+  --font-size-content-note: var(--font-primitive-size-xs);
+  --font-line-height-content-note: calc(var(--font-size-content-note) * 1.5);
+  --font-size-label-small: var(--font-primitive-size-micro);
+  --font-line-height-label-small: calc(var(--font-size-label-small) * 1.4545454545454546);
+  --font-size-label-micro: var(--font-primitive-size-2xs);
+  --font-line-height-label-micro: calc(var(--font-size-label-micro) * 1.4);
+}

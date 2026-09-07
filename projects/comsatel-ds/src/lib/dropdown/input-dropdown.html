@@ -1,0 +1,77 @@
+<div class="cs-input-dropdown">
+  @if (label) {
+    <span class="cs-input-dropdown__label">
+      {{ label }}
+      @if (required) {
+        <span class="cs-input-dropdown__required">*</span>
+      }
+    </span>
+  }
+
+  <div class="cs-input-dropdown__wrap">
+    <!-- Span oculto: mide la opción más ancha para que el trigger nunca cambie de tamaño al seleccionar. -->
+    <span
+      #measure
+      aria-hidden="true"
+      class="cs-input-dropdown__measure"
+      [style.font-size]="tok.fontSize"
+      [style.padding-inline-start.px]="tok.paddingX"
+      [style.padding-inline-end.px]="tok.paddingX + 40"
+    >{{ widestLabel }}</span>
+
+    <button
+      type="button"
+      role="combobox"
+      [attr.aria-label]="label ?? placeholder"
+      aria-haspopup="listbox"
+      [attr.aria-expanded]="open()"
+      [attr.aria-controls]="menuId"
+      [disabled]="disabled"
+      class="cs-input-dropdown__trigger"
+      [style.height.px]="tok.height"
+      [style.min-width.px]="minWidth()"
+      [style.padding-inline.px]="tok.paddingX"
+      [style.font-size]="tok.fontSize"
+      [style.line-height]="tok.lineHeight"
+      [style.color]="textColor"
+      [style.border-color]="borderColor"
+      [style.box-shadow]="extraShadow"
+      (click)="toggle()"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+    >
+      <span class="cs-input-dropdown__value">{{ selectedOption ? selectedOption.label : placeholder }}</span>
+      <cs-icon name="chevron-down" [size]="16" class="cs-input-dropdown__chevron" [class.cs-input-dropdown__chevron--open]="open()"></cs-icon>
+    </button>
+
+    @if (open() && !disabled) {
+      <div [id]="menuId" role="listbox" class="cs-input-dropdown__menu" [style.max-height.px]="tok.height * 9 + 8">
+        <div class="cs-input-dropdown__options">
+          @for (opt of options; track opt.value) {
+            <button
+              type="button"
+              role="option"
+              [attr.aria-selected]="opt.value === value"
+              [disabled]="opt.disabled"
+              class="cs-input-dropdown__option"
+              [class.cs-input-dropdown__option--selected]="opt.value === value"
+              [class.cs-input-dropdown__option--disabled]="opt.disabled"
+              [style.height.px]="tok.height"
+              [style.padding-inline.px]="tok.paddingX"
+              [style.font-size]="tok.fontSize"
+              [style.line-height]="tok.lineHeight"
+              (click)="selectOption(opt)"
+            >
+              <span class="cs-input-dropdown__option-label">{{ opt.label }}</span>
+              @if (opt.value === value) {
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="cs-input-dropdown__check">
+                  <path d="M13.5 4.5L6.5 11.5L3 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              }
+            </button>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

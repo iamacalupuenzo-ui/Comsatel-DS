@@ -1,0 +1,98 @@
+.cs-datetime-picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-sm);
+}
+
+.cs-datetime-picker__row {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--layout-gap-md);
+}
+
+.cs-datetime-picker__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-xs);
+}
+
+.cs-datetime-picker__label {
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-default);
+}
+.cs-datetime-picker__label--spacer {
+  visibility: hidden;
+}
+.cs-datetime-picker__required {
+  color: var(--color-text-danger-default);
+  margin-inline-start: var(--layout-gap-2xs);
+}
+
+.cs-datetime-picker__date-wrap {
+  position: relative;
+}
+
+.cs-datetime-picker__calendar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+}
+.cs-datetime-picker__calendar-btn:disabled {
+  cursor: not-allowed;
+}
+
+.cs-datetime-picker__popover {
+  position: absolute;
+  top: calc(100% + var(--layout-gap-xs));
+  left: 0;
+  /* max-content, no un ancho fijo — sin esto el popover se encoge al ancho
+     del campo (más angosto que el calendario en tamaños chicos) en vez de
+     tomar el ancho natural de Calendar (ver C10 en audit-checklist.md). */
+  width: max-content;
+  z-index: var(--elevation-z-index-dropdown);
+}
+
+.cs-datetime-picker__time-wrap {
+  display: flex;
+}
+
+.cs-datetime-picker__clear-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-xs);
+}
+.cs-datetime-picker__clear-btn {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--color-text-base-subtle);
+  cursor: pointer;
+  transition: background-color var(--motion-duration-leaving) var(--motion-easing-default);
+}
+.cs-datetime-picker__clear-btn:hover {
+  background-color: var(--color-background-neutral-subtlest-hover);
+}
+
+.cs-datetime-picker__message {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-xs);
+  margin: 0;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtle);
+}
+.cs-datetime-picker__message--error {
+  color: var(--color-text-danger-default);
+}

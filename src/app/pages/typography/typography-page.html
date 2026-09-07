@@ -1,0 +1,152 @@
+<div class="page">
+  <p class="eyebrow">Fundamentos / Tipografía</p>
+  <h1 class="title">Tipografía</h1>
+  <p class="description">
+    Dos familias, una escala y estilos compartidos. Cada muestra utiliza los mismos tokens que los
+    componentes del sistema.
+  </p>
+
+  <!-- Familia y pesos -->
+  <section class="section">
+    <h2 class="section__title" id="familia">Familia y pesos</h2>
+    <div class="panel">
+      <p class="panel__intro">
+        Manrope es la familia configurada para títulos; Public Sans para el contenido, optimizada
+        para lectura densa y tablas. Los pesos cargados son 400, 500, 600 y 700 en ambas.
+      </p>
+      <div class="weight-grid">
+        @for (w of weightNames; track w) {
+          <div class="weight-card">
+            <p class="weight-card__sample" [style]="textStyleFor('heading/medium', w)">Aa Ññ</p>
+            <p class="weight-card__label">{{ weightLabels[w] }} · {{ w === 'regular' ? '400' : w === 'accent' ? '500' : w === 'emphasis' ? '600' : '700' }}</p>
+          </div>
+        }
+      </div>
+      <p class="panel__note">
+        Cambiar la familia en los tokens requiere cargar también esa fuente. Si no está disponible,
+        el navegador utiliza sans-serif.
+      </p>
+    </div>
+  </section>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Prueba de tipografía</h2>
+    <p class="section__intro">Elige un estilo, modifica el peso y escribe contenido real para evaluar su lectura.</p>
+    <div class="panel">
+      <div class="playground-controls">
+        <label class="field">
+          <span class="field__label">Estilo</span>
+          <cs-input-dropdown [options]="styleOptions" [value]="selectedStyle()" (valueChange)="onStyleChange($event)"></cs-input-dropdown>
+        </label>
+        <label class="field">
+          <span class="field__label">Peso</span>
+          <cs-input-dropdown [options]="weightOptions" [value]="selectedWeight()" (valueChange)="onWeightChange($event)"></cs-input-dropdown>
+        </label>
+      </div>
+
+      <label class="field">
+        <span class="field__label">Texto de prueba</span>
+        <textarea
+          class="field__control field__control--textarea"
+          rows="3"
+          [value]="sampleText()"
+          (input)="onSampleChange($any($event.target).value)"
+        ></textarea>
+      </label>
+
+      <div class="preview-box">
+        <p [style]="previewStyle()" style="overflow-wrap: anywhere; margin: 0;">{{ sampleText() }}</p>
+      </div>
+      <!-- Probe oculto: mide el estilo real ya resuelto por el navegador -->
+      <span #probe aria-hidden="true" class="probe" [style]="previewStyle()">Ág</span>
+
+      <dl class="properties">
+        @for (prop of properties(); track prop.label) {
+          <div class="properties__item">
+            <dt>{{ prop.label }}</dt>
+            <dd>{{ prop.value }}</dd>
+          </div>
+        }
+      </dl>
+
+      <pre class="code-block">{{ codeText() }}</pre>
+    </div>
+  </section>
+
+  <!-- Estilos de texto -->
+  <section class="section">
+    <h2 class="section__title" id="estilos">Estilos de texto</h2>
+    <p class="section__intro">
+      Cada tarjeta muestra un estilo completo con su peso predeterminado. El nombre técnico se usa
+      directo en código.
+    </p>
+    @for (group of groups; track group) {
+      <div class="style-group">
+        <h3 class="style-group__title">{{ groupLabels[group] }}</h3>
+        <div class="style-cards">
+          @for (name of stylesInGroup(group); track name) {
+            <article class="style-card">
+              <code class="style-card__name">{{ name }}</code>
+              <p class="style-card__sample" [style]="textStyleFor(name)" style="overflow-wrap: anywhere;">
+                Información clara para cada recorrido
+              </p>
+              <p class="style-card__use"><strong>Cuándo usarlo: </strong>{{ uses[name] }}</p>
+            </article>
+          }
+        </div>
+      </div>
+    }
+  </section>
+
+  <!-- Tipografía en componentes -->
+  <section class="section">
+    <h2 class="section__title" id="componentes">Tipografía en componentes</h2>
+    <p class="section__intro">Qué estilo de texto usa cada tamaño de los componentes de la biblioteca.</p>
+    <div class="component-table">
+      <div class="component-table__row component-table__row--head">
+        <span>Componente</span><span>Tamaño</span><span>Estilo de texto</span>
+      </div>
+      @for (size of buttonSizes; track size) {
+        <div class="component-table__row">
+          <span>Button</span><span>{{ size.toUpperCase() }}</span><code>{{ buttonStyleFor(size) }}</code>
+        </div>
+      }
+      @for (size of badgeSizes; track size) {
+        <div class="component-table__row">
+          <span>Badge</span><span>{{ size.toUpperCase() }}</span><code>{{ badgeStyleFor(size) }}</code>
+        </div>
+      }
+      @for (size of avatarSizes; track size) {
+        <div class="component-table__row">
+          <span>Avatar</span><span>{{ size.toUpperCase() }}</span><code>{{ avatarStyleFor(size) }}</code>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Criterios de la escala -->
+  <section class="section">
+    <h2 class="section__title" id="criterios">Criterios de la escala</h2>
+    <div class="rules-grid">
+      @for (rule of rules; track rule[0]) {
+        <article class="rule-card">
+          <h3 class="rule-card__title">{{ rule[0] }}</h3>
+          <p class="rule-card__body">{{ rule[1] }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- Fuente de verdad -->
+  <section class="section">
+    <h2 class="section__title" id="implementacion">Fuente de verdad y uso en código</h2>
+    <div class="panel">
+      <p class="panel__intro">
+        Edita <code>typography.ts</code> en la librería. Tailwind y React usan las mismas recetas
+        del lado de React; Angular consume la misma escala vía <code>typography-tokens.css</code>.
+      </p>
+      <pre class="code-block">style="text-style: content/body; font-weight: regular;"</pre>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,31 @@
+/* Punto de entrada único de estilos del sistema de diseño Comsatel — importar
+   esto (no los archivos individuales) desde los estilos globales de cualquier
+   app consumidora, ej. en angular.json > styles o en styles.css:
+     @import "comsatel-ds/styles";
+*/
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
+
+@import './tokens.css';
+@import './typography-tokens.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-body);
+  line-height: var(--font-line-height-content-body);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--font-letter-spacing-content);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--elevation-surface-default, #fff);
+  color: var(--color-text-base-default);
+}

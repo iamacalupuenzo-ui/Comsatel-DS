@@ -1,0 +1,7 @@
+<cs-avatar [size]="size" [status]="status" [src]="src" [alt]="alt" [initials]="initials"></cs-avatar>
+<div class="cs-avatar-label__text">
+  <span class="cs-avatar-label__name" [style.font-size]="font.namePx" [style.line-height]="font.nameLh">{{ name }}</span>
+  @if (subtitle) {
+    <span class="cs-avatar-label__subtitle" [style.font-size]="font.subPx" [style.line-height]="font.subLh">{{ subtitle }}</span>
+  }
+</div>

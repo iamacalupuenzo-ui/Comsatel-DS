@@ -3,6 +3,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "comsatel-ds": ["./dist/comsatel-ds"]
+    },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -26,6 +29,12 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/comsatel-ds/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/comsatel-ds/tsconfig.spec.json"
     }
   ]
 }

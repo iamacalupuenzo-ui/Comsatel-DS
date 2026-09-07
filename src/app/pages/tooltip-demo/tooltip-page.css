@@ -1,0 +1,5 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.row--spaced { gap: var(--layout-gap-2xl); }

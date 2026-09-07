@@ -1,0 +1,370 @@
+/* Estándar compartido de página de documentación — importar con @import en el
+   CSS de cada página ("@import '../../shared/styles/doc-page.css';"), nunca
+   copiar estas reglas a mano. Única fuente para .page/.eyebrow/.title/
+   .description/.section/.section__title/.section__intro en toda la
+   plataforma, así ninguna página puede divergir en tamaño o espaciado. */
+
+.page {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--layout-padding-5xl) var(--layout-padding-4xl);
+}
+
+.eyebrow {
+  margin: 0 0 var(--layout-padding-md);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  font-weight: var(--font-weight-emphasis);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-brand-default);
+}
+
+.title {
+  margin: 0 0 var(--layout-padding-lg);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-heading-large);
+  line-height: var(--font-line-height-heading-large);
+  color: var(--color-text-base-boldest);
+}
+
+.description {
+  margin: 0 0 var(--layout-padding-3xl);
+  max-width: 640px;
+  font-size: var(--font-size-content-caption);
+  line-height: var(--font-line-height-content-caption);
+  color: var(--color-text-base-subtle);
+}
+.description strong { font-weight: var(--font-weight-accent); color: var(--color-text-base-default); }
+.description code {
+  font-family: monospace;
+  background-color: var(--color-background-neutral-subtle);
+  padding: 1px 5px;
+  border-radius: var(--radius-xs);
+}
+
+.section { margin-bottom: var(--layout-padding-6xl); }
+
+.section__title {
+  margin: 0 0 var(--layout-padding-md);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-heading-small);
+  line-height: var(--font-line-height-heading-small);
+  color: var(--color-text-base-boldest);
+}
+
+.section__intro {
+  margin: 0 0 var(--layout-padding-xl);
+  color: var(--color-text-base-subtle);
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+}
+.section__intro strong { font-weight: var(--font-weight-accent); color: var(--color-text-base-default); }
+
+/* Bloque Recomendaciones/Evita — usado por cualquier página de fundamentos o
+   componente que cierre con una sección de lineamientos. */
+.guidelines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--layout-gap-xl);
+}
+.guideline { border-radius: var(--radius-lg); border: 1px solid; overflow: hidden; }
+.guideline--do { border-color: var(--color-border-success-subtle); }
+.guideline--dont { border-color: var(--color-border-danger-subtle); }
+.guideline__header {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-md);
+  padding: var(--layout-padding-lg) var(--layout-padding-xl);
+  border-bottom: 1px solid;
+}
+.guideline--do .guideline__header { border-color: var(--color-border-success-subtle); background-color: var(--color-background-success-subtlest); }
+.guideline--dont .guideline__header { border-color: var(--color-border-danger-subtle); background-color: var(--color-background-danger-subtlest); }
+.guideline__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  font-size: 9px;
+  font-weight: var(--font-weight-bold);
+  color: white;
+}
+.guideline--do .guideline__icon { background-color: var(--color-background-success-default); }
+.guideline--dont .guideline__icon { background-color: var(--color-background-danger-default); }
+.guideline__title { font-size: var(--font-size-content-caption); line-height: var(--font-line-height-content-caption); font-weight: var(--font-weight-emphasis); }
+.guideline--do .guideline__title { color: var(--color-text-success-default); }
+.guideline--dont .guideline__title { color: var(--color-text-danger-default); }
+.guideline__list {
+  padding: var(--layout-padding-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-lg);
+  background-color: var(--elevation-surface-default);
+  list-style: none;
+  margin: 0;
+}
+.guideline__list li {
+  position: relative;
+  padding-left: var(--layout-padding-lg);
+  font-size: var(--font-size-content-note);
+  color: var(--color-text-base-subtle);
+  line-height: 1.5;
+}
+.guideline--do .guideline__list li::before { content: '·'; position: absolute; left: 0; font-weight: var(--font-weight-bold); color: var(--color-text-success-default); }
+.guideline--dont .guideline__list li::before { content: '·'; position: absolute; left: 0; font-weight: var(--font-weight-bold); color: var(--color-text-danger-default); }
+
+/* Código en línea dentro de párrafos (fuera de .description, que ya trae el
+   suyo). Úsalo en .section__intro o en cualquier texto de sección. */
+.inline-code {
+  font-family: monospace;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  padding: var(--layout-padding-2xs) var(--layout-padding-sm);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-background-neutral-subtle);
+}
+
+/* Panel de demo simple: una superficie con borde que agrupa muestras del
+   componente lado a lado (variantes, tamaños, estados). */
+.demo-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--layout-gap-lg);
+  padding: var(--layout-padding-2xl);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  background-color: var(--elevation-surface-default);
+}
+
+/* Playground: panel con controles (select/checkbox), vista previa y bloque
+   de código. Mismo patrón usado en Tipografía — cualquier página con un
+   probador interactivo debe reusar estas clases, no reimplementarlas. */
+.panel {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  background-color: var(--elevation-surface-default);
+  padding: var(--layout-padding-3xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-xl);
+}
+.playground-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--layout-gap-xl);
+}
+.field { display: flex; flex-direction: column; gap: var(--layout-gap-md); }
+.field--checkbox { flex-direction: row; align-items: center; gap: var(--layout-gap-sm); }
+.field__label {
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-default);
+}
+.field__control {
+  height: 32px;
+  padding-inline: var(--layout-padding-lg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-neutral-default);
+  background-color: var(--elevation-surface-default);
+  color: var(--color-text-base-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+}
+.preview-box {
+  border-radius: var(--radius-sm);
+  background-color: var(--color-background-neutral-subtlest);
+  padding: var(--layout-padding-3xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.code-block {
+  margin: 0;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-background-neutral-subtlest);
+  padding: var(--layout-padding-xl);
+  font-family: monospace;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-brand-default);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Tabla de propiedades / tokens de 4 columnas (nombre, tipo, valor, uso). */
+.table {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  overflow: hidden;
+}
+.table__head {
+  display: grid;
+  grid-template-columns: 22% 28% 14% 1fr;
+  gap: var(--layout-gap-xl);
+  padding: var(--layout-padding-md) var(--layout-padding-2xl);
+  background-color: var(--color-background-neutral-subtlest);
+  border-bottom: 1px solid var(--color-border-divider);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-bolder);
+}
+.table__row {
+  display: grid;
+  grid-template-columns: 22% 28% 14% 1fr;
+  gap: var(--layout-gap-xl);
+  align-items: center;
+  padding: var(--layout-padding-lg) var(--layout-padding-2xl);
+  border-top: 1px solid var(--color-border-divider);
+  background-color: var(--elevation-surface-default);
+}
+.table__row:first-child { border-top: none; }
+.table__row:hover { background-color: var(--color-interaction-hovered); }
+.table__name { font-family: monospace; font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); font-weight: var(--font-weight-emphasis); color: var(--color-text-base-default); }
+.table__type { font-family: monospace; font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); color: var(--color-text-brand-default); overflow-wrap: anywhere; }
+.table__default { font-family: monospace; font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); color: var(--color-text-base-subtle); }
+.table__desc { font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); color: var(--color-text-base-subtle); }
+
+/* Layout genérico para el contenido proyectado dentro de <app-demo-shell>:
+   fila de muestras lado a lado, o columna de muestras apiladas. */
+.row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--layout-gap-lg);
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-xl);
+}
+
+/* Tarjeta individual de Recomendado/Evita con una demo en vivo adentro —
+   distinta de .guidelines-grid/.guideline (esas son listas de viñetas). Se
+   usan en pares dentro de un grid de 2 columnas. */
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--layout-gap-xl);
+}
+.guide-card { border-radius: var(--radius-lg); border: 1px solid var(--color-border-neutral-subtle); overflow: hidden; }
+.guide-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-sm);
+  padding: var(--layout-padding-lg) var(--layout-padding-xl);
+  border-bottom: 1px solid var(--color-border-neutral-subtle);
+}
+.guide-card--do .guide-card__header { background-color: var(--color-background-success-subtlest); }
+.guide-card--dont .guide-card__header { background-color: var(--color-background-danger-subtlest); }
+.guide-card__header-label { font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); font-weight: var(--font-weight-emphasis); }
+.guide-card--do .guide-card__header-label { color: var(--color-text-success-bolder); }
+.guide-card--dont .guide-card__header-label { color: var(--color-text-danger-bolder); }
+.guide-card__header-icon { flex-shrink: 0; }
+.guide-card--do .guide-card__header-icon { color: var(--color-text-success-bolder); }
+.guide-card--dont .guide-card__header-icon { color: var(--color-text-danger-bolder); }
+.guide-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-lg);
+  padding: var(--layout-padding-xl) var(--layout-padding-2xl);
+  background-color: var(--elevation-surface-default);
+}
+.guide-card__text { margin: 0; font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); color: var(--color-text-base-subtle); }
+.guide-card__code {
+  padding: var(--layout-padding-sm) var(--layout-padding-lg);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-background-neutral-subtle);
+  color: var(--color-text-base-subtle);
+  font-family: monospace;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  white-space: pre-wrap;
+}
+
+/* Bloque estático: una caja con borde que agrupa una muestra + su código,
+   SIN el Canvas de puntos ni el Toolbar de <app-demo-shell> — mismo patrón
+   que React usa en Button para Variantes/Tamaños (secciones sin controles
+   interactivos ni selector de tema). */
+.static-block {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  overflow: hidden;
+}
+.static-block__preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--layout-gap-lg);
+  padding: var(--layout-padding-2xl) var(--layout-padding-3xl);
+  background-color: var(--elevation-surface-default);
+}
+
+/* Ítem con etiqueta pequeña debajo (ej. una muestra por cada tamaño). */
+.size-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--layout-gap-md);
+}
+.size-item__label {
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtlest);
+}
+
+/* Subsección: un h3 dentro de .section, para dividir un componente con
+   varias variantes del mismo playground (ej. "Con iniciales" dentro de
+   "Avatar Label"). Un paso por debajo de .section__title. */
+.subsection { margin-top: var(--layout-padding-4xl); }
+.subsection__title {
+  margin: 0 0 var(--layout-padding-md);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-content-highlight);
+  line-height: var(--font-line-height-content-highlight);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-boldest);
+}
+
+/* Field: envoltorio de label + control + texto de ayuda/error — mismo
+   patrón que el "Field" local de InputPageContent.tsx en React, ahora
+   compartido acá porque Input/DateTimePicker/Radio lo necesitan por
+   igual (ver component-inventory.md). */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-sm);
+}
+.form-field__label {
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-bolder);
+}
+.form-field__required {
+  margin-left: 2px;
+  color: var(--color-text-danger-default);
+}
+.form-field__help {
+  margin: 0;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtle);
+}
+.form-field__error {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-xs);
+  margin: 0;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-danger-default);
+}
+.form-field__error svg { flex-shrink: 0; }

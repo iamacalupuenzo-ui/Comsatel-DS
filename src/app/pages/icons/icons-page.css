@@ -1,0 +1,176 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+/* Controles */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--layout-gap-xl);
+  margin-bottom: var(--layout-padding-xl);
+}
+.field { display: flex; flex-direction: column; gap: var(--layout-gap-md); }
+.field--grow { flex: 1; min-width: 240px; }
+.field__label {
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-default);
+}
+.field__control {
+  height: 32px;
+  padding-inline: var(--layout-padding-lg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-neutral-default);
+  background-color: var(--elevation-surface-default);
+  color: var(--color-text-base-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-ui);
+}
+
+.download-all {
+  display: inline-block;
+  margin-bottom: var(--layout-padding-lg);
+  font-size: var(--font-size-content-caption);
+  color: var(--color-text-brand-default);
+  text-decoration: underline;
+}
+
+.status { margin: 0 0 var(--layout-padding-lg); font-size: var(--font-size-content-note); color: var(--color-text-base-subtle); }
+.status--error { color: var(--color-text-danger-default); }
+.retry-btn {
+  margin-bottom: var(--layout-padding-lg);
+  height: 32px;
+  padding-inline: var(--layout-padding-lg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-neutral-default);
+  background-color: var(--elevation-surface-default);
+  color: var(--color-text-base-default);
+  font-size: var(--font-size-content-ui);
+  cursor: pointer;
+}
+
+.count {
+  margin: 0 0 var(--layout-padding-lg);
+  font-size: var(--font-size-content-note);
+  color: var(--color-text-base-subtle);
+}
+.empty { font-size: var(--font-size-content-caption); color: var(--color-text-base-subtle); }
+
+/* Grilla de íconos */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  gap: var(--layout-gap-md);
+}
+.icon-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--layout-gap-md);
+  padding: var(--layout-padding-lg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  background-color: var(--elevation-surface-default);
+  color: var(--color-text-base-default);
+  cursor: pointer;
+  font: inherit;
+}
+.icon-cell:hover { background-color: var(--color-interaction-hovered); }
+.icon-cell--active {
+  background-color: var(--color-background-brand-subtlest);
+  border-color: var(--color-border-brand-default);
+  color: var(--color-text-brand-default);
+}
+/* El tamaño real lo llevan los atributos width/height del propio <svg>
+   inyectado (ver iconHtml() en el componente) — un innerHTML en runtime no
+   recibe el atributo de encapsulación de Angular, así que un selector CSS
+   con scope de componente (ej. ".icon-cell__icon svg") nunca lo alcanzaría. */
+.icon-cell__icon,
+.usage-panel__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  line-height: 0;
+}
+.icon-cell__label {
+  font-size: var(--font-size-content-note);
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.show-more { margin-top: var(--layout-padding-xl); }
+.show-more__btn {
+  height: 32px;
+  padding-inline: var(--layout-padding-lg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-neutral-default);
+  background-color: transparent;
+  color: var(--color-text-base-default);
+  font-size: var(--font-size-content-ui);
+  cursor: pointer;
+}
+.show-more__btn:hover { background-color: var(--color-interaction-hovered); }
+
+/* Uso en código */
+.usage-panel {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  overflow: hidden;
+}
+.usage-panel__preview {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--layout-gap-xl);
+  padding: var(--layout-padding-xl);
+  border-bottom: 1px solid var(--color-border-divider);
+  background-color: var(--elevation-surface-default);
+  color: var(--color-text-base-default);
+}
+.usage-panel__preview strong { font-size: var(--font-size-content-caption); }
+.usage-panel__copy {
+  height: 28px;
+  padding-inline: var(--layout-padding-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-neutral-default);
+  background-color: transparent;
+  color: var(--color-text-base-default);
+  font-size: var(--font-size-content-note);
+  cursor: pointer;
+}
+.usage-panel__copy:hover { background-color: var(--color-interaction-hovered); }
+.usage-panel__download {
+  font-size: var(--font-size-content-note);
+  color: var(--color-text-brand-default);
+  text-decoration: underline;
+}
+
+/* Cómo usar los íconos */
+.rules-list {
+  margin: 0;
+  padding-left: var(--layout-padding-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-lg);
+  font-size: var(--font-size-content-caption);
+  color: var(--color-text-base-default);
+}
+.rules-list code {
+  font-family: monospace;
+  font-size: var(--font-size-content-note);
+  background-color: var(--color-background-neutral-subtle);
+  padding: 1px 5px;
+  border-radius: var(--radius-xs);
+}
+
+/* Origen y referencias */
+.link-list {
+  margin: 0;
+  padding-left: var(--layout-padding-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-md);
+  font-size: var(--font-size-content-caption);
+}
+.link-list a { color: var(--color-text-brand-default); text-decoration: underline; }

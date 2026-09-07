@@ -1,0 +1,18 @@
+<div class="cs-avatar-group__stack">
+  @for (av of visible; track $index) {
+    <div class="cs-avatar-group__item" [style.margin-right]="marginFor($index)" [style.z-index]="$index">
+      <div class="cs-avatar-group__ring"></div>
+      <cs-avatar [size]="size" [src]="av.src" [alt]="av.alt ?? ''" [initials]="av.initials"></cs-avatar>
+    </div>
+  }
+
+  @if (extra > 0) {
+    <div class="cs-avatar-group__extra" [style.width.px]="px" [style.height.px]="px" [style.z-index]="visible.length">
+      <span class="cs-avatar-group__extra-text" [ngStyle]="extraTextStyle">+{{ extra }}</span>
+    </div>
+  }
+</div>
+
+@if (showAddButton) {
+  <cs-avatar-add-button [size]="size" (addClick)="add.emit()"></cs-avatar-add-button>
+}

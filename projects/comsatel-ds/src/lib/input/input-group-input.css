@@ -1,0 +1,25 @@
+:host {
+  display: contents;
+}
+
+.cs-input-group-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  color: var(--color-text-base-default);
+  font-family: var(--font-family-content);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--font-letter-spacing-content);
+  outline: none;
+  padding-inline: var(--layout-padding-sm);
+}
+.cs-input-group-input::placeholder {
+  color: var(--color-text-base-subtlest);
+}
+.cs-input-group-input:disabled {
+  cursor: not-allowed;
+  color: var(--color-text-base-subtlest);
+}

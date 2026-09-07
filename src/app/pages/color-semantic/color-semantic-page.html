@@ -1,0 +1,80 @@
+<div class="page">
+  <p class="eyebrow">Color / Tokens semánticos</p>
+  <h1 class="title">Tokens semánticos</h1>
+  <p class="description">
+    Los tokens semánticos codifican <em>intención</em>, no valores en bruto. Se resuelven
+    automáticamente al color primitivo correcto según el tema activo.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="background">Background</h2>
+    <p class="section__intro">
+      Se aplica a rellenos de superficies. Cada nivel incluye estados <strong>default</strong>,
+      <strong>hover</strong> y <strong>pressed</strong>.
+    </p>
+
+    <div class="panel">
+      <div class="panel__head">Base</div>
+      <div class="table-head">
+        <span></span><span>Token</span><span>Variable CSS</span><span>Uso</span>
+      </div>
+      @for (t of bgBase; track t.cssVar) {
+        <div class="table-row">
+          <div class="table-row__swatch" [style.background-color]="'var(' + t.cssVar + ')'"></div>
+          <code class="table-row__token">{{ t.token }}</code>
+          <code class="table-row__var">{{ t.cssVar }}</code>
+          <p class="table-row__desc">{{ t.description }}</p>
+        </div>
+      }
+    </div>
+
+    @for (family of bgFamilies; track family.label) {
+      <div class="panel">
+        <div class="panel__head">{{ family.label }}</div>
+        <div class="table-head">
+          <span></span><span>Token</span><span>Variable CSS</span><span>Uso</span>
+        </div>
+        @for (eg of family.emphasis; track eg.name) {
+          <div class="table-row">
+            <div class="table-row__swatch" [style.background-color]="'var(' + eg.default.cssVar + ')'"></div>
+            <code class="table-row__token">{{ eg.default.token }}</code>
+            <code class="table-row__var">{{ eg.default.cssVar }}</code>
+            <p class="table-row__desc">{{ eg.default.description }}</p>
+          </div>
+          <div class="table-row table-row--sub">
+            <div class="table-row__swatch table-row__swatch--sm" [style.background-color]="'var(' + eg.hover.cssVar + ')'"></div>
+            <code class="table-row__token table-row__token--sub">{{ eg.hover.token }}</code>
+            <code class="table-row__var table-row__var--sub">{{ eg.hover.cssVar }}</code>
+            <p class="table-row__desc table-row__desc--sub">{{ eg.hover.description }}</p>
+          </div>
+          <div class="table-row table-row--sub">
+            <div class="table-row__swatch table-row__swatch--sm" [style.background-color]="'var(' + eg.pressed.cssVar + ')'"></div>
+            <code class="table-row__token table-row__token--sub">{{ eg.pressed.token }}</code>
+            <code class="table-row__var table-row__var--sub">{{ eg.pressed.cssVar }}</code>
+            <p class="table-row__desc table-row__desc--sub">{{ eg.pressed.description }}</p>
+          </div>
+        }
+      </div>
+    }
+  </section>
+
+  @for (group of groups; track group.id) {
+    <section class="section">
+      <h2 class="section__title" [id]="group.id">{{ group.label }}</h2>
+      <p class="section__intro">{{ group.description }}</p>
+      <div class="panel">
+        <div class="table-head">
+          <span></span><span>Token</span><span>Variable CSS</span><span>Uso</span>
+        </div>
+        @for (t of group.tokens; track t.cssVar) {
+          <div class="table-row">
+            <div class="table-row__swatch" [style.background-color]="'var(' + t.cssVar + ')'"></div>
+            <code class="table-row__token">{{ t.token }}</code>
+            <code class="table-row__var">{{ t.cssVar }}</code>
+            <p class="table-row__desc">{{ t.description }}</p>
+          </div>
+        }
+      </div>
+    </section>
+  }
+</div>

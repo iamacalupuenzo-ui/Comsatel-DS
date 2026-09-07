@@ -1,0 +1,39 @@
+<div class="page">
+  <p class="eyebrow">Fundamentos / Espaciado</p>
+  <h1 class="title">Tokens de espaciado</h1>
+  <p class="description">
+    Cada muestra usa directamente la custom property CSS. El navegador resuelve el valor, así que
+    permanece correcto si el token cambia.
+  </p>
+
+  @for (group of groups; track group.key) {
+    <section class="section">
+      <h2 class="section__title" [id]="group.key + '-tokens'">{{ group.title }}</h2>
+      <p class="section__intro">{{ group.use }}</p>
+
+      <div class="table">
+        <div class="table__head">
+          <span>Token</span><span>Valor resuelto</span><span>Uso</span>
+        </div>
+        @for (step of group.steps; track step.token) {
+          <div class="table__row">
+            <code class="table__token">{{ step.token }}</code>
+            <code class="table__value">{{ resolvedValueFor(step.token) }}</code>
+            <div class="table__use">
+              @if (group.key === 'padding') {
+                <div class="preview preview--padding" aria-hidden="true">
+                  <div class="preview--padding__fill" [style.padding]="'var(' + step.token + ')'"></div>
+                </div>
+              } @else {
+                <div class="preview preview--gap" aria-hidden="true" [style.gap]="'var(' + step.token + ')'">
+                  <span></span><span></span>
+                </div>
+              }
+              <span>{{ step.use }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  }
+</div>

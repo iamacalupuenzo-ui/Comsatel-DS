@@ -1,0 +1,8 @@
+<div
+  class="cs-input-group-addon"
+  [class.cs-input-group-addon--start]="align === 'inline-start'"
+  [class.cs-input-group-addon--end]="align === 'inline-end'"
+  (click)="onClick($event)"
+>
+  <ng-content></ng-content>
+</div>

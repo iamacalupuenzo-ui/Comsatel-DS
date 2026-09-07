@@ -1,0 +1,217 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Card</p>
+  <h1 class="title">Card</h1>
+  <p class="description">
+    Familia de tarjetas para distintos contextos: fila de acción, aviso destacado, vitrina de
+    equipo y vista previa de archivo — todas con estilos basados en tokens de diseño.
+  </p>
+
+  <!-- Action Card -->
+  <section class="section">
+    <h2 class="section__title" id="action-card">Action card</h2>
+    <p class="section__intro">Fila de acción con título, descripción y un control a la derecha (botón, toggle o etiqueta).</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-action-card
+  title=&quot;Comsatel Design System&quot;
+  description=&quot;Enable design token sync across your workspace&quot;
+  [showButton]=&quot;true&quot;
+  buttonLabel=&quot;Connect&quot;
+></cs-action-card>"
+    >
+      <div class="card-wrap">
+        <cs-action-card
+          title="Comsatel Design System"
+          description="Enable design token sync across your workspace"
+          [showButton]="true"
+          buttonLabel="Connect"
+        ></cs-action-card>
+      </div>
+    </app-demo-shell>
+
+    <div class="card-stack">
+      <div>
+        <h2 class="subsection__title" id="action-card-with-logo">Con logo</h2>
+        <p class="section__intro">Un ícono o logo a la izquierda del texto.</p>
+        <app-demo-shell
+          [controls]="[]"
+          code="<cs-action-card title=&quot;Figma&quot; description=&quot;Sync components and tokens from your Figma workspace&quot; [showLogo]=&quot;true&quot; buttonLabel=&quot;Enable&quot;>
+  <cs-icon logo name=&quot;file-text&quot; [size]=&quot;16&quot;></cs-icon>
+</cs-action-card>"
+        >
+          <div class="card-wrap">
+            <cs-action-card title="Figma" description="Sync components and tokens from your Figma workspace" [showLogo]="true" buttonLabel="Enable">
+              <cs-icon logo name="file-text" [size]="16"></cs-icon>
+            </cs-action-card>
+          </div>
+        </app-demo-shell>
+      </div>
+
+      <div>
+        <h2 class="subsection__title" id="action-card-with-toggle">Con toggle</h2>
+        <p class="section__intro">El control de la derecha puede ser un cs-toggle real en vez de un botón.</p>
+        <app-demo-shell
+          [controls]="[]"
+          code="<cs-action-card title=&quot;Email notifications&quot; description=&quot;Receive updates about your design system changes&quot; [showToggle]=&quot;true&quot; [showButton]=&quot;false&quot;></cs-action-card>"
+        >
+          <div class="card-wrap">
+            <cs-action-card title="Email notifications" description="Receive updates about your design system changes" [showToggle]="true" [showButton]="false"></cs-action-card>
+          </div>
+        </app-demo-shell>
+      </div>
+
+      <div>
+        <h2 class="subsection__title" id="action-card-with-label">Con etiqueta</h2>
+        <p class="section__intro">En vez de un control interactivo, una etiqueta de solo lectura.</p>
+        <app-demo-shell
+          [controls]="[]"
+          code="<cs-action-card title=&quot;Advanced analytics&quot; description=&quot;Deep insights into component usage patterns&quot; [showButton]=&quot;false&quot; [showLabel]=&quot;true&quot; label=&quot;Coming soon&quot;></cs-action-card>"
+        >
+          <div class="card-wrap">
+            <cs-action-card title="Advanced analytics" description="Deep insights into component usage patterns" [showButton]="false" [showLabel]="true" label="Coming soon"></cs-action-card>
+          </div>
+        </app-demo-shell>
+      </div>
+    </div>
+  </section>
+
+  <!-- Card Banner -->
+  <section class="section">
+    <h2 class="section__title" id="card-banner">Card banner</h2>
+    <p class="section__intro">Tarjeta con franja superior (avatares + badge) y título/descripción debajo. Cinco variantes semánticas.</p>
+
+    <div class="card-stack">
+      @for (b of bannerVariants; track b.variant) {
+        <div>
+          <h2 class="subsection__title" [id]="'card-banner-' + b.variant">{{ b.title }}</h2>
+          <p class="section__intro">{{ b.desc }}</p>
+          <app-demo-shell
+            [controls]="[]"
+            code="<cs-card-banner variant=&quot;{{ b.variant }}&quot; title=&quot;Team workspace&quot; description=&quot;Shared across 12 members&quot; [avatars]=&quot;avatars&quot; badgeLabel=&quot;{{ b.badge }}&quot;></cs-card-banner>"
+          >
+            <div class="card-wrap">
+              <cs-card-banner [variant]="b.variant" title="Team workspace" description="Shared across 12 members" [avatars]="placeholderAvatars" [badgeLabel]="b.badge"></cs-card-banner>
+            </div>
+          </app-demo-shell>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Feature Spotlight Card -->
+  <section class="section">
+    <h2 class="section__title" id="feature-spotlight-card">Feature spotlight card</h2>
+    <p class="section__intro">Constelación decorativa de avatares — pieza reutilizada dentro de Spotlight card.</p>
+    <app-demo-shell [controls]="[]" code="<cs-feature-spotlight-card></cs-feature-spotlight-card>">
+      <div class="card-wrap card-wrap--narrow">
+        <cs-feature-spotlight-card></cs-feature-spotlight-card>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Spotlight Card -->
+  <section class="section">
+    <h2 class="section__title" id="spotlight-card">Spotlight card</h2>
+    <p class="section__intro">Feature spotlight card con un pie de título y descripción — pensada para invitaciones o CTAs de equipo.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-spotlight-card title=&quot;Invita a tu equipo&quot; description=&quot;Comparte novedades y sincroniza cambios de diseño&quot;></cs-spotlight-card>"
+    >
+      <div class="card-wrap card-wrap--narrow">
+        <cs-spotlight-card title="Invita a tu equipo" description="Comparte novedades y sincroniza cambios de diseño"></cs-spotlight-card>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Preview Card -->
+  <section class="section">
+    <h2 class="section__title" id="preview-card">Preview card</h2>
+    <p class="section__intro">Bloque de vista previa con nombre de archivo y botón de opciones.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-preview-card name=&quot;Design system tokens.fig&quot; [showLogo]=&quot;true&quot;>
+  <cs-icon logo name=&quot;file-text&quot; [size]=&quot;16&quot;></cs-icon>
+</cs-preview-card>"
+    >
+      <div class="card-wrap">
+        <cs-preview-card name="Design system tokens.fig" [showLogo]="true">
+          <cs-icon logo name="file-text" [size]="16"></cs-icon>
+        </cs-preview-card>
+      </div>
+    </app-demo-shell>
+
+    <div class="card-stack">
+      <div>
+        <h2 class="subsection__title" id="preview-card-with-image">Con imagen</h2>
+        <p class="section__intro">El área de vista previa acepta cualquier contenido proyectado — una imagen real, un degradado, etc.</p>
+        <app-demo-shell
+          [controls]="[]"
+          code="<cs-preview-card name=&quot;Homepage cover.png&quot; [showLogo]=&quot;true&quot; [showImage]=&quot;true&quot;>
+  <cs-icon logo name=&quot;file-text&quot; [size]=&quot;16&quot;></cs-icon>
+  <div image class=&quot;cover-gradient&quot;></div>
+</cs-preview-card>"
+        >
+          <div class="card-wrap">
+            <cs-preview-card name="Homepage cover.png" [showLogo]="true" [showImage]="true">
+              <cs-icon logo name="file-text" [size]="16"></cs-icon>
+              <div image class="cover-gradient"></div>
+            </cs-preview-card>
+          </div>
+        </app-demo-shell>
+      </div>
+    </div>
+  </section>
+
+  <!-- Props -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+
+    <h3 class="subsection__title" id="props-action-card">Action card</h3>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">"Title"</code><span class="table__desc">Título principal de la fila.</span></div>
+      <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">"Description"</code><span class="table__desc">Texto de apoyo debajo del título.</span></div>
+      <div class="table__row"><code class="table__name">showLogo</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el slot de logo proyectado (ng-content select="[logo]").</span></div>
+      <div class="table__row"><code class="table__name">showToggle</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra un cs-toggle real a la derecha.</span></div>
+      <div class="table__row"><code class="table__name">showButton</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra el botón de acción a la derecha.</span></div>
+      <div class="table__row"><code class="table__name">buttonLabel</code><code class="table__type">string</code><code class="table__default">"Action"</code><span class="table__desc">Texto del botón.</span></div>
+      <div class="table__row"><code class="table__name">showLabel</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra una etiqueta de solo lectura en vez de un control.</span></div>
+      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">"Coming soon"</code><span class="table__desc">Texto de la etiqueta.</span></div>
+    </div>
+
+    <h3 class="subsection__title" id="props-card-banner">Card banner</h3>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">variant</code><code class="table__type">"neutral" | "brand" | "destructive" | "warning" | "success"</code><code class="table__default">"neutral"</code><span class="table__desc">Rol semántico — define color de fondo, borde y badge.</span></div>
+      <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">"Title"</code><span class="table__desc">Título principal.</span></div>
+      <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">"Description here"</code><span class="table__desc">Texto de apoyo.</span></div>
+      <div class="table__row"><code class="table__name">avatars</code><code class="table__type">AvatarGroupItem[]</code><code class="table__default">[]</code><span class="table__desc">Avatares apilados (hasta 3 visibles, vía cs-avatar-group).</span></div>
+      <div class="table__row"><code class="table__name">badgeLabel</code><code class="table__type">string</code><code class="table__default">"Label"</code><span class="table__desc">Texto del badge.</span></div>
+      <div class="table__row"><code class="table__name">showAvatar</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra el grupo de avatares.</span></div>
+      <div class="table__row"><code class="table__name">showBadge</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra el badge.</span></div>
+    </div>
+
+    <h3 class="subsection__title" id="props-feature-spotlight-card">Feature spotlight card</h3>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">avatars</code><code class="table__type">string[]</code><code class="table__default">[]</code><span class="table__desc">URLs de foto por posición (hasta 13); las posiciones sin foto muestran un placeholder de color.</span></div>
+    </div>
+
+    <h3 class="subsection__title" id="props-spotlight-card">Spotlight card</h3>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">"Invite your team"</code><span class="table__desc">Título del pie.</span></div>
+      <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">"Share updates and sync design changes"</code><span class="table__desc">Descripción del pie.</span></div>
+      <div class="table__row"><code class="table__name">avatars</code><code class="table__type">string[]</code><code class="table__default">[]</code><span class="table__desc">Se pasa directo a Feature spotlight card.</span></div>
+    </div>
+
+    <h3 class="subsection__title" id="props-preview-card">Preview card</h3>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">name</code><code class="table__type">string</code><code class="table__default">"Project name"</code><span class="table__desc">Nombre de archivo/proyecto mostrado en el pie.</span></div>
+      <div class="table__row"><code class="table__name">showLogo</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el slot de logo proyectado (ng-content select="[logo]").</span></div>
+      <div class="table__row"><code class="table__name">showImage</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el slot de imagen proyectado (ng-content select="[image]") en vez del texto "Preview".</span></div>
+      <div class="table__row"><code class="table__name">(options)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en el botón de opciones.</span></div>
+    </div>
+  </section>
+</div>

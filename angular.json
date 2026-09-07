@@ -24,9 +24,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ]
+            "styles": ["projects/comsatel-ds/src/styles/index.css", "src/styles.css"]
           },
           "configurations": {
             "production": {
@@ -66,6 +64,32 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        }
+      }
+    },
+    "comsatel-ds": {
+      "projectType": "library",
+      "root": "projects/comsatel-ds",
+      "sourceRoot": "projects/comsatel-ds/src",
+      "prefix": "cs",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/comsatel-ds/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/comsatel-ds/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/comsatel-ds/tsconfig.spec.json"
+          }
         }
       }
     }

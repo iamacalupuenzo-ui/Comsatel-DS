@@ -1,0 +1,9 @@
+<span class="cs-tooltip__trigger">
+  <ng-content></ng-content>
+</span>
+<span [class]="'cs-tooltip__popup cs-tooltip__popup--' + side" [ngStyle]="popupStyle" role="tooltip">
+  {{ content }}
+  @if (arrow) {
+    <span [class]="'cs-tooltip__arrow cs-tooltip__arrow--' + side"></span>
+  }
+</span>

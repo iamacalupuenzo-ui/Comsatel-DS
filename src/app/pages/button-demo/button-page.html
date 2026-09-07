@@ -1,0 +1,170 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Button</p>
+  <h1 class="title">Button</h1>
+  <p class="description">
+    Dispara una acción o evento: envío de formulario, navegación, diálogos u operaciones
+    destructivas. Nueve variantes cubren todos los roles semánticos de la UI.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta los controles para explorar todas las variantes y estados del botón.</p>
+
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <cs-button
+        [variant]="pgVariant()"
+        [size]="pgSize()"
+        [disabled]="pgDisabled()"
+        [loading]="pgLoading()"
+        [selected]="pgSelected()"
+      >
+        Etiqueta del botón
+      </cs-button>
+    </app-demo-shell>
+  </section>
+
+  <!-- Variantes -->
+  <section class="section">
+    <h2 class="section__title" id="variants">Variantes</h2>
+    <p class="section__intro">
+      Nueve variantes mapean distintos roles semánticos, ordenadas de mayor a menor énfasis:
+      <strong>primary</strong> es el call-to-action más fuerte (usar una vez por pantalla);
+      <strong>secondary</strong> y <strong>default</strong> quedan por debajo para acciones de
+      apoyo; <strong>tertiary</strong> y <strong>subtle</strong> son opciones solo de texto para
+      baja prioridad; <strong>link</strong> es la más débil; <strong>destructive</strong>,
+      <strong>success</strong> y <strong>warning</strong> comunican estado.
+    </p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        @for (v of variants; track v) {
+          <cs-button [variant]="v">{{ v }}</cs-button>
+        }
+      </div>
+      <app-code-block [code]="variantsCode"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Tamaños -->
+  <section class="section">
+    <h2 class="section__title" id="sizes">Tamaños</h2>
+    <p class="section__intro">Cuatro tamaños cubren cada necesidad de densidad: desde toolbars compactos (xs) hasta CTAs grandes de hero (lg).</p>
+    <div class="static-block">
+      @for (s of sizeOrder; track s; let i = $index) {
+        <div class="size-row" [class.size-row--divider]="i > 0">
+          <div class="size-row__button"><cs-button variant="primary" [size]="s">{{ sizeInfo[s].label }}</cs-button></div>
+          <div class="size-row__info">
+            <div class="size-row__heading">
+              <span class="size-row__label">{{ sizeInfo[s].label }}</span>
+              <code class="size-row__code">size="{{ s }}"</code>
+            </div>
+            <p class="size-row__usage">{{ sizeInfo[s].usage }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Ancho completo -->
+  <section class="section">
+    <h2 class="section__title" id="full-width">Ancho completo</h2>
+    <p class="section__intro">Usa <code class="inline-code">[fullWidth]="true"</code> para estirar el botón a su contenedor.</p>
+    <app-demo-shell [controls]="[]" code="<cs-button variant=&quot;primary&quot; [fullWidth]=&quot;true&quot;>Botón de ancho completo</cs-button>">
+      <div class="full-width-wrap">
+        <cs-button variant="primary" [fullWidth]="true">Botón de ancho completo</cs-button>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Con íconos -->
+  <section class="section">
+    <h2 class="section__title" id="with-icons">Con íconos</h2>
+    <p class="section__intro">Coloca íconos antes o después del texto del label. Los íconos escalan automáticamente con el tamaño del botón.</p>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="icon-before">Ícono antes</h3>
+      <p class="section__intro">Ícono leading: úsalo para acciones como Agregar, Subir, Filtrar.</p>
+      <app-demo-shell [controls]="[]" code="<cs-button variant=&quot;primary&quot;><cs-icon name=&quot;star&quot; [size]=&quot;14&quot;></cs-icon> Ícono antes</cs-button>">
+        <cs-button variant="primary"><cs-icon name="star" [size]="14"></cs-icon> Ícono antes</cs-button>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="icon-after">Ícono después</h3>
+      <p class="section__intro">Ícono trailing: úsalo para navegación como Siguiente, Abrir, Expandir.</p>
+      <app-demo-shell [controls]="[]" code="<cs-button variant=&quot;primary&quot;>Ícono después <cs-icon name=&quot;chevron-right&quot; [size]=&quot;14&quot;></cs-icon></cs-button>">
+        <cs-button variant="primary">Ícono después <cs-icon name="chevron-right" [size]="14"></cs-icon></cs-button>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="icons-mixed">Mixto</h3>
+      <p class="section__intro">Mezcla real de variantes, íconos y posiciones.</p>
+      <app-demo-shell
+        [controls]="[]"
+        code="<cs-button variant=&quot;primary&quot;><cs-icon name=&quot;plus&quot; [size]=&quot;14&quot;></cs-icon> Agregar ítem</cs-button>
+<cs-button variant=&quot;primary&quot;>Descargar <cs-icon name=&quot;download&quot; [size]=&quot;14&quot;></cs-icon></cs-button>
+<cs-button variant=&quot;default&quot;>Siguiente <cs-icon name=&quot;chevron-right&quot; [size]=&quot;14&quot;></cs-icon></cs-button>
+<cs-button variant=&quot;destructive&quot;><cs-icon name=&quot;trash-2&quot; [size]=&quot;14&quot;></cs-icon> Eliminar</cs-button>"
+      >
+        <div class="row">
+          <cs-button variant="primary"><cs-icon name="plus" [size]="14"></cs-icon> Agregar ítem</cs-button>
+          <cs-button variant="primary">Descargar <cs-icon name="download" [size]="14"></cs-icon></cs-button>
+          <cs-button variant="default">Siguiente <cs-icon name="chevron-right" [size]="14"></cs-icon></cs-button>
+          <cs-button variant="destructive"><cs-icon name="trash-2" [size]="14"></cs-icon> Eliminar</cs-button>
+        </div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <!-- Estados -->
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Los estados disabled, selected y loading están incorporados.</p>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="state-disabled">Deshabilitado</h3>
+      <p class="section__intro">Pasa la propiedad disabled. Se remueven los eventos de puntero y la opacidad baja al 50%.</p>
+      <app-demo-shell [controls]="[]" code="<cs-button variant=&quot;primary&quot; [disabled]=&quot;true&quot;>Botón deshabilitado</cs-button>">
+        <cs-button variant="primary" [disabled]="true">Botón deshabilitado</cs-button>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="state-selected">Seleccionado</h3>
+      <p class="section__intro">Usa la propiedad selected para botones tipo toggle. Haz clic para alternar.</p>
+      <app-demo-shell [controls]="[]" [code]="selectedCode()">
+        <cs-button variant="default" [selected]="selected()" (click)="toggleSelected()">Botón seleccionado</cs-button>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="state-loading">Cargando</h3>
+      <p class="section__intro">La propiedad loading reemplaza el contenido con un spinner y deshabilita el botón.</p>
+      <app-demo-shell [controls]="[]" [code]="loadingCode()">
+        <div class="col col--start">
+          <label class="switch-field">
+            <div class="switch-field__track" [class.switch-field__track--on]="isLoading()" (click)="toggleLoading()">
+              <div class="switch-field__thumb"></div>
+            </div>
+            <span class="switch-field__label">Activar estado de carga</span>
+          </label>
+          <cs-button variant="primary" size="sm" [loading]="isLoading()">Guardar cambios</cs-button>
+        </div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">variant</code><code class="table__type">ButtonVariant</code><code class="table__default">"primary"</code><span class="table__desc">Estilo visual del botón.</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">"xs" | "sm" | "md" | "lg"</code><code class="table__default">"sm"</code><span class="table__desc">Altura y padding del botón.</span></div>
+      <div class="table__row"><code class="table__name">selected</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Estado seleccionado tipo toggle.</span></div>
+      <div class="table__row"><code class="table__name">loading</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra un spinner y deshabilita el botón.</span></div>
+      <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita la interacción y reduce la opacidad.</span></div>
+    </div>
+  </section>
+</div>

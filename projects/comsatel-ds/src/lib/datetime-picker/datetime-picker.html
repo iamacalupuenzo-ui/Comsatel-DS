@@ -1,0 +1,106 @@
+<div class="cs-datetime-picker">
+  <div class="cs-datetime-picker__row">
+    <!-- Campo de fecha -->
+    <div class="cs-datetime-picker__field">
+      @if (datePickerProps.label) {
+        <label class="cs-datetime-picker__label" [attr.for]="resolvedId">
+          {{ datePickerProps.label }}
+          @if (required) {
+            <span class="cs-datetime-picker__required">*</span>
+          }
+        </label>
+      }
+
+      <div #dateField class="cs-datetime-picker__date-wrap">
+        <cs-input-group [style.width.px]="FIELD_WIDTH">
+          <cs-input-group-input
+            [id]="resolvedId"
+            [fieldSize]="size"
+            [value]="inputText()"
+            [placeholder]="datePlaceholder"
+            [disabled]="disabled"
+            [invalid]="invalid"
+            [required]="required"
+            ariaHasPopup="dialog"
+            [ariaExpanded]="dateOpen()"
+            [ariaControls]="gridId"
+            (focused)="onDateFocus()"
+            (blurred)="onDateBlur()"
+            (valueChange)="onDateInputChange($event)"
+            (enterKey)="onDateEnter()"
+            (escapeKey)="dateOpen.set(false)"
+          ></cs-input-group-input>
+          <cs-input-group-addon align="inline-end">
+            <button
+              type="button"
+              class="cs-datetime-picker__calendar-btn"
+              aria-label="Abrir calendario"
+              [disabled]="disabled"
+              (click)="dateOpen.set(!dateOpen())"
+            >
+              <cs-icon name="calendar" [size]="iconSize"></cs-icon>
+            </button>
+          </cs-input-group-addon>
+        </cs-input-group>
+
+        @if (dateOpen() && !disabled) {
+          <div [id]="gridId" role="dialog" class="cs-datetime-picker__popover">
+            <cs-calendar
+              [month]="viewMonth()"
+              [year]="viewYear()"
+              [selected]="dateIso() ? [dateIso()!] : []"
+              [disabled]="datePickerProps.disabled ?? []"
+              [minDate]="datePickerProps.minDate"
+              [maxDate]="datePickerProps.maxDate"
+              [weekStartDay]="datePickerProps.weekStartDay ?? 0"
+              (dateChange)="onCalendarChange($event)"
+              (monthChange)="onCalendarMonthChange($event)"
+            ></cs-calendar>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Campo de hora -->
+    <div class="cs-datetime-picker__time-wrap" [style.width.px]="FIELD_WIDTH">
+      <cs-input-dropdown
+        [label]="timePickerProps.label"
+        [placeholder]="timePlaceholder"
+        [options]="timeOptions()"
+        [value]="time()"
+        (valueChange)="onTimeChange($event)"
+        [size]="size"
+        [disabled]="disabled"
+      ></cs-input-dropdown>
+    </div>
+
+    <!-- Botón de limpiar — deliberadamente fuera del tab order (tabindex="-1"):
+         se opera con mouse/tap, con teclado se limpia escribiendo encima. -->
+    @if (!disabled && (dateIso() || time())) {
+      <div class="cs-datetime-picker__clear-wrap">
+        @if (datePickerProps.label || timePickerProps.label) {
+          <span aria-hidden="true" class="cs-datetime-picker__label cs-datetime-picker__label--spacer">&nbsp;</span>
+        }
+        <button
+          type="button"
+          tabindex="-1"
+          class="cs-datetime-picker__clear-btn"
+          [attr.aria-label]="clearControlLabel"
+          [style.width.px]="rowHeight"
+          [style.height.px]="rowHeight"
+          (click)="onClear()"
+        >
+          <cs-icon name="x" [size]="iconSize"></cs-icon>
+        </button>
+      </div>
+    }
+  </div>
+
+  @if (invalid && errorText) {
+    <p class="cs-datetime-picker__message cs-datetime-picker__message--error">
+      <cs-icon name="alert-triangle" [size]="12"></cs-icon>{{ errorText }}
+    </p>
+  } @else if (helperText) {
+    <p class="cs-datetime-picker__message">{{ helperText }}</p>
+  }
+</div>

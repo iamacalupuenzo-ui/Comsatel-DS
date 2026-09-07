@@ -1,0 +1,51 @@
+/* Puerto 1:1 del Checkbox de React (checkbox.tsx). React usa @base-ui/react
+   para el primitivo accesible; acá el mismo comportamiento (teclado, foco,
+   estado indeterminate) lo da un <input type="checkbox"> nativo oculto
+   visualmente detrás del cuadrado dibujado — sin reimplementar ARIA a mano. */
+@import '../shared/selection-glyphs.css';
+
+:host {
+  display: inline-flex;
+}
+
+.cs-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.cs-checkbox--two-lines { align-items: flex-start; }
+.cs-checkbox--disabled { opacity: var(--opacity-disabled); pointer-events: none; }
+
+.cs-checkbox__box-wrap {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+}
+
+.cs-checkbox__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* .cs-checkbox__box / .cs-checkbox__box--checked viven en
+   shared/selection-glyphs.css (compartidas con el glyph de Dropdown). Acá
+   solo el detalle propio de un checkbox REAL de formulario: el anillo de
+   foco. */
+.cs-checkbox__input:focus-visible ~ .cs-checkbox__box {
+  box-shadow: 0 0 0 2px var(--color-border-focused);
+}
+
+.cs-checkbox__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.cs-checkbox__label { color: var(--color-text-base-default); }
+.cs-checkbox__desc { color: var(--color-text-base-subtle); }

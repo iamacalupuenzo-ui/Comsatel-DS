@@ -1,0 +1,141 @@
+:host {
+  display: inline-flex;
+}
+
+.cs-input-dropdown {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--layout-gap-xs);
+}
+
+.cs-input-dropdown__label {
+  font-family: var(--font-family-content);
+  letter-spacing: var(--font-letter-spacing-content);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-accent);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-default);
+}
+.cs-input-dropdown__required {
+  color: var(--color-text-danger-default);
+  margin-left: 2px;
+}
+
+.cs-input-dropdown__wrap {
+  position: relative;
+}
+
+.cs-input-dropdown__measure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: var(--font-letter-spacing-content);
+  font-family: var(--font-family-content);
+  font-weight: var(--font-weight-regular);
+}
+
+.cs-input-dropdown__trigger {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid;
+  border-radius: var(--radius-sm);
+  background-color: var(--elevation-surface-default);
+  font-family: var(--font-family-content);
+  letter-spacing: var(--font-letter-spacing-content);
+  font-weight: var(--font-weight-regular);
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--motion-duration-fast) var(--motion-easing-default);
+}
+.cs-input-dropdown__trigger:disabled {
+  background-color: var(--color-background-neutral-subtle);
+  cursor: not-allowed;
+}
+
+.cs-input-dropdown__value {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cs-input-dropdown__chevron {
+  flex-shrink: 0;
+  margin-left: var(--layout-gap-xs);
+  color: var(--color-text-base-subtle);
+  transition: transform var(--motion-duration-fast) var(--motion-easing-default);
+}
+.cs-input-dropdown__trigger:disabled .cs-input-dropdown__chevron {
+  color: var(--color-text-disabled);
+}
+.cs-input-dropdown__chevron--open {
+  transform: rotate(180deg);
+}
+
+.cs-input-dropdown__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: var(--elevation-z-index-dropdown);
+  background-color: var(--color-background-base);
+  border: 1px solid var(--color-border-neutral-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding-block: var(--layout-padding-xs);
+}
+.cs-input-dropdown__options {
+  padding-inline: var(--layout-padding-xs);
+}
+
+.cs-input-dropdown__option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-sm);
+  text-align: left;
+  overflow: hidden;
+  border: none;
+  outline: none;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  font-family: var(--font-family-content);
+  font-weight: var(--font-weight-accent);
+  letter-spacing: var(--font-letter-spacing-content);
+  color: var(--color-text-base-default);
+  cursor: pointer;
+}
+.cs-input-dropdown__option:hover:not(.cs-input-dropdown__option--selected):not(:disabled) {
+  background-color: var(--color-background-neutral-subtlest-hover);
+}
+.cs-input-dropdown__option--selected {
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-brand-bolder);
+  background-color: var(--color-background-brand-subtlest);
+}
+.cs-input-dropdown__option--disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+  pointer-events: none;
+}
+
+.cs-input-dropdown__option-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cs-input-dropdown__check {
+  flex-shrink: 0;
+  color: var(--color-text-brand-bolder);
+}

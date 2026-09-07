@@ -1,0 +1,157 @@
+<div class="page">
+  <p class="eyebrow">Fundamentos / Radio</p>
+  <h1 class="title">Radio</h1>
+  <p class="description">
+    Los tokens de radio estandarizan el redondeo de esquinas en superficies, controles y
+    contenedores. Una escala consistente evita valores arbitrarios y mantiene coherencia visual.
+  </p>
+
+  <!-- Escala de tokens -->
+  <section class="section">
+    <h2 class="section__title" id="token-scale">Escala de tokens</h2>
+    <p class="section__intro">
+      Ocho pasos desde <code class="inline-code">{{ resolvedValueFor('--radius-none') }}</code>
+      hasta <code class="inline-code">{{ resolvedValueFor('--radius-full') }}</code>. Usa siempre
+      un token para mantener la escala consistente.
+    </p>
+
+    <div class="table">
+      <div class="table__head">
+        <span>Token</span><span>Valor resuelto</span><span>Previsualización</span><span>Uso</span>
+      </div>
+      @for (t of tokens; track t.token) {
+        <div class="table__row">
+          <code class="table__token">{{ t.token }}</code>
+          <code class="table__value">{{ resolvedValueFor(t.token) }}</code>
+          <div class="table__cell">
+            <div class="swatch" [style.border-radius]="'var(' + t.token + ')'"></div>
+          </div>
+          <div class="table__cell table__use">{{ t.use }}</div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Escala visual -->
+  <section class="section">
+    <h2 class="section__title" id="visual-scale">Escala visual</h2>
+    <p class="section__intro">
+      Compara los ocho pasos. Las muestras utilizan los tokens reales para mostrar el redondeo. La
+      diferencia entre pasos es sutil a propósito: el radio es un detalle de apoyo, no un punto de
+      atención.
+    </p>
+
+    <div class="visual-panel">
+      <div class="visual-row">
+        @for (t of firstRow; track t.token) {
+          <div class="visual-item">
+            <div class="visual-item__swatch" [style.border-radius]="'var(' + t.token + ')'"></div>
+            <p class="visual-item__label">{{ t.label }}</p>
+            <p class="visual-item__value">{{ resolvedValueFor(t.token) }}</p>
+          </div>
+        }
+      </div>
+      <div class="visual-row">
+        @for (t of secondRow; track t.token) {
+          <div class="visual-item">
+            <div class="visual-item__swatch" [style.border-radius]="'var(' + t.token + ')'"></div>
+            <p class="visual-item__label">{{ t.label }}</p>
+            <p class="visual-item__value">{{ resolvedValueFor(t.token) }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Uso según el contexto -->
+  <section class="section">
+    <h2 class="section__title" id="usage">Uso según el contexto</h2>
+    <p class="section__intro">
+      Cada paso tiene un rol definido. Usar el token correcto para el componente correcto mantiene
+      el lenguaje visual consistente.
+    </p>
+
+    <div class="usage-list">
+      @for (card of usageCards; track card.id) {
+        <div class="usage-card" [id]="card.id">
+          <div class="usage-card__header">
+            <p class="usage-card__heading">{{ card.heading }}</p>
+            <p class="usage-card__desc">{{ card.desc }}</p>
+          </div>
+          <div class="usage-card__body">
+            @for (item of card.items; track item.label) {
+              <div
+                class="usage-card__chip"
+                [style.border-radius]="'var(' + card.token + ')'"
+                [style.background-color]="item.bg"
+                [style.color]="item.color"
+                [style.border-color]="item.border"
+              >
+                {{ item.label }}
+              </div>
+            }
+          </div>
+          <div class="usage-card__footer">
+            <code>border-radius: var({{ card.token }})</code>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Radio completo -->
+  <section class="section">
+    <h2 class="section__title" id="full-radius">Radio completo — Círculos y extremos redondeados</h2>
+    <p class="section__intro">
+      <code class="inline-code">--radius-full</code> crea círculos en elementos cuadrados y
+      extremos redondeados en rectángulos. Úsalo cuando esa sea la forma definida por el
+      componente.
+    </p>
+
+    <div class="full-panel">
+      <div class="full-panel__body">
+        @for (sz of [32, 40, 48, 56]; track sz) {
+          <div class="avatar" [style.width.px]="sz" [style.height.px]="sz">AB</div>
+        }
+        <div class="pill pill--brand">Nueva función</div>
+        <div class="pill pill--success">Publicado</div>
+        <div class="toggle">
+          <div class="toggle__knob"></div>
+        </div>
+      </div>
+      <div class="full-panel__footer">
+        <code>border-radius: var(--radius-full)</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lineamientos -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos</h2>
+    <div class="guidelines-grid">
+      <div class="guideline guideline--do">
+        <div class="guideline__header">
+          <span class="guideline__icon">&#10003;</span>
+          <span class="guideline__title">Recomendaciones</span>
+        </div>
+        <ul class="guideline__list">
+          @for (text of doItems; track text) {
+            <li>{{ text }}</li>
+          }
+        </ul>
+      </div>
+
+      <div class="guideline guideline--dont">
+        <div class="guideline__header">
+          <span class="guideline__icon">&#10005;</span>
+          <span class="guideline__title">Evita</span>
+        </div>
+        <ul class="guideline__list">
+          @for (text of dontItems; track text) {
+            <li>{{ text }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>

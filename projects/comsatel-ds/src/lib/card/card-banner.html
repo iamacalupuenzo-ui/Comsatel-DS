@@ -1,0 +1,26 @@
+<div class="cs-card-banner" [style.background-color]="tok.bg" [style.border-color]="tok.border">
+  <div class="cs-card-banner__top">
+    @if (showAvatar) {
+      <cs-avatar-group size="xs" [avatars]="avatars" [maxVisible]="3" [showAddButton]="false"></cs-avatar-group>
+    } @else {
+      <span></span>
+    }
+    @if (showBadge) {
+      <span
+        class="cs-card-banner__badge"
+        [style.background-color]="tok.badgeBg"
+        [style.border-color]="tok.badgeBorder"
+        [style.color]="tok.badgeText"
+      >{{ badgeLabel }}</span>
+    }
+  </div>
+
+  <div class="cs-card-banner__text">
+    @if (title) {
+      <p class="cs-card-banner__title">{{ title }}</p>
+    }
+    @if (description) {
+      <p class="cs-card-banner__description">{{ description }}</p>
+    }
+  </div>
+</div>

@@ -1,0 +1,71 @@
+.cs-action-card {
+  display: flex;
+  align-items: center;
+  padding: var(--layout-padding-xl);
+  gap: var(--layout-gap-3xl);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-default);
+  background-color: var(--color-background-neutral-subtlest);
+  box-shadow: var(--shadow-xs);
+}
+
+.cs-action-card__main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+  gap: var(--layout-gap-lg);
+}
+
+.cs-action-card__logo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  padding: var(--layout-padding-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-neutral-default);
+  background-color: var(--elevation-surface-default);
+}
+
+.cs-action-card__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: var(--layout-gap-2xs);
+}
+
+.cs-action-card__title {
+  margin: 0;
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-bolder);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cs-action-card__description {
+  margin: 0;
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-base-subtle);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cs-action-card__button {
+  flex-shrink: 0;
+  box-shadow: var(--shadow-xs);
+}
+
+.cs-action-card__label {
+  flex-shrink: 0;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-base-subtle);
+  white-space: nowrap;
+}

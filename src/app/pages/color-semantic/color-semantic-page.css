@@ -1,0 +1,54 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.panel {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-neutral-subtle);
+  overflow: hidden;
+  margin-bottom: var(--layout-padding-xl);
+}
+.panel__head {
+  padding: var(--layout-padding-sm) var(--layout-padding-xl);
+  background-color: var(--color-background-neutral-subtlest);
+  border-bottom: 1px solid var(--color-border-divider);
+  font-size: var(--font-size-label-micro);
+  font-weight: var(--font-weight-emphasis);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-base-subtlest);
+}
+.table-head {
+  display: grid;
+  grid-template-columns: 28px 1fr 1fr 1fr;
+  gap: var(--layout-gap-lg);
+  padding: var(--layout-padding-md) var(--layout-padding-xl);
+  background-color: var(--color-background-neutral-subtlest);
+  border-bottom: 1px solid var(--color-border-divider);
+  font-size: var(--font-size-label-micro);
+  font-weight: var(--font-weight-emphasis);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-base-subtlest);
+}
+.table-row {
+  display: grid;
+  grid-template-columns: 28px 1fr 1fr 1fr;
+  gap: var(--layout-gap-lg);
+  align-items: center;
+  padding: 10px var(--layout-padding-xl);
+  border-top: 1px solid var(--color-border-divider);
+}
+.table-row:hover { background-color: var(--color-interaction-hovered); }
+.table-row--sub {
+  padding-left: var(--layout-padding-4xl);
+  background-color: var(--color-background-neutral-subtlest);
+}
+.table-row__swatch { width: 20px; height: 20px; border-radius: var(--radius-xs); border: 1px solid var(--color-border-neutral-subtle); }
+.table-row__swatch--sm { width: 16px; height: 16px; }
+.table-row__token { font-family: monospace; font-size: var(--font-size-label-small); color: var(--color-text-base-subtle); overflow-wrap: anywhere; }
+.table-row__token--sub { font-size: var(--font-size-label-micro); color: var(--color-text-base-subtlest); }
+.table-row__var { font-family: monospace; font-size: var(--font-size-label-small); color: var(--color-text-brand-default); overflow-wrap: anywhere; }
+.table-row__var--sub { font-size: var(--font-size-label-micro); opacity: 0.7; }
+.table-row__desc { margin: 0; font-size: var(--font-size-label-small); color: var(--color-text-base-subtle); }
+.table-row__desc--sub { font-size: var(--font-size-label-micro); color: var(--color-text-base-subtlest); }

@@ -1,0 +1,48 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--layout-gap-xs);
+}
+
+.cs-avatar-group__stack {
+  display: flex;
+  align-items: center;
+}
+
+.cs-avatar-group__item {
+  position: relative;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+}
+.cs-avatar-group__ring {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--radius-full);
+  border-width: var(--layout-border-thick);
+  border-style: solid;
+  border-color: var(--elevation-surface-default);
+  pointer-events: none;
+}
+
+.cs-avatar-group__extra {
+  position: relative;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  border-width: var(--layout-border-thick);
+  border-style: solid;
+  border-color: var(--elevation-surface-default);
+  background-color: var(--color-background-brand-subtle);
+}
+.cs-avatar-group__extra-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-family-content);
+  letter-spacing: var(--font-letter-spacing-content);
+  font-weight: var(--font-weight-accent);
+  text-align: center;
+  white-space: nowrap;
+  color: var(--color-text-brand-bolder);
+}

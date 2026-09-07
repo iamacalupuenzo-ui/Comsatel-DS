@@ -1,0 +1,49 @@
+<div class="page">
+  <p class="eyebrow">Color / Paleta de color</p>
+  <h1 class="title">Paleta de color</h1>
+  <p class="description">
+    Referencia completa de colores primitivos. Estos son los valores en bruto que resuelven los
+    tokens semánticos. Usa tokens semánticos en tus componentes: consulta esta paleta solo al
+    definir o auditar tokens.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="familias">Familias de color</h2>
+    <div class="family-grid">
+      @for (f of families; track f.key) {
+        <div class="family-card">
+          <div class="family-card__head">
+            <div class="family-card__swatch" [style.background-color]="f.mainColor"></div>
+            <div>
+              <p class="family-card__label">{{ f.label }}</p>
+              <p class="family-card__desc">{{ f.description }}</p>
+            </div>
+          </div>
+          <div class="family-card__shades">
+            @for (shade of f.shades; track shade) {
+              <div class="shade-row">
+                <div class="shade-row__swatch" [style.background-color]="f.palette[shade]"></div>
+                <span class="shade-row__name">root-color-{{ f.key }}-{{ shade }}</span>
+                <span class="shade-row__hex">{{ f.palette[shade] }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="colores-base">Colores base</h2>
+    <div class="panel">
+      @for (b of baseColors; track b.token) {
+        <div class="base-row">
+          <div class="base-row__swatch" [style.background-color]="b.hex"></div>
+          <code class="base-row__token">{{ b.token }}</code>
+          <span class="base-row__name">{{ b.name }}</span>
+          <span class="base-row__hex">{{ b.hex }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

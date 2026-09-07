@@ -1,0 +1,103 @@
+<div class="page">
+  <p class="eyebrow">Fundamentos / Color</p>
+  <h1 class="title">Color</h1>
+  <p class="description">
+    El sistema de color de Comsatel se estructura en tres capas: una <strong>paleta primitiva</strong>
+    de escalas de color en bruto, <strong>tokens semánticos</strong> que expresan propósito y se
+    adaptan al contexto, y <strong>modos de tema</strong> (Light, Dark) que resuelven los tokens a
+    los valores correctos en tiempo de ejecución.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="anatomia">Anatomía del color</h2>
+    <p class="section__intro">
+      Tres subsistemas trabajan juntos. Los colores primitivos son los valores en bruto. Los tokens
+      semánticos mapean esos valores a una intención. Los modos de tema determinan qué primitivo
+      resuelve cada token.
+    </p>
+    <div class="anatomy-grid">
+      @for (item of anatomy; track item.label) {
+        <div class="anatomy-card">
+          <div class="anatomy-card__strip">
+            @for (c of item.palette; track c) {
+              <span [style.background-color]="c"></span>
+            }
+          </div>
+          <div class="anatomy-card__body">
+            <p class="anatomy-card__label">{{ item.label }}</p>
+            <p class="anatomy-card__desc">{{ item.desc }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="roles">Roles de color</h2>
+    <p class="section__intro">Cada token semántico pertenece a uno de seis roles. Usa el rol que corresponda al tipo de superficie o contenido.</p>
+    <div class="panel">
+      @for (r of roles; track r.role) {
+        <div class="role-row">
+          <div class="role-row__name">
+            <p>{{ r.role }}</p>
+            <code>{{ r.token }}</code>
+          </div>
+          <p class="role-row__desc">{{ r.description }}</p>
+          <div class="role-row__swatches">
+            @for (c of r.colors; track c) {
+              <span [style.background-color]="c"></span>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="enfasis">Énfasis</h2>
+    <p class="section__intro">
+      Cada rol tiene múltiples niveles de énfasis, desde <strong>subtlest</strong> hasta
+      <strong>boldest</strong>. Elige el nivel que se ajuste a la jerarquía del elemento.
+    </p>
+    <div class="emphasis-row">
+      @for (e of emphasisLevels; track e.cssVar) {
+        <div class="emphasis-item">
+          <div class="emphasis-item__swatch" [style.background-color]="'var(' + e.cssVar + ')'"></div>
+          <p class="emphasis-item__label">{{ e.label }}</p>
+          <code class="emphasis-item__var">{{ emphasisShortLabel(e.cssVar) }}</code>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="estados">Estados de interacción</h2>
+    <p class="section__intro">Seis estados de interacción con tokens dedicados.</p>
+    <div class="states-row">
+      @for (s of states; track s.label) {
+        <div class="state-item">
+          <div
+            class="state-item__chip"
+            [style.background-color]="s.bg"
+            [style.border]="'2px solid ' + s.border"
+            [style.color]="s.label === 'Disabled' ? 'var(--color-text-disabled)' : 'var(--color-text-inverse)'"
+            [style.opacity]="s.label === 'Disabled' ? 0.5 : 1"
+          >Button</div>
+          <p class="state-item__label">{{ s.label }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="explorar">Explora Color</h2>
+    <div class="subpage-grid">
+      @for (page of subpages; track page.href) {
+        <a class="subpage-card" [routerLink]="page.href">
+          <p class="subpage-card__title">{{ page.title }} →</p>
+          <p class="subpage-card__desc">{{ page.description }}</p>
+        </a>
+      }
+    </div>
+  </section>
+</div>

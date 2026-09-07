@@ -1,0 +1,65 @@
+<div class="page">
+  <p class="eyebrow">Fundamentos / Espaciado</p>
+  <h1 class="title">Espaciado</h1>
+  <p class="description">
+    El espaciado da estructura a las interfaces. Usa padding para el espacio dentro de un
+    contenedor y gap para el espacio entre elementos hermanos.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="roles">Fundamentos de espaciado</h2>
+    <p class="section__intro">Un conjunto compacto de roles mantiene consistencia en los layouts y permite que el contenido respire.</p>
+    <div class="role-grid">
+      <article class="role-card">
+        <div class="role-card__sample">
+          <div class="role-card__padding-demo">
+            <div class="role-card__padding-fill"></div>
+          </div>
+        </div>
+        <h3 class="role-card__title">Padding</h3>
+        <p class="role-card__body">El padding crea el espacio entre el borde de un contenedor y su contenido. Úsalo en controles, tarjetas, banners y secciones.</p>
+        <code class="role-card__token">var(--layout-padding-xl)</code>
+      </article>
+      <article class="role-card">
+        <div class="role-card__sample">
+          <div class="role-card__gap-demo">
+            <span></span><span></span>
+          </div>
+        </div>
+        <h3 class="role-card__title">Gap</h3>
+        <p class="role-card__body">El gap separa elementos hermanos en layouts flex y grid. Mantiene el ritmo del layout independiente de cada elemento.</p>
+        <code class="role-card__token">var(--layout-gap-md)</code>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="ejemplo">Ejemplo vivo con tokens</h2>
+    <div class="live-example">
+      <h3>Título de tarjeta</h3>
+      <p>El espacio dentro de esta tarjeta y la distancia entre sus elementos usan tokens de espaciado.</p>
+      <div class="live-example__chips">
+        <span>Primer elemento</span>
+        <span>Segundo elemento</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="uso">Cómo elegir un paso</h2>
+    <div class="rules-grid">
+      @for (rule of rules; track rule[0]) {
+        <article class="rule-card">
+          <h3 class="rule-card__title">{{ rule[0] }}</h3>
+          <p class="rule-card__body">{{ rule[1] }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="codigo">Uso en código</h2>
+    <p class="section__intro">Usa la variable directamente en estilos de Angular cuando un componente necesite un token de espaciado.</p>
+    <pre class="code-block">{{ code }}</pre>
+  </section>
+</div>

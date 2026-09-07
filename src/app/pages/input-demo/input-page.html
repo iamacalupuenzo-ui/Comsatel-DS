@@ -1,0 +1,329 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Input</p>
+  <h1 class="title">Input</h1>
+  <p class="description">
+    Campo de texto de una sola línea para la entrada del usuario, con estilos basados en tokens de
+    diseño para todos los estados.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta los controles para explorar los tipos de input y sus estados.</p>
+
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <div class="field-wrap">
+        <div class="form-field">
+          <label class="form-field__label">Correo electrónico<span class="form-field__required">*</span></label>
+
+          @switch (pgType()) {
+            @case ('leading-dropdown') {
+              <cs-input-group>
+                <cs-input-group-addon>
+                  <cs-input-dropdown [options]="phoneCodes" [value]="pgPhoneCode()" (valueChange)="pgPhoneCode.set($event)"></cs-input-dropdown>
+                </cs-input-group-addon>
+                <cs-input-group-input placeholder="Número de teléfono" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()"></cs-input-group-input>
+              </cs-input-group>
+            }
+            @case ('trailing-dropdown') {
+              <cs-input-group>
+                <cs-input-group-addon><cs-input-group-text>$</cs-input-group-text></cs-input-group-addon>
+                <cs-input-group-input placeholder="0.00" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()"></cs-input-group-input>
+                <cs-input-group-addon align="inline-end">
+                  <cs-input-dropdown [options]="currencies" [value]="pgCurrency()" (valueChange)="pgCurrency.set($event)"></cs-input-dropdown>
+                </cs-input-group-addon>
+              </cs-input-group>
+            }
+            @case ('leading-text') {
+              <cs-input-group>
+                <cs-input-group-addon><cs-input-group-text>https://</cs-input-group-text></cs-input-group-addon>
+                <cs-input-group-input placeholder="tu-dominio.com" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()"></cs-input-group-input>
+              </cs-input-group>
+            }
+            @case ('payment') {
+              <cs-input-group>
+                <cs-input-group-addon><cs-icon name="credit-card" [size]="16"></cs-icon></cs-input-group-addon>
+                <cs-input-group-input placeholder="Número de tarjeta" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()"></cs-input-group-input>
+              </cs-input-group>
+            }
+            @default {
+              <cs-input-group>
+                <cs-input-group-addon><cs-icon name="mail" [size]="16"></cs-icon></cs-input-group-addon>
+                <cs-input-group-input placeholder="Ingresa tu correo" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()"></cs-input-group-input>
+              </cs-input-group>
+            }
+          }
+
+          @if (pgInvalid()) {
+            <p class="form-field__error"><cs-icon name="circle-alert" [size]="12"></cs-icon>Ingresa un correo electrónico válido.</p>
+          } @else {
+            <p class="form-field__help">Nunca compartiremos tu correo.</p>
+          }
+        </div>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Tamaños -->
+  <section class="section">
+    <h2 class="section__title" id="sizes">Tamaños</h2>
+    <p class="section__intro">Tres alturas: sm=28px, md=32px (por defecto), lg=40px.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-input fieldSize=&quot;sm&quot; placeholder=&quot;Pequeño (28px)&quot;></cs-input>
+<cs-input fieldSize=&quot;md&quot; placeholder=&quot;Mediano — por defecto (32px)&quot;></cs-input>
+<cs-input fieldSize=&quot;lg&quot; placeholder=&quot;Grande (40px)&quot;></cs-input>"
+    >
+      <div class="field-wrap col">
+        <cs-input fieldSize="sm" placeholder="Pequeño (28px)"></cs-input>
+        <cs-input fieldSize="md" placeholder="Mediano — por defecto (32px)"></cs-input>
+        <cs-input fieldSize="lg" placeholder="Grande (40px)"></cs-input>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Estados -->
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Por defecto, focus (haz clic para activarlo), deshabilitado e inválido.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-input placeholder=&quot;Por defecto&quot;></cs-input>
+<cs-input [disabled]=&quot;true&quot; placeholder=&quot;Deshabilitado&quot;></cs-input>
+<cs-input [invalid]=&quot;true&quot; placeholder=&quot;Inválido&quot;></cs-input>"
+    >
+      <div class="field-wrap col">
+        <cs-input placeholder="Por defecto"></cs-input>
+        <cs-input [disabled]="true" placeholder="Deshabilitado"></cs-input>
+        <cs-input [invalid]="true" placeholder="Inválido"></cs-input>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Con etiqueta y texto de ayuda -->
+  <section class="section">
+    <h2 class="section__title" id="with-label">Con etiqueta y texto de ayuda</h2>
+    <p class="section__intro">Combina el input con una etiqueta y un texto de apoyo para una correcta accesibilidad del formulario.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<label>Correo electrónico *</label>
+<cs-input type=&quot;email&quot; placeholder=&quot;tu@ejemplo.com&quot;></cs-input>
+<p>Nunca compartiremos tu correo.</p>"
+    >
+      <div class="field-wrap">
+        <div class="form-field">
+          <label class="form-field__label">Correo electrónico<span class="form-field__required">*</span></label>
+          <cs-input type="email" placeholder="tu@ejemplo.com"></cs-input>
+          <p class="form-field__help">Nunca compartiremos tu correo.</p>
+        </div>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Tipos de input -->
+  <section class="section">
+    <h2 class="section__title" id="types">Tipos de input</h2>
+    <p class="section__intro">Todos los tipos estándar de HTML funcionan. Ejemplos comunes a continuación.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-input type=&quot;text&quot; placeholder=&quot;Texto&quot;></cs-input>
+<cs-input type=&quot;email&quot; placeholder=&quot;Correo electrónico&quot;></cs-input>
+<cs-input type=&quot;number&quot; placeholder=&quot;42&quot;></cs-input>
+<cs-input type=&quot;date&quot;></cs-input>
+<cs-input type=&quot;search&quot; placeholder=&quot;Buscar…&quot;></cs-input>"
+    >
+      <div class="field-wrap col">
+        <cs-input type="text" placeholder="Texto"></cs-input>
+        <cs-input type="email" placeholder="Correo electrónico"></cs-input>
+        <cs-input type="number" placeholder="42"></cs-input>
+        <cs-input type="date"></cs-input>
+        <cs-input type="search" placeholder="Buscar…"></cs-input>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Patrones de addon -->
+  <section class="section">
+    <h2 class="section__title" id="input-group-patterns">Patrones de addon</h2>
+    <p class="section__intro">Composiciones comunes de InputGroup: ícono, dropdown, etiqueta de texto y pago.</p>
+    <app-demo-shell [controls]="[]" [code]="pgCode()">
+      <div class="field-wrap col">
+        <cs-input-group>
+          <cs-input-group-addon><cs-icon name="mail" [size]="16"></cs-icon></cs-input-group-addon>
+          <cs-input-group-input placeholder="Ingresa tu correo"></cs-input-group-input>
+        </cs-input-group>
+        <cs-input-group>
+          <cs-input-group-addon>
+            <cs-input-dropdown [options]="phoneCodes" [value]="pgPhoneCode()" (valueChange)="pgPhoneCode.set($event)"></cs-input-dropdown>
+          </cs-input-group-addon>
+          <cs-input-group-input placeholder="Número de teléfono"></cs-input-group-input>
+        </cs-input-group>
+        <cs-input-group>
+          <cs-input-group-addon><cs-input-group-text>$</cs-input-group-text></cs-input-group-addon>
+          <cs-input-group-input placeholder="0.00"></cs-input-group-input>
+          <cs-input-group-addon align="inline-end">
+            <cs-input-dropdown [options]="currencies" [value]="pgCurrency()" (valueChange)="pgCurrency.set($event)"></cs-input-dropdown>
+          </cs-input-group-addon>
+        </cs-input-group>
+        <cs-input-group>
+          <cs-input-group-addon><cs-input-group-text>https://</cs-input-group-text></cs-input-group-addon>
+          <cs-input-group-input placeholder="tu-dominio.com"></cs-input-group-input>
+        </cs-input-group>
+        <cs-input-group>
+          <cs-input-group-addon><cs-icon name="credit-card" [size]="16"></cs-icon></cs-input-group-addon>
+          <cs-input-group-input placeholder="Número de tarjeta"></cs-input-group-input>
+        </cs-input-group>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- InputGroup -->
+  <section class="section">
+    <h2 class="section__title" id="input-group">InputGroup</h2>
+    <p class="section__intro">Envuelve un input con íconos, texto o botones de acción al inicio o al final.</p>
+
+    <div class="stack">
+      <app-demo-shell
+        [controls]="[]"
+        code="<cs-input-group>
+  <cs-input-group-addon><cs-icon name=&quot;copy&quot;></cs-icon></cs-input-group-addon>
+  <cs-input-group-input placeholder=&quot;Buscar…&quot;></cs-input-group-input>
+</cs-input-group>"
+      >
+        <div class="field-wrap">
+          <cs-input-group>
+            <cs-input-group-addon><cs-icon name="eye" [size]="16"></cs-icon></cs-input-group-addon>
+            <cs-input-group-input placeholder="Buscar…"></cs-input-group-input>
+          </cs-input-group>
+        </div>
+      </app-demo-shell>
+
+      <app-demo-shell
+        [controls]="[]"
+        code="<cs-input-group>
+  <cs-input-group-input type=&quot;email&quot; placeholder=&quot;tu@ejemplo.com&quot;></cs-input-group-input>
+  <cs-input-group-addon align=&quot;inline-end&quot;><cs-icon name=&quot;mail&quot;></cs-icon></cs-input-group-addon>
+</cs-input-group>"
+      >
+        <div class="field-wrap">
+          <cs-input-group>
+            <cs-input-group-input type="email" placeholder="tu@ejemplo.com"></cs-input-group-input>
+            <cs-input-group-addon align="inline-end"><cs-icon name="mail" [size]="16"></cs-icon></cs-input-group-addon>
+          </cs-input-group>
+        </div>
+      </app-demo-shell>
+
+      <app-demo-shell
+        [controls]="[]"
+        code="<cs-input-group>
+  <cs-input-group-addon><cs-input-group-text>https://</cs-input-group-text></cs-input-group-addon>
+  <cs-input-group-input placeholder=&quot;tu-dominio.com&quot;></cs-input-group-input>
+</cs-input-group>"
+      >
+        <div class="field-wrap">
+          <cs-input-group>
+            <cs-input-group-addon><cs-input-group-text>https://</cs-input-group-text></cs-input-group-addon>
+            <cs-input-group-input placeholder="tu-dominio.com"></cs-input-group-input>
+          </cs-input-group>
+        </div>
+      </app-demo-shell>
+
+      <app-demo-shell
+        [controls]="[]"
+        code="<cs-input-group>
+  <cs-input-group-addon><cs-icon name=&quot;at-sign&quot;></cs-icon></cs-input-group-addon>
+  <cs-input-group-input placeholder=&quot;usuario&quot;></cs-input-group-input>
+</cs-input-group>"
+      >
+        <div class="field-wrap">
+          <cs-input-group>
+            <cs-input-group-addon><cs-icon name="at-sign" [size]="16"></cs-icon></cs-input-group-addon>
+            <cs-input-group-input placeholder="usuario"></cs-input-group-input>
+          </cs-input-group>
+        </div>
+      </app-demo-shell>
+
+      <app-demo-shell
+        [controls]="[]"
+        code="<cs-input-group>
+  <cs-input-group-addon><cs-input-group-text>USD</cs-input-group-text></cs-input-group-addon>
+  <cs-input-group-input type=&quot;number&quot; placeholder=&quot;0.00&quot;></cs-input-group-input>
+</cs-input-group>"
+      >
+        <div class="field-wrap">
+          <cs-input-group>
+            <cs-input-group-addon><cs-input-group-text>USD</cs-input-group-text></cs-input-group-addon>
+            <cs-input-group-input type="number" placeholder="0.00"></cs-input-group-input>
+          </cs-input-group>
+        </div>
+      </app-demo-shell>
+
+      <app-demo-shell
+        [controls]="[]"
+        code="<cs-input-group>
+  <cs-input-group-addon><cs-icon name=&quot;lock&quot;></cs-icon></cs-input-group-addon>
+  <cs-input-group-input [type]=&quot;show ? 'text' : 'password'&quot; placeholder=&quot;Ingresa tu contraseña&quot;></cs-input-group-input>
+  <cs-input-group-addon align=&quot;inline-end&quot;>
+    <button (click)=&quot;show = !show&quot;><cs-icon [name]=&quot;show ? 'eye-off' : 'eye'&quot;></cs-icon></button>
+  </cs-input-group-addon>
+</cs-input-group>"
+      >
+        <div class="field-wrap">
+          <cs-input-group>
+            <cs-input-group-addon><cs-icon name="lock" [size]="16"></cs-icon></cs-input-group-addon>
+            <cs-input-group-input [type]="showPassword() ? 'text' : 'password'" placeholder="Ingresa tu contraseña"></cs-input-group-input>
+            <cs-input-group-addon align="inline-end">
+              <button type="button" class="password-toggle" (click)="togglePassword()">
+                <cs-icon [name]="showPassword() ? 'eye-off' : 'eye'" [size]="16"></cs-icon>
+              </button>
+            </cs-input-group-addon>
+          </cs-input-group>
+        </div>
+      </app-demo-shell>
+
+      <app-demo-shell
+        [controls]="[]"
+        code="<cs-input-group>
+  <cs-input-group-input placeholder=&quot;Ingresa el enlace de invitación&quot;></cs-input-group-input>
+  <cs-input-group-addon align=&quot;inline-end&quot;><cs-button size=&quot;xs&quot; variant=&quot;secondary&quot;>Copiar</cs-button></cs-input-group-addon>
+</cs-input-group>"
+      >
+        <div class="field-wrap">
+          <cs-input-group>
+            <cs-input-group-input placeholder="Ingresa el enlace de invitación"></cs-input-group-input>
+            <cs-input-group-addon align="inline-end"><cs-button size="xs" variant="secondary">Copiar</cs-button></cs-input-group-addon>
+          </cs-input-group>
+        </div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <!-- Props: Input -->
+  <section class="section">
+    <h2 class="section__title" id="props-input">Propiedades de Input</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">fieldSize</code><code class="table__type">"sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Altura: sm=28px, md=32px, lg=40px.</span></div>
+      <div class="table__row"><code class="table__name">type</code><code class="table__type">string</code><code class="table__default">"text"</code><span class="table__desc">Tipo estándar de input HTML — text, email, password, number, date, search, tel, etc.</span></div>
+      <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Aplica el estilo deshabilitado y evita la interacción.</span></div>
+      <div class="table__row"><code class="table__name">invalid</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Aplica el borde y el anillo de error.</span></div>
+      <div class="table__row"><code class="table__name">placeholder</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto de ayuda mostrado cuando el campo está vacío.</span></div>
+      <div class="table__row"><code class="table__name">value</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Valor controlado. Se puede combinar con (valueChange).</span></div>
+    </div>
+  </section>
+
+  <!-- Props: InputGroup -->
+  <section class="section">
+    <h2 class="section__title" id="props-input-group">Propiedades de InputGroup</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">ng-content</code><code class="table__type">—</code><code class="table__default">—</code><span class="table__desc">Componentes cs-input-group-addon y cs-input-group-input proyectados.</span></div>
+    </div>
+
+    <h3 class="subsection__title" id="props-input-group-addon">Propiedades de InputGroupAddon</h3>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">align</code><code class="table__type">"inline-start" | "inline-end"</code><code class="table__default">"inline-start"</code><span class="table__desc">Si el addon aparece antes (leading) o después (trailing) del input.</span></div>
+    </div>
+  </section>
+</div>

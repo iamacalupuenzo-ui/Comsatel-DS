@@ -1,0 +1,15 @@
+<button
+  type="button"
+  [class]="classes"
+  [disabled]="loading || disabled"
+  [attr.aria-pressed]="selected ? true : null"
+>
+  @if (loading) {
+    <svg class="cs-button__spinner" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle class="cs-button__spinner-track" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" />
+      <path class="cs-button__spinner-head" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+    </svg>
+  } @else {
+    <ng-content></ng-content>
+  }
+</button>

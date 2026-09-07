@@ -1,0 +1,14 @@
+<button
+  type="button"
+  class="cs-avatar-add"
+  [class.cs-avatar-add--force-hover]="forceHover"
+  [class.cs-avatar-add--force-focus]="forceFocus"
+  [style.width.px]="px"
+  [style.height.px]="px"
+  [disabled]="disabled"
+  (click)="addClick.emit()"
+>
+  <svg [attr.width]="iconPx" [attr.height]="iconPx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 12h14" /><path d="M12 5v14" />
+  </svg>
+</button>

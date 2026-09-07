@@ -1,0 +1,116 @@
+/* Puerto 1:1 de Dropdown en dropdown.tsx. Sin Base UI: el cierre al hacer
+   clic afuera lo da un listener de document (ver dropdown.ts), igual de
+   robusto que el patrón de Base UI para este caso simple (no hay portal ni
+   colisión con el viewport que resolver). */
+:host {
+  display: inline-flex;
+}
+
+.cs-dropdown {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.cs-dropdown--right {
+  align-items: flex-end;
+}
+
+/* Trigger — botón con etiqueta */
+.cs-dropdown__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--layout-gap-xs);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family-content);
+  font-weight: var(--font-weight-accent);
+  letter-spacing: var(--font-letter-spacing-content);
+  color: var(--color-text-base-default);
+  cursor: pointer;
+  outline: none;
+  transition: background-color var(--motion-duration-fast) var(--motion-easing-default);
+}
+.cs-dropdown__trigger:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-border-brand-subtle);
+}
+
+.cs-dropdown__trigger--button {
+  border: 1px solid var(--color-border-neutral-default);
+  background-color: var(--color-background-neutral-subtle);
+  box-shadow: var(--shadow-xs);
+}
+.cs-dropdown__trigger--button.cs-dropdown__trigger--open {
+  background-color: var(--color-background-neutral-subtle-pressed);
+}
+
+.cs-dropdown__trigger--icon {
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  color: var(--color-text-base-subtle);
+}
+.cs-dropdown__trigger--icon.cs-dropdown__trigger--open {
+  background-color: var(--color-background-neutral-subtle-pressed);
+}
+
+.cs-dropdown__chevron {
+  transition: transform var(--motion-duration-fast) var(--motion-easing-default);
+}
+.cs-dropdown__chevron--open {
+  transform: rotate(180deg);
+}
+
+/* Menú */
+.cs-dropdown__menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: var(--elevation-z-index-dropdown);
+  background-color: var(--color-background-base);
+  border: 1px solid var(--color-border-neutral-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding-block: var(--layout-padding-xs);
+}
+
+.cs-dropdown__header {
+  padding-inline: var(--layout-padding-lg);
+  padding-block: var(--layout-padding-xs);
+  font-family: var(--font-family-content);
+  letter-spacing: var(--font-letter-spacing-content);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-emphasis);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-default);
+}
+
+.cs-dropdown__group-header {
+  padding-inline: var(--layout-padding-lg);
+  padding-top: var(--layout-padding-md);
+  padding-bottom: var(--layout-padding-2xs);
+  font-family: var(--font-family-content);
+  letter-spacing: var(--font-letter-spacing-content);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-emphasis);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtle);
+}
+.cs-dropdown__group-header--first {
+  padding-top: var(--layout-padding-xs);
+}
+
+.cs-dropdown__items {
+  padding-inline: var(--layout-padding-xs);
+}
+
+.cs-dropdown__divider {
+  height: 1px;
+  background-color: var(--color-border-divider);
+}
+.cs-dropdown__divider--after-header {
+  margin-bottom: var(--layout-padding-xs);
+}
+.cs-dropdown__divider--inline {
+  margin-block: var(--layout-padding-xs);
+}

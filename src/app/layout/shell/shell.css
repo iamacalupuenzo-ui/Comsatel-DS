@@ -1,0 +1,163 @@
+:host {
+  display: block;
+}
+
+.topnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  z-index: var(--elevation-z-index-sticky, 200);
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-lg);
+  padding-inline: var(--layout-padding-xl);
+  border-bottom: 1px solid var(--color-border-divider);
+  background-color: var(--elevation-surface-default);
+}
+
+.topnav__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-md);
+  text-decoration: none;
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-boldest);
+}
+
+.topnav__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-background-brand-default);
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-label-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.topnav__tag {
+  font-size: var(--font-size-content-note);
+  color: var(--color-text-base-subtlest);
+}
+
+.sidebar {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  z-index: 30;
+  width: 224px;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+  padding: var(--layout-padding-2xl) var(--layout-padding-lg);
+  border-right: 1px solid var(--color-border-divider);
+  background-color: var(--elevation-surface-default);
+}
+
+.sidebar__section + .sidebar__section {
+  margin-top: var(--layout-padding-2xl);
+}
+
+.sidebar__title {
+  margin: 0 0 var(--layout-padding-xs);
+  padding-inline: var(--layout-padding-lg);
+  font-size: var(--font-size-label-micro);
+  font-weight: var(--font-weight-emphasis);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-base-subtlest);
+}
+
+.sidebar__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-2xs);
+}
+
+.sidebar__item,
+.sidebar__group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--layout-padding-sm) var(--layout-padding-lg);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: 16px;
+  color: var(--color-text-base-subtle);
+  text-decoration: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+a.sidebar__item:hover,
+.sidebar__group:hover {
+  background-color: var(--color-interaction-hovered);
+  color: var(--color-text-base-default);
+}
+
+.sidebar__item--active {
+  background-color: var(--color-background-brand-subtlest);
+  color: var(--color-text-brand-default);
+  font-weight: var(--font-weight-accent);
+}
+
+.sidebar__group--active {
+  color: var(--color-text-brand-default);
+  font-weight: var(--font-weight-accent);
+}
+
+.sidebar__item--pending {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--color-text-base-subtlest);
+  transition: transform 0.15s ease;
+}
+.chevron--open {
+  transform: rotate(90deg);
+}
+
+.sidebar__children {
+  list-style: none;
+  margin: var(--layout-padding-2xs) 0 0;
+  padding: var(--layout-padding-2xs) 0 var(--layout-padding-2xs) var(--layout-padding-md);
+  margin-left: var(--layout-padding-lg);
+  border-left: 1px solid var(--color-border-divider);
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-2xs);
+}
+.sidebar__item--child {
+  padding: var(--layout-padding-xs) var(--layout-padding-lg);
+  font-size: var(--font-size-content-note);
+  line-height: 16px;
+}
+
+.content {
+  margin-left: 240px;
+  padding-top: 56px;
+  min-height: 100vh;
+}
+
+/* Reserva el mismo espacio que ocupa el TOC (visible desde 1280px, ver
+   table-of-contents.css) para que el contenido de la página se centre entre
+   el sidebar y el TOC, no dentro de todo el ancho sobrante — mismo criterio
+   que <main class="ml-60 xl:mr-56"> en DocsLayout.astro. */
+@media (min-width: 1280px) {
+  .content {
+    margin-right: 224px;
+  }
+}

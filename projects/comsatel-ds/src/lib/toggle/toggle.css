@@ -1,0 +1,59 @@
+/* Puerto 1:1 del Toggle de React (toggle.tsx). Mismo criterio que Checkbox:
+   un <input type="checkbox" role="switch"> nativo oculto da la accesibilidad
+   (teclado, foco, anuncio de estado) detrás del track/thumb dibujado. */
+:host {
+  display: inline-flex;
+}
+
+.cs-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.cs-toggle--two-lines { align-items: flex-start; }
+.cs-toggle--disabled { opacity: var(--opacity-disabled); pointer-events: none; }
+
+.cs-toggle__track {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-neutral-bolder);
+  transition: background-color var(--motion-duration-medium) var(--motion-easing-default);
+}
+.cs-toggle__track--checked {
+  background-color: var(--color-background-brand-default);
+}
+
+.cs-toggle__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.cs-toggle__input:focus-visible ~ .cs-toggle__thumb,
+.cs-toggle__track:has(.cs-toggle__input:focus-visible) {
+  box-shadow: 0 0 0 2px var(--color-border-focused);
+}
+
+.cs-toggle__thumb {
+  position: absolute;
+  border-radius: var(--radius-full);
+  background-color: white;
+  box-shadow: var(--shadow-xs);
+  transition: left var(--motion-duration-medium) var(--motion-easing-default);
+}
+
+.cs-toggle__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.cs-toggle__label { color: var(--color-text-base-default); }
+.cs-toggle__desc { color: var(--color-text-base-subtle); }

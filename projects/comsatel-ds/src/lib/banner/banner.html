@@ -1,0 +1,21 @@
+<div [class]="classes">
+  @if (icon) {
+    <cs-icon [name]="iconName" [size]="20" class="cs-banner__icon"></cs-icon>
+  }
+
+  <div class="cs-banner__content">
+    @if (title) {
+      <p class="cs-banner__title">{{ title }}</p>
+    }
+    <p class="cs-banner__body"><ng-content></ng-content></p>
+    @if (action) {
+      <button type="button" class="cs-banner__action" (click)="actionClick.emit()">{{ action.label }}</button>
+    }
+  </div>
+
+  @if (dismissible) {
+    <button type="button" class="cs-banner__dismiss" aria-label="Cerrar" (click)="dismiss.emit()">
+      <cs-icon name="x" [size]="16"></cs-icon>
+    </button>
+  }
+</div>

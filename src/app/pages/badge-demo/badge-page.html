@@ -1,0 +1,182 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Badge</p>
+  <h1 class="title">Badge</h1>
+  <p class="description">
+    Los badges son etiquetas compactas que comunican estado, categoría o conteo. Pueden ser
+    independientes o adjuntarse a otros elementos para agregar metadata contextual.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta los controles para explorar todas las variantes del badge.</p>
+
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <cs-badge [variant]="variant()" [size]="size()" [pill]="pill()">
+        @if (showLeading()) {
+          <cs-icon name="tag" [size]="12"></cs-icon>
+        }
+        Nueva función
+        @if (showTrailing()) {
+          <cs-icon name="x" [size]="12"></cs-icon>
+        }
+      </cs-badge>
+    </app-demo-shell>
+  </section>
+
+  <!-- Variantes -->
+  <section class="section">
+    <h2 class="section__title" id="variants">Variantes</h2>
+    <p class="section__intro">Once variantes que cubren la semántica de estado (rellenos subtle y solid) más un outline neutral.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-badge>neutral</cs-badge>
+<cs-badge variant=&quot;brand&quot;>brand</cs-badge>
+<cs-badge variant=&quot;success&quot;>success</cs-badge>
+<cs-badge variant=&quot;warning&quot;>warning</cs-badge>
+<cs-badge variant=&quot;danger&quot;>danger</cs-badge>
+<cs-badge variant=&quot;brand-solid&quot;>brand-solid</cs-badge>
+<cs-badge variant=&quot;outline&quot;>outline</cs-badge>"
+    >
+      <div class="row">
+        @for (v of variants; track v) {
+          <cs-badge [variant]="v">{{ v }}</cs-badge>
+        }
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Tamaños -->
+  <section class="section">
+    <h2 class="section__title" id="sizes">Tamaños</h2>
+    <p class="section__intro">Tres tamaños para distintas densidades de información.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-badge variant=&quot;brand&quot; size=&quot;sm&quot;>Small</cs-badge>
+<cs-badge variant=&quot;brand&quot; size=&quot;md&quot;>Medium</cs-badge>
+<cs-badge variant=&quot;brand&quot; size=&quot;lg&quot;>Large</cs-badge>"
+    >
+      <div class="row">
+        <cs-badge variant="brand" size="sm">Small</cs-badge>
+        <cs-badge variant="brand" size="md">Medium</cs-badge>
+        <cs-badge variant="brand" size="lg">Large</cs-badge>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Forma pill -->
+  <section class="section">
+    <h2 class="section__title" id="pill">Forma pill</h2>
+    <p class="section__intro">Activa <code class="inline-code">pill</code> para usar <code class="inline-code">--radius-full</code> y crear un badge completamente redondeado.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-badge variant=&quot;neutral&quot; [pill]=&quot;true&quot;>neutral</cs-badge>
+<cs-badge variant=&quot;brand&quot; [pill]=&quot;true&quot;>brand</cs-badge>
+<cs-badge variant=&quot;success&quot; [pill]=&quot;true&quot;>success</cs-badge>
+<cs-badge variant=&quot;warning&quot; [pill]=&quot;true&quot;>warning</cs-badge>
+<cs-badge variant=&quot;danger&quot; [pill]=&quot;true&quot;>danger</cs-badge>"
+    >
+      <div class="row">
+        @for (v of pillVariants; track v) {
+          <cs-badge [variant]="v" [pill]="true">{{ v }}</cs-badge>
+        }
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Con íconos -->
+  <section class="section">
+    <h2 class="section__title" id="with-icons">Con íconos</h2>
+    <p class="section__intro">Los íconos se colocan dentro del badge, con el mismo tamaño que la tipografía del badge.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-badge variant=&quot;brand&quot;><cs-icon name=&quot;star&quot; [size]=&quot;12&quot;></cs-icon>Destacado</cs-badge>
+<cs-badge variant=&quot;success&quot;><cs-icon name=&quot;circle-check&quot; [size]=&quot;12&quot;></cs-icon>Verificado</cs-badge>
+<cs-badge variant=&quot;warning&quot;><cs-icon name=&quot;alert-triangle&quot; [size]=&quot;12&quot;></cs-icon>Revisión</cs-badge>
+<cs-badge variant=&quot;danger&quot;><cs-icon name=&quot;circle-alert&quot; [size]=&quot;12&quot;></cs-icon>Error</cs-badge>
+<cs-badge variant=&quot;neutral&quot;>Borrador<cs-icon name=&quot;x&quot; [size]=&quot;12&quot;></cs-icon></cs-badge>"
+    >
+      <div class="row">
+        <cs-badge variant="brand"><cs-icon name="star" [size]="12"></cs-icon>Destacado</cs-badge>
+        <cs-badge variant="success"><cs-icon name="circle-check" [size]="12"></cs-icon>Verificado</cs-badge>
+        <cs-badge variant="warning"><cs-icon name="alert-triangle" [size]="12"></cs-icon>Revisión</cs-badge>
+        <cs-badge variant="danger"><cs-icon name="circle-alert" [size]="12"></cs-icon>Error</cs-badge>
+        <cs-badge variant="neutral">Borrador<cs-icon name="x" [size]="12"></cs-icon></cs-badge>
+        <cs-badge variant="brand" [pill]="true"><cs-icon name="star" [size]="12"></cs-icon>Nuevo</cs-badge>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Badges de estado -->
+  <section class="section">
+    <h2 class="section__title" id="status">Badges de estado</h2>
+    <p class="section__intro">Usa variantes semánticas para comunicar estado. Combínalas con íconos para accesibilidad.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-badge variant=&quot;success&quot; [pill]=&quot;true&quot;><cs-icon name=&quot;circle-check&quot; [size]=&quot;12&quot;></cs-icon>Publicado</cs-badge>
+<cs-badge variant=&quot;warning&quot; [pill]=&quot;true&quot;><cs-icon name=&quot;alert-triangle&quot; [size]=&quot;12&quot;></cs-icon>En revisión</cs-badge>
+<cs-badge variant=&quot;danger&quot; [pill]=&quot;true&quot;><cs-icon name=&quot;circle-alert&quot; [size]=&quot;12&quot;></cs-icon>Rechazado</cs-badge>
+<cs-badge variant=&quot;neutral&quot; [pill]=&quot;true&quot;>Borrador</cs-badge>
+<cs-badge variant=&quot;brand&quot; [pill]=&quot;true&quot;><cs-icon name=&quot;star&quot; [size]=&quot;12&quot;></cs-icon>Destacado</cs-badge>"
+    >
+      <div class="row">
+        <cs-badge variant="success" [pill]="true"><cs-icon name="circle-check" [size]="12"></cs-icon>Publicado</cs-badge>
+        <cs-badge variant="warning" [pill]="true"><cs-icon name="alert-triangle" [size]="12"></cs-icon>En revisión</cs-badge>
+        <cs-badge variant="danger" [pill]="true"><cs-icon name="circle-alert" [size]="12"></cs-icon>Rechazado</cs-badge>
+        <cs-badge variant="neutral" [pill]="true">Borrador</cs-badge>
+        <cs-badge variant="brand" [pill]="true"><cs-icon name="star" [size]="12"></cs-icon>Destacado</cs-badge>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Variantes solid -->
+  <section class="section">
+    <h2 class="section__title" id="solid">Variantes solid</h2>
+    <p class="section__intro">
+      Rellenos de alto contraste para situaciones donde el badge necesita resaltar: contadores de
+      notificación, etiquetas sobre superficies oscuras.
+    </p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-badge variant=&quot;brand-solid&quot;>Brand</cs-badge>
+<cs-badge variant=&quot;success-solid&quot;>Success</cs-badge>
+<cs-badge variant=&quot;warning-solid&quot;>Warning</cs-badge>
+<cs-badge variant=&quot;danger-solid&quot;>Danger</cs-badge>
+<cs-badge variant=&quot;neutral-solid&quot;>Neutral</cs-badge>"
+    >
+      <div class="row">
+        @for (v of solidVariants; track v) {
+          <cs-badge [variant]="v">{{ v.replace('-solid', '') }}</cs-badge>
+        }
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head">
+        <span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span>
+      </div>
+      <div class="table__row">
+        <code class="table__name">variant</code>
+        <code class="table__type">BadgeVariant</code>
+        <code class="table__default">"neutral"</code>
+        <span class="table__desc">Controla el estilo visual y el significado semántico del badge.</span>
+      </div>
+      <div class="table__row">
+        <code class="table__name">size</code>
+        <code class="table__type">"sm" | "md" | "lg"</code>
+        <code class="table__default">"md"</code>
+        <span class="table__desc">Controla la altura y el tamaño de fuente. sm=16px, md=20px, lg=24px.</span>
+      </div>
+      <div class="table__row">
+        <code class="table__name">pill</code>
+        <code class="table__type">boolean</code>
+        <code class="table__default">false</code>
+        <span class="table__desc">Cuando es true, aplica border-radius: var(--radius-full) para una forma completamente redondeada.</span>
+      </div>
+    </div>
+  </section>
+</div>

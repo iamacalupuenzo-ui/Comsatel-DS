@@ -1,0 +1,67 @@
+.cs-preview-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-default);
+  box-shadow: var(--shadow-xs);
+}
+
+.cs-preview-card__preview {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* Alto fijo propio de esta tarjeta ilustrativa (no un token de layout). */
+  height: 200px;
+  background-color: var(--color-background-neutral-subtlest);
+}
+.cs-preview-card__preview :where(img, [image]) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cs-preview-card__preview-label {
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtlest);
+}
+
+.cs-preview-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--layout-padding-lg);
+  padding-block: var(--layout-padding-md);
+  border-top: 1px solid var(--color-border-neutral-default);
+  background-color: var(--color-background-neutral-subtlest);
+}
+
+.cs-preview-card__info {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: var(--layout-gap-sm);
+}
+
+.cs-preview-card__logo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--layout-size-2xs);
+  height: var(--layout-size-2xs);
+}
+
+.cs-preview-card__name {
+  margin: 0;
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-subtle);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

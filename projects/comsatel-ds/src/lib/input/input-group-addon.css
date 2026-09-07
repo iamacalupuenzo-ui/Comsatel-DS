@@ -1,0 +1,21 @@
+:host {
+  display: contents;
+}
+
+.cs-input-group-addon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: var(--layout-gap-2xs);
+  color: var(--color-text-base-subtle);
+  user-select: none;
+}
+.cs-input-group-addon--start {
+  order: -1;
+  padding-inline-start: var(--layout-padding-md);
+}
+.cs-input-group-addon--end {
+  order: 1;
+  padding-inline-end: var(--layout-padding-md);
+}

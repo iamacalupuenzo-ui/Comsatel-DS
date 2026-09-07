@@ -1,0 +1,116 @@
+<div class="page">
+  <p class="eyebrow">Fundamentos / Íconos</p>
+  <h1 class="title">Íconos</h1>
+  <p class="description">
+    Una biblioteca compartida para acciones, navegación y estados. Explora Lucide, descarga sus SVG
+    y usa los mismos íconos que el sistema en React.
+  </p>
+
+  <!-- Biblioteca de íconos -->
+  <section class="section">
+    <h2 class="section__title" id="library">Biblioteca de íconos</h2>
+    <p class="section__intro">Busca por nombre técnico o por palabra clave en español.</p>
+
+    <div class="controls">
+      <label class="field field--grow">
+        <span class="field__label">Buscar</span>
+        <input
+          class="field__control"
+          type="search"
+          placeholder="Busca: flecha, usuario, mapa, arrow…"
+          [value]="query()"
+          (input)="onQueryChange($any($event.target).value)"
+        />
+      </label>
+      <label class="field">
+        <span class="field__label">Tamaño</span>
+        <cs-input-dropdown [options]="sizeOptions" [value]="size().key" (valueChange)="onSizeChange($event)"></cs-input-dropdown>
+      </label>
+    </div>
+
+    <a class="download-all" href="/icons/lucide.zip" download>Descargar biblioteca completa (ZIP)</a>
+
+    @if (failed()) {
+      <p class="status status--error">No se pudo cargar la biblioteca.</p>
+      <button type="button" class="retry-btn" (click)="retry()">Reintentar</button>
+    } @else if (!catalog()) {
+      <p class="status">Cargando biblioteca…</p>
+    } @else {
+      <p class="count">{{ matches().length }} íconos encontrados · Lucide {{ catalog()!.version }}</p>
+
+      @if (matches().length === 0) {
+        <p class="empty">No hay íconos para esta búsqueda. Prueba otro nombre en inglés o una palabra más general.</p>
+      }
+
+      <div class="icon-grid">
+        @for (entry of visible(); track entry.id) {
+          <button
+            type="button"
+            class="icon-cell"
+            [class.icon-cell--active]="selected()?.id === entry.id"
+            (click)="select(entry)"
+          >
+            <span class="icon-cell__icon" [innerHTML]="iconHtml(entry, sizePx())"></span>
+            <span class="icon-cell__label">{{ entry.id }}</span>
+          </button>
+        }
+      </div>
+
+      @if (matches().length > visible().length) {
+        <div class="show-more">
+          <button type="button" class="show-more__btn" (click)="showMore()">Mostrar más</button>
+        </div>
+      }
+    }
+  </section>
+
+  <!-- Uso en código -->
+  <section class="section">
+    <h2 class="section__title" id="code">Uso en código</h2>
+    <p class="section__intro">Selecciona un ícono arriba para ver su vista previa y el código correspondiente.</p>
+
+    @if (selected(); as entry) {
+      <div class="usage-panel">
+        <div class="usage-panel__preview">
+          <span class="usage-panel__icon" [innerHTML]="iconHtml(entry, 20)"></span>
+          <strong>{{ entry.name }}</strong>
+          <button type="button" class="usage-panel__copy" (click)="copySvg()">
+            {{ copyStatus() === 'copied' ? 'SVG copiado' : copyStatus() === 'error' ? 'No se pudo copiar' : 'Copiar SVG' }}
+          </button>
+          <a class="usage-panel__download" [href]="'/icons/lucide/' + entry.id + '.svg'" download>Descargar SVG</a>
+        </div>
+        <app-code-block [code]="codeText()"></app-code-block>
+      </div>
+    } @else {
+      <p class="empty">Selecciona un ícono para ver su código y descargarlo.</p>
+    }
+  </section>
+
+  <!-- Cómo usar los íconos -->
+  <section class="section">
+    <h2 class="section__title" id="usage">Cómo usar los íconos</h2>
+    <ul class="rules-list">
+      <li>Usa el mismo símbolo para la misma acción. Acompaña las acciones ambiguas con texto.</li>
+      <li>El tamaño depende de los tokens de layout; el color se hereda del texto mediante <code>currentColor</code>.</li>
+      <li>Un ícono decorativo se oculta a lectores de pantalla. Un botón que solo contiene un ícono necesita un nombre accesible.</li>
+      <li>Conserva el trazo y la proporción de Lucide. El área interactiva pertenece al control y puede ser mayor que el dibujo.</li>
+      <li>El registro <code>cs-icon</code> es un subconjunto curado para uso interno de los componentes; para cualquier otro ícono de este catálogo, usa el SVG directo.</li>
+    </ul>
+  </section>
+
+  <!-- Origen y referencias -->
+  <section class="section">
+    <h2 class="section__title" id="references">Origen y referencias</h2>
+    <p class="section__intro">
+      Catálogo completo de Lucide, igual al que usa el sistema en React (misma versión, mismos
+      1500+ íconos). El componente <code class="inline-code">cs-icon</code> de la librería solo
+      trae un subconjunto curado para los componentes internos; este catálogo no depende de él.
+    </p>
+    <ul class="link-list">
+      <li><a href="https://github.com/lucide-icons/lucide" target="_blank" rel="noopener">Lucide · GitHub</a></li>
+      <li><a href="/icons/lucide/LICENSE.txt" target="_blank" rel="noopener">Licencia incluida · ISC / MIT</a></li>
+      <li><a href="https://carbondesignsystem.com/elements/icons/usage/" target="_blank" rel="noopener">Carbon · Cómo usar los íconos</a></li>
+      <li><a href="https://www.radix-ui.com/icons" target="_blank" rel="noopener">Radix Icons</a></li>
+    </ul>
+  </section>
+</div>

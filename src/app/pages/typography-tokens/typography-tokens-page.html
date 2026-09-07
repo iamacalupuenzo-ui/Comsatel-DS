@@ -1,0 +1,73 @@
+<div class="page">
+  <p class="eyebrow">Fundamentos / Tipografía</p>
+  <h1 class="title">Tokens tipográficos</h1>
+  <p class="description">
+    La vista de implementación para inspeccionar, probar y copiar los tokens tipográficos que usa
+    el sistema.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Probador de estilos de texto</h2>
+    <p class="section__intro">Elige un estilo y un peso. La muestra y el CSS se generan desde las mismas definiciones de tokens que consumen los componentes.</p>
+    <div class="panel">
+      <div class="playground-controls">
+        <label class="field">
+          <span class="field__label">Estilo</span>
+          <cs-input-dropdown [options]="styleOptions" [value]="selectedStyle()" (valueChange)="onStyleChange($event)"></cs-input-dropdown>
+        </label>
+        <label class="field">
+          <span class="field__label">Peso</span>
+          <cs-input-dropdown [options]="weightOptions" [value]="selectedWeight()" (valueChange)="onWeightChange($event)"></cs-input-dropdown>
+        </label>
+      </div>
+      <div class="preview-box">
+        <p [style]="previewStyle()">{{ sample }}</p>
+      </div>
+      <pre class="code-block">{{ codeText() }}</pre>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="tokens-estilo">Tokens de estilos de texto</h2>
+    <p class="section__intro">
+      Un estilo semántico combina familia, tamaño, interlineado, espaciado entre letras y peso
+      predeterminado.
+    </p>
+    <div class="style-table">
+      <div class="style-table__row style-table__row--head">
+        <span>Estilo</span><span>Muestra</span><span>Tokens CSS</span><span>Peso</span>
+      </div>
+      @for (name of styleNames; track name) {
+        <div class="style-table__row">
+          <code class="style-table__name">text/{{ name }}</code>
+          <p [style]="textStyleFor(name, defaultWeightFor(name))">Información clara</p>
+          <code class="style-table__code">{{ tokenCodeFor(name, defaultWeightFor(name)) }}</code>
+          <code class="style-table__weight">--font-weight-{{ defaultWeightFor(name) }}</code>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="primitivos">Tokens tipográficos primitivos</h2>
+    <p class="section__intro">
+      Valores base con los que se componen los estilos semánticos. No uses primitivos directamente
+      en la interfaz de producto, salvo que ningún estilo semántico cubra el caso.
+    </p>
+    <div class="primitive-grid">
+      @for (group of primitiveGroups; track group.title) {
+        <div class="primitive-panel">
+          <h3 class="primitive-panel__title">{{ group.title }}</h3>
+          <div class="primitive-panel__rows">
+            @for (row of group.rows; track row[0]) {
+              <div class="primitive-row">
+                <code class="primitive-row__name">{{ row[0] }}</code>
+                <code class="primitive-row__value">{{ row[1] }}</code>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+</div>

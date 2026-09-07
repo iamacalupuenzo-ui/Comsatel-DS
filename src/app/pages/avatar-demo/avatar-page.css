@@ -1,0 +1,9 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.status-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-xl);
+}

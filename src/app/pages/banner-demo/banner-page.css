@@ -1,0 +1,32 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.banner-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-lg);
+}
+.banner-max { max-width: 600px; }
+
+.dismissed-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 600px;
+  padding: var(--layout-padding-lg) var(--layout-padding-xl);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--color-border-neutral-subtle);
+  font-size: var(--font-size-content-note);
+  color: var(--color-text-base-subtle);
+}
+.dismissed-notice__reset {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-brand-default);
+  cursor: pointer;
+}
+.dismissed-notice__reset:hover { text-decoration: underline; }

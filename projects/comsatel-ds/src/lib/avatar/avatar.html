@@ -1,0 +1,52 @@
+@if (!hasStatus) {
+  <div class="cs-avatar__circle" [style.width.px]="px" [style.height.px]="px" [style.background-color]="isImage ? null : placeholderBg">
+    @if (isImage) {
+      <img class="cs-avatar__img" [src]="src" [alt]="alt" />
+    }
+    @if (isPlaceholder) {
+      <div class="cs-avatar__placeholder">
+        <svg [attr.width]="iconPx" [attr.height]="iconPx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+        </svg>
+      </div>
+    }
+    @if (isText) {
+      <span class="cs-avatar__initials" [ngStyle]="textStyle">{{ initials }}</span>
+    }
+  </div>
+} @else {
+  <div class="cs-avatar__wrapper" [style.width.px]="px" [style.height.px]="px">
+    <div class="cs-avatar__circle cs-avatar__circle--absolute" [style.background-color]="isImage ? null : placeholderBg">
+      @if (isImage) {
+        <img class="cs-avatar__img" [src]="src" [alt]="alt" />
+      }
+      @if (isPlaceholder) {
+        <div class="cs-avatar__placeholder">
+          <svg [attr.width]="iconPx" [attr.height]="iconPx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+          </svg>
+        </div>
+      }
+      @if (isText) {
+        <span class="cs-avatar__initials" [ngStyle]="textStyle">{{ initials }}</span>
+      }
+    </div>
+    <div
+      class="cs-avatar__indicator"
+      [class.cs-avatar__indicator--company]="status === 'company'"
+      [style.width.px]="indicatorPx"
+      [style.height.px]="indicatorPx"
+      [style.background-color]="status === 'company' ? 'transparent' : 'var(--color-status-' + status + ')'"
+    >
+      @if (status === 'company') {
+        @if (companyIconSrc) {
+          <img class="cs-avatar__company-img" [src]="companyIconSrc" alt="" />
+        } @else {
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cs-avatar__company-icon">
+            <path d="M10 12h4" /><path d="M10 8h4" /><path d="M14 21v-3a2 2 0 0 0-4 0v3" /><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" /><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" />
+          </svg>
+        }
+      }
+    </div>
+  </div>
+}

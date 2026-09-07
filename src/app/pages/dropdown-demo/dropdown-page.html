@@ -1,0 +1,374 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Dropdown</p>
+  <h1 class="title">Dropdown</h1>
+  <p class="description">
+    Los dropdowns presentan una lista de opciones activada por un botón, ícono o input. Admite
+    ítems agrupados, atajos de teclado, badges, variantes destructiva/éxito, y tamaños xs / sm / md / lg.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta los controles para explorar los tipos de trigger, posiciones y tamaños.</p>
+
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <div class="stage">
+        <cs-dropdown
+          [trigger]="pgTrigger()"
+          [size]="pgSize()"
+          [position]="pgPosition()"
+          label="Dropdown"
+          [header]="pgHeader()"
+          [groups]="pgGroups()"
+        ></cs-dropdown>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Tipos de trigger -->
+  <section class="section">
+    <h2 class="section__title" id="trigger-types">Tipos de trigger</h2>
+    <p class="section__intro">Usa un botón con etiqueta para acciones primarias, o un ícono de puntos suspensivos para menús secundarios o contextuales.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-dropdown trigger=&quot;button&quot; label=&quot;Dropdown&quot; [groups]=&quot;groups&quot;></cs-dropdown>
+<cs-dropdown trigger=&quot;icon&quot; [groups]=&quot;groups&quot;></cs-dropdown>"
+    >
+      <div class="stage stage--row">
+        <div class="stage__item">
+          <span class="stage__label">Botón</span>
+          <cs-dropdown trigger="button" label="Dropdown" [groups]="simpleGroups"></cs-dropdown>
+        </div>
+        <div class="stage__item">
+          <span class="stage__label">Ícono</span>
+          <cs-dropdown trigger="icon" [groups]="simpleGroups"></cs-dropdown>
+        </div>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Ítems agrupados -->
+  <section class="section">
+    <h2 class="section__title" id="grouped-items">Ítems agrupados</h2>
+    <p class="section__intro">Usa la propiedad <code class="inline-code">groups</code> para organizar los ítems en secciones con encabezado separadas por divisores.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-dropdown
+  trigger=&quot;button&quot;
+  label=&quot;Cuenta&quot;
+  [groups]=&quot;[
+    &#123; header: 'Cuenta', items: [...] &#125;,
+    &#123; header: 'Acciones', items: [...] &#125;,
+  ]&quot;
+></cs-dropdown>"
+    >
+      <div class="stage">
+        <cs-dropdown trigger="button" label="Cuenta" [groups]="groupedGroups"></cs-dropdown>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Variantes de ítem -->
+  <section class="section">
+    <h2 class="section__title" id="variants">Variantes de ítem</h2>
+    <p class="section__intro">Los ítems admiten tres variantes semánticas: default, destructive (peligro) y success.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-dropdown
+  label=&quot;Acciones&quot;
+  header=&quot;Opciones&quot;
+  [groups]=&quot;[&#123; items: [
+    &#123; label: 'Ítem por defecto' &#125;,
+    &#123; label: 'Ítem success',     variant: 'success' &#125;,
+    &#123; label: 'Ítem destructivo', variant: 'destructive' &#125;,
+    &#123; label: 'Ítem deshabilitado', disabled: true &#125;,
+  ]&#125;]&quot;
+></cs-dropdown>"
+    >
+      <div class="stage">
+        <cs-dropdown trigger="button" label="Acciones" header="Opciones" [groups]="variantGroups"></cs-dropdown>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Con atajos -->
+  <section class="section">
+    <h2 class="section__title" id="shortcuts">Con atajos</h2>
+    <p class="section__intro">Agrega un string de <code class="inline-code">shortcut</code> a cada ítem para mostrar el atajo de teclado al final de la fila.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-dropdown
+  label=&quot;Editar&quot;
+  [groups]=&quot;[&#123; items: [
+    &#123; label: 'Editar',    shortcut: '⌘E' &#125;,
+    &#123; label: 'Duplicar',  shortcut: '⌘D', dividerAfter: true &#125;,
+    &#123; label: 'Eliminar',  variant: 'destructive' &#125;,
+  ]&#125;]&quot;
+></cs-dropdown>"
+    >
+      <div class="stage">
+        <cs-dropdown trigger="button" label="Editar" [groups]="[{ items: [{ label: 'Editar', value: 'edit', icon: 'pencil', shortcut: '⌘E' }, { label: 'Duplicar', value: 'duplicate', icon: 'copy', shortcut: '⌘D', dividerAfter: true }, { label: 'Eliminar', value: 'delete', icon: 'trash-2', variant: 'destructive' }] }]"></cs-dropdown>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Tamaños -->
+  <section class="section">
+    <h2 class="section__title" id="sizes">Tamaños</h2>
+    <p class="section__intro">Cuatro tamaños: xs (24px/11px), sm (28px/13px), md (32px/13px), lg (40px/14px).</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-dropdown size=&quot;xs&quot; label=&quot;Menú&quot; [groups]=&quot;groups&quot;></cs-dropdown>
+<cs-dropdown size=&quot;sm&quot; label=&quot;Menú&quot; [groups]=&quot;groups&quot;></cs-dropdown>
+<cs-dropdown size=&quot;md&quot; label=&quot;Menú&quot; [groups]=&quot;groups&quot;></cs-dropdown>
+<cs-dropdown size=&quot;lg&quot; label=&quot;Menú&quot; [groups]=&quot;groups&quot;></cs-dropdown>"
+    >
+      <div class="stage stage--row">
+        @for (s of sizes; track s) {
+          <div class="stage__item">
+            <span class="stage__label">{{ s }}</span>
+            <cs-dropdown trigger="button" label="Menú" [size]="s" [groups]="sizeGroups"></cs-dropdown>
+          </div>
+        }
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Ítems de checkbox -->
+  <section class="section">
+    <h2 class="section__title" id="checkbox-items">Ítems de checkbox</h2>
+    <p class="section__intro">Define <code class="inline-code">selectionMode: "checkbox"</code> en un grupo para ítems de selección múltiple: cada uno se marca de forma independiente y el menú permanece abierto para poder marcar más de uno.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-dropdown
+  label=&quot;Estado&quot;
+  [groups]=&quot;[&#123;
+    header: 'Categorías',
+    selectionMode: 'checkbox',
+    items: [
+      &#123; label: 'Por hacer', selected: checked.todo &#125;,
+      &#123; label: 'En progreso', selected: checked.inprogress &#125;,
+      &#123; label: 'Hecho', selected: checked.done &#125;,
+    ],
+  &#125;]&quot;
+  (select)=&quot;onCheckboxSelect($event)&quot;
+></cs-dropdown>"
+    >
+      <div class="stage">
+        <cs-dropdown trigger="button" label="Estado" [groups]="checkboxGroups()" (select)="onCheckboxSelect($event)"></cs-dropdown>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Ítems de radio -->
+  <section class="section">
+    <h2 class="section__title" id="radio-items">Ítems de radio</h2>
+    <p class="section__intro">Define <code class="inline-code">selectionMode: "radio"</code> en un grupo para ítems de selección única: elegir uno desmarca el resto de ese grupo, y el menú permanece abierto.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-dropdown
+  label=&quot;Vistas&quot;
+  [groups]=&quot;[&#123;
+    header: 'Vistas',
+    selectionMode: 'radio',
+    items: [
+      &#123; label: 'Vista detallada', selected: selected === 'detail' &#125;,
+      &#123; label: 'Vista de lista', selected: selected === 'list' &#125;,
+    ],
+  &#125;]&quot;
+  (select)=&quot;onRadioSelect($event)&quot;
+></cs-dropdown>"
+    >
+      <div class="stage">
+        <cs-dropdown trigger="button" label="Vistas" [groups]="radioGroups()" (select)="onRadioSelect($event)"></cs-dropdown>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Input Dropdown — Playground -->
+  <section class="section">
+    <h2 class="section__title" id="input-dropdown-playground">Input Dropdown — Playground</h2>
+    <p class="section__intro">Un combobox tipo select vinculado a un valor. Admite label, placeholder, required, disabled y estado controlado.</p>
+
+    <app-demo-shell [controls]="inputPlaygroundControls" [code]="ipgCode()" (stateChange)="onInputPlaygroundState($event)">
+      <div class="stage stage--wide">
+        <cs-input-dropdown
+          [label]="ipgShowLabel() ? 'Equipo' : undefined"
+          placeholder="Selecciona un equipo…"
+          [options]="inputOptions"
+          [value]="ipgValue()"
+          (valueChange)="ipgValue.set($event)"
+          [size]="ipgSize()"
+          [required]="ipgRequired()"
+          [disabled]="ipgDisabled()"
+        ></cs-input-dropdown>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Input Dropdown — Estados -->
+  <section class="section">
+    <h2 class="section__title" id="input-dropdown-states">Input Dropdown — Estados</h2>
+    <p class="section__intro">Placeholder (vacío), lleno (con valor seleccionado) y deshabilitado.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-input-dropdown label=&quot;Placeholder&quot; [options]=&quot;options&quot;></cs-input-dropdown>
+<cs-input-dropdown label=&quot;Lleno&quot; [options]=&quot;options&quot; value=&quot;engineering&quot;></cs-input-dropdown>
+<cs-input-dropdown label=&quot;Deshabilitado&quot; [options]=&quot;options&quot; value=&quot;design&quot; [disabled]=&quot;true&quot;></cs-input-dropdown>"
+    >
+      <div class="stage stage--col">
+        <cs-input-dropdown label="Placeholder" placeholder="Selecciona un equipo…" [options]="inputOptions"></cs-input-dropdown>
+        <cs-input-dropdown label="Lleno" [options]="inputOptions" [value]="stateValueFilled()"></cs-input-dropdown>
+        <cs-input-dropdown label="Deshabilitado" [options]="inputOptions" value="design" [disabled]="true"></cs-input-dropdown>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Lineamientos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="usage">Lineamientos de uso</h2>
+    <p class="section__intro">Cuándo usar cada variante y patrones comunes que evitar.</p>
+
+    <p class="guide-group-label">Dropdown</p>
+    <div class="guide-grid guide-grid--spaced">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Úsalo para listas de acciones contextuales: editar, duplicar, eliminar.</p>
+          <cs-dropdown trigger="button" label="Acciones" size="sm" [groups]="[{ items: [{ label: 'Editar', value: 'edit', icon: 'pencil' }, { label: 'Duplicar', value: 'dup', icon: 'copy' }, { label: 'Eliminar', value: 'del', icon: 'trash-2', variant: 'destructive' }] }]"></cs-dropdown>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No lo uses como un select de formulario: usa Input Dropdown para elegir un valor dentro de un formulario.</p>
+          <cs-dropdown trigger="button" label="Elegir equipo" size="sm" [groups]="[{ items: [{ label: 'Diseño', value: 'design' }, { label: 'Ingeniería', value: 'eng' }, { label: 'Producto', value: 'prod' }] }]"></cs-dropdown>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Agrupa acciones relacionadas con encabezados cuando hay muchos ítems.</p>
+          <cs-dropdown trigger="button" label="Cuenta" size="sm" [groups]="groupedGroups"></cs-dropdown>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No lo uses cuando solo hay una acción: usa un Button en su lugar.</p>
+          <cs-dropdown trigger="button" label="Exportar" size="sm" [groups]="[{ items: [{ label: 'Exportar como CSV', value: 'csv', icon: 'download' }] }]"></cs-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <p class="guide-group-label">Input Dropdown</p>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Siempre acompáñalo de un label en contextos de formulario, por accesibilidad.</p>
+          <cs-input-dropdown label="Equipo" placeholder="Selecciona un equipo…" [options]="inputOptions" size="sm"></cs-input-dropdown>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No omitas el label en formularios: el usuario pierde contexto sobre qué está seleccionando.</p>
+          <cs-input-dropdown placeholder="Selecciona un equipo…" [options]="inputOptions" size="sm"></cs-input-dropdown>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa el modo controlado (value + valueChange) para que el padre sea dueño del estado seleccionado.</p>
+          <code class="guide-card__code">&lt;cs-input-dropdown<br>&nbsp;&nbsp;[value]="team"<br>&nbsp;&nbsp;(valueChange)="team = $event"<br>&nbsp;&nbsp;[options]="options"<br>&gt;</code>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses Input Dropdown para disparar acciones: para eso está Dropdown.</p>
+          <code class="guide-card__code">&lt;cs-input-dropdown<br>&nbsp;&nbsp;[options]="[<br>&nbsp;&nbsp;&nbsp;&nbsp;{{ '{' }} label: 'Exportar CSV' {{ '}' }},<br>&nbsp;&nbsp;&nbsp;&nbsp;{{ '{' }} label: 'Eliminar todo' {{ '}' }},<br>&nbsp;&nbsp;]"<br>&gt;</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Props: Dropdown -->
+  <section class="section">
+    <h2 class="section__title" id="props-dropdown">Dropdown — Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">trigger</code><code class="table__type">"button" | "icon"</code><code class="table__default">"button"</code><span class="table__desc">Tipo de elemento trigger. Button muestra una píldora con etiqueta; icon muestra puntos suspensivos (···).</span></div>
+      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">"Dropdown"</code><span class="table__desc">Texto dentro del trigger de tipo botón.</span></div>
+      <div class="table__row"><code class="table__name">groups</code><code class="table__type">DropdownGroup[]</code><code class="table__default">—</code><span class="table__desc">Array de grupos de ítems. Cada grupo tiene un header opcional, un array de items, y un selectionMode opcional ("none" | "checkbox" | "radio").</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">"xs" | "sm" | "md" | "lg"</code><code class="table__default">"sm"</code><span class="table__desc">Controla la altura de fila y la tipografía de los ítems.</span></div>
+      <div class="table__row"><code class="table__name">position</code><code class="table__type">"left" | "right"</code><code class="table__default">"left"</code><span class="table__desc">Alineación del menú respecto al trigger.</span></div>
+      <div class="table__row"><code class="table__name">header</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Título opcional mostrado en la parte superior del panel del menú.</span></div>
+      <div class="table__row"><code class="table__name">(select)</code><code class="table__type">EventEmitter&lt;DropdownItem&gt;</code><code class="table__default">—</code><span class="table__desc">Se dispara al hacer clic en un ítem.</span></div>
+    </div>
+  </section>
+
+  <!-- Props: DropdownItem -->
+  <section class="section">
+    <h2 class="section__title" id="props-item">DropdownItem — Forma</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">El texto del ítem.</span></div>
+      <div class="table__row"><code class="table__name">value</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Identificador que se pasa al evento select.</span></div>
+      <div class="table__row"><code class="table__name">icon</code><code class="table__type">IconName</code><code class="table__default">—</code><span class="table__desc">Ícono de 16px (sm/md) o 20px (lg) mostrado antes del label.</span></div>
+      <div class="table__row"><code class="table__name">shortcut</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Indicador de atajo de teclado (por ejemplo ⌘E) mostrado en el extremo derecho.</span></div>
+      <div class="table__row"><code class="table__name">badge</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Etiqueta de badge mostrada después del texto del ítem.</span></div>
+      <div class="table__row"><code class="table__name">variant</code><code class="table__type">"default" | "destructive" | "success"</code><code class="table__default">"default"</code><span class="table__desc">Color semántico para el label del ítem y el fondo al pasar el cursor.</span></div>
+      <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Evita la interacción y aplica un estilo atenuado.</span></div>
+      <div class="table__row"><code class="table__name">dividerAfter</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra un divisor de 1px debajo del ítem.</span></div>
+      <div class="table__row"><code class="table__name">selected</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Estado marcado: solo relevante cuando el selectionMode del grupo es "checkbox" o "radio".</span></div>
+    </div>
+  </section>
+
+  <!-- Props: InputDropdown -->
+  <section class="section">
+    <h2 class="section__title" id="props-input-dropdown">InputDropdown — Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">options</code><code class="table__type">InputDropdownOption[]</code><code class="table__default">—</code><span class="table__desc">Array de opciones {{ '{' }} value, label, disabled? {{ '}' }}.</span></div>
+      <div class="table__row"><code class="table__name">value</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Valor seleccionado, controlado.</span></div>
+      <div class="table__row"><code class="table__name">(valueChange)</code><code class="table__type">EventEmitter&lt;string&gt;</code><code class="table__default">—</code><span class="table__desc">Se dispara cuando el usuario selecciona una opción.</span></div>
+      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Label mostrado encima del trigger.</span></div>
+      <div class="table__row"><code class="table__name">placeholder</code><code class="table__type">string</code><code class="table__default">"Selecciona una opción"</code><span class="table__desc">Texto de placeholder mostrado cuando no hay valor seleccionado.</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">"xs" | "sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Altura del trigger y escala tipográfica.</span></div>
+      <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita el trigger y oculta el menú.</span></div>
+      <div class="table__row"><code class="table__name">required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Agrega un asterisco al label.</span></div>
+    </div>
+  </section>
+</div>

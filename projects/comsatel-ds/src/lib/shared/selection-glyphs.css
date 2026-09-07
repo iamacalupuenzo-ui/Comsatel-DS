@@ -1,0 +1,39 @@
+/* Glyphs de selección compartidos — el mismo cuadrado de checkbox y anillo de
+   radio los usa el control real (Checkbox/Radio) y el ítem de menú de
+   Dropdown cuando selectionMode es "checkbox"/"radio". Import con @import en
+   el .css de cada componente que los necesite — nunca redeclarar estas
+   reglas a mano, así nunca vuelven a divergir entre sí (mismo criterio que
+   checkboxSquareStyle/radioRingStyle compartidas en el sistema React). */
+
+.cs-checkbox__box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-xs);
+  border: 1.5px solid var(--color-border-neutral-default);
+  background-color: var(--elevation-surface-default);
+  transition:
+    background-color var(--motion-duration-leaving) var(--motion-easing-default),
+    border-color var(--motion-duration-leaving) var(--motion-easing-default);
+}
+.cs-checkbox__box--checked {
+  border: none;
+  background-color: var(--color-background-brand-default);
+}
+
+.cs-dropdown-item__radio-ring {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border-neutral-default);
+}
+.cs-dropdown-item__radio-ring--checked {
+  border-color: var(--color-background-brand-default);
+}
+.cs-dropdown-item__radio-dot {
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-brand-default);
+}

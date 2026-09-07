@@ -1,0 +1,117 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.panel {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  background-color: var(--elevation-surface-default);
+  padding: var(--layout-padding-3xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-xl);
+}
+
+.playground-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--layout-gap-xl);
+}
+.field { display: flex; flex-direction: column; gap: var(--layout-gap-md); }
+.field__label {
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-default);
+}
+.field__control {
+  height: 32px;
+  padding-inline: var(--layout-padding-lg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-neutral-default);
+  background-color: var(--elevation-surface-default);
+  color: var(--color-text-base-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-ui);
+}
+
+.preview-box {
+  border-radius: var(--radius-sm);
+  background-color: var(--color-background-neutral-subtlest);
+  padding: var(--layout-padding-3xl);
+}
+
+.code-block {
+  margin: 0;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-background-neutral-subtlest);
+  padding: var(--layout-padding-xl);
+  font-family: monospace;
+  font-size: var(--font-size-content-note);
+  color: var(--color-text-brand-default);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Tabla de estilos de texto */
+.style-table {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  overflow: hidden;
+}
+.style-table__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.35fr) minmax(0, 2fr) minmax(0, 0.8fr);
+  gap: var(--layout-gap-xl);
+  padding: var(--layout-padding-xl) var(--layout-padding-2xl);
+  border-top: 1px solid var(--color-border-divider);
+  align-items: center;
+}
+.style-table__row:first-child { border-top: none; }
+.style-table__row--head {
+  padding-block: var(--layout-padding-md);
+  background-color: var(--color-background-neutral-subtlest);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-bolder);
+}
+.style-table__row > * { min-width: 0; overflow-wrap: anywhere; }
+.style-table__name { font-family: monospace; font-size: var(--font-size-content-note); color: var(--color-text-brand-default); }
+.style-table__code {
+  font-family: monospace;
+  font-size: var(--font-size-content-note);
+  color: var(--color-text-brand-default);
+  white-space: pre-wrap;
+}
+.style-table__weight { font-family: monospace; font-size: var(--font-size-content-note); color: var(--color-text-base-subtle); }
+
+/* Tokens primitivos */
+.primitive-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--layout-gap-xl);
+}
+.primitive-panel {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  overflow: hidden;
+}
+.primitive-panel__title {
+  margin: 0;
+  padding: var(--layout-padding-lg) var(--layout-padding-2xl);
+  background-color: var(--color-background-neutral-subtlest);
+  border-bottom: 1px solid var(--color-border-divider);
+  font-size: var(--font-size-content-caption);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-default);
+}
+.primitive-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--layout-gap-xl);
+  padding: var(--layout-padding-lg) var(--layout-padding-2xl);
+  border-top: 1px solid var(--color-border-divider);
+}
+.primitive-row:first-child { border-top: none; }
+.primitive-row:hover { background-color: var(--color-interaction-hovered); }
+.primitive-row__name { font-family: monospace; font-size: var(--font-size-content-note); color: var(--color-text-brand-default); word-break: break-all; }
+.primitive-row__value { font-family: monospace; font-size: var(--font-size-content-note); color: var(--color-text-base-default); overflow-wrap: anywhere; }

@@ -1,0 +1,10 @@
+:host {
+  display: contents;
+}
+.cs-input-group-text {
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+  color: var(--color-text-base-subtle);
+  white-space: nowrap;
+}

@@ -1,0 +1,63 @@
+<header class="topnav">
+  <a routerLink="/" class="topnav__logo">
+    <span class="topnav__badge">C</span>
+    <span>Comsatel DS</span>
+  </a>
+  <span class="topnav__tag">Angular</span>
+</header>
+
+<aside class="sidebar">
+  @for (section of navigation; track section.title) {
+    <div class="sidebar__section">
+      <p class="sidebar__title">{{ section.title }}</p>
+      <ul class="sidebar__list">
+        @for (item of section.items; track item.href) {
+          <li>
+            @if (item.children) {
+              <button
+                type="button"
+                class="sidebar__group"
+                [class.sidebar__group--active]="isActive(item.href) || isOpen(item)"
+                (click)="toggle(item)"
+              >
+                <span>{{ item.title }}</span>
+                <cs-icon name="chevron-right" [size]="12" class="chevron" [class.chevron--open]="isOpen(item)" />
+              </button>
+              @if (isOpen(item)) {
+                <ul class="sidebar__children">
+                  @for (child of item.children; track child.href) {
+                    <li>
+                      @if (child.pending) {
+                        <span class="sidebar__item sidebar__item--pending sidebar__item--child">{{ child.title }}</span>
+                      } @else {
+                        <a
+                          class="sidebar__item sidebar__item--child"
+                          [class.sidebar__item--active]="isActive(child.href)"
+                          [routerLink]="child.href"
+                        >{{ child.title }}</a>
+                      }
+                    </li>
+                  }
+                </ul>
+              }
+            } @else if (item.pending) {
+              <span class="sidebar__item sidebar__item--pending">{{ item.title }}</span>
+            } @else {
+              <a
+                class="sidebar__item"
+                [class.sidebar__item--active]="isActive(item.href)"
+                [routerLink]="item.href"
+              >{{ item.title }}</a>
+            }
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</aside>
+
+<main class="content">
+  <router-outlet></router-outlet>
+</main>
+
+<app-table-of-contents></app-table-of-contents>

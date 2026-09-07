@@ -1,0 +1,42 @@
+<label
+  [attr.for]="inputId"
+  class="cs-toggle"
+  [class.cs-toggle--two-lines]="hasTwoLines"
+  [class.cs-toggle--disabled]="disabled"
+>
+  <span
+    class="cs-toggle__track"
+    [class.cs-toggle__track--checked]="isChecked()"
+    [style.width.px]="track.w"
+    [style.height.px]="track.h"
+    [style.margin-top.px]="hasTwoLines ? descMarginTop : 0"
+  >
+    <input
+      type="checkbox"
+      role="switch"
+      [id]="inputId"
+      class="cs-toggle__input"
+      [checked]="isChecked()"
+      [disabled]="disabled"
+      (change)="onChange($any($event.target).checked)"
+    />
+    <span
+      class="cs-toggle__thumb"
+      [style.width.px]="track.thumb"
+      [style.height.px]="track.thumb"
+      [style.top.px]="thumbTop"
+      [style.left.px]="thumbLeft"
+    ></span>
+  </span>
+
+  @if (label || description) {
+    <span class="cs-toggle__text">
+      @if (label) {
+        <span class="cs-toggle__label" [ngStyle]="labelStyle">{{ label }}</span>
+      }
+      @if (description) {
+        <span class="cs-toggle__desc" [ngStyle]="descStyle">{{ description }}</span>
+      }
+    </span>
+  }
+</label>

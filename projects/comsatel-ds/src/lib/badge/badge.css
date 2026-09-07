@@ -1,0 +1,39 @@
+/* Puerto 1:1 del Badge de React (badge.tsx) — mismos tokens, misma escala de
+   tamaños y variantes. */
+:host {
+  display: inline-flex;
+}
+
+.cs-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--layout-gap-2xs);
+  flex-shrink: 0;
+  white-space: nowrap;
+  border: 1px solid;
+  transition: background-color var(--motion-duration-leaving) var(--motion-easing-default);
+}
+
+/* Tamaños — altura y padding calcados de la escala de React. El padding
+   horizontal de 10px en lg no tiene equivalente exacto en la escala
+   --layout-padding (6 · 8 · 12…) — se deja explícito en vez de redondear a
+   un token y cambiar el tamaño visual del badge. */
+.cs-badge--sm { height: var(--layout-size-2xs); padding-inline: var(--layout-padding-sm); }
+.cs-badge--md { height: var(--layout-size-xs); padding-inline: var(--layout-padding-md); }
+.cs-badge--lg { height: var(--layout-size-sm); padding-inline: 10px; }
+
+/* Variantes */
+.cs-badge--neutral { background-color: var(--color-background-neutral-subtle); color: var(--color-text-base-default); border-color: var(--color-border-neutral-default); }
+.cs-badge--brand { background-color: var(--color-background-brand-subtlest); color: var(--color-text-brand-default); border-color: var(--color-border-brand-subtle); }
+.cs-badge--success { background-color: var(--color-background-success-subtlest); color: var(--color-text-success-default); border-color: var(--color-border-success-subtle); }
+.cs-badge--warning { background-color: var(--color-background-warning-subtlest); color: var(--color-text-warning-default); border-color: var(--color-border-warning-subtle); }
+.cs-badge--danger { background-color: var(--color-background-danger-subtlest); color: var(--color-text-danger-default); border-color: var(--color-border-danger-subtle); }
+
+.cs-badge--neutral-solid { background-color: var(--color-background-neutral-strongest); color: var(--color-text-inverse); border-color: transparent; }
+.cs-badge--brand-solid { background-color: var(--color-background-brand-default); color: var(--color-text-inverse); border-color: transparent; }
+.cs-badge--success-solid { background-color: var(--color-background-success-default); color: var(--color-text-inverse); border-color: transparent; }
+.cs-badge--warning-solid { background-color: var(--color-background-warning-default); color: var(--color-text-inverse); border-color: transparent; }
+.cs-badge--danger-solid { background-color: var(--color-background-danger-default); color: var(--color-text-inverse); border-color: transparent; }
+
+.cs-badge--outline { background-color: transparent; color: var(--color-text-base-default); border-color: var(--color-border-neutral-default); }

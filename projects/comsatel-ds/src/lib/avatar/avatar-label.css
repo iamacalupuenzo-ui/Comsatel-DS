@@ -1,0 +1,28 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--layout-gap-md);
+}
+
+.cs-avatar-label__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.cs-avatar-label__name {
+  font-family: var(--font-family-content);
+  letter-spacing: var(--font-letter-spacing-content);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-bolder);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cs-avatar-label__subtitle {
+  font-family: var(--font-family-content);
+  letter-spacing: var(--font-letter-spacing-content);
+  color: var(--color-text-base-subtle);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

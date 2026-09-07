@@ -1,0 +1,116 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Checkbox</p>
+  <h1 class="title">Checkbox</h1>
+  <p class="description">
+    Permite seleccionar o deseleccionar opciones. Admite estados marcado, sin marcar e
+    indeterminado, con etiqueta y descripción opcionales.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta los controles para explorar todas las variantes del checkbox.</p>
+
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <cs-checkbox
+        [size]="pgSize()"
+        [label]="pgLabel() ? 'Aceptar términos y condiciones' : undefined"
+        [description]="pgDescription() ? 'Aceptas nuestros Términos de servicio y Política de privacidad.' : undefined"
+        [disabled]="pgDisabled()"
+        [checked]="true"
+      ></cs-checkbox>
+    </app-demo-shell>
+  </section>
+
+  <!-- Tamaños -->
+  <section class="section">
+    <h2 class="section__title" id="sizes">Tamaños</h2>
+    <p class="section__intro">Tres tamaños para adaptarse a la densidad de la interfaz.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-checkbox size=&quot;sm&quot; [checked]=&quot;true&quot;></cs-checkbox>
+<cs-checkbox size=&quot;md&quot; [checked]=&quot;true&quot;></cs-checkbox>
+<cs-checkbox size=&quot;lg&quot; [checked]=&quot;true&quot;></cs-checkbox>"
+    >
+      <div class="row">
+        @for (s of sizes; track s) {
+          <div class="size-item">
+            <cs-checkbox [size]="s" [checked]="true"></cs-checkbox>
+            <span class="size-item__label">{{ s }}</span>
+          </div>
+        }
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Estados -->
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">El checkbox admite estados sin marcar, marcado, indeterminado y deshabilitado.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-checkbox label=&quot;Sin marcar&quot;></cs-checkbox>
+<cs-checkbox label=&quot;Marcado&quot; [checked]=&quot;true&quot;></cs-checkbox>
+<cs-checkbox label=&quot;Indeterminado&quot; [indeterminate]=&quot;true&quot;></cs-checkbox>
+<cs-checkbox label=&quot;Deshabilitado&quot; [disabled]=&quot;true&quot;></cs-checkbox>"
+    >
+      <div class="row">
+        <div class="size-item">
+          <cs-checkbox label="Sin marcar"></cs-checkbox>
+          <span class="size-item__label">sin marcar</span>
+        </div>
+        <div class="size-item">
+          <cs-checkbox label="Marcado" [checked]="true"></cs-checkbox>
+          <span class="size-item__label">marcado</span>
+        </div>
+        <div class="size-item">
+          <cs-checkbox label="Indeterminado" [indeterminate]="true"></cs-checkbox>
+          <span class="size-item__label">indeterminado</span>
+        </div>
+        <div class="size-item">
+          <cs-checkbox label="Deshabilitado" [disabled]="true"></cs-checkbox>
+          <span class="size-item__label">deshabilitado</span>
+        </div>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Con descripción -->
+  <section class="section">
+    <h2 class="section__title" id="with-description">Con descripción</h2>
+    <p class="section__intro">Añade una línea secundaria debajo de la etiqueta para dar contexto adicional.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-checkbox
+  label=&quot;Correos de marketing&quot;
+  description=&quot;Recibe correos sobre nuevos productos, funciones y más.&quot;
+  [checked]=&quot;true&quot;
+></cs-checkbox>
+<cs-checkbox
+  label=&quot;Correos de seguridad&quot;
+  description=&quot;Recibe correos sobre la seguridad de tu cuenta.&quot;
+  [checked]=&quot;true&quot;
+  [disabled]=&quot;true&quot;
+></cs-checkbox>"
+    >
+      <div class="col">
+        <cs-checkbox label="Correos de marketing" description="Recibe correos sobre nuevos productos, funciones y más." [checked]="true"></cs-checkbox>
+        <cs-checkbox label="Correos de seguridad" description="Recibe correos sobre la seguridad de tu cuenta." [checked]="true" [disabled]="true"></cs-checkbox>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">"sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Controla el tamaño del checkbox. sm=14px, md=16px, lg=18px.</span></div>
+      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto de la etiqueta junto al checkbox.</span></div>
+      <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto de apoyo opcional debajo de la etiqueta.</span></div>
+      <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Evita la interacción y aplica un estilo atenuado.</span></div>
+      <div class="table__row"><code class="table__name">indeterminate</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el estado indeterminado (guion).</span></div>
+      <div class="table__row"><code class="table__name">checked</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Estado marcado. Se puede combinar con (checkedChange) para control externo.</span></div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,238 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Avatar</p>
+  <h1 class="title">Avatar</h1>
+  <p class="description">
+    Representación circular de un usuario: soporta imagen, ícono placeholder e iniciales de texto,
+    con indicadores de estado opcionales, filas de label y grupos apilados.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta los controles para explorar todas las variantes del avatar.</p>
+
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      @if (pgType() === 'image') {
+        <cs-avatar [size]="pgSize()" [status]="pgStatusValue()" [src]="photos[0]" alt="Usuario"></cs-avatar>
+      } @else if (pgType() === 'initials') {
+        <cs-avatar [size]="pgSize()" [status]="pgStatusValue()" initials="AB"></cs-avatar>
+      } @else {
+        <cs-avatar [size]="pgSize()" [status]="pgStatusValue()"></cs-avatar>
+      }
+    </app-demo-shell>
+  </section>
+
+  <!-- Imagen -->
+  <section class="section">
+    <h2 class="section__title" id="image">Imagen</h2>
+    <p class="section__intro">
+      Pasa una URL en <code class="inline-code">src</code> para mostrar una foto de perfil. La
+      imagen llena el círculo con <code class="inline-code">object-fit: cover</code>. Cinco
+      tamaños: xs (24px) · sm (32px) · md (40px) · lg (48px) · xl (56px).
+    </p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-avatar size=&quot;md&quot; src=&quot;/avatars/avatar-1.jpg&quot; alt=&quot;Usuario&quot;></cs-avatar>"
+    >
+      <div class="row">
+        @for (s of sizes; track s; let i = $index) {
+          <cs-avatar [size]="s" [src]="photos[i]" alt="Usuario"></cs-avatar>
+        }
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Iniciales de texto -->
+  <section class="section">
+    <h2 class="section__title" id="initials">Iniciales de texto</h2>
+    <p class="section__intro">
+      Cuando no hay <code class="inline-code">src</code> pero sí <code class="inline-code">initials</code>,
+      el avatar muestra hasta 2 letras sobre el fondo brand-subtle. La tipografía escala con el
+      tamaño del avatar.
+    </p>
+    <app-demo-shell [controls]="[]" code="<cs-avatar size=&quot;md&quot; initials=&quot;AB&quot;></cs-avatar>">
+      <div class="row">
+        @for (s of sizes; track s) {
+          <cs-avatar [size]="s" initials="AB"></cs-avatar>
+        }
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Ícono placeholder -->
+  <section class="section">
+    <h2 class="section__title" id="placeholder">Ícono placeholder</h2>
+    <p class="section__intro">
+      Sin <code class="inline-code">src</code> ni <code class="inline-code">initials</code>, se
+      muestra un ícono de silueta de usuario. Úsalo cuando la identidad es desconocida.
+    </p>
+    <app-demo-shell [controls]="[]" code="<cs-avatar size=&quot;md&quot;></cs-avatar>">
+      <div class="row">
+        @for (s of sizes; track s) {
+          <cs-avatar [size]="s"></cs-avatar>
+        }
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Estado -->
+  <section class="section">
+    <h2 class="section__title" id="status">Estado</h2>
+    <p class="section__intro">
+      Un punto indicador en la esquina inferior derecha comunica presencia: online (verde), offline
+      (gris), busy (rojo) o company (logo). Se muestra en los 5 estados con cada variante de
+      contenido.
+    </p>
+
+    <app-demo-shell [controls]="statusControls" [code]="statusCode()" (stateChange)="onStatusState($event)">
+      <div class="status-rows">
+        <div class="row">
+          @for (st of statuses; track st; let i = $index) {
+            <cs-avatar [size]="statusSize()" [status]="st === 'none' ? undefined : st" [src]="photos[i % 9]" alt="Usuario"></cs-avatar>
+          }
+        </div>
+        <div class="row">
+          @for (st of statuses; track st) {
+            <cs-avatar [size]="statusSize()" [status]="st === 'none' ? undefined : st" initials="AB"></cs-avatar>
+          }
+        </div>
+        <div class="row">
+          @for (st of statuses; track st) {
+            <cs-avatar [size]="statusSize()" [status]="st === 'none' ? undefined : st"></cs-avatar>
+          }
+        </div>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Estado por tamaño -->
+  <section class="section">
+    <h2 class="section__title" id="status-sizes">Estado por tamaño</h2>
+    <p class="section__intro">El punto indicador escala proporcionalmente con cada tamaño de avatar: 6px · 8px · 10px · 12px · 14px.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-avatar size=&quot;xs&quot; status=&quot;online&quot; src=&quot;/avatars/avatar-1.jpg&quot;></cs-avatar>
+<cs-avatar size=&quot;sm&quot; status=&quot;online&quot; src=&quot;/avatars/avatar-2.jpg&quot;></cs-avatar>
+<cs-avatar size=&quot;md&quot; status=&quot;online&quot; src=&quot;/avatars/avatar-3.jpg&quot;></cs-avatar>
+<cs-avatar size=&quot;lg&quot; status=&quot;online&quot; src=&quot;/avatars/avatar-4.jpg&quot;></cs-avatar>
+<cs-avatar size=&quot;xl&quot; status=&quot;online&quot; src=&quot;/avatars/avatar-5.jpg&quot;></cs-avatar>"
+    >
+      <div class="row">
+        @for (s of sizes; track s; let i = $index) {
+          <cs-avatar [size]="s" status="online" [src]="photos[i]" alt="Usuario"></cs-avatar>
+        }
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Avatar Label -->
+  <section class="section">
+    <h2 class="section__title" id="avatar-label">Avatar Label</h2>
+    <p class="section__intro">Combina un avatar con un nombre y un subtítulo opcional en una fila horizontal.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-avatar-label size=&quot;xs&quot; src=&quot;/avatars/avatar-1.jpg&quot; name=&quot;Alex Brown&quot; subtitle=&quot;Texto de apoyo&quot;></cs-avatar-label>
+<cs-avatar-label size=&quot;sm&quot; src=&quot;/avatars/avatar-2.jpg&quot; name=&quot;Chris Davis&quot; subtitle=&quot;Texto de apoyo&quot;></cs-avatar-label>
+<cs-avatar-label size=&quot;md&quot; src=&quot;/avatars/avatar-3.jpg&quot; name=&quot;Elena Ford&quot; subtitle=&quot;Diseñadora de producto&quot;></cs-avatar-label>"
+    >
+      <div class="col">
+        <cs-avatar-label size="xs" [src]="photos[0]" name="Alex Brown" subtitle="Texto de apoyo"></cs-avatar-label>
+        <cs-avatar-label size="sm" [src]="photos[1]" name="Chris Davis" subtitle="Texto de apoyo"></cs-avatar-label>
+        <cs-avatar-label size="md" [src]="photos[2]" name="Elena Ford" subtitle="Diseñadora de producto"></cs-avatar-label>
+      </div>
+    </app-demo-shell>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="avatar-label-initials">Con iniciales</h3>
+      <p class="section__intro">Funciona con las tres variantes de contenido del avatar: imagen, iniciales o placeholder.</p>
+      <app-demo-shell [controls]="labelControls" [code]="labelCode()" (stateChange)="onLabelState($event)">
+        <div class="col">
+          <cs-avatar-label [size]="labelSize()" initials="AB" name="Alex Brown" subtitle="Texto de apoyo" status="online"></cs-avatar-label>
+          <cs-avatar-label [size]="labelSize()" initials="CD" name="Chris Davis" subtitle="Texto de apoyo" status="busy"></cs-avatar-label>
+          <cs-avatar-label [size]="labelSize()" name="Usuario desconocido" subtitle="Texto de apoyo" status="offline"></cs-avatar-label>
+        </div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <!-- Avatar Group -->
+  <section class="section">
+    <h2 class="section__title" id="avatar-group">Avatar Group</h2>
+    <p class="section__intro">
+      Pila superpuesta de avatares con un contador de overflow +N opcional y un botón de agregar
+      usuario.
+    </p>
+    <app-demo-shell
+      [controls]="[]"
+      code="const avatars = [
+  { src: '/avatars/avatar-1.jpg' },
+  { src: '/avatars/avatar-2.jpg' },
+  { src: '/avatars/avatar-3.jpg' },
+  { src: '/avatars/avatar-4.jpg' },
+];
+
+<cs-avatar-group size=&quot;sm&quot; [avatars]=&quot;avatars&quot; [maxVisible]=&quot;3&quot;></cs-avatar-group>"
+    >
+      <div class="col">
+        @for (s of labelSizes; track s) {
+          <cs-avatar-group [size]="s" [avatars]="photoAvatars" [maxVisible]="3"></cs-avatar-group>
+        }
+      </div>
+    </app-demo-shell>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="avatar-group-initials">Con iniciales</h3>
+      <p class="section__intro">El grupo también funciona con iniciales o contenido mixto cuando no hay fotos disponibles.</p>
+      <app-demo-shell [controls]="groupControls" [code]="groupCode()" (stateChange)="onGroupState($event)">
+        <cs-avatar-group [size]="groupSize()" [avatars]="initialsAvatars" [maxVisible]="groupMaxVisible()"></cs-avatar-group>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="avatar-group-no-add">Sin botón de agregar</h3>
+      <p class="section__intro">Oculta el botón de agregar cuando el grupo es solo de visualización.</p>
+      <app-demo-shell [controls]="groupNoAddControls" [code]="groupNoAddCode()" (stateChange)="onGroupNoAddState($event)">
+        <cs-avatar-group [size]="groupNoAddSize()" [avatars]="photoAvatars" [maxVisible]="groupNoAddMaxVisible()" [showAddButton]="false"></cs-avatar-group>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <!-- Botón de agregar -->
+  <section class="section">
+    <h2 class="section__title" id="avatar-add-button">Botón de agregar</h2>
+    <p class="section__intro">
+      Botón circular con ícono + para agregar usuarios. El hover oscurece el fondo; el focus
+      muestra un anillo del color de marca.
+    </p>
+    <app-demo-shell [controls]="addControls" [code]="addCode()" (stateChange)="onAddState($event)">
+      <cs-avatar-add-button
+        [size]="addSize()"
+        [disabled]="addDisabled()"
+        [forceHover]="addForceHover()"
+        [forceFocus]="addForceFocus()"
+      ></cs-avatar-add-button>
+    </app-demo-shell>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+
+    <h3 class="subsection__title">Avatar</h3>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">AvatarSize</code><code class="table__default">"md"</code><span class="table__desc">Diámetro: 24 · 32 · 40 · 48 · 56px. El ícono y la tipografía escalan en consecuencia.</span></div>
+      <div class="table__row"><code class="table__name">status</code><code class="table__type">AvatarStatus</code><code class="table__default">—</code><span class="table__desc">Indicador de estado en la esquina inferior derecha. Omítelo para no mostrar indicador.</span></div>
+      <div class="table__row"><code class="table__name">src</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">URL de la imagen: muestra la variante de foto.</span></div>
+      <div class="table__row"><code class="table__name">initials</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">1–2 letras: muestra la variante de texto (si no hay src).</span></div>
+    </div>
+
+    <h3 class="subsection__title">AvatarGroup</h3>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">avatars</code><code class="table__type">AvatarGroupItem[]</code><code class="table__default">[]</code><span class="table__desc">Array de objetos {{ '{' }} src?, initials?, alt? {{ '}' }}.</span></div>
+      <div class="table__row"><code class="table__name">maxVisible</code><code class="table__type">number</code><code class="table__default">3</code><span class="table__desc">Máximo de avatares mostrados antes del contador +N.</span></div>
+      <div class="table__row"><code class="table__name">showAddButton</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Si se renderiza el botón + de agregar.</span></div>
+    </div>
+  </section>
+</div>

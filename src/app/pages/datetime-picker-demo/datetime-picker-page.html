@@ -1,0 +1,168 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Date time picker</p>
+  <h1 class="title">Date time picker</h1>
+  <p class="description">
+    Combina un campo de fecha (con calendario emergente) y un campo de hora en un solo control,
+    con escritura directa de la fecha además de selección visual.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta los controles para explorar el selector de fecha y hora.</p>
+
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <div class="dtp-demo">
+        <cs-datetime-picker
+          [datePickerProps]="{ label: 'Fecha', weekStartDay: pgWeekStart() }"
+          [timePickerProps]="{ label: 'Hora' }"
+        ></cs-datetime-picker>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Selección -->
+  <section class="section">
+    <h2 class="section__title" id="selection">Selección</h2>
+    <p class="section__intro">Con un valor inicial ya cargado (fecha y hora combinadas en un solo string ISO).</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-datetime-picker
+  defaultValue=&quot;2026-12-15T13:00&quot;
+  helperText=&quot;Coordinamos el horario por correo.&quot;
+  [datePickerProps]=&quot;{ label: 'Fecha' }&quot;
+  [timePickerProps]=&quot;{ label: 'Hora' }&quot;
+></cs-datetime-picker>"
+    >
+      <div class="dtp-demo">
+        <cs-datetime-picker
+          defaultValue="2026-12-15T13:00"
+          helperText="Coordinamos el horario por correo."
+          [datePickerProps]="{ label: 'Fecha' }"
+          [timePickerProps]="{ label: 'Hora' }"
+        ></cs-datetime-picker>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Fechas deshabilitadas -->
+  <section class="section">
+    <h2 class="section__title" id="disabled-dates">Fechas deshabilitadas</h2>
+    <p class="section__intro">Fechas puntuales que no se pueden elegir en el calendario del campo de fecha.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="const fechasDeshabilitadas = [
+  '2026-12-07', '2026-12-08', '2026-12-09',
+  '2026-12-16', '2026-12-17', '2026-12-18',
+];
+
+<cs-datetime-picker
+  defaultValue=&quot;2026-12-15T13:00&quot;
+  [datePickerProps]=&quot;{ label: 'Fecha', disabled: fechasDeshabilitadas }&quot;
+  [timePickerProps]=&quot;{ label: 'Hora' }&quot;
+></cs-datetime-picker>"
+    >
+      <div class="dtp-demo">
+        <cs-datetime-picker
+          defaultValue="2026-12-15T13:00"
+          [datePickerProps]="{ label: 'Fecha', disabled: disabledDates }"
+          [timePickerProps]="{ label: 'Hora' }"
+        ></cs-datetime-picker>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Rango deshabilitado -->
+  <section class="section">
+    <h2 class="section__title" id="disabled-range">Rango deshabilitado</h2>
+    <p class="section__intro">minDate/maxDate acotan el rango de fechas elegibles.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-datetime-picker
+  defaultValue=&quot;2026-12-15T13:00&quot;
+  [datePickerProps]=&quot;{ label: 'Fecha', minDate: '2026-12-10', maxDate: '2026-12-20' }&quot;
+  [timePickerProps]=&quot;{ label: 'Hora' }&quot;
+></cs-datetime-picker>"
+    >
+      <div class="dtp-demo">
+        <cs-datetime-picker
+          defaultValue="2026-12-15T13:00"
+          [datePickerProps]="{ label: 'Fecha', minDate: '2026-12-10', maxDate: '2026-12-20' }"
+          [timePickerProps]="{ label: 'Hora' }"
+        ></cs-datetime-picker>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Localización -->
+  <section class="section">
+    <h2 class="section__title" id="localization">Localización</h2>
+    <p class="section__intro">Formato de fecha, nombres de mes/día y lista de horas salen de Intl.DateTimeFormat('es', …) — siempre en español.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="// Formato de fecha, nombres y lista de horas siempre en español.
+<cs-datetime-picker
+  defaultValue=&quot;2026-12-15T13:00&quot;
+  [datePickerProps]=&quot;{ label: 'Fecha', weekStartDay: 1 }&quot;
+  [timePickerProps]=&quot;{ label: 'Hora' }&quot;
+></cs-datetime-picker>"
+    >
+      <div class="dtp-demo">
+        <cs-datetime-picker
+          defaultValue="2026-12-15T13:00"
+          [datePickerProps]="{ label: 'Fecha', weekStartDay: 1 }"
+          [timePickerProps]="{ label: 'Hora' }"
+        ></cs-datetime-picker>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Validación -->
+  <section class="section">
+    <h2 class="section__title" id="validation">Validación</h2>
+    <p class="section__intro">required marca el asterisco y aria-required; invalid + errorText muestran el mensaje de error en vez del texto de ayuda.</p>
+    <app-demo-shell
+      [controls]="[]"
+      code="<cs-datetime-picker
+  defaultValue=&quot;2020-12-15T13:00&quot;
+  [required]=&quot;true&quot;
+  [invalid]=&quot;true&quot;
+  errorText=&quot;Elige una fecha a partir de hoy.&quot;
+  [datePickerProps]=&quot;{ label: 'Fecha' }&quot;
+  [timePickerProps]=&quot;{ label: 'Hora' }&quot;
+></cs-datetime-picker>"
+    >
+      <div class="dtp-demo">
+        <cs-datetime-picker
+          defaultValue="2020-12-15T13:00"
+          [required]="true"
+          [invalid]="true"
+          errorText="Elige una fecha a partir de hoy."
+          [datePickerProps]="{ label: 'Fecha' }"
+          [timePickerProps]="{ label: 'Hora' }"
+        ></cs-datetime-picker>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Props -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">defaultValue</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Valor inicial no controlado, formato ISO "YYYY-MM-DDTHH:mm".</span></div>
+      <div class="table__row"><code class="table__name">value</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Valor controlado. Se puede combinar con (valueChange).</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">"sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Altura de ambos campos.</span></div>
+      <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita ambos campos y oculta el botón de limpiar.</span></div>
+      <div class="table__row"><code class="table__name">invalid</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Aplica el borde y el anillo de error al campo de fecha.</span></div>
+      <div class="table__row"><code class="table__name">required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Agrega el asterisco al label de fecha y marca aria-required en ambos campos.</span></div>
+      <div class="table__row"><code class="table__name">helperText</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto de ayuda debajo de los campos. Se oculta si invalid + errorText están presentes.</span></div>
+      <div class="table__row"><code class="table__name">errorText</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Mensaje de error debajo de los campos, visible solo cuando invalid es true.</span></div>
+      <div class="table__row"><code class="table__name">clearControlLabel</code><code class="table__type">string</code><code class="table__default">"Limpiar"</code><span class="table__desc">aria-label del botón de limpiar — deliberadamente fuera del tab order.</span></div>
+      <div class="table__row"><code class="table__name">timeStep</code><code class="table__type">number</code><code class="table__default">30</code><span class="table__desc">Minutos entre cada opción de la lista de horas.</span></div>
+      <div class="table__row"><code class="table__name">datePickerProps</code><code class="table__type">object</code><code class="table__default">{{ '{' }}{{ '}' }}</code><span class="table__desc">label, placeholder, disabled, minDate, maxDate, weekStartDay del campo de fecha.</span></div>
+      <div class="table__row"><code class="table__name">timePickerProps</code><code class="table__type">object</code><code class="table__default">{{ '{' }}{{ '}' }}</code><span class="table__desc">label, placeholder del campo de hora.</span></div>
+      <div class="table__row"><code class="table__name">(valueChange)</code><code class="table__type">EventEmitter&lt;string&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al elegir fecha, hora, escribir una fecha válida o limpiar.</span></div>
+    </div>
+  </section>
+</div>

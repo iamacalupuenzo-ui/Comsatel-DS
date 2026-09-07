@@ -1,0 +1,61 @@
+<button
+  type="button"
+  [attr.role]="role"
+  [attr.aria-checked]="selectionMode !== 'none' ? !!item.selected : null"
+  [disabled]="item.disabled"
+  class="cs-dropdown-item"
+  [class.cs-dropdown-item--disabled]="item.disabled"
+  [style.min-height.px]="tok.height"
+  [style.padding-inline.px]="tok.paddingInline"
+  [style.font-size]="tok.fontSize"
+  [style.line-height]="tok.lineHeight"
+  [style.color]="textColor"
+  [style.--cs-dropdown-item-hover]="hoverBg"
+  (click)="onClick()"
+>
+  @if (selectionMode !== 'none') {
+    <span class="cs-dropdown-item__glyph" [style.width.px]="tok.iconSize" [style.height.px]="tok.iconSize">
+      @if (selectionMode === 'checkbox') {
+        <span class="cs-checkbox__box" [class.cs-checkbox__box--checked]="item.selected" [style.width.px]="glyphSize" [style.height.px]="glyphSize">
+          @if (item.selected) {
+            <svg [attr.width]="checkIconSize" [attr.height]="checkIconSize" viewBox="0 0 10 10" fill="none">
+              <path d="M2 5.2L4.1 7.5L8 3" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          }
+        </span>
+      } @else {
+        <span class="cs-dropdown-item__radio-ring" [class.cs-dropdown-item__radio-ring--checked]="item.selected" [style.width.px]="glyphSize" [style.height.px]="glyphSize">
+          @if (item.selected) {
+            <span class="cs-dropdown-item__radio-dot" [style.width.px]="radioDotSize" [style.height.px]="radioDotSize"></span>
+          }
+        </span>
+      }
+    </span>
+  } @else if (item.icon) {
+    <span class="cs-dropdown-item__glyph" [style.width.px]="tok.iconSize" [style.height.px]="tok.iconSize">
+      <cs-icon [name]="item.icon" [size]="tok.iconSize"></cs-icon>
+    </span>
+  }
+
+  <span class="cs-dropdown-item__label">{{ item.label }}</span>
+
+  @if (item.badge) {
+    <span
+      class="cs-dropdown-item__badge"
+      [style.font-size]="tok.secondaryFontSize"
+      [style.line-height]="tok.secondaryLineHeight"
+      [style.background-color]="badgeBg"
+      [style.border-color]="badgeBorder"
+      [style.color]="badgeColor"
+    >{{ item.badge }}</span>
+  }
+
+  @if (item.shortcut) {
+    <span
+      class="cs-dropdown-item__shortcut"
+      [class.cs-dropdown-item__shortcut--disabled]="item.disabled"
+      [style.font-size]="tok.secondaryFontSize"
+      [style.line-height]="tok.secondaryLineHeight"
+    >{{ item.shortcut }}</span>
+  }
+</button>

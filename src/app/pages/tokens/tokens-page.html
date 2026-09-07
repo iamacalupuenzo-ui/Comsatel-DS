@@ -1,0 +1,111 @@
+<div class="page">
+  <p class="eyebrow">Fundamentos / Todos los tokens de diseño</p>
+  <h1 class="title">Todos los tokens de diseño</h1>
+  <p class="description">
+    Todos los tokens del sistema: colores semánticos, elevación, layout, tipografía, radios,
+    sombras, motion y opacidad, con su valor resuelto en Light y Dark. Este contenido se genera
+    directamente del sistema de diseño en React, nunca se transcribe a mano.
+  </p>
+
+  <div class="search">
+    <input
+      type="text"
+      placeholder="Busca por nombre o uso, ej. background.brand"
+      [value]="query()"
+      (input)="onQueryChange($any($event.target).value)"
+    />
+    <span class="search__count">{{ totalMatches() }} tokens</span>
+  </div>
+
+  @for (section of sections(); track section.id) {
+    <section class="section">
+      <h2 class="section__title" [id]="section.id">{{ section.title }}</h2>
+      @if (section.intro) {
+        <p class="section__intro">{{ section.intro }}</p>
+      }
+
+      @for (group of section.groups; track group.id) {
+        <div class="group">
+          <h3 class="group__title" [id]="section.id + '-' + group.id">{{ group.label }}</h3>
+
+          <div class="panel">
+            @for (row of group.rows; track row.name) {
+              <div class="row" [class.row--noncolor]="!isColor(row.light)">
+                <!-- Nombre + uso -->
+                <div class="cell cell--name">
+                  <div class="name-line">
+                    <code class="token-name">{{ row.name }}</code>
+                    <button type="button" class="copy-btn" (click)="copy(row.name)" [attr.aria-label]="'Copiar ' + row.name">
+                      {{ copiedValue() === row.name ? '✓' : '⧉' }}
+                    </button>
+                  </div>
+                  @if (row.usage) {
+                    <p class="token-usage">{{ row.usage }}</p>
+                  }
+                </div>
+
+                @if (isColor(row.light)) {
+                  <!-- Panel Light -->
+                  <div class="cell cell--swatch">
+                    <div class="swatch-box" [style.background-color]="row.light"></div>
+                    <div class="swatch-label-row">
+                      <code class="swatch-label">{{ row.lightRef ? row.lightRef + ' → ' + row.light : row.light }}</code>
+                      <button type="button" class="copy-btn" (click)="copy(row.light)" [attr.aria-label]="'Copiar ' + row.light">
+                        {{ copiedValue() === row.light ? '✓' : '⧉' }}
+                      </button>
+                    </div>
+                  </div>
+                  <!-- Panel Dark -->
+                  <div class="cell cell--swatch">
+                    <div class="swatch-box swatch-box--dark" [style.background-color]="row.dark"></div>
+                    <div class="swatch-label-row">
+                      <code class="swatch-label">{{ row.darkRef ? row.darkRef + ' → ' + row.dark : row.dark }}</code>
+                      <button type="button" class="copy-btn" (click)="copy(row.dark)" [attr.aria-label]="'Copiar ' + row.dark">
+                        {{ copiedValue() === row.dark ? '✓' : '⧉' }}
+                      </button>
+                    </div>
+                  </div>
+                } @else {
+                  <!-- Valor crudo + preview visual en contexto -->
+                  <div class="cell cell--raw">
+                    <code class="raw-value">{{ row.light }}</code>
+                    <button type="button" class="copy-btn" (click)="copy(row.light)" [attr.aria-label]="'Copiar ' + row.light">
+                      {{ copiedValue() === row.light ? '✓' : '⧉' }}
+                    </button>
+                  </div>
+                  <div class="cell cell--preview">
+                    @switch (section.id) {
+                      @case ('radius') {
+                        <span class="preview-box" [style.border-radius]="'var(' + row.name + ')'"></span>
+                      }
+                      @case ('effects') {
+                        <span class="preview-box preview-box--shadow" [style.box-shadow]="'var(' + row.name + ')'"></span>
+                      }
+                      @case ('opacity') {
+                        <span class="preview-box" [style.opacity]="'var(' + row.name + ')'"></span>
+                      }
+                      @case ('layout') {
+                        <span class="preview-bar" [style.width]="'var(' + row.name + ')'"></span>
+                      }
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
+
+          @if (group.description) {
+            <p class="group__description">
+              {{ group.description }}
+              @if (group.version) {
+                <span class="group__version">Introducido en {{ group.version }}</span>
+              }
+            </p>
+          }
+        </div>
+      }
+    </section>
+  } @empty {
+    <p class="empty">No hay tokens que coincidan con "{{ query() }}".</p>
+  }
+</div>

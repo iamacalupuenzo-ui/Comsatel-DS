@@ -1,0 +1,45 @@
+<label
+  [attr.for]="inputId"
+  class="cs-checkbox"
+  [class.cs-checkbox--two-lines]="hasTwoLines"
+  [class.cs-checkbox--disabled]="disabled"
+>
+  <span class="cs-checkbox__box-wrap" [style.margin-top.px]="hasTwoLines ? descMarginTop : 0">
+    <input
+      #input
+      type="checkbox"
+      [id]="inputId"
+      class="cs-checkbox__input"
+      [checked]="isChecked()"
+      [disabled]="disabled"
+      (change)="onChange($any($event.target).checked)"
+    />
+    <span
+      class="cs-checkbox__box"
+      [class.cs-checkbox__box--checked]="isChecked() || indeterminate"
+      [style.width.px]="box"
+      [style.height.px]="box"
+    >
+      @if (indeterminate) {
+        <svg [attr.width]="icon" [attr.height]="icon" viewBox="0 0 10 10" fill="none">
+          <path d="M2 5h6" stroke="white" stroke-width="1.75" stroke-linecap="round" />
+        </svg>
+      } @else if (isChecked()) {
+        <svg [attr.width]="icon" [attr.height]="icon" viewBox="0 0 10 10" fill="none">
+          <path d="M2 5.2L4.1 7.5L8 3" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      }
+    </span>
+  </span>
+
+  @if (label || description) {
+    <span class="cs-checkbox__text">
+      @if (label) {
+        <span class="cs-checkbox__label" [ngStyle]="labelStyle">{{ label }}</span>
+      }
+      @if (description) {
+        <span class="cs-checkbox__desc" [ngStyle]="descStyle">{{ description }}</span>
+      }
+    </span>
+  }
+</label>

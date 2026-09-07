@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.cs-input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--color-border-neutral-default);
+  border-radius: var(--radius-sm);
+  background-color: var(--elevation-surface-default);
+  color: var(--color-text-base-default);
+  font-family: var(--font-family-content);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--font-letter-spacing-content);
+  outline: none;
+  transition: border-color var(--motion-duration-fast) var(--motion-easing-default), box-shadow var(--motion-duration-fast) var(--motion-easing-default);
+}
+.cs-input::placeholder {
+  color: var(--color-text-base-subtlest);
+}
+.cs-input:focus-visible {
+  border-color: var(--color-border-brand-default);
+  box-shadow: 0 0 0 2px var(--color-border-brand-subtle);
+}
+.cs-input:disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  background-color: var(--color-background-neutral-subtle);
+  color: var(--color-text-base-subtlest);
+  border-color: var(--color-border-neutral-subtle);
+}
+.cs-input[aria-invalid='true'] {
+  border-color: var(--color-border-danger-default);
+  box-shadow: 0 0 0 2px var(--color-border-danger-subtle);
+}

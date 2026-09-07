@@ -1,0 +1,32 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.field-wrap {
+  width: 100%;
+  max-width: 22rem;
+}
+.field-wrap.col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-lg);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-xl);
+}
+
+.password-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--layout-padding-2xs);
+  border: none;
+  border-radius: var(--radius-xs);
+  background: none;
+  color: var(--color-text-base-subtle);
+  cursor: pointer;
+}
+.password-toggle:hover { color: var(--color-text-base-default); }

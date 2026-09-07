@@ -1,0 +1,175 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.inline-code {
+  font-family: monospace;
+  font-size: var(--font-size-content-note);
+  padding: var(--layout-padding-2xs) var(--layout-padding-sm);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-background-neutral-subtle);
+}
+
+/* Tabla de escala */
+.table {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  overflow: hidden;
+}
+.table__head {
+  display: grid;
+  grid-template-columns: 24% 7rem 8rem 1fr;
+  gap: var(--layout-gap-xl);
+  padding: var(--layout-padding-md) var(--layout-padding-2xl);
+  background-color: var(--color-background-neutral-subtlest);
+  border-bottom: 1px solid var(--color-border-divider);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-bolder);
+}
+.table__row {
+  display: grid;
+  grid-template-columns: 24% 7rem 8rem 1fr;
+  gap: var(--layout-gap-xl);
+  align-items: center;
+  padding: var(--layout-padding-lg) var(--layout-padding-2xl);
+  border-top: 1px solid var(--color-border-divider);
+}
+.table__row:first-child { border-top: none; }
+.table__row:hover { background-color: var(--color-interaction-hovered); }
+.table__token { font-family: monospace; font-size: var(--font-size-content-note); color: var(--color-text-base-default); overflow-wrap: anywhere; }
+.table__value { font-family: monospace; font-size: var(--font-size-content-note); color: var(--color-text-base-subtle); }
+.table__cell { display: flex; align-items: center; }
+.table__use { font-size: var(--font-size-content-note); color: var(--color-text-base-subtle); }
+
+.swatch {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--color-border-brand-default);
+  background-color: var(--color-background-brand-subtle);
+}
+
+/* Escala visual */
+.visual-panel {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  background-color: var(--color-background-neutral-subtle);
+  padding: var(--layout-padding-4xl) var(--layout-padding-3xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-4xl);
+}
+.visual-row { display: flex; align-items: flex-start; }
+.visual-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--layout-gap-lg);
+  text-align: center;
+}
+.visual-item__swatch {
+  width: 56px;
+  height: 56px;
+  border: 2px solid var(--color-border-brand-default);
+  background-color: var(--color-background-brand-subtle);
+}
+.visual-item__label { font-size: var(--font-size-content-note); font-weight: var(--font-weight-emphasis); color: var(--color-text-base-bolder); }
+.visual-item__value { font-family: monospace; font-size: var(--font-size-content-note); color: var(--color-text-base-subtlest); margin-top: var(--layout-padding-2xs); }
+
+/* Uso según contexto */
+.usage-list { display: flex; flex-direction: column; gap: var(--layout-gap-xl); }
+.usage-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  overflow: hidden;
+}
+.usage-card__header {
+  padding: var(--layout-padding-xl) var(--layout-padding-2xl);
+  border-bottom: 1px solid var(--color-border-divider);
+  background-color: var(--color-background-neutral-subtlest);
+}
+.usage-card__heading { font-size: var(--font-size-content-caption); font-weight: var(--font-weight-emphasis); color: var(--color-text-base-boldest); }
+.usage-card__desc { font-size: var(--font-size-content-note); color: var(--color-text-base-subtle); margin-top: var(--layout-padding-xs); line-height: 1.5; }
+.usage-card__body {
+  padding: var(--layout-padding-2xl);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--layout-gap-lg);
+  background-color: var(--elevation-surface-default);
+}
+.usage-card__chip {
+  padding: var(--layout-padding-md) var(--layout-padding-lg);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-accent);
+  border: 1px solid;
+  white-space: nowrap;
+}
+.usage-card__footer {
+  padding: var(--layout-padding-lg) var(--layout-padding-2xl);
+  border-top: 1px solid var(--color-border-divider);
+  background-color: var(--color-background-neutral-subtlest);
+}
+.usage-card__footer code { font-family: monospace; font-size: var(--font-size-content-note); color: var(--color-text-brand-default); }
+
+/* Radio completo */
+.full-panel {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  overflow: hidden;
+}
+.full-panel__body {
+  padding: var(--layout-padding-3xl);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--layout-gap-2xl);
+  background-color: var(--elevation-surface-default);
+}
+.full-panel__footer {
+  padding: var(--layout-padding-lg) var(--layout-padding-2xl);
+  border-top: 1px solid var(--color-border-divider);
+  background-color: var(--color-background-neutral-subtlest);
+}
+.full-panel__footer code { font-family: monospace; font-size: var(--font-size-content-note); color: var(--color-text-brand-default); }
+
+.avatar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight-emphasis);
+  font-size: var(--font-size-content-caption);
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-brand-subtle);
+  color: var(--color-text-brand-bolder);
+}
+.pill {
+  padding: var(--layout-padding-sm) var(--layout-padding-xl);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-accent);
+  border: 1px solid;
+}
+.pill--brand { background-color: var(--color-background-brand-subtlest); color: var(--color-text-brand-default); border-color: var(--color-border-brand-subtle); }
+.pill--success { background-color: var(--color-background-success-subtlest); color: var(--color-text-success-default); border-color: var(--color-border-success-subtle); }
+
+.toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 36px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-brand-default);
+}
+.toggle__knob {
+  position: absolute;
+  top: var(--layout-padding-2xs);
+  right: var(--layout-padding-2xs);
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  background-color: white;
+  box-shadow: var(--shadow-xs);
+}
