@@ -13,8 +13,14 @@ import { DemoShell } from '../../shared/docs/demo-shell';
 // cs-avatar-group no fabrica placeholders solo — a diferencia de React
 // (que mostraba 3 círculos de color cuando `avatars.length === 0`), acá
 // hay que pasar explícitamente los items vacíos para que el placeholder
-// real de cs-avatar (ícono de silueta) aparezca 3 veces.
-const PLACEHOLDER_AVATARS: AvatarGroupItem[] = [{}, {}, {}];
+// aparezca 3 veces. Colores rotados exactos del fallback real de
+// CardBanner (card.tsx): brand/success/warning, en ese orden — no los 3
+// iguales.
+const PLACEHOLDER_AVATARS: AvatarGroupItem[] = [
+  { placeholderBg: 'var(--color-background-brand-subtle)' },
+  { placeholderBg: 'var(--color-background-success-subtle)' },
+  { placeholderBg: 'var(--color-background-warning-subtle)' },
+];
 
 const BANNER_VARIANTS = [
   { variant: 'neutral' as const, title: 'Neutral', desc: 'Estado por defecto, sin urgencia asociada.', badge: 'Info' },

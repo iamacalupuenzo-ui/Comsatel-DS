@@ -27,6 +27,15 @@ export class Avatar {
   // placeholder por posición. El resto de usos de Avatar no lo setea y
   // sigue con el brand-subtle de siempre.
   @Input() placeholderBg = 'var(--color-background-brand-subtle)';
+  // Opcional — el placeholder real del sistema (silueta + color) asume que
+  // el círculo representa a UNA persona identificable sin foto todavía.
+  // La constelación decorativa de Card (FeatureSpotlightCard) y el stack
+  // de avatares de CardBanner usan el mismo círculo de color SIN silueta
+  // cuando no hay foto real — así lo dibuja el sistema real (círculos de
+  // color planos, ver card.tsx), y meterle el ícono de Avatar ahí agrega
+  // un elemento que ese diseño no tiene. Default `true` para no cambiar
+  // ningún otro uso existente de Avatar.
+  @Input() showPlaceholderIcon = true;
 
   get px(): number {
     return AVATAR_PX[this.size];

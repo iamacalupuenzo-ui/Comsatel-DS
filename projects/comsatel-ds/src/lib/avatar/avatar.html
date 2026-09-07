@@ -3,7 +3,7 @@
     @if (isImage) {
       <img class="cs-avatar__img" [src]="src" [alt]="alt" />
     }
-    @if (isPlaceholder) {
+    @if (isPlaceholder && showPlaceholderIcon) {
       <div class="cs-avatar__placeholder">
         <svg [attr.width]="iconPx" [attr.height]="iconPx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
@@ -20,7 +20,7 @@
       @if (isImage) {
         <img class="cs-avatar__img" [src]="src" [alt]="alt" />
       }
-      @if (isPlaceholder) {
+      @if (isPlaceholder && showPlaceholderIcon) {
         <div class="cs-avatar__placeholder">
           <svg [attr.width]="iconPx" [attr.height]="iconPx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />

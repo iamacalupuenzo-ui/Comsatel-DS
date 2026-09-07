@@ -1,7 +1,7 @@
 <div class="cs-card-banner" [style.background-color]="tok.bg" [style.border-color]="tok.border">
   <div class="cs-card-banner__top">
     @if (showAvatar) {
-      <cs-avatar-group size="xs" [avatars]="avatars" [maxVisible]="3" [showAddButton]="false"></cs-avatar-group>
+      <cs-avatar-group size="xs" [avatars]="avatars" [maxVisible]="3" [showAddButton]="false" [showPlaceholderIcon]="false"></cs-avatar-group>
     } @else {
       <span></span>
     }

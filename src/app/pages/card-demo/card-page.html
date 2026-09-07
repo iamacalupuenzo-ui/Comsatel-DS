@@ -166,52 +166,62 @@
   <section class="section">
     <h2 class="section__title" id="props">Propiedades</h2>
 
-    <h3 class="subsection__title" id="props-action-card">Action card</h3>
-    <div class="table">
-      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
-      <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">"Title"</code><span class="table__desc">Título principal de la fila.</span></div>
-      <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">"Description"</code><span class="table__desc">Texto de apoyo debajo del título.</span></div>
-      <div class="table__row"><code class="table__name">showLogo</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el slot de logo proyectado (ng-content select="[logo]").</span></div>
-      <div class="table__row"><code class="table__name">showToggle</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra un cs-toggle real a la derecha.</span></div>
-      <div class="table__row"><code class="table__name">showButton</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra el botón de acción a la derecha.</span></div>
-      <div class="table__row"><code class="table__name">buttonLabel</code><code class="table__type">string</code><code class="table__default">"Action"</code><span class="table__desc">Texto del botón.</span></div>
-      <div class="table__row"><code class="table__name">showLabel</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra una etiqueta de solo lectura en vez de un control.</span></div>
-      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">"Coming soon"</code><span class="table__desc">Texto de la etiqueta.</span></div>
+    <div class="subsection">
+      <h3 class="subsection__title" id="props-action-card">Action card</h3>
+      <div class="table">
+        <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+        <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">"Title"</code><span class="table__desc">Título principal de la fila.</span></div>
+        <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">"Description"</code><span class="table__desc">Texto de apoyo debajo del título.</span></div>
+        <div class="table__row"><code class="table__name">showLogo</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el slot de logo proyectado (ng-content select="[logo]").</span></div>
+        <div class="table__row"><code class="table__name">showToggle</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra un cs-toggle real a la derecha.</span></div>
+        <div class="table__row"><code class="table__name">showButton</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra el botón de acción a la derecha.</span></div>
+        <div class="table__row"><code class="table__name">buttonLabel</code><code class="table__type">string</code><code class="table__default">"Action"</code><span class="table__desc">Texto del botón.</span></div>
+        <div class="table__row"><code class="table__name">showLabel</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra una etiqueta de solo lectura en vez de un control.</span></div>
+        <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">"Coming soon"</code><span class="table__desc">Texto de la etiqueta.</span></div>
+      </div>
     </div>
 
-    <h3 class="subsection__title" id="props-card-banner">Card banner</h3>
-    <div class="table">
-      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
-      <div class="table__row"><code class="table__name">variant</code><code class="table__type">"neutral" | "brand" | "destructive" | "warning" | "success"</code><code class="table__default">"neutral"</code><span class="table__desc">Rol semántico — define color de fondo, borde y badge.</span></div>
-      <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">"Title"</code><span class="table__desc">Título principal.</span></div>
-      <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">"Description here"</code><span class="table__desc">Texto de apoyo.</span></div>
-      <div class="table__row"><code class="table__name">avatars</code><code class="table__type">AvatarGroupItem[]</code><code class="table__default">[]</code><span class="table__desc">Avatares apilados (hasta 3 visibles, vía cs-avatar-group).</span></div>
-      <div class="table__row"><code class="table__name">badgeLabel</code><code class="table__type">string</code><code class="table__default">"Label"</code><span class="table__desc">Texto del badge.</span></div>
-      <div class="table__row"><code class="table__name">showAvatar</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra el grupo de avatares.</span></div>
-      <div class="table__row"><code class="table__name">showBadge</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra el badge.</span></div>
+    <div class="subsection">
+      <h3 class="subsection__title" id="props-card-banner">Card banner</h3>
+      <div class="table">
+        <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+        <div class="table__row"><code class="table__name">variant</code><code class="table__type">"neutral" | "brand" | "destructive" | "warning" | "success"</code><code class="table__default">"neutral"</code><span class="table__desc">Rol semántico — define color de fondo, borde y badge.</span></div>
+        <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">"Title"</code><span class="table__desc">Título principal.</span></div>
+        <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">"Description here"</code><span class="table__desc">Texto de apoyo.</span></div>
+        <div class="table__row"><code class="table__name">avatars</code><code class="table__type">AvatarGroupItem[]</code><code class="table__default">[]</code><span class="table__desc">Avatares apilados (hasta 3 visibles, vía cs-avatar-group).</span></div>
+        <div class="table__row"><code class="table__name">badgeLabel</code><code class="table__type">string</code><code class="table__default">"Label"</code><span class="table__desc">Texto del badge.</span></div>
+        <div class="table__row"><code class="table__name">showAvatar</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra el grupo de avatares.</span></div>
+        <div class="table__row"><code class="table__name">showBadge</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra el badge.</span></div>
+      </div>
     </div>
 
-    <h3 class="subsection__title" id="props-feature-spotlight-card">Feature spotlight card</h3>
-    <div class="table">
-      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
-      <div class="table__row"><code class="table__name">avatars</code><code class="table__type">string[]</code><code class="table__default">[]</code><span class="table__desc">URLs de foto por posición (hasta 13); las posiciones sin foto muestran un placeholder de color.</span></div>
+    <div class="subsection">
+      <h3 class="subsection__title" id="props-feature-spotlight-card">Feature spotlight card</h3>
+      <div class="table">
+        <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+        <div class="table__row"><code class="table__name">avatars</code><code class="table__type">string[]</code><code class="table__default">[]</code><span class="table__desc">URLs de foto por posición (hasta 13); las posiciones sin foto muestran un placeholder de color.</span></div>
+      </div>
     </div>
 
-    <h3 class="subsection__title" id="props-spotlight-card">Spotlight card</h3>
-    <div class="table">
-      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
-      <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">"Invite your team"</code><span class="table__desc">Título del pie.</span></div>
-      <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">"Share updates and sync design changes"</code><span class="table__desc">Descripción del pie.</span></div>
-      <div class="table__row"><code class="table__name">avatars</code><code class="table__type">string[]</code><code class="table__default">[]</code><span class="table__desc">Se pasa directo a Feature spotlight card.</span></div>
+    <div class="subsection">
+      <h3 class="subsection__title" id="props-spotlight-card">Spotlight card</h3>
+      <div class="table">
+        <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+        <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">"Invite your team"</code><span class="table__desc">Título del pie.</span></div>
+        <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">"Share updates and sync design changes"</code><span class="table__desc">Descripción del pie.</span></div>
+        <div class="table__row"><code class="table__name">avatars</code><code class="table__type">string[]</code><code class="table__default">[]</code><span class="table__desc">Se pasa directo a Feature spotlight card.</span></div>
+      </div>
     </div>
 
-    <h3 class="subsection__title" id="props-preview-card">Preview card</h3>
-    <div class="table">
-      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
-      <div class="table__row"><code class="table__name">name</code><code class="table__type">string</code><code class="table__default">"Project name"</code><span class="table__desc">Nombre de archivo/proyecto mostrado en el pie.</span></div>
-      <div class="table__row"><code class="table__name">showLogo</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el slot de logo proyectado (ng-content select="[logo]").</span></div>
-      <div class="table__row"><code class="table__name">showImage</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el slot de imagen proyectado (ng-content select="[image]") en vez del texto "Preview".</span></div>
-      <div class="table__row"><code class="table__name">(options)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en el botón de opciones.</span></div>
+    <div class="subsection">
+      <h3 class="subsection__title" id="props-preview-card">Preview card</h3>
+      <div class="table">
+        <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+        <div class="table__row"><code class="table__name">name</code><code class="table__type">string</code><code class="table__default">"Project name"</code><span class="table__desc">Nombre de archivo/proyecto mostrado en el pie.</span></div>
+        <div class="table__row"><code class="table__name">showLogo</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el slot de logo proyectado (ng-content select="[logo]").</span></div>
+        <div class="table__row"><code class="table__name">showImage</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el slot de imagen proyectado (ng-content select="[image]") en vez del texto "Preview".</span></div>
+        <div class="table__row"><code class="table__name">(options)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en el botón de opciones.</span></div>
+      </div>
     </div>
   </section>
 </div>

@@ -2,7 +2,14 @@
   @for (av of visible; track $index) {
     <div class="cs-avatar-group__item" [style.margin-right]="marginFor($index)" [style.z-index]="$index">
       <div class="cs-avatar-group__ring"></div>
-      <cs-avatar [size]="size" [src]="av.src" [alt]="av.alt ?? ''" [initials]="av.initials"></cs-avatar>
+      <cs-avatar
+        [size]="size"
+        [src]="av.src"
+        [alt]="av.alt ?? ''"
+        [initials]="av.initials"
+        [showPlaceholderIcon]="showPlaceholderIcon"
+        [placeholderBg]="av.placeholderBg ?? 'var(--color-background-brand-subtle)'"
+      ></cs-avatar>
     </div>
   }
 
