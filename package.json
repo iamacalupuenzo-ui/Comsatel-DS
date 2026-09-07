@@ -9,7 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "storybook": "ng run comsatel-ds-angular:storybook",
-    "build-storybook": "ng run comsatel-ds-angular:build-storybook"
+    "build-storybook": "npm run build:lib && ng run comsatel-ds-angular:build-storybook"
   },
   "private": true,
   "packageManager": "npm@11.16.0",
@@ -33,6 +33,7 @@
     "@storybook/addon-docs": "^10.6.0",
     "@storybook/angular": "^10.6.0",
     "@storybook/builder-vite": "^10.6.0",
+    "chromatic": "^18.7.2",
     "jsdom": "^28.0.0",
     "ng-packagr": "^22.1.0",
     "prettier": "^3.8.1",
