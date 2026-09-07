@@ -1,6 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
-import { ICON_REGISTRY, InputDropdown, type InputDropdownOption } from 'comsatel-ds';
+import { Button, ICON_REGISTRY, InputDropdown, type InputDropdownOption } from 'comsatel-ds';
 import { CodeBlock } from '../../shared/docs/code-block';
 
 interface CatalogEntry {
@@ -117,7 +117,7 @@ const SYNONYMS: Record<string, string> = {
 
 @Component({
   selector: 'app-icons-page',
-  imports: [CodeBlock, InputDropdown],
+  imports: [Button, CodeBlock, InputDropdown],
   templateUrl: './icons-page.html',
   styleUrl: './icons-page.css',
 })

@@ -1,5 +1,6 @@
 import { Component, computed, input, signal } from '@angular/core';
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
+import { Button, Icon } from 'comsatel-ds';
 import { highlight } from './highlight';
 
 // Puerto 1:1 de CodeBlock en DocsComponents.tsx — versión standalone para
@@ -10,6 +11,7 @@ import { highlight } from './highlight';
   selector: 'app-code-block',
   templateUrl: './code-block.html',
   styleUrl: './code-block.css',
+  imports: [Button, Icon],
 })
 export class CodeBlock {
   readonly code = input('');

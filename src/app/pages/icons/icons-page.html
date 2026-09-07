@@ -32,7 +32,7 @@
 
     @if (failed()) {
       <p class="status status--error">No se pudo cargar la biblioteca.</p>
-      <button type="button" class="retry-btn" (click)="retry()">Reintentar</button>
+      <div class="retry-wrap"><cs-button variant="default" size="sm" (click)="retry()">Reintentar</cs-button></div>
     } @else if (!catalog()) {
       <p class="status">Cargando biblioteca…</p>
     } @else {
@@ -58,7 +58,7 @@
 
       @if (matches().length > visible().length) {
         <div class="show-more">
-          <button type="button" class="show-more__btn" (click)="showMore()">Mostrar más</button>
+          <cs-button variant="default" size="sm" (click)="showMore()">Mostrar más</cs-button>
         </div>
       }
     }
@@ -74,9 +74,9 @@
         <div class="usage-panel__preview">
           <span class="usage-panel__icon" [innerHTML]="iconHtml(entry, 20)"></span>
           <strong>{{ entry.name }}</strong>
-          <button type="button" class="usage-panel__copy" (click)="copySvg()">
+          <cs-button variant="default" size="xs" (click)="copySvg()">
             {{ copyStatus() === 'copied' ? 'SVG copiado' : copyStatus() === 'error' ? 'No se pudo copiar' : 'Copiar SVG' }}
-          </button>
+          </cs-button>
           <a class="usage-panel__download" [href]="'/icons/lucide/' + entry.id + '.svg'" download>Descargar SVG</a>
         </div>
         <app-code-block [code]="codeText()"></app-code-block>
