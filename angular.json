@@ -64,6 +64,48 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        },
+        "storybook-build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/comsatel-ds-angular-storybook-build",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "tsConfig": "tsconfig.storybook.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
+            "styles": ["projects/comsatel-ds/src/styles/index.css", "src/styles.css"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "browserTarget": "comsatel-ds-angular:storybook-build",
+            "tsConfig": "tsconfig.storybook.json",
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "browserTarget": "comsatel-ds-angular:storybook-build",
+            "tsConfig": "tsconfig.storybook.json",
+            "outputDir": "storybook-static"
+          }
         }
       }
     },

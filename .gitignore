@@ -39,6 +39,11 @@ testem.log
 /typings
 __screenshots__/
 
+# Storybook
+/storybook-static
+debug-storybook.log
+/documentation.json
+
 # System files
 .DS_Store
 Thumbs.db

@@ -6,6 +6,12 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["ng", "serve", "--port", "4300"],
       "port": 4300
+    },
+    {
+      "name": "comsatel-ds-storybook",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["ng", "run", "comsatel-ds-angular:storybook"],
+      "port": 6006
     }
   ]
 }

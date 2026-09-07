@@ -1,0 +1,16 @@
+/* tsConfig dedicado para el target Angular "storybook"/"build-storybook"
+   (ver angular.json) — extiende tsconfig.app.json (mismo compilerOptions
+   que la app) pero además incluye los archivos .storybook/ y los
+   *.stories.ts de la librería, que el build normal de la app no necesita
+   compilar. */
+{
+  "extends": "./tsconfig.app.json",
+  "include": [
+    "src/**/*.ts",
+    ".storybook/**/*.ts",
+    "projects/comsatel-ds/src/**/*.stories.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts"
+  ]
+}
