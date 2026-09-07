@@ -1,7 +1,7 @@
 /* ==========================================================================
    Comsatel Design System — CSS Custom Properties
    Source: Figma file IrNVKJjxRai7EcEIIOgRkK (theme collection)
-   Modes: Light | Dark | Glass
+   Modes: Light | Dark
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -451,65 +451,6 @@
   --elevation-surface-raised: #1d2939;
   --elevation-surface-overlay: #344054;
   --elevation-surface-sunken: #0c0e16;
-}
-
-/* --------------------------------------------------------------------------
-   GLASS
-   -------------------------------------------------------------------------- */
-[data-theme="glass"] {
-  --color-background-base: rgba(255,255,255,0.05);
-  --color-background-selected: rgba(97,114,243,0.2);
-  --color-background-disabled: rgba(255,255,255,0.04);
-  --color-background-neutral-subtlest: rgba(255,255,255,0.03);
-  --color-background-neutral-subtle: rgba(255,255,255,0.06);
-  --color-background-neutral-default: rgba(255,255,255,0.1);
-  --color-background-neutral-bolder: rgba(255,255,255,0.16);
-  --color-background-neutral-boldest: rgba(255,255,255,0.24);
-  --color-background-neutral-strongest: rgba(255,255,255,0.36);
-  --color-background-brand-subtlest: rgba(97,114,243,0.1);
-  --color-background-brand-subtle: rgba(97,114,243,0.2);
-  --color-background-brand-default: rgba(97,114,243,0.5);
-  --color-background-brand-bolder: rgba(97,114,243,0.7);
-  --color-background-brand-boldest: rgba(97,114,243,0.9);
-  --color-background-brand-strongest: #6172f3;
-
-  --color-text-base-subtlest: rgba(255,255,255,0.3);
-  --color-text-base-subtle: rgba(255,255,255,0.5);
-  --color-text-base-default: rgba(255,255,255,0.8);
-  --color-text-base-bolder: rgba(255,255,255,0.9);
-  --color-text-base-boldest: #ffffff;
-  --color-text-inverse: #000000;
-  --color-text-selected: #a4bcfb;
-  --color-text-disabled: rgba(255,255,255,0.3);
-  --color-text-brand-default: #a4bcfb;
-  --color-text-brand-bolder: #c7d7fd;
-  --color-border-default: rgba(255,255,255,0.15);
-  --color-border-selected: rgba(97,114,243,0.6);
-  --color-border-disabled: rgba(255,255,255,0.06);
-  --color-border-focused: rgba(97,114,243,0.8);
-  --color-border-divider: rgba(255,255,255,0.1);
-  --color-border-neutral-subtle: rgba(255,255,255,0.08);
-  --color-border-neutral-default: rgba(255,255,255,0.15);
-  --color-border-neutral-bolder: rgba(255,255,255,0.24);
-  --color-icon-selected: #8098f9;
-  --color-icon-disabled: rgba(255,255,255,0.3);
-  --color-icon-inverse: #000000;
-  --color-icon-neutral-subtle: rgba(255,255,255,0.5);
-  --color-icon-neutral-default: rgba(255,255,255,0.8);
-  --color-icon-neutral-bolder: #ffffff;
-  --color-accent-teal: #5fe9d0;
-  --color-accent-lime: #acdc79;
-  --color-accent-blue: #93c5fd;
-  --color-accent-purple: #c4b5fd;
-  --color-accent-pink: #f9a8d4;
-  --color-accent-yellow: #fde047;
-  --color-accent-orange: #fdb022;
-  --color-interaction-hovered: rgba(255,255,255,0.08);
-  --color-interaction-pressed: rgba(255,255,255,0.14);
-  --elevation-surface-default: rgba(255,255,255,0.06);
-  --elevation-surface-raised: rgba(255,255,255,0.1);
-  --elevation-surface-overlay: rgba(255,255,255,0.16);
-  --elevation-surface-sunken: rgba(0,0,0,0.2);
 }
 
 /* --------------------------------------------------------------------------
