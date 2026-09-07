@@ -10,10 +10,21 @@
   background-color: var(--color-background-neutral-subtle);
 }
 
+/* cs-button variant="default" está pensado para apoyarse sobre el fondo base
+   de la página: en reposo es transparente y su hover usa
+   --color-background-neutral-subtle. Acá se apoya sobre .code-block, que usa
+   ESE MISMO token como fondo — el hover se dispara pero queda invisible
+   porque coincide con el fondo que lo rodea. Se le da al host su propia
+   superficie elevada (--elevation-surface-default, el token que ya usa el
+   resto del sistema para superficies por encima del fondo base) para que el
+   tinte de hover del propio cs-button vuelva a verse, sin tocar sus estilos
+   internos. */
 .code-block__copy {
   position: absolute;
   top: var(--layout-padding-lg);
   right: var(--layout-padding-lg);
+  background-color: var(--elevation-surface-default);
+  border-radius: var(--radius-sm);
 }
 
 .code-block__pre {
