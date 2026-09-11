@@ -1,11 +1,13 @@
 <button
+  #header
   type="button"
   class="cs-accordion-item__header"
-  [attr.id]="'accordion-header-' + id"
+  [attr.id]="domId + '-header'"
   [disabled]="disabled"
   [attr.aria-expanded]="expanded()"
-  [attr.aria-controls]="'accordion-body-' + id"
+  [attr.aria-controls]="domId + '-body'"
   (click)="onHeaderClick()"
+  (keydown)="onHeaderKeydown($event)"
 >
   <div class="cs-accordion-item__header-content">
     <ng-content select="[header]"></ng-content>
@@ -22,9 +24,10 @@
   class="cs-accordion-item__body"
   #body
   role="region"
-  [attr.id]="'accordion-body-' + id"
-  [attr.aria-labelledby]="'accordion-header-' + id"
+  [attr.id]="domId + '-body'"
+  [attr.aria-labelledby]="domId + '-header'"
   [attr.aria-hidden]="!expanded()"
+  [attr.inert]="expanded() ? null : ''"
 >
   <div class="cs-accordion-item__body-inner">
     <ng-content></ng-content>

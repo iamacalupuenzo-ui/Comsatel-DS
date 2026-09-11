@@ -16,7 +16,7 @@
       Accordion solo es dueño del toggle, el chevron y la animación de expandir.
     </p>
     <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
-      <cs-accordion [type]="type()" [defaultExpandedIds]="['norte-04']" style="width: 100%">
+      <cs-accordion class="accordion-demo" [type]="type()" [defaultExpandedIds]="['norte-04']">
         @for (unit of units; track unit.id) {
           <cs-accordion-item [id]="unit.id">
             <div header class="unit-header">
@@ -51,7 +51,7 @@
       <div class="static-block__preview type-compare">
         <div class="type-compare__col">
           <span class="type-compare__label">single</span>
-          <cs-accordion type="single" [defaultExpandedIds]="['norte-04']">
+          <cs-accordion class="accordion-demo" type="single" [defaultExpandedIds]="['norte-04']">
             @for (unit of units; track unit.id) {
               <cs-accordion-item [id]="unit.id">
                 <div header class="unit-header">
@@ -73,7 +73,7 @@
         </div>
         <div class="type-compare__col">
           <span class="type-compare__label">multiple</span>
-          <cs-accordion type="multiple" [defaultExpandedIds]="['norte-04', 'norte-07']">
+          <cs-accordion class="accordion-demo" type="multiple" [defaultExpandedIds]="['norte-04', 'norte-07']">
             @for (unit of units; track unit.id) {
               <cs-accordion-item [id]="unit.id">
                 <div header class="unit-header">
@@ -107,7 +107,7 @@
     </p>
     <div class="static-block">
       <div class="static-block__preview">
-        <cs-accordion [defaultExpandedIds]="['norte-04']" style="width: 100%">
+        <cs-accordion class="accordion-demo" [defaultExpandedIds]="['norte-04']">
           @for (unit of units; track unit.id; let i = $index) {
             <cs-accordion-item [id]="unit.id" [disabled]="i === 1">
               <div header class="unit-header">
@@ -143,7 +143,7 @@
         </div>
         <div class="guide-card__body">
           <p class="guide-card__text">Usa Accordion cuando expandir el detalle de un ítem es el punto — el estado completo de una unidad de flota, una respuesta de FAQ, una sección de configuración.</p>
-          <cs-accordion [defaultExpandedIds]="['norte-04']" style="width: 100%">
+          <cs-accordion class="accordion-demo" [defaultExpandedIds]="['norte-04']">
             <cs-accordion-item id="norte-04">
               <div header class="unit-header">
                 <div class="unit-header__icon"><cs-icon name="truck" [size]="16" /></div>
@@ -170,7 +170,7 @@
         </div>
         <div class="guide-card__body">
           <p class="guide-card__text">No uses Accordion para esconder contenido que alguien necesita comparar entre ítems a la vez — una tabla o una lista con columnas visibles se lee mejor para eso.</p>
-          <cs-accordion [defaultExpandedIds]="['norte-04']" style="width: 100%">
+          <cs-accordion class="accordion-demo" [defaultExpandedIds]="['norte-04']">
             <cs-accordion-item id="norte-04">
               <div header class="unit-header">
                 <div class="unit-header__icon"><cs-icon name="truck" [size]="16" /></div>
@@ -223,7 +223,8 @@
       <div class="table__row"><strong>Relación</strong><span><code class="inline-code">aria-controls</code> enlaza el botón con una región <code class="inline-code">role="region"</code> y <code class="inline-code">aria-labelledby</code>.</span></div>
       <div class="table__row"><strong>Estado</strong><span>El panel colapsado expone <code class="inline-code">aria-hidden="true"</code>; el contenido expandido vuelve a estar disponible para lectores de pantalla.</span></div>
       <div class="table__row"><strong>Disabled</strong><span>El encabezado conserva el botón nativo disabled y no puede cambiar de estado.</span></div>
-      <div class="table__row"><strong>Foco</strong><span>El encabezado tiene anillo visible con teclado y la animación no cambia el orden de lectura.</span></div>
+      <div class="table__row"><strong>Teclado</strong><span>Enter y Espacio alternan el panel; Flecha arriba/abajo, Inicio y Fin mueven el foco entre encabezados disponibles.</span></div>
+      <div class="table__row"><strong>Foco</strong><span>El encabezado tiene anillo visible; un panel cerrado queda inerte para que su contenido no entre al tabulador.</span></div>
     </div>
   </section>
 

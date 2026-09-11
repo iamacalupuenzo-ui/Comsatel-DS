@@ -117,10 +117,11 @@
         </div>
         <div class="guide-card__body">
           <p class="guide-card__text">No encadenes cinco o más pasos de spotlight: para el paso 4 la persona ya está cerrando en piloto automático, no leyendo.</p>
+          <div class="avoid-tour" aria-hidden="true"><span>1</span><i></i><span>2</span><i></i><span>3</span><i></i><span>4</span><i></i><span>5</span><i></i><span>6</span></div>
         </div>
       </div>
 
-      <div class="guide-card guide-card--do guide-card--spotlight">
+      <div class="guide-card guide-card--do guide-card--spotlight" [class.guide-card--spotlight-open]="guideExitVisible()">
         <div class="guide-card__header">
           <cs-icon name="check" [size]="13" class="guide-card__header-icon" />
           <span class="guide-card__header-label">Recomendado</span>
@@ -150,6 +151,7 @@
         </div>
         <div class="guide-card__body">
           <p class="guide-card__text">No obligues a pasar por cada paso para cerrar un recorrido: bloquear la única salida detrás de "Siguiente" es justo lo que el diseño sin focus-trap busca evitar.</p>
+          <div class="avoid-callout" aria-hidden="true"><span class="avoid-callout__close">×</span><strong>Sin salida</strong><span>El cierre está bloqueado hasta terminar.</span><span class="avoid-callout__button">Siguiente</span></div>
         </div>
       </div>
     </div>

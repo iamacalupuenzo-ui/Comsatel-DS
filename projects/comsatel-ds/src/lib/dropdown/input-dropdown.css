@@ -98,6 +98,7 @@
 }
 
 .cs-input-dropdown__value {
+  flex: 1 1 auto;
   min-width: 0;
   text-align: left;
   overflow: hidden;
@@ -107,7 +108,7 @@
 
 .cs-input-dropdown__chevron {
   flex-shrink: 0;
-  margin-left: 0;
+  margin-left: auto;
   color: var(--color-text-base-subtle);
   transition: transform var(--motion-duration-fast) var(--motion-easing-default);
 }

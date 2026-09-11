@@ -70,7 +70,10 @@ export class Accordion implements AfterContentInit, OnChanges, OnDestroy {
 
   private wireItems(): void {
     this.itemSubs.forEach((s) => s.unsubscribe());
-    this.itemSubs = this.itemsQuery.map((item) => item.toggled.subscribe(() => this.toggle(item.id)));
+    this.itemSubs = Array.from(this.itemsQuery).flatMap((item) => [
+      item.toggled.subscribe(() => this.toggle(item.id)),
+      item.headerKeydown.subscribe((event) => this.onHeaderKeydown(item, event)),
+    ]);
     this.sync();
   }
 
@@ -89,5 +92,21 @@ export class Accordion implements AfterContentInit, OnChanges, OnDestroy {
     if (this.expandedIds === undefined) this.internalIds = next;
     this.expandedIdsChange.emit(next);
     this.sync();
+  }
+
+  private onHeaderKeydown(current: AccordionItem, event: KeyboardEvent): void {
+    if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+
+    const enabledItems = this.itemsQuery.filter((item) => !item.disabled);
+    const index = enabledItems.indexOf(current);
+    if (index === -1) return;
+
+    event.preventDefault();
+    const nextIndex = event.key === 'Home'
+      ? 0
+      : event.key === 'End'
+        ? enabledItems.length - 1
+        : (index + (event.key === 'ArrowDown' ? 1 : -1) + enabledItems.length) % enabledItems.length;
+    enabledItems[nextIndex].focusHeader();
   }
 }

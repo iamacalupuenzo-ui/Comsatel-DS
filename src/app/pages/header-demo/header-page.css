@@ -1,2 +1,2 @@
 @import '../../shared/styles/doc-page.css';
-:host{display:block}.result{margin:var(--layout-padding-xl) 0 0;color:var(--color-text-base-subtle);font-size:var(--font-size-content-note);line-height:var(--font-line-height-content-note)}
+:host{display:block}.result{margin:var(--layout-padding-md) 0 0;color:var(--color-text-base-subtle);font-size:var(--font-size-content-note);line-height:var(--font-line-height-content-note)}.header-guidelines{display:grid;grid-template-columns:1fr;gap:var(--layout-gap-xl)}

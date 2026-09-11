@@ -21,13 +21,19 @@ import { tokenSeconds } from '../motion/token-duration';
   },
 })
 export class AccordionItem {
+  private static nextInstance = 0;
+
   @Input({ required: true }) id!: string;
   @Input() disabled = false;
   @Output() readonly toggled = new EventEmitter<void>();
+  @Output() readonly headerKeydown = new EventEmitter<KeyboardEvent>();
 
   readonly expanded = signal(false);
 
+  @ViewChild('header', { static: true }) private headerRef!: ElementRef<HTMLButtonElement>;
   @ViewChild('body', { static: true }) private bodyRef!: ElementRef<HTMLElement>;
+  /** Evita ids DOM repetidos cuando distintos accordions reutilizan el mismo id de dato. */
+  protected readonly domId = `accordion-${AccordionItem.nextInstance++}`;
   private animatedOnce = false;
 
   constructor() {
@@ -52,5 +58,13 @@ export class AccordionItem {
   protected onHeaderClick(): void {
     if (this.disabled) return;
     this.toggled.emit();
+  }
+
+  protected onHeaderKeydown(event: KeyboardEvent): void {
+    this.headerKeydown.emit(event);
+  }
+
+  focusHeader(): void {
+    this.headerRef.nativeElement.focus();
   }
 }
