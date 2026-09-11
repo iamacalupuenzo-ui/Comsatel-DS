@@ -19,7 +19,7 @@
                   @if (item.icon) { <cs-icon [name]="item.icon" [size]="16" /> }
                 </div>
               } @else if (item.children) {
-                <button #railTrigger type="button" class="cs-menu__rail-btn" [class.cs-menu__rail-btn--active]="isHighlighted(item)" [attr.aria-label]="item.label" csPressScale>
+                <button #railTrigger type="button" class="cs-menu__rail-btn" [class.cs-menu__rail-btn--active]="isHighlighted(item)" [attr.aria-label]="item.label" [attr.aria-expanded]="hoveredItem() === item" csPressScale>
                   @if (item.icon) { <cs-icon [name]="item.icon" [size]="16" /> }
                   @if (item.badge) {
                     <span class="cs-menu__rail-badge"><span class="cs-menu__badge">{{ item.badge }}</span></span>
@@ -80,7 +80,7 @@
               </span>
             } @else if (item.children) {
               <!-- ── Expandido: grupo con hijos ── -->
-              <button type="button" class="cs-menu__row" [class.cs-menu__row--highlighted]="isHighlighted(item)" (click)="toggle(item)" csPressScale>
+              <button type="button" class="cs-menu__row" [class.cs-menu__row--highlighted]="isHighlighted(item)" [attr.aria-expanded]="isOpen(item)" (click)="toggle(item)" csPressScale>
                 @if (item.icon) { <cs-icon [name]="item.icon" [size]="15" class="cs-menu__icon" /> }
                 <span class="cs-menu__label">{{ item.label }}</span>
                 @if (item.badge) { <span class="cs-menu__badge">{{ item.badge }}</span> }

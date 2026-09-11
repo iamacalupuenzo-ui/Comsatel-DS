@@ -11,7 +11,7 @@
           <button
             type="button"
             class="cs-progress-indicator__node-button"
-            [attr.aria-label]="step.label"
+            [attr.aria-label]="stepLabel(step, index)"
             [attr.aria-current]="step.state === 'active' ? 'step' : null"
             (click)="onStepClick(step)"
           >
@@ -60,6 +60,9 @@
       </div>
       <div class="cs-progress-indicator__label">
         <span class="cs-progress-indicator__label-text" [class.cs-progress-indicator__label-text--pending]="step.state === 'pending'">{{ step.label }}</span>
+        @if (!interactive) {
+          <span class="cs-progress-indicator__sr">, {{ stateText(step) }}</span>
+        }
         @if (step.description) {
           <span class="cs-progress-indicator__description">{{ step.description }}</span>
         }

@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, effect, 
 import { gsap } from 'gsap';
 import { Icon } from '../icons/icon';
 import { EASE_DEFAULT } from '../motion/eases';
-import { tokenSeconds } from '../motion/token-duration';
+import { prefersReducedMotion, tokenSeconds } from '../motion/token-duration';
 
 /**
  * Fila individual de un `<cs-accordion>` — no maneja su propio estado de
@@ -40,10 +40,11 @@ export class AccordionItem {
     effect(() => {
       const isOpen = this.expanded();
       const el = this.bodyRef.nativeElement;
-      if (!this.animatedOnce) {
+      if (!this.animatedOnce || prefersReducedMotion()) {
         // Estado inicial sin animar — evita el flash de abrir/cerrar en el
-        // primer render, antes de que el padre termine de sincronizar.
-        gsap.set(el, { height: isOpen ? 'auto' : 0 });
+        // primer render, antes de que el padre termine de sincronizar. Tampoco
+        // se anima si la persona pidió reducir el movimiento.
+        gsap.set(el, { height: isOpen ? 'auto' : 0, overwrite: true });
         this.animatedOnce = true;
         return;
       }

@@ -11,6 +11,12 @@ export interface ProgressIndicatorStep {
   state: ProgressStepState;
 }
 
+const STATE_TEXT: Record<ProgressStepState, string> = {
+  done: 'completado',
+  active: 'activo',
+  pending: 'pendiente',
+};
+
 @Component({
   selector: 'cs-progress-indicator',
   imports: [Icon],
@@ -35,6 +41,14 @@ export class ProgressIndicator {
 
   protected nextStep(index: number): ProgressIndicatorStep | undefined {
     return this.steps[index + 1];
+  }
+
+  protected stateText(step: ProgressIndicatorStep): string {
+    return STATE_TEXT[step.state];
+  }
+
+  protected stepLabel(step: ProgressIndicatorStep, index: number): string {
+    return `Paso ${index + 1}: ${step.label}, ${STATE_TEXT[step.state]}`;
   }
 
   protected onStepClick(step: ProgressIndicatorStep): void {

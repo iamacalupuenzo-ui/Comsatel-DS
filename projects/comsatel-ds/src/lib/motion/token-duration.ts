@@ -6,3 +6,9 @@ export function tokenSeconds(el: HTMLElement, cssVar: string, fallbackMs = 100):
   const ms = parseFloat(raw);
   return (Number.isFinite(ms) ? ms : fallbackMs) / 1000;
 }
+
+// Una animación que no comunica información se omite si la persona pidió
+// reducir el movimiento.
+export function prefersReducedMotion(): boolean {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}

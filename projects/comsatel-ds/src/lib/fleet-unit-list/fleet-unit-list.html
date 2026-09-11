@@ -29,7 +29,7 @@
           <div><dt>Ubicación</dt><dd>{{ unit.location }}</dd></div>
           @if (unit.diagnostics) { <div><dt>Diagnóstico</dt><dd>{{ unit.diagnostics }}</dd></div> }
         </dl>
-        <cs-button variant="tertiary" size="xs" (click)="detailClick.emit(unit)">{{ detailLabel }}</cs-button>
+        <cs-button variant="tertiary" size="xs" [aria-label]="detailLabel + ', ' + unit.name" (click)="detailClick.emit(unit)">{{ detailLabel }}</cs-button>
       </div>
     </cs-accordion-item>
   }

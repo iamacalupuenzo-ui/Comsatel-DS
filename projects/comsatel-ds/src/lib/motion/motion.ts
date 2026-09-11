@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { gsap } from 'gsap';
 import { EASE_DEFAULT, EASE_ENTER, EASE_EXIT, EASE_SPRING } from './eases';
-import { tokenSeconds } from './token-duration';
+import { prefersReducedMotion, tokenSeconds } from './token-duration';
 
 export type MotionPreset = 'fade' | 'scale' | 'slide-up' | 'slide-down' | 'slide-left' | 'slide-right';
 export type MotionDurationToken = 'fast' | 'leaving' | 'medium' | 'entering' | 'slow';
@@ -109,6 +109,10 @@ export class Motion implements OnChanges, OnDestroy {
       const el = this.wrapRef?.nativeElement;
       if (!el) return;
       const { hidden, visible } = PRESETS[this.preset];
+      if (prefersReducedMotion()) {
+        gsap.set(el, visible);
+        return;
+      }
       gsap.set(el, hidden);
       this.tween = gsap.to(el, {
         ...visible,
@@ -126,6 +130,10 @@ export class Motion implements OnChanges, OnDestroy {
       return;
     }
     this.tween?.kill();
+    if (prefersReducedMotion()) {
+      this.rendered.set(false);
+      return;
+    }
     const { hidden } = PRESETS[this.preset];
     this.tween = gsap.to(el, {
       ...hidden,

@@ -110,7 +110,6 @@ export const NAVIGATION: NavSection[] = [
       { title: 'Radio', href: '/components/radio', icon: 'circle-dot' },
       { title: 'Select', href: '/components/select', icon: 'chevrons-up-down' },
       { title: 'Spotlight', href: '/components/spotlight', icon: 'flashlight' },
-      { title: 'Stepper', href: '/components/stepper', icon: 'list-ordered' },
       { title: 'Tab', href: '/components/tab', icon: 'rows' },
       {
         title: 'Table',

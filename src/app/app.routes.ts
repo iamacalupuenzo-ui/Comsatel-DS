@@ -160,7 +160,7 @@ export const routes: Routes = [
   },
   {
     path: 'components/stepper',
-    loadComponent: () => import('./pages/stepper-demo/stepper-page').then((m) => m.StepperPage),
+    redirectTo: 'components/progress-indicator',
   },
   {
     path: 'components/datetime-range-picker',

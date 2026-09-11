@@ -7,7 +7,7 @@
 // Para agregar un ícono nuevo: copiar el <path>/<polyline>/etc. interno del
 // SVG de Lucide (24x24, stroke-width 2) y agregarlo acá — no crear un
 // componente nuevo por ícono.
-export const ICON_REGISTRY: Record<string, string> = {
+export const ICON_REGISTRY = {
   'activity': '<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" />',
   'alert-triangle': '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /><path d="M12 9v4" /><path d="M12 17h.01" />',
   'app-window': '<rect x="2" y="4" width="20" height="16" rx="2" /><path d="M10 4v4" /><path d="M2 8h20" /><path d="M6 4v4" />',
@@ -109,6 +109,7 @@ export const ICON_REGISTRY: Record<string, string> = {
   'wand-2': '<path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72" /><path d="m14 7 3 3" /><path d="M5 6v4" /><path d="M19 14v4" /><path d="M10 2v2" /><path d="M7 8H3" /><path d="M21 16h-4" /><path d="M11 3H9" />',
   'wifi-off': '<path d="M12 20h.01" /><path d="M8.5 16.429a5 5 0 0 1 7 0" /><path d="M5 12.859a10 10 0 0 1 5.17-2.69" /><path d="M19 12.859a10 10 0 0 0-2.007-1.523" /><path d="M2 8.82a15 15 0 0 1 4.177-2.643" /><path d="M22 8.82a15 15 0 0 0-11.288-3.764" /><path d="m2 2 20 20" />',
   'x': '<path d="M18 6 6 18" /><path d="m6 6 12 12" />',
-};
+} as const satisfies Record<string, string>;
 
+// Con `as const` el tipo conserva cada nombre: un ícono inexistente falla en compilación en vez de dibujarse vacío.
 export type IconName = keyof typeof ICON_REGISTRY;
