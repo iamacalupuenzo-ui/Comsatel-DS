@@ -1,0 +1,125 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Tag</p>
+  <h1 class="title">Tag</h1>
+  <p class="description">
+    Los tags categorizan contenido con una etiqueta breve. Son informativos y no interactivos;
+    el texto siempre acompaña al color y al ícono.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Explora la severidad, el tamaño, la forma y el ícono del tag.</p>
+    <app-demo-shell [controls]="controls" [code]="playgroundCode()" (stateChange)="onStateChange($event)">
+      <cs-tag
+        [severity]="severity()"
+        [size]="size()"
+        [rounded]="rounded()"
+        [icon]="icon()"
+        value="Nueva etiqueta"
+      />
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="severity">Severidades</h2>
+    <p class="section__intro">Elige la severidad por significado, no para decorar una etiqueta sin contexto.</p>
+    <app-demo-shell [controls]="[]" code="<cs-tag value=&quot;Principal&quot; />
+<cs-tag severity=&quot;secondary&quot; value=&quot;Secundario&quot; />
+<cs-tag severity=&quot;success&quot; value=&quot;Completado&quot; />
+<cs-tag severity=&quot;info&quot; value=&quot;Información&quot; />
+<cs-tag severity=&quot;warn&quot; value=&quot;Advertencia&quot; />
+<cs-tag severity=&quot;danger&quot; value=&quot;Error&quot; />
+<cs-tag severity=&quot;contrast&quot; value=&quot;Contraste&quot; />">
+      <div class="row">
+        @for (severity of severities; track severity) {
+          <cs-tag [severity]="severity" [value]="severity" />
+        }
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="sizes">Tamaños y forma</h2>
+    <p class="section__intro">Usa la escala para mantener la densidad del contexto y la forma redondeada para estados compactos.</p>
+    <app-demo-shell [controls]="[]" code="<cs-tag size=&quot;sm&quot; value=&quot;Small&quot; />
+<cs-tag size=&quot;md&quot; value=&quot;Medium&quot; />
+<cs-tag size=&quot;lg&quot; value=&quot;Large&quot; />
+<cs-tag [rounded]=&quot;true&quot; value=&quot;Pill&quot; />">
+      <div class="row">
+        <cs-tag size="sm" value="Small" />
+        <cs-tag size="md" value="Medium" />
+        <cs-tag size="lg" value="Large" />
+        <cs-tag [rounded]="true" value="Pill" />
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="icons">Con íconos</h2>
+    <p class="section__intro">El ícono refuerza el significado y proviene del registro curado; el texto sigue siendo la señal principal.</p>
+    <app-demo-shell [controls]="[]" code="<cs-tag severity=&quot;success&quot; icon=&quot;circle-check&quot; value=&quot;Verificado&quot; />
+<cs-tag severity=&quot;warn&quot; icon=&quot;alert-triangle&quot; value=&quot;Revisión&quot; />
+<cs-tag severity=&quot;danger&quot; icon=&quot;circle-alert&quot; value=&quot;Error&quot; />">
+      <div class="row">
+        <cs-tag severity="success" icon="circle-check" value="Verificado" />
+        <cs-tag severity="warn" icon="alert-triangle" value="Revisión" />
+        <cs-tag severity="danger" icon="circle-alert" value="Error" />
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Tag es una etiqueta informativa, no un control interactivo.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Significado</strong><span>El valor visible comunica la categoría o el estado. El color y el ícono solo lo refuerzan.</span></div>
+      <div class="table__row"><strong>Interacción</strong><span>No recibe foco ni responde al teclado. Para acciones, usa Button u otro control semántico.</span></div>
+      <div class="table__row"><strong>Ícono</strong><span>Es decorativo y acompaña al texto; todos los íconos salen del registro curado.</span></div>
+      <div class="table__row"><strong>Actualizaciones</strong><span>Usa <code class="inline-code">aria-live=&quot;polite&quot;</code> solo cuando el valor cambie dinámicamente y deba anunciarse.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <p class="section__intro">Cada par contrasta una práctica recomendada con un uso que conviene evitar.</p>
+    <div class="guide-grid">
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon name="circle-check" [size]="16" /><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">Escribe una etiqueta breve que explique la categoría.</p><div class="row"><cs-tag severity="info" value="Documentación" /></div></div>
+      </article>
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon name="x" [size]="16" /><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">No uses el tag como un párrafo o mensaje largo.</p><div class="row"><cs-tag severity="info" value="Esta etiqueta contiene demasiada información" /></div></div>
+      </article>
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon name="circle-check" [size]="16" /><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">Combina texto e ícono cuando el estado se beneficia de una señal visual adicional.</p><div class="row"><cs-tag severity="success" icon="circle-check" value="Verificado" /></div></div>
+      </article>
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon name="x" [size]="16" /><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">No comuniques un estado solo con color o con un ícono sin texto.</p><div class="row"><cs-tag severity="danger" icon="circle-alert" value="Error" /></div></div>
+      </article>
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon name="circle-check" [size]="16" /><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">Usa la forma redondeada para estados compactos que se repiten en una lista.</p><div class="row"><cs-tag severity="success" [rounded]="true" value="Activo" /></div></div>
+      </article>
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon name="x" [size]="16" /><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">No mezcles formas para comunicar el mismo estado dentro de una fila.</p><div class="row"><cs-tag severity="success" [rounded]="true" value="Activo" /><cs-tag severity="warn" value="Pendiente" /></div></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">value</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto visible del tag; debe explicar su significado sin depender del color.</span></div>
+      <div class="table__row"><code class="table__name">severity</code><code class="table__type">TagSeverity</code><code class="table__default">"primary"</code><span class="table__desc">Semántica visual: primary, secondary, success, info, warn, danger o contrast.</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">"sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Escala compartida con Badge para conservar alturas y tipografía del sistema.</span></div>
+      <div class="table__row"><code class="table__name">rounded</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Usa el radio completo para una forma pill.</span></div>
+      <div class="table__row"><code class="table__name">icon</code><code class="table__type">IconName | null</code><code class="table__default">null</code><span class="table__desc">Ícono decorativo del registro curado, siempre acompañado por texto.</span></div>
+    </div>
+  </section>
+</div>

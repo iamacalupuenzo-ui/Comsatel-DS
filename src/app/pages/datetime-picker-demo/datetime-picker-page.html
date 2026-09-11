@@ -145,6 +145,45 @@
     </app-demo-shell>
   </section>
 
+  <!-- Accesibilidad -->
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">El control conserva un nombre claro para fecha y hora, relaciona la ayuda con ambos campos y devuelve el foco después de cerrar el calendario.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Nombre y relación</strong><span>El label de fecha se asocia con el campo; el label de hora nombra el combobox. Se pueden proporcionar ids mediante <code class="inline-code">fieldId</code>.</span></div>
+      <div class="table__row"><strong>Calendario emergente</strong><span>El campo anuncia <code class="inline-code">aria-haspopup="dialog"</code>, <code class="inline-code">aria-expanded</code> y <code class="inline-code">aria-controls</code>. El calendario mantiene su grilla y nombres completos de fecha.</span></div>
+      <div class="table__row"><strong>Ayuda y error</strong><span><code class="inline-code">helperText</code> o <code class="inline-code">errorText</code> se enlazan mediante <code class="inline-code">aria-describedby</code>; el mensaje de error reemplaza a la ayuda cuando el campo es inválido.</span></div>
+      <div class="table__row"><strong>Teclado</strong><span><kbd>Enter</kbd>/<kbd>Space</kbd> abren o seleccionan; las flechas, <kbd>Home</kbd>, <kbd>End</kbd>, <kbd>PageUp</kbd> y <kbd>PageDown</kbd> navegan la fecha; <kbd>Escape</kbd> cierra y devuelve el foco al campo.</span></div>
+      <div class="table__row"><strong>Acciones</strong><span>El botón de limpiar tiene nombre accesible, es alcanzable por teclado y devuelve el foco al campo de fecha después de limpiar.</span></div>
+      <div class="table__row"><strong>Restricciones</strong><span><code class="inline-code">disabled</code>, <code class="inline-code">minDate</code>, <code class="inline-code">maxDate</code> y <code class="inline-code">invalid</code> se reflejan en la semántica del campo y en las fechas disponibles.</span></div>
+    </div>
+  </section>
+
+  <!-- Lineamientos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="usage">Lineamientos de uso</h2>
+    <p class="section__intro">Mantén la fecha y la hora como una decisión coordinada, con límites visibles y espacio suficiente para el calendario.</p>
+    <div class="guide-grid datetime-guidelines">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header"><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">Usa un valor ISO inicial cuando el flujo ya conoce la fecha y la hora.</p><cs-datetime-picker defaultValue="2026-12-15T13:00" [datePickerProps]="{ label: 'Fecha' }" [timePickerProps]="{ label: 'Hora' }"></cs-datetime-picker></div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header"><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">No obligues a elegir una hora sin explicar la zona o el propósito del horario.</p><cs-datetime-picker [datePickerProps]="{ label: 'Fecha' }" [timePickerProps]="{ label: 'Hora' }"></cs-datetime-picker></div>
+      </div>
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header"><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">Limita fechas no válidas con <code class="inline-code">disabled</code> o min/max antes de que el usuario confirme.</p><cs-datetime-picker defaultValue="2026-12-15T13:00" [datePickerProps]="{ label: 'Fecha', minDate: '2026-12-10', maxDate: '2026-12-20' }" [timePickerProps]="{ label: 'Hora' }"></cs-datetime-picker></div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header"><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">No dejes que el calendario abierto tape el contenido de la tarjeta: reserva espacio para el overlay.</p><cs-datetime-picker defaultValue="2026-12-15T13:00" [datePickerProps]="{ label: 'Fecha' }" [timePickerProps]="{ label: 'Hora' }"></cs-datetime-picker></div>
+      </div>
+    </div>
+  </section>
+
   <!-- Props -->
   <section class="section">
     <h2 class="section__title" id="props">Propiedades</h2>
@@ -158,7 +197,7 @@
       <div class="table__row"><code class="table__name">required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Agrega el asterisco al label de fecha y marca aria-required en ambos campos.</span></div>
       <div class="table__row"><code class="table__name">helperText</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto de ayuda debajo de los campos. Se oculta si invalid + errorText están presentes.</span></div>
       <div class="table__row"><code class="table__name">errorText</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Mensaje de error debajo de los campos, visible solo cuando invalid es true.</span></div>
-      <div class="table__row"><code class="table__name">clearControlLabel</code><code class="table__type">string</code><code class="table__default">"Limpiar"</code><span class="table__desc">aria-label del botón de limpiar — deliberadamente fuera del tab order.</span></div>
+      <div class="table__row"><code class="table__name">clearControlLabel</code><code class="table__type">string</code><code class="table__default">"Limpiar"</code><span class="table__desc">aria-label del botón de limpiar, alcanzable por teclado.</span></div>
       <div class="table__row"><code class="table__name">timeStep</code><code class="table__type">number</code><code class="table__default">30</code><span class="table__desc">Minutos entre cada opción de la lista de horas.</span></div>
       <div class="table__row"><code class="table__name">datePickerProps</code><code class="table__type">object</code><code class="table__default">{{ '{' }}{{ '}' }}</code><span class="table__desc">label, placeholder, disabled, minDate, maxDate, weekStartDay del campo de fecha.</span></div>
       <div class="table__row"><code class="table__name">timePickerProps</code><code class="table__type">object</code><code class="table__default">{{ '{' }}{{ '}' }}</code><span class="table__desc">label, placeholder del campo de hora.</span></div>

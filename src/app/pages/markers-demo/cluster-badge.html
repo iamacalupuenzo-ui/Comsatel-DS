@@ -1,0 +1,12 @@
+<div
+  class="cluster-badge"
+  [class.cluster-badge--alarm]="alarm"
+  [style.width]="sizeVar"
+  [style.height]="sizeVar"
+  [style.background-color]="bgVar"
+>
+  <span class="cluster-badge__count" [class.cluster-badge__count--unit]="!!unit">{{ count }}</span>
+  @if (unit) {
+    <span class="cluster-badge__unit">{{ unit }}</span>
+  }
+</div>

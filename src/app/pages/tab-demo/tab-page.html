@@ -1,0 +1,164 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Tabs</p>
+  <h1 class="title">Tabs</h1>
+  <p class="description">
+    Los tabs organizan contenido relacionado en secciones. El usuario hace clic en un tab para
+    revelar su panel asociado. Disponibles en los estilos visuales <code class="inline-code">line</code>
+    y <code class="inline-code">pill</code>.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta los controles para explorar las variantes de tabs.</p>
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <div style="width: 100%; max-width: 480px;">
+        <cs-tabs [variant]="pgVariant()">
+          <cs-tab value="overview" label="Overview">
+            <p class="tab-demo-text">Contenido de Overview.</p>
+          </cs-tab>
+          <cs-tab value="specs" label="Specs">
+            <p class="tab-demo-text">Contenido de Specs.</p>
+          </cs-tab>
+          <cs-tab value="changelog" label="Changelog">
+            <p class="tab-demo-text">Contenido de Changelog.</p>
+          </cs-tab>
+        </cs-tabs>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Variantes -->
+  <section class="section">
+    <h2 class="section__title" id="variants">Variantes</h2>
+    <p class="section__intro">Dos estilos visuales: line (indicador de subrayado) y pill (control segmentado).</p>
+    <div class="static-block">
+      <div class="static-block__preview variants-col">
+        @for (variant of variants; track variant) {
+          <div>
+            <p class="variants-col__label">{{ variant }}</p>
+            <cs-tabs [variant]="variant">
+              <cs-tab value="a" label="Overview"><p class="tab-demo-text">Contenido de Overview.</p></cs-tab>
+              <cs-tab value="b" label="Details"><p class="tab-demo-text">Contenido de Details.</p></cs-tab>
+              <cs-tab value="c" label="Settings"><p class="tab-demo-text">Contenido de Settings.</p></cs-tab>
+            </cs-tabs>
+          </div>
+        }
+      </div>
+      <app-code-block [code]="variantsCode"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Tab deshabilitado -->
+  <section class="section">
+    <h2 class="section__title" id="disabled">Tab deshabilitado</h2>
+    <p class="section__intro">Cada tab puede deshabilitarse individualmente mediante la propiedad disabled del ítem.</p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        <div style="width: 100%; max-width: 480px;">
+          <cs-tabs>
+            <cs-tab value="a" label="Activo"><p class="tab-demo-text">Contenido del tab activo.</p></cs-tab>
+            <cs-tab value="b" label="Deshabilitado" [disabled]="true"></cs-tab>
+            <cs-tab value="c" label="También activo"><p class="tab-demo-text">Contenido del otro tab activo.</p></cs-tab>
+          </cs-tabs>
+        </div>
+      </div>
+      <app-code-block [code]="disabledCode"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Lineamientos -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Mantén las etiquetas de tab en una o dos palabras.</p>
+          <cs-tabs defaultValue="details">
+            <cs-tab value="details" label="Details"><p class="tab-demo-text">Contenido.</p></cs-tab>
+            <cs-tab value="billing" label="Billing"><p class="tab-demo-text">Contenido.</p></cs-tab>
+          </cs-tabs>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses una oración completa como etiqueta de tab: rompe la fila y es difícil de escanear.</p>
+          <cs-tabs defaultValue="details">
+            <cs-tab value="details" label="Account details and settings"><p class="tab-demo-text">Contenido.</p></cs-tab>
+            <cs-tab value="billing" label="Billing and payment history"><p class="tab-demo-text">Contenido.</p></cs-tab>
+          </cs-tabs>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Configura un defaultValue razonable para que siempre haya un tab activo al cargar.</p>
+          <cs-tabs defaultValue="details">
+            <cs-tab value="details" label="Details"><p class="tab-demo-text">Contenido.</p></cs-tab>
+            <cs-tab value="billing" label="Billing"><p class="tab-demo-text">Contenido.</p></cs-tab>
+          </cs-tabs>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No dejes los Tabs sin nada seleccionado: un estado vacío sin tab activo confunde al usuario.</p>
+          <cs-tabs>
+            <cs-tab value="details" label="Details"><p class="tab-demo-text">Contenido.</p></cs-tab>
+            <cs-tab value="billing" label="Billing"><p class="tab-demo-text">Contenido.</p></cs-tab>
+          </cs-tabs>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Tabs sigue el patrón de tablist: cada control se relaciona explícitamente con su panel y conserva navegación por teclado.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Estructura</strong><span>La fila usa <code class="inline-code">role="tablist"</code>; cada control es <code class="inline-code">role="tab"</code> y cada contenido <code class="inline-code">role="tabpanel"</code>.</span></div>
+      <div class="table__row"><strong>Relación</strong><span><code class="inline-code">aria-controls</code> y <code class="inline-code">aria-labelledby</code> enlazan cada tab con su panel mediante IDs únicos.</span></div>
+      <div class="table__row"><strong>Selección</strong><span>El tab activo expone <code class="inline-code">aria-selected="true"</code> y los inactivos quedan fuera del orden de Tab.</span></div>
+      <div class="table__row"><strong>Teclado</strong><span>ArrowRight/ArrowLeft, Home y End cambian el tab y mueven el foco al control habilitado correspondiente.</span></div>
+      <div class="table__row"><strong>Disabled</strong><span>Un tab deshabilitado mantiene su posición visual, pero no se puede seleccionar ni recibe foco.</span></div>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">variant</code><code class="table__type">"line" | "pill"</code><code class="table__default">"line"</code><span class="table__desc">line usa un indicador de subrayado, pill usa un fondo segmentado.</span></div>
+      <div class="table__row"><code class="table__name">defaultValue</code><code class="table__type">string</code><code class="table__default">primer tab</code><span class="table__desc">Valor del tab seleccionado inicialmente, no controlado.</span></div>
+      <div class="table__row"><code class="table__name">value</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Valor del tab seleccionado, controlado.</span></div>
+      <div class="table__row"><code class="table__name">(valueChange)</code><code class="table__type">EventEmitter&lt;string&gt;</code><code class="table__default">—</code><span class="table__desc">Emite cuando cambia el tab activo.</span></div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title">Tab</h3>
+      <div class="table">
+        <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+        <div class="table__row"><code class="table__name">value</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Requerido. Identifica este tab dentro del value/defaultValue del padre.</span></div>
+        <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Requerido. Texto del botón en la fila de tabs.</span></div>
+        <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">No se puede seleccionar.</span></div>
+      </div>
+    </div>
+  </section>
+</div>

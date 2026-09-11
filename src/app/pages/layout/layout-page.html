@@ -1,0 +1,106 @@
+<div class="page">
+  <p class="eyebrow">Fundamentos / Layout</p>
+  <h1 class="title">Layout</h1>
+  <p class="description">
+    Layout define la estructura de una página: las áreas de navegación y contenido, y cómo
+    responden al tamaño de pantalla. Todo producto construido sobre este sistema compone las
+    mismas cuatro áreas, en el mismo orden, para que la navegación se comporte igual en todos
+    lados.
+  </p>
+
+  <!-- Estructura -->
+  <section class="section">
+    <h2 class="section__title" id="structure">Estructura</h2>
+    <p class="section__intro">
+      Las cuatro áreas se renderizan como hermanas dentro de la raíz de la página. El top nav va
+      arriba de todo; side nav, main y panel comparten el resto de la altura en una fila.
+    </p>
+
+    <div class="diagram">
+      <div class="diagram__frame">
+        <div class="diagram__topnav">Top nav</div>
+        <div class="diagram__row">
+          <div class="diagram__sidenav">Side nav</div>
+          <div class="diagram__main">Main</div>
+          <div class="diagram__panel">Panel</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Áreas del layout -->
+  <section class="section">
+    <h2 class="section__title" id="areas">Áreas del layout</h2>
+    <p class="section__intro">
+      Cada área tiene un solo trabajo. No renderices contenido de página dentro del side nav o el
+      panel: son solo para navegación e información contextual.
+    </p>
+
+    <div class="areas-list">
+      @for (a of areas; track a.name) {
+        <div class="area-card">
+          <div class="area-card__header">
+            <span class="area-card__name">{{ a.name }}</span>
+            <code class="area-card__token">{{ a.token }}</code>
+          </div>
+          <p class="area-card__desc">{{ a.desc }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Side nav: modos -->
+  <section class="section">
+    <h2 class="section__title" id="modes">Side nav: modos</h2>
+    <p class="section__intro">
+      El side nav nunca es redimensionable arrastrando — solo estos tres modos de ancho fijo. Cuál
+      aplica por defecto depende del tamaño de pantalla; la elección manual del usuario se recuerda
+      después, por encima del valor por defecto.
+    </p>
+
+    <div class="modes-grid">
+      @for (m of modes; track m.name) {
+        <div class="mode-card">
+          <div class="mode-card__header">
+            <span class="mode-card__name">{{ m.name }}</span>
+            <code class="mode-card__width">{{ m.width }}</code>
+          </div>
+          <p class="mode-card__desc">{{ m.desc }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Breakpoints -->
+  <section class="section">
+    <h2 class="section__title" id="breakpoints">Breakpoints</h2>
+    <p class="section__intro">
+      Cinco tokens, declarados una sola vez y compartidos por cada decisión responsive del
+      sistema — incluyendo qué modo de side nav aplica por defecto.
+    </p>
+
+    <div class="table">
+      <div class="table__head">
+        <span>Token</span><span>Valor</span><span>Side nav por defecto</span>
+      </div>
+      @for (b of breakpoints; track b.token) {
+        <div class="table__row">
+          <code class="table__token">{{ b.token }}</code>
+          <code class="table__value">{{ b.value }}</code>
+          <div class="table__cell">{{ b.sidenav }}</div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Uso -->
+  <section class="section">
+    <h2 class="section__title" id="usage">Uso</h2>
+    <p class="section__intro">
+      Top nav y side nav coordinan su estado (modo, drawer abierto) mediante un servicio
+      compartido (<code class="inline-code">SidenavState</code>) inyectado en el Shell — no con
+      inputs/outputs entre componentes hermanos.
+    </p>
+    <app-code-block [code]="usageSnippet"></app-code-block>
+  </section>
+</div>

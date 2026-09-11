@@ -1,0 +1,11 @@
+:host {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+/* Tag compone Badge: la geometría, el centrado óptico y los tokens quedan en
+   un único primitivo para evitar que ambas etiquetas se separen con el tiempo. */
+.cs-tag__value {
+  display: inline-flex;
+  align-items: center;
+}

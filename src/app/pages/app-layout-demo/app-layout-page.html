@@ -1,0 +1,160 @@
+<div class="page">
+  <p class="eyebrow">Componentes / App Layout</p>
+  <h1 class="title">App Layout</h1>
+  <p class="description">
+    Shell de página reusable para productos construidos sobre el sistema — las mismas cuatro áreas
+    y los mismos modos responsivos que documenta
+    <a class="inline-link" routerLink="/foundations/layout">Layout</a>, empaquetados como componente
+    para que un producto no tenga que reconstruir la mecánica de breakpoints/colapsar/persistencia
+    desde cero.
+  </p>
+
+  <!-- Demo en vivo -->
+  <section class="section">
+    <h2 class="section__title" id="demo">Demo en vivo</h2>
+    <p class="section__intro">
+      El marco de abajo simula el viewport de una app: <code class="inline-code">cs-app-layout</code>
+      posiciona sus áreas con <code class="inline-code">position: fixed</code>, así que se demuestra
+      dentro de un contenedor que establece su propio contexto de posicionamiento (el mismo truco de
+      CSS que usa cualquier "device frame" de documentación) — en un producto real, el componente vive
+      en la raíz de la app y usa todo el viewport de verdad.
+    </p>
+
+    <div class="static-block">
+      <div class="device-frame">
+        <cs-app-layout [hasPanel]="true">
+          <header topnav class="demo-topnav">
+            <span class="demo-topnav__badge">P</span>
+            <span class="demo-topnav__name">Mi producto</span>
+          </header>
+
+          <nav sidenav class="demo-sidenav">
+            <ul class="demo-sidenav__list">
+              @for (item of demoNav; track item.title) {
+                <li>
+                  <button
+                    type="button"
+                    class="demo-sidenav__item"
+                    [class.demo-sidenav__item--active]="item.active"
+                    [attr.aria-label]="layoutState.mode() === 'rail' ? item.title : null"
+                    [attr.aria-current]="item.active ? 'page' : null"
+                    csPressScale
+                  >
+                    <cs-icon [name]="item.icon" [size]="16" class="demo-sidenav__icon" />
+                    @if (layoutState.mode() === 'expanded') {
+                      <span>{{ item.title }}</span>
+                    }
+                  </button>
+                </li>
+              }
+            </ul>
+          </nav>
+
+          <div class="demo-main">
+            <p class="demo-main__hint">
+              Modo actual: <strong>{{ layoutState.mode() === 'expanded' ? 'Expandido' : 'Rail' }}</strong>
+              — usa el botón al pie del side nav para alternar.
+            </p>
+          </div>
+
+          <aside panel class="demo-panel">Panel contextual</aside>
+        </cs-app-layout>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo se ve el label en cada modo -->
+  <section class="section">
+    <h2 class="section__title" id="modes">Lo que resuelve el componente, y lo que no</h2>
+    <p class="section__intro">
+      <code class="inline-code">cs-app-layout</code> resuelve breakpoints, ancho del side nav,
+      colapsar/expandir con persistencia, y reservar el espacio del panel — la mecánica de layout.
+      No conoce datos de navegación ni íconos de ningún producto: el contenido de
+      <code class="inline-code">[sidenav]</code> es responsabilidad del producto consumidor, que decide cómo se ve en cada
+      modo. La demo de arriba lo resuelve inyectando <code class="inline-code">AppLayoutState</code>
+      y ocultando el <code class="inline-code">&lt;span&gt;</code> del label cuando
+      <code class="inline-code">mode() !== 'expanded'</code> — el mismo patrón que tu propio
+      componente de navegación debería seguir.
+    </p>
+    <p class="section__intro">
+      El modo Drawer (mobile, side nav como overlay) queda fuera de este componente a propósito —
+      la app mobile va a ser un producto aparte con su propia estructura, todavía sin definir.
+    </p>
+  </section>
+
+  <!-- Accesibilidad -->
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">La composición App Layout + navegación aporta landmarks, estado del colapso y, en la Shell del sitio, un drawer que conserva el foco cuando la navegación se abre en pantallas pequeñas.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Landmarks</strong><span>La navegación principal se expone con un landmark etiquetado y el contenido permanece en el área principal.</span></div>
+      <div class="table__row"><strong>Estado</strong><span>Los grupos comunican <code class="inline-code">aria-expanded</code> y <code class="inline-code">aria-controls</code>; la ruta activa usa <code class="inline-code">aria-current</code>.</span></div>
+      <div class="table__row"><strong>Rail</strong><span>Cuando se ocultan las etiquetas, cada ítem conserva un nombre accesible mediante <code class="inline-code">aria-label</code>.</span></div>
+      <div class="table__row"><strong>Drawer</strong><span>En mobile, Escape cierra la navegación, el foco entra al primer control y vuelve al botón que la abrió.</span></div>
+      <div class="table__row"><strong>Teclado</strong><span>Tab y Shift + Tab permanecen dentro del drawer mientras está abierto; los flyouts se cierran con Escape.</span></div>
+      <div class="table__row"><strong>Movimiento</strong><span>Las transiciones usan tokens de motion y se desactivan cuando la persona solicita movimiento reducido.</span></div>
+    </div>
+  </section>
+
+  <!-- Lineamientos -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <p class="section__intro">Usa App Layout como marco único de la aplicación y deja que el producto consumidor aporte los datos concretos de navegación.</p>
+    <div class="guide-grid">
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">Monta un solo App Layout en la raíz y proyecta el contenido de topnav, sidenav, main y panel.</p><code class="guide-card__code">&lt;cs-app-layout&gt;...&lt;/cs-app-layout&gt;</code></div>
+      </article>
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">No montes layouts anidados para cada página: desincronizan el ancho del menú y el área principal.</p><code class="guide-card__code">&lt;cs-app-layout&gt; dentro de otro</code></div>
+      </article>
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">Usa grupos con rutas reales y comunica la ruta activa para que la navegación siga al router.</p><code class="guide-card__code">[attr.aria-current]="page"</code></div>
+      </article>
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">No uses botones de navegación sin nombre ni ocultes el label en rail sin aportar un nombre accesible.</p><code class="guide-card__code">&lt;button&gt;&lt;cs-icon /&gt;&lt;/button&gt;</code></div>
+      </article>
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">Reserva el panel contextual solo para información relacionada con la vista actual.</p><code class="guide-card__code">[hasPanel]="true"</code></div>
+      </article>
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">No coloques el contenido principal dentro del side nav o del panel contextual.</p><code class="guide-card__code">&lt;aside panel&gt;contenido principal&lt;/aside&gt;</code></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row">
+        <code class="table__name">hasPanel</code>
+        <code class="table__type">boolean</code>
+        <code class="table__default">false</code>
+        <span class="table__desc">Si el producto proyecta contenido en [panel], reserva su espacio desde --breakpoint-xl.</span>
+      </div>
+      <div class="table__row">
+        <code class="table__name">showCollapseButton</code>
+        <code class="table__type">boolean</code>
+        <code class="table__default">true</code>
+        <span class="table__desc">Oculta el botón de colapsar/expandir por defecto, para un producto que prefiera su propio control (inyectando AppLayoutState).</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Uso -->
+  <section class="section">
+    <h2 class="section__title" id="usage">Uso</h2>
+    <p class="section__intro">
+      Se monta una sola vez en la raíz de la app (igual que este sitio monta un único Shell).
+    </p>
+    <app-code-block [code]="usageSnippet"></app-code-block>
+  </section>
+</div>

@@ -104,6 +104,95 @@
     </app-demo-shell>
   </section>
 
+  <!-- Accesibilidad -->
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Calendar usa una grilla semántica con fechas nombradas, estados anunciables y navegación por teclado.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Nombre accesible</strong><span>La grilla expone <code class="inline-code">aria-label</code> como "Calendario" por defecto y admite <code class="inline-code">ariaLabelledby</code> cuando el contexto ya tiene un título visible.</span></div>
+      <div class="table__row"><strong>Semántica</strong><span>El calendario expone <code class="inline-code">role="grid"</code>, filas, encabezados de columna y celdas con <code class="inline-code">aria-selected</code> y <code class="inline-code">aria-disabled</code>.</span></div>
+      <div class="table__row"><strong>Fechas</strong><span>Cada fecha anuncia su día completo, mes y año. Las fechas seleccionadas, deshabilitadas y la fecha actual comunican su estado con atributos ARIA.</span></div>
+      <div class="table__row"><strong>Teclado</strong><span><kbd>Tab</kbd> entra a la fecha activa; las flechas mueven el foco por día o semana; <kbd>Home</kbd>/<kbd>End</kbd> saltan al inicio o final de la semana; <kbd>PageUp</kbd>/<kbd>PageDown</kbd> cambian de mes y con <kbd>Shift</kbd> de año; <kbd>Enter</kbd>/<kbd>Space</kbd> seleccionan.</span></div>
+      <div class="table__row"><strong>Navegación</strong><span>Los botones de mes y año tienen nombres accesibles y el título del mes se anuncia de forma educada al cambiar.</span></div>
+      <div class="table__row"><strong>Restricciones</strong><span><code class="inline-code">disabled</code>, <code class="inline-code">minDate</code> y <code class="inline-code">maxDate</code> evitan la selección y mantienen el estado deshabilitado anunciado.</span></div>
+    </div>
+  </section>
+
+  <!-- Lineamientos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="usage">Lineamientos de uso</h2>
+    <p class="section__intro">Cuándo usar selección, rangos y límites de fecha para conservar un flujo claro.</p>
+
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Deshabilita fechas que no se pueden elegir para evitar selecciones inválidas.</p>
+          <cs-calendar [defaultMonth]="9" [defaultYear]="2026" [disabled]="['2026-09-05', '2026-09-06', '2026-09-12', '2026-09-13']"></cs-calendar>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No permitas fechas que el negocio no puede procesar y rechaces después la selección.</p>
+          <cs-calendar [defaultMonth]="9" [defaultYear]="2026"></cs-calendar>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa <code class="inline-code">rangeSelected</code> para mostrar visualmente un periodo continuo.</p>
+          <cs-calendar [defaultMonth]="9" [defaultYear]="2026" [rangeSelected]="['2026-09-10', '2026-09-18']"></cs-calendar>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No simules un rango marcando dos fechas independientes sin una banda que explique el periodo.</p>
+          <cs-calendar [defaultMonth]="9" [defaultYear]="2026" [selected]="['2026-09-10', '2026-09-18']"></cs-calendar>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Configura el primer día de la semana según el contexto regional de la persona.</p>
+          <cs-calendar [defaultMonth]="9" [defaultYear]="2026" [weekStartDay]="1" [selected]="['2026-09-15']"></cs-calendar>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No cambies el orden de los días sin comunicarlo o mezclarlo con otras convenciones.</p>
+          <cs-calendar [defaultMonth]="9" [defaultYear]="2026" [weekStartDay]="0" [selected]="['2026-09-15']"></cs-calendar>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Props -->
   <section class="section">
     <h2 class="section__title" id="props">Propiedades</h2>
@@ -120,6 +209,8 @@
       <div class="table__row"><code class="table__name">minDate</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Deshabilita toda fecha anterior a esta (no inclusive).</span></div>
       <div class="table__row"><code class="table__name">maxDate</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Deshabilita toda fecha posterior a esta (no inclusive).</span></div>
       <div class="table__row"><code class="table__name">weekStartDay</code><code class="table__type">0 | 1</code><code class="table__default">0</code><span class="table__desc">0 = domingo, 1 = lunes.</span></div>
+      <div class="table__row"><code class="table__name">ariaLabel</code><code class="table__type">string</code><code class="table__default">"Calendario"</code><span class="table__desc">Nombre accesible de la grilla cuando no se proporciona <code class="inline-code">ariaLabelledby</code>.</span></div>
+      <div class="table__row"><code class="table__name">ariaLabelledby</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Id de un título visible que nombra la grilla.</span></div>
       <div class="table__row"><code class="table__name">(dateChange)</code><code class="table__type">EventEmitter&lt;string&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en una fecha habilitada.</span></div>
       <div class="table__row"><code class="table__name">(monthChange)</code><code class="table__type">EventEmitter&lt;{{ '{' }}month, year{{ '}' }}&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al navegar de mes o año.</span></div>
     </div>

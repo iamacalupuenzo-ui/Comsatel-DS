@@ -176,6 +176,7 @@
   --color-status-online: var(--color-background-success-default);
   --color-status-busy: var(--color-background-danger-default);
   --color-status-offline: #667085;
+  --color-status-warning: var(--color-background-warning-default);
 
   /* Icons */
   --color-icon-selected: #153565;
@@ -194,6 +195,23 @@
   --color-accent-pink: #ec4899;
   --color-accent-yellow: #eab308;
   --color-accent-orange: #dc6803;
+
+  /* Map — categorías GPS y estado del marcador de vehículo; alias sobre
+     accents/status ya existentes (ver Mapa / Tema del mapa), no colores
+     nuevos. El vehículo reutiliza los 3 tokens de estado de arriba sin el
+     tier de warning; el GPS sí usa los 4 (agrega low-signal). */
+  --color-map-gps-flotas: var(--color-accent-blue);
+  --color-map-gps-basico: var(--color-accent-teal);
+  --color-map-gps-contingencia: var(--color-accent-purple);
+  --color-map-gps-svr-x: var(--color-accent-orange);
+  --color-map-status-reporting: var(--color-status-online);
+  --color-map-status-no-signal: var(--color-status-busy);
+  --color-map-status-low-signal: var(--color-status-warning);
+  --color-map-status-disconnected: var(--color-status-offline);
+  --color-map-vehicle-active: var(--color-status-online);
+  --color-map-vehicle-stopped: var(--color-status-busy);
+  --color-map-vehicle-offline: var(--color-status-offline);
+  --color-map-alarm: var(--color-background-danger-default);
 
   /* Interaction */
   --color-interaction-hovered: rgba(0,0,0,0.04);
@@ -259,6 +277,23 @@
   --layout-size-xl: 56px;
   --layout-size-2xl: 64px;
   --layout-size-3xl: 80px;
+
+  /* Breakpoints — cinco puntos, declarados una sola vez y compartidos por
+     cada decisión responsive del sistema (incluye qué modo de side nav
+     aplica por defecto, ver foundations/layout). */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* Layout — estructura del shell de página (topnav/sidenav/panel), no
+     confundir con la escala primitiva --layout-padding/gap/radius/size de
+     arriba. Ver foundations/layout para el detalle de las cuatro áreas. */
+  --layout-topnav-height: 56px;
+  --layout-sidenav-width-expanded: 240px;
+  --layout-sidenav-width-collapsed: 64px;
+  --layout-panel-width: 192px;
 
   /* Tipografía generada por Tailwind desde lib/tokens/typography.mjs. */
 
@@ -437,6 +472,7 @@
   --color-status-online: var(--color-background-success-default);
   --color-status-busy: var(--color-background-danger-default);
   --color-status-offline: #98a2b3;
+  --color-status-warning: var(--color-background-warning-default);
 
   --color-accent-teal: #2ed3b7;
   --color-accent-lime: #86cb3c;
@@ -445,6 +481,21 @@
   --color-accent-pink: #f472b6;
   --color-accent-yellow: #facc15;
   --color-accent-orange: #fdb022;
+
+  /* Map (dark) — mismos alias que el tema claro, ver ese bloque. */
+  --color-map-gps-flotas: var(--color-accent-blue);
+  --color-map-gps-basico: var(--color-accent-teal);
+  --color-map-gps-contingencia: var(--color-accent-purple);
+  --color-map-gps-svr-x: var(--color-accent-orange);
+  --color-map-status-reporting: var(--color-status-online);
+  --color-map-status-no-signal: var(--color-status-busy);
+  --color-map-status-low-signal: var(--color-status-warning);
+  --color-map-status-disconnected: var(--color-status-offline);
+  --color-map-vehicle-active: var(--color-status-online);
+  --color-map-vehicle-stopped: var(--color-status-busy);
+  --color-map-vehicle-offline: var(--color-status-offline);
+  --color-map-alarm: var(--color-background-danger-default);
+
   --color-interaction-hovered: rgba(255,255,255,0.06);
   --color-interaction-pressed: rgba(255,255,255,0.1);
   --elevation-surface-default: #111827;

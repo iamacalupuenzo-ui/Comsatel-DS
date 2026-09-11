@@ -34,7 +34,16 @@ export interface DropdownGroup {
 }
 
 export interface InputDropdownOption {
+  /** Texto completo que se muestra y anuncia dentro del listbox. */
   label: string;
+  /** Texto compacto del trigger para selectores embebidos. */
+  triggerLabel?: string;
   value: string;
+  /** Bandera decorativa; la etiqueta textual conserva el nombre del país. */
+  countryFlag?: CountryFlagCode;
+  /** Prefijo decorativo, por ejemplo el símbolo de una moneda. */
+  leadingText?: string;
   disabled?: boolean;
 }
+
+export type CountryFlagCode = 'br' | 'de' | 'es' | 'fr' | 'gb' | 'it' | 'jp';

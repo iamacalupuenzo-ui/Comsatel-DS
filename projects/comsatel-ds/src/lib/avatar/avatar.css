@@ -60,14 +60,28 @@
   border-color: var(--elevation-surface-default);
   overflow: hidden;
 }
+.cs-avatar__indicator--company {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .cs-avatar__company-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 .cs-avatar__company-icon {
-  width: 100%;
-  height: 100%;
-  padding: 1px;
   color: var(--color-text-brand-bolder);
+}
+
+.cs-avatar__status-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

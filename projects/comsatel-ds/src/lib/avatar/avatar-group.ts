@@ -16,8 +16,19 @@ export interface AvatarGroupItem {
   placeholderBg?: string;
 }
 
-const AVATAR_PX: Record<AvatarGroupSize, number> = { xs: 24, sm: 32, md: 40 };
-const GROUP_OVERLAP: Record<AvatarGroupSize, number> = { xs: 8, sm: 12, md: 16 };
+const AVATAR_SIZE: Record<AvatarGroupSize, string> = {
+  xs: 'var(--layout-size-sm)',
+  sm: 'var(--layout-size-base)',
+  md: 'var(--layout-size-md)',
+};
+// Las fotos toleran un solapamiento más denso; las iniciales no, porque el
+// avatar siguiente tapa su lado derecho. La variante de texto usa 6px para
+// mantener las dos letras legibles sin perder la densidad del grupo.
+const GROUP_OVERLAP: Record<AvatarGroupSize, string> = {
+  xs: 'var(--layout-gap-md)',
+  sm: 'var(--layout-gap-md)',
+  md: 'var(--layout-gap-xl)',
+};
 
 @Component({
   selector: 'cs-avatar-group',
@@ -33,10 +44,10 @@ export class AvatarGroup {
   @Input() showPlaceholderIcon = true;
   @Output() add = new EventEmitter<void>();
 
-  get px(): number {
-    return AVATAR_PX[this.size];
+  get sizeValue(): string {
+    return AVATAR_SIZE[this.size];
   }
-  get overlap(): number {
+  get overlap(): string {
     return GROUP_OVERLAP[this.size];
   }
   get visible(): AvatarGroupItem[] {
@@ -49,8 +60,10 @@ export class AvatarGroup {
     return textStyle(componentTypography.avatar[this.size], 'accent');
   }
 
-  marginFor(index: number): string {
+  marginFor(index: number, avatar: AvatarGroupItem): string {
     const isLast = index === this.visible.length - 1;
-    return !isLast || this.extra > 0 ? `-${this.overlap}px` : '0';
+    if (isLast && this.extra === 0) return '0';
+    const overlap = avatar.initials && !avatar.src ? 'var(--layout-gap-sm)' : this.overlap;
+    return `calc(-1 * ${overlap})`;
   }
 }

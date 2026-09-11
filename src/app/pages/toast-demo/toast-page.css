@@ -1,0 +1,44 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.toast-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-lg);
+  align-items: flex-start;
+}
+
+.stacked-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--layout-gap-md);
+  padding: var(--layout-padding-2xl);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-background-neutral-subtlest);
+}
+
+.guide-card__toast-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-sm);
+  width: 100%;
+}
+.guide-card__toast-stack cs-toast {
+  width: 100%;
+}
+
+.toast-result {
+  margin: 0;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtle);
+}
+
+.toast-playground {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--layout-gap-md);
+}

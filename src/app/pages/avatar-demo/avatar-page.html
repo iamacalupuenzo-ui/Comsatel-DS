@@ -214,6 +214,35 @@
     </app-demo-shell>
   </section>
 
+  <!-- Accesibilidad -->
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Avatar comunica identidad o contexto visual; no es interactivo por sí mismo.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Nombre de la persona</strong><span>Proporciona <code class="inline-code">alt</code> con el nombre o la identidad. Se aplica a la foto y también nombra las variantes de iniciales o placeholder.</span></div>
+      <div class="table__row"><strong>Uso decorativo</strong><span>Cuando el avatar no aporta información, deja <code class="inline-code">alt</code> vacío y presenta el nombre en el contenido cercano. No uses solo iniciales como identificador de una persona.</span></div>
+      <div class="table__row"><strong>Estado</strong><span>El punto de estado es visualmente decorativo; su texto equivalente se expone a lectores de pantalla. Solo declara un estado actual y relevante.</span></div>
+      <div class="table__row"><strong>Grupo y agregar</strong><span>Incluye <code class="inline-code">alt</code> en cada elemento del grupo. El botón de agregar es nativo y su nombre predeterminado es <code class="inline-code">&quot;Agregar usuario&quot;</code>; personalízalo si la acción es más específica.</span></div>
+    </div>
+  </section>
+
+  <!-- Lineamientos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <p class="section__intro">Cada fila compara una práctica recomendada con un uso que se debe evitar.</p>
+    <div class="guide-grid">
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Usa una foto o iniciales para identificar a una persona.</p><cs-avatar initials="EM" alt="Enzo Macalupu"></cs-avatar></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No uses un placeholder cuando conoces la identidad de la persona.</p><cs-avatar alt="Enzo Macalupu"></cs-avatar></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Usa el indicador para un estado individual y actual.</p><cs-avatar initials="EM" alt="Enzo Macalupu" status="online"></cs-avatar></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No repitas el mismo estado en todos los avatares sin información real.</p><div class="row"><cs-avatar initials="AB" status="online"></cs-avatar><cs-avatar initials="CD" status="online"></cs-avatar><cs-avatar initials="EF" status="online"></cs-avatar></div></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Limita los grupos y usa el contador +N para el resto.</p><cs-avatar-group [avatars]="initialsAvatars" [maxVisible]="3" [showAddButton]="false"></cs-avatar-group></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No muestres listas largas de avatares superpuestos sin límite.</p><div class="row"><cs-avatar initials="AB"></cs-avatar><cs-avatar initials="CD"></cs-avatar><cs-avatar initials="EF"></cs-avatar><cs-avatar initials="GH"></cs-avatar></div></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Mantén las iniciales en una o dos letras.</p><cs-avatar initials="EM" alt="Enzo Macalupu"></cs-avatar></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No uses el nombre completo dentro del avatar.</p><cs-avatar initials="ENZO" alt="Enzo Macalupu"></cs-avatar></div></article>
+    </div>
+  </section>
+
   <!-- Propiedades -->
   <section class="section">
     <h2 class="section__title" id="props">Propiedades</h2>
@@ -223,8 +252,10 @@
       <div class="table">
         <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
         <div class="table__row"><code class="table__name">size</code><code class="table__type">AvatarSize</code><code class="table__default">"md"</code><span class="table__desc">Diámetro: 24 · 32 · 40 · 48 · 56px. El ícono y la tipografía escalan en consecuencia.</span></div>
-        <div class="table__row"><code class="table__name">status</code><code class="table__type">AvatarStatus</code><code class="table__default">—</code><span class="table__desc">Indicador de estado en la esquina inferior derecha. Omítelo para no mostrar indicador.</span></div>
+        <div class="table__row"><code class="table__name">status</code><code class="table__type">AvatarStatus</code><code class="table__default">—</code><span class="table__desc">Indicador de estado en la esquina inferior derecha. Se comunica también a lectores de pantalla. Omítelo para no mostrar indicador.</span></div>
+        <div class="table__row"><code class="table__name">companyIconSrc</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">URL del logotipo de la empresa para <code class="inline-code">status=&quot;company&quot;</code>. Se muestra dentro del indicador con un borde fino de separación.</span></div>
         <div class="table__row"><code class="table__name">src</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">URL de la imagen: muestra la variante de foto.</span></div>
+        <div class="table__row"><code class="table__name">alt</code><code class="table__type">string</code><code class="table__default">&quot;&quot;</code><span class="table__desc">Nombre accesible de la persona. Nombra la foto, las iniciales o el placeholder cuando aporta información.</span></div>
         <div class="table__row"><code class="table__name">initials</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">1–2 letras: muestra la variante de texto (si no hay src).</span></div>
       </div>
     </div>

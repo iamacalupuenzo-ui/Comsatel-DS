@@ -1,0 +1,175 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.cs-progress-indicator {
+  display: flex;
+  width: 100%;
+}
+
+.cs-progress-indicator--vertical {
+  flex-direction: column;
+}
+
+.cs-progress-indicator__step {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cs-progress-indicator--vertical .cs-progress-indicator__step {
+  flex-direction: row;
+  align-items: stretch;
+  gap: var(--layout-gap-lg);
+  padding-bottom: var(--layout-gap-2xl);
+}
+
+.cs-progress-indicator--vertical .cs-progress-indicator__step:last-child {
+  padding-bottom: 0;
+}
+
+.cs-progress-indicator__track {
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.cs-progress-indicator--vertical .cs-progress-indicator__track {
+  position: static;
+  width: var(--layout-size-xs);
+  flex: 0 0 var(--layout-size-xs);
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  align-self: stretch;
+  min-height: calc(var(--layout-size-xs) + var(--layout-gap-2xl));
+}
+
+.cs-progress-indicator__connector {
+  height: var(--layout-border-thick);
+  background: var(--color-border-neutral-default);
+}
+
+.cs-progress-indicator:not(.cs-progress-indicator--vertical) .cs-progress-indicator__connector {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translateY(-50%);
+}
+
+.cs-progress-indicator__connector--filled {
+  background: var(--color-border-success-default);
+}
+
+.cs-progress-indicator__connector--vertical {
+  position: absolute;
+  top: var(--layout-size-xs);
+  right: auto;
+  bottom: 0;
+  left: calc(var(--layout-size-xs) / 2);
+  width: var(--layout-border-thick);
+  height: auto;
+  flex: none;
+  background: var(--color-border-neutral-default);
+  transform: none;
+}
+
+.cs-progress-indicator__node-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.cs-progress-indicator__node-button:focus-visible {
+  outline: var(--layout-border-thick) solid var(--color-border-focused);
+  outline-offset: var(--layout-padding-2xs);
+}
+
+.cs-progress-indicator__node {
+  display: inline-flex;
+  width: var(--layout-size-xs);
+  height: var(--layout-size-xs);
+  flex: 0 0 var(--layout-size-xs);
+  align-items: center;
+  justify-content: center;
+  border: var(--layout-border-thick) solid var(--color-border-neutral-default);
+  border-radius: var(--radius-full);
+  background: var(--elevation-surface-default);
+  color: var(--color-text-inverse);
+  transition: background-color var(--motion-duration-medium) var(--motion-easing-default), border-color var(--motion-duration-medium) var(--motion-easing-default);
+  position: relative;
+  z-index: 1;
+}
+
+.cs-progress-indicator__node--done {
+  border-color: var(--color-border-success-default);
+  background: var(--color-background-success-default);
+}
+
+.cs-progress-indicator__node--active {
+  border-color: var(--color-border-brand-default);
+}
+
+.cs-progress-indicator__dot {
+  /* El punto interior no tiene un paso equivalente en la escala; 8px conserva
+     una separación óptica par dentro del nodo de 20px. */
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-background-brand-default);
+}
+
+.cs-progress-indicator__label {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--layout-padding-xs) var(--layout-padding-sm) 0;
+  text-align: center;
+}
+
+.cs-progress-indicator--vertical .cs-progress-indicator__label {
+  align-items: flex-start;
+  padding: 1px 0 0;
+  text-align: left;
+}
+
+.cs-progress-indicator__label-text {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--color-text-base-bolder);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  font-weight: var(--font-weight-accent);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cs-progress-indicator__label-text--pending {
+  color: var(--color-text-base-subtlest);
+}
+
+.cs-progress-indicator__description {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--color-text-base-subtle);
+  font-size: var(--font-size-label-small);
+  line-height: var(--font-line-height-label-small);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

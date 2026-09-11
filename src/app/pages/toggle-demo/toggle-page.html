@@ -14,8 +14,9 @@
     <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
       <cs-toggle
         [size]="pgSize()"
-        [label]="pgLabel() ? 'Notificaciones por correo' : undefined"
-        [description]="pgDescription() ? 'Recibe un resumen diario de la actividad.' : undefined"
+        [label]="pgLabel() ? 'Enable notifications' : undefined"
+        [aria-label]="pgLabel() ? '' : 'Enable notifications'"
+        [description]="pgDescription() ? 'You\'ll receive alerts for important updates.' : undefined"
         [disabled]="pgDisabled()"
         [checked]="true"
       ></cs-toggle>
@@ -35,7 +36,7 @@
       <div class="row">
         @for (s of sizes; track s) {
           <div class="size-item">
-            <cs-toggle [size]="s" [checked]="true"></cs-toggle>
+            <cs-toggle [size]="s" aria-label="Toggle size {{ s }}" [checked]="true"></cs-toggle>
             <span class="size-item__label">{{ s }}</span>
           </div>
         }
@@ -56,19 +57,19 @@
     >
       <div class="row">
         <div class="size-item">
-          <cs-toggle></cs-toggle>
+          <cs-toggle aria-label="Toggle off"></cs-toggle>
           <span class="size-item__label">apagado</span>
         </div>
         <div class="size-item">
-          <cs-toggle [checked]="true"></cs-toggle>
+          <cs-toggle aria-label="Toggle on" [checked]="true"></cs-toggle>
           <span class="size-item__label">encendido</span>
         </div>
         <div class="size-item">
-          <cs-toggle [disabled]="true"></cs-toggle>
+          <cs-toggle aria-label="Disabled toggle off" [disabled]="true"></cs-toggle>
           <span class="size-item__label">deshabilitado apagado</span>
         </div>
         <div class="size-item">
-          <cs-toggle [checked]="true" [disabled]="true"></cs-toggle>
+          <cs-toggle aria-label="Disabled toggle on" [checked]="true" [disabled]="true"></cs-toggle>
           <span class="size-item__label">deshabilitado encendido</span>
         </div>
       </div>
@@ -82,21 +83,50 @@
     <app-demo-shell
       [controls]="[]"
       code="<cs-toggle
-  label=&quot;Notificaciones por correo&quot;
-  description=&quot;Recibe un resumen diario de la actividad.&quot;
+  label=&quot;Push notifications&quot;
+  description=&quot;Receive push notifications on your devices.&quot;
   [checked]=&quot;true&quot;
 ></cs-toggle>
 <cs-toggle
-  label=&quot;Modo oscuro&quot;
-  description=&quot;Aplica el tema oscuro en toda la plataforma.&quot;
+  label=&quot;Email digest&quot;
+  description=&quot;Get a weekly summary of your activity.&quot;
   [disabled]=&quot;true&quot;
 ></cs-toggle>"
     >
       <div class="col">
-        <cs-toggle label="Notificaciones por correo" description="Recibe un resumen diario de la actividad." [checked]="true"></cs-toggle>
-        <cs-toggle label="Modo oscuro" description="Aplica el tema oscuro en toda la plataforma." [disabled]="true"></cs-toggle>
+        <cs-toggle label="Push notifications" description="Receive push notifications on your devices." [checked]="true"></cs-toggle>
+        <cs-toggle label="Email digest" description="Get a weekly summary of your activity." [disabled]="true"></cs-toggle>
       </div>
     </app-demo-shell>
+  </section>
+
+  <!-- Accesibilidad -->
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">El componente conserva un <strong>input checkbox nativo con <code>role=&quot;switch&quot;</code></strong> para comunicar un ajuste encendido o apagado sin recrear su semántica con ARIA manual.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Nombre accesible</strong><span>Usa <code>label</code> en los casos normales. Si el interruptor no tiene texto visible, proporciona <code>aria-label</code>.</span></div>
+      <div class="table__row"><strong>Teclado</strong><span><code>Tab</code> lleva el foco al interruptor y <code>Espacio</code> alterna entre encendido y apagado.</span></div>
+      <div class="table__row"><strong>Semántica</strong><span>El lector de pantalla anuncia un <code>switch</code> y su estado marcado; úsalo para ajustes binarios que pueden aplicarse de inmediato.</span></div>
+      <div class="table__row"><strong>Estado deshabilitado</strong><span>El control no recibe interacción ni foco y conserva la semántica <code>disabled</code> del navegador.</span></div>
+    </div>
+  </section>
+
+  <!-- Lineamientos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <p class="section__intro">Cada fila compara una práctica recomendada con un uso que se debe evitar.</p>
+    <div class="guide-grid">
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Usa Toggle cuando el cambio se aplica de inmediato.</p><cs-toggle label="Dark mode" [checked]="true"></cs-toggle></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No lo uses si todavía hace falta guardar o confirmar el cambio.</p><div class="col"><cs-toggle label="Dark mode" [checked]="true"></cs-toggle><cs-button variant="primary" size="xs">Save changes</cs-button></div></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Formula la etiqueta como una opción o estado, no como una pregunta.</p><cs-toggle label="Auto-save" [checked]="true"></cs-toggle></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No uses preguntas: el estado del interruptor ya responde si está activo.</p><cs-toggle label="Enable auto-save?" [checked]="true"></cs-toggle></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Mantén el cambio directo y visible en el momento de alternar.</p><cs-toggle label="Show file extensions" [checked]="true"></cs-toggle></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No agregues un botón secundario “Apply” para un ajuste que ya representa una decisión inmediata.</p><div class="row"><cs-toggle label="Show file extensions" [checked]="true"></cs-toggle><cs-button variant="secondary" size="xs">Apply</cs-button></div></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Explica la consecuencia cuando activar el ajuste cambia la visibilidad o el alcance.</p><cs-toggle label="Public profile" description="Anyone with the link can view your profile."></cs-toggle></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No omitas contexto cuando la decisión tiene una consecuencia relevante.</p><cs-toggle label="Public profile"></cs-toggle></div></article>
+    </div>
   </section>
 
   <!-- Propiedades -->
@@ -107,8 +137,10 @@
       <div class="table__row"><code class="table__name">size</code><code class="table__type">"sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Controla el tamaño del track y del thumb. sm=28×16 · md=36×20 · lg=44×24px.</span></div>
       <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto de la etiqueta junto al toggle.</span></div>
       <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto de apoyo opcional debajo de la etiqueta.</span></div>
+      <div class="table__row"><code class="table__name">aria-label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Nombre accesible; requerido cuando el toggle no tiene una etiqueta visible.</span></div>
       <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Evita la interacción y aplica un estilo atenuado.</span></div>
       <div class="table__row"><code class="table__name">checked</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Estado marcado. Se puede combinar con (checkedChange) para control externo.</span></div>
+      <div class="table__row"><code class="table__name">checkedChange</code><code class="table__type">EventEmitter&lt;boolean&gt;</code><code class="table__default">—</code><span class="table__desc">Emite el nuevo estado cuando la persona interactúa con el toggle.</span></div>
     </div>
   </section>
 </div>

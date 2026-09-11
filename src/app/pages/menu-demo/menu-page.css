@@ -1,0 +1,54 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.frames-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--layout-gap-2xl);
+  flex-wrap: wrap;
+}
+
+.frame {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+/* Sin alto fijo: el frame crece con su contenido — al expandir un grupo o
+   cambiar a "rail" el contenedor se ajusta solo, sin generar un scroll
+   interno (corrección real pedida por el usuario tras verificar en vivo). */
+.frame__header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  padding-inline: var(--layout-padding-xl);
+  border-bottom: 1px solid var(--color-border-neutral-subtle);
+  background-color: var(--elevation-surface-default);
+}
+/* En rail el frame mide 72px — el mismo padding-inline que el expandido
+   (32px totales) no deja casi espacio para el logo compacto. */
+.frame--rail .frame__header {
+  height: 48px;
+  padding-inline: var(--layout-padding-sm);
+}
+.frame__header img {
+  /* La imagen real (1106×100 / 317×90) es mucho más ancha que alta — fijar
+     solo la altura (como hace la referencia React) la desborda del frame en
+     240px/72px de ancho. max-width primero, height:auto deja que el propio
+     ancho del frame mande cuando la proporción lo exige (hallazgo real
+     reportado por el usuario: "las imágenes son demasiado grandes"). */
+  max-width: 100%;
+  max-height: 28px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.frame__body {
+  padding-block: var(--layout-padding-xl);
+  background-color: var(--elevation-surface-default);
+}

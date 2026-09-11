@@ -1,0 +1,21 @@
+<div class="cs-tabs" [class.cs-tabs--pill]="variant === 'pill'">
+  <div class="cs-tabs__list" role="tablist" aria-label="Pestañas">
+    @for (tab of items(); track tab.value) {
+      <button
+        type="button"
+        role="tab"
+        class="cs-tabs__tab"
+        [attr.id]="tab.tabId()"
+        [class.cs-tabs__tab--active]="tab.value === active()"
+        [disabled]="tab.disabled"
+        [attr.aria-selected]="tab.value === active()"
+        [attr.aria-controls]="tab.panelId()"
+        [attr.tabindex]="tab.value === active() ? 0 : -1"
+        (click)="select(tab)"
+        (keydown)="onKeydown($event, $index)"
+        csPressScale
+      >{{ tab.label }}</button>
+    }
+  </div>
+  <ng-content></ng-content>
+</div>

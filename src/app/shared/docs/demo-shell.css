@@ -50,7 +50,19 @@
   align-items: center;
   gap: var(--layout-gap-sm);
 }
-.demo-shell__toolbar-group--clickable { cursor: pointer; }
+.demo-shell__toolbar-group--clickable {
+  cursor: pointer;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+}
+.demo-shell__toolbar-group--clickable:focus-visible {
+  outline: var(--layout-border-thick) solid var(--color-border-focused);
+  outline-offset: var(--layout-padding-2xs);
+  border-radius: var(--radius-xs);
+}
 .demo-shell__sliders-icon {
   width: 12px;
   height: 12px;

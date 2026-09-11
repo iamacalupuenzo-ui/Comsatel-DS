@@ -1,0 +1,32 @@
+<button
+  type="button"
+  class="cs-accordion-item__header"
+  [attr.id]="'accordion-header-' + id"
+  [disabled]="disabled"
+  [attr.aria-expanded]="expanded()"
+  [attr.aria-controls]="'accordion-body-' + id"
+  (click)="onHeaderClick()"
+>
+  <div class="cs-accordion-item__header-content">
+    <ng-content select="[header]"></ng-content>
+  </div>
+  <cs-icon
+    name="chevron-right"
+    [size]="15"
+    class="cs-accordion-item__chevron"
+    [class.cs-accordion-item__chevron--open]="expanded()"
+    aria-hidden="true"
+  />
+</button>
+<div
+  class="cs-accordion-item__body"
+  #body
+  role="region"
+  [attr.id]="'accordion-body-' + id"
+  [attr.aria-labelledby]="'accordion-header-' + id"
+  [attr.aria-hidden]="!expanded()"
+>
+  <div class="cs-accordion-item__body-inner">
+    <ng-content></ng-content>
+  </div>
+</div>

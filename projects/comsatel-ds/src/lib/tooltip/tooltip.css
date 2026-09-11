@@ -1,12 +1,14 @@
-/* Puerto del Tooltip de React (tooltip.tsx). React usa @base-ui/react con
-   Floating UI para posicionamiento dinámico y detección de colisión con el
-   viewport; acá, sin esa dependencia, el posicionamiento es CSS puro
-   (absolute + transform) según la propiedad `side` — cubre el caso común de
-   un trigger que no está pegado al borde del viewport. Mostrar/ocultar es
-   CSS-only vía :hover/:focus-within, sin JavaScript de por medio. */
+/* El tooltip se posiciona respecto a su trigger. El consumidor elige `side`
+   cuando el elemento está cerca de un borde del viewport. */
 :host {
   position: relative;
   display: inline-flex;
+  /* Evita que un padre flex en columna estire el host al ancho de la tarjeta;
+     el popup debe quedar anclado al trigger, no al contenedor completo. */
+  align-self: flex-start;
+  /* 400ms no tiene equivalente en motion tokens: conserva el retardo de
+     puntero para evitar tooltips accidentales. El foco no usa este retardo. */
+  --cs-tooltip-open-delay: 400ms;
 }
 
 .cs-tooltip__trigger {
@@ -16,6 +18,7 @@
 .cs-tooltip__popup {
   position: absolute;
   z-index: var(--elevation-z-index-tooltip);
+  /* El límite de lectura no corresponde a un tamaño de control de la escala. */
   max-width: 20rem;
   width: max-content;
   padding: var(--layout-padding-xs) var(--layout-padding-md);
@@ -33,12 +36,19 @@
   pointer-events: none;
 }
 
-:host(:hover) .cs-tooltip__popup,
-:host(:focus-within) .cs-tooltip__popup {
+:host(:hover):not(.cs-tooltip--dismissed) .cs-tooltip__popup,
+:host(:focus-within):not(.cs-tooltip--dismissed) .cs-tooltip__popup {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
-  transition-delay: 400ms, 400ms, 0s;
+}
+
+:host(:hover):not(.cs-tooltip--dismissed) .cs-tooltip__popup {
+  transition-delay: var(--cs-tooltip-open-delay), var(--cs-tooltip-open-delay), 0s;
+}
+
+:host(:focus-within):not(.cs-tooltip--dismissed) .cs-tooltip__popup {
+  transition-delay: 0s, 0s, 0s;
 }
 
 /* Posición por lado */
@@ -46,10 +56,10 @@
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%) scale(0.95);
-  margin-bottom: 8px;
+  margin-bottom: var(--layout-gap-md);
 }
-:host(:hover) .cs-tooltip__popup--top,
-:host(:focus-within) .cs-tooltip__popup--top {
+:host(:hover):not(.cs-tooltip--dismissed) .cs-tooltip__popup--top,
+:host(:focus-within):not(.cs-tooltip--dismissed) .cs-tooltip__popup--top {
   transform: translateX(-50%) scale(1);
 }
 
@@ -57,10 +67,10 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%) scale(0.95);
-  margin-top: 8px;
+  margin-top: var(--layout-gap-md);
 }
-:host(:hover) .cs-tooltip__popup--bottom,
-:host(:focus-within) .cs-tooltip__popup--bottom {
+:host(:hover):not(.cs-tooltip--dismissed) .cs-tooltip__popup--bottom,
+:host(:focus-within):not(.cs-tooltip--dismissed) .cs-tooltip__popup--bottom {
   transform: translateX(-50%) scale(1);
 }
 
@@ -68,10 +78,10 @@
   right: 100%;
   top: 50%;
   transform: translateY(-50%) scale(0.95);
-  margin-right: 8px;
+  margin-right: var(--layout-gap-md);
 }
-:host(:hover) .cs-tooltip__popup--left,
-:host(:focus-within) .cs-tooltip__popup--left {
+:host(:hover):not(.cs-tooltip--dismissed) .cs-tooltip__popup--left,
+:host(:focus-within):not(.cs-tooltip--dismissed) .cs-tooltip__popup--left {
   transform: translateY(-50%) scale(1);
 }
 
@@ -79,48 +89,48 @@
   left: 100%;
   top: 50%;
   transform: translateY(-50%) scale(0.95);
-  margin-left: 8px;
+  margin-left: var(--layout-gap-md);
 }
-:host(:hover) .cs-tooltip__popup--right,
-:host(:focus-within) .cs-tooltip__popup--right {
+:host(:hover):not(.cs-tooltip--dismissed) .cs-tooltip__popup--right,
+:host(:focus-within):not(.cs-tooltip--dismissed) .cs-tooltip__popup--right {
   transform: translateY(-50%) scale(1);
 }
 
 /* Flecha */
 .cs-tooltip__arrow {
   position: absolute;
-  width: 8px;
-  height: 4px;
+  width: var(--layout-gap-md);
+  height: var(--layout-gap-xs);
 }
 .cs-tooltip__arrow--top {
-  bottom: -4px;
+  bottom: calc(-1 * var(--layout-gap-xs));
   left: 50%;
-  margin-left: -4px;
+  margin-left: calc(-1 * var(--layout-gap-xs));
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   background-color: var(--color-background-neutral-strongest);
 }
 .cs-tooltip__arrow--bottom {
-  top: -4px;
+  top: calc(-1 * var(--layout-gap-xs));
   left: 50%;
-  margin-left: -4px;
+  margin-left: calc(-1 * var(--layout-gap-xs));
   clip-path: polygon(50% 0, 0 100%, 100% 100%);
   background-color: var(--color-background-neutral-strongest);
 }
 .cs-tooltip__arrow--left {
-  right: -4px;
+  right: calc(-1 * var(--layout-gap-xs));
   top: 50%;
-  margin-top: -4px;
-  width: 4px;
-  height: 8px;
+  margin-top: calc(-1 * var(--layout-gap-xs));
+  width: var(--layout-gap-xs);
+  height: var(--layout-gap-md);
   clip-path: polygon(0 0, 100% 50%, 0 100%);
   background-color: var(--color-background-neutral-strongest);
 }
 .cs-tooltip__arrow--right {
-  left: -4px;
+  left: calc(-1 * var(--layout-gap-xs));
   top: 50%;
-  margin-top: -4px;
-  width: 4px;
-  height: 8px;
+  margin-top: calc(-1 * var(--layout-gap-xs));
+  width: var(--layout-gap-xs);
+  height: var(--layout-gap-md);
   clip-path: polygon(100% 0, 0 50%, 100% 100%);
   background-color: var(--color-background-neutral-strongest);
 }

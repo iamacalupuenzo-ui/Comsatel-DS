@@ -162,6 +162,77 @@
     </div>
   </section>
 
+  <!-- Accesibilidad -->
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Las tarjetas mantienen una jerarquía textual clara y exponen nombres accesibles en todos sus controles interactivos.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Controles de acción</strong><span>Action card conserva una etiqueta visible en el botón o usa el título de la tarjeta como <code class="inline-code">aria-label</code> del toggle.</span></div>
+      <div class="table__row"><strong>Botón de opciones</strong><span>Preview card nombra el botón solo-ícono como «Más opciones» y mantiene un indicador de foco visible.</span></div>
+      <div class="table__row"><strong>Contenido semántico</strong><span>Card banner mantiene el título, la descripción y el badge como texto real; el color no es la única forma de comunicar el estado.</span></div>
+      <div class="table__row"><strong>Decoración</strong><span>Las constelaciones de avatares de Feature spotlight y Spotlight card son decorativas y no agregan información duplicada al árbol accesible.</span></div>
+      <div class="table__row"><strong>Teclado y contraste</strong><span>Botones y toggles funcionan con <kbd>Tab</kbd>, <kbd>Enter</kbd> o <kbd>Space</kbd>; bordes, superficies y estados usan tokens con contraste suficiente.</span></div>
+    </div>
+  </section>
+
+  <!-- Lineamientos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <p class="section__intro">Elige la pieza de Card según la tarea y conserva un único propósito claro por tarjeta.</p>
+
+    <div class="guide-grid card-guidelines">
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa Action card cuando la persona necesita activar una preferencia directamente en la fila.</p>
+          <cs-action-card title="Autenticación de dos factores" description="Requiere un código al iniciar sesión." [showToggle]="true" [showButton]="false" [toggleChecked]="guideToggle()" (toggleCheckedChange)="onGuideToggle($event)"></cs-action-card>
+          <p class="guide-status" aria-live="polite">La autenticación está {{ guideToggle() ? 'activada' : 'desactivada' }}.</p>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses Action card para esconder una acción crítica dentro de una etiqueta de solo lectura.</p>
+          <cs-action-card title="Eliminar espacio de trabajo" description="Esta operación no se puede deshacer." [showButton]="false" [showLabel]="true" label="Próximamente"></cs-action-card>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa Card banner con la variante que corresponda al significado del mensaje.</p>
+          <cs-card-banner variant="destructive" title="Pago vencido" description="Actualiza la información de facturación para continuar." [avatars]="placeholderAvatars" badgeLabel="Acción requerida"></cs-card-banner>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses una variante destructiva para un anuncio neutral que no requiere intervención.</p>
+          <cs-card-banner variant="neutral" title="Roadmap Q3" description="Consulta las próximas mejoras del producto." [avatars]="placeholderAvatars" badgeLabel="Información"></cs-card-banner>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa Preview card con una imagen cuando el archivo tenga una portada que ayude a reconocerlo.</p>
+          <cs-preview-card name="Homepage cover.png" [showLogo]="true" [showImage]="true"><cs-icon logo name="file-text" [size]="16"></cs-icon><div image class="cover-gradient"></div></cs-preview-card>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No dejes una vista previa vacía cuando el contexto necesita una imagen para distinguir archivos similares.</p>
+          <cs-preview-card name="Homepage cover.png" [showLogo]="true"><cs-icon logo name="file-text" [size]="16"></cs-icon></cs-preview-card>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <!-- Props -->
   <section class="section">
     <h2 class="section__title" id="props">Propiedades</h2>
@@ -178,6 +249,8 @@
         <div class="table__row"><code class="table__name">buttonLabel</code><code class="table__type">string</code><code class="table__default">"Action"</code><span class="table__desc">Texto del botón.</span></div>
         <div class="table__row"><code class="table__name">showLabel</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra una etiqueta de solo lectura en vez de un control.</span></div>
         <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">"Coming soon"</code><span class="table__desc">Texto de la etiqueta.</span></div>
+        <div class="table__row"><code class="table__name">(buttonClick)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al activar el botón de acción.</span></div>
+        <div class="table__row"><code class="table__name">(toggleCheckedChange)</code><code class="table__type">EventEmitter&lt;boolean&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite cuando cambia el toggle de la tarjeta.</span></div>
       </div>
     </div>
 

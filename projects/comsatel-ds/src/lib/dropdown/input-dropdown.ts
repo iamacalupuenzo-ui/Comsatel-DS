@@ -1,7 +1,9 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, Output, ViewChild, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostBinding, Input, OnChanges, Output, ViewChild, signal } from '@angular/core';
 import { Icon } from '../icons/icon';
 import { INPUT_TOKENS } from './dropdown-tokens';
 import type { DropdownSize, InputDropdownOption } from './dropdown-types';
+import { CountryFlag } from './country-flag';
+import { Popover } from '../popover/popover';
 
 let uid = 0;
 
@@ -11,19 +13,27 @@ let uid = 0;
 // corta o más larga.
 @Component({
   selector: 'cs-input-dropdown',
-  imports: [Icon],
+  imports: [CountryFlag, Icon, Popover],
   templateUrl: './input-dropdown.html',
   styleUrl: './input-dropdown.css',
 })
 export class InputDropdown implements AfterViewInit, OnChanges {
+  @Input() id?: string;
+  @Input() name = '';
   @Input() label?: string;
-  @Input() placeholder = 'Selecciona una opción';
+  @Input() placeholder = 'Select an option';
   @Input() options: InputDropdownOption[] = [];
   @Input() value?: string;
   @Output() valueChange = new EventEmitter<string>();
   @Input() size: DropdownSize = 'md';
   @Input() disabled = false;
   @Input() required = false;
+  @Input() readonly = false;
+  @Input() invalid = false;
+  @Input('aria-label') ariaLabel = '';
+  @Input('aria-labelledby') ariaLabelledby = '';
+  @Input('aria-describedby') ariaDescribedby = '';
+  @Input('aria-errormessage') ariaErrormessage = '';
   // Modo embebido — para usarlo dentro de un cs-input-group-addon (ej. el
   // selector de código de país de un campo de teléfono). El trigger deja de
   // dibujar su propio borde/fondo/anillo de foco (el grupo ya los da) y
@@ -59,9 +69,19 @@ export class InputDropdown implements AfterViewInit, OnChanges {
   protected readonly triggerId = `cs-input-dropdown-${++uid}`;
   protected readonly menuId = `${this.triggerId}-menu`;
 
+  @ViewChild('triggerButton') protected triggerRef?: ElementRef<HTMLButtonElement>;
+
   @ViewChild('measure') measureRef?: ElementRef<HTMLSpanElement>;
 
   constructor(private elementRef: ElementRef<HTMLElement>) {}
+
+  get resolvedId(): string {
+    return this.id ?? this.triggerId;
+  }
+
+  get labelId(): string {
+    return `${this.resolvedId}-label`;
+  }
 
   ngAfterViewInit(): void {
     this.remeasure();
@@ -87,17 +107,33 @@ export class InputDropdown implements AfterViewInit, OnChanges {
 
   get widestLabel(): string {
     if (this.options.length === 0) return this.placeholder ?? '';
-    return this.options.reduce((a, b) => (a.label.length >= b.label.length ? a : b)).label;
+    return this.options
+      .map((option) => this.triggerText(option))
+      .reduce((widest, label) => (widest.length >= label.length ? widest : label));
+  }
+
+  get selectedTriggerLabel(): string {
+    return this.selectedOption ? this.triggerText(this.selectedOption) : this.placeholder;
+  }
+
+  get hasVisualPrefix(): boolean {
+    return this.options.some((option) => !!option.countryFlag || !!option.leadingText);
+  }
+
+  private triggerText(option: InputDropdownOption): string {
+    return option.triggerLabel ?? option.label;
   }
 
   get borderColor(): string {
     if (this.embedded) return 'transparent';
     if (this.disabled) return 'var(--color-border-neutral-subtle)';
+    if (this.invalid) return 'var(--color-border-danger-default)';
     if (this.focused() || this.open()) return 'var(--color-border-brand-default)';
     return 'var(--color-border-neutral-default)';
   }
   get extraShadow(): string {
     if (this.embedded) return 'none';
+    if (this.invalid && !this.disabled) return '0 0 0 2px var(--color-border-danger-subtle)';
     return !this.disabled && (this.focused() || this.open()) ? '0 0 0 2px var(--color-border-brand-subtle)' : 'none';
   }
   get textColor(): string {
@@ -106,9 +142,62 @@ export class InputDropdown implements AfterViewInit, OnChanges {
   }
 
   toggle(): void {
-    if (this.disabled) return;
+    if (this.disabled || this.readonly) return;
     this.open.update((v) => !v);
     this.focused.set(true);
+  }
+
+  private close(restoreFocus = false): void {
+    this.open.set(false);
+    this.focused.set(false);
+    if (restoreFocus) queueMicrotask(() => this.triggerRef?.nativeElement.focus());
+  }
+
+  private focusOption(last = false): void {
+    // Popover porta el listbox a document.body durante el siguiente render.
+    // Dos frames aseguran que la lista exista antes de mover foco desde el trigger.
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const options = this.enabledOptionElements();
+      (last ? options.at(-1) : options[0])?.focus();
+    }));
+  }
+
+  onTriggerKeydown(event: KeyboardEvent): void {
+    if (this.disabled) return;
+    if (!['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) {
+      if (event.key === 'Escape' && this.open()) {
+        event.preventDefault();
+        this.close(true);
+      }
+      return;
+    }
+    event.preventDefault();
+    if (!this.open()) this.open.set(true);
+    this.focusOption(event.key === 'ArrowUp');
+  }
+
+  onOptionsKeydown(event: KeyboardEvent): void {
+    const options = this.enabledOptionElements();
+    if (!options.length) return;
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.close(true);
+      return;
+    }
+    if (event.key === 'Tab') {
+      this.close();
+      return;
+    }
+    if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const current = options.indexOf(document.activeElement as HTMLButtonElement);
+    const next = event.key === 'Home'
+      ? 0
+      : event.key === 'End'
+        ? options.length - 1
+        : (current + (event.key === 'ArrowUp' ? -1 : 1) + options.length) % options.length;
+    options[next]?.focus();
   }
 
   onFocus(): void {
@@ -119,17 +208,19 @@ export class InputDropdown implements AfterViewInit, OnChanges {
   }
 
   selectOption(opt: InputDropdownOption): void {
-    if (opt.disabled) return;
+    if (opt.disabled || this.readonly) return;
     this.valueChange.emit(opt.value);
-    this.open.set(false);
-    this.focused.set(false);
+    this.close(true);
   }
 
-  @HostListener('document:mousedown', ['$event'])
-  onDocumentMouseDown(event: MouseEvent): void {
-    if (this.open() && !this.elementRef.nativeElement.contains(event.target as Node)) {
+  protected onPopoverClosed(): void {
+    if (this.open()) {
       this.open.set(false);
       this.focused.set(false);
     }
+  }
+
+  private enabledOptionElements(): HTMLButtonElement[] {
+    return Array.from(document.querySelectorAll<HTMLButtonElement>(`#${this.menuId} [role="option"]:not(:disabled)`));
   }
 }

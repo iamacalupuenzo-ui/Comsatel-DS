@@ -22,3 +22,21 @@
   height: 100%;
   background: linear-gradient(135deg, var(--color-background-brand-subtle) 0%, var(--color-background-success-subtle) 100%);
 }
+
+.card-guidelines .guide-card__body {
+  min-width: 0;
+}
+
+.card-guidelines cs-action-card,
+.card-guidelines cs-card-banner,
+.card-guidelines cs-preview-card {
+  display: block;
+  width: 100%;
+}
+
+.guide-status {
+  margin: 0;
+  color: var(--color-text-base-subtle);
+  font-size: var(--font-size-content-note);
+  line-height: var(--line-height-content-note);
+}

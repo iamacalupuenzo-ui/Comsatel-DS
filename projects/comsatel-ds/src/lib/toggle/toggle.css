@@ -8,6 +8,8 @@
 .cs-toggle {
   display: inline-flex;
   align-items: center;
+  /* 10px preserva la separación óptica de los controles de selección; la
+     escala de gaps no tiene ese paso exacto. */
   gap: 10px;
   cursor: pointer;
   user-select: none;
@@ -39,13 +41,13 @@
 }
 .cs-toggle__input:focus-visible ~ .cs-toggle__thumb,
 .cs-toggle__track:has(.cs-toggle__input:focus-visible) {
-  box-shadow: 0 0 0 2px var(--color-border-focused);
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-focused);
 }
 
 .cs-toggle__thumb {
   position: absolute;
   border-radius: var(--radius-full);
-  background-color: white;
+  background-color: var(--color-text-inverse);
   box-shadow: var(--shadow-xs);
   transition: left var(--motion-duration-medium) var(--motion-easing-default);
 }
@@ -53,6 +55,8 @@
 .cs-toggle__text {
   display: flex;
   flex-direction: column;
+  /* 1px mantiene el vínculo compacto entre etiqueta y descripción; la
+     escala de espaciado no define un paso equivalente. */
   gap: 1px;
 }
 .cs-toggle__label { color: var(--color-text-base-default); }

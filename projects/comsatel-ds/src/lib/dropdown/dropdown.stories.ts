@@ -26,15 +26,15 @@ const meta: Meta<Dropdown> = {
   },
   args: {
     trigger: 'button',
-    label: 'Opciones',
+    label: 'Options',
     size: 'sm',
     position: 'left',
     groups: [
       {
         items: [
-          { label: 'Editar', icon: 'pencil' },
-          { label: 'Duplicar', icon: 'copy' },
-          { label: 'Eliminar', icon: 'trash-2', variant: 'destructive', dividerAfter: false },
+          { label: 'Edit', icon: 'pencil' },
+          { label: 'Duplicate', icon: 'copy' },
+          { label: 'Delete', icon: 'trash-2', variant: 'destructive', dividerAfter: false },
         ],
       },
     ],
@@ -47,23 +47,23 @@ type Story = StoryObj<Dropdown>;
 export const ButtonTrigger: Story = {};
 
 export const IconTrigger: Story = {
-  args: { trigger: 'icon' },
+  args: { trigger: 'icon', ariaLabel: 'More actions' },
 };
 
 export const WithHeader: Story = {
-  args: { header: 'Acciones del ítem' },
+  args: { header: 'Item actions' },
 };
 
 export const CheckboxGroup: Story = {
   args: {
-    label: 'Filtros',
+    label: 'Filters',
     groups: [
       {
-        header: 'Estado',
+        header: 'Status',
         selectionMode: 'checkbox',
         items: [
-          { label: 'Activo', selected: true },
-          { label: 'Archivado', selected: false },
+          { label: 'Active', selected: true },
+          { label: 'Archived', selected: false },
         ],
       },
     ],
@@ -72,14 +72,14 @@ export const CheckboxGroup: Story = {
 
 export const RadioGroup: Story = {
   args: {
-    label: 'Ordenar por',
+    label: 'Sort by',
     groups: [
       {
-        header: 'Orden',
+        header: 'Order',
         selectionMode: 'radio',
         items: [
-          { label: 'Más reciente', selected: true },
-          { label: 'Más antiguo', selected: false },
+          { label: 'Newest', selected: true },
+          { label: 'Oldest', selected: false },
         ],
       },
     ],

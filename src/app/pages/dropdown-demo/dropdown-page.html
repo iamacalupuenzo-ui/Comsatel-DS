@@ -36,12 +36,12 @@
     >
       <div class="stage stage--row">
         <div class="stage__item">
-          <span class="stage__label">Botón</span>
+          <span class="stage__label">Button</span>
           <cs-dropdown trigger="button" label="Dropdown" [groups]="simpleGroups"></cs-dropdown>
         </div>
         <div class="stage__item">
-          <span class="stage__label">Ícono</span>
-          <cs-dropdown trigger="icon" [groups]="simpleGroups"></cs-dropdown>
+          <span class="stage__label">Icon</span>
+          <cs-dropdown trigger="icon" ariaLabel="More actions" [groups]="simpleGroups"></cs-dropdown>
         </div>
       </div>
     </app-demo-shell>
@@ -55,15 +55,15 @@
       [controls]="[]"
       code="<cs-dropdown
   trigger=&quot;button&quot;
-  label=&quot;Cuenta&quot;
+  label=&quot;Account&quot;
   [groups]=&quot;[
-    &#123; header: 'Cuenta', items: [...] &#125;,
-    &#123; header: 'Acciones', items: [...] &#125;,
+    &#123; header: 'Account', items: [...] &#125;,
+    &#123; header: 'Actions', items: [...] &#125;,
   ]&quot;
 ></cs-dropdown>"
     >
       <div class="stage">
-        <cs-dropdown trigger="button" label="Cuenta" [groups]="groupedGroups"></cs-dropdown>
+        <cs-dropdown trigger="button" label="Account" [groups]="groupedGroups"></cs-dropdown>
       </div>
     </app-demo-shell>
   </section>
@@ -75,18 +75,18 @@
     <app-demo-shell
       [controls]="[]"
       code="<cs-dropdown
-  label=&quot;Acciones&quot;
-  header=&quot;Opciones&quot;
+  label=&quot;Actions&quot;
+  header=&quot;Options&quot;
   [groups]=&quot;[&#123; items: [
-    &#123; label: 'Ítem por defecto' &#125;,
-    &#123; label: 'Ítem success',     variant: 'success' &#125;,
-    &#123; label: 'Ítem destructivo', variant: 'destructive' &#125;,
-    &#123; label: 'Ítem deshabilitado', disabled: true &#125;,
+    &#123; label: 'Default item' &#125;,
+    &#123; label: 'Success item',     variant: 'success' &#125;,
+    &#123; label: 'Destructive item', variant: 'destructive' &#125;,
+    &#123; label: 'Disabled item', disabled: true &#125;,
   ]&#125;]&quot;
 ></cs-dropdown>"
     >
       <div class="stage">
-        <cs-dropdown trigger="button" label="Acciones" header="Opciones" [groups]="variantGroups"></cs-dropdown>
+        <cs-dropdown trigger="button" label="Actions" header="Options" [groups]="variantGroups"></cs-dropdown>
       </div>
     </app-demo-shell>
   </section>
@@ -98,16 +98,16 @@
     <app-demo-shell
       [controls]="[]"
       code="<cs-dropdown
-  label=&quot;Editar&quot;
+  label=&quot;Edit&quot;
   [groups]=&quot;[&#123; items: [
-    &#123; label: 'Editar',    shortcut: '⌘E' &#125;,
-    &#123; label: 'Duplicar',  shortcut: '⌘D', dividerAfter: true &#125;,
-    &#123; label: 'Eliminar',  variant: 'destructive' &#125;,
+    &#123; label: 'Edit',    shortcut: '⌘E' &#125;,
+    &#123; label: 'Duplicate',  shortcut: '⌘D', dividerAfter: true &#125;,
+    &#123; label: 'Delete',  variant: 'destructive' &#125;,
   ]&#125;]&quot;
 ></cs-dropdown>"
     >
       <div class="stage">
-        <cs-dropdown trigger="button" label="Editar" [groups]="[{ items: [{ label: 'Editar', value: 'edit', icon: 'pencil', shortcut: '⌘E' }, { label: 'Duplicar', value: 'duplicate', icon: 'copy', shortcut: '⌘D', dividerAfter: true }, { label: 'Eliminar', value: 'delete', icon: 'trash-2', variant: 'destructive' }] }]"></cs-dropdown>
+        <cs-dropdown trigger="button" label="Edit" [groups]="[{ items: [{ label: 'Edit', value: 'edit', icon: 'pencil', shortcut: '⌘E' }, { label: 'Duplicate', value: 'duplicate', icon: 'copy', shortcut: '⌘D', dividerAfter: true }, { label: 'Delete', value: 'delete', icon: 'trash-2', variant: 'destructive' }] }]"></cs-dropdown>
       </div>
     </app-demo-shell>
   </section>
@@ -141,21 +141,21 @@
     <app-demo-shell
       [controls]="[]"
       code="<cs-dropdown
-  label=&quot;Estado&quot;
+  label=&quot;Status&quot;
   [groups]=&quot;[&#123;
-    header: 'Categorías',
+    header: 'Categories',
     selectionMode: 'checkbox',
     items: [
-      &#123; label: 'Por hacer', selected: checked.todo &#125;,
-      &#123; label: 'En progreso', selected: checked.inprogress &#125;,
-      &#123; label: 'Hecho', selected: checked.done &#125;,
+      &#123; label: 'To do', selected: checked.todo &#125;,
+      &#123; label: 'In progress', selected: checked.inprogress &#125;,
+      &#123; label: 'Done', selected: checked.done &#125;,
     ],
   &#125;]&quot;
   (select)=&quot;onCheckboxSelect($event)&quot;
 ></cs-dropdown>"
     >
       <div class="stage">
-        <cs-dropdown trigger="button" label="Estado" [groups]="checkboxGroups()" (select)="onCheckboxSelect($event)"></cs-dropdown>
+        <cs-dropdown trigger="button" label="Status" [groups]="checkboxGroups()" (select)="onCheckboxSelect($event)"></cs-dropdown>
       </div>
     </app-demo-shell>
   </section>
@@ -167,20 +167,20 @@
     <app-demo-shell
       [controls]="[]"
       code="<cs-dropdown
-  label=&quot;Vistas&quot;
+  label=&quot;Views&quot;
   [groups]=&quot;[&#123;
-    header: 'Vistas',
+    header: 'Views',
     selectionMode: 'radio',
     items: [
-      &#123; label: 'Vista detallada', selected: selected === 'detail' &#125;,
-      &#123; label: 'Vista de lista', selected: selected === 'list' &#125;,
+      &#123; label: 'Detail view', selected: selected === 'detail' &#125;,
+      &#123; label: 'List view', selected: selected === 'list' &#125;,
     ],
   &#125;]&quot;
   (select)=&quot;onRadioSelect($event)&quot;
 ></cs-dropdown>"
     >
       <div class="stage">
-        <cs-dropdown trigger="button" label="Vistas" [groups]="radioGroups()" (select)="onRadioSelect($event)"></cs-dropdown>
+        <cs-dropdown trigger="button" label="Views" [groups]="radioGroups()" (select)="onRadioSelect($event)"></cs-dropdown>
       </div>
     </app-demo-shell>
   </section>
@@ -193,8 +193,8 @@
     <app-demo-shell [controls]="inputPlaygroundControls" [code]="ipgCode()" (stateChange)="onInputPlaygroundState($event)">
       <div class="stage stage--wide">
         <cs-input-dropdown
-          [label]="ipgShowLabel() ? 'Equipo' : undefined"
-          placeholder="Selecciona un equipo…"
+          [label]="ipgShowLabel() ? 'Team' : undefined"
+          placeholder="Select a team…"
           [options]="inputOptions"
           [value]="ipgValue()"
           (valueChange)="ipgValue.set($event)"
@@ -213,15 +213,30 @@
     <app-demo-shell
       [controls]="[]"
       code="<cs-input-dropdown label=&quot;Placeholder&quot; [options]=&quot;options&quot;></cs-input-dropdown>
-<cs-input-dropdown label=&quot;Lleno&quot; [options]=&quot;options&quot; value=&quot;engineering&quot;></cs-input-dropdown>
-<cs-input-dropdown label=&quot;Deshabilitado&quot; [options]=&quot;options&quot; value=&quot;design&quot; [disabled]=&quot;true&quot;></cs-input-dropdown>"
+<cs-input-dropdown label=&quot;Filled&quot; [options]=&quot;options&quot; value=&quot;engineering&quot;></cs-input-dropdown>
+<cs-input-dropdown label=&quot;Disabled&quot; [options]=&quot;options&quot; value=&quot;design&quot; [disabled]=&quot;true&quot;></cs-input-dropdown>"
     >
       <div class="stage stage--col">
-        <cs-input-dropdown label="Placeholder" placeholder="Selecciona un equipo…" [options]="inputOptions"></cs-input-dropdown>
-        <cs-input-dropdown label="Lleno" [options]="inputOptions" [value]="stateValueFilled()"></cs-input-dropdown>
-        <cs-input-dropdown label="Deshabilitado" [options]="inputOptions" value="design" [disabled]="true"></cs-input-dropdown>
+        <cs-input-dropdown label="Placeholder" placeholder="Select a team…" [options]="inputOptions"></cs-input-dropdown>
+        <cs-input-dropdown label="Filled" [options]="inputOptions" [value]="stateValueFilled()"></cs-input-dropdown>
+        <cs-input-dropdown label="Disabled" [options]="inputOptions" value="design" [disabled]="true"></cs-input-dropdown>
       </div>
     </app-demo-shell>
+  </section>
+
+  <!-- Accesibilidad -->
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Dropdown usa el patrón de menú para acciones y Input Dropdown usa el patrón de combobox/listbox para valores seleccionables.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Nombre accesible</strong><span>El trigger con texto conserva su label visible. El trigger de ícono recibe <code class="inline-code">ariaLabel</code> y nunca depende solo del glyph. Input Dropdown asocia su label visible mediante <code class="inline-code">for</code>/<code class="inline-code">id</code> o permite <code class="inline-code">aria-label</code>/<code class="inline-code">aria-labelledby</code>.</span></div>
+      <div class="table__row"><strong>Semántica</strong><span>Dropdown expone <code class="inline-code">role=&quot;menu&quot;</code> y sus acciones como <code class="inline-code">menuitem</code>, <code class="inline-code">menuitemcheckbox</code> o <code class="inline-code">menuitemradio</code>. Input Dropdown expone <code class="inline-code">role=&quot;combobox&quot;</code> y un <code class="inline-code">listbox</code> con opciones seleccionables.</span></div>
+      <div class="table__row"><strong>Teclado</strong><span><kbd>Enter</kbd>/<kbd>Space</kbd> abre el menú; <kbd>ArrowDown</kbd>/<kbd>ArrowUp</kbd> mueve el foco; <kbd>Home</kbd>/<kbd>End</kbd> salta al primero/último y <kbd>Escape</kbd> cierra y devuelve el foco al trigger. <kbd>Tab</kbd> cierra sin atrapar el foco.</span></div>
+      <div class="table__row"><strong>Estados</strong><span><code class="inline-code">aria-expanded</code> y <code class="inline-code">aria-controls</code> describen la relación trigger/panel. Input Dropdown reenvía <code class="inline-code">required</code>, <code class="inline-code">aria-required</code>, <code class="inline-code">aria-invalid</code>, <code class="inline-code">aria-describedby</code> y <code class="inline-code">aria-errormessage</code>.</span></div>
+      <div class="table__row"><strong>Selección</strong><span>Los grupos checkbox/radio mantienen el menú abierto y exponen <code class="inline-code">aria-checked</code>. Los ítems deshabilitados conservan <code class="inline-code">disabled</code> y no entran en la navegación por flechas.</span></div>
+      <div class="table__row"><strong>Formulario</strong><span>Input Dropdown puede recibir <code class="inline-code">name</code>; mantiene un campo oculto para enviar el valor seleccionado sin convertir el placeholder en etiqueta.</span></div>
+    </div>
   </section>
 
   <!-- Lineamientos de uso -->
@@ -230,7 +245,7 @@
     <p class="section__intro">Cuándo usar cada variante y patrones comunes que evitar.</p>
 
     <p class="guide-group-label">Dropdown</p>
-    <div class="guide-grid guide-grid--spaced">
+    <div class="guide-grid guide-grid--spaced guide-grid--dropdown-overlays">
       <div class="guide-card guide-card--do">
         <div class="guide-card__header">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
@@ -238,7 +253,7 @@
         </div>
         <div class="guide-card__body">
           <p class="guide-card__text">Úsalo para listas de acciones contextuales: editar, duplicar, eliminar.</p>
-          <cs-dropdown trigger="button" label="Acciones" size="sm" [groups]="[{ items: [{ label: 'Editar', value: 'edit', icon: 'pencil' }, { label: 'Duplicar', value: 'dup', icon: 'copy' }, { label: 'Eliminar', value: 'del', icon: 'trash-2', variant: 'destructive' }] }]"></cs-dropdown>
+          <cs-dropdown trigger="button" label="Actions" size="sm" [groups]="[{ items: [{ label: 'Edit', value: 'edit', icon: 'pencil' }, { label: 'Duplicate', value: 'dup', icon: 'copy' }, { label: 'Delete', value: 'del', icon: 'trash-2', variant: 'destructive' }] }]"></cs-dropdown>
         </div>
       </div>
 
@@ -249,7 +264,7 @@
         </div>
         <div class="guide-card__body">
           <p class="guide-card__text">No lo uses como un select de formulario: usa Input Dropdown para elegir un valor dentro de un formulario.</p>
-          <cs-dropdown trigger="button" label="Elegir equipo" size="sm" [groups]="[{ items: [{ label: 'Diseño', value: 'design' }, { label: 'Ingeniería', value: 'eng' }, { label: 'Producto', value: 'prod' }] }]"></cs-dropdown>
+          <cs-dropdown trigger="button" label="Choose team" size="sm" [groups]="[{ items: [{ label: 'Design', value: 'design' }, { label: 'Engineering', value: 'eng' }, { label: 'Product', value: 'prod' }] }]"></cs-dropdown>
         </div>
       </div>
 
@@ -260,7 +275,7 @@
         </div>
         <div class="guide-card__body">
           <p class="guide-card__text">Agrupa acciones relacionadas con encabezados cuando hay muchos ítems.</p>
-          <cs-dropdown trigger="button" label="Cuenta" size="sm" [groups]="groupedGroups"></cs-dropdown>
+          <cs-dropdown trigger="button" label="Account" size="sm" [groups]="groupedGroups"></cs-dropdown>
         </div>
       </div>
 
@@ -271,13 +286,13 @@
         </div>
         <div class="guide-card__body">
           <p class="guide-card__text">No lo uses cuando solo hay una acción: usa un Button en su lugar.</p>
-          <cs-dropdown trigger="button" label="Exportar" size="sm" [groups]="[{ items: [{ label: 'Exportar como CSV', value: 'csv', icon: 'download' }] }]"></cs-dropdown>
+          <cs-dropdown trigger="button" label="Export" size="sm" [groups]="[{ items: [{ label: 'Export as CSV', value: 'csv', icon: 'download' }] }]"></cs-dropdown>
         </div>
       </div>
     </div>
 
     <p class="guide-group-label">Input Dropdown</p>
-    <div class="guide-grid">
+    <div class="guide-grid guide-grid--dropdown-overlays">
       <div class="guide-card guide-card--do">
         <div class="guide-card__header">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
@@ -285,7 +300,7 @@
         </div>
         <div class="guide-card__body">
           <p class="guide-card__text">Siempre acompáñalo de un label en contextos de formulario, por accesibilidad.</p>
-          <cs-input-dropdown label="Equipo" placeholder="Selecciona un equipo…" [options]="inputOptions" size="sm"></cs-input-dropdown>
+          <cs-input-dropdown label="Team" placeholder="Select a team…" [options]="inputOptions" size="sm"></cs-input-dropdown>
         </div>
       </div>
 
@@ -296,7 +311,7 @@
         </div>
         <div class="guide-card__body">
           <p class="guide-card__text">No omitas el label en formularios: el usuario pierde contexto sobre qué está seleccionando.</p>
-          <cs-input-dropdown placeholder="Selecciona un equipo…" [options]="inputOptions" size="sm"></cs-input-dropdown>
+          <cs-input-dropdown placeholder="Select a team…" [options]="inputOptions" size="sm"></cs-input-dropdown>
         </div>
       </div>
 
@@ -318,7 +333,7 @@
         </div>
         <div class="guide-card__body">
           <p class="guide-card__text">No uses Input Dropdown para disparar acciones: para eso está Dropdown.</p>
-          <code class="guide-card__code">&lt;cs-input-dropdown<br>&nbsp;&nbsp;[options]="[<br>&nbsp;&nbsp;&nbsp;&nbsp;{{ '{' }} label: 'Exportar CSV' {{ '}' }},<br>&nbsp;&nbsp;&nbsp;&nbsp;{{ '{' }} label: 'Eliminar todo' {{ '}' }},<br>&nbsp;&nbsp;]"<br>&gt;</code>
+          <code class="guide-card__code">&lt;cs-input-dropdown<br>&nbsp;&nbsp;[options]="[<br>&nbsp;&nbsp;&nbsp;&nbsp;{{ '{' }} label: 'Export CSV' {{ '}' }},<br>&nbsp;&nbsp;&nbsp;&nbsp;{{ '{' }} label: 'Delete all' {{ '}' }},<br>&nbsp;&nbsp;]"<br>&gt;</code>
         </div>
       </div>
     </div>
@@ -335,6 +350,7 @@
       <div class="table__row"><code class="table__name">size</code><code class="table__type">"xs" | "sm" | "md" | "lg"</code><code class="table__default">"sm"</code><span class="table__desc">Controla la altura de fila y la tipografía de los ítems.</span></div>
       <div class="table__row"><code class="table__name">position</code><code class="table__type">"left" | "right"</code><code class="table__default">"left"</code><span class="table__desc">Alineación del menú respecto al trigger.</span></div>
       <div class="table__row"><code class="table__name">header</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Título opcional mostrado en la parte superior del panel del menú.</span></div>
+      <div class="table__row"><code class="table__name">ariaLabel</code><code class="table__type">string</code><code class="table__default">""</code><span class="table__desc">Nombre accesible del trigger de ícono. El trigger con texto ya usa su label visible.</span></div>
       <div class="table__row"><code class="table__name">(select)</code><code class="table__type">EventEmitter&lt;DropdownItem&gt;</code><code class="table__default">—</code><span class="table__desc">Se dispara al hacer clic en un ítem.</span></div>
     </div>
   </section>
@@ -365,10 +381,15 @@
       <div class="table__row"><code class="table__name">value</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Valor seleccionado, controlado.</span></div>
       <div class="table__row"><code class="table__name">(valueChange)</code><code class="table__type">EventEmitter&lt;string&gt;</code><code class="table__default">—</code><span class="table__desc">Se dispara cuando el usuario selecciona una opción.</span></div>
       <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Label mostrado encima del trigger.</span></div>
-      <div class="table__row"><code class="table__name">placeholder</code><code class="table__type">string</code><code class="table__default">"Selecciona una opción"</code><span class="table__desc">Texto de placeholder mostrado cuando no hay valor seleccionado.</span></div>
+      <div class="table__row"><code class="table__name">id</code><code class="table__type">string</code><code class="table__default">auto</code><span class="table__desc">Identificador del trigger para asociarlo con el label visible.</span></div>
+      <div class="table__row"><code class="table__name">name</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Nombre opcional usado para enviar el valor seleccionado dentro de un formulario.</span></div>
+      <div class="table__row"><code class="table__name">placeholder</code><code class="table__type">string</code><code class="table__default">"Select an option"</code><span class="table__desc">Texto de placeholder mostrado cuando no hay valor seleccionado.</span></div>
       <div class="table__row"><code class="table__name">size</code><code class="table__type">"xs" | "sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Altura del trigger y escala tipográfica.</span></div>
       <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita el trigger y oculta el menú.</span></div>
       <div class="table__row"><code class="table__name">required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Agrega un asterisco al label.</span></div>
+      <div class="table__row"><code class="table__name">readonly</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Expone el estado de solo lectura y evita modificar el valor.</span></div>
+      <div class="table__row"><code class="table__name">invalid</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Aplica el borde/anillo de error y expone <code class="inline-code">aria-invalid</code>.</span></div>
+      <div class="table__row"><code class="table__name">aria-label / aria-labelledby / aria-describedby</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Nombre accesible y referencias a ayuda, error o instrucciones complementarias.</span></div>
     </div>
   </section>
 </div>

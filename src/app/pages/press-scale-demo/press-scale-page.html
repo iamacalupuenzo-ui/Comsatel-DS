@@ -1,0 +1,60 @@
+<div class="page">
+  <p class="eyebrow">Animaciones / PressScale</p>
+  <h1 class="title">PressScale</h1>
+  <p class="description">
+    Directiva de feedback táctil para un control ya semántico. Mientras se mantiene presionado con puntero,
+    Espacio o Enter, escala su anfitrión sin cambiar su acción, foco ni nombre accesible.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Mantén presionado el botón con el puntero, Espacio o Enter. La acción sigue siendo un clic nativo.</p>
+    <app-demo-shell [controls]="[]" [code]="'<cs-button csPressScale (click)=&quot;save()&quot;>Guardar cambios</cs-button>'">
+      <div class="press-scale-stage">
+        <cs-button csPressScale (click)="playgroundCount.set(playgroundCount() + 1)">Guardar cambios</cs-button>
+        <span class="press-scale-stage__result" aria-live="polite">Acciones ejecutadas: {{ playgroundCount() }}</span>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">PressScale es decorativa: se aplica a un control que ya resuelve la semántica, el foco y la acción.</p>
+    <div class="table">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row table__row--two"><code class="table__name">Semántica</code><span class="table__desc">No añade roles ni tabindex. Úsala únicamente sobre botones, enlaces u otros controles que ya sean operables.</span></div>
+      <div class="table__row table__row--two"><code class="table__name">Teclado</code><span class="table__desc">Espacio y Enter reciben el mismo feedback de presión que el puntero, sin impedir la activación nativa.</span></div>
+      <div class="table__row table__row--two"><code class="table__name">Movimiento reducido</code><span class="table__desc">Con <code>prefers-reduced-motion: reduce</code>, no se ejecuta la animación de escala.</span></div>
+      <div class="table__row table__row--two"><code class="table__name">Foco</code><span class="table__desc">Al perder foco, el control vuelve a su escala normal; el anillo de foco pertenece al componente anfitrión.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon name="check" [size]="13" aria-hidden="true" /><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Aplícala a un control existente cuando el feedback de presión complemente una acción ya clara.</p>
+          <cs-button size="xs" csPressScale (click)="guideCount.set(guideCount() + 1)">Guardar</cs-button>
+          <span class="guide-card__result" aria-live="polite">Guardados: {{ guideCount() }}</span>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon name="x" [size]="13" aria-hidden="true" /><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No la uses para convertir un contenedor visual en interactivo. La directiva no aporta semántica, teclado ni nombre accesible.</p>
+          <code class="guide-card__code">&lt;div csPressScale&gt;Resumen&lt;/div&gt;</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="props">API</h2>
+    <div class="table">
+      <div class="table__head"><span>Selector</span><span>Tipo</span><span>Descripción</span></div>
+      <div class="table__row table__row--three"><code class="table__name">csPressScale</code><code class="table__type">Directive</code><span class="table__desc">Sin entradas. Usa los tokens de duración <code>fast</code> y <code>leaving</code> en tiempo de ejecución.</span></div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,108 @@
+<div class="page">
+  <p class="eyebrow">Mapa / Tema del mapa</p>
+  <h1 class="title">Tema del mapa</h1>
+  <p class="description">
+    El mapa tiene su propio tema, independiente del tema de la interfaz. No se controla con
+    <code>data-theme</code>: se resuelve eligiendo el proveedor de tiles correcto según un estado
+    propio del mapa.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="why-independent">Por qué es independiente</h2>
+    <p class="section__intro">
+      El tema de la app cambia colores mediante tokens CSS. Los tiles del mapa son imágenes que
+      vienen de un proveedor externo: no hay token de color que los reescriba, hay que pedirle al
+      proveedor el set de tiles claro u oscuro correcto.
+    </p>
+    <p class="section__intro">
+      Por eso el mapa lleva su propio botón de sol/luna, separado del selector de tema de la
+      aplicación. Alguien puede tener la app en modo claro y el mapa en modo oscuro (o al revés) sin
+      que se rompa nada: son dos decisiones distintas.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="providers">Proveedores de tiles</h2>
+    <p class="section__intro">
+      Dos sets de tiles aprobados, uno por modo. Ambos corren sobre datos de OpenStreetMap; solo
+      cambia el render.
+    </p>
+    <div class="warning-banner">
+      <p class="warning-banner__text">
+        Ambos proveedores exigen API key del lado del proveedor y C-Locater no tiene ninguna
+        configurada: hoy devuelven un tile de error ("API KEY REQUIRED" / "401 Invalid
+        Authentication") en vez del mapa, probablemente también en producción. La vista previa de
+        abajo usa Esri World Gray Base (gratis, sin key) solo para que se pueda ver un mapa
+        funcionando mientras se resuelve la key real.
+      </p>
+    </div>
+    <div class="preview-grid">
+      <div>
+        <app-live-map-preview mode="light" />
+        <div class="preview-caption">
+          <p class="preview-caption__title">Claro</p>
+          <p class="preview-caption__provider">CartoDB Voyager</p>
+          <p class="preview-caption__attribution">Atribución obligatoria: OpenStreetMap contributors, CartoDB</p>
+        </div>
+      </div>
+      <div>
+        <app-live-map-preview mode="dark" />
+        <div class="preview-caption">
+          <p class="preview-caption__title">Oscuro</p>
+          <p class="preview-caption__provider">Stadia Maps · Alidade Smooth Dark</p>
+          <p class="preview-caption__attribution">Atribución obligatoria: OpenStreetMap contributors, Stadia Maps</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="usage">Uso en Angular</h2>
+    <p class="section__intro">
+      El estado del tema del mapa vive separado del tema de la app; Leaflet solo necesita la URL
+      correcta al crear el tile layer.
+    </p>
+    <app-code-block [code]="usageCode"></app-code-block>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="category-colors">Colores de categoría</h2>
+    <p class="section__intro">
+      Identifican tipo de unidad GPS y estado de señal sobre el mapa. Se mantienen fijos entre modo
+      claro y oscuro: el valor es lo que permite reconocer la categoría de un vistazo, cambiarlo por
+      tema rompería esa lectura entre pantallas.
+    </p>
+    <p class="swatch-group__label">Tipo de dispositivo GPS</p>
+    <div class="swatch-grid">
+      @for (c of gpsTypeTokens; track c.cssVar) {
+        <div class="swatch-card">
+          <div class="swatch-card__dot" [style.background-color]="'var(' + c.cssVar + ')'"></div>
+          <p class="swatch-card__name">{{ c.name }}</p>
+          <code class="swatch-card__token">{{ c.token }}</code>
+        </div>
+      }
+    </div>
+    <p class="swatch-group__label">Estado de señal</p>
+    <div class="swatch-grid">
+      @for (c of gpsStatusTokens; track c.cssVar) {
+        <div class="swatch-card">
+          <div class="swatch-card__dot" [style.background-color]="'var(' + c.cssVar + ')'"></div>
+          <p class="swatch-card__name">{{ c.name }}</p>
+          <code class="swatch-card__token">{{ c.token }}</code>
+        </div>
+      }
+    </div>
+    <p class="swatch-group__label">Alarma / evento</p>
+    <div class="swatch-grid">
+      <div class="swatch-card">
+        <div class="swatch-card__dot" style="background-color: var(--color-map-alarm)"></div>
+        <p class="swatch-card__name">Alarma</p>
+        <code class="swatch-card__token">--color-map-alarm → --color-background-danger-default</code>
+      </div>
+    </div>
+    <p class="footnote">
+      El estado del vehículo (activo / detenido / sin señal) reutiliza los mismos 3 tokens
+      --color-status-online / busy / offline de arriba, sin el tier de warning.
+    </p>
+  </section>
+</div>

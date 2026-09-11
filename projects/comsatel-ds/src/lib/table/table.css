@@ -1,0 +1,131 @@
+:host {
+  display: block;
+}
+
+.cs-table__wrap {
+  position: relative;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+
+.cs-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-family: var(--font-family-content);
+}
+
+.cs-table__caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.cs-table__head-row {
+  border-bottom: var(--layout-border-thin) solid var(--color-border-divider);
+}
+
+.cs-table__th {
+  padding: var(--layout-padding-md) var(--layout-padding-lg);
+  font-size: var(--font-size-label-small);
+  line-height: var(--font-line-height-label-small);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-subtle);
+  white-space: nowrap;
+}
+
+.cs-table__sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--layout-gap-2xs);
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  user-select: none;
+  transition: color var(--motion-duration-leaving) var(--motion-easing-default);
+}
+.cs-table__sort-btn:hover {
+  color: var(--color-text-base-default);
+}
+.cs-table__sort-btn:focus-visible {
+  outline: var(--layout-border-thick) solid var(--color-border-brand-default);
+  outline-offset: var(--layout-padding-2xs);
+  border-radius: var(--radius-xs);
+}
+.cs-table__sort-icon {
+  color: var(--color-text-base-subtlest);
+}
+.cs-table__sort-icon--active {
+  color: var(--color-text-brand-default);
+}
+
+.cs-table__body--refetching {
+  opacity: var(--opacity-loading);
+  transition: opacity var(--motion-duration-leaving) var(--motion-easing-default);
+}
+
+.cs-table__row {
+  border-bottom: var(--layout-border-thin) solid var(--color-border-divider);
+  transition: background-color var(--motion-duration-leaving) var(--motion-easing-default);
+}
+.cs-table__row:hover {
+  background-color: var(--color-interaction-hovered);
+}
+.cs-table__row--highlighted {
+  background-color: var(--color-background-brand-subtlest);
+}
+
+.cs-table__td {
+  padding: var(--layout-padding-md) var(--layout-padding-lg);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-default);
+}
+
+.cs-table__empty {
+  padding: var(--layout-padding-5xl) var(--layout-padding-lg);
+  text-align: center;
+}
+
+.cs-table__spinner-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.cs-table__spinner {
+  width: var(--layout-size-sm);
+  height: var(--layout-size-sm);
+  border-radius: var(--radius-full);
+  border: var(--layout-border-thick) solid var(--color-border-neutral-subtle);
+  border-top-color: var(--color-text-brand-default);
+  /* Giro continuo: las duraciones de interacción son transiciones puntuales,
+     no sirven para un indicador de progreso en bucle. */
+  animation: cs-table-spin 0.7s linear infinite;
+}
+@keyframes cs-table-spin {
+  to { transform: rotate(360deg); }
+}
+
+.cs-table__loading-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

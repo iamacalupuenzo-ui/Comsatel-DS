@@ -66,7 +66,7 @@
    componente que cierre con una sección de lineamientos. */
 .guidelines-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--layout-gap-xl);
 }
 .guideline { border-radius: var(--radius-lg); border: 1px solid; overflow: hidden; }
@@ -231,6 +231,15 @@
 .table__type { font-family: monospace; font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); color: var(--color-text-brand-default); overflow-wrap: anywhere; }
 .table__default { font-family: monospace; font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); color: var(--color-text-base-subtle); }
 .table__desc { font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); color: var(--color-text-base-subtle); }
+.table--two-columns .table__head,
+.table--two-columns .table__row { grid-template-columns: minmax(9rem, 28%) 1fr; }
+.table--two-columns .table__row > strong,
+.table--two-columns .table__row > span {
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+}
+.table--two-columns .table__row > strong { color: var(--color-text-base-default); font-weight: var(--font-weight-emphasis); }
+.table--two-columns .table__row > span { color: var(--color-text-base-subtle); }
 
 /* Layout genérico para el contenido proyectado dentro de <app-demo-shell>:
    fila de muestras lado a lado, o columna de muestras apiladas. */
@@ -251,7 +260,7 @@
    usan en pares dentro de un grid de 2 columnas. */
 .guide-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--layout-gap-xl);
 }
 .guide-card { border-radius: var(--radius-lg); border: 1px solid var(--color-border-neutral-subtle); overflow: hidden; }
@@ -288,6 +297,7 @@
   line-height: var(--font-line-height-content-note);
   white-space: pre-wrap;
 }
+
 
 /* Bloque estático: una caja con borde que agrupa una muestra + su código,
    SIN el Canvas de puntos ni el Toolbar de <app-demo-shell> — mismo patrón
@@ -368,3 +378,8 @@
   color: var(--color-text-danger-default);
 }
 .form-field__error svg { flex-shrink: 0; }
+
+@media (max-width: 640px) {
+  .table--two-columns .table__head { display: none; }
+  .table--two-columns .table__row { grid-template-columns: 1fr; gap: var(--layout-gap-sm); }
+}

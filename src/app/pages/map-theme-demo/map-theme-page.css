@@ -1,0 +1,93 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.warning-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--layout-gap-md);
+  padding: var(--layout-padding-lg);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--layout-padding-xl);
+  background-color: var(--color-background-warning-subtlest);
+  border: 1px solid var(--color-border-warning-subtle);
+}
+.warning-banner__text {
+  margin: 0;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-warning-bolder);
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--layout-gap-lg);
+}
+.preview-caption {
+  margin-top: var(--layout-padding-md);
+}
+.preview-caption__title {
+  margin: 0;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-bolder);
+}
+.preview-caption__provider {
+  margin: 2px 0 0;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtle);
+}
+.preview-caption__attribution {
+  margin: var(--layout-padding-sm) 0 0;
+  font-size: var(--font-size-label-small);
+  color: var(--color-text-base-subtlest);
+}
+
+.swatch-group__label {
+  margin: 0 0 var(--layout-padding-md);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-bolder);
+}
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--layout-gap-md);
+  margin-bottom: var(--layout-padding-2xl);
+}
+.swatch-card {
+  padding: var(--layout-padding-lg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-neutral-subtle);
+  background-color: var(--elevation-surface-default);
+}
+.swatch-card__dot {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-neutral-subtle);
+  margin-bottom: var(--layout-padding-md);
+}
+.swatch-card__name {
+  margin: 0 0 var(--layout-padding-2xs);
+  font-size: var(--font-size-label-small);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-bolder);
+}
+.swatch-card__token {
+  display: block;
+  font-family: monospace;
+  font-size: var(--font-size-label-micro);
+  color: var(--color-text-base-subtlest);
+  overflow-wrap: anywhere;
+}
+
+.footnote {
+  margin: 0;
+  font-size: var(--font-size-label-small);
+  color: var(--color-text-base-subtlest);
+}

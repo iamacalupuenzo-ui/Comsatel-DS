@@ -96,6 +96,8 @@ export class DateTimePicker implements OnInit {
   protected readonly FIELD_WIDTH = 258;
   protected resolvedId = '';
   protected gridId = '';
+  protected helperId = '';
+  protected errorId = '';
 
   private readonly internalDate = signal<string | undefined>(undefined);
   private readonly internalTime = signal<string | undefined>(undefined);
@@ -112,6 +114,7 @@ export class DateTimePicker implements OnInit {
 
   protected readonly dateOpen = signal(false);
   private readonly focused = signal(false);
+  private restoringFocus = false;
 
   protected readonly inputText = signal('');
   protected readonly viewMonth = signal<number | undefined>(undefined);
@@ -147,6 +150,8 @@ export class DateTimePicker implements OnInit {
   ngOnInit(): void {
     this.resolvedId = this.fieldId() ?? `cs-datetime-picker-${++uid}`;
     this.gridId = `${this.resolvedId}-grid`;
+    this.helperId = `${this.resolvedId}-help`;
+    this.errorId = `${this.resolvedId}-error`;
 
     const initial = splitValue(this.defaultValue());
     this.internalDate.set(initial.dateIso);
@@ -182,6 +187,10 @@ export class DateTimePicker implements OnInit {
 
   protected onDateFocus(): void {
     this.focused.set(true);
+    if (this.restoringFocus) {
+      this.restoringFocus = false;
+      return;
+    }
     this.dateOpen.set(true);
   }
   protected onDateBlur(): void {
@@ -204,11 +213,13 @@ export class DateTimePicker implements OnInit {
       this.jumpViewTo(parsed);
     }
     this.dateOpen.set(false);
+    this.restoreDateFocus();
   }
 
   protected onCalendarChange(iso: string): void {
     this.commit(iso, this.time());
     this.dateOpen.set(false);
+    this.restoreDateFocus();
   }
 
   protected onCalendarMonthChange(next: { month: number; year: number }): void {
@@ -222,6 +233,21 @@ export class DateTimePicker implements OnInit {
 
   protected onClear(): void {
     this.commit(undefined, undefined);
+    this.restoreDateFocus();
+  }
+
+  protected onDateEscape(): void {
+    this.dateOpen.set(false);
+    this.restoreDateFocus();
+  }
+
+  private restoreDateFocus(): void {
+    this.restoringFocus = true;
+    setTimeout(() => this.dateFieldRef?.nativeElement.querySelector<HTMLInputElement>('input')?.focus());
+  }
+
+  protected get describedBy(): string {
+    return this.invalid && this.errorText ? this.errorId : this.helperText ? this.helperId : '';
   }
 
   protected get iconSize(): number {

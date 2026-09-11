@@ -1,0 +1,30 @@
+<div class="marker-pill-wrap">
+  <div
+    class="marker-pill"
+    [class.marker-pill--interactive]="interactive"
+    [class.marker-pill--hover]="visualState === 'hover'"
+    [class.marker-pill--active]="visualState === 'active'"
+    [class.marker-pill--selected]="selected"
+  >
+    @if (alarm) {
+      <div class="marker-pill__alarm">
+        <cs-icon name="bell" [size]="10" />
+      </div>
+    }
+    <div class="marker-pill__icon-wrap" [style.width]="tier.circleVar" [style.height]="tier.circleVar">
+      <cs-icon [name]="vehicleIcon" [size]="tier.iconPx" />
+      <div
+        class="marker-pill__dot"
+        [style.width.px]="tier.dotPx"
+        [style.height.px]="tier.dotPx"
+        [style.background-color]="dotColorVar"
+      ></div>
+    </div>
+    <div class="marker-pill__text">
+      <span class="marker-pill__name">{{ label }}</span>
+      <span class="marker-pill__plate">{{ plate }}</span>
+    </div>
+  </div>
+  <div class="marker-pill__stem-line"></div>
+  <div class="marker-pill__stem-dot"></div>
+</div>

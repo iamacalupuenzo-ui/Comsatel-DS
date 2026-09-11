@@ -1,0 +1,109 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Progress indicator</p>
+  <h1 class="title">Progress indicator</h1>
+  <p class="description">
+    El progress indicator muestra dónde se encuentra una persona dentro de un recorrido de pasos conocido.
+    No reemplaza una barra de carga ni una navegación entre secciones independientes.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Cambia la orientación, el paso activo y la posibilidad de volver a un paso.</p>
+    <app-demo-shell [controls]="controls" [code]="playgroundCode()" (stateChange)="onStateChange($event)">
+      <cs-progress-indicator
+        [steps]="playgroundSteps()"
+        [orientation]="orientation()"
+        [interactive]="interactive()"
+        (stepClick)="onPlaygroundStep($event)"
+        ariaLabel="Progreso del formulario"
+      />
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada nodo comunica un estado textual además de su tratamiento visual.</p>
+    <app-demo-shell [controls]="[]" code="{ id: &quot;inicio&quot;, label: &quot;Inicio&quot;, state: &quot;done&quot; }
+{ id: &quot;revision&quot;, label: &quot;Revisión&quot;, state: &quot;active&quot; }
+{ id: &quot;completo&quot;, label: &quot;Completado&quot;, state: &quot;pending&quot; }">
+      <div class="state-grid">
+        <div class="state-card"><cs-progress-indicator [steps]="[{ id: 'done', label: 'Completado', state: 'done' }]" ariaLabel="Paso completado" /></div>
+        <div class="state-card"><cs-progress-indicator [steps]="[{ id: 'active', label: 'Activo', state: 'active' }]" ariaLabel="Paso activo" /></div>
+        <div class="state-card"><cs-progress-indicator [steps]="[{ id: 'pending', label: 'Pendiente', state: 'pending' }]" ariaLabel="Paso pendiente" /></div>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="orientation">Orientación</h2>
+    <p class="section__intro">Usa horizontal en recorridos cortos y vertical cuando cada paso necesita más espacio descriptivo.</p>
+    <app-demo-shell [controls]="[]" code="<cs-progress-indicator [steps]=&quot;steps&quot; />
+<cs-progress-indicator orientation=&quot;vertical&quot; [steps]=&quot;steps&quot; />">
+      <div class="orientation-grid">
+        <cs-progress-indicator [steps]="playgroundSteps()" ariaLabel="Progreso horizontal" />
+        <div class="vertical-preview"><cs-progress-indicator orientation="vertical" [steps]="playgroundSteps()" ariaLabel="Progreso vertical" /></div>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="interactive">Interacción opcional</h2>
+    <p class="section__intro">Cuando el flujo permite volver a un paso anterior, activa <code class="inline-code">interactive</code> y escucha <code class="inline-code">stepClick</code>.</p>
+    <app-demo-shell [controls]="[]" code="<cs-progress-indicator
+  [steps]=&quot;steps&quot;
+  [interactive]=&quot;true&quot;
+  (stepClick)=&quot;onInteractiveStep($event)&quot;
+/>">
+      <div class="interactive-demo">
+        <cs-progress-indicator [steps]="interactiveSteps()" [interactive]="true" (stepClick)="onInteractiveStep($event)" ariaLabel="Pasos interactivos" />
+        <p class="interactive-status" role="status" aria-live="polite">Paso actual: <strong>{{ currentLabel() }}</strong></p>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">El indicador comunica el recorrido sin convertir cada paso en navegación por defecto.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Estructura</strong><span>Usa <code class="inline-code">role=&quot;list&quot;</code> y cada paso se anuncia como <code class="inline-code">listitem</code>.</span></div>
+      <div class="table__row"><strong>Estado</strong><span>El paso activo expone <code class="inline-code">aria-current=&quot;step&quot;</code>; el texto no depende solo del color o del ícono.</span></div>
+      <div class="table__row"><strong>Interacción</strong><span>Por defecto es informativo. Con <code class="inline-code">interactive</code>, los nodos son botones nombrados y alcanzables con teclado.</span></div>
+      <div class="table__row"><strong>Actualizaciones</strong><span>El consumidor puede anunciar el paso seleccionado con una región <code class="inline-code">role=&quot;status&quot;</code>.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <p class="section__intro">Cada par compara una práctica recomendada con un uso que conviene evitar.</p>
+    <div class="guide-grid">
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon name="circle-check" [size]="16" /><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">Usa pasos breves para representar un recorrido conocido.</p><div class="guide-demo"><cs-progress-indicator [steps]="playgroundSteps()" ariaLabel="Recorrido breve" /></div></div>
+      </article>
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon name="x" [size]="16" /><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">No uses el indicador para navegar entre secciones sin orden.</p><div class="guide-demo"><cs-progress-indicator [steps]="[{ id: 'panel', label: 'Panel', state: 'active' }, { id: 'reportes', label: 'Reportes', state: 'pending' }]" ariaLabel="Secciones sin recorrido" /></div></div>
+      </article>
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon name="circle-check" [size]="16" /><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">Activa la interacción solo cuando volver a un paso sea una acción válida.</p><div class="guide-demo"><cs-progress-indicator [steps]="interactiveSteps()" [interactive]="true" ariaLabel="Recorrido navegable" /></div></div>
+      </article>
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon name="x" [size]="16" /><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">No hagas clickeables los pasos si solo muestran el estado de un proceso.</p><div class="guide-demo"><cs-progress-indicator [steps]="playgroundSteps()" ariaLabel="Estado de solo lectura" /></div></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">steps</code><code class="table__type">ProgressIndicatorStep[]</code><code class="table__default">[]</code><span class="table__desc">Pasos con id, label, descripción opcional y estado done, active o pending.</span></div>
+      <div class="table__row"><code class="table__name">orientation</code><code class="table__type">&quot;horizontal&quot; | &quot;vertical&quot;</code><code class="table__default">&quot;horizontal&quot;</code><span class="table__desc">Define la distribución del recorrido.</span></div>
+      <div class="table__row"><code class="table__name">interactive</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Convierte los nodos en botones y emite stepClick.</span></div>
+      <div class="table__row"><code class="table__name">stepClick</code><code class="table__type">EventEmitter&lt;string&gt;</code><code class="table__default">—</code><span class="table__desc">Emite el id del paso cuando interactive está activo.</span></div>
+    </div>
+  </section>
+</div>

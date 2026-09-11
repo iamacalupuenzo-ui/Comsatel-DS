@@ -28,9 +28,9 @@ export class TooltipPage {
   }
 
   protected readonly pgCode = computed(() => {
-    const props: string[] = [`content="Guardar cambios"`];
+    const props: string[] = [`content="Save changes"`];
     if (this.pgSide() !== 'top') props.push(`side="${this.pgSide()}"`);
     if (!this.pgArrow()) props.push(`[arrow]="false"`);
-    return `<cs-tooltip ${props.join(' ')}>\n  <cs-button>Pasa el cursor</cs-button>\n</cs-tooltip>`;
+    return `<cs-tooltip ${props.join(' ')}>\n  <cs-button>Hover or focus</cs-button>\n</cs-tooltip>`;
   });
 }

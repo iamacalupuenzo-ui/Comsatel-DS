@@ -14,9 +14,20 @@ let uid = 0;
 export class InputGroupInput {
   @Input() fieldSize: InputFieldSize = 'md';
   @Input() type = 'text';
+  @Input() name = '';
   @Input() placeholder = '';
+  @Input() autocomplete = '';
+  @Input() required = false;
+  @Input() readonly = false;
   @Input() disabled = false;
   @Input() invalid = false;
+  @Input('aria-label') ariaLabel = '';
+  @Input('aria-labelledby') ariaLabelledby = '';
+  @Input('aria-describedby') ariaDescribedby = '';
+  @Input('aria-errormessage') ariaErrormessage = '';
+  @Input() min?: string | number;
+  @Input() max?: string | number;
+  @Input() step?: string | number;
   @Input() value = '';
   @Output() valueChange = new EventEmitter<string>();
 
@@ -25,7 +36,6 @@ export class InputGroupInput {
   // calendario al enfocarse). El resto de usos de InputGroupInput los deja
   // sin setear y no cambia nada.
   @Input() id?: string;
-  @Input() required = false;
   @Input() ariaHasPopup?: string;
   @Input() ariaExpanded?: boolean;
   @Input() ariaControls?: string;

@@ -1,0 +1,39 @@
+<ng-content></ng-content>
+
+@if (isVisible) {
+  <div
+    role="dialog"
+    aria-live="polite"
+    class="cs-spotlight__callout"
+    [attr.data-placement]="placement"
+    [attr.aria-labelledby]="headlineId"
+    [attr.aria-describedby]="description ? descriptionId : null"
+  >
+    <div class="cs-spotlight__header">
+      <p class="cs-spotlight__headline" [id]="headlineId">{{ headline }}</p>
+      @if (dismissible) {
+        <button type="button" class="cs-spotlight__dismiss" [attr.aria-label]="dismissLabel" (click)="dismissed.emit()">
+          <cs-icon name="x" [size]="16" />
+        </button>
+      }
+    </div>
+
+    @if (description) {
+      <p class="cs-spotlight__desc" [id]="descriptionId">{{ description }}</p>
+    }
+
+    <div class="cs-spotlight__footer">
+      @if (stepCount) {
+        <span class="cs-spotlight__step">{{ stepCount }}</span>
+      } @else {
+        <span></span>
+      }
+      <div class="cs-spotlight__actions">
+        @if (secondaryActionLabel) {
+          <button type="button" class="cs-spotlight__btn cs-spotlight__btn--secondary" (click)="secondaryAction.emit()">{{ secondaryActionLabel }}</button>
+        }
+        <button type="button" class="cs-spotlight__btn cs-spotlight__btn--primary" (click)="primaryAction.emit()">{{ primaryActionLabel }}</button>
+      </div>
+    </div>
+  </div>
+}

@@ -4,7 +4,7 @@
   padding: var(--layout-padding-xl);
   gap: var(--layout-gap-md);
   border-radius: var(--radius-lg);
-  border: 1px solid;
+  border: var(--layout-border-thin) solid;
   box-shadow: var(--shadow-xs);
 }
 
@@ -19,7 +19,7 @@
   align-items: center;
   padding: var(--layout-padding-xs) var(--layout-padding-md);
   border-radius: var(--radius-full);
-  border: 1px solid;
+  border: var(--layout-border-thin) solid;
   font-size: var(--font-size-content-note);
   line-height: var(--font-line-height-content-note);
   font-weight: var(--font-weight-accent);

@@ -1,0 +1,39 @@
+<header class="cs-app-layout__topnav">
+  <ng-content select="[topnav]"></ng-content>
+</header>
+
+<aside
+  id="cs-app-layout-sidenav"
+  class="cs-app-layout__sidenav"
+  role="navigation"
+  aria-label="Navegación principal"
+>
+  <div class="cs-app-layout__sidenav-scroll">
+    <ng-content select="[sidenav]"></ng-content>
+  </div>
+  @if (showCollapseButton) {
+    <div class="cs-app-layout__collapse">
+      <button
+        type="button"
+        class="cs-app-layout__collapse-btn"
+        (click)="state.toggleCollapsed()"
+        [attr.aria-label]="state.collapsed() ? 'Expandir menú' : 'Colapsar menú'"
+        [attr.aria-expanded]="!state.collapsed()"
+        aria-controls="cs-app-layout-sidenav"
+        csPressScale
+      >
+        <cs-icon [name]="state.collapsed() ? 'chevrons-right' : 'chevron-left'" [size]="15" />
+      </button>
+    </div>
+  }
+</aside>
+
+<main class="cs-app-layout__main">
+  <ng-content></ng-content>
+</main>
+
+@if (hasPanel) {
+  <aside class="cs-app-layout__panel">
+    <ng-content select="[panel]"></ng-content>
+  </aside>
+}

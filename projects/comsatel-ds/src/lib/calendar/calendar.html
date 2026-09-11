@@ -19,7 +19,7 @@
       </button>
     </div>
 
-    <span class="cs-calendar__label" [ngStyle]="labelStyle()">{{ label() }}</span>
+    <span class="cs-calendar__label" [ngStyle]="labelStyle()" aria-live="polite">{{ label() }}</span>
 
     <div class="cs-calendar__nav-group">
       <button
@@ -43,24 +43,41 @@
 
   <div class="cs-calendar__weekdays" role="row">
     @for (w of weekdays(); track w) {
-      <span class="cs-calendar__weekday" [ngStyle]="weekdayStyle">{{ w }}</span>
+      <span class="cs-calendar__weekday" role="columnheader" [ngStyle]="weekdayStyle">{{ w }}</span>
     }
   </div>
 
-  <div class="cs-calendar__grid" role="grid">
+  <div
+    class="cs-calendar__grid"
+    role="grid"
+    [attr.aria-label]="ariaLabelledby() ? null : ariaLabel()"
+    [attr.aria-labelledby]="ariaLabelledby() || null"
+    aria-rowcount="6"
+    aria-colcount="7"
+  >
     @for (week of weeks(); track $index) {
       <div class="cs-calendar__week" role="row">
         @for (cell of week; track cell.iso) {
-          <div class="cs-calendar__cell" [ngStyle]="cellStyle(cell)">
+          <div
+            class="cs-calendar__cell"
+            role="gridcell"
+            [attr.aria-label]="dayAriaLabel(cell)"
+            [attr.aria-selected]="isSelected(cell.iso) || isRangeEdge(cell.iso)"
+            [attr.aria-disabled]="isDisabled(cell.iso) ? 'true' : null"
+            [ngStyle]="cellStyle(cell)"
+          >
             <button
               type="button"
-              role="gridcell"
               class="cs-calendar__day"
+              [attr.data-calendar-day]="cell.iso"
               [disabled]="isDisabled(cell.iso)"
-              [attr.aria-selected]="isSelected(cell.iso) || isRangeEdge(cell.iso)"
+              [attr.aria-label]="dayAriaLabel(cell)"
               [attr.aria-current]="isToday(cell.iso) ? 'date' : null"
+              [tabIndex]="dayTabIndex(cell)"
               [ngStyle]="dayStyle(cell)"
               (click)="onDayClick(cell)"
+              (focus)="onDayFocus(cell.iso)"
+              (keydown)="onDayKeydown($event, cell)"
               (mouseenter)="hoveredIso.set(cell.iso)"
               (mouseleave)="hoveredIso.set(null)"
             >{{ cell.day }}</button>

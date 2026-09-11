@@ -1,0 +1,52 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.modal-demo-paragraph + .modal-demo-paragraph {
+  margin-top: var(--layout-gap-lg);
+}
+
+.modal-demo-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-xs);
+}
+.modal-demo-field__label {
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-default);
+}
+
+.modal-guidelines .guide-card__body {
+  min-height: 10rem;
+}
+
+.guide-status {
+  margin: var(--layout-gap-md) 0 0;
+  color: var(--color-text-base-subtle);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+}
+
+.guideline-reset {
+  margin-top: var(--layout-gap-lg);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-default);
+  border-radius: var(--radius-md);
+  background: var(--color-background-base);
+  padding: var(--layout-padding-2xs) var(--layout-padding-xs);
+  color: var(--color-text-base-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  font-weight: var(--font-weight-accent);
+  cursor: pointer;
+}
+
+.guideline-reset:hover {
+  background: var(--color-background-neutral-subtle);
+}
+
+.guideline-reset:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-focused);
+}

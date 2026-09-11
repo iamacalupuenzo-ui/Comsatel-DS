@@ -1,0 +1,58 @@
+/* Igual criterio que Checkbox: un <input type="radio"> nativo oculto detrás
+   del anillo dibujado da teclado/foco/semántica de grupo gratis (arrow keys
+   moviendo la selección entre radios del mismo name) — sin reimplementar
+   ARIA a mano. */
+@import '../shared/selection-glyphs.css';
+
+:host {
+  display: inline-flex;
+}
+
+.cs-radio {
+  display: inline-flex;
+  align-items: center;
+  /* 10px replica la separación óptica de los controles de selección
+     hermanos; la escala de gaps no tiene un paso de 10px. */
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.cs-radio--two-lines { align-items: flex-start; }
+.cs-radio--disabled { opacity: var(--opacity-disabled); pointer-events: none; }
+
+.cs-radio__ring-wrap {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+}
+
+.cs-radio__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* .cs-radio-ring / .cs-radio-ring--checked / .cs-radio-dot viven en
+   shared/selection-glyphs.css (compartidas con el glyph de Dropdown). Acá
+   solo el fondo real de formulario y el anillo de foco. */
+.cs-radio-ring {
+  background-color: var(--elevation-surface-default);
+  transition: border-color var(--motion-duration-leaving) var(--motion-easing-default);
+}
+.cs-radio__input:focus-visible ~ .cs-radio-ring {
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-focused);
+}
+
+.cs-radio__text {
+  display: flex;
+  flex-direction: column;
+  /* 1px mantiene la relación compacta label/description; no existe este
+     paso en la escala de gaps. */
+  gap: 1px;
+}
+.cs-radio__label { color: var(--color-text-base-default); }
+.cs-radio__desc { color: var(--color-text-base-subtle); }

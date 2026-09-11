@@ -30,3 +30,38 @@
   cursor: pointer;
 }
 .dismissed-notice__reset:hover { text-decoration: underline; }
+
+.banner-guidelines cs-banner {
+  display: block;
+  width: 100%;
+}
+
+.guide-status {
+  margin: 0;
+  color: var(--color-text-base-subtle);
+  font-size: var(--font-size-content-note);
+  line-height: var(--line-height-content-note);
+}
+
+.guideline-reset {
+  margin-top: var(--layout-gap-lg);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-default);
+  border-radius: var(--radius-md);
+  background: var(--color-background-base);
+  padding: var(--layout-padding-2xs) var(--layout-padding-xs);
+  color: var(--color-text-base-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  font-weight: var(--font-weight-accent);
+  cursor: pointer;
+}
+
+.guideline-reset:hover {
+  background: var(--color-background-neutral-subtle);
+}
+
+.guideline-reset:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-focused);
+}

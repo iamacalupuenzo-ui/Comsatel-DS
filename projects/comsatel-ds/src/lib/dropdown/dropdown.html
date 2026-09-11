@@ -2,11 +2,14 @@
   @if (trigger === 'button') {
     <button
       type="button"
+      #triggerButton
+      [id]="triggerId"
       class="cs-dropdown__trigger cs-dropdown__trigger--button"
       [class.cs-dropdown__trigger--open]="open()"
       aria-haspopup="menu"
       [attr.aria-expanded]="open()"
       [attr.aria-controls]="menuId"
+      (keydown)="onTriggerKeydown($event)"
       [style.height.px]="tok.height"
       [style.padding-inline.px]="tok.paddingInline"
       [style.font-size]="tok.fontSize"
@@ -19,11 +22,15 @@
   } @else {
     <button
       type="button"
+      #triggerButton
+      [id]="triggerId"
       class="cs-dropdown__trigger cs-dropdown__trigger--icon"
       [class.cs-dropdown__trigger--open]="open()"
       aria-haspopup="menu"
       [attr.aria-expanded]="open()"
       [attr.aria-controls]="menuId"
+      [attr.aria-label]="ariaLabel || label"
+      (keydown)="onTriggerKeydown($event)"
       [style.width.px]="iconTriggerSize"
       [style.height.px]="iconTriggerSize"
       (click)="toggle()"
@@ -36,11 +43,14 @@
     <div
       [id]="menuId"
       role="menu"
+      [attr.aria-labelledby]="triggerId"
+      aria-orientation="vertical"
       class="cs-dropdown__menu"
       [style.width.px]="menuWidth"
       [style.top.px]="menuTop"
       [style.left]="position === 'right' ? 'auto' : '0'"
       [style.right]="position === 'right' ? '0' : 'auto'"
+      (keydown)="onMenuKeydown($event)"
     >
       @if (header) {
         <div class="cs-dropdown__header">{{ header }}</div>
@@ -58,7 +68,7 @@
 
           <div
             [attr.role]="isGroupSelectable(group) ? 'group' : null"
-            [attr.aria-label]="isGroupSelectable(group) ? group.header : null"
+            [attr.aria-label]="isGroupSelectable(group) ? (group.header || 'Opciones') : null"
             class="cs-dropdown__items"
           >
             @for (item of group.items; track $index) {

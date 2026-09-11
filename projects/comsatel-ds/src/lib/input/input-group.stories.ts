@@ -21,7 +21,7 @@ const meta: Meta<InputGroup> = {
     template: `
       <cs-input-group>
         <cs-input-group-addon><cs-icon name="mail" [size]="16"></cs-icon></cs-input-group-addon>
-        <cs-input-group-input placeholder="Ingresa tu correo"></cs-input-group-input>
+        <cs-input-group-input aria-label="Email address" placeholder="Enter your email"></cs-input-group-input>
       </cs-input-group>
     `,
   }),
@@ -36,7 +36,7 @@ export const TrailingIcon: Story = {
   render: () => ({
     template: `
       <cs-input-group>
-        <cs-input-group-input type="email" placeholder="tu@ejemplo.com"></cs-input-group-input>
+        <cs-input-group-input type="email" aria-label="Email address" placeholder="you@example.com"></cs-input-group-input>
         <cs-input-group-addon align="inline-end"><cs-icon name="mail" [size]="16"></cs-icon></cs-input-group-addon>
       </cs-input-group>
     `,
@@ -48,7 +48,7 @@ export const LeadingText: Story = {
     template: `
       <cs-input-group>
         <cs-input-group-addon><cs-input-group-text>https://</cs-input-group-text></cs-input-group-addon>
-        <cs-input-group-input placeholder="tu-dominio.com"></cs-input-group-input>
+        <cs-input-group-input aria-label="Website" placeholder="your-domain.com"></cs-input-group-input>
       </cs-input-group>
     `,
   }),
@@ -59,7 +59,7 @@ export const TrailingText: Story = {
     template: `
       <cs-input-group>
         <cs-input-group-addon><cs-input-group-text>USD</cs-input-group-text></cs-input-group-addon>
-        <cs-input-group-input type="number" placeholder="0.00"></cs-input-group-input>
+        <cs-input-group-input type="number" aria-label="Amount" placeholder="0.00"></cs-input-group-input>
       </cs-input-group>
     `,
   }),
@@ -69,10 +69,10 @@ export const LeadingDropdown: Story = {
   render: () => ({
     template: `
       <cs-input-group>
-        <cs-input-group-addon>
-          <cs-input-dropdown [options]="[{ label: '+51', value: 'pe' }, { label: '+57', value: 'co' }]" value="pe" [embedded]="true"></cs-input-dropdown>
+        <cs-input-group-addon [divider]="true">
+          <cs-input-dropdown aria-label="Código de país" [options]="[{ label: '+33 — Francia', triggerLabel: '+33', countryFlag: 'fr', value: 'fr' }, { label: '+44 — Reino Unido', triggerLabel: '+44', countryFlag: 'gb', value: 'gb' }]" value="fr" [embedded]="true"></cs-input-dropdown>
         </cs-input-group-addon>
-        <cs-input-group-input placeholder="Número de teléfono"></cs-input-group-input>
+        <cs-input-group-input aria-label="Phone number" placeholder="Phone number"></cs-input-group-input>
       </cs-input-group>
     `,
   }),
@@ -83,9 +83,9 @@ export const TrailingDropdown: Story = {
     template: `
       <cs-input-group>
         <cs-input-group-addon><cs-input-group-text>$</cs-input-group-text></cs-input-group-addon>
-        <cs-input-group-input placeholder="0.00"></cs-input-group-input>
-        <cs-input-group-addon align="inline-end">
-          <cs-input-dropdown [options]="[{ label: 'USD', value: 'usd' }, { label: 'PEN', value: 'pen' }]" value="usd" [embedded]="true"></cs-input-dropdown>
+        <cs-input-group-input aria-label="Amount" placeholder="0.00"></cs-input-group-input>
+        <cs-input-group-addon align="inline-end" [divider]="true">
+          <cs-input-dropdown aria-label="Moneda" [options]="[{ label: 'USD — Dólar estadounidense', triggerLabel: 'USD', leadingText: '$', value: 'usd' }, { label: 'PEN — Sol peruano', triggerLabel: 'PEN', leadingText: 'S/', value: 'pen' }]" value="usd" [embedded]="true"></cs-input-dropdown>
         </cs-input-group-addon>
       </cs-input-group>
     `,
@@ -96,8 +96,8 @@ export const WithTrailingButton: Story = {
   render: () => ({
     template: `
       <cs-input-group>
-        <cs-input-group-input placeholder="Ingresa el enlace de invitación"></cs-input-group-input>
-        <cs-input-group-addon align="inline-end"><cs-button size="xs" variant="secondary">Copiar</cs-button></cs-input-group-addon>
+        <cs-input-group-input aria-label="Invite link" placeholder="Enter invite link"></cs-input-group-input>
+        <cs-input-group-addon align="inline-end" [compact]="true"><cs-button size="xs" variant="secondary">Copiar</cs-button></cs-input-group-addon>
       </cs-input-group>
     `,
   }),
@@ -108,9 +108,9 @@ export const PasswordToggle: Story = {
     template: `
       <cs-input-group>
         <cs-input-group-addon><cs-icon name="lock" [size]="16"></cs-icon></cs-input-group-addon>
-        <cs-input-group-input type="password" placeholder="Ingresa tu contraseña"></cs-input-group-input>
+        <cs-input-group-input type="password" aria-label="Password" placeholder="Enter password"></cs-input-group-input>
         <cs-input-group-addon align="inline-end">
-          <button type="button"><cs-icon name="eye" [size]="16"></cs-icon></button>
+          <button type="button" aria-label="Show password"><cs-icon name="eye" [size]="16"></cs-icon></button>
         </cs-input-group-addon>
       </cs-input-group>
     `,

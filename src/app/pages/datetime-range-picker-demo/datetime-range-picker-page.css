@@ -1,0 +1,23 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.inline-link {
+  color: var(--color-text-link-default);
+  text-decoration: underline;
+}
+
+/* 340px es la altura medida del calendario de rango más el margen del overlay;
+   se reserva explícitamente para que el popover no quede recortado (C9). */
+.dtrp-demo {
+  padding-bottom: 340px;
+}
+
+/* El calendario de rango y las dos horas necesitan el ancho completo para no
+   recortar el trigger ni el overlay dentro de una tarjeta estrecha. */
+.datetime-range-guidelines {
+  grid-template-columns: 1fr;
+}
+.datetime-range-guidelines .guide-card__body {
+  padding-bottom: 340px;
+}

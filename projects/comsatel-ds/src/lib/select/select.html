@@ -1,0 +1,101 @@
+<div class="cs-select">
+  @if (label) {
+    <span [id]="labelId" class="cs-select__label">
+      {{ label }}
+      @if (required) {
+        <span class="cs-select__required">*</span>
+      }
+    </span>
+  }
+
+  <div class="cs-select__row">
+    <div class="cs-select__trigger-wrap">
+        <div
+          #trigger
+          role="combobox"
+          [tabIndex]="disabled ? -1 : 0"
+          [attr.aria-label]="label ? null : placeholder"
+          [attr.aria-labelledby]="label ? labelId : null"
+        aria-haspopup="listbox"
+        [attr.aria-expanded]="open()"
+        [attr.aria-controls]="menuId"
+        [attr.aria-disabled]="disabled || null"
+          [attr.aria-required]="required || null"
+        class="cs-select__trigger"
+        [class.cs-select__trigger--disabled]="disabled"
+        [style.min-height.px]="tok.height"
+        [style.padding-inline.px]="tok.paddingX"
+        [style.font-size]="tok.fontSize"
+        [style.line-height]="tok.lineHeight"
+        [style.border-color]="borderColor"
+        [style.box-shadow]="extraShadow"
+        [style.color]="textColor"
+        (click)="toggle()"
+        (keydown)="onKeydown($event)"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+      >
+        @if (multiple) {
+          @if (selectedOptions.length > 0) {
+            <span class="cs-select__chips">
+              @for (opt of selectedOptions; track opt.value) {
+                <cs-badge [size]="chipSize" variant="neutral" class="cs-select__chip">
+                  {{ opt.label }}
+                  <button
+                    type="button"
+                    class="cs-select__chip-remove"
+                    [attr.aria-label]="removeOptionLabel(opt.label)"
+                    [style.width.px]="chipRemoveSize"
+                    [style.height.px]="chipRemoveSize"
+                    (click)="removeOption(opt, $event)"
+                  >
+                    <cs-icon name="x" [size]="chipRemoveIconSize" aria-hidden="true" />
+                  </button>
+                </cs-badge>
+              }
+            </span>
+          } @else {
+            <span class="cs-select__placeholder">{{ placeholder }}</span>
+          }
+        } @else {
+          <span class="cs-select__placeholder">{{ singleSelected ? singleSelected!.label : placeholder }}</span>
+        }
+        <cs-icon name="chevron-down" [size]="16" class="cs-select__chevron" [class.cs-select__chevron--open]="open()" />
+      </div>
+
+        <cs-popover [isOpen]="open() && !disabled" [triggerRef]="trigger" placement="bottom-start" [offset]="4" [matchTriggerWidth]="true" [role]="null" (closed)="onPopoverClosed()">
+          <div [id]="menuId" role="listbox" [attr.aria-multiselectable]="multiple ? true : null" class="cs-select__menu" [style.max-height.px]="tok.height * 9 + 8">
+          <div class="cs-select__menu-inner">
+            @for (opt of options; track opt.value) {
+              <button
+                type="button"
+                role="option"
+                [attr.aria-selected]="isSelected(opt)"
+                [disabled]="opt.disabled"
+                class="cs-select__option"
+                [class.cs-select__option--selected]="isSelected(opt)"
+                [style.height.px]="tok.height"
+                [style.padding-inline.px]="tok.paddingX"
+                [style.font-size]="tok.fontSize"
+                [style.line-height]="tok.lineHeight"
+                (click)="selectOption(opt)"
+                (keydown)="onOptionKeydown($event, opt)"
+              >
+                <span class="cs-select__option-label">{{ opt.label }}</span>
+                @if (isSelected(opt)) {
+                  <cs-icon name="check" [size]="16" class="cs-select__option-check" aria-hidden="true" />
+                }
+              </button>
+            }
+          </div>
+        </div>
+        </cs-popover>
+    </div>
+
+    @if (!disabled && hasValue && !multiple) {
+      <button type="button" tabindex="-1" class="cs-select__clear" [attr.aria-label]="clearControlLabel" [style.width.px]="tok.height" [style.height.px]="tok.height" (click)="clearAll()">
+        <cs-icon name="x" [size]="16" />
+      </button>
+    }
+  </div>
+</div>

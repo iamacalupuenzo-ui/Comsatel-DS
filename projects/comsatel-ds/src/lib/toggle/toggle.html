@@ -16,6 +16,7 @@
       role="switch"
       [id]="inputId"
       class="cs-toggle__input"
+      [attr.aria-label]="ariaLabel || null"
       [checked]="isChecked()"
       [disabled]="disabled"
       (change)="onChange($any($event.target).checked)"

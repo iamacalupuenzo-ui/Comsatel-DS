@@ -1,0 +1,203 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Popover</p>
+  <h1 class="title">Popover</h1>
+  <p class="description">
+    Un popover muestra contenido breve y efímero anclado a un trigger — un menú de acciones, una
+    lista de dispositivos, un detalle rápido. A diferencia de Modal, nunca bloquea el resto de la
+    página y se cierra con un clic afuera o Escape sin preguntar. Para una interrupción de página
+    completa que necesita una decisión, usa Modal en su lugar.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Abre el popover y cambia su posición.</p>
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <cs-button #pgTrigger variant="primary" [selected]="pgOpen()" (click)="pgOpen.set(!pgOpen())">Abrir popover</cs-button>
+      <cs-popover [isOpen]="pgOpen()" [triggerRef]="pgTriggerRef ?? null" [placement]="pgPlacement()" ariaLabel="Detalle del dispositivo GPS" (closed)="pgOpen.set(false)">
+        <div class="sample-content">
+          <p class="sample-content__title">Dispositivo GPS</p>
+          <p class="sample-content__body">Plan principal · reportando desde las 08:12.</p>
+        </div>
+      </cs-popover>
+    </app-demo-shell>
+  </section>
+
+  <!-- Posición -->
+  <section class="section">
+    <h2 class="section__title" id="placement">Posición</h2>
+    <p class="section__intro">
+      12 posiciones (4 lados × start/center/end). Si el lado preferido no entra, Popover mide su
+      propio panel y voltea solo al lado opuesto — nunca estima un tamaño ni se sale de la
+      pantalla.
+    </p>
+    <div class="static-block">
+      <div class="static-block__preview placement-grid">
+        @for (p of placements; track p; let i = $index) {
+          <div class="placement-grid__cell">
+            <cs-button #placementBtn variant="default" size="sm" [selected]="openPlacementIndex() === i" [fullWidth]="true" (click)="togglePlacement(i)">{{ p }}</cs-button>
+            <cs-popover [isOpen]="openPlacementIndex() === i" [triggerRef]="triggerFor(i)" [placement]="p" ariaLabel="Detalle del dispositivo GPS" (closed)="openPlacementIndex.set(null)">
+              <div class="sample-content">
+                <p class="sample-content__title">Dispositivo GPS</p>
+                <p class="sample-content__body">Plan principal · reportando desde las 08:12.</p>
+              </div>
+            </cs-popover>
+          </div>
+        }
+      </div>
+      <app-code-block code="<cs-popover placement=&quot;right-end&quot; ...></cs-popover>"></app-code-block>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="collision">Colisión con el viewport</h2>
+    <p class="section__intro">Cuando no hay espacio debajo, el panel cambia al lado opuesto y mantiene un margen visible del viewport.</p>
+    <div class="static-block">
+      <div class="static-block__preview collision-preview">
+        <cs-button #collisionTrigger variant="primary" [selected]="collisionOpen()" (click)="collisionOpen.set(!collisionOpen())">Abrir cerca del borde</cs-button>
+        <cs-popover [isOpen]="collisionOpen()" [triggerRef]="collisionTriggerRef ?? null" placement="bottom" ariaLabel="Detalle del dispositivo GPS" (closed)="collisionOpen.set(false)">
+          <div class="sample-content"><p class="sample-content__title">Dispositivo GPS</p><p class="sample-content__body">El panel cambia de lado cuando no entra.</p></div>
+        </cs-popover>
+      </div>
+      <app-code-block code="&lt;cs-popover placement=&quot;bottom&quot; ...&gt;&lt;/cs-popover&gt;"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Igualar el ancho del trigger -->
+  <section class="section">
+    <h2 class="section__title" id="match-width">Igualar el ancho del trigger</h2>
+    <p class="section__intro">
+      matchTriggerWidth fija el ancho del panel al del trigger — la forma que necesita un combobox
+      o un select propio.
+    </p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        <button #mwTrigger type="button" class="mw-trigger" (click)="mwOpen.set(!mwOpen())">
+          <span [class.mw-trigger__placeholder]="!mwValue()">{{ mwValue() ?? 'Selecciona un recorrido…' }}</span>
+          <cs-icon name="chevrons-up-down" [size]="14" />
+        </button>
+        <cs-popover [isOpen]="mwOpen()" [triggerRef]="mwTriggerRef ?? null" [matchTriggerWidth]="true" placement="bottom-start" ariaLabel="Opciones de recorrido" (closed)="mwOpen.set(false)">
+          <div class="mw-list">
+            @for (opt of matchWidthOptions; track opt) {
+              <button type="button" class="mw-list__item" (click)="selectMatchWidth(opt)">{{ opt }}</button>
+            }
+          </div>
+        </cs-popover>
+      </div>
+      <app-code-block code="<cs-popover [matchTriggerWidth]=&quot;true&quot; placement=&quot;bottom-start&quot; ...></cs-popover>"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Componiendo un menú -->
+  <section class="section">
+    <h2 class="section__title" id="menu">Componiendo un menú</h2>
+    <p class="section__intro">
+      Popover solo es dueño de la posición, el portal y el cierre — el contenido es completamente
+      tuyo.
+    </p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        <cs-button #menuTrigger variant="default" [selected]="menuOpen()" (click)="menuOpen.set(!menuOpen())">Acciones</cs-button>
+        <cs-popover [isOpen]="menuOpen()" [triggerRef]="menuTriggerRef ?? null" placement="bottom-start" ariaLabel="Acciones del dispositivo" (closed)="menuOpen.set(false)">
+          <div class="menu-list">
+            @for (item of menuItems; track item.label) {
+              <button type="button" class="menu-list__item" [class.menu-list__item--danger]="item.danger" (click)="menuOpen.set(false)">
+                <cs-icon [name]="item.icon" [size]="14" />
+                {{ item.label }}
+              </button>
+            }
+          </div>
+        </cs-popover>
+      </div>
+      <app-code-block
+        code="<cs-popover [isOpen]=&quot;open&quot; [triggerRef]=&quot;trigger&quot; (closed)=&quot;open = false&quot;>
+  <button (click)=&quot;...&quot;><cs-icon name=&quot;copy&quot; /> Copiar IMEI</button>
+  ...
+</cs-popover>"
+      ></app-code-block>
+    </div>
+  </section>
+
+  <!-- Lineamientos -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <cs-icon name="check" [size]="13" class="guide-card__header-icon" aria-hidden="true" />
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa Popover para contenido ligado a un solo trigger — un menú de acciones, un panel corto de detalle, una lista de dispositivos.</p>
+          <cs-button #guideActionTrigger variant="default" size="sm" [selected]="guideActionOpen()" (click)="guideActionOpen.set(!guideActionOpen())">Acciones</cs-button>
+          <cs-popover [isOpen]="guideActionOpen()" [triggerRef]="guideActionTriggerRef ?? null" placement="bottom-start" ariaLabel="Acciones del dispositivo" (closed)="guideActionOpen.set(false)">
+            <div class="menu-list"><button type="button" class="menu-list__item" (click)="guideActionOpen.set(false)"><cs-icon name="copy" [size]="14" />Copiar IMEI</button></div>
+          </cs-popover>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <cs-icon name="x" [size]="13" class="guide-card__header-icon" aria-hidden="true" />
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses Popover para un flujo que necesita una decisión o bloquea el resto de la página — una confirmación destructiva, un formulario obligatorio. Para eso usa Modal.</p>
+          <span class="guide-static-example">Requiere confirmación en Modal</span>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <cs-icon name="check" [size]="13" class="guide-card__header-icon" aria-hidden="true" />
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Deja que un clic afuera y Escape lo cierren sin confirmación — un popover está pensado para descartarse de forma casual.</p>
+          <cs-button #guideDismissTrigger variant="default" size="sm" [selected]="guideDismissOpen()" (click)="guideDismissOpen.set(!guideDismissOpen())">Abrir popover</cs-button>
+          <cs-popover [isOpen]="guideDismissOpen()" [triggerRef]="guideDismissTriggerRef ?? null" placement="bottom-start" ariaLabel="Detalle rápido" (closed)="guideDismissOpen.set(false)">
+            <div class="sample-content"><p class="sample-content__title">Detalle rápido</p><p class="sample-content__body">Presiona Escape o haz clic afuera para cerrar.</p></div>
+          </cs-popover>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <cs-icon name="x" [size]="13" class="guide-card__header-icon" aria-hidden="true" />
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No pongas la confirmación de una acción destructiva dentro de un Popover — un clic afuera accidental la pierde en silencio, sin ningún "¿estás seguro?".</p>
+          <span class="guide-static-example">Confirmación destructiva en Modal</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Popover mantiene el contexto de la página y expone la relación entre el trigger y el panel para tecnologías de asistencia.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Relación</strong><span>Al abrir, el trigger recibe <code>aria-expanded</code>, <code>aria-controls</code> y <code>aria-haspopup</code>.</span></div>
+      <div class="table__row"><strong>Nombre</strong><span>Usa <code>ariaLabel</code> o <code>ariaLabelledBy</code> para describir el contenido cuando tiene <code>role=&quot;dialog&quot;</code>.</span></div>
+      <div class="table__row"><strong>Teclado</strong><span>Escape cierra el panel y devuelve el foco al trigger. Los controles internos conservan sus teclas nativas.</span></div>
+      <div class="table__row"><strong>Cierre casual</strong><span>Un clic afuera cierra por defecto; no uses este patrón para confirmar acciones destructivas.</span></div>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">isOpen</code><code class="table__type">boolean</code><code class="table__default">—</code><span class="table__desc">Obligatorio. Controla si el popover está montado y visible.</span></div>
+      <div class="table__row"><code class="table__name">(closed)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al presionar Escape o al hacer clic afuera (si closeOnOverlayClick).</span></div>
+      <div class="table__row"><code class="table__name">triggerRef</code><code class="table__type">ElementRef&lt;HTMLElement&gt; | HTMLElement</code><code class="table__default">—</code><span class="table__desc">Obligatorio. El elemento al que el popover está anclado — también se excluye del chequeo de clic afuera.</span></div>
+      <div class="table__row"><code class="table__name">placement</code><code class="table__type">"top" | "bottom" | "left" | "right" (+ "-start"/"-end")</code><code class="table__default">"bottom-start"</code><span class="table__desc">Cada lado con alineación start/center/end opcional.</span></div>
+      <div class="table__row"><code class="table__name">offset</code><code class="table__type">number</code><code class="table__default">8</code><span class="table__desc">Espacio en píxeles entre el trigger y el panel.</span></div>
+      <div class="table__row"><code class="table__name">matchTriggerWidth</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Fija el ancho del panel al ancho medido del trigger.</span></div>
+      <div class="table__row"><code class="table__name">ariaLabel / ariaLabelledBy</code><code class="table__type">string | null</code><code class="table__default">null</code><span class="table__desc">Proporciona el nombre accesible del panel cuando usa role=&quot;dialog&quot;.</span></div>
+      <div class="table__row"><code class="table__name">role</code><code class="table__type">string | null</code><code class="table__default">&quot;dialog&quot;</code><span class="table__desc">Rol del panel; usa null si su contenido ya representa un patrón compuesto.</span></div>
+      <div class="table__row"><code class="table__name">closeOnOverlayClick</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Ponlo en false cuando el contenido necesita quedarse abierto durante una interacción afuera.</span></div>
+    </div>
+  </section>
+</div>

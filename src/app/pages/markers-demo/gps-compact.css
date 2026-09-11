@@ -1,0 +1,57 @@
+:host {
+  display: inline-flex;
+}
+
+.gps-compact-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--layout-gap-2xs);
+}
+
+.gps-compact {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--layout-gap-xs);
+  padding-block: var(--layout-padding-xs);
+  padding-inline-start: var(--layout-padding-sm);
+  padding-inline-end: var(--layout-padding-lg);
+  border-radius: var(--radius-full);
+  background-color: var(--elevation-surface-default);
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid color-mix(in srgb, var(--color-map-gps-svr-x) 25%, transparent);
+  color: var(--color-map-gps-svr-x);
+  cursor: pointer;
+  transition: background-color var(--motion-duration-medium) var(--motion-easing-default), box-shadow var(--motion-duration-medium) var(--motion-easing-default);
+}
+.gps-compact:hover {
+  background-color: var(--color-background-neutral-subtle);
+  box-shadow: var(--shadow-md);
+}
+.gps-compact:active {
+  background-color: var(--color-background-neutral-default);
+  box-shadow: var(--shadow-lg);
+}
+
+.gps-compact__label {
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-label-micro);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+/* Mismo tratamiento que vehicle-pill: el color de acento y el estado de
+   señal ya se codifican dentro de la tarjeta, este punto es solo el ancla
+   estructural hacia la coordenada real. */
+.gps-compact__stem-line {
+  width: 2px;
+  height: var(--layout-gap-lg);
+  background-color: var(--color-border-neutral-boldest);
+  opacity: 0.5;
+}
+.gps-compact__stem-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-border-neutral-boldest);
+}

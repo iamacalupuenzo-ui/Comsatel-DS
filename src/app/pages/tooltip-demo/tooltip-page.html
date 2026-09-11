@@ -12,8 +12,8 @@
     <p class="section__intro">Ajusta los controles para explorar la posición del tooltip y la visibilidad de la flecha.</p>
 
     <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
-      <cs-tooltip content="Guardar cambios" [side]="pgSide()" [arrow]="pgArrow()">
-        <cs-button>Pasa el cursor o enfoca</cs-button>
+      <cs-tooltip content="Save changes" [side]="pgSide()" [arrow]="pgArrow()">
+        <cs-button>Hover or focus</cs-button>
       </cs-tooltip>
     </app-demo-shell>
   </section>
@@ -24,14 +24,14 @@
     <p class="section__intro">Los tooltips pueden posicionarse en cualquiera de los cuatro lados del elemento trigger.</p>
     <app-demo-shell
       [controls]="[]"
-      code="<cs-tooltip content=&quot;Lado: top&quot; side=&quot;top&quot;><cs-button>top</cs-button></cs-tooltip>
-<cs-tooltip content=&quot;Lado: bottom&quot; side=&quot;bottom&quot;><cs-button>bottom</cs-button></cs-tooltip>
-<cs-tooltip content=&quot;Lado: left&quot; side=&quot;left&quot;><cs-button>left</cs-button></cs-tooltip>
-<cs-tooltip content=&quot;Lado: right&quot; side=&quot;right&quot;><cs-button>right</cs-button></cs-tooltip>"
+      code="<cs-tooltip content=&quot;Side: top&quot; side=&quot;top&quot;><cs-button>top</cs-button></cs-tooltip>
+<cs-tooltip content=&quot;Side: bottom&quot; side=&quot;bottom&quot;><cs-button>bottom</cs-button></cs-tooltip>
+<cs-tooltip content=&quot;Side: left&quot; side=&quot;left&quot;><cs-button>left</cs-button></cs-tooltip>
+<cs-tooltip content=&quot;Side: right&quot; side=&quot;right&quot;><cs-button>right</cs-button></cs-tooltip>"
     >
       <div class="row row--spaced">
         @for (s of sides; track s) {
-          <cs-tooltip [content]="'Lado: ' + s" [side]="s">
+          <cs-tooltip [content]="'Side: ' + s" [side]="s">
             <cs-button variant="default">{{ s }}</cs-button>
           </cs-tooltip>
         }
@@ -43,9 +43,9 @@
   <section class="section">
     <h2 class="section__title" id="no-arrow">Sin flecha</h2>
     <p class="section__intro">El puntero de flecha direccional puede ocultarse para un look más limpio.</p>
-    <app-demo-shell [controls]="[]" code="<cs-tooltip content=&quot;Sin flecha&quot; [arrow]=&quot;false&quot;><cs-button>Pasa el cursor</cs-button></cs-tooltip>">
-      <cs-tooltip content="Sin flecha" [arrow]="false">
-        <cs-button variant="default">Pasa el cursor</cs-button>
+    <app-demo-shell [controls]="[]" code="<cs-tooltip content=&quot;No arrow&quot; [arrow]=&quot;false&quot;><cs-button>Hover here</cs-button></cs-tooltip>">
+      <cs-tooltip content="No arrow" [arrow]="false">
+        <cs-button variant="default">Hover here</cs-button>
       </cs-tooltip>
     </app-demo-shell>
   </section>
@@ -56,22 +56,49 @@
     <p class="section__intro">Uso frecuente: describir la acción de un botón que solo contiene un ícono.</p>
     <app-demo-shell
       [controls]="[]"
-      code="<cs-tooltip content=&quot;Copiar&quot;><cs-button variant=&quot;tertiary&quot;><cs-icon name=&quot;copy&quot;></cs-icon></cs-button></cs-tooltip>
-<cs-tooltip content=&quot;Eliminar&quot; side=&quot;bottom&quot;><cs-button variant=&quot;tertiary&quot;><cs-icon name=&quot;x&quot;></cs-icon></cs-button></cs-tooltip>
-<cs-tooltip content=&quot;Configuración&quot; side=&quot;right&quot;><cs-button variant=&quot;tertiary&quot;><cs-icon name=&quot;sliders&quot;></cs-icon></cs-button></cs-tooltip>"
+      code="<cs-tooltip content=&quot;Copy&quot;><cs-button variant=&quot;tertiary&quot; aria-label=&quot;Copy&quot;><cs-icon name=&quot;copy&quot;></cs-icon></cs-button></cs-tooltip>
+<cs-tooltip content=&quot;Delete&quot; side=&quot;bottom&quot;><cs-button variant=&quot;tertiary&quot; aria-label=&quot;Delete&quot;><cs-icon name=&quot;x&quot;></cs-icon></cs-button></cs-tooltip>
+<cs-tooltip content=&quot;Settings&quot; side=&quot;right&quot;><cs-button variant=&quot;tertiary&quot; aria-label=&quot;Settings&quot;><cs-icon name=&quot;sliders&quot;></cs-icon></cs-button></cs-tooltip>"
     >
       <div class="row row--spaced">
-        <cs-tooltip content="Copiar">
-          <cs-button variant="tertiary"><cs-icon name="copy" [size]="16"></cs-icon></cs-button>
+        <cs-tooltip content="Copy">
+          <cs-button variant="tertiary" aria-label="Copy"><cs-icon name="copy" [size]="16"></cs-icon></cs-button>
         </cs-tooltip>
-        <cs-tooltip content="Eliminar" side="bottom">
-          <cs-button variant="tertiary"><cs-icon name="x" [size]="16"></cs-icon></cs-button>
+        <cs-tooltip content="Delete" side="bottom">
+          <cs-button variant="tertiary" aria-label="Delete"><cs-icon name="x" [size]="16"></cs-icon></cs-button>
         </cs-tooltip>
-        <cs-tooltip content="Configuración" side="right">
-          <cs-button variant="tertiary"><cs-icon name="sliders" [size]="16"></cs-icon></cs-button>
+        <cs-tooltip content="Settings" side="right">
+          <cs-button variant="tertiary" aria-label="Settings"><cs-icon name="sliders" [size]="16"></cs-icon></cs-button>
         </cs-tooltip>
       </div>
     </app-demo-shell>
+  </section>
+
+  <!-- Accesibilidad -->
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Tooltip complementa un control existente; no reemplaza su etiqueta ni comunica información indispensable.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Relación semántica</strong><span>Al envolver un control enfocable, Tooltip añade su contenido a <code class="inline-code">aria-describedby</code> sin reemplazar valores que ya existan.</span></div>
+      <div class="table__row"><strong>Teclado</strong><span>Aparece inmediatamente al recibir foco. <kbd>Escape</kbd> lo cierra y vuelve a estar disponible en la siguiente interacción.</span></div>
+      <div class="table__row"><strong>Botones de ícono</strong><span>El botón mantiene su propio <code class="inline-code">aria-label</code>. El tooltip explica o amplía la acción, pero no es su único nombre accesible.</span></div>
+      <div class="table__row"><strong>Contenido</strong><span>Envuelve un solo control enfocable y usa texto breve. No ocultes instrucciones, errores ni información necesaria solo en un tooltip.</span></div>
+    </div>
+  </section>
+
+  <!-- Lineamientos de uso -->
+  <section class="section tooltip-guidelines">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <p class="section__intro">Cada fila compara una práctica recomendada con un uso que se debe evitar.</p>
+    <div class="guide-grid">
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Complementa el nombre accesible de un botón solo-ícono.</p><div class="guide-card__demo"><cs-tooltip content="Copy"><cs-button variant="tertiary" aria-label="Copy"><cs-icon name="copy" [size]="16"></cs-icon></cs-button></cs-tooltip></div></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No uses el tooltip como único nombre de una acción.</p><div class="guide-card__demo"><cs-tooltip content="Copy"><cs-button variant="tertiary"><cs-icon name="copy" [size]="16"></cs-icon></cs-button></cs-tooltip></div></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Describe contexto complementario en una frase breve.</p><div class="guide-card__demo"><cs-tooltip content="Autosaves every minute"><cs-button variant="default">Draft</cs-button></cs-tooltip></div></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No escondas una instrucción extensa o necesaria.</p><div class="guide-card__demo"><cs-tooltip content="Complete all required fields before selecting Save changes"><cs-button variant="default">Save changes</cs-button></cs-tooltip></div></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Elige el lado según el espacio disponible alrededor del trigger.</p><div class="guide-card__demo"><cs-tooltip content="Filter results" side="bottom"><cs-button variant="default">Filter</cs-button></cs-tooltip></div></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No dependas del tooltip para contenido importante en pantallas táctiles.</p><div class="guide-card__demo"><cs-tooltip content="This information is required"><cs-button variant="default">Details</cs-button></cs-tooltip></div></div></article>
+    </div>
   </section>
 
   <!-- Propiedades -->

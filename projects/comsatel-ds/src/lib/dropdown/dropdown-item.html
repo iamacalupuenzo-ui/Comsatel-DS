@@ -2,6 +2,8 @@
   type="button"
   [attr.role]="role"
   [attr.aria-checked]="selectionMode !== 'none' ? !!item.selected : null"
+  [attr.aria-disabled]="item.disabled ? 'true' : null"
+  tabindex="-1"
   [disabled]="item.disabled"
   class="cs-dropdown-item"
   [class.cs-dropdown-item--disabled]="item.disabled"
@@ -24,9 +26,9 @@
           }
         </span>
       } @else {
-        <span class="cs-dropdown-item__radio-ring" [class.cs-dropdown-item__radio-ring--checked]="item.selected" [style.width.px]="glyphSize" [style.height.px]="glyphSize">
+        <span class="cs-radio-ring" [class.cs-radio-ring--checked]="item.selected" [style.width.px]="glyphSize" [style.height.px]="glyphSize">
           @if (item.selected) {
-            <span class="cs-dropdown-item__radio-dot" [style.width.px]="radioDotSize" [style.height.px]="radioDotSize"></span>
+            <span class="cs-radio-dot" [style.width.px]="radioDotSize" [style.height.px]="radioDotSize"></span>
           }
         </span>
       }

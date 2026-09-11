@@ -8,11 +8,21 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--layout-gap-2xs);
   flex-shrink: 0;
   white-space: nowrap;
-  border: 1px solid;
+  border: var(--layout-border-thin) solid;
   transition: background-color var(--motion-duration-leaving) var(--motion-easing-default);
+}
+
+/* El wrapper separa la caja tipográfica del alto fijo del control. Los
+   ejemplos de Badge proyectan íconos de 12px; esta línea explícita iguala su
+   caja con la del texto. Así se evita el desfase de 0.5px que aparece al
+   centrar una línea de 11px junto a un ícono de 12px. */
+.cs-badge__content {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--layout-gap-xs);
+  line-height: 12px;
 }
 
 /* Tamaños — altura y padding calcados de la escala de React. El padding

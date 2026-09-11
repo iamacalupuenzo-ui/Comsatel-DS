@@ -1,0 +1,127 @@
+:host {
+  display: inline-block;
+}
+
+.marker-pill-wrap {
+  position: relative;
+  display: inline-block;
+  /* Compensa el vástago: al ir con position:absolute ya no empuja el
+     flujo, así que sin esto el siguiente elemento de la grilla queda
+     pisándolo. layout-gap-lg (línea) + 6px (diámetro del punto). */
+  margin-bottom: calc(var(--layout-gap-lg) + 6px);
+}
+
+.marker-pill {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  gap: var(--layout-gap-sm);
+  padding-block: var(--layout-padding-xs);
+  padding-inline-start: var(--layout-padding-xs);
+  padding-inline-end: var(--layout-padding-lg);
+  border-radius: var(--radius-full);
+  background-color: var(--elevation-surface-default);
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--elevation-surface-default);
+  cursor: pointer;
+  transition: background-color var(--motion-duration-medium) var(--motion-easing-default), box-shadow var(--motion-duration-medium) var(--motion-easing-default);
+}
+.marker-pill--interactive:hover {
+  background-color: var(--color-background-neutral-subtle);
+  box-shadow: var(--shadow-lg);
+}
+.marker-pill--interactive:active {
+  background-color: var(--color-background-neutral-default);
+  box-shadow: var(--shadow-xl);
+}
+.marker-pill--hover {
+  background-color: var(--color-background-neutral-subtle);
+  box-shadow: var(--shadow-lg);
+}
+.marker-pill--active {
+  background-color: var(--color-background-neutral-default);
+  box-shadow: var(--shadow-xl);
+}
+.marker-pill--selected {
+  border: 2px solid var(--color-border-focused);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-border-focused) 20%, transparent), var(--shadow-lg);
+}
+
+.marker-pill__alarm {
+  position: absolute;
+  z-index: 1;
+  top: calc(-1 * var(--layout-padding-sm));
+  right: calc(-1 * var(--layout-padding-sm));
+  width: var(--layout-size-xs);
+  height: var(--layout-size-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-map-alarm);
+  border: 1.5px solid var(--elevation-surface-default);
+  box-shadow: var(--shadow-sm);
+  color: var(--color-text-inverse);
+}
+
+.marker-pill__icon-wrap {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-neutral-subtlest);
+  border: 1px solid var(--color-border-neutral-subtle);
+  color: var(--color-text-base-subtle);
+}
+
+.marker-pill__dot {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--elevation-surface-default);
+}
+
+.marker-pill__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: var(--layout-gap-2xs);
+}
+.marker-pill__name {
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-label-small);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-base-boldest);
+  line-height: 1;
+}
+.marker-pill__plate {
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-label-micro);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-subtlest);
+  line-height: 1;
+}
+
+.marker-pill__stem-line {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: var(--layout-gap-lg);
+  background-color: var(--color-border-neutral-boldest);
+  opacity: 0.5;
+}
+.marker-pill__stem-dot {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + var(--layout-gap-lg));
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-border-neutral-boldest);
+}

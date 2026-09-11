@@ -1,0 +1,62 @@
+@if (variant === 'simple') {
+  <nav [attr.aria-label]="navLabel" class="cs-pagination">
+    <button
+      type="button"
+      class="cs-pagination__btn"
+      [disabled]="page <= 1"
+      [attr.aria-label]="previousLabel"
+      (click)="goTo(page - 1)"
+      csPressScale
+    >
+      <cs-icon name="chevron-left" [size]="14" aria-hidden="true" />
+    </button>
+    <span class="cs-pagination__of" role="status" aria-live="polite">{{ pageOfLabel() }}</span>
+    <button
+      type="button"
+      class="cs-pagination__btn"
+      [disabled]="page >= totalPages"
+      [attr.aria-label]="nextLabel"
+      (click)="goTo(page + 1)"
+      csPressScale
+    >
+      <cs-icon name="chevron-right" [size]="14" aria-hidden="true" />
+    </button>
+  </nav>
+} @else {
+  <nav [attr.aria-label]="navLabel" class="cs-pagination cs-pagination--numbered">
+    @if (showBoundaryJump) {
+      <button type="button" class="cs-pagination__btn" [disabled]="page <= 1" [attr.aria-label]="firstLabel" (click)="goTo(1)" csPressScale>
+        <cs-icon name="chevrons-left" [size]="14" aria-hidden="true" />
+      </button>
+    }
+    <button type="button" class="cs-pagination__btn" [disabled]="page <= 1" [attr.aria-label]="previousLabel" (click)="goTo(page - 1)" csPressScale>
+      <cs-icon name="chevron-left" [size]="14" aria-hidden="true" />
+    </button>
+
+    @for (t of tokens; track $index) {
+      @if (t === 'ellipsis-start' || t === 'ellipsis-end') {
+        <span class="cs-pagination__ellipsis">…</span>
+      } @else {
+        <button
+          type="button"
+          class="cs-pagination__btn"
+          [class.cs-pagination__btn--active]="t === page"
+          [attr.aria-current]="t === page ? 'page' : null"
+          [attr.aria-label]="'Página ' + t"
+          (click)="goTo($any(t))"
+          csPressScale
+        >{{ t }}</button>
+      }
+    }
+
+    <button type="button" class="cs-pagination__btn" [disabled]="page >= totalPages" [attr.aria-label]="nextLabel" (click)="goTo(page + 1)" csPressScale>
+      <cs-icon name="chevron-right" [size]="14" aria-hidden="true" />
+    </button>
+    @if (showBoundaryJump) {
+      <button type="button" class="cs-pagination__btn" [disabled]="page >= totalPages" [attr.aria-label]="lastLabel" (click)="goTo(totalPages)" csPressScale>
+        <cs-icon name="chevrons-right" [size]="14" aria-hidden="true" />
+      </button>
+    }
+    <span class="cs-pagination__status" role="status" aria-live="polite">{{ pageOfLabel() }}</span>
+  </nav>
+}

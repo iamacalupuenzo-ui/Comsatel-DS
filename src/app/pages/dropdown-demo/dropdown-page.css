@@ -43,3 +43,17 @@
   color: var(--color-text-base-subtle);
 }
 .guide-grid--spaced { margin-bottom: var(--layout-padding-4xl); }
+
+/* Los menús de Dropdown e InputDropdown son overlays posicionados debajo del
+   trigger. En una tarjeta de lineamientos deben conservarse dentro del área
+   visible cuando están abiertos, no quedar recortados por overflow:hidden. */
+.guide-grid--dropdown-overlays .guide-card:has([aria-expanded='true']) .guide-card__body {
+  padding-bottom: calc(
+    var(--layout-padding-xl) +
+    var(--layout-size-3xl) +
+    var(--layout-size-2xl) +
+    var(--layout-padding-lg) +
+    var(--layout-padding-sm) +
+    var(--layout-padding-xs)
+  );
+}

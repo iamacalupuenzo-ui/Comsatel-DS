@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Button } from '../button/button';
 import { Toggle } from '../toggle/toggle';
 
@@ -22,4 +22,6 @@ export class ActionCard {
   @Input() buttonLabel = 'Action';
   @Input() showLabel = false;
   @Input() label = 'Coming soon';
+  @Output() readonly buttonClick = new EventEmitter<void>();
+  @Output() readonly toggleCheckedChange = new EventEmitter<boolean>();
 }

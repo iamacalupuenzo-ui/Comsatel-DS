@@ -1,0 +1,59 @@
+:host {
+  display: inline-flex;
+}
+
+.cluster-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  border: 3px solid var(--elevation-surface-default);
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  transition: box-shadow var(--motion-duration-medium) var(--motion-easing-default), transform var(--motion-duration-medium) var(--motion-easing-default);
+}
+.cluster-badge:hover {
+  box-shadow: var(--shadow-xl);
+}
+.cluster-badge:active {
+  transform: scale(0.95);
+}
+
+/* Pulso continuo mientras alguna unidad del cluster tiene un evento activo
+   — decorativo y en bucle, no una transición de entrada/salida: no sale de
+   la escala --motion-duration-* (misma excepción ya documentada para el
+   pulso de Skeleton). */
+.cluster-badge--alarm {
+  animation: cs-cluster-pulse 2s ease-in-out infinite;
+}
+@keyframes cs-cluster-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+.cluster-badge__count {
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  color: var(--color-text-inverse);
+  /* 14px = primitivo "sm" de la escala tipográfica, mismo tamaño que
+     --font-size-content-caption. */
+  font-size: var(--font-size-content-caption);
+}
+/* 17px no coincide con ningún paso de la escala tipográfica (10, 11, 12,
+   13, 14, 16, 18...) — valor explícito, no forzado a un token que no
+   coincide (B1). */
+.cluster-badge__count--unit {
+  font-size: 17px;
+}
+
+/* 7px tampoco coincide con ningún paso de la escala (el más chico es 10px,
+   --font-primitive-size-2xs) — mismo criterio de excepción explícita. */
+.cluster-badge__unit {
+  font-size: 7px;
+  font-weight: var(--font-weight-emphasis);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--color-text-inverse);
+  opacity: 0.8;
+}

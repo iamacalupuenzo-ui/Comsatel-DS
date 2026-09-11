@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, computed, input, signal } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, computed, input, signal } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { Icon } from '../icons/icon';
 import { componentTypography, textStyle } from '../tokens/typography';
@@ -42,6 +42,8 @@ export class Calendar implements OnInit {
   readonly minDate = input<string>();
   readonly maxDate = input<string>();
   readonly weekStartDay = input<0 | 1>(0);
+  readonly ariaLabel = input('Calendario');
+  readonly ariaLabelledby = input<string>();
 
   @Output() dateChange = new EventEmitter<string>();
   @Output() monthChange = new EventEmitter<{ month: number; year: number }>();
@@ -49,6 +51,7 @@ export class Calendar implements OnInit {
   private readonly today = new Date();
   protected readonly todayIso = toISODate(this.today);
   protected readonly hoveredIso = signal<string | null>(null);
+  protected readonly focusedIso = signal<string | null>(null);
 
   private readonly internalMonth = signal<number | null>(null);
   private readonly internalYear = signal<number | null>(null);
@@ -89,6 +92,14 @@ export class Calendar implements OnInit {
     paddingBlock: 'var(--layout-padding-2xs)',
   };
   private readonly dayTextStyle = textStyle(componentTypography.calendar.day);
+  private readonly dayLabelFormatter = new Intl.DateTimeFormat('es', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+
+  constructor(private readonly elementRef: ElementRef<HTMLElement>) {}
 
   private goTo(nextMonth: number, nextYear: number): void {
     if (this.month() === undefined || this.year() === undefined) {
@@ -141,6 +152,74 @@ export class Calendar implements OnInit {
     if (!this.isDisabled(cell.iso)) this.dateChange.emit(cell.iso);
   }
 
+  protected dayAriaLabel(cell: DayCellData): string {
+    const label = this.dayLabelFormatter.format(cell.date);
+    if (this.isDisabled(cell.iso)) return `${label}, deshabilitada`;
+    if (this.isSelected(cell.iso) || this.isRangeEdge(cell.iso)) return `${label}, seleccionada`;
+    return label;
+  }
+
+  protected dayTabIndex(cell: DayCellData): number {
+    const focused = this.focusedIso();
+    if (focused) return focused === cell.iso ? 0 : -1;
+    const selected = this.selected().find((iso) => !this.isDisabled(iso));
+    if (selected) return selected === cell.iso ? 0 : -1;
+    if (this.todayIso === cell.iso && !this.isDisabled(cell.iso)) return 0;
+    const firstCurrentMonth = this.weeks().flat().find((item) => item.inCurrentMonth && !this.isDisabled(item.iso));
+    return firstCurrentMonth?.iso === cell.iso ? 0 : -1;
+  }
+
+  protected onDayFocus(iso: string): void {
+    this.focusedIso.set(iso);
+  }
+
+  protected onDayKeydown(event: KeyboardEvent, cell: DayCellData): void {
+    const key = event.key;
+    if (key === 'Enter' || key === ' ') {
+      event.preventDefault();
+      this.onDayClick(cell);
+      return;
+    }
+
+    const date = new Date(`${cell.iso}T00:00:00`);
+    let target: Date | undefined;
+    if (key === 'ArrowLeft') target = this.addDays(date, -1);
+    if (key === 'ArrowRight') target = this.addDays(date, 1);
+    if (key === 'ArrowUp') target = this.addDays(date, -7);
+    if (key === 'ArrowDown') target = this.addDays(date, 7);
+    if (key === 'Home') target = this.addDays(date, -((date.getDay() - this.weekStartDay() + 7) % 7));
+    if (key === 'End') target = this.addDays(date, 6 - ((date.getDay() - this.weekStartDay() + 7) % 7));
+    if (key === 'PageUp') target = this.shiftDateMonth(date, event.shiftKey ? -12 : -1);
+    if (key === 'PageDown') target = this.shiftDateMonth(date, event.shiftKey ? 12 : 1);
+    if (!target) return;
+
+    event.preventDefault();
+    const iso = toISODate(target);
+    if (target.getMonth() + 1 !== this.currentMonth() || target.getFullYear() !== this.currentYear()) {
+      this.goTo(target.getMonth() + 1, target.getFullYear());
+    }
+    this.focusedIso.set(iso);
+    setTimeout(() => {
+      this.elementRef.nativeElement.querySelector<HTMLButtonElement>(`[data-calendar-day="${iso}"]`)?.focus();
+    });
+  }
+
+  private addDays(date: Date, days: number): Date {
+    const next = new Date(date);
+    next.setDate(next.getDate() + days);
+    return next;
+  }
+
+  private shiftDateMonth(date: Date, months: number): Date {
+    const next = new Date(date);
+    const day = next.getDate();
+    next.setDate(1);
+    next.setMonth(next.getMonth() + months);
+    const lastDay = new Date(next.getFullYear(), next.getMonth() + 1, 0).getDate();
+    next.setDate(Math.min(day, lastDay));
+    return next;
+  }
+
   protected dayStyle(cell: DayCellData): Record<string, string> {
     const iso = cell.iso;
     const dayDisabled = this.isDisabled(iso);
@@ -165,7 +244,9 @@ export class Calendar implements OnInit {
       ...this.dayTextStyle,
       backgroundColor: bg,
       color: dayDisabled ? 'var(--color-text-disabled)' : color,
-      border: today && !selected ? '1px solid var(--color-border-brand-default)' : '1px solid transparent',
+      border: today && !selected
+        ? 'var(--layout-border-thin) solid var(--color-border-brand-default)'
+        : 'var(--layout-border-thin) solid transparent',
       opacity: dayDisabled ? 'var(--opacity-disabled)' : '1',
     };
   }

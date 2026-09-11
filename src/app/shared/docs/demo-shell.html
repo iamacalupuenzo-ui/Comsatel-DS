@@ -43,12 +43,19 @@
           ></cs-input-dropdown>
         </div>
       } @else {
-        <div class="demo-shell__toolbar-group demo-shell__toolbar-group--clickable" (click)="onChange(ctrl.key, !valueOf(ctrl.key))">
+        <button
+          type="button"
+          role="switch"
+          class="demo-shell__toolbar-group demo-shell__toolbar-group--clickable"
+          [attr.aria-label]="ctrl.label"
+          [attr.aria-checked]="valueOf(ctrl.key) ? 'true' : 'false'"
+          (click)="onChange(ctrl.key, !valueOf(ctrl.key))"
+        >
           <span class="demo-shell__toolbar-label">{{ ctrl.label }}</span>
           <div class="demo-shell__toggle" [class.demo-shell__toggle--on]="valueOf(ctrl.key)">
             <div class="demo-shell__toggle-thumb"></div>
           </div>
-        </div>
+        </button>
       }
     }
   </div>

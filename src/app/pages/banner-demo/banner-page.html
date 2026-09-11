@@ -165,6 +165,100 @@
     </app-demo-shell>
   </section>
 
+  <!-- Accesibilidad -->
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Banner comunica el contexto con texto, semántica visual y controles que se pueden operar con teclado.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Variante semántica</strong><span>Elige la variante por el significado del mensaje; el texto conserva la información aunque el color no se perciba.</span></div>
+      <div class="table__row"><strong>Ícono</strong><span>El ícono acompaña la variante como apoyo visual y no reemplaza el título o el contenido textual del banner.</span></div>
+      <div class="table__row"><strong>Título y cuerpo</strong><span>Cuando existe <code class="inline-code">title</code>, se presenta antes del cuerpo para que la jerarquía se lea de forma predecible.</span></div>
+      <div class="table__row"><strong>Acciones</strong><span>El botón inline tiene una etiqueta visible, foco perceptible y emite <code class="inline-code">actionClick</code> para que el padre ejecute la acción.</span></div>
+      <div class="table__row"><strong>Cierre</strong><span>El botón de cierre anuncia «Cerrar»; el padre controla la visibilidad y puede anunciar el resultado con una región <code class="inline-code">aria-live</code>.</span></div>
+    </div>
+  </section>
+
+  <!-- Lineamientos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <p class="section__intro">Usa Banner para mensajes persistentes y contextuales, con una sola intención y una acción clara cuando sea necesaria.</p>
+
+    <div class="guide-grid banner-guidelines">
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa la variante semántica que corresponda a la urgencia y al resultado del mensaje.</p>
+          <cs-banner variant="warning" title="La prueba termina pronto">Tu prueba expira en 3 días.</cs-banner>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses una variante de peligro para una actualización que no requiere intervención.</p>
+          <cs-banner variant="danger" title="Nueva versión disponible">La versión 2.4.1 ya está en producción.</cs-banner>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Agrega un título cuando el cuerpo necesita un contexto breve antes de la explicación.</p>
+          <cs-banner variant="brand" title="Nueva función disponible">Actívala en la configuración de tu proyecto.</cs-banner>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No añadas un título para un aviso de una sola línea donde solo añade ruido visual.</p>
+          <cs-banner variant="neutral">El espacio de trabajo está actualizado.</cs-banner>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Incluye una sola acción explícita y confirma el resultado después de activarla.</p>
+          <cs-banner variant="warning" title="La prueba termina pronto" [action]="{ label: 'Mejorar ahora' }" (actionClick)="guideActionDone.set(true)">Tu prueba expira en 3 días.</cs-banner>
+          <p class="guide-status" aria-live="polite">{{ guideActionDone() ? 'Acción activada.' : 'Aún no se ha activado ninguna acción.' }}</p>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No repartas la atención entre varias acciones con la misma prioridad dentro de un banner.</p>
+          <cs-banner variant="warning" title="La prueba termina pronto" [action]="{ label: 'Mejorar ahora' }">Tu prueba expira en 3 días.</cs-banner>
+          <cs-banner variant="warning" [action]="{ label: 'Contactar soporte' }">¿Necesitas ayuda con tu plan?</cs-banner>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Hazlo descartable cuando la persona puede cerrar un aviso persistente sin perder información crítica.</p>
+          @if (!guideDismissed()) {
+            <cs-banner variant="brand" title="Nueva función disponible" [dismissible]="true" (dismiss)="guideDismissed.set(true)">Comsatel ahora genera issues automáticamente.</cs-banner>
+          } @else {
+            <p class="guide-status" aria-live="polite">El banner fue cerrado.</p>
+          }
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No permitas cerrar un error crítico si la persona todavía necesita conocer el bloqueo.</p>
+          <cs-banner variant="danger" title="Pago fallido">Actualiza tu información de facturación para continuar.</cs-banner>
+        </div>
+      </article>
+    </div>
+
+    <button type="button" class="guideline-reset" (click)="resetGuidelines()">Reiniciar ejemplos interactivos</button>
+  </section>
+
   <!-- Propiedades -->
   <section class="section">
     <h2 class="section__title" id="props">Propiedades</h2>
@@ -175,6 +269,8 @@
       <div class="table__row"><code class="table__name">icon</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra u oculta el ícono principal.</span></div>
       <div class="table__row"><code class="table__name">action</code><code class="table__type">{{ '{ label: string }' }}</code><code class="table__default">—</code><span class="table__desc">Renderiza un botón de texto inline debajo del contenido del mensaje.</span></div>
       <div class="table__row"><code class="table__name">dismissible</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Si es true, renderiza un botón de cierre. El padre es responsable de ocultar el banner.</span></div>
+      <div class="table__row"><code class="table__name">(actionClick)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite cuando la persona activa la acción inline.</span></div>
+      <div class="table__row"><code class="table__name">(dismiss)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al activar el botón de cierre; el padre controla la visibilidad.</span></div>
     </div>
   </section>
 </div>

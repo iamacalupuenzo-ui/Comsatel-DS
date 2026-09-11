@@ -1,0 +1,30 @@
+:host {
+  display: contents;
+}
+
+.cs-popover {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: var(--elevation-z-index-dropdown);
+  border-radius: var(--radius-lg);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
+  background-color: var(--elevation-surface-overlay);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity var(--motion-duration-medium) var(--motion-easing-default),
+    transform var(--motion-duration-medium) var(--motion-easing-default);
+}
+.cs-popover--visible {
+  opacity: 1;
+  transform: scale(1);
+}
+.cs-popover--bare {
+  border-radius: 0;
+  border: none;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}

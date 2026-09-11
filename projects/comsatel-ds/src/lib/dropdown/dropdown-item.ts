@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Icon } from '../icons/icon';
 import type { DropdownItem, DropdownSelectionMode, DropdownSize } from './dropdown-types';
 import { ITEM_TOKENS, hoverBgFor } from './dropdown-tokens';
+import { radioDotSize } from '../shared/radio-glyph';
 
 // Puerto 1:1 de MenuItem en dropdown.tsx. El glyph de checkbox/radio calca
 // exactamente el cuadrado/anillo real de Checkbox/Radio (mismas clases CSS
@@ -55,9 +56,7 @@ export class DropdownItemComponent {
     return this.tok.iconSize - 6;
   }
   get radioDotSize(): number {
-    let d = Math.round(this.glyphSize * 0.5);
-    if ((this.glyphSize - d) % 2 !== 0) d += 1;
-    return d;
+    return radioDotSize(this.glyphSize);
   }
 
   onClick(): void {

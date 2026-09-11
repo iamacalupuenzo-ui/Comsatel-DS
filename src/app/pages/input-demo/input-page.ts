@@ -17,8 +17,8 @@ const SIZES: InputFieldSize[] = ['sm', 'md', 'lg'];
 type InputTypeKind = 'default' | 'leading-dropdown' | 'trailing-dropdown' | 'leading-text' | 'payment';
 const INPUT_TYPE_LABELS: Record<InputTypeKind, string> = {
   default: 'Por defecto',
-  'leading-dropdown': 'Dropdown al inicio',
-  'trailing-dropdown': 'Dropdown al final',
+  'leading-dropdown': 'Selector de país',
+  'trailing-dropdown': 'Selector de moneda',
   'leading-text': 'Texto al inicio',
   payment: 'Input de pago',
 };
@@ -29,17 +29,19 @@ const INPUT_TYPE_OPTIONS: ControlOption[] = INPUT_TYPES.map((value) => ({
 }));
 
 const PHONE_CODES: InputDropdownOption[] = [
-  { value: '+33', label: '+33 Francia' },
-  { value: '+44', label: '+44 Reino Unido' },
-  { value: '+49', label: '+49 Alemania' },
-  { value: '+34', label: '+34 España' },
-  { value: '+55', label: '+55 Brasil' },
+  { value: '+33', triggerLabel: '+33', label: '+33 — Francia', countryFlag: 'fr' },
+  { value: '+44', triggerLabel: '+44', label: '+44 — Reino Unido', countryFlag: 'gb' },
+  { value: '+49', triggerLabel: '+49', label: '+49 — Alemania', countryFlag: 'de' },
+  { value: '+39', triggerLabel: '+39', label: '+39 — Italia', countryFlag: 'it' },
+  { value: '+34', triggerLabel: '+34', label: '+34 — España', countryFlag: 'es' },
+  { value: '+55', triggerLabel: '+55', label: '+55 — Brasil', countryFlag: 'br' },
+  { value: '+81', triggerLabel: '+81', label: '+81 — Japón', countryFlag: 'jp' },
 ];
 const CURRENCIES: InputDropdownOption[] = [
-  { value: 'USD', label: 'USD — Dólar' },
-  { value: 'EUR', label: 'EUR — Euro' },
-  { value: 'GBP', label: 'GBP — Libra' },
-  { value: 'PEN', label: 'PEN — Sol' },
+  { value: 'USD', triggerLabel: 'USD', label: 'USD — Dólar estadounidense', leadingText: '$' },
+  { value: 'EUR', triggerLabel: 'EUR', label: 'EUR — Euro', leadingText: '€' },
+  { value: 'GBP', triggerLabel: 'GBP', label: 'GBP — Libra esterlina', leadingText: '£' },
+  { value: 'PEN', triggerLabel: 'PEN', label: 'PEN — Sol peruano', leadingText: 'S/' },
 ];
 
 @Component({
@@ -84,15 +86,15 @@ export class InputPage {
     const attrs = props.length ? ' ' + props.join(' ') : '';
     switch (this.pgType()) {
       case 'leading-dropdown':
-        return `<cs-input-group>\n  <cs-input-group-addon><cs-input-dropdown [options]="phoneCodes" [value]="code"></cs-input-dropdown></cs-input-group-addon>\n  <cs-input-group-input placeholder="Número de teléfono"${attrs}></cs-input-group-input>\n</cs-input-group>`;
+        return `<cs-input-group>\n  <cs-input-group-addon [divider]="true"><cs-input-dropdown [options]="phoneCodes" [value]="code" [embedded]="true"></cs-input-dropdown></cs-input-group-addon>\n  <cs-input-group-input aria-label="Phone number" placeholder="Phone number"${attrs}></cs-input-group-input>\n</cs-input-group>`;
       case 'trailing-dropdown':
-        return `<cs-input-group>\n  <cs-input-group-addon><cs-input-group-text>$</cs-input-group-text></cs-input-group-addon>\n  <cs-input-group-input placeholder="0.00"${attrs}></cs-input-group-input>\n  <cs-input-group-addon align="inline-end"><cs-input-dropdown [options]="currencies" [value]="currency"></cs-input-dropdown></cs-input-group-addon>\n</cs-input-group>`;
+        return `<cs-input-group>\n  <cs-input-group-addon><cs-input-group-text>$</cs-input-group-text></cs-input-group-addon>\n  <cs-input-group-input aria-label="Amount" placeholder="0.00"${attrs}></cs-input-group-input>\n  <cs-input-group-addon align="inline-end" [divider]="true"><cs-input-dropdown [options]="currencies" [value]="currency" [embedded]="true"></cs-input-dropdown></cs-input-group-addon>\n</cs-input-group>`;
       case 'leading-text':
-        return `<cs-input-group>\n  <cs-input-group-addon><cs-input-group-text>https://</cs-input-group-text></cs-input-group-addon>\n  <cs-input-group-input placeholder="tu-dominio.com"${attrs}></cs-input-group-input>\n</cs-input-group>`;
+        return `<cs-input-group>\n  <cs-input-group-addon><cs-input-group-text>https://</cs-input-group-text></cs-input-group-addon>\n  <cs-input-group-input aria-label="Website" placeholder="your-domain.com"${attrs}></cs-input-group-input>\n</cs-input-group>`;
       case 'payment':
-        return `<cs-input-group>\n  <cs-input-group-addon><cs-icon name="credit-card" [size]="16"></cs-icon></cs-input-group-addon>\n  <cs-input-group-input placeholder="Número de tarjeta"${attrs}></cs-input-group-input>\n</cs-input-group>`;
+        return `<cs-input-group>\n  <cs-input-group-addon><cs-icon name="credit-card" [size]="16"></cs-icon></cs-input-group-addon>\n  <cs-input-group-input aria-label="Card number" placeholder="Card number"${attrs}></cs-input-group-input>\n</cs-input-group>`;
       default:
-        return `<cs-input-group>\n  <cs-input-group-addon><cs-icon name="mail" [size]="16"></cs-icon></cs-input-group-addon>\n  <cs-input-group-input placeholder="Ingresa tu correo"${attrs}></cs-input-group-input>\n</cs-input-group>`;
+        return `<cs-input-group>\n  <cs-input-group-addon><cs-icon name="mail" [size]="16"></cs-icon></cs-input-group-addon>\n  <cs-input-group-input aria-label="Email address" placeholder="Enter your email"${attrs}></cs-input-group-input>\n</cs-input-group>`;
     }
   });
 
@@ -100,5 +102,11 @@ export class InputPage {
   protected readonly showPassword = signal(false);
   protected togglePassword(): void {
     this.showPassword.update((v) => !v);
+  }
+
+  /* Password toggle in the usage guideline stays isolated from the Playground. */
+  protected readonly guidelineShowPassword = signal(false);
+  protected toggleGuidelinePassword(): void {
+    this.guidelineShowPassword.update((v) => !v);
   }
 }

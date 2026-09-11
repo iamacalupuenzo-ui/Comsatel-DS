@@ -37,16 +37,20 @@
 }
 
 .cs-button:focus-visible {
-  box-shadow: 0 0 0 2px var(--elevation-surface-default), 0 0 0 4px var(--color-border-focused);
+  box-shadow:
+    0 0 0 var(--layout-border-thick) var(--elevation-surface-default),
+    0 0 0 var(--layout-border-thicker) var(--color-border-focused);
 }
 
 /* Tamaños — altura, padding y tipografía calcada de componentTypography.button */
 .cs-button--xs {
+  /* 28px no tiene un token de layout-size; conserva el alto compacto de xs. */
   min-height: 1.75rem;
   padding: var(--layout-padding-xs) var(--layout-padding-md);
   font-size: var(--font-size-content-note);
   line-height: var(--font-line-height-content-note);
 }
+/* Los tamaños del spinner son íconos internos; no pertenecen a layout-size. */
 .cs-button--xs .cs-button__spinner { width: 12px; height: 12px; }
 
 .cs-button--sm {
@@ -82,7 +86,7 @@
 .cs-button--secondary:hover:not(:disabled) { background-color: var(--color-background-brand-subtlest-hover); }
 .cs-button--secondary:active:not(:disabled) { background-color: var(--color-background-brand-subtlest-pressed); }
 
-.cs-button--default { background-color: transparent; border: 1px solid var(--color-border-neutral-default); color: var(--color-text-base-default); }
+.cs-button--default { background-color: transparent; border: var(--layout-border-thin) solid var(--color-border-neutral-default); color: var(--color-text-base-default); }
 .cs-button--default:hover:not(:disabled) { background-color: var(--color-background-neutral-subtle); }
 .cs-button--default:active:not(:disabled) { background-color: var(--color-background-neutral-default); }
 
@@ -111,7 +115,7 @@
 .cs-button--warning:active:not(:disabled) { background-color: var(--color-background-warning-default-pressed); }
 
 .cs-button--selected {
-  border: 1px solid var(--color-border-brand-default);
+  border: var(--layout-border-thin) solid var(--color-border-brand-default);
   background-color: var(--color-background-selected);
   color: var(--color-text-brand-bolder);
 }
@@ -120,6 +124,7 @@
 .cs-button--full { width: 100%; }
 
 .cs-button__spinner {
+  /* 600ms no tiene un token de motion-duration; mantiene una vuelta legible. */
   animation: cs-button-spin 0.6s linear infinite;
 }
 .cs-button__spinner-track { opacity: 0.25; }

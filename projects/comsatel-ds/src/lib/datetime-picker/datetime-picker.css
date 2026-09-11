@@ -83,6 +83,11 @@
 .cs-datetime-picker__clear-btn:hover {
   background-color: var(--color-background-neutral-subtlest-hover);
 }
+.cs-datetime-picker__clear-btn:focus-visible,
+.cs-datetime-picker__calendar-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-focused);
+}
 
 .cs-datetime-picker__message {
   display: flex;

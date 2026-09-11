@@ -4,12 +4,12 @@
   [class.cs-input-dropdown--full]="fullWidth"
 >
   @if (label) {
-    <span class="cs-input-dropdown__label">
+    <label class="cs-input-dropdown__label" [id]="labelId" [attr.for]="resolvedId">
       {{ label }}
       @if (required) {
-        <span class="cs-input-dropdown__required">*</span>
+        <span class="cs-input-dropdown__required" aria-hidden="true">*</span>
       }
-    </span>
+    </label>
   }
 
   <div class="cs-input-dropdown__wrap" [class.cs-input-dropdown__wrap--full]="fullWidth">
@@ -20,13 +20,25 @@
       class="cs-input-dropdown__measure"
       [style.font-size]="tok.fontSize"
       [style.padding-inline-start.px]="tok.paddingX"
-      [style.padding-inline-end.px]="tok.paddingX + 40"
+      [style.padding-inline-end.px]="tok.paddingX + (hasVisualPrefix ? 40 : 20)"
     >{{ widestLabel }}</span>
+
+    @if (name) {
+      <input type="hidden" [name]="name" [value]="value ?? ''" aria-hidden="true" tabindex="-1" />
+    }
 
     <button
       type="button"
+      #triggerButton
+      [id]="resolvedId"
       role="combobox"
-      [attr.aria-label]="label ?? placeholder"
+      [attr.aria-label]="ariaLabel || (!label ? placeholder : null)"
+      [attr.aria-labelledby]="ariaLabelledby || (!ariaLabel && label ? labelId : null)"
+      [attr.aria-describedby]="ariaDescribedby || null"
+      [attr.aria-errormessage]="ariaErrormessage || null"
+      [attr.aria-required]="required ? 'true' : null"
+      [attr.aria-invalid]="invalid ? 'true' : null"
+      [attr.aria-readonly]="readonly ? 'true' : null"
       aria-haspopup="listbox"
       [attr.aria-expanded]="open()"
       [attr.aria-controls]="menuId"
@@ -43,22 +55,30 @@
       [style.border-color]="borderColor"
       [style.box-shadow]="extraShadow"
       (click)="toggle()"
+      (keydown)="onTriggerKeydown($event)"
       (focus)="onFocus()"
       (blur)="onBlur()"
     >
-      <span class="cs-input-dropdown__value">{{ selectedOption ? selectedOption.label : placeholder }}</span>
+      @if (selectedOption?.countryFlag) {
+        <cs-country-flag [country]="selectedOption!.countryFlag!" [size]="16"></cs-country-flag>
+      } @else if (selectedOption?.leadingText) {
+        <span aria-hidden="true" class="cs-input-dropdown__leading-text">{{ selectedOption!.leadingText }}</span>
+      }
+      <span class="cs-input-dropdown__value">{{ selectedTriggerLabel }}</span>
       <cs-icon name="chevron-down" [size]="16" class="cs-input-dropdown__chevron" [class.cs-input-dropdown__chevron--open]="open()"></cs-icon>
     </button>
 
-    @if (open() && !disabled) {
-      <div [id]="menuId" role="listbox" class="cs-input-dropdown__menu" [style.max-height.px]="tok.height * 9 + 8">
+    <cs-popover [isOpen]="open() && !disabled" [triggerRef]="triggerRef ?? null" placement="bottom-start" [offset]="4" [role]="null" [bare]="true" (closed)="onPopoverClosed()">
+      <div [id]="menuId" role="listbox" [attr.aria-labelledby]="label ? labelId : null" aria-orientation="vertical" class="cs-input-dropdown__menu" [style.max-height.px]="tok.height * 9 + 8" (keydown)="onOptionsKeydown($event)">
         <div class="cs-input-dropdown__options">
-          @for (opt of options; track opt.value) {
+          @for (opt of options; track opt.value; let oi = $index) {
             <button
               type="button"
+              [id]="menuId + '-option-' + oi"
               role="option"
               [attr.aria-selected]="opt.value === value"
               [disabled]="opt.disabled"
+              tabindex="-1"
               class="cs-input-dropdown__option"
               [class.cs-input-dropdown__option--selected]="opt.value === value"
               [class.cs-input-dropdown__option--disabled]="opt.disabled"
@@ -68,16 +88,19 @@
               [style.line-height]="tok.lineHeight"
               (click)="selectOption(opt)"
             >
+              @if (opt.countryFlag) {
+                <cs-country-flag [country]="opt.countryFlag" [size]="16"></cs-country-flag>
+              } @else if (opt.leadingText) {
+                <span aria-hidden="true" class="cs-input-dropdown__leading-text">{{ opt.leadingText }}</span>
+              }
               <span class="cs-input-dropdown__option-label">{{ opt.label }}</span>
               @if (opt.value === value) {
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="cs-input-dropdown__check">
-                  <path d="M13.5 4.5L6.5 11.5L3 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
+                <cs-icon name="check" [size]="16" class="cs-input-dropdown__check" aria-hidden="true"></cs-icon>
               }
             </button>
           }
         </div>
       </div>
-    }
+    </cs-popover>
   </div>
 </div>

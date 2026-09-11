@@ -1,0 +1,309 @@
+:host {
+  display: block;
+}
+
+.cs-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-2xl);
+  padding-inline: var(--layout-padding-lg);
+}
+.cs-menu--rail {
+  padding-inline: var(--layout-padding-md);
+  gap: var(--layout-gap-xl);
+}
+
+.cs-menu__group-header {
+  margin: 0 0 var(--layout-padding-xs);
+  padding-inline: var(--layout-padding-lg);
+  font-size: var(--font-size-label-micro);
+  line-height: var(--font-line-height-label-micro);
+  font-weight: var(--font-weight-emphasis);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-base-subtlest);
+}
+
+.cs-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-2xs);
+}
+
+/* ── Expandido ── */
+.cs-menu__row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-sm);
+  padding: var(--layout-padding-md) var(--layout-padding-lg);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtle);
+  text-decoration: none;
+  cursor: pointer;
+  text-align: left;
+}
+a.cs-menu__row:hover,
+button.cs-menu__row:hover {
+  background-color: var(--color-interaction-hovered);
+  color: var(--color-text-base-default);
+}
+/* Mismo anillo tokenizado que .cs-button:focus-visible (button.css:39-43) —
+   sin esto el navegador dibuja su propio outline nativo, inconsistente con
+   el resto del sistema. Hallazgo real encontrado auditando la referencia
+   React (menu.tsx): ningún ítem de Menu (ahí ni acá) definía foco propio. */
+.cs-menu__row:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 var(--layout-border-thick) var(--elevation-surface-default),
+    0 0 0 var(--layout-border-thicker) var(--color-border-focused);
+}
+.cs-menu__row--highlighted {
+  background-color: var(--color-background-brand-subtlest);
+  color: var(--color-text-brand-default);
+  font-weight: var(--font-weight-accent);
+}
+.cs-menu__row--disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.cs-menu__icon {
+  flex-shrink: 0;
+  color: inherit;
+}
+.cs-menu__label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 16px de caja + 9px de texto: ningún paso de la escala tipográfica baja de
+   --font-primitive-size-2xs (10px) — a esta caja tan chica (el mismo
+   tamaño que el badge/kbd de la referencia real) 10px ya no entra con
+   margen. Valor explícito, no forzado a un token que no coincide (B1). */
+.cs-menu__badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding-inline: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-brand-default);
+  color: var(--color-text-inverse);
+  font-size: 9px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.cs-menu__shortcut {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+/* Mismo hueco de escala que .cs-menu__badge arriba. */
+.cs-menu__key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding-inline: 4px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--color-border-neutral-subtle);
+  background-color: var(--color-background-neutral-subtle);
+  color: var(--color-text-base-subtlest);
+  font-family: monospace;
+  font-size: 9px;
+  font-weight: var(--font-weight-emphasis);
+  line-height: 1;
+}
+
+.cs-menu__chevron {
+  flex-shrink: 0;
+  color: var(--color-text-base-subtlest);
+  transition: transform var(--motion-duration-leaving) var(--motion-easing-default);
+}
+.cs-menu__chevron--open {
+  transform: rotate(90deg);
+}
+
+.cs-menu__children {
+  list-style: none;
+  margin: var(--layout-padding-2xs) 0 0;
+  padding: var(--layout-padding-2xs) 0 var(--layout-padding-2xs) var(--layout-padding-md);
+  margin-left: var(--layout-padding-lg);
+  border-left: 1px solid var(--color-border-divider);
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-2xs);
+}
+.cs-menu__child {
+  display: block;
+  padding: var(--layout-padding-sm) var(--layout-padding-lg);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  text-decoration: none;
+  color: var(--color-text-base-subtle);
+}
+.cs-menu__child:hover {
+  background-color: var(--color-interaction-hovered);
+  color: var(--color-text-base-default);
+}
+/* Mismo criterio que .cs-menu__flyout-item de abajo (y .cs-dropdown-item):
+   es el mismo tipo de ítem de lista, solo que en modo expandido en vez de
+   dentro del flyout de rail — deben verse consistentes entre sí. */
+.cs-menu__child:focus-visible {
+  outline: none;
+  background-color: var(--color-interaction-hovered);
+}
+.cs-menu__child--active {
+  color: var(--color-text-brand-default);
+  font-weight: var(--font-weight-accent);
+}
+.cs-menu__child--disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* ── Rail ── */
+.cs-menu__rail-btn {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 10px: no coincide con ningún paso de la escala (--layout-padding-sm=6px,
+     -md=8px) — hueco conocido de la escala (ver token-architecture.md).
+     Valor explícito, no forzado a un token que cambiaría el alto visual del
+     botón sin aprobación de diseño (B1). */
+  padding-block: 10px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-base-subtle);
+  text-decoration: none;
+  cursor: pointer;
+}
+.cs-menu__rail-btn:hover {
+  background-color: var(--color-interaction-hovered);
+  color: var(--color-text-base-default);
+}
+.cs-menu__rail-btn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 var(--layout-border-thick) var(--elevation-surface-default),
+    0 0 0 var(--layout-border-thicker) var(--color-border-focused);
+}
+.cs-menu__rail-btn--active {
+  background-color: var(--color-background-brand-subtlest);
+  color: var(--color-text-brand-default);
+}
+.cs-menu__rail-btn--disabled {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 10px; /* mismo hueco de escala que .cs-menu__rail-btn arriba */
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+.cs-menu__rail-badge {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  transform: translateX(50%);
+}
+
+/* ── Flyout de rail ── */
+/* El marco (posición, z-index, borde, radio, fondo, sombra, animación de
+   entrada/salida) ya lo provee cs-popover — acá solo queda el contenido
+   interno. Antes duplicaba ese marco a mano, con --elevation-surface-raised
+   en vez del token real de overlay flotante (--elevation-surface-overlay,
+   el mismo que usan Popover/Modal). */
+.cs-menu__flyout {
+  min-width: 176px;
+  padding-block: var(--layout-padding-sm);
+}
+.cs-menu__flyout-title {
+  margin: 0;
+  padding: var(--layout-padding-xs) var(--layout-padding-lg) var(--layout-padding-sm);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-label-micro);
+  line-height: var(--font-line-height-label-micro);
+  font-weight: var(--font-weight-emphasis);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-base-subtlest);
+}
+.cs-menu__flyout-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cs-menu__flyout-item {
+  display: block;
+  padding: var(--layout-padding-sm) var(--layout-padding-lg);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  text-decoration: none;
+  color: var(--color-text-base-default);
+}
+.cs-menu__flyout-item:hover {
+  background-color: var(--color-interaction-hovered);
+}
+/* Mismo criterio que .cs-dropdown-item:focus-visible (dropdown-item.css:25-27)
+   para ítems de lista: el resaltado de fondo hace de indicador de foco, sin
+   un anillo propio que se vería redundante/recortado contra los vecinos. */
+.cs-menu__flyout-item:focus-visible {
+  outline: none;
+  background-color: var(--color-interaction-hovered);
+}
+.cs-menu__flyout-item--active {
+  color: var(--color-text-brand-default);
+  font-weight: var(--font-weight-accent);
+}
+.cs-menu__flyout-item--disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* Mismo criterio de tokens que cs-tooltip real (tooltip.css:24-28) — un
+   tooltip es UI compacta/efímera, no contenido de lectura (ver
+   componentTypography.tooltip = 'label/small' en token-architecture.md).
+   Corregido: este tooltip vivía con font-size/padding/radius/sombra de
+   content/note en vez de calcar el componente Tooltip real. */
+.cs-menu__tooltip {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-sm);
+  padding: var(--layout-padding-xs) var(--layout-padding-md);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-background-neutral-strongest);
+  color: var(--color-text-inverse);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-label-small);
+  line-height: var(--font-line-height-label-small);
+  font-weight: var(--font-weight-accent);
+  white-space: nowrap;
+  box-shadow: var(--shadow-md);
+}
+.cs-menu__key--tooltip {
+  border-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-inverse);
+}

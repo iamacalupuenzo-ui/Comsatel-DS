@@ -1,0 +1,125 @@
+<div class="cs-dtrp">
+  <div class="cs-dtrp__row">
+    <!-- Campo de rango de fechas -->
+    <div class="cs-dtrp__field">
+      @if (dateLabel) {
+        <label [attr.for]="resolvedId" class="cs-dtrp__label">
+          {{ dateLabel }}
+          @if (required) {
+            <span class="cs-dtrp__required">*</span>
+          }
+        </label>
+      } @else if (timeLabel) {
+        <span aria-hidden="true" class="cs-dtrp__label cs-dtrp__label--spacer">&nbsp;</span>
+      }
+
+      <div class="cs-dtrp__date-wrap">
+        <button
+          type="button"
+          [id]="resolvedId"
+          [disabled]="disabled"
+          aria-haspopup="dialog"
+          [attr.aria-expanded]="dateOpen()"
+          [attr.aria-controls]="gridId"
+          [attr.aria-invalid]="invalid"
+          [attr.aria-required]="required"
+          [attr.aria-label]="dateLabel || 'Rango de fechas'"
+          [attr.aria-describedby]="describedBy"
+          class="cs-dtrp__date-trigger"
+          [style.width.px]="fieldWidth"
+          [style.height.px]="rowHeight"
+          [style.border-color]="invalid ? 'var(--color-border-danger-default)' : 'var(--color-border-neutral-default)'"
+          [style.color]="displayText ? 'var(--color-text-base-default)' : 'var(--color-text-base-subtlest)'"
+          (click)="toggleDateOpen()"
+        >
+          <span class="cs-dtrp__date-text">{{ displayText || datePlaceholder }}</span>
+          <cs-icon name="calendar" [size]="iconSize" class="cs-dtrp__date-icon" />
+        </button>
+
+        @if (dateOpen() && !disabled) {
+          <div [id]="gridId" role="dialog" class="cs-dtrp__popover">
+            <cs-calendar
+              [month]="viewMonth()"
+              [year]="viewYear()"
+              [selected]="pendingSelected"
+              [rangeSelected]="rangeSelected"
+              [disabled]="disabledDates"
+              [minDate]="minDate"
+              [maxDate]="maxDate"
+              [weekStartDay]="weekStartDay"
+              ariaLabel="Seleccionar rango de fechas"
+              (dateChange)="handleDateClick($event)"
+              (monthChange)="onMonthChange($event)"
+            />
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Ventana horaria -->
+    <div class="cs-dtrp__field">
+      @if (timeLabel) {
+        <span [id]="resolvedId + '-time-label'" class="cs-dtrp__label">{{ timeLabel }}</span>
+      } @else if (dateLabel) {
+        <span aria-hidden="true" class="cs-dtrp__label cs-dtrp__label--spacer">&nbsp;</span>
+      }
+      <div class="cs-dtrp__time-row">
+        <div class="cs-dtrp__time-field">
+          <cs-input-dropdown
+            [placeholder]="startTimePlaceholder"
+            [options]="timeOptions"
+            [value]="current.startTime"
+            (valueChange)="setStartTime($event)"
+            [size]="size"
+            [disabled]="disabled"
+            [ariaLabel]="'Hora de inicio'"
+            [aria-labelledby]="timeLabel ? resolvedId + '-time-label' : ''"
+            [aria-describedby]="describedBy"
+            [fullWidth]="true"
+          />
+        </div>
+        <span aria-hidden="true" class="cs-dtrp__time-sep">–</span>
+        <div class="cs-dtrp__time-field">
+          <cs-input-dropdown
+            [placeholder]="endTimePlaceholder"
+            [options]="timeOptions"
+            [value]="current.endTime"
+            (valueChange)="setEndTime($event)"
+            [size]="size"
+            [disabled]="disabled"
+            [ariaLabel]="'Hora de fin'"
+            [aria-labelledby]="timeLabel ? resolvedId + '-time-label' : ''"
+            [aria-describedby]="describedBy"
+            [fullWidth]="true"
+          />
+        </div>
+      </div>
+    </div>
+
+    @if (!disabled && hasValue) {
+      <div class="cs-dtrp__field">
+        @if (dateLabel || timeLabel) {
+          <span aria-hidden="true" class="cs-dtrp__label cs-dtrp__label--spacer">&nbsp;</span>
+        }
+        <button
+          type="button"
+          class="cs-dtrp__clear"
+          [attr.aria-label]="clearControlLabel"
+          [style.width.px]="rowHeight"
+          [style.height.px]="rowHeight"
+          (click)="clearAll()"
+        >
+          <cs-icon name="x" [size]="iconSize" />
+        </button>
+      </div>
+    }
+  </div>
+
+  @if (invalid && errorText) {
+    <p [id]="errorId" class="cs-dtrp__error">
+      <cs-icon name="alert-triangle" [size]="12" />{{ errorText }}
+    </p>
+  } @else if (helperText) {
+    <p [id]="helperId" class="cs-dtrp__helper">{{ helperText }}</p>
+  }
+</div>

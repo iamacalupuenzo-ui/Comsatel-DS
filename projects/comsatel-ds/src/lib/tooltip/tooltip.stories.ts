@@ -21,13 +21,13 @@ const meta: Meta<Tooltip> = {
     },
   },
   args: {
-    content: 'Texto de ayuda',
+    content: 'Helpful text',
     side: 'top',
     arrow: true,
   },
   render: (args) => ({
     props: args,
-    template: `<cs-tooltip [content]="content" [side]="side" [arrow]="arrow"><cs-button variant="secondary">Pasa el mouse aquí</cs-button></cs-tooltip>`,
+    template: `<cs-tooltip [content]="content" [side]="side" [arrow]="arrow"><cs-button variant="secondary">Hover here</cs-button></cs-tooltip>`,
   }),
 };
 
@@ -55,10 +55,10 @@ export const WithoutArrow: Story = {
 export const OnIconButton: Story = {
   render: () => ({
     template: `
-      <div style="display: flex; gap: 16px;">
-        <cs-tooltip content="Copiar"><cs-button variant="tertiary"><cs-icon name="copy" [size]="16"></cs-icon></cs-button></cs-tooltip>
-        <cs-tooltip content="Eliminar" side="bottom"><cs-button variant="tertiary"><cs-icon name="x" [size]="16"></cs-icon></cs-button></cs-tooltip>
-        <cs-tooltip content="Configuración" side="right"><cs-button variant="tertiary"><cs-icon name="sliders" [size]="16"></cs-icon></cs-button></cs-tooltip>
+      <div style="display: flex; gap: var(--layout-gap-xl);">
+        <cs-tooltip content="Copy"><cs-button variant="tertiary" aria-label="Copy"><cs-icon name="copy" [size]="16"></cs-icon></cs-button></cs-tooltip>
+        <cs-tooltip content="Delete" side="bottom"><cs-button variant="tertiary" aria-label="Delete"><cs-icon name="x" [size]="16"></cs-icon></cs-button></cs-tooltip>
+        <cs-tooltip content="Settings" side="right"><cs-button variant="tertiary" aria-label="Settings"><cs-icon name="sliders" [size]="16"></cs-icon></cs-button></cs-tooltip>
       </div>
     `,
   }),
@@ -67,11 +67,11 @@ export const OnIconButton: Story = {
 export const AllSides: Story = {
   render: () => ({
     template: `
-      <div style="display: flex; gap: 48px; padding: 48px;">
-        <cs-tooltip content="Arriba" side="top"><cs-button variant="secondary">top</cs-button></cs-tooltip>
-        <cs-tooltip content="Abajo" side="bottom"><cs-button variant="secondary">bottom</cs-button></cs-tooltip>
-        <cs-tooltip content="Izquierda" side="left"><cs-button variant="secondary">left</cs-button></cs-tooltip>
-        <cs-tooltip content="Derecha" side="right"><cs-button variant="secondary">right</cs-button></cs-tooltip>
+      <div style="display: flex; gap: var(--layout-gap-6xl); padding: var(--layout-padding-6xl);">
+        <cs-tooltip content="Side: top" side="top"><cs-button variant="secondary">top</cs-button></cs-tooltip>
+        <cs-tooltip content="Side: bottom" side="bottom"><cs-button variant="secondary">bottom</cs-button></cs-tooltip>
+        <cs-tooltip content="Side: left" side="left"><cs-button variant="secondary">left</cs-button></cs-tooltip>
+        <cs-tooltip content="Side: right" side="right"><cs-button variant="secondary">right</cs-button></cs-tooltip>
       </div>
     `,
   }),

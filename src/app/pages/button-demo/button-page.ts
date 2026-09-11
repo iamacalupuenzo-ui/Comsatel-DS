@@ -77,6 +77,6 @@ export class ButtonPage {
     this.isLoading.update((v) => !v);
   }
   protected readonly loadingCode = computed(
-    () => `<cs-button variant="primary" [loading]="${this.isLoading()}">\n  Guardar cambios\n</cs-button>`,
+    () => `<cs-button variant="primary" [loading]="${this.isLoading()}" aria-label="Guardando cambios">\n  Guardar cambios\n</cs-button>`,
   );
 }

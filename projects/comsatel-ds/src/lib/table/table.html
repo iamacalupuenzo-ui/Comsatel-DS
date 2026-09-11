@@ -1,0 +1,75 @@
+<div class="cs-table__wrap" [attr.aria-busy]="isLoading ? 'true' : null">
+  <table class="cs-table" [style.min-width]="minWidth">
+    @if (caption) {
+      <caption class="cs-table__caption">{{ caption }}</caption>
+    }
+    <thead>
+      <tr class="cs-table__head-row">
+        @for (col of columns; track col.key) {
+          <th
+            scope="col"
+            class="cs-table__th"
+            [attr.aria-sort]="ariaSortFor(col)"
+            [style.width]="col.width"
+            [style.text-align]="col.align ?? 'left'"
+          >
+            @if (isSortable(col)) {
+              <button type="button" class="cs-table__sort-btn" [attr.aria-label]="sortLabelFor(col)" (click)="onHeaderClick(col)">
+                {{ col.label }}
+                @if (sortKey === col.key) {
+                  <cs-icon aria-hidden="true" [name]="sortOrder === 'desc' ? 'arrow-down' : 'arrow-up'" [size]="12" class="cs-table__sort-icon cs-table__sort-icon--active" />
+                } @else {
+                  <cs-icon aria-hidden="true" name="arrow-up-down" [size]="12" class="cs-table__sort-icon" />
+                }
+              </button>
+            } @else {
+              {{ col.label }}
+            }
+          </th>
+        }
+      </tr>
+    </thead>
+    <tbody [class.cs-table__body--refetching]="showRefetching">
+      @if (showSkeleton) {
+        @for (i of skeletonRowIndices; track i) {
+          <tr class="cs-table__row">
+            @for (col of columns; track col.key) {
+              <td class="cs-table__td">
+                <cs-skeleton [width]="col.width ? '70%' : undefined" />
+              </td>
+            }
+          </tr>
+        }
+      } @else if (isEmpty) {
+        <tr>
+          <td [attr.colspan]="columns.length" class="cs-table__empty">
+            <ng-content select="[emptyState]"></ng-content>
+          </td>
+        </tr>
+      } @else {
+        @for (row of rows; track row.key) {
+          <tr class="cs-table__row" [class.cs-table__row--highlighted]="row.key === highlightedRowKey">
+            @for (cell of row.cells; track $index; let i = $index) {
+              <td class="cs-table__td" [style.text-align]="columns[i]?.align ?? 'left'">
+                @if (isTemplateCell(cell)) {
+                  <ng-container *ngTemplateOutlet="cell.template; context: cell.context"></ng-container>
+                } @else {
+                  {{ cell }}
+                }
+              </td>
+            }
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+
+  @if (showRefetching) {
+    <div class="cs-table__spinner-overlay">
+      <div class="cs-table__spinner" aria-hidden="true"></div>
+    </div>
+  }
+  @if (isLoading) {
+    <span class="cs-table__loading-status" role="status" aria-live="polite">Cargando filas de la tabla</span>
+  }
+</div>

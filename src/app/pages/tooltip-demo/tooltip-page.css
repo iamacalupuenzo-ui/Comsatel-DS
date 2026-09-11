@@ -3,3 +3,28 @@
 :host { display: block; }
 
 .row--spaced { gap: var(--layout-gap-2xl); }
+
+/* El popup es un overlay: no debe recortarse por el marco de la tarjeta.
+   El demo reserva espacio y centra el trigger para que el tooltip superior
+   no invada el texto descriptivo. */
+.tooltip-guidelines .guide-card {
+  overflow: visible;
+}
+
+.tooltip-guidelines .guide-card__header {
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+}
+
+.tooltip-guidelines .guide-card__body {
+  align-items: stretch;
+  gap: var(--layout-gap-4xl);
+  border-bottom-left-radius: var(--radius-lg);
+  border-bottom-right-radius: var(--radius-lg);
+}
+
+.tooltip-guidelines .guide-card__demo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -51,7 +51,8 @@ export const componentTypography = {
   button: { xs: 'content/note', sm: 'content/ui', md: 'content/caption', lg: 'content/body' },
   badge: { sm: 'label/micro', md: 'label/small', lg: 'content/note' },
   avatar: { xs: 'label/micro', sm: 'content/note', md: 'content/caption', lg: 'content/highlight', xl: 'content/feature' },
-  banner: { title: 'content/caption', body: 'content/caption', action: 'content/caption' },
+  banner: { title: 'content/ui', body: 'content/ui', action: 'content/ui' },
+  input: { sm: 'content/note', md: 'content/ui', lg: 'content/body' },
   tooltip: 'label/small',
   calendar: { header: 'content/note', weekday: 'label/small', day: 'content/note' },
 } as const;

@@ -6,6 +6,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/home/home-page').then((m) => m.HomePage),
   },
   {
+    path: 'tracking/evaluation',
+    loadComponent: () =>
+      import('./pages/evaluation-tracking/evaluation-tracking-page').then((m) => m.EvaluationTrackingPage),
+  },
+  {
     path: 'foundations/tokens',
     loadComponent: () => import('./pages/tokens/tokens-page').then((m) => m.TokensPage),
   },
@@ -56,12 +61,32 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/effects/effects-page').then((m) => m.EffectsPage),
   },
   {
+    path: 'foundations/layout',
+    loadComponent: () => import('./pages/layout/layout-page').then((m) => m.LayoutPage),
+  },
+  {
+    path: 'components/accordion',
+    loadComponent: () => import('./pages/accordion-demo/accordion-page').then((m) => m.AccordionPage),
+  },
+  {
+    path: 'components/app-layout',
+    loadComponent: () => import('./pages/app-layout-demo/app-layout-page').then((m) => m.AppLayoutPage),
+  },
+  {
     path: 'components/avatar',
     loadComponent: () => import('./pages/avatar-demo/avatar-page').then((m) => m.AvatarPage),
   },
   {
     path: 'components/badge',
     loadComponent: () => import('./pages/badge-demo/badge-page').then((m) => m.BadgePage),
+  },
+  {
+    path: 'components/tag',
+    loadComponent: () => import('./pages/tag-demo/tag-page').then((m) => m.TagPage),
+  },
+  {
+    path: 'components/progress-indicator',
+    loadComponent: () => import('./pages/progress-indicator-demo/progress-indicator-page').then((m) => m.ProgressIndicatorPage),
   },
   {
     path: 'components/banner',
@@ -103,5 +128,74 @@ export const routes: Routes = [
   {
     path: 'components/button',
     loadComponent: () => import('./pages/button-demo/button-page').then((m) => m.ButtonPage),
+  },
+  {
+    path: 'components/radio',
+    loadComponent: () => import('./pages/radio-demo/radio-page').then((m) => m.RadioPage),
+  },
+  {
+    path: 'components/tab',
+    loadComponent: () => import('./pages/tab-demo/tab-page').then((m) => m.TabPage),
+  },
+  {
+    path: 'components/pagination',
+    loadComponent: () => import('./pages/pagination-demo/pagination-page').then((m) => m.PaginationPage),
+  },
+  {
+    path: 'components/toast',
+    loadComponent: () => import('./pages/toast-demo/toast-page').then((m) => m.ToastPage),
+  },
+  {
+    path: 'components/popover',
+    loadComponent: () => import('./pages/popover-demo/popover-page').then((m) => m.PopoverPage),
+  },
+  {
+    path: 'components/select',
+    loadComponent: () => import('./pages/select-demo/select-page').then((m) => m.SelectPage),
+  },
+  {
+    path: 'components/spotlight',
+    loadComponent: () => import('./pages/spotlight-demo/spotlight-page').then((m) => m.SpotlightPage),
+  },
+  {
+    path: 'components/datetime-range-picker',
+    loadComponent: () =>
+      import('./pages/datetime-range-picker-demo/datetime-range-picker-page').then((m) => m.DateTimeRangePickerPage),
+  },
+  {
+    path: 'components/menu',
+    loadComponent: () => import('./pages/menu-demo/menu-page').then((m) => m.MenuPage),
+  },
+  {
+    path: 'components/table',
+    loadComponent: () => import('./pages/table-demo/table-page').then((m) => m.TablePage),
+  },
+  {
+    path: 'components/table-tree',
+    loadComponent: () => import('./pages/table-tree-demo/table-tree-page').then((m) => m.TableTreePage),
+  },
+  {
+    path: 'components/modal',
+    loadComponent: () => import('./pages/modal-demo/modal-page').then((m) => m.ModalPage),
+  },
+  {
+    path: 'map/theme',
+    loadComponent: () => import('./pages/map-theme-demo/map-theme-page').then((m) => m.MapThemePage),
+  },
+  {
+    path: 'map/markers',
+    loadComponent: () => import('./pages/markers-demo/markers-page').then((m) => m.MarkersPage),
+  },
+  {
+    path: 'animations/tokens',
+    loadComponent: () => import('./pages/motion-tokens-demo/motion-tokens-page').then((m) => m.MotionTokensPage),
+  },
+  {
+    path: 'animations/motion',
+    loadComponent: () => import('./pages/motion-demo/motion-page').then((m) => m.MotionPage),
+  },
+  {
+    path: 'animations/press-scale',
+    loadComponent: () => import('./pages/press-scale-demo/press-scale-page').then((m) => m.PressScalePage),
   },
 ];

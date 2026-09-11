@@ -1,0 +1,30 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.inline-code {
+  font-family: monospace;
+  font-size: var(--font-size-content-note);
+  padding: var(--layout-padding-2xs) var(--layout-padding-sm);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-background-neutral-subtle);
+}
+
+.tab-demo-text {
+  font-size: var(--font-size-content-note);
+  color: var(--color-text-base-subtle);
+}
+
+.variants-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-2xl);
+  max-width: 480px;
+}
+.variants-col__label {
+  margin: 0 0 var(--layout-padding-lg);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-accent);
+  text-transform: uppercase;
+  color: var(--color-text-base-subtlest);
+}

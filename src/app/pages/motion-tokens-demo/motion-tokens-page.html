@@ -1,0 +1,37 @@
+<div class="page">
+  <p class="eyebrow">Animaciones</p>
+  <h1 class="title">Motion tokens</h1>
+  <p class="description">
+    Duración y curva de aceleración son tokens, igual que el color o el espaciado: una escala fija y
+    nombrada en vez de un número elegido al ojo cada vez. Cada transición animada de este sistema —
+    un chevron que rota, un flyout de menú, un dropdown que se abre — usa uno de estos, nunca un
+    valor suelto en milisegundos.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="duration">Duración</h2>
+    <p class="section__intro">
+      Cinco pasos. Más corta para movimientos chicos y frecuentes (un hover, un chevron); más larga
+      para contenido que entra o sale del layout.
+    </p>
+    <div class="row-list">
+      @for (d of durations; track d.token) {
+        <app-duration-row [token]="d.token" [ms]="d.ms" [description]="d.description" />
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="easing">Curvas de aceleración</h2>
+    <p class="section__intro">
+      Cuatro curvas. Cada una va emparejada con un tipo de movimiento específico — usar la que no
+      corresponde es la forma más común de que una transición se sienta un poco mal aunque la
+      duración esté bien.
+    </p>
+    <div class="row-list">
+      @for (e of easings; track e.token) {
+        <app-easing-row [token]="e.token" [curve]="e.curve" [ease]="e.ease" [description]="e.description" />
+      }
+    </div>
+  </section>
+</div>

@@ -21,14 +21,16 @@
             [disabled]="disabled"
             [invalid]="invalid"
             [required]="required"
+            [aria-label]="datePickerProps.label || 'Fecha'"
             ariaHasPopup="dialog"
             [ariaExpanded]="dateOpen()"
             [ariaControls]="gridId"
+            [aria-describedby]="describedBy"
             (focused)="onDateFocus()"
             (blurred)="onDateBlur()"
             (valueChange)="onDateInputChange($event)"
             (enterKey)="onDateEnter()"
-            (escapeKey)="dateOpen.set(false)"
+            (escapeKey)="onDateEscape()"
           ></cs-input-group-input>
           <cs-input-group-addon align="inline-end">
             <button
@@ -36,6 +38,7 @@
               class="cs-datetime-picker__calendar-btn"
               aria-label="Abrir calendario"
               [disabled]="disabled"
+              [attr.aria-describedby]="describedBy"
               (click)="dateOpen.set(!dateOpen())"
             >
               <cs-icon name="calendar" [size]="iconSize"></cs-icon>
@@ -53,6 +56,7 @@
               [minDate]="datePickerProps.minDate"
               [maxDate]="datePickerProps.maxDate"
               [weekStartDay]="datePickerProps.weekStartDay ?? 0"
+              ariaLabel="Seleccionar fecha"
               (dateChange)="onCalendarChange($event)"
               (monthChange)="onCalendarMonthChange($event)"
             ></cs-calendar>
@@ -71,12 +75,11 @@
         (valueChange)="onTimeChange($event)"
         [size]="size"
         [disabled]="disabled"
+        [aria-describedby]="describedBy"
         [fullWidth]="true"
       ></cs-input-dropdown>
     </div>
 
-    <!-- Botón de limpiar — deliberadamente fuera del tab order (tabindex="-1"):
-         se opera con mouse/tap, con teclado se limpia escribiendo encima. -->
     @if (!disabled && (dateIso() || time())) {
       <div class="cs-datetime-picker__clear-wrap">
         @if (datePickerProps.label || timePickerProps.label) {
@@ -84,7 +87,6 @@
         }
         <button
           type="button"
-          tabindex="-1"
           class="cs-datetime-picker__clear-btn"
           [attr.aria-label]="clearControlLabel"
           [style.width.px]="rowHeight"
@@ -98,10 +100,10 @@
   </div>
 
   @if (invalid && errorText) {
-    <p class="cs-datetime-picker__message cs-datetime-picker__message--error">
+    <p [id]="errorId" class="cs-datetime-picker__message cs-datetime-picker__message--error">
       <cs-icon name="alert-triangle" [size]="12"></cs-icon>{{ errorText }}
     </p>
   } @else if (helperText) {
-    <p class="cs-datetime-picker__message">{{ helperText }}</p>
+    <p [id]="helperId" class="cs-datetime-picker__message">{{ helperText }}</p>
   }
 </div>

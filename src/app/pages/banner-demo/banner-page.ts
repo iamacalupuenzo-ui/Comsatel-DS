@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Banner, type BannerVariant } from 'comsatel-ds';
+import { Banner, Icon, type BannerVariant } from 'comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 const VARIANTS: BannerVariant[] = ['brand', 'neutral', 'danger', 'success', 'warning'];
@@ -18,7 +18,7 @@ const DISMISSIBLE_BANNERS: DismissibleBanner[] = [
 
 @Component({
   selector: 'app-banner-page',
-  imports: [Banner, DemoShell],
+  imports: [Banner, Icon, DemoShell],
   templateUrl: './banner-page.html',
   styleUrl: './banner-page.css',
 })
@@ -71,5 +71,13 @@ export class BannerPage {
   }
   protected resetDismissed(): void {
     this.dismissed.set({});
+  }
+
+  protected readonly guideActionDone = signal(false);
+  protected readonly guideDismissed = signal(false);
+
+  protected resetGuidelines(): void {
+    this.guideActionDone.set(false);
+    this.guideDismissed.set(false);
   }
 }

@@ -1,0 +1,53 @@
+:host {
+  display: block;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  background-color: var(--elevation-surface-default);
+  overflow: hidden;
+}
+
+.preset-card__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 96px;
+  overflow: hidden;
+  background-color: var(--color-background-neutral-subtle);
+}
+
+.preset-card__block {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-background-brand-default);
+}
+
+.preset-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--layout-padding-sm) var(--layout-padding-lg);
+  border-top: 1px solid var(--color-border-divider);
+}
+
+.preset-card__label {
+  font-family: monospace;
+  font-size: var(--font-size-label-small);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-brand-default);
+}
+
+.preset-card__replay {
+  font-size: var(--font-size-label-micro);
+  font-weight: var(--font-weight-accent);
+  padding: 1px var(--layout-padding-md);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-neutral-subtle);
+  background: none;
+  color: var(--color-text-base-subtle);
+  cursor: pointer;
+  transition: background-color var(--motion-duration-fast) var(--motion-easing-default);
+}
+.preset-card__replay:hover {
+  background-color: var(--color-interaction-hovered);
+}

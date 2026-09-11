@@ -1,3 +1,11 @@
 @import '../../shared/styles/doc-page.css';
 
 :host { display: block; }
+
+.col--compact { gap: var(--layout-gap-md); }
+.nested-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-md);
+  margin-left: var(--layout-padding-3xl);
+}

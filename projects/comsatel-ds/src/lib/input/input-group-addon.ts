@@ -12,6 +12,10 @@ export type InputGroupAddonAlign = 'inline-start' | 'inline-end';
 })
 export class InputGroupAddon {
   @Input() align: InputGroupAddonAlign = 'inline-start';
+  /** Reduce el inset exterior cuando el addon contiene una acción compacta. */
+  @Input() compact = false;
+  /** Separa visualmente un control integrado del campo de texto. */
+  @Input() divider = false;
 
   constructor(private elementRef: ElementRef<HTMLElement>) {}
 

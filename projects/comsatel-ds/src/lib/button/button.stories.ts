@@ -80,6 +80,12 @@ export const WithTrailingIcon: Story = {
   }),
 };
 
+export const IconOnlyAccessible: Story = {
+  render: () => ({
+    template: `<cs-button variant="secondary" size="sm" aria-label="Add item"><cs-icon name="plus" [size]="14"></cs-icon></cs-button>`,
+  }),
+};
+
 export const AllVariants: Story = {
   render: () => ({
     template: `

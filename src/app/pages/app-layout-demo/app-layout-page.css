@@ -1,0 +1,115 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.inline-code {
+  font-family: monospace;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  padding: var(--layout-padding-2xs) var(--layout-padding-sm);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-background-neutral-subtle);
+}
+
+.inline-link {
+  color: var(--color-text-link-default);
+  text-decoration: underline;
+}
+
+/* "device frame": cualquier ancestro con transform (aunque sea neutro)
+   se vuelve el contenedor de referencia para sus descendientes con
+   position: fixed — así cs-app-layout, que está pensado para vivir en la
+   raíz real de una app, se puede demostrar contenido dentro de esta caja
+   sin tapar el Shell real del sitio. overflow: hidden recorta lo que se
+   pase del alto fijo del marco. */
+.device-frame {
+  position: relative;
+  height: 420px;
+  overflow: hidden;
+  transform: translateZ(0);
+  border-radius: var(--radius-lg);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
+}
+
+.demo-topnav {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-md);
+  height: 100%;
+}
+.demo-topnav__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--layout-size-sm);
+  height: var(--layout-size-sm);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-background-brand-default);
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-label-small);
+  font-weight: var(--font-weight-bold);
+}
+.demo-topnav__name {
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-boldest);
+}
+
+.demo-sidenav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-2xs);
+}
+.demo-sidenav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-sm);
+  width: 100%;
+  padding: var(--layout-padding-sm) var(--layout-padding-lg);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtle);
+  cursor: pointer;
+  text-align: left;
+}
+.demo-sidenav__item:hover {
+  background-color: var(--color-interaction-hovered);
+  color: var(--color-text-base-default);
+}
+.demo-sidenav__item:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 var(--layout-border-thick) var(--elevation-surface-default),
+    0 0 0 var(--layout-border-thicker) var(--color-border-focused);
+}
+.demo-sidenav__item--active {
+  background-color: var(--color-background-brand-subtlest);
+  color: var(--color-text-brand-default);
+  font-weight: var(--font-weight-accent);
+}
+.demo-sidenav__icon {
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.demo-main {
+  padding: var(--layout-padding-2xl);
+}
+.demo-main__hint {
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtle);
+}
+
+.demo-panel {
+  padding: var(--layout-padding-lg);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtlest);
+}

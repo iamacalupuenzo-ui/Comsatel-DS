@@ -1,0 +1,287 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Accordion</p>
+  <h1 class="title">Accordion</h1>
+  <p class="description">
+    Un accordion deja que cada ítem se expanda para mostrar más detalle sin salir de la lista — una
+    unidad de flota que se expande a su tarjeta de estado completa. Por defecto solo un ítem queda
+    abierto a la vez, que es como se lee una lista así: enfocarse en una cosa, no varios paneles
+    abiertos compitiendo por la atención.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">
+      Haz clic en una unidad para expandirla. El encabezado es contenido completamente propio —
+      Accordion solo es dueño del toggle, el chevron y la animación de expandir.
+    </p>
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <cs-accordion [type]="type()" [defaultExpandedIds]="['norte-04']" style="width: 100%">
+        @for (unit of units; track unit.id) {
+          <cs-accordion-item [id]="unit.id">
+            <div header class="unit-header">
+              <div class="unit-header__icon"><cs-icon name="truck" [size]="16" /></div>
+              <div class="unit-header__meta">
+                <span class="unit-header__name">{{ unit.name }}</span>
+                <span class="unit-header__seen">{{ unit.lastSeen }}</span>
+              </div>
+              <cs-badge [variant]="statusVariant[unit.status]" size="sm"><cs-icon [name]="statusIcon[unit.status]" [size]="12" aria-hidden="true" />{{ unit.statusLabel }}</cs-badge>
+            </div>
+            <div class="unit-body">
+              <div class="unit-body__field"><span class="unit-body__label">Velocidad</span><span class="unit-body__value">{{ unit.speed }}</span></div>
+              <div class="unit-body__field"><span class="unit-body__label">Batería</span><span class="unit-body__value">{{ unit.battery }}</span></div>
+              <div class="unit-body__field"><span class="unit-body__label">Ubicación</span><span class="unit-body__value">{{ unit.location }}</span></div>
+            </div>
+          </cs-accordion-item>
+        }
+      </cs-accordion>
+    </app-demo-shell>
+  </section>
+
+  <!-- Tipo -->
+  <section class="section">
+    <h2 class="section__title" id="type">Tipo</h2>
+    <p class="section__intro">
+      <code class="inline-code">single</code> (por defecto) cierra el ítem anterior cuando se abre uno
+      nuevo. <code class="inline-code">multiple</code> permite cualquier cantidad abierta a la vez —
+      útil cuando los ítems son independientes, no una vista enfocada en uno solo como una lista de
+      flota.
+    </p>
+    <div class="static-block">
+      <div class="static-block__preview type-compare">
+        <div class="type-compare__col">
+          <span class="type-compare__label">single</span>
+          <cs-accordion type="single" [defaultExpandedIds]="['norte-04']">
+            @for (unit of units; track unit.id) {
+              <cs-accordion-item [id]="unit.id">
+                <div header class="unit-header">
+                  <div class="unit-header__icon"><cs-icon name="truck" [size]="16" /></div>
+                  <div class="unit-header__meta">
+                    <span class="unit-header__name">{{ unit.name }}</span>
+                    <span class="unit-header__seen">{{ unit.lastSeen }}</span>
+                  </div>
+                  <cs-badge [variant]="statusVariant[unit.status]" size="sm"><cs-icon [name]="statusIcon[unit.status]" [size]="12" aria-hidden="true" />{{ unit.statusLabel }}</cs-badge>
+                </div>
+                <div class="unit-body">
+                  <div class="unit-body__field"><span class="unit-body__label">Velocidad</span><span class="unit-body__value">{{ unit.speed }}</span></div>
+                  <div class="unit-body__field"><span class="unit-body__label">Batería</span><span class="unit-body__value">{{ unit.battery }}</span></div>
+                  <div class="unit-body__field"><span class="unit-body__label">Ubicación</span><span class="unit-body__value">{{ unit.location }}</span></div>
+                </div>
+              </cs-accordion-item>
+            }
+          </cs-accordion>
+        </div>
+        <div class="type-compare__col">
+          <span class="type-compare__label">multiple</span>
+          <cs-accordion type="multiple" [defaultExpandedIds]="['norte-04', 'norte-07']">
+            @for (unit of units; track unit.id) {
+              <cs-accordion-item [id]="unit.id">
+                <div header class="unit-header">
+                  <div class="unit-header__icon"><cs-icon name="truck" [size]="16" /></div>
+                  <div class="unit-header__meta">
+                    <span class="unit-header__name">{{ unit.name }}</span>
+                    <span class="unit-header__seen">{{ unit.lastSeen }}</span>
+                  </div>
+                  <cs-badge [variant]="statusVariant[unit.status]" size="sm"><cs-icon [name]="statusIcon[unit.status]" [size]="12" aria-hidden="true" />{{ unit.statusLabel }}</cs-badge>
+                </div>
+                <div class="unit-body">
+                  <div class="unit-body__field"><span class="unit-body__label">Velocidad</span><span class="unit-body__value">{{ unit.speed }}</span></div>
+                  <div class="unit-body__field"><span class="unit-body__label">Batería</span><span class="unit-body__value">{{ unit.battery }}</span></div>
+                  <div class="unit-body__field"><span class="unit-body__label">Ubicación</span><span class="unit-body__value">{{ unit.location }}</span></div>
+                </div>
+              </cs-accordion-item>
+            }
+          </cs-accordion>
+        </div>
+      </div>
+      <app-code-block [code]="typeCode"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Deshabilitado -->
+  <section class="section">
+    <h2 class="section__title" id="disabled">Ítem deshabilitado</h2>
+    <p class="section__intro">
+      Un ítem deshabilitado no se puede abrir/cerrar — su encabezado se atenúa y pierde el cursor de
+      puntero, pero se sigue mostrando en su lugar para que la lista no salte.
+    </p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        <cs-accordion [defaultExpandedIds]="['norte-04']" style="width: 100%">
+          @for (unit of units; track unit.id; let i = $index) {
+            <cs-accordion-item [id]="unit.id" [disabled]="i === 1">
+              <div header class="unit-header">
+                <div class="unit-header__icon"><cs-icon name="truck" [size]="16" /></div>
+                <div class="unit-header__meta">
+                  <span class="unit-header__name">{{ unit.name }}</span>
+                  <span class="unit-header__seen">{{ i === 1 ? 'Todavía no tiene dispositivo GPS asignado' : unit.lastSeen }}</span>
+                </div>
+                <cs-badge [variant]="statusVariant[unit.status]" size="sm"><cs-icon [name]="statusIcon[unit.status]" [size]="12" aria-hidden="true" />{{ unit.statusLabel }}</cs-badge>
+              </div>
+              <div class="unit-body">
+                <div class="unit-body__field"><span class="unit-body__label">Velocidad</span><span class="unit-body__value">{{ unit.speed }}</span></div>
+                <div class="unit-body__field"><span class="unit-body__label">Batería</span><span class="unit-body__value">{{ unit.battery }}</span></div>
+                <div class="unit-body__field"><span class="unit-body__label">Ubicación</span><span class="unit-body__value">{{ unit.location }}</span></div>
+              </div>
+            </cs-accordion-item>
+          }
+        </cs-accordion>
+      </div>
+      <app-code-block [code]="disabledCode"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Lineamientos -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <cs-icon name="check" [size]="13" aria-hidden="true" class="guide-card__header-icon" />
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa Accordion cuando expandir el detalle de un ítem es el punto — el estado completo de una unidad de flota, una respuesta de FAQ, una sección de configuración.</p>
+          <cs-accordion [defaultExpandedIds]="['norte-04']" style="width: 100%">
+            <cs-accordion-item id="norte-04">
+              <div header class="unit-header">
+                <div class="unit-header__icon"><cs-icon name="truck" [size]="16" /></div>
+                <div class="unit-header__meta">
+                  <span class="unit-header__name">{{ units[0].name }}</span>
+                  <span class="unit-header__seen">{{ units[0].lastSeen }}</span>
+                </div>
+                <cs-badge [variant]="statusVariant[units[0].status]" size="sm"><cs-icon [name]="statusIcon[units[0].status]" [size]="12" aria-hidden="true" />{{ units[0].statusLabel }}</cs-badge>
+              </div>
+              <div class="unit-body">
+                <div class="unit-body__field"><span class="unit-body__label">Velocidad</span><span class="unit-body__value">{{ units[0].speed }}</span></div>
+                <div class="unit-body__field"><span class="unit-body__label">Batería</span><span class="unit-body__value">{{ units[0].battery }}</span></div>
+                <div class="unit-body__field"><span class="unit-body__label">Ubicación</span><span class="unit-body__value">{{ units[0].location }}</span></div>
+              </div>
+            </cs-accordion-item>
+          </cs-accordion>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <cs-icon name="x" [size]="13" aria-hidden="true" class="guide-card__header-icon" />
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses Accordion para esconder contenido que alguien necesita comparar entre ítems a la vez — una tabla o una lista con columnas visibles se lee mejor para eso.</p>
+          <cs-accordion [defaultExpandedIds]="['norte-04']" style="width: 100%">
+            <cs-accordion-item id="norte-04">
+              <div header class="unit-header">
+                <div class="unit-header__icon"><cs-icon name="truck" [size]="16" /></div>
+                <div class="unit-header__meta">
+                  <span class="unit-header__name">{{ units[0].name }}</span>
+                  <span class="unit-header__seen">{{ units[0].lastSeen }}</span>
+                </div>
+                <cs-badge [variant]="statusVariant[units[0].status]" size="sm"><cs-icon [name]="statusIcon[units[0].status]" [size]="12" aria-hidden="true" />{{ units[0].statusLabel }}</cs-badge>
+              </div>
+              <div class="unit-body">
+                <div class="unit-body__field"><span class="unit-body__label">Velocidad</span><span class="unit-body__value">{{ units[0].speed }}</span></div>
+                <div class="unit-body__field"><span class="unit-body__label">Batería</span><span class="unit-body__value">{{ units[0].battery }}</span></div>
+                <div class="unit-body__field"><span class="unit-body__label">Ubicación</span><span class="unit-body__value">{{ units[0].location }}</span></div>
+              </div>
+            </cs-accordion-item>
+          </cs-accordion>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <cs-icon name="check" [size]="13" aria-hidden="true" class="guide-card__header-icon" />
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa type="single" por defecto para una lista donde tiene sentido enfocarse en un ítem a la vez — evita que la lista crezca de alto de forma impredecible.</p>
+          <code class="guide-card__code">&lt;cs-accordion type="single"&gt;</code>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <cs-icon name="x" [size]="13" aria-hidden="true" class="guide-card__header-icon" />
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No recurras a type="multiple" solo porque está disponible — es para ítems independientes (un FAQ), no una lista pensada para enfocar la atención en una sola entrada.</p>
+          <code class="guide-card__code">&lt;cs-accordion type="multiple"&gt;</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Cada encabezado es un botón nativo y su panel se anuncia como una región relacionada.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Control</strong><span>El encabezado usa un botón nativo con <code class="inline-code">aria-expanded</code> y nombre construido desde su contenido.</span></div>
+      <div class="table__row"><strong>Relación</strong><span><code class="inline-code">aria-controls</code> enlaza el botón con una región <code class="inline-code">role="region"</code> y <code class="inline-code">aria-labelledby</code>.</span></div>
+      <div class="table__row"><strong>Estado</strong><span>El panel colapsado expone <code class="inline-code">aria-hidden="true"</code>; el contenido expandido vuelve a estar disponible para lectores de pantalla.</span></div>
+      <div class="table__row"><strong>Disabled</strong><span>El encabezado conserva el botón nativo disabled y no puede cambiar de estado.</span></div>
+      <div class="table__row"><strong>Foco</strong><span>El encabezado tiene anillo visible con teclado y la animación no cambia el orden de lectura.</span></div>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row">
+        <code class="table__name">type</code>
+        <code class="table__type">"single" | "multiple"</code>
+        <code class="table__default">"single"</code>
+        <span class="table__desc">single cierra el ítem anterior cuando se abre uno nuevo.</span>
+      </div>
+      <div class="table__row">
+        <code class="table__name">defaultExpandedIds</code>
+        <code class="table__type">string[]</code>
+        <code class="table__default">[]</code>
+        <span class="table__desc">Ítems abiertos inicialmente, no controlado. Se ignora si se pasa expandedIds.</span>
+      </div>
+      <div class="table__row">
+        <code class="table__name">expandedIds</code>
+        <code class="table__type">string[]</code>
+        <code class="table__default">—</code>
+        <span class="table__desc">Ítems abiertos controlados — pásalo junto con (expandedIdsChange) para manejar el estado tú mismo.</span>
+      </div>
+      <div class="table__row">
+        <code class="table__name">(expandedIdsChange)</code>
+        <code class="table__type">EventEmitter&lt;string[]&gt;</code>
+        <code class="table__default">—</code>
+        <span class="table__desc">Emite el próximo arreglo de ids abiertos en cada toggle.</span>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title">AccordionItem</h3>
+      <div class="table">
+        <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+        <div class="table__row">
+          <code class="table__name">id</code>
+          <code class="table__type">string</code>
+          <code class="table__default">—</code>
+          <span class="table__desc">Requerido. Identifica el ítem dentro de expandedIds/defaultExpandedIds del padre.</span>
+        </div>
+        <div class="table__row">
+          <code class="table__name">disabled</code>
+          <code class="table__type">boolean</code>
+          <code class="table__default">false</code>
+          <span class="table__desc">No se puede abrir/cerrar, pero se sigue mostrando en su lugar.</span>
+        </div>
+        <div class="table__row">
+          <code class="table__name">[header]</code>
+          <code class="table__type">contenido proyectado</code>
+          <code class="table__default">—</code>
+          <span class="table__desc">Encabezado completamente propio — Accordion solo agrega el chevron.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

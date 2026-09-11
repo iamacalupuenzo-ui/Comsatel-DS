@@ -1,0 +1,192 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Toast</p>
+  <h1 class="title">Toast</h1>
+  <p class="description">
+    Un toast es una notificación breve, posicionada en una esquina, para confirmaciones y
+    acknowledgments que requieren mínima interacción. A diferencia de Banner, flota sobre la
+    página en vez de vivir inline dentro del contenido.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta los controles para explorar el toast.</p>
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <div class="toast-playground">
+        @if (pgVisible()) {
+          <cs-toast
+            [title]="pgContent().title"
+            [description]="pgContent().description"
+            [variant]="pgVariant()"
+            [actions]="pgActions()"
+            (actionClick)="reportAction($event.label)"
+            (dismissed)="reportDismissed()"
+          />
+        }
+        <p class="toast-result" aria-live="polite">{{ actionResult() }}</p>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Variantes -->
+  <section class="section">
+    <h2 class="section__title" id="variants">Variantes</h2>
+    <p class="section__intro">
+      default es sutil (fondo de superficie, borde fino) y siempre se puede cerrar. Las cuatro
+      variantes con tono (info, success, warning, error) usan relleno sólido y a propósito no
+      llevan botón de cerrar: exigen una acción directa en vez de descartarse sin leer.
+    </p>
+    <div class="static-block">
+      <div class="static-block__preview toast-stack">
+        @for (v of variants; track v) {
+          <cs-toast [title]="sampleContent[v].title" [description]="sampleContent[v].description" [variant]="v" />
+        }
+      </div>
+      <app-code-block
+        code="<cs-toast title=&quot;Nueva versión publicada&quot; description=&quot;Actualiza para ver los cambios.&quot; (dismissed)=&quot;...&quot; />
+<cs-toast variant=&quot;info&quot; title=&quot;No hay personas en este proyecto&quot; description=&quot;Agrega a tu equipo para comenzar.&quot; />
+<cs-toast variant=&quot;success&quot; title=&quot;Tarea creada correctamente&quot; description=&quot;START-42 se agregó al backlog.&quot; />
+<cs-toast variant=&quot;warning&quot; title=&quot;Esta página es visible externamente&quot; description=&quot;¿Seguro que quieres publicarla?&quot; />
+<cs-toast variant=&quot;error&quot; title=&quot;Hay un problema de conexión&quot; description=&quot;Revisa tu conexión e inténtalo de nuevo.&quot; />"
+      ></app-code-block>
+    </div>
+  </section>
+
+  <!-- Acciones -->
+  <section class="section">
+    <h2 class="section__title" id="actions">Acciones</h2>
+    <p class="section__intro">
+      default muestra sus acciones como links subrayados; las variantes con tono las muestran como
+      botones, en proporción a cuánta atención pide el mensaje.
+    </p>
+    <div class="static-block">
+      <div class="static-block__preview toast-stack">
+        <cs-toast title="Nueva versión publicada" description="Actualiza para ver los cambios." [actions]="[{ label: 'Actualizar' }, { label: 'Descartar' }]" />
+        <cs-toast variant="success" title="Tarea creada correctamente" description="START-42 se agregó al backlog." [actions]="[{ label: 'Ver tarea' }]" />
+      </div>
+      <app-code-block [code]="actionsCode"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Apilados -->
+  <section class="section">
+    <h2 class="section__title" id="stacked">Apilados</h2>
+    <p class="section__intro">
+      Los toasts aparecen en una esquina fija de la pantalla y se apilan con el más nuevo arriba.
+      Esta vista solo muestra el espaciado del apilado — el posicionamiento fijo real y el orden de
+      montaje/desmontaje son responsabilidad de la app que lo consume, no de este componente.
+    </p>
+    <div class="stacked-panel">
+      <cs-toast title="Tarea creada correctamente" variant="success" />
+      <cs-toast title="Nuevo comentario en START-42" description="Ana: ¿Puedes revisarlo hoy?" />
+    </div>
+  </section>
+
+  <!-- Lineamientos -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <cs-icon name="check" [size]="13" class="guide-card__header-icon" aria-hidden="true" />
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Deja que los toasts de warning y error permanezcan hasta que alguien los lea y actúe — nunca los auto-cierres.</p>
+          <cs-toast title="Conexión perdida" variant="error" [actions]="[{ label: 'Reintentar' }]" (actionClick)="reportAction($event.label)" />
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <cs-icon name="x" [size]="13" class="guide-card__header-icon" aria-hidden="true" />
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No auto-cierres un toast de warning o error con un temporizador: la persona pierde mensajes que nunca llegó a leer.</p>
+          <cs-toast title="Conexión perdida" variant="error" [actions]="[{ label: 'Reintentar' }]" />
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <cs-icon name="check" [size]="13" class="guide-card__header-icon" aria-hidden="true" />
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Muestra máximo 2-3 toasts apilados a la vez; encola el resto.</p>
+          <div class="guide-card__toast-stack">
+            <cs-toast title="Tarea creada" variant="success" />
+            <cs-toast title="Comentario agregado" />
+          </div>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <cs-icon name="x" [size]="13" class="guide-card__header-icon" aria-hidden="true" />
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No dejes que los toasts se acumulen sin límite: una pared de notificaciones apiladas deja de significar algo.</p>
+          <div class="guide-card__toast-stack">
+            <cs-toast title="Tarea creada" variant="success" />
+            <cs-toast title="Comentario agregado" />
+            <cs-toast title="Archivo cargado" variant="success" />
+            <cs-toast title="Mención en START-12" />
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <cs-icon name="check" [size]="13" class="guide-card__header-icon" aria-hidden="true" />
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Mantén el título en una oración corta y deja que la descripción agregue el único detalle extra que importa.</p>
+          <cs-toast title="Archivo cargado" variant="success" />
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <cs-icon name="x" [size]="13" class="guide-card__header-icon" aria-hidden="true" />
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No escribas un párrafo dentro de un toast: si necesita ese espacio, va en un Section Message en su lugar.</p>
+          <cs-toast
+            title="Tu archivo se cargó al espacio compartido"
+            description="Ahora está disponible para todas las personas con acceso al proyecto y se indexará para la búsqueda en unos minutos."
+            variant="success"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Toast anuncia un cambio breve sin mover el foco ni interrumpir la tarea activa.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Anuncio</strong><span>Usa <code>role="status"</code> con <code>aria-live="polite"</code>; la notificación se anuncia sin interrumpir la lectura actual.</span></div>
+      <div class="table__row"><strong>Contenido</strong><span>El título obligatorio comunica el resultado; el color y el ícono solo lo complementan.</span></div>
+      <div class="table__row"><strong>Acciones</strong><span>Las acciones y el cierre son controles nativos con nombre visible o accesible y foco perceptible.</span></div>
+      <div class="table__row"><strong>Tiempo</strong><span>Warning y error no deben desaparecer automáticamente: deben permanecer para permitir lectura y acción.</span></div>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">El titular del toast. Obligatorio: todo toast necesita uno.</span></div>
+      <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Línea de apoyo opcional, una oración.</span></div>
+      <div class="table__row"><code class="table__name">variant</code><code class="table__type">"default" | "info" | "success" | "warning" | "error"</code><code class="table__default">"default"</code><span class="table__desc">Controla el tono y el comportamiento de cierre: default es sutil y descartable; las otras cuatro son sólidas y exigen una acción en su lugar.</span></div>
+      <div class="table__row"><code class="table__name">icon</code><code class="table__type">IconName</code><code class="table__default">—</code><span class="table__desc">Sobrescribe el ícono por defecto de la variante.</span></div>
+      <div class="table__row"><code class="table__name">actions</code><code class="table__type">{{ '{' }} label: string; href?: string {{ '}' }}[]</code><code class="table__default">—</code><span class="table__desc">Se muestran como links en default, como botones en las variantes con tono.</span></div>
+      <div class="table__row"><code class="table__name">(actionClick)</code><code class="table__type">EventEmitter&lt;ToastAction&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en una acción sin href.</span></div>
+      <div class="table__row"><code class="table__name">(dismissed)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en el botón de cerrar. Solo se renderiza para variant="default".</span></div>
+    </div>
+  </section>
+</div>

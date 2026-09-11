@@ -25,6 +25,8 @@ export class Checkbox implements OnChanges, AfterViewInit {
   @Input() size: CheckboxSize = 'md';
   @Input() label?: string;
   @Input() description?: string;
+  /** Nombre accesible para el caso sin etiqueta visible. */
+  @Input('aria-label') ariaLabel = '';
   @Input() disabled = false;
   @Input() indeterminate = false;
   @Input() checked = false;

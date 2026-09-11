@@ -1,0 +1,112 @@
+:host {
+  display: block;
+}
+
+.cs-app-layout__topnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--layout-topnav-height);
+  z-index: var(--elevation-z-index-sticky);
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-lg);
+  padding-inline: var(--layout-padding-xl);
+  border-bottom: var(--layout-border-thin) solid var(--color-border-divider);
+  background-color: var(--elevation-surface-default);
+}
+
+.cs-app-layout__sidenav {
+  position: fixed;
+  top: var(--layout-topnav-height);
+  left: 0;
+  z-index: var(--elevation-z-index-dropdown);
+  width: var(--layout-sidenav-width-expanded);
+  height: calc(100vh - var(--layout-topnav-height));
+  display: flex;
+  flex-direction: column;
+  border-right: var(--layout-border-thin) solid var(--color-border-divider);
+  background-color: var(--elevation-surface-default);
+  transition: width var(--motion-duration-medium) var(--motion-easing-default);
+}
+:host([data-mode='rail']) .cs-app-layout__sidenav {
+  width: var(--layout-sidenav-width-collapsed);
+}
+
+.cs-app-layout__sidenav-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--layout-padding-2xl) var(--layout-padding-lg);
+}
+
+.cs-app-layout__collapse {
+  flex-shrink: 0;
+  border-top: var(--layout-border-thin) solid var(--color-border-divider);
+  padding: var(--layout-padding-md);
+}
+.cs-app-layout__collapse-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: var(--layout-padding-sm);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-base-subtle);
+  cursor: pointer;
+}
+.cs-app-layout__collapse-btn:hover {
+  background-color: var(--color-interaction-hovered);
+  color: var(--color-text-base-default);
+}
+.cs-app-layout__collapse-btn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 var(--layout-border-thick) var(--elevation-surface-default),
+    0 0 0 var(--layout-border-thicker) var(--color-border-focused);
+}
+
+.cs-app-layout__main {
+  margin-left: var(--layout-sidenav-width-expanded);
+  padding-top: var(--layout-topnav-height);
+  min-height: 100vh;
+  transition: margin-left var(--motion-duration-medium) var(--motion-easing-default);
+}
+:host([data-mode='rail']) .cs-app-layout__main {
+  margin-left: var(--layout-sidenav-width-collapsed);
+}
+
+.cs-app-layout__panel {
+  position: fixed;
+  top: var(--layout-topnav-height);
+  right: 0;
+  z-index: var(--elevation-z-index-dropdown);
+  width: var(--layout-panel-width);
+  height: calc(100vh - var(--layout-topnav-height));
+  overflow-y: auto;
+  border-left: var(--layout-border-thin) solid var(--color-border-divider);
+  background-color: var(--elevation-surface-default);
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-app-layout__sidenav,
+  .cs-app-layout__main {
+    transition: none;
+  }
+}
+
+/* --breakpoint-xl (1280px, tokens.css) — un media query no puede leer una
+   custom property en su condición, queda repetido a propósito. El hueco
+   de .cs-app-layout__main solo se reserva cuando el consumidor de verdad
+   proyecta contenido en [panel] (ver [hasPanel] en app-layout.ts). */
+@media (min-width: 1280px) {
+  :host([data-has-panel='true']) .cs-app-layout__panel {
+    display: block;
+  }
+  :host([data-has-panel='true']) .cs-app-layout__main {
+    margin-right: var(--layout-panel-width);
+  }
+}

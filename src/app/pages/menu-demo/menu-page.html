@@ -1,0 +1,197 @@
+<div class="page" #demoRoot>
+  <p class="eyebrow">Componentes / Menu</p>
+  <h1 class="title">Menu</h1>
+  <p class="description">
+    Menu es la lista de navegación reutilizable con la que se arma un side nav: grupos de ítems
+    con ícono, badge, atajo de teclado, y un nivel de hijos anidados. Se renderiza en modo
+    expandido (labels completos) o rail (solo íconos, con flyout). A diferencia de Dropdown, Menu
+    nunca dispara una acción — cada ítem es un link real a algún lado.
+  </p>
+
+  <!-- Ejemplo completo -->
+  <section class="section">
+    <h2 class="section__title" id="example">Ejemplo completo</h2>
+    <p class="section__intro">
+      Un menú realista, compuesto igual que lo armaría un producto real — este es el planeado para
+      la navegación de C-Locater Flotas.
+    </p>
+    <div class="frames-row">
+      <div class="frame" style="width: 240px;">
+        <div class="frame__header">
+          <img src="/logos/c-locator-logo.png" alt="C-Locator by Comsatel" />
+        </div>
+        <div class="frame__body">
+          <cs-menu [groups]="fleetGroups" mode="expanded" activeHref="/live" />
+        </div>
+      </div>
+      <div class="frame frame--rail" style="width: 72px;">
+        <div class="frame__header">
+          <img src="/logos/c-locator-logo-compact.png" alt="C-Locator by Comsatel" />
+        </div>
+        <div class="frame__body">
+          <cs-menu [groups]="fleetGroups" mode="rail" activeHref="/live" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Cambia entre modo expandido y rail, y qué ítem está activo.</p>
+    <app-demo-shell [controls]="playgroundControls" code="<cs-menu [groups]=&quot;groups&quot; [mode]=&quot;mode&quot; [activeHref]=&quot;pathname&quot; />" (stateChange)="onPlaygroundState($event)">
+      <div class="frame" [class.frame--rail]="pgMode() === 'rail'" [style.width.px]="pgMode() === 'rail' ? 72 : 240">
+        <div class="frame__header">
+          <img [src]="pgMode() === 'rail' ? '/logos/c-locator-logo-compact.png' : '/logos/c-locator-logo.png'" alt="C-Locator by Comsatel" />
+        </div>
+        <div class="frame__body">
+          <cs-menu [groups]="fleetGroups" [mode]="pgMode()" [activeHref]="pgActiveHref()" />
+        </div>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Estados -->
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Badge, atajo de teclado, ítem con hijos, y deshabilitado — cada uno independiente de los demás.</p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        <div class="frame" style="width: 240px;">
+          <div class="frame__body">
+            <cs-menu [groups]="stateGroups" mode="expanded" activeHref="#shortcut" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lineamientos -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Agrupa ítems relacionados bajo un header de grupo — ayuda a escanear un menú largo.</p>
+          <code class="guide-card__code">groups=[&#123;header:'Gestión', items:[...]&#125;]</code>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No crees un grupo con header para un solo ítem — un header sin más de un ítem debajo no aporta nada al escaneo.</p>
+          <code class="guide-card__code">groups=[&#123;header:'Ayuda', items:[uno]&#125;]</code>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Pasa siempre activeHref atado a la ruta actual, para que el ítem correspondiente se resalte solo.</p>
+          <code class="guide-card__code">[activeHref]="router.url"</code>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No manejes el estado activo/resaltado a mano por fuera de activeHref: tarde o temprano se desincroniza de la ruta real.</p>
+          <code class="guide-card__code">activo = signal('/dashboard')</code>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa Menu solo para ítems que navegan a un href real.</p>
+          <div style="width: 200px;">
+            <cs-menu [groups]="guideActionsGroups" mode="expanded" />
+          </div>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses Menu para disparar acciones como exportar o eliminar: para eso está Dropdown.</p>
+          <code class="guide-card__code">&#123; label: 'Exportar CSV', href: '#', (click): ... &#125;</code>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Mantén los hijos en un solo nivel: un header de grupo, sus ítems, y como mucho un nivel de hijos anidados.</p>
+          <div style="width: 200px;">
+            <cs-menu [groups]="guideDepthGroups" mode="expanded" activeHref="/fleet" />
+          </div>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No anides hijos dentro de hijos: el tipo de Menu no lo permite, y un tercer nivel es difícil de escanear dentro de un flyout de rail.</p>
+          <code class="guide-card__code">children: [&#123; ..., children: [...] &#125;]</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Menu: Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">groups</code><code class="table__type">MenuGroupData[]</code><code class="table__default">—</code><span class="table__desc">Array de grupos de ítems, cada uno con un header opcional.</span></div>
+      <div class="table__row"><code class="table__name">mode</code><code class="table__type">"expanded" | "rail"</code><code class="table__default">"expanded"</code><span class="table__desc">expanded: labels completos. rail: solo íconos, con flyout al pasar el mouse o enfocar.</span></div>
+      <div class="table__row"><code class="table__name">activeHref</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">El href que debe mostrarse resaltado.</span></div>
+      <div class="table__row"><code class="table__name">(navigate)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en cualquier link — útil para cerrar un drawer mobile.</span></div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title">MenuGroupData: Forma</h3>
+      <div class="table">
+        <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+        <div class="table__row"><code class="table__name">header</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Label opcional arriba del grupo en modo expandido. Se oculta en modo rail.</span></div>
+        <div class="table__row"><code class="table__name">items</code><code class="table__type">MenuItemData[]</code><code class="table__default">—</code><span class="table__desc">Los ítems del grupo.</span></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title">MenuItemData: Forma</h3>
+      <div class="table">
+        <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+        <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto del ítem.</span></div>
+        <div class="table__row"><code class="table__name">href</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Ruta real a la que navega.</span></div>
+        <div class="table__row"><code class="table__name">icon</code><code class="table__type">IconName</code><code class="table__default">—</code><span class="table__desc">Obligatorio en la práctica para que el ítem sea usable en modo rail.</span></div>
+        <div class="table__row"><code class="table__name">badge</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Contador corto, se muestra como badge circular.</span></div>
+        <div class="table__row"><code class="table__name">shortcut</code><code class="table__type">string[]</code><code class="table__default">—</code><span class="table__desc">Atajo de teclado. Solo se muestra, el atajo en sí lo dispara quien consume Menu.</span></div>
+        <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">No navega, se atenúa.</span></div>
+        <div class="table__row"><code class="table__name">children</code><code class="table__type">MenuItemData[]</code><code class="table__default">—</code><span class="table__desc">Un solo nivel de hijos — no anidan más.</span></div>
+      </div>
+    </div>
+  </section>
+</div>

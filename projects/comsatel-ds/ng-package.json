@@ -3,5 +3,6 @@
   "dest": "../../dist/comsatel-ds",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": ["gsap"]
 }

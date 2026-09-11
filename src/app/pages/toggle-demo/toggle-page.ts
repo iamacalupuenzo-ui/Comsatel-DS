@@ -1,12 +1,12 @@
 import { Component, computed, signal } from '@angular/core';
-import { Toggle, type ToggleSize } from 'comsatel-ds';
+import { Button, Icon, Toggle, type ToggleSize } from 'comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 const SIZES: ToggleSize[] = ['sm', 'md', 'lg'];
 
 @Component({
   selector: 'app-toggle-page',
-  imports: [Toggle, DemoShell],
+  imports: [Button, Icon, Toggle, DemoShell],
   templateUrl: './toggle-page.html',
   styleUrl: './toggle-page.css',
 })
@@ -36,8 +36,9 @@ export class TogglePage {
   protected readonly pgCode = computed(() => {
     const props: string[] = [];
     if (this.pgSize() !== 'md') props.push(`size="${this.pgSize()}"`);
-    if (this.pgLabel()) props.push(`label="Notificaciones por correo"`);
-    if (this.pgDescription()) props.push(`description="Recibe un resumen diario de la actividad."`);
+    if (this.pgLabel()) props.push(`label="Enable notifications"`);
+    else props.push(`aria-label="Enable notifications"`);
+    if (this.pgDescription()) props.push(`description="You'll receive alerts for important updates."`);
     if (this.pgDisabled()) props.push(`[disabled]="true"`);
     props.push(`[checked]="true"`);
     const attrs = props.length ? `\n  ${props.join('\n  ')}\n` : '';

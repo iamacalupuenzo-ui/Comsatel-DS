@@ -6,7 +6,7 @@
      mismo criterio que FIELD_WIDTH en DateTimePicker. */
   width: 211px;
   border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border-neutral-default);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-default);
   background-color: var(--color-background-neutral-subtlest);
   box-shadow: var(--shadow-xs);
 }
@@ -18,7 +18,7 @@
   padding-inline: var(--layout-padding-xl);
   padding-top: var(--layout-padding-md);
   padding-bottom: var(--layout-padding-lg);
-  border-top: 1px solid var(--color-border-divider);
+  border-top: var(--layout-border-thin) solid var(--color-border-divider);
 }
 
 .cs-spotlight-card__title {

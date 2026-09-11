@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Avatar, AvatarLabel, AvatarGroup, AvatarAddButton, type AvatarSize, type AvatarStatus } from 'comsatel-ds';
+import { Avatar, AvatarLabel, AvatarGroup, AvatarAddButton, Icon, type AvatarSize, type AvatarStatus } from 'comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 const SIZES: AvatarSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
@@ -13,7 +13,7 @@ const PHOTOS = Array.from({ length: 9 }, (_, i) => `/avatars/avatar-${i + 1}.jpg
 
 @Component({
   selector: 'app-avatar-page',
-  imports: [Avatar, AvatarLabel, AvatarGroup, AvatarAddButton, DemoShell],
+  imports: [Avatar, AvatarLabel, AvatarGroup, AvatarAddButton, Icon, DemoShell],
   templateUrl: './avatar-page.html',
   styleUrl: './avatar-page.css',
 })

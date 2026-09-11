@@ -1,0 +1,364 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Modal</p>
+  <h1 class="title">Modal</h1>
+  <p class="description">
+    Un modal muestra contenido que necesita atención completa y una decisión antes de volver a la
+    página de abajo — una confirmación, un formulario corto obligatorio, una acción destructiva.
+    Cuando el mensaje no necesita bloquear el resto de la pantalla, usa Toast o Banner en su lugar.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Abre el modal y ajusta apariencia y ancho.</p>
+
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <cs-button variant="primary" (click)="pgOpen.set(true)">Abrir modal</cs-button>
+      <cs-modal
+        [isOpen]="pgOpen()"
+        title="Duplicar este recorrido"
+        [appearance]="pgAppearance()"
+        [width]="pgWidth()"
+        [primaryAction]="{ label: 'Confirmar' }"
+        [secondaryAction]="{ label: 'Cancelar' }"
+        (closed)="pgOpen.set(false)"
+        (primaryActionClick)="pgOpen.set(false)"
+        (secondaryActionClick)="pgOpen.set(false)"
+      >
+        Esto crea una copia del recorrido seleccionado dentro del mismo grupo de flota. El
+        recorrido original no cambia.
+      </cs-modal>
+    </app-demo-shell>
+  </section>
+
+  <!-- Apariencia -->
+  <section class="section">
+    <h2 class="section__title" id="appearance">Apariencia</h2>
+    <p class="section__intro">
+      warning y danger tiñen el título y el botón principal a la vez — nunca uno sin el otro, para
+      que la severidad se lea como una sola señal.
+    </p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        <cs-button variant="primary" (click)="appearanceOpen.set('default')">Default</cs-button>
+        <cs-button variant="warning" (click)="appearanceOpen.set('warning')">Warning</cs-button>
+        <cs-button variant="destructive" (click)="appearanceOpen.set('danger')">Danger</cs-button>
+
+        <cs-modal
+          [isOpen]="appearanceOpen() === 'default'"
+          title="Duplicar este recorrido"
+          [primaryAction]="{ label: 'Confirmar' }"
+          [secondaryAction]="{ label: 'Cancelar' }"
+          (closed)="appearanceOpen.set(null)"
+          (primaryActionClick)="appearanceOpen.set(null)"
+          (secondaryActionClick)="appearanceOpen.set(null)"
+        >
+          Esto crea una copia del recorrido seleccionado dentro del mismo grupo de flota.
+        </cs-modal>
+
+        <cs-modal
+          [isOpen]="appearanceOpen() === 'warning'"
+          title="Mover esta unidad a otro grupo"
+          appearance="warning"
+          [primaryAction]="{ label: 'Confirmar' }"
+          [secondaryAction]="{ label: 'Cancelar' }"
+          (closed)="appearanceOpen.set(null)"
+          (primaryActionClick)="appearanceOpen.set(null)"
+          (secondaryActionClick)="appearanceOpen.set(null)"
+        >
+          Sus reglas de alerta y geocercas no se trasladan automáticamente — vas a tener que
+          configurarlas de nuevo en el grupo nuevo.
+        </cs-modal>
+
+        <cs-modal
+          [isOpen]="appearanceOpen() === 'danger'"
+          title="Eliminar este recorrido permanentemente"
+          appearance="danger"
+          [primaryAction]="{ label: 'Eliminar recorrido' }"
+          [secondaryAction]="{ label: 'Cancelar' }"
+          (closed)="appearanceOpen.set(null)"
+          (primaryActionClick)="appearanceOpen.set(null)"
+          (secondaryActionClick)="appearanceOpen.set(null)"
+        >
+          3 reportes guardados hacen referencia a este recorrido y perderán esa referencia. Esto no
+          se puede deshacer.
+        </cs-modal>
+      </div>
+      <app-code-block code="<cs-modal title=&quot;Mover esta unidad a otro grupo&quot; appearance=&quot;warning&quot; ... />
+<cs-modal title=&quot;Eliminar este recorrido permanentemente&quot; appearance=&quot;danger&quot; ... />"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Ancho -->
+  <section class="section">
+    <h2 class="section__title" id="width">Ancho</h2>
+    <p class="section__intro">
+      Los tamaños con nombre (sm/md/lg/xl) cubren la mayoría de los casos. width también acepta un
+      número en píxeles para un caso puntual que no encaje en la escala.
+    </p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        @for (w of widths; track w) {
+          <cs-button variant="default" (click)="widthOpen.set(w)">{{ w }}</cs-button>
+        }
+        @for (w of widths; track w) {
+          <cs-modal
+            [isOpen]="widthOpen() === w"
+            title="Duplicar este recorrido"
+            [width]="w"
+            [primaryAction]="{ label: 'Confirmar' }"
+            [secondaryAction]="{ label: 'Cancelar' }"
+            (closed)="widthOpen.set(null)"
+            (primaryActionClick)="widthOpen.set(null)"
+            (secondaryActionClick)="widthOpen.set(null)"
+          >
+            Esto crea una copia del recorrido seleccionado dentro del mismo grupo de flota.
+          </cs-modal>
+        }
+      </div>
+      <app-code-block code="<cs-modal width=&quot;lg&quot; ... />"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Comportamiento de scroll -->
+  <section class="section">
+    <h2 class="section__title" id="scroll">Comportamiento de scroll</h2>
+    <p class="section__intro">
+      body (por defecto) fija el encabezado y el pie, y solo el contenido hace scroll interno.
+      viewport deja que todo el modal se desplace dentro de la página en su lugar, sin nada fijo —
+      útil cuando el contenido no tiene una jerarquía clara de "esto siempre visible".
+    </p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        <cs-button variant="default" (click)="scrollOpen.set('body')">Scroll en el body</cs-button>
+        <cs-button variant="default" (click)="scrollOpen.set('viewport')">Scroll en el viewport</cs-button>
+
+        <cs-modal
+          [isOpen]="scrollOpen() === 'body'"
+          title="Política de uso de datos"
+          scrollBehavior="body"
+          [primaryAction]="{ label: 'Confirmar' }"
+          (closed)="scrollOpen.set(null)"
+          (primaryActionClick)="scrollOpen.set(null)"
+        >
+          @for (p of scrollModalBody; track p) {
+            <p class="modal-demo-paragraph">{{ p }}</p>
+          }
+        </cs-modal>
+
+        <cs-modal
+          [isOpen]="scrollOpen() === 'viewport'"
+          title="Política de uso de datos"
+          scrollBehavior="viewport"
+          [primaryAction]="{ label: 'Confirmar' }"
+          (closed)="scrollOpen.set(null)"
+          (primaryActionClick)="scrollOpen.set(null)"
+        >
+          @for (p of scrollModalBody; track p) {
+            <p class="modal-demo-paragraph">{{ p }}</p>
+          }
+        </cs-modal>
+      </div>
+      <app-code-block code="<cs-modal scrollBehavior=&quot;viewport&quot; ... />"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Formulario -->
+  <section class="section">
+    <h2 class="section__title" id="form">Formulario</h2>
+    <p class="section__intro">
+      El contenido proyectado y el footer aceptan cualquier cosa — un formulario real con
+      validación y un botón principal que dispara el envío funciona igual que fuera del modal.
+    </p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        <cs-button variant="primary" (click)="formOpen.set(true)">Nueva unidad</cs-button>
+        <cs-modal
+          [isOpen]="formOpen()"
+          title="Registrar una unidad nueva"
+          [primaryAction]="{ label: 'Crear unidad' }"
+          [secondaryAction]="{ label: 'Cancelar' }"
+          (closed)="formOpen.set(false)"
+          (primaryActionClick)="submitForm()"
+          (secondaryActionClick)="formOpen.set(false)"
+        >
+          <div class="modal-demo-field">
+            <label class="modal-demo-field__label" for="modal-demo-unit-name">Nombre de la unidad</label>
+            <cs-input id="modal-demo-unit-name" placeholder="ej. Camión 04" [value]="formName()" (valueChange)="formName.set($event)"></cs-input>
+          </div>
+        </cs-modal>
+      </div>
+      <app-code-block code="<cs-modal
+  [isOpen]=&quot;isOpen()&quot;
+  title=&quot;Registrar una unidad nueva&quot;
+  [primaryAction]=&quot;{ label: 'Crear unidad' }&quot;
+  (primaryActionClick)=&quot;submitForm()&quot;
+>
+  <input ... />
+</cs-modal>"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Accesibilidad -->
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Modal implementa el patrón de diálogo modal: nombre accesible, foco contenido, cierre por teclado y retorno del foco al elemento que lo abrió.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Semántica</strong><span>El panel usa <code class="inline-code">role="dialog"</code>, <code class="inline-code">aria-modal="true"</code> y etiqueta el título con <code class="inline-code">aria-labelledby</code>.</span></div>
+      <div class="table__row"><strong>Foco inicial</strong><span>Al abrir, el foco va a <code class="inline-code">initialFocusRef</code>, al botón «Cerrar» o al panel como último recurso.</span></div>
+      <div class="table__row"><strong>Trampa de foco</strong><span><kbd>Tab</kbd> y <kbd>Shift</kbd> + <kbd>Tab</kbd> permanecen dentro del diálogo mientras está abierto.</span></div>
+      <div class="table__row"><strong>Cierre</strong><span><kbd>Escape</kbd>, el botón de cierre y el clic sobre el overlay emiten <code class="inline-code">closed</code> según <code class="inline-code">closeOnOverlayClick</code>.</span></div>
+      <div class="table__row"><strong>Restauración</strong><span>Al cerrar, el foco vuelve al elemento que abrió el modal y el scroll de la página recupera su estado anterior.</span></div>
+      <div class="table__row"><strong>Acciones</strong><span>Las acciones tienen etiquetas visibles, variantes semánticas, estados disabled/loading y eventos para que el padre controle el resultado.</span></div>
+      <div class="table__row"><strong>Foco visible</strong><span>El botón «Cerrar» y las acciones del footer conservan un anillo de foco perceptible con tokens del sistema.</span></div>
+    </div>
+  </section>
+
+  <!-- Lineamientos -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <p class="section__intro">Usa Modal solo cuando la persona debe decidir o completar algo antes de continuar; conserva un propósito y una acción principal claros.</p>
+
+    <div class="guide-grid modal-guidelines">
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa un modal para confirmar una operación destructiva antes de ejecutarla.</p>
+          <cs-button variant="destructive" size="sm" (click)="openGuide('destructive')">Eliminar recorrido</cs-button>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses un modal para un aviso de bajo riesgo que puede comunicarse sin bloquear la página.</p>
+          <cs-button variant="default" size="sm" (click)="showNonBlockingNotice()">Mostrar aviso</cs-button>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Mantén un footer breve con una acción principal y una alternativa para cancelar.</p>
+          <cs-button variant="primary" size="sm" (click)="openGuide('focused-footer')">Abrir confirmación</cs-button>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No repartas la atención entre varias acciones equivalentes dentro del footer.</p>
+          <cs-button variant="default" size="sm" (click)="openGuide('many-actions')">Abrir ejemplo</cs-button>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Alinea la severidad visual del modal con el impacto real de la acción.</p>
+          <cs-button variant="destructive" size="sm" (click)="openGuide('aligned-severity')">Eliminar recorrido</cs-button>
+        </div>
+      </article>
+
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses una acción destructiva para una decisión neutral como cancelar o volver.</p>
+          <cs-button variant="default" size="sm" (click)="openGuide('misaligned-severity')">Abrir ejemplo</cs-button>
+        </div>
+      </article>
+    </div>
+
+    @if (guideStatus()) {
+      <p class="guide-status" aria-live="polite">{{ guideStatus() }}</p>
+    }
+    <button type="button" class="guideline-reset" (click)="resetGuidelines()">Reiniciar ejemplos interactivos</button>
+
+    <cs-modal
+      [isOpen]="guideOpen() === 'destructive'"
+      title="Eliminar este recorrido permanentemente"
+      appearance="danger"
+      [primaryAction]="{ label: 'Eliminar recorrido' }"
+      [secondaryAction]="{ label: 'Cancelar' }"
+      (closed)="closeGuide()"
+      (primaryActionClick)="closeGuide('Recorrido eliminado.')"
+      (secondaryActionClick)="closeGuide('Eliminación cancelada.')"
+    >
+      Esta operación no se puede deshacer y quitará los reportes asociados.
+    </cs-modal>
+
+    <cs-modal
+      [isOpen]="guideOpen() === 'focused-footer'"
+      title="Confirmar cambio de grupo"
+      [primaryAction]="{ label: 'Confirmar' }"
+      [secondaryAction]="{ label: 'Cancelar' }"
+      (closed)="closeGuide()"
+      (primaryActionClick)="closeGuide('Cambio confirmado.')"
+      (secondaryActionClick)="closeGuide('Cambio cancelado.')"
+    >
+      La unidad se moverá al grupo seleccionado.
+    </cs-modal>
+
+    <cs-modal
+      [isOpen]="guideOpen() === 'many-actions'"
+      title="Guardar cambios del recorrido"
+      [primaryAction]="{ label: 'Guardar' }"
+      [secondaryAction]="{ label: 'Cancelar' }"
+      (closed)="closeGuide()"
+      (primaryActionClick)="closeGuide('Cambios guardados.')"
+      (secondaryActionClick)="closeGuide('Guardado cancelado.')"
+    >
+      <p>Este ejemplo mantiene una acción secundaria adicional dentro del contenido para mostrar por qué conviene reducir las decisiones del footer.</p>
+      <cs-button variant="default" size="sm" (click)="closeGuide('Borrador guardado.')">Guardar borrador</cs-button>
+    </cs-modal>
+
+    <cs-modal
+      [isOpen]="guideOpen() === 'aligned-severity'"
+      title="Eliminar este recorrido permanentemente"
+      appearance="danger"
+      [primaryAction]="{ label: 'Eliminar recorrido' }"
+      [secondaryAction]="{ label: 'Cancelar' }"
+      (closed)="closeGuide()"
+      (primaryActionClick)="closeGuide('Recorrido eliminado.')"
+      (secondaryActionClick)="closeGuide('Eliminación cancelada.')"
+    >
+      La acción irreversible se comunica con una variante destructiva y una confirmación explícita.
+    </cs-modal>
+
+    <cs-modal
+      [isOpen]="guideOpen() === 'misaligned-severity'"
+      title="Eliminar este recorrido permanentemente"
+      appearance="danger"
+      [primaryAction]="{ label: 'Cancelar' }"
+      [secondaryAction]="{ label: 'Eliminar recorrido' }"
+      (closed)="closeGuide()"
+      (primaryActionClick)="closeGuide('Cancelación seleccionada.')"
+      (secondaryActionClick)="closeGuide('Recorrido eliminado.')"
+    >
+      El botón principal comunica «Cancelar» con el color destructivo: es una jerarquía incorrecta.
+    </cs-modal>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">isOpen</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Controla si el modal está montado y visible.</span></div>
+      <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">El encabezado del modal.</span></div>
+      <div class="table__row"><code class="table__name">appearance</code><code class="table__type">ModalAppearance</code><code class="table__default">"default"</code><span class="table__desc">"default" | "warning" | "danger". Tiñe el título y el botón principal juntos.</span></div>
+      <div class="table__row"><code class="table__name">width</code><code class="table__type">ModalWidthToken | number</code><code class="table__default">"md"</code><span class="table__desc">"sm" | "md" | "lg" | "xl" o un número directo en píxeles.</span></div>
+      <div class="table__row"><code class="table__name">hasCloseButton</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Oculta el botón de cerrar del encabezado cuando es false.</span></div>
+      <div class="table__row"><code class="table__name">closeLabel</code><code class="table__type">string</code><code class="table__default">"Cerrar"</code><span class="table__desc">Nombre accesible del botón de cierre.</span></div>
+      <div class="table__row"><code class="table__name">scrollBehavior</code><code class="table__type">ModalScrollBehavior</code><code class="table__default">"body"</code><span class="table__desc">"body" | "viewport".</span></div>
+      <div class="table__row"><code class="table__name">closeOnOverlayClick</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Ponlo en false para un flujo que debe resolverse con una acción explícita.</span></div>
+      <div class="table__row"><code class="table__name">initialFocusRef</code><code class="table__type">ElementRef&lt;HTMLElement&gt;</code><code class="table__default">—</code><span class="table__desc">A qué elemento enfocar al abrir en vez del botón de cerrar.</span></div>
+      <div class="table__row"><code class="table__name">primaryAction</code><code class="table__type">ModalAction</code><code class="table__default">—</code><span class="table__desc">{{ '{ label, disabled?, loading? }' }}. Su color sigue a appearance.</span></div>
+      <div class="table__row"><code class="table__name">secondaryAction</code><code class="table__type">ModalAction</code><code class="table__default">—</code><span class="table__desc">Misma forma que primaryAction, siempre se muestra como botón subtle.</span></div>
+      <div class="table__row"><code class="table__name">(closed)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al presionar Escape, hacer clic afuera (si closeOnOverlayClick) o el botón de cerrar.</span></div>
+      <div class="table__row"><code class="table__name">(primaryActionClick)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en el botón principal del footer.</span></div>
+      <div class="table__row"><code class="table__name">(secondaryActionClick)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en el botón secundario del footer.</span></div>
+    </div>
+  </section>
+</div>

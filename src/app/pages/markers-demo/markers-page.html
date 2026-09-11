@@ -1,0 +1,235 @@
+<div class="page">
+  <p class="eyebrow">Mapa / Marcadores</p>
+  <h1 class="title">Marcadores</h1>
+  <p class="description">
+    Los pines que aparecen sobre el mapa no son componentes Angular: Leaflet los pinta con
+    <code>divIcon</code> a partir de un string de HTML. Estas vistas son el rediseño de referencia:
+    mismo propósito, tokens de tamaño, espaciado, radio, sombra y estados de interacción correctos.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta el estado, el tipo de unidad y la alarma para explorar el marcador de vehículo.</p>
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <app-vehicle-pill
+        [status]="pgStatus()"
+        label="V-204"
+        plate="ABC-204"
+        [vehicleType]="pgVehicleType()"
+        [alarm]="pgAlarm()"
+        [selected]="pgSelected()"
+        [visualState]="pgVisualStateInput()"
+      />
+    </app-demo-shell>
+  </section>
+
+  <!-- Estados -->
+  <section class="section">
+    <h2 class="section__title" id="vehicle-marker">Estados</h2>
+    <p class="section__intro">
+      Pill colapsada con ícono, nombre y placa, con su vástago apuntando al punto exacto sobre el
+      mapa. El punto de estado va sobre el ícono; un evento activo agrega una insignia de alarma en
+      la esquina.
+    </p>
+    <div class="marker-grid">
+      <div class="marker-grid__item">
+        <app-vehicle-pill status="active" label="V-204" plate="ABC-204" />
+        <span class="marker-grid__label">Activo</span>
+      </div>
+      <div class="marker-grid__item">
+        <app-vehicle-pill status="stopped" label="V-118" plate="XYZ-118" />
+        <span class="marker-grid__label">Detenido</span>
+      </div>
+      <div class="marker-grid__item">
+        <app-vehicle-pill status="offline" label="V-077" plate="LMN-077" />
+        <span class="marker-grid__label">Sin señal</span>
+      </div>
+      <div class="marker-grid__item">
+        <app-vehicle-pill status="active" label="V-204" plate="ABC-204" [alarm]="true" />
+        <span class="marker-grid__label">Con alarma activa</span>
+      </div>
+      <div class="marker-grid__item">
+        <app-vehicle-pill status="active" label="V-204" plate="ABC-204" [selected]="true" />
+        <span class="marker-grid__label">Seleccionado</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Densidad -->
+  <section class="section">
+    <h2 class="section__title" id="vehicle-density">Tamaño del ícono vs. densidad</h2>
+    <p class="section__intro">
+      El tamaño del círculo del ícono es una decisión de compromiso: crecerlo mejora la lectura de un
+      vehículo aislado, pero varios vehículos cercanos ocupan más espacio y pueden pisarse entre sí.
+      Compara las dos columnas con la misma escena de 4 vehículos.
+    </p>
+    <div class="density-grid">
+      <div class="density-panel">
+        <p class="density-panel__title">Actual — círculo de 24px (--layout-size-sm)</p>
+        <div class="density-panel__row">
+          <app-vehicle-pill iconTier="sm" status="active" label="V-204" plate="ABC-204" />
+          <app-vehicle-pill iconTier="sm" status="active" label="V-205" plate="ABC-205" />
+          <app-vehicle-pill iconTier="sm" status="stopped" label="V-118" plate="XYZ-118" />
+          <app-vehicle-pill iconTier="sm" status="offline" label="V-077" plate="LMN-077" />
+        </div>
+      </div>
+      <div class="density-panel">
+        <p class="density-panel__title">Propuesta — círculo de 32px (--layout-size-base)</p>
+        <div class="density-panel__row">
+          <app-vehicle-pill iconTier="base" status="active" label="V-204" plate="ABC-204" />
+          <app-vehicle-pill iconTier="base" status="active" label="V-205" plate="ABC-205" />
+          <app-vehicle-pill iconTier="base" status="stopped" label="V-118" plate="XYZ-118" />
+          <app-vehicle-pill iconTier="base" status="offline" label="V-077" plate="LMN-077" />
+        </div>
+      </div>
+    </div>
+    <p class="footnote">
+      En el mapa real esto no llega a superponerse sin control: cuando dos o más vehículos quedan a
+      menos de cierta distancia, el sistema los reemplaza automáticamente por la insignia de cluster
+      (ver más abajo), antes de que el amontonamiento se vuelva ilegible. Aun así, a igual distancia
+      entre vehículos, el círculo de 32px dobla el margen de traslape del de 24px, así que conviene
+      decidir esto revisando ambas columnas con la mayor densidad real esperada en el mapa, no solo
+      con 4 vehículos sueltos.
+    </p>
+  </section>
+
+  <!-- Dispositivo GPS -->
+  <section class="section">
+    <h2 class="section__title" id="gps-marker">Marcador de dispositivo GPS</h2>
+    <p class="section__intro">
+      Dos densidades según el zoom: una etiqueta compacta para vistas alejadas, y una tarjeta
+      completa con hora y estado de señal cuando el zoom lo permite. El color de acento identifica el
+      tipo de dispositivo; el punto identifica su estado de señal, son dos codificaciones distintas.
+    </p>
+    <div class="marker-grid marker-grid--2col">
+      <div class="marker-grid__item">
+        <app-gps-compact />
+        <span class="marker-grid__label">Compacto (zoom bajo)</span>
+      </div>
+      <div class="marker-grid__item">
+        <app-gps-full />
+        <span class="marker-grid__label">Completo (zoom alto)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clusters -->
+  <section class="section">
+    <h2 class="section__title" id="clusters">Clusters</h2>
+    <p class="section__intro">
+      Cuando dos o más marcadores quedan muy cerca, se agrupan en una insignia con el conteo. El
+      cluster de unidades usa el color de alarma y un pulso si alguna de sus unidades tiene un evento
+      activo.
+    </p>
+    <div class="marker-grid marker-grid--3col">
+      <div class="marker-grid__item">
+        <app-cluster-badge [count]="6" unit="uds." />
+        <span class="marker-grid__label">Cluster de unidades</span>
+      </div>
+      <div class="marker-grid__item">
+        <app-cluster-badge [count]="3" unit="uds." [alarm]="true" />
+        <span class="marker-grid__label">Cluster con alarma</span>
+      </div>
+      <div class="marker-grid__item">
+        <app-cluster-badge [count]="4" />
+        <span class="marker-grid__label">Cluster de dispositivos GPS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hover / presionado / seleccionado -->
+  <section class="section">
+    <h2 class="section__title" id="hover">Hover, presionado y seleccionado</h2>
+    <p class="section__intro">
+      Los cuatro marcadores son clickeables: abren la tarjeta del vehículo, expanden el dispositivo
+      GPS o hacen zoom sobre un cluster. El hover sigue la misma receta que usa Button para su
+      variante "default" (fondo a --color-background-neutral-subtle, sombra sube un nivel);
+      presionado va un nivel más (--color-background-neutral-default, sombra al tope de la escala).
+      Seleccionado es distinto a los dos anteriores: no es un pseudo-estado momentáneo, persiste
+      después del click y usa el mismo anillo de foco que Button (--color-border-focused), no la
+      escala de fondo/sombra. Usa los controles "Seleccionado" y "Estado visual" del Playground para
+      verlos sin depender del mouse.
+    </p>
+    <app-code-block [code]="hoverCode"></app-code-block>
+  </section>
+
+  <!-- Lineamientos -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Muestra siempre el vástago y el punto: son lo que ancla el marcador a la coordenada real. Sin ellos, el pill flota sin indicar a qué ubicación pertenece.</p>
+          <app-vehicle-pill status="active" label="V-204" plate="ABC-204" />
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No quites el vástago para "limpiar" el mapa, ni lo reemplaces por un ícono de pin genérico: se pierde la precisión del punto exacto que sí tiene esta forma.</p>
+          <div class="dont-pill-no-stem">
+            <div class="dont-pill-no-stem__icon"><cs-icon name="car" [size]="16" /></div>
+            <div class="dont-pill-no-stem__text">
+              <span class="dont-pill-no-stem__name">V-204</span>
+              <span class="dont-pill-no-stem__plate">ABC-204</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Confía en el sistema de clustering para la densidad alta. Cuando varios vehículos quedan cerca, deja que se agrupen en la insignia de conteo en vez de agrandar o encoger los pills a mano.</p>
+          <app-cluster-badge [count]="6" unit="uds." />
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No agrandes el círculo del ícono pensando en mapas con muchos vehículos: eso reduce el margen antes de que el clustering se dispare y aumenta el riesgo de traslape, justo lo contrario de lo que se busca.</p>
+          <div class="dont-row">
+            <app-vehicle-pill iconTier="base" status="active" label="V-1" plate="AAA-111" />
+            <app-vehicle-pill iconTier="base" status="active" label="V-2" plate="BBB-222" />
+            <app-vehicle-pill iconTier="base" status="stopped" label="V-3" plate="CCC-333" />
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Mantén el nombre y la placa cortos: la pill no tiene wrap, y esos dos textos son los que definen su ancho real sobre el mapa.</p>
+          <app-vehicle-pill status="active" label="V-42" plate="XYZ-042" />
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses el campo de nombre para descripciones largas o notas: un texto que no cabe en una línea rompe el layout de la pill y del vástago que la sostiene.</p>
+          <app-vehicle-pill status="active" label="Camión de reparto zona norte" plate="AAA-999-BB" />
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

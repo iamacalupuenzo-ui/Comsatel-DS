@@ -35,7 +35,7 @@
       <div class="row">
         @for (s of sizes; track s) {
           <div class="size-item">
-            <cs-checkbox [size]="s" [checked]="true"></cs-checkbox>
+            <cs-checkbox [size]="s" aria-label="Checkbox tamaño {{ s }}" [checked]="true"></cs-checkbox>
             <span class="size-item__label">{{ s }}</span>
           </div>
         }
@@ -100,6 +100,35 @@
     </app-demo-shell>
   </section>
 
+  <!-- Accesibilidad -->
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">El componente conserva un <strong>input checkbox nativo</strong> para que su semántica, foco y comportamiento de teclado no dependan de una recreación manual de ARIA.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Nombre accesible</strong><span>Usa <code>label</code> en los casos normales. Si el control no tiene texto visible, proporciona <code>aria-label</code>.</span></div>
+      <div class="table__row"><strong>Teclado</strong><span><code>Tab</code> lleva el foco al control y <code>Espacio</code> alterna entre marcado y sin marcar.</span></div>
+      <div class="table__row"><strong>Estado mixto</strong><span><code>indeterminate</code> comunica una selección parcial mediante el estado nativo del checkbox; úsalo solo como resumen de opciones hijas.</span></div>
+      <div class="table__row"><strong>Estado deshabilitado</strong><span>El control no recibe interacción ni foco y conserva la semántica <code>disabled</code> del navegador.</span></div>
+    </div>
+  </section>
+
+  <!-- Lineamientos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <p class="section__intro">Cada fila compara una práctica recomendada con un uso que se debe evitar.</p>
+    <div class="guide-grid">
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Usa una etiqueta breve que explique exactamente qué se selecciona.</p><cs-checkbox label="Notificaciones por correo"></cs-checkbox></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No ocultes la etiqueta sin reemplazarla por <code>aria-label</code>; el control quedaría sin nombre para lectores de pantalla.</p><pre class="guide-card__code">&lt;cs-checkbox&gt;&lt;/cs-checkbox&gt;</pre></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Usa el estado indeterminado para resumir una selección parcial de opciones relacionadas.</p><div class="col col--compact"><cs-checkbox label="Seleccionar todo" [indeterminate]="true"></cs-checkbox><div class="nested-options"><cs-checkbox label="Facturas" [checked]="true"></cs-checkbox><cs-checkbox label="Recibos"></cs-checkbox></div></div></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No muestres “Seleccionar todo” sin reflejar que solo una parte de sus opciones está marcada.</p><div class="col col--compact"><cs-checkbox label="Seleccionar todo"></cs-checkbox><div class="nested-options"><cs-checkbox label="Facturas" [checked]="true"></cs-checkbox><cs-checkbox label="Recibos"></cs-checkbox></div></div></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Separa el contexto adicional en una descripción legible debajo de la etiqueta.</p><cs-checkbox label="Correos de marketing" description="Actualizaciones y ofertas, como máximo una vez por semana."></cs-checkbox></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No conviertas la etiqueta en un párrafo largo que dificulte explorar las opciones.</p><cs-checkbox label="Correos de marketing, actualizaciones de producto, nuevas funciones y ofertas semanales; puedes cancelar cuando quieras."></cs-checkbox></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Usa checkboxes cuando varias opciones pueden seleccionarse de manera independiente.</p><div class="col col--compact"><cs-checkbox label="Correo electrónico" [checked]="true"></cs-checkbox><cs-checkbox label="SMS" [checked]="true"></cs-checkbox><cs-checkbox label="Notificaciones push"></cs-checkbox></div></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No uses Checkbox si la persona debe elegir una única opción; usa Radio en su lugar.</p><div class="col col--compact"><cs-checkbox label="Facturación mensual" [checked]="true"></cs-checkbox><cs-checkbox label="Facturación anual"></cs-checkbox></div></div></article>
+    </div>
+  </section>
+
   <!-- Propiedades -->
   <section class="section">
     <h2 class="section__title" id="props">Propiedades</h2>
@@ -108,9 +137,11 @@
       <div class="table__row"><code class="table__name">size</code><code class="table__type">"sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Controla el tamaño del checkbox. sm=14px, md=16px, lg=18px.</span></div>
       <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto de la etiqueta junto al checkbox.</span></div>
       <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto de apoyo opcional debajo de la etiqueta.</span></div>
+      <div class="table__row"><code class="table__name">aria-label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Nombre accesible; requerido cuando el checkbox no tiene una etiqueta visible.</span></div>
       <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Evita la interacción y aplica un estilo atenuado.</span></div>
       <div class="table__row"><code class="table__name">indeterminate</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el estado indeterminado (guion).</span></div>
       <div class="table__row"><code class="table__name">checked</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Estado marcado. Se puede combinar con (checkedChange) para control externo.</span></div>
+      <div class="table__row"><code class="table__name">checkedChange</code><code class="table__type">EventEmitter&lt;boolean&gt;</code><code class="table__default">—</code><span class="table__desc">Emite el nuevo estado cuando la persona interactúa con el checkbox.</span></div>
     </div>
   </section>
 </div>

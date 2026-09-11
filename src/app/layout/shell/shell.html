@@ -1,4 +1,15 @@
 <header class="topnav">
+  @if (sidenav.mode() === 'drawer') {
+    <button
+      type="button"
+      class="topnav__menu-btn"
+      aria-label="Abrir menú"
+      (click)="openMobileMenu()"
+      csPressScale
+    >
+      <cs-icon name="menu" [size]="18" />
+    </button>
+  }
   <a routerLink="/" class="topnav__logo">
     <span class="topnav__badge">C</span>
     <span>Comsatel DS</span>
@@ -6,55 +17,141 @@
   <span class="topnav__tag">Angular</span>
 </header>
 
-<aside class="sidebar">
-  @for (section of navigation; track section.title) {
-    <div class="sidebar__section">
-      <p class="sidebar__title">{{ section.title }}</p>
-      <ul class="sidebar__list">
-        @for (item of section.items; track item.href) {
-          <li>
-            @if (item.children) {
-              <button
-                type="button"
-                class="sidebar__group"
-                [class.sidebar__group--active]="isActive(item.href) || isOpen(item)"
-                (click)="toggle(item)"
-              >
-                <span>{{ item.title }}</span>
-                <cs-icon name="chevron-right" [size]="12" class="chevron" [class.chevron--open]="isOpen(item)" />
-              </button>
-              @if (isOpen(item)) {
-                <ul class="sidebar__children">
-                  @for (child of item.children; track child.href) {
-                    <li>
-                      @if (child.pending) {
-                        <span class="sidebar__item sidebar__item--pending sidebar__item--child">{{ child.title }}</span>
-                      } @else {
-                        <a
-                          class="sidebar__item sidebar__item--child"
-                          [class.sidebar__item--active]="isActive(child.href)"
-                          [routerLink]="child.href"
-                        >{{ child.title }}</a>
-                      }
-                    </li>
+@if (sidenav.mode() === 'drawer' && sidenav.mobileOpen()) {
+  <div class="sidebar__backdrop" aria-hidden="true" (click)="closeMobileMenu()"></div>
+}
+
+<aside
+  id="app-sidebar"
+  class="sidebar"
+  role="navigation"
+  aria-label="Navegación principal"
+  [attr.aria-hidden]="sidenav.mode() === 'drawer' && !sidenav.mobileOpen() ? 'true' : null"
+  [attr.inert]="sidenav.mode() === 'drawer' && !sidenav.mobileOpen() ? '' : null"
+>
+  <div class="sidebar__scroll">
+    @for (section of navigation; track section.title) {
+      <div class="sidebar__section">
+        <p class="sidebar__title">{{ section.title }}</p>
+        <ul class="sidebar__list">
+          @for (item of section.items; track item.href) {
+            <li
+              (mouseenter)="onRailEnter(item, $event)"
+              (mouseleave)="scheduleHide()"
+              (focusin)="onRailEnter(item, $event)"
+              (focusout)="onRailFocusOut($event)"
+            >
+              @if (item.children) {
+                <button
+                  type="button"
+                  class="sidebar__group"
+                  [class.sidebar__group--active]="isActive(item.href) || isOpen(item)"
+                  (click)="toggle(item)"
+                  [attr.aria-label]="sidenav.mode() === 'rail' ? item.title : null"
+                  [attr.aria-expanded]="isOpen(item)"
+                  [attr.aria-controls]="'sidebar-children-' + item.href.replace('/', '').replaceAll('/', '-')"
+                  [attr.aria-current]="isActive(item.href) ? 'page' : null"
+                  csPressScale
+                >
+                  <span class="sidebar__item-label">
+                    @if (item.icon) {
+                      <cs-icon [name]="item.icon" [size]="14" class="sidebar__item-icon" />
+                    }
+                    <span class="sidebar__item-text">{{ item.title }}</span>
+                  </span>
+                  <cs-icon name="chevron-right" [size]="12" class="chevron" [class.chevron--open]="isOpen(item)" />
+                </button>
+                @if (isOpen(item)) {
+                  <ul class="sidebar__children" [id]="'sidebar-children-' + item.href.replace('/', '').replaceAll('/', '-')">
+                    @for (child of item.children; track child.href) {
+                      <li>
+                        @if (child.pending) {
+                          <span class="sidebar__item sidebar__item--pending sidebar__item--child">{{ child.title }}</span>
+                        } @else {
+                          <a
+                            class="sidebar__item sidebar__item--child"
+                            [class.sidebar__item--active]="isActive(child.href)"
+                            [attr.aria-current]="isActive(child.href) ? 'page' : null"
+                            [routerLink]="child.href"
+                            csPressScale
+                          >{{ child.title }}</a>
+                        }
+                      </li>
+                    }
+                  </ul>
+                }
+              } @else if (item.pending) {
+                <span class="sidebar__item sidebar__item--pending">
+                  @if (item.icon) {
+                    <cs-icon [name]="item.icon" [size]="14" class="sidebar__item-icon" />
                   }
-                </ul>
+                  <span class="sidebar__item-text">{{ item.title }}</span>
+                </span>
+              } @else {
+                <a
+                  class="sidebar__item"
+                  [class.sidebar__item--active]="isActive(item.href)"
+                  [attr.aria-label]="sidenav.mode() === 'rail' ? item.title : null"
+                  [attr.aria-current]="isActive(item.href) ? 'page' : null"
+                  [routerLink]="item.href"
+                  csPressScale
+                >
+                  @if (item.icon) {
+                    <cs-icon [name]="item.icon" [size]="14" class="sidebar__item-icon" />
+                  }
+                  <span class="sidebar__item-text">{{ item.title }}</span>
+                </a>
               }
-            } @else if (item.pending) {
-              <span class="sidebar__item sidebar__item--pending">{{ item.title }}</span>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+
+  @if (sidenav.mode() !== 'drawer') {
+    <div class="sidebar__collapse">
+      <button
+        type="button"
+        class="sidebar__collapse-btn"
+        (click)="sidenav.toggleCollapsed()"
+        [attr.aria-label]="sidenav.collapsed() ? 'Expandir menú' : 'Colapsar menú'"
+        [attr.aria-expanded]="!sidenav.collapsed()"
+        aria-controls="app-sidebar"
+        csPressScale
+      >
+        <cs-icon [name]="sidenav.collapsed() ? 'chevrons-right' : 'chevron-left'" [size]="15" />
+      </button>
+    </div>
+  }
+</aside>
+
+@if (hoveredItem(); as item) {
+  <div
+    class="sidebar__flyout"
+    [style.top.px]="flyoutPos().top"
+    [style.left.px]="flyoutPos().left"
+    (mouseenter)="cancelHide()"
+    (mouseleave)="scheduleHide()"
+    (focusin)="cancelHide()"
+    (focusout)="onRailFocusOut($event)"
+  >
+    <span class="sidebar__flyout-title">{{ item.title }}</span>
+    @if (item.children) {
+      <ul class="sidebar__flyout-list">
+        @for (child of item.children; track child.href) {
+          <li>
+            @if (child.pending) {
+              <span class="sidebar__flyout-item sidebar__flyout-item--pending">{{ child.title }}</span>
             } @else {
-              <a
-                class="sidebar__item"
-                [class.sidebar__item--active]="isActive(item.href)"
-                [routerLink]="item.href"
-              >{{ item.title }}</a>
+              <a class="sidebar__flyout-item" [routerLink]="child.href" [attr.aria-current]="isActive(child.href) ? 'page' : null" (click)="hoveredItem.set(null)">{{ child.title }}</a>
             }
           </li>
         }
       </ul>
-    </div>
-  }
-</aside>
+    }
+  </div>
+}
 
 <main class="content">
   <router-outlet></router-outlet>

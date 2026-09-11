@@ -1,0 +1,39 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.press-scale-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--layout-gap-md);
+  min-height: 160px;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-background-neutral-subtle);
+}
+
+.press-scale-stage__result,
+.guide-card__result {
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtle);
+}
+
+.guide-card__body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--layout-gap-md);
+}
+
+.guide-card__text { width: 100%; }
+
+.table__row--two { grid-template-columns: minmax(120px, 0.8fr) minmax(0, 3.2fr); }
+.table__row--three { grid-template-columns: minmax(120px, 0.8fr) minmax(120px, 1fr) minmax(0, 3.2fr); }
+
+@media (max-width: 640px) {
+  .table__row--two,
+  .table__row--three { grid-template-columns: 1fr; }
+}

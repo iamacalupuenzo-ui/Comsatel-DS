@@ -14,34 +14,34 @@ import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/de
 const SIMPLE_GROUPS: DropdownGroup[] = [
   {
     items: [
-      { label: 'Editar', value: 'edit', icon: 'pencil' },
-      { label: 'Duplicar', value: 'duplicate', icon: 'copy' },
-      { label: 'Descargar', value: 'download', icon: 'download', dividerAfter: true },
-      { label: 'Eliminar', value: 'delete', icon: 'trash-2', variant: 'destructive' },
+      { label: 'Edit', value: 'edit', icon: 'pencil' },
+      { label: 'Duplicate', value: 'duplicate', icon: 'copy' },
+      { label: 'Download', value: 'download', icon: 'download', dividerAfter: true },
+      { label: 'Delete', value: 'delete', icon: 'trash-2', variant: 'destructive' },
     ],
   },
 ];
 
 const GROUPED_GROUPS: DropdownGroup[] = [
   {
-    header: 'Cuenta',
+    header: 'Account',
     items: [
-      { label: 'Perfil', value: 'profile', icon: 'user' },
-      { label: 'Configuración', value: 'settings', icon: 'settings' },
+      { label: 'Profile', value: 'profile', icon: 'user' },
+      { label: 'Settings', value: 'settings', icon: 'settings' },
     ],
   },
   {
-    header: 'Acciones',
-    items: [{ label: 'Cerrar sesión', value: 'signout', icon: 'log-out', variant: 'destructive' }],
+    header: 'Actions',
+    items: [{ label: 'Sign out', value: 'signout', icon: 'log-out', variant: 'destructive' }],
   },
 ];
 
 const SHORTCUT_GROUPS: DropdownGroup[] = [
   {
     items: [
-      { label: 'Editar', value: 'edit', icon: 'pencil', shortcut: '⌘E' },
-      { label: 'Duplicar', value: 'duplicate', icon: 'copy', shortcut: '⌘D', dividerAfter: true },
-      { label: 'Eliminar', value: 'delete', icon: 'trash-2', variant: 'destructive' },
+      { label: 'Edit', value: 'edit', icon: 'pencil', shortcut: '⌘E' },
+      { label: 'Duplicate', value: 'duplicate', icon: 'copy', shortcut: '⌘D', dividerAfter: true },
+      { label: 'Delete', value: 'delete', icon: 'trash-2', variant: 'destructive' },
     ],
   },
 ];
@@ -49,10 +49,10 @@ const SHORTCUT_GROUPS: DropdownGroup[] = [
 const VARIANT_GROUPS: DropdownGroup[] = [
   {
     items: [
-      { label: 'Ítem por defecto', value: 'default', icon: 'pencil' },
-      { label: 'Ítem success', value: 'success', icon: 'download', variant: 'success' },
-      { label: 'Ítem destructivo', value: 'destructive', icon: 'trash-2', variant: 'destructive' },
-      { label: 'Ítem deshabilitado', value: 'disabled', icon: 'settings', disabled: true },
+      { label: 'Default item', value: 'default', icon: 'pencil' },
+      { label: 'Success item', value: 'success', icon: 'download', variant: 'success' },
+      { label: 'Destructive item', value: 'destructive', icon: 'trash-2', variant: 'destructive' },
+      { label: 'Disabled item', value: 'disabled', icon: 'settings', disabled: true },
     ],
   },
 ];
@@ -60,20 +60,20 @@ const VARIANT_GROUPS: DropdownGroup[] = [
 const SIZE_GROUPS: DropdownGroup[] = [
   {
     items: [
-      { label: 'Opción A', value: 'a' },
-      { label: 'Opción B', value: 'b' },
-      { label: 'Opción C', value: 'c' },
+      { label: 'Option A', value: 'a' },
+      { label: 'Option B', value: 'b' },
+      { label: 'Option C', value: 'c' },
     ],
   },
 ];
 
 const INPUT_OPTIONS: InputDropdownOption[] = [
-  { value: 'design', label: 'Sistema de diseño' },
-  { value: 'engineering', label: 'Ingeniería' },
-  { value: 'product', label: 'Producto' },
+  { value: 'design', label: 'Design system' },
+  { value: 'engineering', label: 'Engineering' },
+  { value: 'product', label: 'Product' },
   { value: 'marketing', label: 'Marketing' },
-  { value: 'sales', label: 'Ventas' },
-  { value: 'support', label: 'Soporte al cliente', disabled: true },
+  { value: 'sales', label: 'Sales' },
+  { value: 'support', label: 'Customer support', disabled: true },
 ];
 
 const SIZES: DropdownSize[] = ['xs', 'sm', 'md', 'lg'];
@@ -116,7 +116,7 @@ export class DropdownPage {
   }
 
   protected readonly pgGroups = computed(() => (this.pgShortcuts() ? SHORTCUT_GROUPS : SIMPLE_GROUPS));
-  protected readonly pgHeader = computed(() => (this.pgShowHeader() ? 'Acciones' : undefined));
+  protected readonly pgHeader = computed(() => (this.pgShowHeader() ? 'Actions' : undefined));
 
   protected readonly pgCode = computed(() => {
     const lines = [
@@ -125,7 +125,7 @@ export class DropdownPage {
       `  size="${this.pgSize()}"`,
       `  position="${this.pgPosition()}"`,
     ];
-    if (this.pgShowHeader()) lines.push(`  header="Acciones"`);
+    if (this.pgShowHeader()) lines.push(`  header="Actions"`);
     lines.push(`  [groups]="groups"`, `></cs-dropdown>`);
     return lines.join('\n');
   });
@@ -136,12 +136,12 @@ export class DropdownPage {
     const checked = this.checkedState();
     return [
       {
-        header: 'Categorías',
+        header: 'Categories',
         selectionMode: 'checkbox',
         items: [
-          { label: 'Por hacer', value: 'todo', selected: !!checked['todo'] },
-          { label: 'En progreso', value: 'inprogress', selected: !!checked['inprogress'] },
-          { label: 'Hecho', value: 'done', selected: !!checked['done'] },
+          { label: 'To do', value: 'todo', selected: !!checked['todo'] },
+          { label: 'In progress', value: 'inprogress', selected: !!checked['inprogress'] },
+          { label: 'Done', value: 'done', selected: !!checked['done'] },
         ],
       },
     ];
@@ -155,11 +155,11 @@ export class DropdownPage {
   protected readonly radioSelected = signal('detail');
   protected readonly radioGroups = computed<DropdownGroup[]>(() => [
     {
-      header: 'Vistas',
+      header: 'Views',
       selectionMode: 'radio',
       items: [
-        { label: 'Vista detallada', value: 'detail', selected: this.radioSelected() === 'detail' },
-        { label: 'Vista de lista', value: 'list', selected: this.radioSelected() === 'list' },
+        { label: 'Detail view', value: 'detail', selected: this.radioSelected() === 'detail' },
+        { label: 'List view', value: 'list', selected: this.radioSelected() === 'list' },
       ],
     },
   ]);
@@ -190,8 +190,8 @@ export class DropdownPage {
 
   protected readonly ipgCode = computed(() => {
     const lines = [`<cs-input-dropdown`];
-    if (this.ipgShowLabel()) lines.push(`  label="Equipo"`);
-    lines.push(`  placeholder="Selecciona un equipo…"`, `  size="${this.ipgSize()}"`);
+    if (this.ipgShowLabel()) lines.push(`  label="Team"`);
+    lines.push(`  placeholder="Select a team…"`, `  size="${this.ipgSize()}"`);
     if (this.ipgRequired()) lines.push(`  [required]="true"`);
     if (this.ipgDisabled()) lines.push(`  [disabled]="true"`);
     lines.push(`  [options]="options"`, `  [value]="value"`, `  (valueChange)="value = $event"`, `></cs-input-dropdown>`);

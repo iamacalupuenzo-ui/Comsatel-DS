@@ -1,0 +1,84 @@
+<div class="cs-table-tree__wrap">
+  <table class="cs-table-tree">
+    @if (caption) {
+      <caption class="cs-table-tree__caption">{{ caption }}</caption>
+    }
+    <thead>
+      <tr class="cs-table-tree__head-row">
+        @for (col of columns; track col.key) {
+          <th scope="col" class="cs-table-tree__th" [style.width]="col.width">{{ col.label }}</th>
+        }
+      </tr>
+    </thead>
+    <tbody [style.opacity]="bodyOpacity">
+      @if (showSkeleton) {
+        <tr class="cs-table-tree__row">
+          <td [attr.colspan]="columns.length" class="cs-table-tree__td" [style.padding-left.px]="indentFor(0)">
+            <cs-skeleton [width]="160" />
+          </td>
+        </tr>
+      } @else if (isEmpty) {
+        <tr>
+          <td [attr.colspan]="columns.length" class="cs-table-tree__empty">
+            <ng-content select="[emptyState]"></ng-content>
+          </td>
+        </tr>
+      } @else {
+        @for (item of items; track item.id) {
+          <ng-container *ngTemplateOutlet="rowTpl; context: { item: item, depth: 0 }"></ng-container>
+        }
+      }
+    </tbody>
+  </table>
+</div>
+
+<ng-template #rowTpl let-item="item" let-depth="depth">
+  <tr class="cs-table-tree__row">
+    @for (cell of item.cells; track $index; let i = $index) {
+      <td class="cs-table-tree__td" [style.padding-left.px]="i === 0 ? indentFor(depth) : null">
+        @if (i === 0) {
+          <span class="cs-table-tree__cell0">
+            @if (isExpandable(item)) {
+              <button
+                type="button"
+                class="cs-table-tree__toggle"
+                [class.cs-table-tree__toggle--open]="isExpanded(item.id)"
+                [attr.aria-expanded]="isExpanded(item.id)"
+                aria-label="Expandir/contraer fila"
+                (click)="toggle(item.id)"
+              >
+                <cs-icon name="chevron-right" [size]="14" />
+              </button>
+            } @else {
+              <span class="cs-table-tree__toggle-spacer"></span>
+            }
+            @if (isTemplateCell(cell)) {
+              <ng-container *ngTemplateOutlet="$any(cell).template; context: $any(cell).context"></ng-container>
+            } @else {
+              {{ cell }}
+            }
+          </span>
+        } @else {
+          @if (isTemplateCell(cell)) {
+            <ng-container *ngTemplateOutlet="$any(cell).template; context: $any(cell).context"></ng-container>
+          } @else {
+            {{ cell }}
+          }
+        }
+      </td>
+    }
+  </tr>
+  @if (isExpandable(item) && isExpanded(item.id)) {
+    @if (item.children === undefined) {
+      <tr class="cs-table-tree__row">
+        <td [attr.colspan]="columns.length" class="cs-table-tree__td" [style.padding-left.px]="indentFor(depth + 1)">
+          <cs-skeleton [width]="160" />
+        </td>
+      </tr>
+    } @else {
+      @for (child of item.children; track child.id) {
+        <ng-container *ngTemplateOutlet="rowTpl; context: { item: child, depth: depth + 1 }"></ng-container>
+      }
+    }
+  }
+</ng-template>

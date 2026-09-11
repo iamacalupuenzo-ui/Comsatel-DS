@@ -1,0 +1,104 @@
+<ng-template #unitCell let-unit>
+  <button type="button" class="unit-cell" [class.unit-cell--selected]="selectedId() === unit.id" [attr.aria-pressed]="selectedId() === unit.id" [attr.aria-label]="'Seleccionar ' + unit.name + ', placa ' + unit.plate" (click)="selectUnit(unit.id)">
+    <cs-avatar size="xs" [initials]="initials(unit.driver)" [alt]="unit.driver"></cs-avatar>
+    <span class="unit-cell__text"><strong>{{ unit.name }}</strong><span>{{ unit.plate }}</span></span>
+  </button>
+</ng-template>
+<ng-template #statusCell let-status><cs-badge [variant]="statusBadge(status)" size="sm">{{ statusText(status) }}</cs-badge></ng-template>
+
+<div class="page">
+  <p class="eyebrow">Componentes / Table</p>
+  <h1 class="title">Table</h1>
+  <p class="description">Table presenta datos tabulares con semántica nativa y mantiene el estado en quien la consume. La búsqueda, los filtros y la paginación se componen alrededor de ella; el componente recibe las filas visibles, comunica el orden solicitado y representa con fidelidad carga, actualización y vacío.</p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Filtra, ordena, selecciona una unidad y alterna la paginación. El control de carga permite revisar skeleton, refetch y vacío sin simular datos en el componente.</p>
+    <app-demo-shell [controls]="playgroundControls" [code]="usageCode" (stateChange)="onPlaygroundState($event)">
+      <div class="table-demo">
+        <div class="table-toolbar">
+          <div class="table-toolbar__search">
+            <label class="sr-only" for="table-unit-search">Buscar por unidad, placa o conductor</label>
+            <cs-input-group>
+              <cs-input-group-addon><cs-icon name="search" [size]="16" aria-hidden="true"></cs-icon></cs-input-group-addon>
+              <cs-input-group-input id="table-unit-search" fieldSize="sm" placeholder="Buscar unidad, placa o conductor" [value]="query()" (valueChange)="setQuery($event)"></cs-input-group-input>
+            </cs-input-group>
+          </div>
+          <cs-input-dropdown label="Estado" size="sm" [options]="statusOptions" [value]="statusFilter()" (valueChange)="setStatusFilter($event)"></cs-input-dropdown>
+          @if (paginate()) { <cs-input-dropdown label="Filas" size="sm" [options]="pageSizeOptions" [value]="rowsPerPageValue()" (valueChange)="setRowsPerPage($event)"></cs-input-dropdown> }
+        </div>
+        <div class="table-demo__meta">
+          <p class="table-demo__summary" role="status" aria-live="polite">{{ tableSummary() }}</p>
+          @if (hasActiveFilters()) { <cs-button variant="tertiary" size="xs" (click)="clearFilters()">Limpiar filtros</cs-button> }
+        </div>
+        <div class="table-frame">
+          <cs-table caption="Unidades de flota" [columns]="columns" [rows]="rows()" [sortKey]="sortKey()" [sortOrder]="sortOrder()" [isLoading]="isLoading()" [highlightedRowKey]="selectedId()" [skeletonRowCount]="5" minWidth="40rem" (sort)="onSort($event)">
+            <div emptyState class="empty-state">
+              <cs-icon name="search" [size]="20" aria-hidden="true"></cs-icon>
+              <p class="empty-state__title">{{ hasActiveFilters() ? 'No hay coincidencias' : 'No hay unidades disponibles' }}</p>
+              <p class="empty-state__desc">{{ hasActiveFilters() ? 'Prueba con otro texto o restablece los filtros.' : 'Cuando existan unidades, aparecerán en esta tabla.' }}</p>
+              @if (hasActiveFilters()) { <cs-button variant="secondary" size="sm" (click)="clearFilters()">Limpiar filtros</cs-button> }
+            </div>
+          </cs-table>
+        </div>
+        @if (paginate() && sortedUnits().length > rowsPerPage()) { <div class="table-pager"><cs-pagination [totalPages]="totalPages()" [page]="page()" (pageChange)="setPage($event)"></cs-pagination></div> }
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="behavior">Composición y límites</h2>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Decisión</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Ordenamiento</strong><span>Table emite la columna solicitada; la aplicación ordena datos locales o solicita la nueva página al servidor. El orden reinicia la página en 1.</span></div>
+      <div class="table__row"><strong>Búsqueda y filtros</strong><span>Viven arriba de la tabla y reducen las filas antes de entregarlas. El estado vacío explica si no hay datos o si no hay coincidencias.</span></div>
+      <div class="table__row"><strong>Paginación</strong><span>Es opcional. Si se conoce el total, Pagination recibe solo page y totalPages; sin paginación Table recibe todas las filas filtradas.</span></div>
+      <div class="table__row"><strong>Densidad</strong><span>Table no expone tamaños arbitrarios: conserva una densidad legible y consistente. Para información jerárquica o filas expandibles usa Table Tree, no una tabla regular colapsada.</span></div>
+      <div class="table__row"><strong>Espacio reducido</strong><span>Con minWidth la tabla conserva encabezados, celdas y relaciones; cuando no cabe, el wrapper permite desplazamiento horizontal en lugar de convertirla en tarjetas.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Implementación</span></div>
+      <div class="table__row"><strong>Semántica</strong><span>Usa elementos nativos table, caption, thead, th con scope y td. caption nombra la tabla para lectores de pantalla sin duplicar el título visual.</span></div>
+      <div class="table__row"><strong>Ordenamiento</strong><span>Las columnas ordenables son botones alcanzables con Tab; Enter y Espacio funcionan de forma nativa. aria-sort anuncia el orden aplicado y el botón explica el siguiente orden.</span></div>
+      <div class="table__row"><strong>Carga</strong><span>El contenedor marca aria-busy mientras carga. Skeleton es decorativo (aria-hidden) y un estado vivo anuncia que las filas se están actualizando.</span></div>
+      <div class="table__row"><strong>Controles externos</strong><span>La búsqueda tiene label asociado; filtros y filas por página usan combobox con label. Pagination expone navegación, página actual y botones con nombre accesible.</span></div>
+      <div class="table__row"><strong>Selección y acciones</strong><span>Una fila visualmente seleccionable contiene un botón con un nombre específico; no depende de un clic silencioso sobre tr.</span></div>
+      <div class="table__row"><strong>Responsividad</strong><span>El scroll horizontal conserva el orden de lectura y evita ocultar columnas sin una alternativa equivalente.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid table-guidelines">
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Ofrece búsqueda y filtros antes de una tabla extensa; actualiza el estado vacío de acuerdo con el criterio aplicado.</p><div class="guide-search"><label class="sr-only" for="guide-search">Buscar en el ejemplo de lineamientos</label><cs-input id="guide-search" fieldSize="sm" placeholder="Escribe para buscar" [value]="guideQuery()" (valueChange)="setGuideQuery($event)"></cs-input><span>{{ guideQuery().trim() ? 'Filtro activo' : 'Sin filtro' }}</span></div></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No escondas los filtros dentro de un menú si son la vía principal para encontrar una fila. El criterio activo debe ser evidente.</p><div class="guide-hidden-filter" aria-hidden="true"><cs-icon name="search" [size]="16"></cs-icon><span>Filtros ocultos</span><cs-icon name="more-horizontal" [size]="16"></cs-icon></div></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Ordena solo columnas comparables y expresa el orden en el encabezado. En la tabla principal prueba Unidad, Estado o Actualizado.</p><cs-button variant="secondary" size="sm" (click)="onSort('updated')">Ordenar por actualizado</cs-button></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No conviertas una columna de acciones en ordenable: sus valores no tienen un orden de negocio que ayude a encontrar información.</p><button type="button" class="avoid-sort" disabled>Acciones <cs-icon name="arrow-up-down" [size]="14" aria-hidden="true"></cs-icon></button></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Durante la carga inicial usa skeleton con la forma de las filas; durante un refetch conserva los datos visibles y señala la actualización.</p><div class="guide-skeleton-row" aria-hidden="true"><cs-skeleton></cs-skeleton><cs-skeleton></cs-skeleton><cs-skeleton></cs-skeleton></div></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No reemplaces toda la tabla por un spinner genérico: se pierde contexto y la altura cambia de forma brusca.</p><div class="guide-spinner" aria-hidden="true"></div></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">En pantallas estrechas conserva las relaciones tabulares con scroll horizontal y un ancho mínimo explícito.</p><div class="guide-scroll-hint"><cs-icon name="arrow-up-down" [size]="16" aria-hidden="true"></cs-icon><span>Desplaza horizontalmente para ver las columnas.</span></div></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No ocultes columnas críticas ni aplastes cada fila en una tarjeta. Si hay jerarquía, utiliza Table Tree.</p><div class="guide-card-row" aria-hidden="true"><span>Unidad</span><span>Estado</span><span>…</span></div></div></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">columns</code><code class="table__type">TableColumn[]</code><code class="table__default">—</code><span class="table__desc">Columnas con key, label, isSortable?, width? y align?.</span></div>
+      <div class="table__row"><code class="table__name">rows</code><code class="table__type">TableRow[]</code><code class="table__default">—</code><span class="table__desc">Filas visibles; cada celda es texto o un TemplateRef con contexto.</span></div>
+      <div class="table__row"><code class="table__name">caption</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Nombre de la tabla para lectores de pantalla; se presenta visualmente oculto.</span></div>
+      <div class="table__row"><code class="table__name">minWidth</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Ancho mínimo opcional; al no caber, el wrapper habilita scroll horizontal.</span></div>
+      <div class="table__row"><code class="table__name">isLoading</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Con cero filas muestra skeleton; con filas existentes conserva el contenido atenuado y muestra un refetch.</span></div>
+      <div class="table__row"><code class="table__name">skeletonRowCount</code><code class="table__type">number</code><code class="table__default">5</code><span class="table__desc">Número de filas skeleton en la carga inicial.</span></div>
+      <div class="table__row"><code class="table__name">sortKey / sortOrder</code><code class="table__type">string / asc | desc</code><code class="table__default">—</code><span class="table__desc">Estado de orden controlado por quien consume Table.</span></div>
+      <div class="table__row"><code class="table__name">(sort)</code><code class="table__type">EventEmitter&lt;string&gt;</code><code class="table__default">—</code><span class="table__desc">Emite la key de una columna ordenable; no ordena datos internamente.</span></div>
+      <div class="table__row"><code class="table__name">highlightedRowKey</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Resalta una fila indicada por la aplicación, por ejemplo una selección.</span></div>
+      <div class="table__row"><code class="table__name">[emptyState]</code><code class="table__type">contenido proyectado</code><code class="table__default">—</code><span class="table__desc">Estado vacío específico del contexto cuando no hay filas y no está cargando.</span></div>
+    </div>
+  </section>
+</div>

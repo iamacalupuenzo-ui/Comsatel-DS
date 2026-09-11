@@ -11,6 +11,8 @@
 .cs-checkbox {
   display: inline-flex;
   align-items: center;
+  /* 10px replica la separación óptica de los controles de selección
+     hermanos. No existe un paso de 10px en la escala de gaps. */
   gap: 10px;
   cursor: pointer;
   user-select: none;
@@ -39,12 +41,14 @@
    solo el detalle propio de un checkbox REAL de formulario: el anillo de
    foco. */
 .cs-checkbox__input:focus-visible ~ .cs-checkbox__box {
-  box-shadow: 0 0 0 2px var(--color-border-focused);
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-focused);
 }
 
 .cs-checkbox__text {
   display: flex;
   flex-direction: column;
+  /* 1px conserva la relación compacta entre etiqueta y descripción; la
+     escala de espaciado no tiene este paso. */
   gap: 1px;
 }
 .cs-checkbox__label { color: var(--color-text-base-default); }

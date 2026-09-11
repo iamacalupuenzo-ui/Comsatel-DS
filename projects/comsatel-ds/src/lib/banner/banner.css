@@ -8,7 +8,7 @@
   align-items: flex-start;
   gap: var(--layout-gap-md);
   padding: var(--layout-padding-lg);
-  border: 1px solid;
+  border: var(--layout-border-thin) solid;
   border-radius: var(--radius-lg);
 }
 
@@ -27,8 +27,8 @@
 .cs-banner__action {
   margin: 0;
   font-family: var(--font-family-content);
-  font-size: var(--font-size-content-caption);
-  line-height: var(--font-line-height-content-caption);
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
   letter-spacing: var(--font-letter-spacing-content);
 }
 
@@ -54,14 +54,20 @@
   cursor: pointer;
   color: inherit;
 }
+.cs-banner__action:focus-visible,
+.cs-banner__dismiss:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-focused);
+}
 
 .cs-banner__dismiss {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  /* 1px alinea el icono con la primera línea; es un microajuste óptico documentado. */
   margin-top: 1px;
-  padding: 2px;
+  padding: var(--layout-padding-2xs);
   border: none;
   border-radius: var(--radius-xs);
   background: none;

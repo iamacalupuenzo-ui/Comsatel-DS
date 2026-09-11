@@ -7,14 +7,47 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 56px;
-  z-index: var(--elevation-z-index-sticky, 200);
+  height: var(--layout-topnav-height);
+  z-index: var(--elevation-z-index-sticky);
   display: flex;
   align-items: center;
   gap: var(--layout-gap-lg);
   padding-inline: var(--layout-padding-xl);
-  border-bottom: 1px solid var(--color-border-divider);
+  border-bottom: var(--layout-border-thin) solid var(--color-border-divider);
   background-color: var(--elevation-surface-default);
+}
+
+.topnav__menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--layout-size-base);
+  height: var(--layout-size-base);
+  margin-left: calc(-1 * var(--layout-padding-sm));
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-base-subtle);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.topnav__menu-btn:hover {
+  background-color: var(--color-interaction-hovered);
+  color: var(--color-text-base-default);
+}
+.topnav__menu-btn:focus-visible,
+.sidebar__item:focus-visible,
+.sidebar__group:focus-visible,
+.sidebar__collapse-btn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 var(--layout-border-thick) var(--elevation-surface-default),
+    0 0 0 var(--layout-border-thicker) var(--color-border-focused);
+}
+/* Solo existe en modo drawer (< 768px, ver --breakpoint-md) — de ahí para
+   arriba el side nav ya está inline (expandido o rail) y el botón sobraría. */
+:host([data-sidenav-mode='drawer']) .topnav__menu-btn {
+  display: inline-flex;
 }
 
 .topnav__logo {
@@ -30,8 +63,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: var(--layout-size-sm);
+  height: var(--layout-size-sm);
   border-radius: var(--radius-sm);
   background-color: var(--color-background-brand-default);
   color: var(--color-text-inverse);
@@ -44,17 +77,66 @@
   color: var(--color-text-base-subtlest);
 }
 
+/* Fondo oscuro del drawer mobile — solo se monta cuando el drawer está
+   abierto (ver @if en shell.html), no hace falta ocultarlo con CSS aparte. */
+.sidebar__backdrop {
+  position: fixed;
+  inset: 0;
+  top: var(--layout-topnav-height);
+  z-index: var(--elevation-z-index-dropdown);
+  background-color: var(--color-background-blanket-default);
+}
+
 .sidebar {
   position: fixed;
-  top: 56px;
+  top: var(--layout-topnav-height);
   left: 0;
-  z-index: 30;
-  width: 224px;
-  height: calc(100vh - 56px);
+  /* Mismo nivel que el backdrop — el orden en el DOM (el aside va después
+     en shell.html) ya lo deja encima sin necesitar un token más alto. */
+  z-index: var(--elevation-z-index-dropdown);
+  width: var(--layout-sidenav-width-expanded);
+  height: calc(100vh - var(--layout-topnav-height));
+  display: flex;
+  flex-direction: column;
+  border-right: var(--layout-border-thin) solid var(--color-border-divider);
+  background-color: var(--elevation-surface-default);
+  transition:
+    width var(--motion-duration-medium) var(--motion-easing-default),
+    transform var(--motion-duration-medium) var(--motion-easing-default);
+}
+
+.sidebar__scroll {
+  flex: 1;
   overflow-y: auto;
   padding: var(--layout-padding-2xl) var(--layout-padding-lg);
-  border-right: 1px solid var(--color-border-divider);
-  background-color: var(--elevation-surface-default);
+}
+
+/* Rail: solo íconos, ancho fijo angosto — ver --layout-sidenav-width-collapsed. */
+:host([data-sidenav-mode='rail']) .sidebar {
+  width: var(--layout-sidenav-width-collapsed);
+}
+:host([data-sidenav-mode='rail']) .sidebar__title,
+:host([data-sidenav-mode='rail']) .sidebar__item-text,
+:host([data-sidenav-mode='rail']) .chevron,
+:host([data-sidenav-mode='rail']) .sidebar__children {
+  display: none;
+}
+:host([data-sidenav-mode='rail']) .sidebar__item,
+:host([data-sidenav-mode='rail']) .sidebar__group {
+  justify-content: center;
+  padding-inline: 0;
+}
+:host([data-sidenav-mode='rail']) .sidebar__item-label {
+  gap: 0;
+}
+
+/* Drawer: fuera de pantalla por defecto, entra como overlay — nunca reduce
+   el ancho (labels completos), solo se desplaza. Ver --breakpoint-md. */
+:host([data-sidenav-mode='drawer']) .sidebar {
+  transform: translateX(-100%);
+}
+:host([data-sidenav-mode='drawer'][data-mobile-open='true']) .sidebar {
+  transform: translateX(0);
 }
 
 .sidebar__section + .sidebar__section {
@@ -84,7 +166,7 @@
 .sidebar__group {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: var(--layout-gap-sm);
   width: 100%;
   padding: var(--layout-padding-sm) var(--layout-padding-lg);
   border: none;
@@ -92,11 +174,35 @@
   background: transparent;
   font-family: var(--font-family-content);
   font-size: var(--font-size-content-note);
-  line-height: 16px;
+  line-height: var(--font-line-height-content-note);
   color: var(--color-text-base-subtle);
   text-decoration: none;
   cursor: pointer;
   text-align: left;
+}
+
+/* El group además tiene el chevron como segundo hijo — space-between lo
+   empuja al extremo opuesto del ícono+label, que van juntos como un solo
+   bloque (.sidebar__item-label). Los ítems hoja no tienen ese segundo
+   hijo, así que se quedan con el gap simple de arriba. */
+.sidebar__group {
+  justify-content: space-between;
+}
+
+.sidebar__item-label {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-sm);
+  min-width: 0;
+}
+
+/* Sin color propio: hereda el color del texto que lo acompaña (currentColor
+   dentro del ícono), igual que el SVG de lucide-react en la referencia —
+   así el estado normal/hover/activo del ícono sigue automáticamente al del
+   texto sin duplicar reglas por estado. */
+.sidebar__item-icon {
+  flex-shrink: 0;
+  color: inherit;
 }
 
 a.sidebar__item:hover,
@@ -124,7 +230,7 @@ a.sidebar__item:hover,
 .chevron {
   flex-shrink: 0;
   color: var(--color-text-base-subtlest);
-  transition: transform 0.15s ease;
+  transition: transform var(--motion-duration-leaving) var(--motion-easing-default);
 }
 .chevron--open {
   transform: rotate(90deg);
@@ -135,7 +241,7 @@ a.sidebar__item:hover,
   margin: var(--layout-padding-2xs) 0 0;
   padding: var(--layout-padding-2xs) 0 var(--layout-padding-2xs) var(--layout-padding-md);
   margin-left: var(--layout-padding-lg);
-  border-left: 1px solid var(--color-border-divider);
+  border-left: var(--layout-border-thin) solid var(--color-border-divider);
   display: flex;
   flex-direction: column;
   gap: var(--layout-gap-2xs);
@@ -143,21 +249,107 @@ a.sidebar__item:hover,
 .sidebar__item--child {
   padding: var(--layout-padding-xs) var(--layout-padding-lg);
   font-size: var(--font-size-content-note);
-  line-height: 16px;
+  line-height: var(--font-line-height-content-note);
+}
+
+/* Botón de colapsar/expandir al pie del sidebar — ausente en modo drawer
+   (ver @if en shell.html, no hay concepto de "colapsar" en mobile). */
+.sidebar__collapse {
+  flex-shrink: 0;
+  border-top: var(--layout-border-thin) solid var(--color-border-divider);
+  padding: var(--layout-padding-md);
+}
+.sidebar__collapse-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: var(--layout-padding-sm);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-base-subtle);
+  cursor: pointer;
+}
+.sidebar__collapse-btn:hover {
+  background-color: var(--color-interaction-hovered);
+  color: var(--color-text-base-default);
+}
+
+/* Flyout de rail: aparece al pasar el mouse/foco por un ítem raíz cuando el
+   sidebar está en modo rail (ver onRailEnter en shell.ts) — mismo patrón
+   que RailItem en menu.tsx de React. */
+.sidebar__flyout {
+  position: fixed;
+  z-index: var(--elevation-z-index-dropdown);
+  min-width: 160px;
+  padding: var(--layout-padding-sm);
+  border-radius: var(--radius-md);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
+  background-color: var(--elevation-surface-raised);
+  box-shadow: var(--shadow-lg);
+}
+.sidebar__flyout-title {
+  display: block;
+  padding: var(--layout-padding-xs) var(--layout-padding-sm);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-boldest);
+}
+.sidebar__flyout-list {
+  list-style: none;
+  margin: var(--layout-padding-2xs) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-2xs);
+}
+.sidebar__flyout-item {
+  display: block;
+  padding: var(--layout-padding-xs) var(--layout-padding-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  text-decoration: none;
+  color: var(--color-text-base-subtle);
+}
+.sidebar__flyout-item:hover {
+  background-color: var(--color-interaction-hovered);
+  color: var(--color-text-base-default);
+}
+.sidebar__flyout-item--pending {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
 }
 
 .content {
-  margin-left: 240px;
-  padding-top: 56px;
+  margin-left: var(--layout-sidenav-width-expanded);
+  padding-top: var(--layout-topnav-height);
   min-height: 100vh;
+  transition: margin-left var(--motion-duration-medium) var(--motion-easing-default);
 }
 
-/* Reserva el mismo espacio que ocupa el TOC (visible desde 1280px, ver
-   table-of-contents.css) para que el contenido de la página se centre entre
-   el sidebar y el TOC, no dentro de todo el ancho sobrante — mismo criterio
-   que <main class="ml-60 xl:mr-56"> en DocsLayout.astro. */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar,
+  .chevron,
+  .content {
+    transition: none;
+  }
+}
+:host([data-sidenav-mode='rail']) .content {
+  margin-left: var(--layout-sidenav-width-collapsed);
+}
+:host([data-sidenav-mode='drawer']) .content {
+  margin-left: 0;
+}
+
+/* Reserva el mismo espacio que ocupa el TOC (visible desde el breakpoint xl,
+   ver --breakpoint-xl en tokens.css y table-of-contents.css) para que el
+   contenido de la página se centre entre el sidebar y el TOC, no dentro de
+   todo el ancho sobrante — mismo criterio que <main class="ml-60 xl:mr-56">
+   en DocsLayout.astro. */
 @media (min-width: 1280px) {
   .content {
-    margin-right: 224px;
+    margin-right: var(--layout-panel-width);
   }
 }

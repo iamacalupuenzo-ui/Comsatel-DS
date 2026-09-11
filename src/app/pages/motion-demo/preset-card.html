@@ -1,0 +1,11 @@
+<div class="preset-card">
+  <div class="preset-card__stage">
+    <cs-motion [show]="show()" [preset]="preset">
+      <div class="preset-card__block"></div>
+    </cs-motion>
+  </div>
+  <div class="preset-card__footer">
+    <code class="preset-card__label">{{ label }}</code>
+    <button type="button" class="preset-card__replay" (click)="toggle()">Repetir</button>
+  </div>
+</div>

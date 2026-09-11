@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
   ActionCard,
   CardBanner,
@@ -39,4 +39,9 @@ const BANNER_VARIANTS = [
 export class CardPage {
   protected readonly bannerVariants = BANNER_VARIANTS;
   protected readonly placeholderAvatars = PLACEHOLDER_AVATARS;
+  protected readonly guideToggle = signal(true);
+
+  protected onGuideToggle(value: boolean): void {
+    this.guideToggle.set(value);
+  }
 }

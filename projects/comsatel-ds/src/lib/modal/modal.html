@@ -1,0 +1,60 @@
+@if (rendered()) {
+  <div
+    class="cs-modal__mask"
+    [class.cs-modal__mask--visible]="visible()"
+    [style.overflow-y]="scrollBehavior === 'viewport' ? 'auto' : null"
+    (mousedown)="onOverlayMouseDown($event)"
+  >
+    <div
+      #panel
+      class="cs-modal"
+      [class.cs-modal--visible]="visible()"
+      [style.width.px]="widthPx"
+      [style.max-height]="scrollBehavior === 'body' ? '85vh' : null"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-labelledby]="titleId"
+      tabindex="-1"
+    >
+      <div class="cs-modal__header">
+        <h2 [id]="titleId" [class]="'cs-modal__title cs-modal__title--' + appearance">{{ title }}</h2>
+        @if (hasCloseButton) {
+          <button #closeBtn type="button" class="cs-modal__close" (click)="requestClose()" [attr.aria-label]="closeLabel">
+            <cs-icon name="x" [size]="18" aria-hidden="true"></cs-icon>
+          </button>
+        }
+      </div>
+
+      <div class="cs-modal__content" [style.overflow-y]="scrollBehavior === 'body' ? 'auto' : null">
+        <ng-content></ng-content>
+      </div>
+
+      @if (primaryAction || secondaryAction) {
+        <div class="cs-modal__footer">
+          @if (secondaryAction) {
+            <cs-button
+              variant="subtle"
+              size="sm"
+              [disabled]="secondaryAction.disabled ?? false"
+              [loading]="secondaryAction.loading ?? false"
+              (click)="secondaryActionClick.emit()"
+            >
+              {{ secondaryAction.label }}
+            </cs-button>
+          }
+          @if (primaryAction) {
+            <cs-button
+              [variant]="primaryVariant"
+              size="sm"
+              [disabled]="primaryAction.disabled ?? false"
+              [loading]="primaryAction.loading ?? false"
+              (click)="primaryActionClick.emit()"
+            >
+              {{ primaryAction.label }}
+            </cs-button>
+          }
+        </div>
+      }
+    </div>
+  </div>
+}

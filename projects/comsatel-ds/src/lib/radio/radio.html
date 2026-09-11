@@ -1,0 +1,40 @@
+<label
+  [attr.for]="inputId"
+  class="cs-radio"
+  [class.cs-radio--two-lines]="hasTwoLines"
+  [class.cs-radio--disabled]="isDisabled"
+>
+  <span class="cs-radio__ring-wrap" [style.margin-top.px]="hasTwoLines ? descMarginTop : 0">
+    <input
+      type="radio"
+      [id]="inputId"
+      class="cs-radio__input"
+      [name]="groupName()"
+      [value]="value"
+      [checked]="checked()"
+      [disabled]="isDisabled"
+      [required]="groupRequired()"
+      [attr.aria-label]="ariaLabel || null"
+      [attr.aria-describedby]="describedBy"
+      [attr.aria-invalid]="groupInvalid() ? 'true' : null"
+      [attr.aria-errormessage]="groupErrorMessage() || null"
+      (change)="onChange()"
+    />
+    <span class="cs-radio-ring" [class.cs-radio-ring--checked]="checked()" [style.width.px]="box" [style.height.px]="box">
+      @if (checked()) {
+        <span class="cs-radio-dot" [style.width.px]="dot" [style.height.px]="dot"></span>
+      }
+    </span>
+  </span>
+
+  @if (label || description) {
+    <span class="cs-radio__text">
+      @if (label) {
+        <span class="cs-radio__label" [ngStyle]="labelStyle">{{ label }}</span>
+      }
+      @if (description) {
+        <span class="cs-radio__desc" [ngStyle]="descStyle">{{ description }}</span>
+      }
+    </span>
+  }
+</label>

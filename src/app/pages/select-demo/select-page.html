@@ -1,0 +1,144 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Select</p>
+  <h1 class="title">Select</h1>
+  <p class="description">
+    Select permite elegir uno o varios valores dentro de un formulario, a diferencia de Dropdown,
+    que dispara acciones. En modo múltiple, las opciones elegidas se muestran como chips dentro del
+    propio campo y cada una tiene una acción para quitarla.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta los controles para explorar la selección simple y múltiple.</p>
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <div class="select-stage">
+        <cs-select
+          [label]="pgShowLabel() ? 'Equipo' : undefined"
+          placeholder="Selecciona un equipo…"
+          [options]="teamOptions"
+          [multiple]="pgMultiple()"
+          [size]="pgSize()"
+          [required]="pgRequired()"
+          [disabled]="pgDisabled()"
+          [value]="pgMultiple() ? pgMultipleValue() : pgSingleValue()"
+          (valueChange)="pgMultiple() ? pgMultipleValue.set($any($event)) : pgSingleValue.set($any($event))"
+        />
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Estados -->
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Placeholder (vacío), lleno (valor único), múltiple (chips) y deshabilitado.</p>
+    <div class="static-block">
+      <div class="static-block__preview states-grid">
+        <div class="states-grid__item">
+          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" value="" />
+          <span class="states-grid__label">Placeholder</span>
+        </div>
+        <div class="states-grid__item">
+          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" value="design" />
+          <span class="states-grid__label">Lleno</span>
+        </div>
+        <div class="states-grid__item">
+          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" [multiple]="true" [value]="stateMultipleValue()" (valueChange)="stateMultipleValue.set($any($event))" />
+          <span class="states-grid__label">Múltiple</span>
+        </div>
+        <div class="states-grid__item">
+          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" value="design" [disabled]="true" />
+          <span class="states-grid__label">Deshabilitado</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lineamientos -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Acompaña siempre el Select de un label en contextos de formulario, igual que cualquier otro campo.</p>
+          <cs-select label="Equipo" placeholder="Selecciona un equipo…" [options]="teamOptions" [value]="guideLabelValue()" (valueChange)="guideLabelValue.set($any($event))" />
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No omitas el label: el usuario pierde contexto sobre qué está eligiendo.</p>
+          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" [value]="guideNoLabelValue()" (valueChange)="guideNoLabelValue.set($any($event))" />
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa multiple cuando el usuario puede elegir más de un valor a la vez; las opciones elegidas quedan visibles como chips.</p>
+          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" [multiple]="true" [value]="guideMultipleValue()" (valueChange)="guideMultipleValue.set($any($event))" />
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No actives multiple si el formulario solo admite un valor final: agrega ambigüedad donde no la hay.</p>
+          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" [multiple]="true" [value]="guideNoMultipleValue()" (valueChange)="guideNoMultipleValue.set($any($event))" />
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Si son solo 2 o 3 opciones mutuamente excluyentes y siempre visibles, evalúa un Toggle o un grupo de Radio en vez de un Select.</p>
+          <code class="guide-card__code">&lt;cs-radio-group&gt;</code>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses Select para 2 opciones que caben cómodamente como Toggle: agrega un clic extra sin necesidad.</p>
+          <cs-select placeholder="Sí / No" [options]="[{ label: 'Sí', value: 'yes' }, { label: 'No', value: 'no' }]" [value]="guideFewOptionsValue()" (valueChange)="guideFewOptionsValue.set($any($event))" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">options</code><code class="table__type">SelectOption[]</code><code class="table__default">[]</code><span class="table__desc">Array de opciones {{ '{' }} label, value, disabled? {{ '}' }}.</span></div>
+      <div class="table__row"><code class="table__name">multiple</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Habilita elegir más de una opción; el valor pasa a ser un string[].</span></div>
+      <div class="table__row"><code class="table__name">value</code><code class="table__type">string | string[]</code><code class="table__default">—</code><span class="table__desc">Valor controlado: un string en modo simple, un string[] en modo múltiple.</span></div>
+      <div class="table__row"><code class="table__name">(valueChange)</code><code class="table__type">EventEmitter&lt;string | string[]&gt;</code><code class="table__default">—</code><span class="table__desc">Se dispara cuando cambia la selección.</span></div>
+      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Label mostrado encima del trigger.</span></div>
+      <div class="table__row"><code class="table__name">placeholder</code><code class="table__type">string</code><code class="table__default">"Selecciona una opción"</code><span class="table__desc">Texto mostrado cuando no hay nada seleccionado.</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">"xs" | "sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Altura del trigger y escala tipográfica.</span></div>
+      <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita el trigger, oculta el menú y el control de limpiar.</span></div>
+      <div class="table__row"><code class="table__name">required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Agrega un asterisco al label.</span></div>
+      <div class="table__row"><code class="table__name">clearControlLabel</code><code class="table__type">string</code><code class="table__default">"Limpiar"</code><span class="table__desc">aria-label del botón que limpia una selección simple. A propósito no forma parte del tab order.</span></div>
+      <div class="table__row"><code class="table__name">removeOptionLabel</code><code class="table__type">(label: string) =&gt; string</code><code class="table__default">"Quitar {{ '{' }}label{{ '}' }}"</code><span class="table__desc">Arma el nombre accesible de la acción de quitar junto a cada chip en modo múltiple.</span></div>
+    </div>
+  </section>
+</div>

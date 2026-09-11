@@ -1,0 +1,139 @@
+<div class="page">
+  <p class="eyebrow">Animaciones / Motion</p>
+  <h1 class="title">Motion</h1>
+  <p class="description">
+    Primitivo de animación de entrada/salida: envuelve contenido y lo anima según un booleano
+    <code>show</code>, siempre a partir de los tokens <code>--motion-duration-*</code> y
+    <code>--motion-easing-*</code> — nunca un número suelto. Un preset elige QUÉ anima (fade, scale,
+    slide-*); duración y curva de entrada/salida se pueden ajustar por separado.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta el preset y el estado para explorar la animación.</p>
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <div class="playground-stage">
+        <cs-motion [show]="pgShow()" [preset]="pgPreset()">
+          <div class="playground-block"></div>
+        </cs-motion>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Presets -->
+  <section class="section">
+    <h2 class="section__title" id="presets">Presets</h2>
+    <p class="section__intro">Las seis animaciones disponibles. Cada tarjeta se puede repetir por separado.</p>
+    <div class="preset-grid">
+      @for (p of presets; track p) {
+        <app-preset-card [preset]="p" [label]="presetLabels[p]" />
+      }
+    </div>
+  </section>
+
+  <!-- Lineamientos -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Ata <code class="inline-code">show</code> a una condición real (un estado de error, un menú abierto).</p>
+          <code class="guide-card__code">&lt;cs-motion [show]="hasError" preset="slide-down"&gt;<br>&nbsp;&nbsp;&lt;app-error-message /&gt;<br>&lt;/cs-motion&gt;</code>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No envuelvas contenido que siempre está visible: <code class="inline-code">show</code> fijo en <code class="inline-code">true</code> no tiene nada que animar.</p>
+          <code class="guide-card__code">&lt;cs-motion [show]="true"&gt;<br>&nbsp;&nbsp;&lt;app-page-header /&gt;<br>&lt;/cs-motion&gt;</code>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Deja los valores por defecto de duración/easing salvo que el caso lo pida — ya están emparejados (entering con enter, leaving con exit).</p>
+          <code class="guide-card__code">&lt;cs-motion [show]="open" preset="scale" /&gt;</code>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No alargues la salida de un menú "para que se vea mejor": rompe el criterio de que salir siempre es más rápido que entrar.</p>
+          <code class="guide-card__code">&lt;cs-motion [show]="menuOpen" exitDuration="slow" /&gt;</code>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa <code class="inline-code">spring</code> para un momento puntual que busca atención — un badge que aterriza, un estado de éxito.</p>
+          <code class="guide-card__code">&lt;cs-motion [show]="justSaved" enterEasing="spring"&gt;<br>&nbsp;&nbsp;&lt;app-success-badge /&gt;<br>&lt;/cs-motion&gt;</code>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses <code class="inline-code">spring</code> en transiciones cotidianas: el rebote compite por atención con algo tan frecuente como un menú.</p>
+          <code class="guide-card__code">&lt;cs-motion [show]="open" enterEasing="spring"&gt;<br>&nbsp;&nbsp;&lt;app-dropdown-menu /&gt;<br>&lt;/cs-motion&gt;</code>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Elige la dirección del slide según de dónde llega el contenido en el layout real.</p>
+          <code class="guide-card__code">&lt;cs-motion [show]="open" preset="slide-down"&gt;<br>&nbsp;&nbsp;&lt;app-top-banner /&gt;<br>&lt;/cs-motion&gt;</code>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses un slide lateral para algo que aparece centrado en pantalla: la dirección deja de tener referencia espacial.</p>
+          <code class="guide-card__code">&lt;cs-motion [show]="open" preset="slide-left"&gt;<br>&nbsp;&nbsp;&lt;app-centered-modal /&gt;<br>&lt;/cs-motion&gt;</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">show</code><code class="table__type">boolean</code><code class="table__default">—</code><span class="table__desc">Controla si el contenido está montado. Al pasar a false, anima la salida y recién ahí se quita del DOM.</span></div>
+      <div class="table__row"><code class="table__name">preset</code><code class="table__type">MotionPreset</code><code class="table__default">"fade"</code><span class="table__desc">Qué anima: fade, scale, slide-up, slide-down, slide-left o slide-right.</span></div>
+      <div class="table__row"><code class="table__name">enterDuration</code><code class="table__type">MotionDurationToken</code><code class="table__default">"entering"</code><span class="table__desc">Token de duración para la animación de entrada.</span></div>
+      <div class="table__row"><code class="table__name">exitDuration</code><code class="table__type">MotionDurationToken</code><code class="table__default">"leaving"</code><span class="table__desc">Token de duración para la animación de salida.</span></div>
+      <div class="table__row"><code class="table__name">enterEasing</code><code class="table__type">MotionEasingToken</code><code class="table__default">"enter"</code><span class="table__desc">Token de curva para la animación de entrada.</span></div>
+      <div class="table__row"><code class="table__name">exitEasing</code><code class="table__type">MotionEasingToken</code><code class="table__default">"exit"</code><span class="table__desc">Token de curva para la animación de salida.</span></div>
+      <div class="table__row"><code class="table__name">innerClass</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Clase CSS adicional para el contenedor animado.</span></div>
+    </div>
+  </section>
+</div>

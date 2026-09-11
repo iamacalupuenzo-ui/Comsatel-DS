@@ -44,7 +44,7 @@ export const WithValue: Story = {
 export const AllSizes: Story = {
   render: () => ({
     template: `
-      <div style="display: flex; flex-direction: column; gap: 8px; width: 260px;">
+      <div style="display: flex; flex-direction: column; gap: var(--layout-gap-md); width: 260px;">
         <cs-input fieldSize="sm" placeholder="Pequeño (28px)"></cs-input>
         <cs-input fieldSize="md" placeholder="Mediano — por defecto (32px)"></cs-input>
         <cs-input fieldSize="lg" placeholder="Grande (40px)"></cs-input>
@@ -56,7 +56,7 @@ export const AllSizes: Story = {
 export const AllStates: Story = {
   render: () => ({
     template: `
-      <div style="display: flex; flex-direction: column; gap: 8px; width: 260px;">
+      <div style="display: flex; flex-direction: column; gap: var(--layout-gap-md); width: 260px;">
         <cs-input placeholder="Por defecto"></cs-input>
         <cs-input [disabled]="true" placeholder="Deshabilitado"></cs-input>
         <cs-input [invalid]="true" placeholder="Inválido"></cs-input>

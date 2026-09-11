@@ -10,6 +10,7 @@
       type="checkbox"
       [id]="inputId"
       class="cs-checkbox__input"
+      [attr.aria-label]="ariaLabel || null"
       [checked]="isChecked()"
       [disabled]="disabled"
       (change)="onChange($any($event.target).checked)"
@@ -22,11 +23,11 @@
     >
       @if (indeterminate) {
         <svg [attr.width]="icon" [attr.height]="icon" viewBox="0 0 10 10" fill="none">
-          <path d="M2 5h6" stroke="white" stroke-width="1.75" stroke-linecap="round" />
+          <path d="M2 5h6" stroke="var(--color-text-inverse)" stroke-width="1.75" stroke-linecap="round" />
         </svg>
       } @else if (isChecked()) {
         <svg [attr.width]="icon" [attr.height]="icon" viewBox="0 0 10 10" fill="none">
-          <path d="M2 5.2L4.1 7.5L8 3" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M2 5.2L4.1 7.5L8 3" stroke="var(--color-text-inverse)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       }
     </span>

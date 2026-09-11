@@ -1,0 +1,7 @@
+:host {
+  display: block;
+}
+
+.cs-tab-panel {
+  padding-top: var(--layout-padding-xl);
+}

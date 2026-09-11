@@ -1,0 +1,127 @@
+:host {
+  display: block;
+}
+
+.cs-dtrp {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-sm);
+}
+
+.cs-dtrp__row {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--layout-gap-md);
+}
+
+.cs-dtrp__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-xs);
+}
+
+.cs-dtrp__label {
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-default);
+}
+.cs-dtrp__required {
+  margin-inline-start: var(--layout-padding-2xs);
+  color: var(--color-text-danger-default);
+}
+.cs-dtrp__label--spacer {
+  visibility: hidden;
+}
+
+.cs-dtrp__date-wrap {
+  position: relative;
+}
+
+.cs-dtrp__date-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--layout-padding-md);
+  border: var(--layout-border-thin) solid;
+  border-radius: var(--radius-sm);
+  background-color: var(--elevation-surface-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+  text-align: left;
+  cursor: pointer;
+}
+.cs-dtrp__date-trigger:disabled {
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+}
+.cs-dtrp__date-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cs-dtrp__date-icon {
+  flex-shrink: 0;
+  color: var(--color-text-base-subtle);
+}
+
+.cs-dtrp__popover {
+  position: absolute;
+  top: calc(100% + var(--layout-gap-xs));
+  left: 0;
+  width: max-content;
+  z-index: var(--elevation-z-index-dropdown);
+}
+
+.cs-dtrp__time-row {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-sm);
+}
+.cs-dtrp__time-field {
+  display: flex;
+  width: 108px;
+}
+.cs-dtrp__time-sep {
+  color: var(--color-text-base-subtlest);
+}
+
+.cs-dtrp__clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: none;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--color-text-base-subtle);
+  cursor: pointer;
+  transition: background-color var(--motion-duration-fast) var(--motion-easing-default);
+}
+.cs-dtrp__clear:hover {
+  background-color: var(--color-background-neutral-subtlest-hover);
+}
+.cs-dtrp__clear:focus-visible,
+.cs-dtrp__date-trigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-focused);
+}
+
+.cs-dtrp__error {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-xs);
+  margin: 0;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-danger-default);
+}
+.cs-dtrp__helper {
+  margin: 0;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtle);
+}

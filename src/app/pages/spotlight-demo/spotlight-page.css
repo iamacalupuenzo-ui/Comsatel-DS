@@ -1,0 +1,132 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.pg-wrap {
+  padding: var(--layout-padding-4xl);
+}
+
+.tour-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--layout-gap-3xl);
+  padding: var(--layout-padding-4xl) var(--layout-padding-6xl);
+  /* Reserva una segunda columna para el callout activo sin recortarlo. */
+  min-height: 360px;
+}
+
+/* El callout acompaña al objetivo y puede salir lateralmente del bloque. */
+.tour-block {
+  overflow: visible;
+}
+
+.tour-target {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 160px;
+  min-height: var(--layout-size-lg);
+  gap: var(--layout-gap-2xs);
+  padding: var(--layout-padding-sm) var(--layout-padding-lg);
+  border-radius: var(--radius-md);
+  background-color: var(--elevation-surface-default);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
+  font-family: var(--font-family-content);
+  color: var(--color-text-base-default);
+}
+
+.tour-target__title {
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  font-weight: var(--font-weight-accent);
+}
+
+.tour-target__description {
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-label-small);
+  line-height: var(--font-line-height-label-small);
+  color: var(--color-text-base-subtle);
+}
+
+.tour-restart {
+  padding: var(--layout-padding-lg) var(--layout-padding-2xl);
+  border-top: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
+  display: flex;
+  justify-content: center;
+}
+
+.placements-list {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  width: 100%;
+}
+
+.placement-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  /* La altura absorbe el callout de 280px con titular y descripción. */
+  min-height: 220px;
+  padding: var(--layout-padding-xl) var(--layout-padding-6xl);
+  border-top: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
+}
+
+.placement-row:first-child {
+  border-top: none;
+}
+
+.placement-row[data-placement='top'] {
+  align-items: flex-end;
+}
+
+.placement-row[data-placement='bottom'] {
+  align-items: flex-start;
+}
+
+.guide-steps {
+  display: flex;
+  gap: var(--layout-gap-sm);
+  color: var(--color-text-base-subtle);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+}
+
+.guide-steps span {
+  display: grid;
+  width: var(--layout-size-xs);
+  height: var(--layout-size-xs);
+  place-items: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-neutral-subtlest);
+}
+
+.guide-steps__current {
+  background-color: var(--color-background-brand-bold) !important;
+  color: var(--color-text-inverse);
+}
+
+.guide-spotlight-demo {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* La demostración se expande sobre la página al abrirse, no dentro de una
+   tarjeta artificialmente alta. El margen aparece solo durante ese estado. */
+.guide-card.guide-card--spotlight {
+  position: relative;
+  overflow: visible;
+  z-index: var(--elevation-z-index-raised);
+}
+
+.guide-card--spotlight:has(cs-spotlight[data-visible='true']) {
+  margin-bottom: calc(var(--layout-padding-6xl) + var(--layout-padding-5xl));
+  z-index: var(--elevation-z-index-overlay);
+}

@@ -1,0 +1,188 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Spotlight</p>
+  <h1 class="title">Spotlight</h1>
+  <p class="description">
+    Un spotlight presenta un punto de interés — una función nueva, un control que alguien todavía
+    no encontró — con una tarjeta anclada a él. A propósito no tiene blanket oscurecido ni
+    focus-trap: la persona puede seguir usando el resto de la página y no queda secuestrada dentro
+    del recorrido.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">
+      Activa o desactiva la descripción y el contador de pasos por separado para ver qué
+      combinación le queda a cada mensaje — un spotlight no siempre necesita los dos.
+    </p>
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <div class="pg-wrap">
+        <cs-spotlight
+          [isVisible]="pgVisible()"
+          headline="Nuevo: agrupamiento de unidades"
+          [description]="pgShowDescription() ? 'Las unidades cercanas ahora se agrupan automáticamente en una insignia de conteo al alejar el zoom.' : undefined"
+          [stepCount]="pgShowStepCount() ? '1 de 3' : undefined"
+          primaryActionLabel="Entendido"
+          (primaryAction)="pgVisible.set(false)"
+        >
+          <cs-button variant="primary" (click)="pgVisible.set(!pgVisible())">Mostrar Spotlight</cs-button>
+        </cs-spotlight>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Recorrido de varios pasos -->
+  <section class="section">
+    <h2 class="section__title" id="tour">Recorrido de varios pasos</h2>
+    <p class="section__intro">
+      Recurre a varios pasos solo cuando un spotlight único de verdad no alcanza. Rastrea el paso
+      actual con un solo dato de estado.
+    </p>
+    <div class="static-block tour-block">
+      <div class="static-block__preview tour-row">
+        @for (step of tourSteps; track $index; let i = $index) {
+          <cs-spotlight
+            [isVisible]="tourVisible() && tourStep() === i"
+            [placement]="step.placement"
+            [headline]="step.headline"
+            [description]="step.body"
+            [stepCount]="(i + 1) + ' de ' + tourSteps.length"
+            [primaryActionLabel]="i === tourSteps.length - 1 ? 'Listo' : 'Siguiente'"
+            [secondaryActionLabel]="i > 0 ? 'Atrás' : undefined"
+            (primaryAction)="nextStep()"
+            (secondaryAction)="prevStep()"
+          >
+            <div class="tour-target">
+              <span class="tour-target__title">{{ step.target }}</span>
+              <span class="tour-target__description">{{ step.targetDescription }}</span>
+            </div>
+          </cs-spotlight>
+        }
+      </div>
+      @if (!tourVisible()) {
+        <div class="tour-restart">
+          <cs-button variant="default" size="sm" (click)="restartTour()">Reiniciar recorrido</cs-button>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Posiciones -->
+  <section class="section">
+    <h2 class="section__title" id="placements">Posiciones</h2>
+    <p class="section__intro">
+      La posición es estática — no se reubica al hacer scroll ni si la tarjeta se saldría del
+      viewport. Elige una que mantenga la tarjeta completamente visible para el layout donde se
+      use.
+    </p>
+    <div class="static-block placements-block">
+      <div class="static-block__preview placements-list">
+        @for (example of placementExamples; track example.placement) {
+          <div class="placement-row" [attr.data-placement]="example.placement">
+            <cs-spotlight [isVisible]="true" [placement]="example.placement" [headline]="example.headline" [description]="example.description" primaryActionLabel="Entendido">
+              <div class="tour-target">
+                <span class="tour-target__title">{{ example.label }}</span>
+                <span class="tour-target__description">{{ example.placement }}</span>
+              </div>
+            </cs-spotlight>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Lineamientos -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <cs-icon name="check" [size]="13" class="guide-card__header-icon" />
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Mantén un recorrido en 2-3 pasos como máximo, cada uno apuntando a un solo control.</p>
+          <div class="guide-steps" aria-label="Recorrido breve de ejemplo">
+            @for (step of [0, 1, 2]; track step) {
+              <span [class.guide-steps__current]="guideTourStep() === step">{{ step + 1 }}</span>
+            }
+          </div>
+          <cs-button size="sm" variant="default" (click)="nextGuideStep()">Avanzar ejemplo</cs-button>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <cs-icon name="x" [size]="13" class="guide-card__header-icon" />
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No encadenes cinco o más pasos de spotlight: para el paso 4 la persona ya está cerrando en piloto automático, no leyendo.</p>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do guide-card--spotlight">
+        <div class="guide-card__header">
+          <cs-icon name="check" [size]="13" class="guide-card__header-icon" />
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Da siempre una salida — un control de cerrar o una acción "Entendido", nunca un spotlight que solo avanza hacia adelante.</p>
+          <div class="guide-spotlight-demo">
+            <cs-spotlight
+              [isVisible]="guideExitVisible()"
+              placement="bottom"
+              headline="Acción opcional"
+              description="Puedes cerrar este mensaje cuando quieras."
+              primaryActionLabel="Entendido"
+              [dismissible]="true"
+              (primaryAction)="guideExitVisible.set(false)"
+              (dismissed)="guideExitVisible.set(false)"
+            >
+              <cs-button size="sm" variant="default" (click)="guideExitVisible.set(true)">Mostrar ejemplo</cs-button>
+            </cs-spotlight>
+          </div>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <cs-icon name="x" [size]="13" class="guide-card__header-icon" />
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No obligues a pasar por cada paso para cerrar un recorrido: bloquear la única salida detrás de "Siguiente" es justo lo que el diseño sin focus-trap busca evitar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">El spotlight informa sin bloquear la página. Sus acciones siguen siendo botones nativos y el callout se anuncia como diálogo no modal.</p>
+    <div class="table accessibility-table">
+      <div class="table__head"><span>Aspecto</span><span>Implementación</span></div>
+      <div class="table__row"><span class="table__name">Relación semántica</span><span class="table__desc">El diálogo se nombra con el titular mediante <code class="inline-code">aria-labelledby</code> y vincula la descripción con <code class="inline-code">aria-describedby</code>.</span></div>
+      <div class="table__row"><span class="table__name">Anuncio</span><span class="table__desc">El contenido usa <code class="inline-code">aria-live=&quot;polite&quot;</code> para anunciarse sin interrumpir la tarea actual.</span></div>
+      <div class="table__row"><span class="table__name">Teclado</span><span class="table__desc">Tab recorre las acciones de forma natural; Escape emite <code class="inline-code">dismissed</code> solo cuando el spotlight ofrece salida explícita.</span></div>
+      <div class="table__row"><span class="table__name">No modal</span><span class="table__desc">No usa <code class="inline-code">aria-modal</code>, bloqueo de scroll ni trampa de foco: el target y el resto de la interfaz siguen disponibles.</span></div>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">isVisible</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Si la tarjeta del spotlight se muestra. El target envuelto se sigue dibujando — y sigue interactivo — en cualquier caso.</span></div>
+      <div class="table__row"><code class="table__name">placement</code><code class="table__type">"top" | "bottom" | "left" | "right"</code><code class="table__default">"bottom"</code><span class="table__desc">Estática: no se reubica al hacer scroll.</span></div>
+      <div class="table__row"><code class="table__name">headline</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Título corto para la tarjeta. Una línea.</span></div>
+      <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Contenido del cuerpo — una o dos oraciones.</span></div>
+      <div class="table__row"><code class="table__name">stepCount</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto libre tipo "1 de 3", a la izquierda de las acciones.</span></div>
+      <div class="table__row"><code class="table__name">primaryActionLabel</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Obligatorio. Siempre visible.</span></div>
+      <div class="table__row"><code class="table__name">(primaryAction)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en la acción primaria.</span></div>
+      <div class="table__row"><code class="table__name">secondaryActionLabel</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Opcional, ej. "Atrás".</span></div>
+      <div class="table__row"><code class="table__name">dismissible</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra un botón de cerrar (×) en la esquina.</span></div>
+      <div class="table__row"><code class="table__name">dismissLabel</code><code class="table__type">string</code><code class="table__default">&quot;Cerrar spotlight&quot;</code><span class="table__desc">Nombre accesible del botón para cerrar.</span></div>
+      <div class="table__row"><code class="table__name">(dismissed)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en el botón de cerrar.</span></div>
+    </div>
+  </section>
+</div>

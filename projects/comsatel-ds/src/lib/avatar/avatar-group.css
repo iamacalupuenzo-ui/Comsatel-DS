@@ -10,6 +10,9 @@
 }
 
 .cs-avatar-group__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   flex-shrink: 0;
   border-radius: var(--radius-full);

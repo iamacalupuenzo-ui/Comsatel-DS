@@ -25,6 +25,7 @@ export class Button {
   @Input() selected = false;
   @Input() disabled = false;
   @Input() fullWidth = false;
+  @Input('aria-label') ariaLabel = '';
 
   @HostBinding('class.cs-button-host--full') get isFullHost(): boolean {
     return this.fullWidth;

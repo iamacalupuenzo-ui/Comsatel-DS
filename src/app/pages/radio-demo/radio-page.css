@@ -1,0 +1,32 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.inline-code {
+  font-family: monospace;
+  font-size: var(--font-size-content-note);
+  padding: var(--layout-padding-2xs) var(--layout-padding-sm);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-background-neutral-subtle);
+}
+
+.sizes-row {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-3xl);
+}
+.sizes-row__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--layout-gap-md);
+}
+.sizes-row__label {
+  font-size: var(--font-size-content-note);
+  color: var(--color-text-base-subtlest);
+}
+
+.disabled-row {
+  display: flex;
+  gap: var(--layout-gap-4xl);
+}

@@ -1,0 +1,37 @@
+/* Skeleton no tiene template: el elemento visual es el host <cs-skeleton>.
+   :host es obligatorio para que la encapsulación Emulated aplique estos
+   estilos al host, que recibe _nghost en vez de _ngcontent. */
+:host {
+  display: block;
+  flex-shrink: 0;
+  /* Los dos tokens dan contraste suficiente sobre una tabla blanca y hacen
+     visible el recorrido del placeholder, no solo su forma estática. */
+  background: linear-gradient(
+    90deg,
+    var(--color-background-skeleton-base) 25%,
+    var(--color-background-skeleton-shimmer) 50%,
+    var(--color-background-skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  /* 1.6s explícito: es un shimmer ambiente en loop, no una transición de UI
+   * puntual — ningún --motion-duration-* de la escala (100-350ms) encaja,
+   * son para el otro tipo de animación. No forzarlo a un token que no
+   * coincide (ver B1 en el skill). */
+  animation: cs-skeleton-shimmer 1.6s linear infinite;
+}
+
+@keyframes cs-skeleton-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host {
+    background: var(--color-background-skeleton-base);
+    animation: none;
+  }
+}

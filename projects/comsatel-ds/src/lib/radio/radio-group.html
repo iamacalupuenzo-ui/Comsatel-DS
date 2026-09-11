@@ -1,0 +1,31 @@
+<div
+  class="cs-radio-group"
+  role="radiogroup"
+  [attr.aria-label]="ariaLabel || null"
+  [attr.aria-labelledby]="labelledBy"
+  [attr.aria-describedby]="describedBy"
+  [attr.aria-errormessage]="errorMessageId"
+  [attr.aria-required]="required ? 'true' : null"
+  [attr.aria-invalid]="invalid ? 'true' : null"
+>
+  @if (label) {
+    <span class="cs-radio-group__label" [id]="labelId">
+      {{ label }}
+      @if (required) {
+        <span class="cs-radio-group__required">*</span>
+      }
+    </span>
+  }
+
+  <div class="cs-radio-group__items" [class.cs-radio-group__items--horizontal]="orientation === 'horizontal'">
+    <ng-content></ng-content>
+  </div>
+
+  @if (invalid && errorText) {
+    <p [id]="errorId" class="cs-radio-group__error" aria-live="polite">
+      <cs-icon name="alert-triangle" [size]="12" />{{ errorText }}
+    </p>
+  } @else if (helperText) {
+    <p [id]="helperId" class="cs-radio-group__helper">{{ helperText }}</p>
+  }
+</div>

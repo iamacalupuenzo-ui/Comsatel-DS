@@ -1,0 +1,28 @@
+<span class="cs-toast__icon">
+  <cs-icon [name]="resolvedIcon" [size]="20" />
+</span>
+
+<div class="cs-toast__body">
+  <p class="cs-toast__title" [class.cs-toast__title--with-desc]="!!description">{{ title }}</p>
+  @if (description) {
+    <p class="cs-toast__desc">{{ description }}</p>
+  }
+
+  @if (actions && actions.length > 0) {
+    <div class="cs-toast__actions">
+      @for (action of actions; track action.label) {
+        @if (action.href) {
+          <a class="cs-toast__action" [href]="action.href">{{ action.label }}</a>
+        } @else {
+          <button type="button" class="cs-toast__action" (click)="onActionClick(action)">{{ action.label }}</button>
+        }
+      }
+    </div>
+  }
+</div>
+
+@if (showDismiss) {
+  <button type="button" class="cs-toast__dismiss" [attr.aria-label]="dismissLabel" (click)="dismissed.emit()">
+    <cs-icon name="x" [size]="16" />
+  </button>
+}

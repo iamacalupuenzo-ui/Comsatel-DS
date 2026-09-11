@@ -1,0 +1,105 @@
+/* cs-modal — motor de comportamiento propio (sin PrimeNG ni ninguna otra
+   librería externa, ver PRIMENG_PLAN.md). El host se reubica a
+   document.body vía Renderer2 (ver modal.ts) — mismo rol que createPortal
+   en el Modal de React. */
+
+:host {
+  display: block;
+}
+
+.cs-modal__mask {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background-blanket-default);
+  padding: var(--layout-padding-3xl);
+  z-index: var(--elevation-z-index-modal);
+  opacity: 0;
+  transition: opacity var(--motion-duration-medium) var(--motion-easing-default);
+}
+.cs-modal__mask--visible {
+  opacity: 1;
+}
+
+.cs-modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 85vh;
+  border-radius: var(--radius-lg);
+  background-color: var(--elevation-surface-overlay);
+  box-shadow: var(--shadow-xl);
+  outline: none;
+  opacity: 0;
+  transform: scale(0.98);
+  transition:
+    opacity var(--motion-duration-medium) var(--motion-easing-default),
+    transform var(--motion-duration-medium) var(--motion-easing-default);
+}
+.cs-modal--visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cs-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--layout-gap-lg);
+  padding: var(--layout-padding-2xl) var(--layout-padding-2xl) var(--layout-padding-lg);
+}
+
+.cs-modal__title {
+  margin: 0;
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-content-highlight);
+  line-height: var(--font-line-height-content-highlight);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-boldest);
+}
+.cs-modal__title--warning {
+  color: var(--color-text-warning-default);
+}
+.cs-modal__title--danger {
+  color: var(--color-text-danger-default);
+}
+
+.cs-modal__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: var(--layout-padding-xs);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-text-base-subtle);
+  cursor: pointer;
+  transition: opacity var(--motion-duration-leaving) var(--motion-easing-default);
+}
+.cs-modal__close:hover {
+  opacity: 0.6;
+}
+.cs-modal__close:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-focused);
+}
+
+.cs-modal__content {
+  padding: 0 var(--layout-padding-2xl) var(--layout-padding-2xl);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+  color: var(--color-text-base-default);
+}
+
+.cs-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--layout-gap-md);
+  padding: var(--layout-padding-lg) var(--layout-padding-2xl);
+  border-top: 1px solid var(--color-border-neutral-subtle);
+}

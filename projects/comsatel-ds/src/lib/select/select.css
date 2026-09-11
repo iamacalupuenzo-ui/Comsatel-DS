@@ -1,0 +1,175 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.cs-select {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-xs);
+  width: 100%;
+}
+
+.cs-select__label {
+  font-family: var(--font-family-content);
+  letter-spacing: var(--font-letter-spacing-content);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-accent);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-default);
+}
+.cs-select__required {
+  margin-left: var(--layout-gap-2xs);
+  color: var(--color-text-danger-default);
+}
+
+.cs-select__row {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--layout-gap-md);
+  width: 100%;
+}
+
+.cs-select__trigger-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.cs-select__trigger {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  border: var(--layout-border-thin) solid;
+  padding-block: var(--layout-padding-xs);
+  border-radius: var(--radius-sm);
+  background-color: var(--elevation-surface-default);
+  font-family: var(--font-family-content);
+  letter-spacing: var(--font-letter-spacing-content);
+  font-weight: var(--font-weight-regular);
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--motion-duration-fast) var(--motion-easing-default);
+}
+.cs-select__trigger--disabled {
+  cursor: not-allowed;
+  background-color: var(--color-background-neutral-subtle);
+}
+
+.cs-select__placeholder {
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cs-select__chips {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  row-gap: var(--layout-gap-xs);
+  column-gap: var(--layout-gap-2xs);
+}
+.cs-select__chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-full);
+  background: none;
+  color: currentColor;
+  cursor: pointer;
+}
+.cs-select__chip-remove:hover,
+.cs-select__chip-remove:focus-visible {
+  background-color: var(--color-background-neutral-subtlest-hover);
+}
+.cs-select__chip-remove:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-focused);
+}
+.cs-select__chevron {
+  flex-shrink: 0;
+  margin-left: var(--layout-padding-xs);
+  color: var(--color-text-base-subtle);
+  transition: transform var(--motion-duration-fast) var(--motion-easing-default);
+}
+.cs-select__chevron--open {
+  transform: rotate(180deg);
+}
+
+.cs-select__menu {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: var(--color-background-base);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding-block: var(--layout-padding-xs);
+}
+.cs-select__menu-inner {
+  padding-inline: var(--layout-padding-xs);
+}
+
+.cs-select__option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-sm);
+  text-align: left;
+  overflow: hidden;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  font-family: var(--font-family-content);
+  letter-spacing: var(--font-letter-spacing-content);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-default);
+  cursor: pointer;
+}
+.cs-select__option:hover:not(:disabled):not(.cs-select__option--selected) {
+  background-color: var(--color-background-neutral-subtlest-hover);
+}
+.cs-select__option:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+}
+.cs-select__option--selected {
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-brand-bolder);
+  background-color: var(--color-background-brand-subtlest);
+}
+
+.cs-select__option-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cs-select__option-check {
+  flex-shrink: 0;
+  color: var(--color-text-brand-bolder);
+}
+
+.cs-select__clear {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--color-text-base-subtle);
+  cursor: pointer;
+  transition: background-color var(--motion-duration-fast) var(--motion-easing-default);
+}
+.cs-select__clear:hover {
+  background-color: var(--color-background-neutral-subtlest-hover);
+}

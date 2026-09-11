@@ -16,11 +16,21 @@
   </div>
 
   @if (showToggle) {
-    <cs-toggle size="md" [checked]="toggleChecked"></cs-toggle>
+    <cs-toggle
+      size="md"
+      [checked]="toggleChecked"
+      [aria-label]="title"
+      (checkedChange)="toggleCheckedChange.emit($event)"
+    ></cs-toggle>
   }
 
   @if (showButton) {
-    <cs-button variant="default" size="sm" class="cs-action-card__button">{{ buttonLabel }}</cs-button>
+    <cs-button
+      variant="default"
+      size="sm"
+      class="cs-action-card__button"
+      (click)="buttonClick.emit()"
+    >{{ buttonLabel }}</cs-button>
   }
 
   @if (showLabel) {

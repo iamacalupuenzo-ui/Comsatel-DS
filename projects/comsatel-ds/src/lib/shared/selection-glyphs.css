@@ -11,6 +11,8 @@
   justify-content: center;
   flex-shrink: 0;
   border-radius: var(--radius-xs);
+  /* 1.5px es la frontera óptica compartida entre Checkbox, Radio y los
+     selectores de Dropdown. La escala solo expone 1px y 2px. */
   border: 1.5px solid var(--color-border-neutral-default);
   background-color: var(--elevation-surface-default);
   transition:
@@ -22,18 +24,19 @@
   background-color: var(--color-background-brand-default);
 }
 
-.cs-dropdown-item__radio-ring {
+.cs-radio-ring {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   border-radius: var(--radius-full);
+  /* Misma frontera óptica compartida del cuadrado de selección. */
   border: 1.5px solid var(--color-border-neutral-default);
 }
-.cs-dropdown-item__radio-ring--checked {
+.cs-radio-ring--checked {
   border-color: var(--color-background-brand-default);
 }
-.cs-dropdown-item__radio-dot {
+.cs-radio-dot {
   border-radius: var(--radius-full);
   background-color: var(--color-background-brand-default);
 }

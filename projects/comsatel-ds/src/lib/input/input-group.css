@@ -11,7 +11,7 @@
   align-items: center;
   height: 32px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border-neutral-default);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-default);
   background-color: var(--elevation-surface-default);
   transition: border-color var(--motion-duration-fast) var(--motion-easing-default), box-shadow var(--motion-duration-fast) var(--motion-easing-default);
 }
@@ -20,11 +20,11 @@
 
 .cs-input-group:has([data-slot='input-group-control']:focus-visible) {
   border-color: var(--color-border-brand-default);
-  box-shadow: 0 0 0 2px var(--color-border-brand-subtle);
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-brand-subtle);
 }
 .cs-input-group:has([data-slot='input-group-control'][aria-invalid='true']) {
   border-color: var(--color-border-danger-default);
-  box-shadow: 0 0 0 2px var(--color-border-danger-subtle);
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-danger-subtle);
 }
 .cs-input-group:has([data-slot='input-group-control']:disabled) {
   background-color: var(--color-background-neutral-subtle);

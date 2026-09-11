@@ -1,0 +1,147 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+.inline-code {
+  font-family: monospace;
+  font-size: var(--font-size-content-note);
+  padding: var(--layout-padding-2xs) var(--layout-padding-sm);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-background-neutral-subtle);
+}
+
+/* Diagrama de estructura */
+.diagram {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  background-color: var(--color-background-neutral-subtle);
+  padding: var(--layout-padding-3xl);
+}
+.diagram__frame {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-neutral-default);
+  overflow: hidden;
+  background-color: var(--elevation-surface-default);
+}
+.diagram__topnav {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--color-border-neutral-default);
+  background-color: var(--color-background-brand-subtlest);
+  font-family: monospace;
+  font-size: var(--font-size-label-small);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-brand-default);
+}
+.diagram__row {
+  display: flex;
+  height: 220px;
+}
+.diagram__sidenav,
+.diagram__panel {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-lr;
+  background-color: var(--color-background-neutral-subtle);
+  font-family: monospace;
+  font-size: var(--font-size-label-micro);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-subtle);
+}
+.diagram__sidenav {
+  width: 90px;
+  border-right: 1px solid var(--color-border-neutral-default);
+}
+.diagram__panel {
+  width: 70px;
+  border-left: 1px solid var(--color-border-neutral-default);
+}
+.diagram__main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--elevation-surface-default);
+  font-family: monospace;
+  font-size: var(--font-size-label-small);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-subtle);
+}
+
+/* Áreas del layout */
+.areas-list { display: flex; flex-direction: column; gap: var(--layout-gap-lg); }
+.area-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  background-color: var(--elevation-surface-default);
+  padding: var(--layout-padding-xl) var(--layout-padding-2xl);
+}
+.area-card__header {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--layout-gap-sm);
+  margin-bottom: var(--layout-padding-2xs);
+}
+.area-card__name { font-size: var(--font-size-content-caption); font-weight: var(--font-weight-emphasis); color: var(--color-text-base-boldest); }
+.area-card__token { font-family: monospace; font-size: var(--font-size-label-small); color: var(--color-text-brand-default); }
+.area-card__desc { font-size: var(--font-size-content-note); line-height: 1.5; color: var(--color-text-base-subtle); }
+
+/* Side nav: modos */
+.modes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--layout-gap-xl);
+}
+.mode-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  overflow: hidden;
+}
+.mode-card__header {
+  padding: var(--layout-padding-lg) var(--layout-padding-xl);
+  border-bottom: 1px solid var(--color-border-divider);
+  background-color: var(--color-background-neutral-subtlest);
+}
+.mode-card__name { display: block; font-size: var(--font-size-content-caption); font-weight: var(--font-weight-emphasis); color: var(--color-text-base-boldest); }
+.mode-card__width { font-family: monospace; font-size: var(--font-size-label-small); color: var(--color-text-base-subtlest); margin-top: var(--layout-padding-2xs); }
+.mode-card__desc { padding: var(--layout-padding-lg) var(--layout-padding-xl); font-size: var(--font-size-content-note); line-height: 1.5; color: var(--color-text-base-subtle); }
+
+@media (max-width: 767px) {
+  .modes-grid { grid-template-columns: 1fr; }
+}
+
+/* Breakpoints */
+.table {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-neutral-subtle);
+  overflow: hidden;
+}
+.table__head {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.4fr;
+  gap: var(--layout-gap-xl);
+  padding: var(--layout-padding-md) var(--layout-padding-2xl);
+  background-color: var(--color-background-neutral-subtlest);
+  border-bottom: 1px solid var(--color-border-divider);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-bolder);
+}
+.table__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.4fr;
+  gap: var(--layout-gap-xl);
+  align-items: center;
+  padding: var(--layout-padding-lg) var(--layout-padding-2xl);
+  border-top: 1px solid var(--color-border-divider);
+}
+.table__row:first-child { border-top: none; }
+.table__row:hover { background-color: var(--color-interaction-hovered); }
+.table__token { font-family: monospace; font-size: var(--font-size-content-note); color: var(--color-text-brand-default); }
+.table__value { font-family: monospace; font-size: var(--font-size-content-note); color: var(--color-text-base-default); }
+.table__cell { font-size: var(--font-size-content-note); color: var(--color-text-base-subtle); }

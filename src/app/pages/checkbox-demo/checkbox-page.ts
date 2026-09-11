@@ -1,12 +1,12 @@
 import { Component, computed, signal } from '@angular/core';
-import { Checkbox, type CheckboxSize } from 'comsatel-ds';
+import { Checkbox, Icon, type CheckboxSize } from 'comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 const SIZES: CheckboxSize[] = ['sm', 'md', 'lg'];
 
 @Component({
   selector: 'app-checkbox-page',
-  imports: [Checkbox, DemoShell],
+  imports: [Checkbox, Icon, DemoShell],
   templateUrl: './checkbox-page.html',
   styleUrl: './checkbox-page.css',
 })

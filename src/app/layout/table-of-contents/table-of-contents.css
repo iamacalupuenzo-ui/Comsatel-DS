@@ -1,14 +1,16 @@
 .toc {
   position: fixed;
-  top: 56px;
+  top: var(--layout-topnav-height);
   right: 0;
-  width: 192px;
-  height: calc(100vh - 56px);
+  width: var(--layout-panel-width);
+  height: calc(100vh - var(--layout-topnav-height));
   padding: var(--layout-padding-3xl) var(--layout-padding-lg);
   overflow-y: auto;
   display: none;
 }
 
+/* --breakpoint-xl (1280px, tokens.css) — un media query no puede leer una
+   custom property en su condición, queda repetido a propósito. */
 @media (min-width: 1280px) {
   .toc {
     display: block;

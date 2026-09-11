@@ -33,6 +33,8 @@ export class Toggle implements OnChanges {
   @Input() size: ToggleSize = 'md';
   @Input() label?: string;
   @Input() description?: string;
+  /** Nombre accesible para el caso sin etiqueta visible. */
+  @Input('aria-label') ariaLabel = '';
   @Input() disabled = false;
   @Input() checked = false;
   @Output() checkedChange = new EventEmitter<boolean>();

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, signal } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, signal } from '@angular/core';
 import { Icon } from '../icons/icon';
 import { DropdownItemComponent } from './dropdown-item';
 import { ITEM_TOKENS } from './dropdown-tokens';
@@ -24,10 +24,15 @@ export class Dropdown {
   @Input() size: DropdownSize = 'sm';
   @Input() position: DropdownPosition = 'left';
   @Input() header?: string;
+  /** Nombre accesible del trigger de ícono; el trigger con texto ya tiene su label visible. */
+  @Input() ariaLabel = '';
   @Output() select = new EventEmitter<DropdownItem>();
 
   protected readonly open = signal(false);
+  protected readonly triggerId = `cs-dropdown-trigger-${++uid}`;
   protected readonly menuId = `cs-dropdown-menu-${++uid}`;
+
+  @ViewChild('triggerButton') private triggerRef?: ElementRef<HTMLButtonElement>;
 
   constructor(private elementRef: ElementRef<HTMLElement>) {}
 
@@ -48,12 +53,60 @@ export class Dropdown {
     this.open.update((v) => !v);
   }
 
+  private close(restoreFocus = false): void {
+    this.open.set(false);
+    if (restoreFocus) queueMicrotask(() => this.triggerRef?.nativeElement.focus());
+  }
+
+  private focusMenuItem(last = false): void {
+    setTimeout(() => {
+      const items = Array.from(
+        this.elementRef.nativeElement.querySelectorAll<HTMLButtonElement>('[role^="menuitem"]:not(:disabled)'),
+      );
+      (last ? items.at(-1) : items[0])?.focus();
+    });
+  }
+
+  onTriggerKeydown(event: KeyboardEvent): void {
+    if (!['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) return;
+    event.preventDefault();
+    if (!this.open()) this.open.set(true);
+    this.focusMenuItem(event.key === 'ArrowUp');
+  }
+
+  onMenuKeydown(event: KeyboardEvent): void {
+    const items = Array.from(
+      this.elementRef.nativeElement.querySelectorAll<HTMLButtonElement>('[role^="menuitem"]:not(:disabled)'),
+    );
+    if (!items.length) return;
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.close(true);
+      return;
+    }
+    if (event.key === 'Tab') {
+      this.close();
+      return;
+    }
+    if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+
+    const current = items.indexOf(document.activeElement as HTMLButtonElement);
+    const next = event.key === 'Home'
+      ? 0
+      : event.key === 'End'
+        ? items.length - 1
+        : (current + (event.key === 'ArrowUp' ? -1 : 1) + items.length) % items.length;
+    items[next]?.focus();
+  }
+
   onItemSelect(item: DropdownItem, selectionMode: DropdownSelectionMode): void {
     this.select.emit(item);
     // Los grupos de acción cierran el menú al elegir; los grupos
     // checkbox/radio lo mantienen abierto para poder marcar más de uno (o
     // cambiar de radio varias veces) antes de cerrar.
-    if (selectionMode === 'none') this.open.set(false);
+    if (selectionMode === 'none') this.close(true);
   }
 
   modeOf(group: DropdownGroup): DropdownSelectionMode {
@@ -67,7 +120,12 @@ export class Dropdown {
   @HostListener('document:mousedown', ['$event'])
   onDocumentMouseDown(event: MouseEvent): void {
     if (this.open() && !this.elementRef.nativeElement.contains(event.target as Node)) {
-      this.open.set(false);
+      this.close();
     }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onDocumentKeydown(event: KeyboardEvent): void {
+    if (this.open() && event.key === 'Escape') this.close(true);
   }
 }

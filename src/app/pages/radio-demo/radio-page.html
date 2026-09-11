@@ -1,0 +1,229 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Radio</p>
+  <h1 class="title">Radio</h1>
+  <p class="description">
+    Un conjunto de opciones mutuamente excluyentes — solo una puede estar seleccionada a la vez.
+    Usa <code class="inline-code">cs-radio-group</code> para agrupar dos o más
+    <code class="inline-code">cs-radio</code>, que comparten selección, tamaño y estado de
+    deshabilitado a través del grupo.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta tamaño, orientación y estado deshabilitado del grupo.</p>
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <cs-radio-group defaultValue="blue" [orientation]="pgOrientation()" [disabled]="pgDisabled()">
+        @for (opt of colorOptions; track opt.value) {
+          <cs-radio [value]="opt.value" [label]="opt.label" [size]="pgSize()" />
+        }
+      </cs-radio-group>
+    </app-demo-shell>
+  </section>
+
+  <!-- Tamaños -->
+  <section class="section">
+    <h2 class="section__title" id="sizes">Tamaños</h2>
+    <p class="section__intro">Tres tamaños, iguales a los de Checkbox — comparten escala para pesar igual en un formulario.</p>
+    <div class="static-block">
+      <div class="static-block__preview sizes-row">
+        @for (size of sizes; track size) {
+          <div class="sizes-row__item">
+            <cs-radio-group defaultValue="a">
+              <cs-radio value="a" label="A" [size]="size" />
+            </cs-radio-group>
+            <span class="sizes-row__label">{{ size }}</span>
+          </div>
+        }
+      </div>
+      <app-code-block [code]="sizesCode"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Con descripción -->
+  <section class="section">
+    <h2 class="section__title" id="with-description">Con descripción</h2>
+    <p class="section__intro">Una segunda línea opcional debajo del label, para dar contexto adicional sin salir del grupo.</p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        <cs-radio-group defaultValue="email">
+          <cs-radio value="email" label="Email" description="Recibe una notificación en tu correo." />
+          <cs-radio value="sms" label="SMS" description="Recibe un mensaje de texto en tu teléfono." />
+          <cs-radio value="none" label="Ninguno" description="Desactiva las notificaciones por completo." />
+        </cs-radio-group>
+      </div>
+      <app-code-block [code]="descriptionCode"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Deshabilitado -->
+  <section class="section">
+    <h2 class="section__title" id="disabled">Deshabilitado</h2>
+    <p class="section__intro">Una opción puntual, o el grupo completo.</p>
+    <div class="static-block">
+      <div class="static-block__preview disabled-row">
+        <cs-radio-group defaultValue="a">
+          <cs-radio value="a" label="Opción A" />
+          <cs-radio value="b" label="Opción B" [disabled]="true" />
+        </cs-radio-group>
+        <cs-radio-group [disabled]="true" defaultValue="a">
+          <cs-radio value="a" label="Opción A" />
+          <cs-radio value="b" label="Opción B" />
+        </cs-radio-group>
+      </div>
+      <app-code-block [code]="disabledCode"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Requerido y validación -->
+  <section class="section">
+    <h2 class="section__title" id="validation">Requerido y validación</h2>
+    <p class="section__intro">Label, asterisco de requerido, y mensaje de error a nivel de grupo.</p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        <cs-radio-group label="Rojo / Azul" [required]="true" [invalid]="true" errorText="Elige un color para continuar.">
+          <cs-radio value="red" label="Rojo" />
+          <cs-radio value="blue" label="Azul" />
+        </cs-radio-group>
+      </div>
+      <app-code-block [code]="validationCode"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Accesibilidad -->
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Radio conserva un <strong>input type="radio" nativo</strong> para delegar al navegador la semántica, el foco y la navegación de teclado, mientras el grupo relaciona su label, ayuda y error mediante atributos ARIA.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Nombre accesible</strong><span>Cada opción usa su <code>label</code> visible. Si el texto no se muestra, pasa <code>aria-label</code> al <code>cs-radio</code>; el label del grupo no sustituye el nombre de cada opción.</span></div>
+      <div class="table__row"><strong>Semántica de grupo</strong><span><code>cs-radio-group</code> expone <code>role="radiogroup"</code>, comparte un <code>name</code> nativo y relaciona su label con <code>aria-labelledby</code>.</span></div>
+      <div class="table__row"><strong>Teclado</strong><span><code>Tab</code> entra al radio seleccionado (o al primero disponible) y las flechas del navegador cambian la selección dentro del mismo grupo; <code>Espacio</code> activa el radio enfocado.</span></div>
+      <div class="table__row"><strong>Requerido y error</strong><span><code>required</code> se reenvía a los inputs y <code>aria-required</code>/<code>aria-invalid</code> describen el estado. <code>helperText</code> o <code>errorText</code> se enlazan mediante <code>aria-describedby</code> y el error también se anuncia con <code>aria-errormessage</code>.</span></div>
+      <div class="table__row"><strong>Deshabilitado</strong><span>La opción o el grupo conserva <code>disabled</code> nativo, no entra en el orden de foco y mantiene la relación visual con su etiqueta.</span></div>
+    </div>
+  </section>
+
+  <!-- Lineamientos -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Preselecciona una opción razonable por defecto cuando exista una — reduce fricción, la mayoría de usuarios no cambia el default.</p>
+          <cs-radio-group defaultValue="monthly">
+            <cs-radio value="monthly" label="Mensual" />
+            <cs-radio value="annual" label="Anual" />
+          </cs-radio-group>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No dejes un grupo de radios sin ninguna opción marcada cuando una elección clara ya existe — obliga a pensar donde no hace falta.</p>
+          <cs-radio-group>
+            <cs-radio value="monthly" label="Mensual" />
+            <cs-radio value="annual" label="Anual" />
+          </cs-radio-group>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa Radio para 2-6 opciones mutuamente excluyentes, todas visibles a la vez.</p>
+          <cs-radio-group defaultValue="sm">
+            <cs-radio value="sm" label="Chico" />
+            <cs-radio value="md" label="Mediano" />
+            <cs-radio value="lg" label="Grande" />
+          </cs-radio-group>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses Radio para listas largas (10+ opciones) — un Select/Dropdown busca y escala mejor.</p>
+          <code class="guide-card__code">&lt;cs-input-dropdown [options]="paises"&gt;</code>
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa description cuando el label solo no basta para decidir.</p>
+          <cs-radio-group defaultValue="pro">
+            <cs-radio value="free" label="Gratis" description="1 proyecto, soporte comunitario" />
+            <cs-radio value="pro" label="Pro" description="Proyectos ilimitados, soporte prioritario" />
+          </cs-radio-group>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No metas todo el detalle dentro del label mismo — se vuelve difícil de leer y rompe la alineación del grupo.</p>
+          <cs-radio-group defaultValue="pro">
+            <cs-radio value="free" label="Gratis — 1 proyecto, soporte comunitario" />
+            <cs-radio value="pro" label="Pro — proyectos ilimitados, soporte prioritario, dominios propios" />
+          </cs-radio-group>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Propiedades: RadioGroup -->
+  <section class="section">
+    <h2 class="section__title" id="props-group">Propiedades — RadioGroup</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">name</code><code class="table__type">string</code><code class="table__default">generado</code><span class="table__desc">Nombre nativo compartido por los radios del grupo. Se genera solo si no se pasa.</span></div>
+      <div class="table__row"><code class="table__name">value</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Valor controlado — pásalo junto con (valueChange) para manejar el estado tú mismo.</span></div>
+      <div class="table__row"><code class="table__name">defaultValue</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Valor inicial, no controlado.</span></div>
+      <div class="table__row"><code class="table__name">(valueChange)</code><code class="table__type">EventEmitter&lt;string&gt;</code><code class="table__default">—</code><span class="table__desc">Emite el valor seleccionado en cada cambio.</span></div>
+      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Label del grupo completo, arriba de las opciones.</span></div>
+      <div class="table__row"><code class="table__name">required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Agrega un asterisco al label del grupo.</span></div>
+      <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita todas las opciones del grupo.</span></div>
+      <div class="table__row"><code class="table__name">invalid</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra errorText en vez de helperText, en color de peligro.</span></div>
+      <div class="table__row"><code class="table__name">helperText</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto de ayuda debajo del grupo.</span></div>
+      <div class="table__row"><code class="table__name">errorText</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Mensaje de error, visible solo cuando invalid es true.</span></div>
+      <div class="table__row"><code class="table__name">orientation</code><code class="table__type">"vertical" | "horizontal"</code><code class="table__default">"vertical"</code><span class="table__desc">Dirección en la que se apilan las opciones.</span></div>
+      <div class="table__row"><code class="table__name">aria-label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Nombre accesible del grupo cuando no hay un label visible.</span></div>
+      <div class="table__row"><code class="table__name">aria-labelledby</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Id de un título externo que nombra el grupo.</span></div>
+      <div class="table__row"><code class="table__name">aria-describedby</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Ids de instrucciones o mensajes adicionales; se combinan con helperText/errorText.</span></div>
+    </div>
+  </section>
+
+  <!-- Propiedades: Radio -->
+  <section class="section">
+    <h2 class="section__title" id="props-radio">Propiedades — Radio</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">value</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Requerido. Identifica esta opción dentro del value/defaultValue del grupo.</span></div>
+      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto principal junto al anillo.</span></div>
+      <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Segunda línea opcional, más tenue.</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">"sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Independiente por radio — el grupo no lo fuerza.</span></div>
+      <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita solo esta opción.</span></div>
+      <div class="table__row"><code class="table__name">id</code><code class="table__type">string</code><code class="table__default">generado</code><span class="table__desc">Id del input nativo; se genera uno estable si no se pasa.</span></div>
+      <div class="table__row"><code class="table__name">aria-label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Nombre accesible para opciones sin label visible.</span></div>
+      <div class="table__row"><code class="table__name">aria-describedby</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Ids de instrucciones adicionales propias de la opción.</span></div>
+    </div>
+  </section>
+</div>

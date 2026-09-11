@@ -1,0 +1,85 @@
+<ng-template #statusCell let-status>
+  <cs-badge [variant]="statusVariant[status]" size="sm">{{ statusLabel[status] }}</cs-badge>
+</ng-template>
+
+<div class="page">
+  <p class="eyebrow">Componentes / Table tree</p>
+  <h1 class="title">Table tree</h1>
+  <p class="description">
+    Una tabla con filas jerárquicas expandibles — para datos agrupados, como unidades de flota
+    organizadas por región. Cada fila puede tener hijos, y esos hijos pueden a su vez cargarse
+    recién al expandir por primera vez (carga perezosa), mostrando una fila skeleton mientras
+    tanto.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Región Norte empieza expandida. Haz clic en el chevron para expandir/contraer.</p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        <div class="table-frame">
+          <cs-table-tree
+            caption="Unidades por región"
+            [columns]="columns"
+            [items]="items"
+            [expandedIds]="expandedIds()"
+            (expandedIdsChange)="expandedIds.set($event)"
+          >
+            <div emptyState>Sin resultados</div>
+          </cs-table-tree>
+        </div>
+      </div>
+      <app-code-block [code]="usageCode"></app-code-block>
+    </div>
+  </section>
+
+  <!-- Carga perezosa -->
+  <section class="section">
+    <h2 class="section__title" id="lazy">Carga perezosa</h2>
+    <p class="section__intro">
+      Los hijos de cada región empiezan en <code class="inline-code">undefined</code> — al
+      expandir por primera vez se muestra una fila skeleton hasta que el consumidor resuelve los
+      datos reales (acá, simulado con un timeout de ~900ms).
+    </p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        <div class="table-frame">
+          <cs-table-tree
+            [columns]="columns"
+            [items]="lazyItems()"
+            [expandedIds]="lazyExpanded()"
+            (expandedIdsChange)="onLazyExpandedChange($event)"
+          >
+            <div emptyState>Sin resultados</div>
+          </cs-table-tree>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">columns</code><code class="table__type">TableTreeColumn[]</code><code class="table__default">—</code><span class="table__desc">{{ '{' }} key, label, width? {{ '}' }} por columna.</span></div>
+      <div class="table__row"><code class="table__name">items</code><code class="table__type">TableTreeItem[]</code><code class="table__default">—</code><span class="table__desc">{{ '{' }} id, cells, children?, hasChildren? {{ '}' }} — mismo tipo de celda que Table (texto o template).</span></div>
+      <div class="table__row"><code class="table__name">caption</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Solo para lectores de pantalla (sr-only).</span></div>
+      <div class="table__row"><code class="table__name">isLoading</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Con 0 items dibuja una fila skeleton de nivel raíz.</span></div>
+      <div class="table__row"><code class="table__name">expandedIds</code><code class="table__type">string[]</code><code class="table__default">—</code><span class="table__desc">Ids expandidos, controlado — pásalo junto con (expandedIdsChange) para manejar el estado tú mismo.</span></div>
+      <div class="table__row"><code class="table__name">defaultExpandedIds</code><code class="table__type">string[]</code><code class="table__default">[]</code><span class="table__desc">Ids expandidos inicialmente, no controlado.</span></div>
+      <div class="table__row"><code class="table__name">(expandedIdsChange)</code><code class="table__type">EventEmitter&lt;string[]&gt;</code><code class="table__default">—</code><span class="table__desc">Emite el próximo arreglo de ids expandidos en cada toggle.</span></div>
+      <div class="table__row"><code class="table__name">[emptyState]</code><code class="table__type">contenido proyectado</code><code class="table__default">—</code><span class="table__desc">Se muestra cuando no hay items y no está cargando.</span></div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title">TableTreeItem: Forma</h3>
+      <div class="table">
+        <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+        <div class="table__row"><code class="table__name">children</code><code class="table__type">TableTreeItem[] | undefined</code><code class="table__default">—</code><span class="table__desc">undefined = todavía no se cargaron (carga perezosa: dibuja skeleton al expandir). [] = se cargaron y no tiene ninguno.</span></div>
+        <div class="table__row"><code class="table__name">hasChildren</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Fuerza el chevron expandible aunque children todavía sea undefined.</span></div>
+      </div>
+    </div>
+  </section>
+</div>

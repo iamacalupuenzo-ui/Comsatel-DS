@@ -1,0 +1,69 @@
+<div
+  class="cs-progress-indicator"
+  [class.cs-progress-indicator--vertical]="!isHorizontal()"
+  role="list"
+  [attr.aria-label]="ariaLabel"
+>
+  @for (step of steps; track step.id; let index = $index) {
+    <div class="cs-progress-indicator__step" role="listitem">
+      <div class="cs-progress-indicator__track">
+        @if (interactive) {
+          <button
+            type="button"
+            class="cs-progress-indicator__node-button"
+            [attr.aria-label]="step.label"
+            [attr.aria-current]="step.state === 'active' ? 'step' : null"
+            (click)="onStepClick(step)"
+          >
+            <span
+              class="cs-progress-indicator__node"
+              [class.cs-progress-indicator__node--done]="step.state === 'done'"
+              [class.cs-progress-indicator__node--active]="step.state === 'active'"
+              [class.cs-progress-indicator__node--pending]="step.state === 'pending'"
+            >
+              @if (step.state === 'done') {
+                <cs-icon name="check" [size]="12" aria-hidden="true" />
+              } @else if (step.state === 'active') {
+                <span class="cs-progress-indicator__dot" aria-hidden="true"></span>
+              }
+            </span>
+          </button>
+        } @else {
+          <span
+            class="cs-progress-indicator__node"
+            [class.cs-progress-indicator__node--done]="step.state === 'done'"
+            [class.cs-progress-indicator__node--active]="step.state === 'active'"
+            [class.cs-progress-indicator__node--pending]="step.state === 'pending'"
+            [attr.aria-current]="step.state === 'active' ? 'step' : null"
+          >
+            @if (step.state === 'done') {
+              <cs-icon name="check" [size]="12" aria-hidden="true" />
+            } @else if (step.state === 'active') {
+              <span class="cs-progress-indicator__dot" aria-hidden="true"></span>
+            }
+          </span>
+        }
+
+        @if (isHorizontal() && nextStep(index)) {
+          <span
+            class="cs-progress-indicator__connector"
+            [class.cs-progress-indicator__connector--filled]="nextStep(index) && isFilled(nextStep(index)!)"
+            [attr.aria-hidden]="true"
+          ></span>
+        } @else if (nextStep(index)) {
+          <span
+            class="cs-progress-indicator__connector cs-progress-indicator__connector--vertical"
+            [class.cs-progress-indicator__connector--filled]="isFilled(nextStep(index)!)"
+            [attr.aria-hidden]="true"
+          ></span>
+        }
+      </div>
+      <div class="cs-progress-indicator__label">
+        <span class="cs-progress-indicator__label-text" [class.cs-progress-indicator__label-text--pending]="step.state === 'pending'">{{ step.label }}</span>
+        @if (step.description) {
+          <span class="cs-progress-indicator__description">{{ step.description }}</span>
+        }
+      </div>
+    </div>
+  }
+</div>

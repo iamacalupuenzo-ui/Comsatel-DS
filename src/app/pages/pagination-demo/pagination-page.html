@@ -1,0 +1,181 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Paginación</p>
+  <h1 class="title">Paginación</h1>
+  <p class="description">
+    Paginación divide un conjunto grande de filas o ítems en páginas más chicas. Es un componente
+    controlado: el número de página vive en el estado de la app que lo consume, este componente
+    solo dibuja el control y reporta los clics.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Ajusta el total de páginas y navega para ver cómo reacciona el truncado.</p>
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <cs-pagination [totalPages]="pgTotalPages()" [page]="pgPage()" (pageChange)="pgPage.set($event)" />
+    </app-demo-shell>
+  </section>
+
+  <!-- Numérica vs simple -->
+  <section class="section">
+    <h2 class="section__title" id="variants">Numérica vs. simple</h2>
+    <p class="section__intro">
+      No es una decisión de densidad visual — es sobre si se conoce el total. Usa
+      <code class="inline-code">numbered</code> cuando el backend te da un conteo real de páginas y
+      saltar a la página 7 tiene sentido. Usa <code class="inline-code">simple</code> cuando no: la
+      paginación por cursor muchas veces solo te dice si hay una página siguiente, no cuántas
+      páginas hay en total.
+    </p>
+    <div class="pair-grid">
+      <div class="pair-grid__item">
+        <cs-pagination [totalPages]="10" [page]="numberedPage()" (pageChange)="numberedPage.set($event)" />
+        <span class="pair-grid__label">numbered — cuando se conoce el total</span>
+      </div>
+      <div class="pair-grid__item">
+        <cs-pagination variant="simple" [totalPages]="10" [page]="simplePage()" (pageChange)="simplePage.set($event)" />
+        <span class="pair-grid__label">simple — para paginación por cursor</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Salto a primera/última -->
+  <section class="section">
+    <h2 class="section__title" id="boundary">Salto a primera/última</h2>
+    <p class="section__intro">
+      Los controles de doble flecha solo aparecen pasadas las 6 páginas — con menos, cada número de
+      página ya está a un clic de distancia, así que un salto a primera/última al lado sería un
+      segundo botón haciendo el mismo trabajo.
+    </p>
+    <div class="pair-grid">
+      <div class="pair-grid__item">
+        <cs-pagination [totalPages]="5" [page]="fewPage()" (pageChange)="fewPage.set($event)" />
+        <span class="pair-grid__label">5 páginas — sin salto</span>
+      </div>
+      <div class="pair-grid__item">
+        <cs-pagination [totalPages]="20" [page]="manyPage()" (pageChange)="manyPage.set($event)" />
+        <span class="pair-grid__label">20 páginas — con salto</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Truncado -->
+  <section class="section">
+    <h2 class="section__title" id="truncation">Truncado</h2>
+    <p class="section__intro">
+      La primera y la última página siempre están visibles. Alrededor de ellas, solo se muestran la
+      página actual y sus vecinas inmediatas — el resto se colapsa en una elipsis. Cerca de un
+      extremo es una sola elipsis; lejos de los dos extremos son dos.
+    </p>
+    <div class="stack-grid">
+      <div class="stack-grid__item">
+        <p class="stack-grid__label">Cerca del inicio — una sola elipsis</p>
+        <cs-pagination [totalPages]="12" [page]="edgePage()" (pageChange)="edgePage.set($event)" />
+      </div>
+      <div class="stack-grid__item">
+        <p class="stack-grid__label">Lejos de los dos extremos — doble elipsis</p>
+        <cs-pagination [totalPages]="12" [page]="middlePage()" (pageChange)="middlePage.set($event)" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Estados de borde -->
+  <section class="section">
+    <h2 class="section__title" id="edge-states">Estados de borde</h2>
+    <p class="section__intro">
+      Los controles anterior/siguiente se deshabilitan solos en la primera y última página — no hay
+      una prop fija "disabled" que comparar, el componente lo deriva de page y totalPages.
+    </p>
+    <div class="pair-grid">
+      <div class="pair-grid__item">
+        <cs-pagination [totalPages]="5" [page]="firstPage()" (pageChange)="firstPage.set($event)" />
+        <span class="pair-grid__label">Primera página</span>
+      </div>
+      <div class="pair-grid__item">
+        <cs-pagination [totalPages]="5" [page]="lastPage()" (pageChange)="lastPage.set($event)" />
+        <span class="pair-grid__label">Última página</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lineamientos -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Deja que Table maneje la matemática de rowsPerPage y pásale a Pagination solo el page/totalPages resultante — Pagination nunca toca los datos de fila directamente.</p>
+          <cs-pagination [totalPages]="8" [page]="guideAPage()" (pageChange)="guideAPage.set($event)" />
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No reimplementes la cuenta de páginas junto a cada tabla que use este componente: calcula totalPages una vez, a partir de rowsPerPage, y pásalo hacia abajo.</p>
+          <cs-pagination [totalPages]="8" [page]="guideBPage()" (pageChange)="guideBPage.set($event)" />
+        </div>
+      </div>
+
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="guide-card__header-label">Recomendado</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Mantenlo en una sola fila de números — la elipsis existe justamente para que una lista de 40 páginas nunca necesite una segunda fila.</p>
+          <cs-pagination [totalPages]="40" [page]="guideCPage()" (pageChange)="guideCPage.set($event)" />
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="guide-card__header-icon"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          <span class="guide-card__header-label">Evita</span>
+        </div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No listes cada número de página en un conjunto grande: pasado un puñado deja de ser escaneable y solo agrega ruido.</p>
+          <div class="all-numbers">
+            @for (n of manyNumbers; track n) {
+              <span class="all-numbers__item">{{ n }}</span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">La paginación mantiene los controles nativos y anuncia el estado de la página sin depender solo del estilo visual.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Landmark</strong><span>Usa <code class="inline-code">nav</code> con <code class="inline-code">aria-label="Paginación"</code>.</span></div>
+      <div class="table__row"><strong>Estado</strong><span>La página activa expone <code class="inline-code">aria-current="page"</code>; los extremos usan <code class="inline-code">disabled</code>.</span></div>
+      <div class="table__row"><strong>Nombres</strong><span>Anterior, siguiente, primera, última y cada número tienen nombres accesibles independientes.</span></div>
+      <div class="table__row"><strong>Actualizaciones</strong><span>Una región <code class="inline-code">role="status"</code> anuncia «Página X de Y» cuando cambia el valor controlado.</span></div>
+      <div class="table__row"><strong>Teclado</strong><span>Los botones nativos son alcanzables con Tab y activables con Enter o Espacio.</span></div>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">totalPages</code><code class="table__type">number</code><code class="table__default">—</code><span class="table__desc">Cantidad total de páginas. Obligatorio.</span></div>
+      <div class="table__row"><code class="table__name">page</code><code class="table__type">number</code><code class="table__default">—</code><span class="table__desc">Página activa actual, indexada desde 1. Controlada — la app que lo consume es dueña de este valor.</span></div>
+      <div class="table__row"><code class="table__name">(pageChange)</code><code class="table__type">EventEmitter&lt;number&gt;</code><code class="table__default">—</code><span class="table__desc">Emite el nuevo número de página al hacer clic en una página, o en anterior/siguiente.</span></div>
+      <div class="table__row"><code class="table__name">variant</code><code class="table__type">"numbered" | "simple"</code><code class="table__default">"numbered"</code><span class="table__desc">numbered muestra números de página y, pasadas 6 páginas, controles de salto a primera/última. simple muestra solo anterior/siguiente más "página X de Y".</span></div>
+      <div class="table__row"><code class="table__name">previousLabel</code><code class="table__type">string</code><code class="table__default">"Anterior"</code><span class="table__desc">Etiqueta accesible del control de página anterior.</span></div>
+      <div class="table__row"><code class="table__name">nextLabel</code><code class="table__type">string</code><code class="table__default">"Siguiente"</code><span class="table__desc">Etiqueta accesible del control de página siguiente.</span></div>
+      <div class="table__row"><code class="table__name">firstLabel</code><code class="table__type">string</code><code class="table__default">"Primera página"</code><span class="table__desc">Etiqueta accesible del salto a la primera página. Solo se dibuja en numbered pasadas 6 páginas.</span></div>
+      <div class="table__row"><code class="table__name">lastLabel</code><code class="table__type">string</code><code class="table__default">"Última página"</code><span class="table__desc">Etiqueta accesible del salto a la última página. Solo se dibuja en numbered pasadas 6 páginas.</span></div>
+      <div class="table__row"><code class="table__name">navLabel</code><code class="table__type">string</code><code class="table__default">"Paginación"</code><span class="table__desc">Nombre accesible del landmark nav que contiene los controles.</span></div>
+    </div>
+  </section>
+</div>

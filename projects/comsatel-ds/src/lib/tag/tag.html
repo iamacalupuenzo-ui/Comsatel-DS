@@ -1,0 +1,12 @@
+<cs-badge
+  [variant]="badgeVariant"
+  [size]="size"
+  [pill]="rounded"
+  [attr.aria-label]="ariaLabel || null"
+  [attr.aria-live]="ariaLive || null"
+>
+  @if (icon) {
+    <cs-icon [name]="icon" [size]="iconSize"></cs-icon>
+  }
+  <span class="cs-tag__value">{{ value }}</span>
+</cs-badge>

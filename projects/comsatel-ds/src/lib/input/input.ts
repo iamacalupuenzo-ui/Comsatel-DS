@@ -19,13 +19,29 @@ let uid = 0;
 export class Input {
   @NgInput() fieldSize: InputFieldSize = 'md';
   @NgInput() type = 'text';
+  @NgInput() id?: string;
+  @NgInput() name = '';
   @NgInput() placeholder = '';
+  @NgInput() autocomplete = '';
+  @NgInput() required = false;
+  @NgInput() readonly = false;
   @NgInput() disabled = false;
   @NgInput() invalid = false;
+  @NgInput('aria-label') ariaLabel = '';
+  @NgInput('aria-labelledby') ariaLabelledby = '';
+  @NgInput('aria-describedby') ariaDescribedby = '';
+  @NgInput('aria-errormessage') ariaErrormessage = '';
+  @NgInput() min?: string | number;
+  @NgInput() max?: string | number;
+  @NgInput() step?: string | number;
   @NgInput() value = '';
   @Output() valueChange = new EventEmitter<string>();
 
-  protected readonly inputId = `cs-input-${++uid}`;
+  private readonly autoId = `cs-input-${++uid}`;
+
+  get resolvedId(): string {
+    return this.id ?? this.autoId;
+  }
 
   get tok() {
     return INPUT_FIELD_TOKENS[this.fieldSize];

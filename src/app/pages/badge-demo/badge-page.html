@@ -152,6 +152,59 @@
     </app-demo-shell>
   </section>
 
+  <!-- Accesibilidad -->
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Badge es una etiqueta informativa, no un control interactivo.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Significado</strong><span>Escribe el estado o la categoría en texto. El color y el ícono solo refuerzan ese significado; no deben ser la única señal.</span></div>
+      <div class="table__row"><strong>Interacción</strong><span>No recibe foco ni responde al teclado. Si el estado debe abrir, filtrar o ejecutar una acción, usa un control semántico como Button.</span></div>
+      <div class="table__row"><strong>Íconos</strong><span>Úsalos como apoyo visual junto con una etiqueta legible, por ejemplo <code class="inline-code">Publicado</code>; no agregues una descripción duplicada para el ícono decorativo.</span></div>
+      <div class="table__row"><strong>Actualizaciones</strong><span>Un badge no anuncia cambios por sí solo. Cuando una actualización sea importante, comunícala también mediante el patrón de notificación adecuado para el contexto.</span></div>
+    </div>
+  </section>
+
+  <!-- Lineamientos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <p class="section__intro">Cada fila compara una práctica recomendada con un uso que conviene evitar.</p>
+    <div class="guide-grid">
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">Usa variantes semánticas para comunicar un estado reconocible.</p><div class="row"><cs-badge variant="success">Activo</cs-badge><cs-badge variant="danger">Falló</cs-badge></div></div>
+      </article>
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">No uses color ni un conteo aislado como única forma de explicar un estado.</p><div class="row"><cs-badge variant="danger">12</cs-badge></div></div>
+      </article>
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">Mantén el texto breve para que el badge funcione como etiqueta contextual.</p><div class="row"><cs-badge variant="brand">Nuevo</cs-badge></div></div>
+      </article>
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">No conviertas el badge en un mensaje largo que compita con el contenido.</p><div class="row"><cs-badge variant="brand">Esta función acaba de publicarse</cs-badge></div></div>
+      </article>
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">Reserva las variantes solid para jerarquizar un estado que requiere atención.</p><div class="row"><cs-badge variant="danger-solid">Vencido</cs-badge><cs-badge>Borrador</cs-badge></div></div>
+      </article>
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">No llenes una misma vista con badges solid sin jerarquía semántica.</p><div class="row"><cs-badge variant="danger-solid">Vencido</cs-badge><cs-badge variant="neutral-solid">Borrador</cs-badge><cs-badge variant="brand-solid">Borrador</cs-badge></div></div>
+      </article>
+      <article class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">Usa la forma pill para estados y la forma estándar para etiquetas o versiones.</p><div class="row"><cs-badge variant="success" [pill]="true">En línea</cs-badge><cs-badge>v2.4.1</cs-badge></div></div>
+      </article>
+      <article class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body"><p class="guide-card__text">No mezcles ambas formas para expresar el mismo tipo de estado.</p><div class="row"><cs-badge variant="success" [pill]="true">Activo</cs-badge><cs-badge variant="warning">Pendiente</cs-badge></div></div>
+      </article>
+    </div>
+  </section>
+
   <!-- Propiedades -->
   <section class="section">
     <h2 class="section__title" id="props">Propiedades</h2>

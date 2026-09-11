@@ -2,6 +2,9 @@
   display: contents;
 }
 .cs-input-group-text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--layout-gap-xs);
   font-family: var(--font-family-content);
   font-size: var(--font-size-content-ui);
   line-height: var(--font-line-height-content-ui);

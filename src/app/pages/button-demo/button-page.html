@@ -149,9 +149,85 @@
             </div>
             <span class="switch-field__label">Activar estado de carga</span>
           </label>
-          <cs-button variant="primary" size="sm" [loading]="isLoading()">Guardar cambios</cs-button>
+          <cs-button variant="primary" size="sm" [loading]="isLoading()" aria-label="Guardando cambios">Guardar cambios</cs-button>
         </div>
       </app-demo-shell>
+    </div>
+  </section>
+
+  <!-- Accesibilidad -->
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Button usa un elemento <code class="inline-code">button</code> nativo: conserva su semántica, foco y activación por teclado.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Nombre accesible</strong><span>El texto visible nombra al botón. Si contiene solo un ícono, pasa <code class="inline-code">aria-label</code> que describa la acción.</span></div>
+      <div class="table__row"><strong>Teclado</strong><span><kbd>Tab</kbd> lleva el foco al botón; <kbd>Enter</kbd> y <kbd>Espacio</kbd> ejecutan la acción, como en cualquier botón nativo.</span></div>
+      <div class="table__row"><strong>Estados</strong><span><code class="inline-code">disabled</code> y <code class="inline-code">loading</code> deshabilitan el control. Cuando <code class="inline-code">selected</code> está activo, el botón expone <code class="inline-code">aria-pressed=&quot;true&quot;</code>.</span></div>
+      <div class="table__row"><strong>Cargando</strong><span>Durante la carga el spinner reemplaza la etiqueta visible. Define <code class="inline-code">aria-label</code> con el contexto de la acción, por ejemplo <code class="inline-code">&quot;Guardando cambios&quot;</code>.</span></div>
+    </div>
+  </section>
+
+  <!-- Lineamientos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="check" [size]="14"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa primary una sola vez por pantalla, para la acción principal más fuerte.</p>
+          <div class="row"><cs-button variant="primary" size="sm">Save changes</cs-button><cs-button variant="default" size="sm">Cancel</cs-button></div>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="14"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses primary en más de un botón en la misma vista: crea llamadas a la acción que compiten entre sí.</p>
+          <div class="row"><cs-button variant="primary" size="sm">Save changes</cs-button><cs-button variant="primary" size="sm">Cancel</cs-button></div>
+        </div>
+      </div>
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="check" [size]="14"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Mantén todos los botones de una misma toolbar o fila en el mismo tamaño.</p>
+          <div class="row"><cs-button variant="default" size="sm">Edit</cs-button><cs-button variant="default" size="sm">Duplicate</cs-button><cs-button variant="destructive" size="sm">Delete</cs-button></div>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="14"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No mezcles tamaños dentro de una misma fila: se lee como un error de layout, no como jerarquía.</p>
+          <div class="row"><cs-button variant="default" size="lg">Edit</cs-button><cs-button variant="default" size="sm">Duplicate</cs-button><cs-button variant="destructive" size="xs">Delete</cs-button></div>
+        </div>
+      </div>
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="check" [size]="14"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Reserva destructive para acciones que eliminan o no se pueden deshacer.</p>
+          <div class="row"><cs-button variant="destructive" size="sm"><cs-icon name="trash-2" [size]="14"></cs-icon> Delete account</cs-button></div>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="14"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No uses el estilo destructive solo para llamar la atención sobre una acción neutral.</p>
+          <div class="row"><cs-button variant="destructive" size="sm"><cs-icon name="star" [size]="14"></cs-icon> Add to favorites</cs-button></div>
+        </div>
+      </div>
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="check" [size]="14"></cs-icon><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Combina un ícono con una etiqueta corta, o agrega aria-label cuando el botón es solo ícono.</p>
+          <div class="row"><cs-button variant="secondary" size="sm" aria-label="Add item"><cs-icon name="plus" [size]="14"></cs-icon></cs-button></div>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="14"></cs-icon><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No publiques un botón solo-ícono sin nombre accesible: los lectores de pantalla no pueden anunciarlo.</p>
+          <div class="row"><cs-button variant="secondary" size="sm"><cs-icon name="plus" [size]="14"></cs-icon></cs-button></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -165,6 +241,7 @@
       <div class="table__row"><code class="table__name">selected</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Estado seleccionado tipo toggle.</span></div>
       <div class="table__row"><code class="table__name">loading</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra un spinner y deshabilita el botón.</span></div>
       <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita la interacción y reduce la opacidad.</span></div>
+      <div class="table__row"><code class="table__name">aria-label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Nombre accesible del botón; requerido cuando el contenido es solo un ícono.</span></div>
     </div>
   </section>
 </div>

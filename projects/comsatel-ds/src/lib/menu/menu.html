@@ -1,0 +1,128 @@
+<nav class="cs-menu" [class.cs-menu--rail]="mode === 'rail'">
+  @for (group of groups; track group.header ?? $index) {
+    <div class="cs-menu__group">
+      @if (mode !== 'rail' && group.header) {
+        <p class="cs-menu__group-header">{{ group.header }}</p>
+      }
+      <ul class="cs-menu__list">
+        @for (item of group.items; track item.href) {
+          <li
+            class="cs-menu__li"
+            (mouseenter)="onRailEnter(item)"
+            (mouseleave)="scheduleHide()"
+            (focusin)="onRailEnter(item)"
+          >
+            @if (mode === 'rail') {
+              <!-- ── Rail: solo ícono ── -->
+              @if (item.disabled) {
+                <div class="cs-menu__rail-btn cs-menu__rail-btn--disabled">
+                  @if (item.icon) { <cs-icon [name]="item.icon" [size]="16" /> }
+                </div>
+              } @else if (item.children) {
+                <button #railTrigger type="button" class="cs-menu__rail-btn" [class.cs-menu__rail-btn--active]="isHighlighted(item)" [attr.aria-label]="item.label" csPressScale>
+                  @if (item.icon) { <cs-icon [name]="item.icon" [size]="16" /> }
+                  @if (item.badge) {
+                    <span class="cs-menu__rail-badge"><span class="cs-menu__badge">{{ item.badge }}</span></span>
+                  }
+                </button>
+                <!-- Motor de posicionamiento/portal/animación/cierre: cs-popover
+                     real (C8) — antes esto se calculaba a mano con
+                     getBoundingClientRect y no animaba entrada/salida. -->
+                <cs-popover [isOpen]="hoveredItem() === item" [triggerRef]="railTrigger" placement="right-start" [offset]="6" (closed)="hoveredItem.set(null)">
+                  <div class="cs-menu__flyout" (mouseenter)="cancelHide()" (mouseleave)="scheduleHide()">
+                    <p class="cs-menu__flyout-title">{{ item.label }}</p>
+                    <ul class="cs-menu__flyout-list">
+                      @for (child of item.children; track child.href) {
+                        <li>
+                          @if (child.disabled) {
+                            <span class="cs-menu__flyout-item cs-menu__flyout-item--disabled">{{ child.label }}</span>
+                          } @else {
+                            <a [routerLink]="child.href" class="cs-menu__flyout-item" [class.cs-menu__flyout-item--active]="activeHref === child.href" (click)="closeFlyout()">{{ child.label }}</a>
+                          }
+                        </li>
+                      }
+                    </ul>
+                  </div>
+                </cs-popover>
+              } @else {
+                <a
+                  #railTrigger
+                  [routerLink]="item.href"
+                  class="cs-menu__rail-btn"
+                  [class.cs-menu__rail-btn--active]="isHighlighted(item)"
+                  [attr.aria-label]="item.label"
+                  (click)="onNavigateClick()"
+                  csPressScale
+                >
+                  @if (item.icon) { <cs-icon [name]="item.icon" [size]="16" /> }
+                  @if (item.badge) {
+                    <span class="cs-menu__rail-badge"><span class="cs-menu__badge">{{ item.badge }}</span></span>
+                  }
+                </a>
+                <!-- [bare]: el contenido ya trae su propio fondo oscuro tipo
+                     tooltip — el marco claro de cs-popover no debe superponerse. -->
+                <cs-popover [isOpen]="hoveredItem() === item" [triggerRef]="railTrigger" placement="right-start" [offset]="6" [bare]="true" (closed)="hoveredItem.set(null)">
+                  <div class="cs-menu__tooltip" (mouseenter)="cancelHide()" (mouseleave)="scheduleHide()">
+                    {{ item.label }}
+                    @if (item.shortcut) {
+                      <span class="cs-menu__shortcut cs-menu__shortcut--tooltip">
+                        @for (k of item.shortcut; track k) { <kbd class="cs-menu__key cs-menu__key--tooltip">{{ k }}</kbd> }
+                      </span>
+                    }
+                  </div>
+                </cs-popover>
+              }
+            } @else if (item.disabled) {
+              <!-- ── Expandido: deshabilitado ── -->
+              <span class="cs-menu__row cs-menu__row--disabled">
+                @if (item.icon) { <cs-icon [name]="item.icon" [size]="15" class="cs-menu__icon" /> }
+                <span class="cs-menu__label">{{ item.label }}</span>
+              </span>
+            } @else if (item.children) {
+              <!-- ── Expandido: grupo con hijos ── -->
+              <button type="button" class="cs-menu__row" [class.cs-menu__row--highlighted]="isHighlighted(item)" (click)="toggle(item)" csPressScale>
+                @if (item.icon) { <cs-icon [name]="item.icon" [size]="15" class="cs-menu__icon" /> }
+                <span class="cs-menu__label">{{ item.label }}</span>
+                @if (item.badge) { <span class="cs-menu__badge">{{ item.badge }}</span> }
+                @if (item.shortcut) {
+                  <span class="cs-menu__shortcut">
+                    @for (k of item.shortcut; track k) { <kbd class="cs-menu__key">{{ k }}</kbd> }
+                  </span>
+                }
+                <cs-icon name="chevron-right" [size]="13" class="cs-menu__chevron" [class.cs-menu__chevron--open]="isOpen(item)" />
+              </button>
+              <ul class="cs-menu__children" [csCollapse]="isOpen(item)">
+                @for (child of item.children; track child.href) {
+                  <li>
+                    @if (child.disabled) {
+                      <span class="cs-menu__child cs-menu__child--disabled">{{ child.label }}</span>
+                    } @else {
+                      <a
+                        [routerLink]="child.href"
+                        class="cs-menu__child"
+                        [class.cs-menu__child--active]="activeHref === child.href"
+                        (click)="onNavigateClick()"
+                      >{{ child.label }}</a>
+                    }
+                  </li>
+                }
+              </ul>
+            } @else {
+              <!-- ── Expandido: hoja ── -->
+              <a [routerLink]="item.href" class="cs-menu__row" [class.cs-menu__row--highlighted]="isHighlighted(item)" (click)="onNavigateClick()" csPressScale>
+                @if (item.icon) { <cs-icon [name]="item.icon" [size]="15" class="cs-menu__icon" /> }
+                <span class="cs-menu__label">{{ item.label }}</span>
+                @if (item.badge) { <span class="cs-menu__badge">{{ item.badge }}</span> }
+                @if (item.shortcut) {
+                  <span class="cs-menu__shortcut">
+                    @for (k of item.shortcut; track k) { <kbd class="cs-menu__key">{{ k }}</kbd> }
+                  </span>
+                }
+              </a>
+            }
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</nav>

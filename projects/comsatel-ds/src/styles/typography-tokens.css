@@ -1,16 +1,16 @@
 /* Generado a partir de typography.mjs del sistema de diseno React -- ver
    D:/Investigacion/Sistema-de-dise-o-Comsatel/src/lib/tokens/typography.mjs.
-   Si esa fuente cambia (nuevo textStyle, nueva escala), regenerar este archivo
-   y volver a aplicar la excepcion de abajo -- todo lo demas debe seguir
-   igual entre las dos plataformas.
+   Si esa fuente cambia (nuevo textStyle, nueva escala), regenerar este
+   archivo -- ambas plataformas comparten la misma familia secundaria.
 
-   EXCEPCION INTENCIONAL: --font-primitive-family-secondary usa Public Sans en
-   vez de Inter. Decision tomada para esta plataforma Angular (2026-09-06,
-   comparacion objetiva de x-height/ancho contra Inter, Geist, Inter Tight,
-   IBM Plex Sans y Satoshi) -- Public Sans tiene una x-height mas baja (0.54
-   contra 0.58 de Inter), se ve mas chica/compacta a igual tamano en px.
-   El sistema de diseno React se queda en Inter -- esta excepcion NO se debe
-   portar de vuelta hacia alla. */
+   --font-primitive-family-secondary usa Public Sans. Decision original
+   tomada para esta plataforma Angular (2026-09-06, comparacion objetiva de
+   x-height/ancho contra Inter, Geist, Inter Tight, IBM Plex Sans y
+   Satoshi) -- Public Sans tiene una x-height mas baja (0.54 contra 0.58 de
+   Inter), se ve mas chica/compacta a igual tamano en px. El 2026-09-07 el
+   usuario revirtio la separacion y llevo Public Sans tambien al sistema
+   React, para que ambas plataformas usen exactamente la misma tipografia
+   -- ya no es una excepcion de esta plataforma, es la decision compartida. */
 
 :root {
   --font-primitive-size-2xs: 0.625rem;

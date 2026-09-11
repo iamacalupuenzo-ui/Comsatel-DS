@@ -7,7 +7,7 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  gap: var(--layout-gap-2xs);
+  gap: var(--layout-gap-xs);
   color: var(--color-text-base-subtle);
   user-select: none;
 }
@@ -18,4 +18,19 @@
 .cs-input-group-addon--end {
   order: 1;
   padding-inline-end: var(--layout-padding-md);
+}
+.cs-input-group-addon--start.cs-input-group-addon--compact {
+  padding-inline-start: var(--layout-padding-2xs);
+}
+.cs-input-group-addon--end.cs-input-group-addon--compact {
+  padding-inline-end: var(--layout-padding-2xs);
+}
+.cs-input-group-addon--divider {
+  align-self: stretch;
+}
+.cs-input-group-addon--start.cs-input-group-addon--divider {
+  border-inline-end: var(--layout-border-thin) solid var(--color-border-divider);
+}
+.cs-input-group-addon--end.cs-input-group-addon--divider {
+  border-inline-start: var(--layout-border-thin) solid var(--color-border-divider);
 }

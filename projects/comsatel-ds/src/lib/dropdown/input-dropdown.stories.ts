@@ -2,10 +2,10 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { InputDropdown } from './input-dropdown';
 
 const OPTIONS = [
-  { label: 'Perú', value: 'pe' },
+  { label: 'Peru', value: 'pe' },
   { label: 'Colombia', value: 'co' },
   { label: 'Argentina', value: 'ar' },
-  { label: 'México', value: 'mx' },
+  { label: 'Mexico', value: 'mx' },
 ];
 
 const meta: Meta<InputDropdown> = {
@@ -19,8 +19,8 @@ const meta: Meta<InputDropdown> = {
     },
   },
   args: {
-    label: 'País',
-    placeholder: 'Selecciona un país',
+    label: 'Country',
+    placeholder: 'Select a country',
     options: OPTIONS,
     size: 'md',
     disabled: false,
