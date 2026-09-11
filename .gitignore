@@ -46,6 +46,10 @@ __screenshots__/
 debug-storybook.log
 /documentation.json
 
+# ADSA: el reporte se regenera en cada corrida; score.json, badge.json e history.json sí se versionan
+/.adsa/report.html
+/.adsa/report.md
+
 # System files
 .DS_Store
 Thumbs.db

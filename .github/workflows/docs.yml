@@ -1,0 +1,45 @@
+name: Documentación para agentes
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Instalar dependencias
+        run: npm ci --legacy-peer-deps
+
+      # Cada promesa de las guías se valida contra el código de la librería.
+      # scripts/checks.test.mjs rompe cada uno de estos checks a propósito.
+      - name: Cada componente exportado tiene guía
+        run: npm run check:guidelines
+
+      - name: Las tablas de props coinciden con el código
+        run: npm run check:props
+
+      - name: Los contratos a11y coinciden con los templates
+        run: npm run check:a11y
+
+      - name: Los ejemplos de las guías usan la API real
+        run: npm run check:examples
+
+      - name: Tests de los validadores
+        run: npm run test:docs
+
+      - name: Tests unitarios
+        run: npm run test:ci
+
+      # Falla si el puntaje baja respecto de .adsa/score.json versionado.
+      - name: El puntaje de agent readiness no baja
+        run: npx --yes adsa-cli@0.1.5 audit --gate
