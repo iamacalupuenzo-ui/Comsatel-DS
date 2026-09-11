@@ -1,0 +1,36 @@
+<cs-accordion
+  class="cs-fleet-unit-list"
+  [type]="type"
+  [defaultExpandedIds]="defaultExpandedIds"
+  [expandedIds]="expandedIds"
+  (expandedIdsChange)="expandedIdsChange.emit($event)"
+>
+  @for (unit of units; track unit.id) {
+    <cs-accordion-item [id]="unit.id">
+      <div header class="cs-fleet-unit-list__header">
+        <div class="cs-fleet-unit-list__vehicle-icon"><cs-icon name="truck" [size]="16" aria-hidden="true" /></div>
+        <div class="cs-fleet-unit-list__identity">
+          <span class="cs-fleet-unit-list__name">{{ unit.name }}</span>
+          <span class="cs-fleet-unit-list__signal">{{ unit.lastSeen }}</span>
+        </div>
+        <cs-badge [variant]="statusVariant[unit.status]" size="sm">
+          <cs-icon [name]="statusIcon[unit.status]" [size]="12" aria-hidden="true" />
+          {{ unit.statusLabel }}
+        </cs-badge>
+      </div>
+
+      <div class="cs-fleet-unit-list__body">
+        @if (unit.alert) {
+          <p class="cs-fleet-unit-list__alert"><cs-icon name="alert-triangle" [size]="14" aria-hidden="true" />{{ unit.alert }}</p>
+        }
+        <dl class="cs-fleet-unit-list__telemetry">
+          <div><dt>Velocidad</dt><dd>{{ unit.speed }}</dd></div>
+          <div><dt>Batería</dt><dd>{{ unit.battery }}</dd></div>
+          <div><dt>Ubicación</dt><dd>{{ unit.location }}</dd></div>
+          @if (unit.diagnostics) { <div><dt>Diagnóstico</dt><dd>{{ unit.diagnostics }}</dd></div> }
+        </dl>
+        <cs-button variant="tertiary" size="xs" (click)="detailClick.emit(unit)">{{ detailLabel }}</cs-button>
+      </div>
+    </cs-accordion-item>
+  }
+</cs-accordion>

@@ -9,6 +9,8 @@
   margin-inline: auto;
 }
 
+.result { margin: var(--layout-padding-md) 0 0; color: var(--color-text-success-default); font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); }
+
 .inline-code {
   font-family: monospace;
   font-size: var(--font-size-content-note);

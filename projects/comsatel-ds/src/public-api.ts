@@ -43,6 +43,7 @@ export * from './lib/header/header';
 export * from './lib/skeleton/skeleton';
 export * from './lib/accordion/accordion-item';
 export * from './lib/accordion/accordion';
+export * from './lib/fleet-unit-list/fleet-unit-list';
 export * from './lib/radio/radio';
 export * from './lib/radio/radio-group';
 export * from './lib/tab/tab';

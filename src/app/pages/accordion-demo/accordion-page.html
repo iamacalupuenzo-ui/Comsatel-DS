@@ -16,26 +16,9 @@
       Accordion solo es dueño del toggle, el chevron y la animación de expandir.
     </p>
     <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
-      <cs-accordion class="accordion-demo" [type]="type()" [defaultExpandedIds]="['norte-04']">
-        @for (unit of units; track unit.id) {
-          <cs-accordion-item [id]="unit.id">
-            <div header class="unit-header">
-              <div class="unit-header__icon"><cs-icon name="truck" [size]="16" /></div>
-              <div class="unit-header__meta">
-                <span class="unit-header__name">{{ unit.name }}</span>
-                <span class="unit-header__seen">{{ unit.lastSeen }}</span>
-              </div>
-              <cs-badge [variant]="statusVariant[unit.status]" size="sm"><cs-icon [name]="statusIcon[unit.status]" [size]="12" aria-hidden="true" />{{ unit.statusLabel }}</cs-badge>
-            </div>
-            <div class="unit-body">
-              <div class="unit-body__field"><span class="unit-body__label">Velocidad</span><span class="unit-body__value">{{ unit.speed }}</span></div>
-              <div class="unit-body__field"><span class="unit-body__label">Batería</span><span class="unit-body__value">{{ unit.battery }}</span></div>
-              <div class="unit-body__field"><span class="unit-body__label">Ubicación</span><span class="unit-body__value">{{ unit.location }}</span></div>
-            </div>
-          </cs-accordion-item>
-        }
-      </cs-accordion>
+      <cs-fleet-unit-list class="accordion-demo" [units]="units" [type]="type()" [defaultExpandedIds]="['norte-04']" (detailClick)="onDetail($event)" />
     </app-demo-shell>
+    @if (selectedUnit()) { <p class="result" role="status">{{ selectedUnit() }}</p> }
   </section>
 
   <!-- Tipo -->
