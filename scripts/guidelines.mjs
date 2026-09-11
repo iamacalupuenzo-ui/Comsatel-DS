@@ -8,7 +8,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { GUIDES, blockNames, components, guideFiles, rel } from './lib/ds.mjs';
+import { GUIDES, blockNames, components, guideFiles, readText, rel } from './lib/ds.mjs';
 
 export function coverage(parts, guides, allow = {}) {
   const found = { props: new Map(), a11y: new Map() };
@@ -34,7 +34,7 @@ export function coverage(parts, guides, allow = {}) {
 function main() {
   const allowPath = join(GUIDES, 'allowlist.json');
   const allow = existsSync(allowPath) ? JSON.parse(readFileSync(allowPath, 'utf8')).exports || {} : {};
-  const guides = guideFiles().map((path) => ({ path: rel(path), text: readFileSync(path, 'utf8') }));
+  const guides = guideFiles().map((path) => ({ path: rel(path), text: readText(path) }));
   const parts = components();
   const { problems, missing, documented } = coverage(parts, guides, allow);
 

@@ -4,9 +4,9 @@
  * clic afuera, portal y componentes que compone. No describe intención, describe lo que el
  * código hace, así que no puede desalinearse sin que `--check` falle.
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
-import { components, guideFiles, rel, replaceBlocks } from './lib/ds.mjs';
+import { components, guideFiles, readText, rel, replaceBlocks } from './lib/ds.mjs';
 
 const KEY_NAMES = { escape: 'Escape', enter: 'Enter', space: 'Space', tab: 'Tab', arrowup: 'ArrowUp', arrowdown: 'ArrowDown', arrowleft: 'ArrowLeft', arrowright: 'ArrowRight', home: 'Home', end: 'End' };
 const list = (items) => [...new Set(items)].map((i) => `\`${i}\``).join(', ');
@@ -79,7 +79,7 @@ function main() {
   const problems = [];
   let rewritten = 0;
   for (const path of guideFiles()) {
-    const text = readFileSync(path, 'utf8');
+    const text = readText(path);
     const next = replaceBlocks(text, 'a11y', (name, block) => {
       const component = byName.get(name);
       if (component) return contract(component);

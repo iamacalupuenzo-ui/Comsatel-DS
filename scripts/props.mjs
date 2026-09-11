@@ -4,9 +4,9 @@
  * y se conserva al regenerar. Con `--check` no escribe nada y falla si una tabla quedó
  * desactualizada o tiene una prop sin describir.
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
-import { code, components, guideFiles, rel, renderType, replaceBlocks } from './lib/ds.mjs';
+import { code, components, guideFiles, readText, rel, renderType, replaceBlocks } from './lib/ds.mjs';
 
 export const MISSING = 'Sin descripción';
 
@@ -67,7 +67,7 @@ function main() {
   const problems = [];
   let rewritten = 0;
   for (const path of guideFiles()) {
-    const text = readFileSync(path, 'utf8');
+    const text = readText(path);
     const { next, unknown } = regenerate(text, byName);
     for (const name of unknown) problems.push(`${rel(path)}: el bloque de props nombra a \`${name}\`, que la librería no exporta`);
     if (check) {

@@ -12,9 +12,8 @@
  * mentiras más comunes de una guía (prop renombrada, selector borrado, valor inventado).
  * Para saltar un bloque a propósito: `<!-- examples:skip razón -->` en la línea anterior.
  */
-import { readFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
-import { components, exportedSymbols, guideFiles, literalsOf, projectionSlots, rel, renderType } from './lib/ds.mjs';
+import { components, exportedSymbols, guideFiles, literalsOf, projectionSlots, readText, rel, renderType } from './lib/ds.mjs';
 
 const HOST_ATTRS = new Set(['id', 'class', 'style', 'role', 'tabindex', 'title', 'slot', 'dir', 'lang', 'hidden', 'routerLink']);
 const NATIVE_EVENTS = new Set(['click', 'dblclick', 'keydown', 'keyup', 'focus', 'blur', 'focusin', 'focusout', 'mouseenter', 'mouseleave', 'mousedown', 'pointerdown', 'pointerup', 'input', 'change', 'submit']);
@@ -133,7 +132,7 @@ function main() {
   const failures = [];
   let blocks = 0;
   for (const path of guideFiles()) {
-    const result = checkMarkdown(readFileSync(path, 'utf8'), rel(path), ctx);
+    const result = checkMarkdown(readText(path), rel(path), ctx);
     failures.push(...result.failures);
     blocks += result.blocks;
   }

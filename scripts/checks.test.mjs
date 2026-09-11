@@ -1,10 +1,13 @@
 // Cada validador se rompe a propósito: un check que nunca falla no demuestra nada.
 import assert from 'node:assert/strict';
+import { mkdtempSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { test } from 'node:test';
 import { contract } from './a11y.mjs';
 import { checkMarkdown, context } from './examples.mjs';
 import { coverage } from './guidelines.mjs';
-import { components } from './lib/ds.mjs';
+import { components, readText } from './lib/ds.mjs';
 import { MISSING, regenerate, renderProps } from './props.mjs';
 
 const ctx = context();
@@ -87,4 +90,12 @@ test('a11y: el contrato refleja lo que hace el código', () => {
   assert.match(modal, /`Escape`/);
   assert.match(modal, /document\.body/);
   assert.match(contract(byName.get('Tooltip')), /`tooltip`/);
+});
+
+test('lectura: los saltos CRLF de Windows se normalizan antes de comparar', () => {
+  const file = join(mkdtempSync(join(tmpdir(), 'ds-')), 'guia.md');
+  writeFileSync(file, '# Guía\r\n\r\n```html\r\n<cs-button>Guardar</cs-button>\r\n```\r\n');
+  const text = readText(file);
+  assert.doesNotMatch(text, /\r/);
+  assert.equal(checkMarkdown(text, 'guia.md', ctx).blocks, 1);
 });

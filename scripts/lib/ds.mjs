@@ -7,7 +7,9 @@ export const LIB_SRC = join(ROOT, 'projects', 'comsatel-ds', 'src');
 export const GUIDES = join(ROOT, 'guidelines');
 
 export const rel = (path) => relative(ROOT, path).split('\\').join('/');
-const read = (path) => readFileSync(path, 'utf8');
+/** Lee texto con saltos `\n`: en Windows git entrega CRLF y las comparaciones fallarían. */
+export const readText = (path) => readFileSync(path, 'utf8').replace(/\r\n/g, '\n');
+const read = readText;
 
 /** Recorre el texto saltando strings y comentarios; `visit(i, depth)` recibe cada carácter de código. */
 function walkCode(text, from, visit) {
