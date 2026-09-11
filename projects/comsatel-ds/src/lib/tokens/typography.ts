@@ -55,4 +55,5 @@ export const componentTypography = {
   input: { sm: 'content/note', md: 'content/ui', lg: 'content/body' },
   tooltip: 'label/small',
   calendar: { header: 'content/note', weekday: 'label/small', day: 'content/note' },
+  stepper: { label: 'content/note', description: 'label/small' },
 } as const;

@@ -112,6 +112,7 @@ export const routes: Routes = [
     path: 'components/input',
     loadComponent: () => import('./pages/input-demo/input-page').then((m) => m.InputPage),
   },
+  { path: 'components/header', loadComponent: () => import('./pages/header-demo/header-page').then((m) => m.HeaderPage) },
   {
     path: 'components/calendar',
     loadComponent: () => import('./pages/calendar-demo/calendar-page').then((m) => m.CalendarPage),
@@ -156,6 +157,10 @@ export const routes: Routes = [
   {
     path: 'components/spotlight',
     loadComponent: () => import('./pages/spotlight-demo/spotlight-page').then((m) => m.SpotlightPage),
+  },
+  {
+    path: 'components/stepper',
+    loadComponent: () => import('./pages/stepper-demo/stepper-page').then((m) => m.StepperPage),
   },
   {
     path: 'components/datetime-range-picker',

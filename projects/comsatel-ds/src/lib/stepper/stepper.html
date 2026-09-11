@@ -1,0 +1,38 @@
+<div class="cs-stepper" [class.cs-stepper--vertical]="!isHorizontal()" role="list" [attr.aria-label]="ariaLabel">
+  @for (step of steps; track step.id; let index = $index; let first = $first; let last = $last) {
+    <div class="cs-stepper__step" role="listitem">
+      <div class="cs-stepper__track">
+        @if (isHorizontal() && !first) {
+          <span class="cs-stepper__connector" [class.cs-stepper__connector--filled]="isFilled(step)" aria-hidden="true"></span>
+        }
+        @if (interactive) {
+          <button type="button" class="cs-stepper__node-button" [attr.aria-label]="stepLabel(step, index)" [attr.aria-current]="step.state === 'active' ? 'step' : null" (click)="selectStep(step)">
+            <ng-container [ngTemplateOutlet]="node" [ngTemplateOutletContext]="{ $implicit: step }" />
+          </button>
+        } @else {
+          <span class="cs-stepper__node" [class.cs-stepper__node--done]="step.state === 'done'" [class.cs-stepper__node--active]="step.state === 'active'" [attr.aria-current]="step.state === 'active' ? 'step' : null">
+            @if (step.state === 'done') { <cs-icon name="check" [size]="12" aria-hidden="true" /> }
+            @if (step.state === 'active') { <span class="cs-stepper__dot" aria-hidden="true"></span> }
+          </span>
+        }
+        @if (isHorizontal() && !last) {
+          <span class="cs-stepper__connector" [class.cs-stepper__connector--filled]="isFilled(steps[index + 1])" aria-hidden="true"></span>
+        }
+        @if (!isHorizontal() && !last) {
+          <span class="cs-stepper__connector cs-stepper__connector--vertical" [class.cs-stepper__connector--filled]="isFilled(steps[index + 1])" aria-hidden="true"></span>
+        }
+      </div>
+      <div class="cs-stepper__label">
+        <span class="cs-stepper__label-text" [class.cs-stepper__label-text--pending]="step.state === 'pending'">{{ step.label }}</span>
+        @if (step.description) { <span class="cs-stepper__description">{{ step.description }}</span> }
+      </div>
+    </div>
+  }
+</div>
+
+<ng-template #node let-step>
+  <span class="cs-stepper__node" [class.cs-stepper__node--done]="step.state === 'done'" [class.cs-stepper__node--active]="step.state === 'active'">
+    @if (step.state === 'done') { <cs-icon name="check" [size]="12" aria-hidden="true" /> }
+    @if (step.state === 'active') { <span class="cs-stepper__dot" aria-hidden="true"></span> }
+  </span>
+</ng-template>

@@ -99,7 +99,7 @@ export const NAVIGATION: NavSection[] = [
       { title: 'Date time picker', href: '/components/datetime-picker', icon: 'calendar-clock' },
       { title: 'Date time range picker', href: '/components/datetime-range-picker', icon: 'calendar-range' },
       { title: 'Dropdown', href: '/components/dropdown', icon: 'chevron-down' },
-      { title: 'Header', href: '/components/header', pending: true, icon: 'panel-top' },
+      { title: 'Header', href: '/components/header', icon: 'panel-top' },
       { title: 'Input', href: '/components/input', icon: 'text-cursor-input' },
       { title: 'List item', href: '/components/list-item', pending: true, icon: 'list' },
       { title: 'Menu', href: '/components/menu', icon: 'menu' },
@@ -110,7 +110,7 @@ export const NAVIGATION: NavSection[] = [
       { title: 'Radio', href: '/components/radio', icon: 'circle-dot' },
       { title: 'Select', href: '/components/select', icon: 'chevrons-up-down' },
       { title: 'Spotlight', href: '/components/spotlight', icon: 'flashlight' },
-      { title: 'Stepper', href: '/components/stepper', pending: true, icon: 'list-ordered' },
+      { title: 'Stepper', href: '/components/stepper', icon: 'list-ordered' },
       { title: 'Tab', href: '/components/tab', icon: 'rows' },
       {
         title: 'Table',

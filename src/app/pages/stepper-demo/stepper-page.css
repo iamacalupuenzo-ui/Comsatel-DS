@@ -1,0 +1,14 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+.playground-preview { width: 100%; }
+.playground-preview--vertical { width: min(100%, 18rem); }
+.state-grid, .orientation-grid { display: grid; width: 100%; gap: var(--layout-gap-4xl); }
+.state-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.orientation-grid { grid-template-columns: minmax(0, 1fr) minmax(12rem, 16rem); align-items: start; }
+.state-card, .vertical-preview { min-width: 0; }
+.interactive-demo { display: flex; width: 100%; flex-direction: column; gap: var(--layout-gap-xl); }
+.interactive-status { margin: 0; color: var(--color-text-base-subtle); font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); }
+.interactive-status strong { color: var(--color-text-base-default); font-weight: var(--font-weight-emphasis); }
+.guide-demo { width: 100%; }
+@media (max-width: 720px) { .state-grid, .orientation-grid { grid-template-columns: 1fr; } }
