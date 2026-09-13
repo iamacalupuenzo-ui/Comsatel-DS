@@ -40,6 +40,14 @@ jobs:
       - name: Tests unitarios
         run: npm run test:ci
 
+      # Comprueba que la superficie pública se pueda empaquetar antes de publicar.
+      - name: Compilar librería
+        run: npm run build:lib
+
+      # Las historias son documentación ejecutable: se compilan con la librería ya construida.
+      - name: Compilar Storybook
+        run: npm run build-storybook
+
       # Falla si el puntaje baja respecto de .adsa/score.json versionado.
       - name: El puntaje de agent readiness no baja
         run: npx --yes adsa-cli@0.1.5 audit --gate

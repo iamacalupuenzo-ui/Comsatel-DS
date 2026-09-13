@@ -11,6 +11,15 @@
   border-color: var(--color-border-brand-default);
   box-shadow: var(--shadow-sm);
 }
+:host(.cs-accordion-item--filled) {
+  border-color: transparent;
+  background-color: var(--color-background-neutral-subtle);
+}
+:host(.cs-accordion-item--filled.cs-accordion-item--expanded) {
+  border-color: transparent;
+  background-color: var(--color-background-brand-subtlest);
+  box-shadow: none;
+}
 
 .cs-accordion-item__header {
   width: 100%;

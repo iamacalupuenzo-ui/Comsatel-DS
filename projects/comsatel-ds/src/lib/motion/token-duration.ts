@@ -10,5 +10,7 @@ export function tokenSeconds(el: HTMLElement, cssVar: string, fallbackMs = 100):
 // Una animación que no comunica información se omite si la persona pidió
 // reducir el movimiento.
 export function prefersReducedMotion(): boolean {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  return typeof window !== 'undefined'
+    && typeof window.matchMedia === 'function'
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }

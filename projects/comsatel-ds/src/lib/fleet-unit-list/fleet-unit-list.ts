@@ -7,6 +7,7 @@ import { Icon } from '../icons/icon';
 import type { IconName } from '../icons/icon-registry';
 
 export type FleetUnitStatus = 'active' | 'stopped' | 'offline';
+export type FleetUnitListAppearance = 'outlined' | 'filled';
 
 export interface FleetUnit {
   id: string;
@@ -19,6 +20,14 @@ export interface FleetUnit {
   location: string;
   diagnostics?: string;
   alert?: string;
+  /** Conserva la unidad visible cuando su integración aún no está disponible. */
+  disabled?: boolean;
+}
+
+interface TelemetryField {
+  key: 'speed' | 'battery' | 'location' | 'diagnostics';
+  label: string;
+  icon: IconName;
 }
 
 const STATUS_VARIANT: Record<FleetUnitStatus, BadgeVariant> = {
@@ -33,6 +42,13 @@ const STATUS_ICON: Record<FleetUnitStatus, IconName> = {
   offline: 'wifi-off',
 };
 
+const TELEMETRY_FIELDS: TelemetryField[] = [
+  { key: 'speed', label: 'Velocidad', icon: 'gauge' },
+  { key: 'battery', label: 'Batería', icon: 'battery' },
+  { key: 'location', label: 'Ubicación', icon: 'map-pin' },
+  { key: 'diagnostics', label: 'Diagnóstico', icon: 'wrench' },
+];
+
 /** Organismo para la lectura y acción rápida sobre unidades de flota. */
 @Component({
   selector: 'cs-fleet-unit-list',
@@ -46,9 +62,12 @@ export class FleetUnitList {
   @Input() defaultExpandedIds: string[] = [];
   @Input() expandedIds?: string[];
   @Input() detailLabel = 'Ver detalle';
+  /** Cambia solo la superficie de lectura; la jerarquía y la interacción son iguales. */
+  @Input() appearance: FleetUnitListAppearance = 'outlined';
   @Output() readonly expandedIdsChange = new EventEmitter<string[]>();
   @Output() readonly detailClick = new EventEmitter<FleetUnit>();
 
   protected readonly statusVariant = STATUS_VARIANT;
   protected readonly statusIcon = STATUS_ICON;
+  protected readonly telemetryFields = TELEMETRY_FIELDS;
 }

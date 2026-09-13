@@ -8,8 +8,10 @@
 .cs-fleet-unit-list__signal { overflow: hidden; color: var(--color-text-base-subtle); font-size: var(--font-size-label-small); line-height: var(--font-line-height-label-small); text-overflow: ellipsis; white-space: nowrap; }
 .cs-fleet-unit-list__body { display: flex; flex-direction: column; gap: var(--layout-gap-lg); }
 .cs-fleet-unit-list__alert { display: flex; align-items: center; gap: var(--layout-gap-xs); margin: 0; color: var(--color-text-warning-default); font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); }
-.cs-fleet-unit-list__telemetry { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--layout-gap-lg); margin: 0; }
-.cs-fleet-unit-list__telemetry div { min-width: 0; }
+.cs-fleet-unit-list__telemetry { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--layout-gap-lg); margin: 0; }
+.cs-fleet-unit-list__telemetry-item { display: flex; align-items: flex-start; gap: var(--layout-gap-sm); min-width: 0; }
+.cs-fleet-unit-list__telemetry-icon { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: var(--layout-size-sm); height: var(--layout-size-sm); border-radius: var(--radius-full); background-color: var(--color-background-neutral-subtle); color: var(--color-icon-neutral-default); }
+.cs-fleet-unit-list__telemetry-content { min-width: 0; }
 .cs-fleet-unit-list__telemetry dt { color: var(--color-text-base-subtlest); font-size: var(--font-size-label-small); line-height: var(--font-line-height-label-small); }
 .cs-fleet-unit-list__telemetry dd { margin: var(--layout-padding-2xs) 0 0; overflow: hidden; color: var(--color-text-base-default); font-size: var(--font-size-content-note); font-weight: var(--font-weight-accent); line-height: var(--font-line-height-content-note); text-overflow: ellipsis; white-space: nowrap; }
-@media (max-width: 767px) { .cs-fleet-unit-list__telemetry { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 767px) { .cs-fleet-unit-list__telemetry { grid-template-columns: 1fr; } }

@@ -6,7 +6,11 @@
   (expandedIdsChange)="expandedIdsChange.emit($event)"
 >
   @for (unit of units; track unit.id) {
-    <cs-accordion-item [id]="unit.id">
+    <cs-accordion-item
+      [id]="unit.id"
+      [disabled]="unit.disabled ?? false"
+      [surface]="appearance === 'filled' ? 'filled' : 'outlined'"
+    >
       <div header class="cs-fleet-unit-list__header">
         <div class="cs-fleet-unit-list__vehicle-icon"><cs-icon name="truck" [size]="16" aria-hidden="true" /></div>
         <div class="cs-fleet-unit-list__identity">
@@ -24,10 +28,17 @@
           <p class="cs-fleet-unit-list__alert"><cs-icon name="alert-triangle" [size]="14" aria-hidden="true" />{{ unit.alert }}</p>
         }
         <dl class="cs-fleet-unit-list__telemetry">
-          <div><dt>Velocidad</dt><dd>{{ unit.speed }}</dd></div>
-          <div><dt>Batería</dt><dd>{{ unit.battery }}</dd></div>
-          <div><dt>Ubicación</dt><dd>{{ unit.location }}</dd></div>
-          @if (unit.diagnostics) { <div><dt>Diagnóstico</dt><dd>{{ unit.diagnostics }}</dd></div> }
+          @for (field of telemetryFields; track field.key) {
+            @if (field.key !== 'diagnostics' || unit.diagnostics) {
+              <div class="cs-fleet-unit-list__telemetry-item">
+                <div class="cs-fleet-unit-list__telemetry-icon"><cs-icon [name]="field.icon" [size]="14" aria-hidden="true" /></div>
+                <div class="cs-fleet-unit-list__telemetry-content">
+                  <dt>{{ field.label }}</dt>
+                  <dd>{{ unit[field.key] }}</dd>
+                </div>
+              </div>
+            }
+          }
         </dl>
         <cs-button variant="tertiary" size="xs" [aria-label]="detailLabel + ', ' + unit.name" (click)="detailClick.emit(unit)">{{ detailLabel }}</cs-button>
       </div>

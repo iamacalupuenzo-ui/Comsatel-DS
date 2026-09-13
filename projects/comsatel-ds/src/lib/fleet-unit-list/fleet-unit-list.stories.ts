@@ -19,3 +19,4 @@ type Story = StoryObj<FleetUnitList>;
 
 export const Default: Story = {};
 export const Multiple: Story = { args: { type: 'multiple', defaultExpandedIds: ['norte-04', 'norte-07'] } };
+export const Filled: Story = { args: { appearance: 'filled' } };

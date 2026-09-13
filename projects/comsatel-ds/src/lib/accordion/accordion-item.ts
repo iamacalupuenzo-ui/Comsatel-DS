@@ -4,6 +4,9 @@ import { Icon } from '../icons/icon';
 import { EASE_DEFAULT } from '../motion/eases';
 import { prefersReducedMotion, tokenSeconds } from '../motion/token-duration';
 
+/** Superficie visual de una fila. No altera su semántica ni comportamiento. */
+export type AccordionItemSurface = 'outlined' | 'filled';
+
 /**
  * Fila individual de un `<cs-accordion>` — no maneja su propio estado de
  * abierto/cerrado (eso lo coordina el padre, para poder aplicar exclusión
@@ -18,6 +21,7 @@ import { prefersReducedMotion, tokenSeconds } from '../motion/token-duration';
   styleUrl: './accordion-item.css',
   host: {
     '[class.cs-accordion-item--expanded]': 'expanded()',
+    '[class.cs-accordion-item--filled]': "surface === 'filled'",
   },
 })
 export class AccordionItem {
@@ -25,6 +29,8 @@ export class AccordionItem {
 
   @Input({ required: true }) id!: string;
   @Input() disabled = false;
+  /** `filled` agrupa visualmente filas operativas sin añadir un borde. */
+  @Input() surface: AccordionItemSurface = 'outlined';
   @Output() readonly toggled = new EventEmitter<void>();
   @Output() readonly headerKeydown = new EventEmitter<KeyboardEvent>();
 
