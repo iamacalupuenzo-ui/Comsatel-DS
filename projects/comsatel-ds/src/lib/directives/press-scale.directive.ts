@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostListener, OnDestroy, inject } from '@angular/core';
 import { gsap } from 'gsap';
-import { EASE_DEFAULT } from '../motion/eases';
+import { tokenEase } from '../motion/eases';
 import { tokenSeconds } from '../motion/token-duration';
 
 /**
@@ -54,6 +54,11 @@ export class PressScale implements OnDestroy {
     // Un feedback de escala no comunica información por sí mismo; se omite
     // por completo cuando la persona pidió reducir el movimiento.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    gsap.to(this.el, { scale, duration: tokenSeconds(this.el, durationToken), ease: EASE_DEFAULT, overwrite: 'auto' });
+    gsap.to(this.el, {
+      scale,
+      duration: tokenSeconds(this.el, durationToken),
+      ease: tokenEase(this.el, '--motion-easing-default', 'cubic-bezier(0.2, 0, 0, 1)'),
+      overwrite: 'auto',
+    });
   }
 }

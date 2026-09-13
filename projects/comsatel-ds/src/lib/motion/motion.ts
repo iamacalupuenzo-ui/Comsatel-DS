@@ -10,7 +10,7 @@ import {
   signal,
 } from '@angular/core';
 import { gsap } from 'gsap';
-import { EASE_DEFAULT, EASE_ENTER, EASE_EXIT, EASE_SPRING } from './eases';
+import { tokenEase } from './eases';
 import { prefersReducedMotion, tokenSeconds } from './token-duration';
 
 export type MotionPreset = 'fade' | 'scale' | 'slide-up' | 'slide-down' | 'slide-left' | 'slide-right';
@@ -43,11 +43,11 @@ const DURATION_MS: Record<MotionDurationToken, number> = {
   slow: 350,
 };
 
-const EASES: Record<MotionEasingToken, gsap.EaseFunction> = {
-  default: EASE_DEFAULT,
-  enter: EASE_ENTER,
-  exit: EASE_EXIT,
-  spring: EASE_SPRING,
+const EASING_FALLBACKS: Record<MotionEasingToken, string> = {
+  default: 'cubic-bezier(0.2, 0, 0, 1)',
+  enter: 'cubic-bezier(0, 0, 0.2, 1)',
+  exit: 'cubic-bezier(0.2, 0, 1, 0.9)',
+  spring: 'cubic-bezier(0.15, 1.15, 0.6, 1)',
 };
 
 /**
@@ -117,7 +117,7 @@ export class Motion implements OnChanges, OnDestroy {
       this.tween = gsap.to(el, {
         ...visible,
         duration: tokenSeconds(el, `--motion-duration-${this.enterDuration}`, DURATION_MS[this.enterDuration]),
-        ease: EASES[this.enterEasing],
+        ease: tokenEase(el, `--motion-easing-${this.enterEasing}`, EASING_FALLBACKS[this.enterEasing]),
       });
     });
   }
@@ -138,7 +138,7 @@ export class Motion implements OnChanges, OnDestroy {
     this.tween = gsap.to(el, {
       ...hidden,
       duration: tokenSeconds(el, `--motion-duration-${this.exitDuration}`, DURATION_MS[this.exitDuration]),
-      ease: EASES[this.exitEasing],
+      ease: tokenEase(el, `--motion-easing-${this.exitEasing}`, EASING_FALLBACKS[this.exitEasing]),
       onComplete: () => this.rendered.set(false),
     });
   }

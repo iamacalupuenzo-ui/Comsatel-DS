@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { gsap } from 'gsap';
-import { EASE_DEFAULT } from 'comsatel-ds';
+import { tokenEase, tokenSeconds } from 'comsatel-ds';
 
 /** Una fila del catálogo de --motion-duration-*: mueve un bloque a duración
  * variable, siempre con --motion-easing-default — así la fila aísla el
@@ -29,6 +29,11 @@ export class DurationRow implements AfterViewInit {
   private play(): void {
     const el = this.dotRef?.nativeElement;
     if (!el) return;
-    gsap.fromTo(el, { x: 0 }, { x: 88, duration: this.ms / 1000, ease: EASE_DEFAULT, overwrite: true });
+    gsap.fromTo(el, { x: 0 }, {
+      x: 88,
+      duration: tokenSeconds(el, this.token, this.ms),
+      ease: tokenEase(el, '--motion-easing-default', 'cubic-bezier(0.2, 0, 0, 1)'),
+      overwrite: true,
+    });
   }
 }

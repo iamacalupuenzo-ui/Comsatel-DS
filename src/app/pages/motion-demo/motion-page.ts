@@ -26,11 +26,16 @@ export class MotionPage {
 
   /* Playground */
   protected readonly playgroundControls: ControlDef[] = [
-    { kind: 'select', label: 'Preset', key: 'preset', options: PRESETS, default: 'fade' },
+    { kind: 'select', label: 'Preajuste', key: 'preset', options: PRESETS, default: 'fade' },
     { kind: 'toggle', label: 'Mostrar', key: 'show', default: true },
   ];
   protected readonly pgPreset = signal<MotionPreset>('fade');
   protected readonly pgShow = signal(true);
+  protected readonly guideErrorVisible = signal(false);
+
+  protected toggleGuideError(): void {
+    this.guideErrorVisible.update((visible) => !visible);
+  }
 
   protected onPlaygroundState(s: DemoState): void {
     if (s['preset']) this.pgPreset.set(s['preset'] as MotionPreset);

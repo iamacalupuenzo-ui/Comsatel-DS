@@ -24,3 +24,8 @@
   grid-template-columns: repeat(3, 1fr);
   gap: var(--layout-gap-xl);
 }
+
+.guide-card__demo { display: flex; flex-wrap: wrap; align-items: center; gap: var(--layout-gap-sm); margin-top: var(--layout-padding-md); }
+.guide-card__action { border: var(--layout-border-thin) solid var(--color-border-neutral-default); border-radius: var(--radius-sm); background: var(--elevation-surface-default); color: var(--color-text-base-default); cursor: pointer; font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); padding: var(--layout-padding-xs) var(--layout-padding-md); }
+.guide-card__action:focus-visible, .row-card__replay:focus-visible { outline: var(--layout-border-thick) solid var(--color-border-focused); outline-offset: var(--layout-padding-2xs); }
+.guide-card__message { color: var(--color-text-danger-default); font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); }

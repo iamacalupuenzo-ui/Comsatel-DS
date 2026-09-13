@@ -30,8 +30,21 @@
     </p>
     <div class="row-list">
       @for (e of easings; track e.token) {
-        <app-easing-row [token]="e.token" [curve]="e.curve" [ease]="e.ease" [description]="e.description" />
+        <app-easing-row [token]="e.token" [curve]="e.curve" [description]="e.description" />
       }
     </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Usa un token de duración y una curva con propósito: <code class="inline-code">entering</code> con <code class="inline-code">enter</code>, o <code class="inline-code">leaving</code> con <code class="inline-code">exit</code>.</p></div></article>
+      <article class="guide-card guide-card--dont"><div class="guide-card__header"><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No escribas milisegundos o curvas en cada componente: se desincronizan cuando evoluciona la escala.</p></div></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <div class="table table--two-columns"><div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div><div class="table__row"><strong>Movimiento reducido</strong><span>Las animaciones decorativas se omiten si la persona prefiere reducir el movimiento; no uses movimiento como única forma de comunicar un cambio.</span></div><div class="table__row"><strong>Repetición</strong><span>Cada muestra se puede repetir con teclado y tiene un nombre que identifica el token que demuestra.</span></div></div>
   </section>
 </div>

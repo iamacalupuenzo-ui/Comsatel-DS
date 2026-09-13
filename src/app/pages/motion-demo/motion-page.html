@@ -21,6 +21,16 @@
     </app-demo-shell>
   </section>
 
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Movimiento reducido</strong><span>Si la persona activa <code>prefers-reduced-motion</code>, Motion muestra u oculta el contenido sin interpolar la animación.</span></div>
+      <div class="table__row"><strong>Contenido al salir</strong><span>Al terminar la salida, el contenido se retira del DOM; no queda visible ni disponible para interacción.</span></div>
+      <div class="table__row"><strong>Uso semántico</strong><span>Motion no añade roles ni cambia el foco: el contenido proyectado conserva su semántica y comportamiento propios.</span></div>
+    </div>
+  </section>
+
   <!-- Presets -->
   <section class="section">
     <h2 class="section__title" id="presets">Presets</h2>
@@ -43,6 +53,12 @@
         </div>
         <div class="guide-card__body">
           <p class="guide-card__text">Ata <code class="inline-code">show</code> a una condición real (un estado de error, un menú abierto).</p>
+          <div class="guide-card__demo">
+            <button type="button" class="guide-card__action" (click)="toggleGuideError()" [attr.aria-pressed]="guideErrorVisible()">
+              {{ guideErrorVisible() ? 'Ocultar error' : 'Mostrar error' }}
+            </button>
+            <cs-motion [show]="guideErrorVisible()" preset="slide-down"><span class="guide-card__message">No se pudo guardar el cambio.</span></cs-motion>
+          </div>
           <code class="guide-card__code">&lt;cs-motion [show]="hasError" preset="slide-down"&gt;<br>&nbsp;&nbsp;&lt;app-error-message /&gt;<br>&lt;/cs-motion&gt;</code>
         </div>
       </div>

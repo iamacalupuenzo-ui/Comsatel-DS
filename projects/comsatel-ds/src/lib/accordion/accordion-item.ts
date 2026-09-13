@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, effect, signal } from '@angular/core';
 import { gsap } from 'gsap';
 import { Icon } from '../icons/icon';
-import { EASE_DEFAULT } from '../motion/eases';
+import { tokenEase } from '../motion/eases';
 import { prefersReducedMotion, tokenSeconds } from '../motion/token-duration';
 
 /** Superficie visual de una fila. No altera su semántica ni comportamiento. */
@@ -58,7 +58,11 @@ export class AccordionItem {
       // puro no puede transicionar height:auto, esta es exactamente la
       // razón por la que el sistema aceptó GSAP como motor de motion (ver
       // accessibility-patterns.md sección 9).
-      gsap.to(el, { height: isOpen ? 'auto' : 0, duration: tokenSeconds(el, '--motion-duration-medium'), ease: EASE_DEFAULT });
+      gsap.to(el, {
+        height: isOpen ? 'auto' : 0,
+        duration: tokenSeconds(el, '--motion-duration-medium'),
+        ease: tokenEase(el, '--motion-easing-default', 'cubic-bezier(0.2, 0, 0, 1)'),
+      });
     });
   }
 

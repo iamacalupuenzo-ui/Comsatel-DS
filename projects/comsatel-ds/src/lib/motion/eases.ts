@@ -3,12 +3,19 @@ import { CustomEase } from 'gsap/CustomEase';
 
 gsap.registerPlugin(CustomEase);
 
-// Mismas curvas que --motion-easing-* (tokens.css) — GSAP no acepta un
-// cubic-bezier crudo como `ease`, hace falta registrarla como CustomEase.
-// Registro único para todo el sistema: cualquier componente que anime con
-// GSAP importa esto en vez de registrar su propio nombre (evitar registrar
-// el mismo nombre dos veces).
-export const EASE_DEFAULT = CustomEase.create('csMotionDefault', '0.2, 0, 0, 1');
-export const EASE_ENTER = CustomEase.create('csMotionEnter', '0, 0, 0.2, 1');
-export const EASE_EXIT = CustomEase.create('csMotionExit', '0.2, 0, 1, 0.9');
-export const EASE_SPRING = CustomEase.create('csMotionSpring', '0.15, 1.15, 0.6, 1');
+const easeCache = new Map<string, gsap.EaseFunction>();
+
+/** Lee una curva --motion-easing-* resuelta en el elemento y la adapta a
+ * GSAP. El cache se indexa por la curva resultante, no por el token: así no
+ * se vuelve a registrar la misma CustomEase y un tema o token actualizado se
+ * refleja en la siguiente animación. */
+export function tokenEase(el: HTMLElement, cssVar: string, fallback: string): gsap.EaseFunction {
+  const curve = getComputedStyle(el).getPropertyValue(cssVar).trim() || fallback;
+  const cached = easeCache.get(curve);
+  if (cached) return cached;
+
+  const controls = curve.replace(/^cubic-bezier\(/, '').replace(/\)$/, '');
+  const ease = CustomEase.create(`csMotionEase${easeCache.size}`, controls);
+  easeCache.set(curve, ease);
+  return ease;
+}

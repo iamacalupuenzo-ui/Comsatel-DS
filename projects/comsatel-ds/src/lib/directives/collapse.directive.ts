@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, OnChanges, inject } from '@angular/core';
 import { gsap } from 'gsap';
-import { EASE_DEFAULT } from '../motion/eases';
+import { tokenEase } from '../motion/eases';
 import { prefersReducedMotion, tokenSeconds } from '../motion/token-duration';
 
 /**
@@ -39,7 +39,7 @@ export class Collapse implements OnChanges {
     gsap.to(this.el, {
       height,
       duration: tokenSeconds(this.el, '--motion-duration-medium'),
-      ease: EASE_DEFAULT,
+      ease: tokenEase(this.el, '--motion-easing-default', 'cubic-bezier(0.2, 0, 0, 1)'),
     });
   }
 }
