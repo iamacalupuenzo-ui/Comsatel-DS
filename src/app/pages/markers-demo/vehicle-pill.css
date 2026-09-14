@@ -23,6 +23,8 @@
   background-color: var(--elevation-surface-default);
   box-shadow: var(--shadow-md);
   border: 2px solid var(--elevation-surface-default);
+  font: inherit;
+  text-align: start;
   cursor: pointer;
   transition: background-color var(--motion-duration-medium) var(--motion-easing-default), box-shadow var(--motion-duration-medium) var(--motion-easing-default);
 }
@@ -45,6 +47,10 @@
 .marker-pill--selected {
   border: 2px solid var(--color-border-focused);
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-border-focused) 20%, transparent), var(--shadow-lg);
+}
+.marker-pill:focus-visible {
+  outline: 2px solid var(--color-border-focused);
+  outline-offset: 2px;
 }
 
 .marker-pill__alarm {

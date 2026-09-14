@@ -1,10 +1,14 @@
 <div class="marker-pill-wrap">
-  <div
+  <button
+    type="button"
     class="marker-pill"
+    [attr.aria-label]="accessibleName"
+    [attr.aria-pressed]="selected ? 'true' : null"
     [class.marker-pill--interactive]="interactive"
     [class.marker-pill--hover]="visualState === 'hover'"
     [class.marker-pill--active]="visualState === 'active'"
     [class.marker-pill--selected]="selected"
+    (click)="activated.emit()"
   >
     @if (alarm) {
       <div class="marker-pill__alarm">
@@ -24,7 +28,7 @@
       <span class="marker-pill__name">{{ label }}</span>
       <span class="marker-pill__plate">{{ plate }}</span>
     </div>
-  </div>
+  </button>
   <div class="marker-pill__stem-line"></div>
   <div class="marker-pill__stem-dot"></div>
 </div>

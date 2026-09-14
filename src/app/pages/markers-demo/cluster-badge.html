@@ -1,5 +1,7 @@
-<div
+<button
+  type="button"
   class="cluster-badge"
+  [attr.aria-label]="unit ? count + ' unidades agrupadas, acercar mapa' : count + ' dispositivos GPS agrupados, acercar mapa'"
   [class.cluster-badge--alarm]="alarm"
   [style.width]="sizeVar"
   [style.height]="sizeVar"
@@ -9,4 +11,4 @@
   @if (unit) {
     <span class="cluster-badge__unit">{{ unit }}</span>
   }
-</div>
+</button>

@@ -103,3 +103,15 @@
   color: var(--color-text-base-subtlest);
   line-height: 1;
 }
+
+@media (max-width: 767px) {
+  .marker-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .marker-grid--2col { grid-template-columns: 1fr; }
+  .marker-grid--3col { grid-template-columns: 1fr; }
+  .density-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .marker-grid { grid-template-columns: 1fr; }
+  .marker-grid, .density-panel { padding: var(--layout-padding-lg); }
+}

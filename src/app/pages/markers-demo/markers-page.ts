@@ -61,10 +61,16 @@ export class MarkersPage {
     const selectedProp = this.pgSelected() ? `\n  selected: true,` : '';
     const stateComment = this.pgVisualState() !== 'default' ? ` // estado visual: ${this.pgVisualState()} (CSS :${this.pgVisualState()}, no una prop)` : '';
     return (
-      `createVehicleMarker({\n` +
-      `  status: '${this.pgStatus()}',\n` +
-      `  name: 'V-204',\n` +
-      `  plate: 'ABC-204',${typeProp}${alarmProp}${selectedProp}\n` +
+      `// Patrón de integración Leaflet; no es una exportación de comsatel-ds.\n` +
+      `L.marker(position, {\n` +
+      `  icon: L.divIcon({\n` +
+      `    className: 'cs-map-marker',\n` +
+      `    html: renderVehicleMarker({\n` +
+      `      status: '${this.pgStatus()}',\n` +
+      `      name: 'V-204',\n` +
+      `      plate: 'ABC-204',${typeProp}${alarmProp}${selectedProp}\n` +
+      `    }),\n` +
+      `  }),\n` +
       `});${stateComment}`
     );
   });

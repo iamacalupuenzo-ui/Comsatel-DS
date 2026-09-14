@@ -2,9 +2,9 @@
   <p class="eyebrow">Mapa / Marcadores</p>
   <h1 class="title">Marcadores</h1>
   <p class="description">
-    Los pines que aparecen sobre el mapa no son componentes Angular: Leaflet los pinta con
-    <code>divIcon</code> a partir de un string de HTML. Estas vistas son el rediseño de referencia:
-    mismo propósito, tokens de tamaño, espaciado, radio, sombra y estados de interacción correctos.
+    Los pines que aparecen sobre el mapa se integran con Leaflet mediante <code>divIcon</code>.
+    Esta página documenta la estructura, los estados y los nombres accesibles que debe conservar esa
+    integración; no expone una API de marcadores desde la librería Angular.
   </p>
 
   <!-- Playground -->
@@ -20,6 +20,7 @@
         [alarm]="pgAlarm()"
         [selected]="pgSelected()"
         [visualState]="pgVisualStateInput()"
+        (activated)="pgSelected.set(!pgSelected())"
       />
     </app-demo-shell>
   </section>
@@ -142,8 +143,9 @@
   <section class="section">
     <h2 class="section__title" id="hover">Hover, presionado y seleccionado</h2>
     <p class="section__intro">
-      Los cuatro marcadores son clickeables: abren la tarjeta del vehículo, expanden el dispositivo
-      GPS o hacen zoom sobre un cluster. El hover sigue la misma receta que usa Button para su
+      Cada marcador interactivo debe abrir la tarjeta del vehículo, mostrar el detalle del dispositivo
+      GPS o acercar el mapa al cluster. El Playground permite comprobar la selección con click o
+      teclado. El hover sigue la misma receta que usa Button para su
       variante "default" (fondo a --color-background-neutral-subtle, sombra sube un nivel);
       presionado va un nivel más (--color-background-neutral-default, sombra al tope de la escala).
       Seleccionado es distinto a los dos anteriores: no es un pseudo-estado momentáneo, persiste
@@ -230,6 +232,18 @@
           <app-vehicle-pill status="active" label="Camión de reparto zona norte" plate="AAA-999-BB" />
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">Un marcador que abre detalle o acerca el mapa es un control, no una ilustración.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Teclado</strong><span>Vehicle, GPS y cluster usan <code class="inline-code">button</code>; se enfocan y se activan con Espacio o Enter.</span></div>
+      <div class="table__row"><strong>Nombre</strong><span>El nombre accesible incluye la unidad, placa, estado y alarma; los clusters anuncian su conteo y acción.</span></div>
+      <div class="table__row"><strong>Selección</strong><span>El vehículo seleccionado expone <code class="inline-code">aria-pressed=&quot;true&quot;</code>; no depende solo del anillo o del color.</span></div>
+      <div class="table__row"><strong>Movimiento</strong><span>La alarma del cluster respeta la preferencia de reducción de movimiento.</span></div>
     </div>
   </section>
 </div>

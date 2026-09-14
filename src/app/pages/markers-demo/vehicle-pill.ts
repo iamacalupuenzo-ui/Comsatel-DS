@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Icon, type IconName } from 'comsatel-ds';
 
 export type VehicleStatus = 'active' | 'stopped' | 'offline';
@@ -52,6 +52,7 @@ export class VehiclePill {
   @Input() visualState?: MarkerVisualState;
   @Input() selected = false;
   @Input() vehicleType: VehicleType = 'car';
+  @Output() activated = new EventEmitter<void>();
 
   protected get tier(): IconTier {
     return ICON_TIER[this.iconTier];
@@ -67,5 +68,10 @@ export class VehiclePill {
 
   protected get interactive(): boolean {
     return !this.visualState && !this.selected;
+  }
+
+  protected get accessibleName(): string {
+    const status = { active: 'activo', stopped: 'detenido', offline: 'sin señal' }[this.status];
+    return `${this.label}, ${this.plate}, ${status}${this.alarm ? ', con alarma activa' : ''}`;
   }
 }

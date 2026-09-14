@@ -20,6 +20,7 @@
   background-color: var(--elevation-surface-default);
   box-shadow: var(--shadow-sm);
   border: 1.5px solid color-mix(in srgb, var(--color-map-gps-svr-x) 25%, transparent);
+  font: inherit;
   color: var(--color-map-gps-svr-x);
   cursor: pointer;
   transition: background-color var(--motion-duration-medium) var(--motion-easing-default), box-shadow var(--motion-duration-medium) var(--motion-easing-default);
@@ -32,6 +33,7 @@
   background-color: var(--color-background-neutral-default);
   box-shadow: var(--shadow-lg);
 }
+.gps-compact:focus-visible { outline: 2px solid var(--color-border-focused); outline-offset: 2px; }
 
 .gps-compact__label {
   font-family: var(--font-family-content);

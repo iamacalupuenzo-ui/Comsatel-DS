@@ -20,6 +20,8 @@
   background-color: var(--elevation-surface-default);
   box-shadow: var(--shadow-lg);
   border: 1.5px solid color-mix(in srgb, var(--color-map-gps-svr-x) 25%, transparent);
+  font: inherit;
+  text-align: start;
   cursor: pointer;
   transition: background-color var(--motion-duration-medium) var(--motion-easing-default);
 }
@@ -30,6 +32,7 @@
 .gps-full:active {
   background-color: var(--color-background-neutral-default);
 }
+.gps-full:focus-visible { outline: 2px solid var(--color-border-focused); outline-offset: 2px; }
 
 .gps-full__icon-wrap {
   flex-shrink: 0;

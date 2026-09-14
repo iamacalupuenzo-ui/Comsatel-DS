@@ -9,6 +9,7 @@
   justify-content: center;
   border-radius: var(--radius-full);
   border: 3px solid var(--elevation-surface-default);
+  font: inherit;
   box-shadow: var(--shadow-lg);
   cursor: pointer;
   transition: box-shadow var(--motion-duration-medium) var(--motion-easing-default), transform var(--motion-duration-medium) var(--motion-easing-default);
@@ -19,6 +20,7 @@
 .cluster-badge:active {
   transform: scale(0.95);
 }
+.cluster-badge:focus-visible { outline: 2px solid var(--color-border-focused); outline-offset: 2px; }
 
 /* Pulso continuo mientras alguna unidad del cluster tiene un evento activo
    — decorativo y en bucle, no una transición de entrada/salida: no sale de
@@ -30,6 +32,10 @@
 @keyframes cs-cluster-pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.55; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cluster-badge { transition: none; }
+  .cluster-badge--alarm { animation: none; }
 }
 
 .cluster-badge__count {
