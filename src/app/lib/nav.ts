@@ -101,7 +101,7 @@ export const NAVIGATION: NavSection[] = [
       { title: 'Dropdown', href: '/components/dropdown', icon: 'chevron-down' },
       { title: 'Header', href: '/components/header', icon: 'panel-top' },
       { title: 'Input', href: '/components/input', icon: 'text-cursor-input' },
-      { title: 'List item', href: '/components/list-item', pending: true, icon: 'list' },
+      { title: 'List item', href: '/components/list-item', icon: 'list' },
       { title: 'Menu', href: '/components/menu', icon: 'menu' },
       { title: 'Modal', href: '/components/modal', icon: 'app-window' },
       { title: 'Pagination', href: '/components/pagination', icon: 'chevrons-right' },

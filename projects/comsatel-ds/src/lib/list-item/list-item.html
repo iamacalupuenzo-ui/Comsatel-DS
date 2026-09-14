@@ -1,0 +1,20 @@
+<button
+  type="button"
+  [class]="classes"
+  [disabled]="disabled"
+  [attr.aria-label]="ariaLabel || null"
+  [attr.aria-pressed]="selectable ? selected : null"
+  (click)="onActivate()"
+>
+  @if (leadingIcon) {
+    <span class="cs-list-item__leading" aria-hidden="true"><cs-icon [name]="leadingIcon" [size]="18" /></span>
+  }
+
+  <span class="cs-list-item__content">
+    <span class="cs-list-item__label">{{ label }}</span>
+    @if (description) { <span class="cs-list-item__description">{{ description }}</span> }
+  </span>
+
+  <span class="cs-list-item__trailing"><ng-content select="[cs-list-item-trailing]"></ng-content></span>
+  @if (trailingIcon) { <cs-icon class="cs-list-item__chevron" [name]="trailingIcon" [size]="16" aria-hidden="true" /> }
+</button>

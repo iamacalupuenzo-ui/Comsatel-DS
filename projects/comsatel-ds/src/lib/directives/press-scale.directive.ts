@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostListener, OnDestroy, inject } from '@angular/core';
 import { gsap } from 'gsap';
 import { tokenEase } from '../motion/eases';
-import { tokenSeconds } from '../motion/token-duration';
+import { prefersReducedMotion, tokenSeconds } from '../motion/token-duration';
 
 /**
  * Feedback de "presionado" para controles interactivos: encoge el elemento
@@ -53,7 +53,7 @@ export class PressScale implements OnDestroy {
   private animateTo(scale: number, durationToken: '--motion-duration-fast' | '--motion-duration-leaving'): void {
     // Un feedback de escala no comunica información por sí mismo; se omite
     // por completo cuando la persona pidió reducir el movimiento.
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (prefersReducedMotion()) return;
     gsap.to(this.el, {
       scale,
       duration: tokenSeconds(this.el, durationToken),

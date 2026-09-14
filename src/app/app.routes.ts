@@ -112,6 +112,10 @@ export const routes: Routes = [
     path: 'components/input',
     loadComponent: () => import('./pages/input-demo/input-page').then((m) => m.InputPage),
   },
+  {
+    path: 'components/list-item',
+    loadComponent: () => import('./pages/list-item-demo/list-item-page').then((m) => m.ListItemPage),
+  },
   { path: 'components/header', loadComponent: () => import('./pages/header-demo/header-page').then((m) => m.HeaderPage) },
   {
     path: 'components/calendar',

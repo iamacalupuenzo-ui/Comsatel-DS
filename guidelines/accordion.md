@@ -42,6 +42,7 @@ tiempo. No lo uses para esconder algo que el usuario necesita para decidir.
 | :-- | :-- | :-- | :-- |
 | `id` | `string` | requerido | Identifica la sección dentro del grupo. |
 | `disabled` | `boolean` | `false` | La sección no se puede abrir ni cerrar. |
+| `surface` | `'outlined' \| 'filled'` | `'outlined'` | Superficie delimitada o rellena; se elige según el contenedor que ya agrupa las filas. |
 | `toggled` | `EventEmitter<void>` | n/a | Emite al alternar la sección. |
 | `headerKeydown` | `EventEmitter<KeyboardEvent>` | n/a | Reenvía el teclado del encabezado al grupo. |
 <!-- props:end -->

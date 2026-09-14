@@ -1,0 +1,65 @@
+<div class="page">
+  <p class="eyebrow">Componentes / List item</p>
+  <h1 class="title">List item</h1>
+  <p class="description">Fila reutilizable para abrir un recurso o ejecutar una acción contextual. Su estructura contiene identidad, nombre, contexto y una zona trailing compuesta por quien la usa.</p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Prueba la identidad, selección y disponibilidad. El estado es contenido proyectado: reutiliza Tag cuando corresponda, sin acoplar List item a un dominio operativo.</p>
+    <app-demo-shell [controls]="controls" [code]="playgroundCode()" (stateChange)="onStateChange($event)">
+      <div class="list-item-stage">
+        <div class="list-demo" role="list" aria-label="Ítems de ejemplo">
+          <cs-list-item [leadingIcon]="icon()" label="Reporte de mantenimiento" description="Actualizado hoy a las 09:30" [selectable]="selectable()" [selected]="selected()" [disabled]="disabled()" (selectedChange)="selected.set($event)" (activate)="activate()">
+            <cs-tag cs-list-item-trailing severity="success" icon="circle-check" value="Listo" [rounded]="true" />
+          </cs-list-item>
+        </div>
+        <span class="action-feedback" aria-live="polite">Acciones ejecutadas: {{ actionCount() }}</span>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="density">Información y densidad</h2>
+    <p class="section__intro">Cada fila contiene una sola entidad y la información necesaria para decidir si abrirla. La zona final recibe una etiqueta, fecha o acción breve sin que el componente imponga ese contenido.</p>
+    <div class="static-block"><div class="static-block__preview list-demo" role="list" aria-label="Documentos recientes">
+      <cs-list-item leadingIcon="file-text" label="Reporte de recorrido"><cs-tag cs-list-item-trailing severity="info" icon="file-text" value="PDF" [rounded]="true" /></cs-list-item>
+      <cs-list-item leadingIcon="user" label="Asignación de conductor"><cs-tag cs-list-item-trailing severity="success" icon="circle-check" value="Validado" [rounded]="true" /></cs-list-item>
+      <cs-list-item leadingIcon="map-pin" label="Punto de inspección"><cs-tag cs-list-item-trailing severity="warn" icon="alert-triangle" value="Pendiente" [rounded]="true" /></cs-list-item>
+    </div><app-code-block code="&lt;cs-list-item leadingIcon=&quot;file-text&quot; label=&quot;Reporte de recorrido&quot;&gt;\n  &lt;cs-tag cs-list-item-trailing severity=&quot;info&quot; icon=&quot;file-text&quot; value=&quot;PDF&quot; [rounded]=&quot;true&quot; /&gt;\n&lt;/cs-list-item&gt;" /></div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="states">Selección y disponibilidad</h2>
+    <p class="section__intro">La selección es controlada por quien compone la lista. Una fila no disponible conserva su información, pero no recibe foco ni ejecuta acciones.</p>
+    <div class="static-block"><div class="static-block__preview list-demo" role="list" aria-label="Estados de ejemplo">
+      <cs-list-item leadingIcon="file-text" label="Reporte de recorrido" description="Seleccionado para ver detalle" [selectable]="true" [selected]="true"><cs-tag cs-list-item-trailing severity="success" icon="circle-check" value="Listo" [rounded]="true" /></cs-list-item>
+      <cs-list-item leadingIcon="file-text" label="Reporte archivado" description="No disponible para abrir" [disabled]="true"><cs-tag cs-list-item-trailing severity="secondary" icon="circle-pause" value="Archivado" [rounded]="true" /></cs-list-item>
+    </div><app-code-block code="&lt;cs-list-item [selectable]=&quot;true&quot; [selected]=&quot;true&quot; ... /&gt;\n&lt;cs-list-item [disabled]=&quot;true&quot; ... /&gt;" /></div>
+  </section>
+
+  <section class="section"><h2 class="section__title" id="accessibility">Accesibilidad</h2><p class="section__intro">La fila usa un botón nativo: no imita el patrón listbox de PrimeNG ni inventa roles de selección para una acción de navegación.</p>
+    <div class="table table--two-columns"><div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Semántica</strong><span>La superficie interactiva es <code>button</code>; <code>Enter</code> y <code>Espacio</code> la activan con comportamiento nativo.</span></div>
+      <div class="table__row"><strong>Selección</strong><span>Cuando <code>selectable</code> es verdadero, <code>aria-pressed</code> anuncia el estado. Para opciones de formulario usa Select, que implementa <code>listbox</code>.</span></div>
+      <div class="table__row"><strong>Estado</strong><span>La zona trailing compone Tag con texto e ícono; ningún estado depende exclusivamente del tono.</span></div>
+      <div class="table__row"><strong>Deshabilitado</strong><span>Usa <code>disabled</code> nativo: la fila sale del foco y no emite <code>activate</code>.</span></div>
+    </div></section>
+
+  <section class="section"><h2 class="section__title" id="guidelines">Lineamientos de uso</h2><p class="section__intro">Cada par muestra una decisión de contenido y jerarquía.</p><div class="guide-grid">
+    <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon name="circle-check" [size]="16" /><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Muestra una entidad y su contexto breve; compone el estado con una etiqueta existente.</p><cs-list-item leadingIcon="file-text" label="Reporte de recorrido" description="Actualizado hoy"><cs-tag cs-list-item-trailing severity="success" icon="circle-check" value="Listo" [rounded]="true" /></cs-list-item></div></article>
+    <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon name="x" [size]="16" /><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No conviertas una fila genérica en un panel de telemetría; usa FleetUnitList en Mapa.</p><cs-list-item leadingIcon="truck" label="TRK-204 — 67 km/h — batería 78% — motor encendido — diagnóstico correcto" /></div></article>
+    <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon name="circle-check" [size]="16" /><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Usa Select para escoger una opción dentro de un formulario.</p><code class="guide-card__code">&lt;cs-select label=&quot;País&quot; ... /&gt;</code></div></article>
+    <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon name="x" [size]="16" /><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No uses List item como sustituto de un selector con opciones y valores de formulario.</p><cs-list-item leadingIcon="map-pin" label="Perú" description="Opción de formulario" /></div></article>
+  </div></section>
+
+  <section class="section"><h2 class="section__title" id="props">Propiedades</h2><div class="table"><div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+    <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Nombre principal requerido.</span></div>
+    <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Contexto secundario debajo del nombre.</span></div>
+    <div class="table__row"><code class="table__name">leadingIcon</code><code class="table__type">IconName | null</code><code class="table__default">null</code><span class="table__desc">Ícono de identidad del registro curado.</span></div>
+    <div class="table__row"><code class="table__name">trailingIcon</code><code class="table__type">IconName | null</code><code class="table__default">&quot;chevron-right&quot;</code><span class="table__desc">Ícono decorativo al final. Proyecta contenido con <code>cs-list-item-trailing</code> antes de este ícono.</span></div>
+    <div class="table__row"><code class="table__name">selectable / selected</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Expone selección controlada con aria-pressed.</span></div>
+    <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita la acción nativa.</span></div>
+    <div class="table__row"><code class="table__name">(selectedChange)</code><code class="table__type">EventEmitter&lt;boolean&gt;</code><code class="table__default">—</code><span class="table__desc">Emite el siguiente estado al activar una fila seleccionable.</span></div>
+    <div class="table__row"><code class="table__name">(activate)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Emite al activar la fila.</span></div>
+  </div></section>
+</div>

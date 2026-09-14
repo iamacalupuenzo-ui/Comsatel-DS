@@ -17,10 +17,12 @@
           <span class="cs-fleet-unit-list__name">{{ unit.name }}</span>
           <span class="cs-fleet-unit-list__signal">{{ unit.lastSeen }}</span>
         </div>
-        <cs-badge [variant]="statusVariant[unit.status]" size="sm">
-          <cs-icon [name]="statusIcon[unit.status]" [size]="12" aria-hidden="true" />
-          {{ unit.statusLabel }}
-        </cs-badge>
+        <cs-tag
+          [severity]="statusSeverity[unit.status]"
+          [icon]="statusIcon[unit.status]"
+          [value]="unit.statusLabel"
+          [rounded]="true"
+        />
       </div>
 
       <div class="cs-fleet-unit-list__body">

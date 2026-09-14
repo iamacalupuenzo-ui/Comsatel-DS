@@ -1,0 +1,5 @@
+@import '../../shared/styles/doc-page.css';
+:host { display: block; }
+.list-item-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; gap: var(--layout-gap-md); min-height: 160px; }
+.list-demo { display: grid; width: min(100%, 32rem); gap: var(--layout-gap-sm); }
+.action-feedback { color: var(--color-text-base-subtle); font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); }

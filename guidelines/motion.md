@@ -36,17 +36,17 @@ Para animar con GSAP fuera de `cs-motion`, la librería exporta los mismos easin
 lectura de duraciones desde los tokens:
 
 ```ts
-import { EASE_DEFAULT, tokenSeconds } from 'comsatel-ds';
+import { tokenEase, tokenSeconds } from 'comsatel-ds';
 
 gsap.to(element, {
   height: 'auto',
   duration: tokenSeconds(element, '--motion-duration-medium'),
-  ease: EASE_DEFAULT,
+  ease: tokenEase(element, '--motion-easing-default', 'power1.out'),
 });
 ```
 
-`tokenSeconds` lee el valor del token en tiempo real, así una animación sigue un cambio de
-token sin tocar el código. También existen `EASE_ENTER`, `EASE_EXIT` y `EASE_SPRING`. En una animación propia con GSAP,
+`tokenSeconds` y `tokenEase` leen los tokens resueltos en tiempo real, así una animación sigue un cambio de
+tema o token sin tocar el código. En una animación propia con GSAP,
 consulta `prefersReducedMotion()` antes de animar y aplica el estado final directo si
 devuelve `true`.
 

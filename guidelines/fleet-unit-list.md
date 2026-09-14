@@ -47,6 +47,7 @@ const units: FleetUnit[] = [
 | `defaultExpandedIds` | `string[]` | `[]` | Unidades abiertas al inicio (modo no controlado). |
 | `expandedIds` | `string[] \| undefined` | `undefined` | Unidades abiertas (modo controlado). |
 | `detailLabel` | `string` | `'Ver detalle'` | Texto visible del botón de acción. Su nombre accesible le agrega el nombre de la unidad. |
+| `appearance` | `'outlined' \| 'filled'` | `'outlined'` | Delineado para separar unidades densas o relleno cuando la lista ya vive dentro de un panel. |
 | `expandedIdsChange` | `EventEmitter<string[]>` | n/a | Emite las unidades abiertas al cambiar. |
 | `detailClick` | `EventEmitter<FleetUnit>` | n/a | Emite la unidad completa al pulsar el botón de detalle. |
 <!-- props:end -->
@@ -88,7 +89,7 @@ El `status` decide el color y el ícono del badge, con un mapeo fijo:
 | Aspecto | Qué hace el código |
 | :-- | :-- |
 | Atributos ARIA | `aria-hidden="true"`, `aria-label` |
-| Compone | `cs-accordion`, `cs-accordion-item`, `cs-icon`, `cs-badge`, `cs-button` |
+| Compone | `cs-accordion`, `cs-accordion-item`, `cs-icon`, `cs-tag`, `cs-button` |
 <!-- a11y:end -->
 
 ## Trampas
