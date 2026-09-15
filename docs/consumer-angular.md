@@ -32,11 +32,22 @@ como variable de entorno segura:
 ```
 
 ```bash
-npm install @iamacalupuenzo-ui/comsatel-ds@0.1.0
+npm install @iamacalupuenzo-ui/comsatel-ds@0.1.1
 ```
 
 No uses un rango automático para la primera adopción. Actualiza la versión y
 el lockfile mediante un PR, valida la aplicación y recién después despliega.
+
+Después importa los estilos oficiales una vez, sin copiar archivos del Design
+System al repositorio consumidor:
+
+```css
+/* src/styles.css */
+@import '@iamacalupuenzo-ui/comsatel-ds/styles.css';
+```
+
+Ese punto de entrada incluye fuentes y tokens; no incorpora resets, demos ni
+estilos de una pantalla de producto.
 
 ## 3. Estructura recomendada
 

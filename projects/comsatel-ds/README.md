@@ -17,7 +17,7 @@ Nunca se debe versionar ese token.
 ```
 
 ```bash
-npm install @iamacalupuenzo-ui/comsatel-ds@0.1.0
+npm install @iamacalupuenzo-ui/comsatel-ds@0.1.1
 ```
 
 El proyecto debe usar Angular 22, que es una dependencia de pares de la
@@ -33,6 +33,19 @@ import { Button } from '@iamacalupuenzo-ui/comsatel-ds';
 })
 export class ExampleComponent {}
 ```
+
+## Cargar estilos públicos
+
+Importa una sola vez el punto de entrada público desde `src/styles.css` (o
+decláralo en el arreglo `styles` de `angular.json`):
+
+```css
+@import '@iamacalupuenzo-ui/comsatel-ds/styles.css';
+```
+
+Incluye las fuentes oficiales Manrope y Public Sans, además de los tokens de
+color, tipografía, espaciado, radios, sombras, movimiento y temas. No incluye
+resets, estilos de demos ni CSS de una aplicación de producto.
 
 ## Publicar una versión
 

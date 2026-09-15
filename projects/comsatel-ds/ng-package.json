@@ -4,5 +4,22 @@
   "lib": {
     "entryFile": "src/public-api.ts"
   },
+  "assets": [
+    {
+      "glob": "styles.css",
+      "input": "src/styles",
+      "output": "."
+    },
+    {
+      "glob": "tokens.css",
+      "input": "src/styles",
+      "output": "."
+    },
+    {
+      "glob": "typography-tokens.css",
+      "input": "src/styles",
+      "output": "."
+    }
+  ],
   "allowedNonPeerDependencies": ["gsap"]
 }
