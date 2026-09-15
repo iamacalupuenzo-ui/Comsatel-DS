@@ -3,6 +3,17 @@ import { Component, Input } from '@angular/core';
 export type CLocaterFlotasLogoVariant = 'full' | 'icon';
 export type CLocaterFlotasLogoSize = 'sm' | 'md' | 'lg';
 
+// Las rutas deben permanecer estáticas: Angular/Vite las analiza y reescribe
+// al pre-empaquetar dependencias ESM de una aplicación consumidora.
+const FULL_LOGO_SOURCE = new URL(
+  '../assets/logos/c-locater-flotas-logo.png',
+  import.meta.url,
+).toString();
+const ICON_LOGO_SOURCE = new URL(
+  '../assets/logos/c-locater-flotas-isotype.png',
+  import.meta.url,
+).toString();
+
 @Component({
   selector: 'cs-c-locater-flotas-logo',
   templateUrl: './c-locater-flotas-logo.html',
@@ -15,9 +26,6 @@ export class CLocaterFlotasLogo {
   @Input() decorative = false;
 
   protected get source(): string {
-    const filename = this.variant === 'icon'
-      ? 'c-locater-flotas-isotype.png'
-      : 'c-locater-flotas-logo.png';
-    return new URL(`../assets/logos/${filename}`, import.meta.url).toString();
+    return this.variant === 'icon' ? ICON_LOGO_SOURCE : FULL_LOGO_SOURCE;
   }
 }
