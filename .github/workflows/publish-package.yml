@@ -46,7 +46,8 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         shell: bash
         run: |
-          test "ds-v$(node -p \"require('./projects/comsatel-ds/package.json').version\")" = "$GITHUB_REF_NAME"
+          PACKAGE_VERSION="$(node -p "require('./projects/comsatel-ds/package.json').version")"
+          test "ds-v${PACKAGE_VERSION}" = "$GITHUB_REF_NAME"
 
       - name: Publicar paquete
         working-directory: dist/comsatel-ds
