@@ -17,7 +17,7 @@ Nunca se debe versionar ese token.
 ```
 
 ```bash
-npm install @iamacalupuenzo-ui/comsatel-ds@0.1.1
+npm install @iamacalupuenzo-ui/comsatel-ds@0.1.2
 ```
 
 El proyecto debe usar Angular 22, que es una dependencia de pares de la
@@ -33,6 +33,25 @@ import { Button } from '@iamacalupuenzo-ui/comsatel-ds';
 })
 export class ExampleComponent {}
 ```
+
+## Marca C-Locater Flotas
+
+El paquete exporta el logotipo horizontal y el isotipo como un componente
+accesible. Usa el logo completo cuando identifica el producto y el isotipo
+solo en espacios compactos donde el nombre ya es evidente.
+
+```ts
+import { CLocaterFlotasLogo } from '@iamacalupuenzo-ui/comsatel-ds';
+
+@Component({
+  imports: [CLocaterFlotasLogo],
+  template: '<cs-c-locater-flotas-logo size="md" />',
+})
+export class ProductHeaderComponent {}
+```
+
+Para una imagen decorativa junto a un nombre visible, usa
+`[decorative]="true"`; no repite el nombre al lector de pantalla.
 
 ## Cargar estilos públicos
 

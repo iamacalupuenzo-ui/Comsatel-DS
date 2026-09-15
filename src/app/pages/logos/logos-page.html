@@ -7,11 +7,25 @@
     <h2 class="section__title" id="variants">Variantes</h2>
     <p class="section__intro">Los recursos se consumen como imágenes reales; no se recolorean, delinean ni reciben sombra.</p>
     <div class="logos">
+      <div class="logo-example"><div class="logo-surface"><cs-c-locater-flotas-logo size="lg" /></div><code>&lt;cs-c-locater-flotas-logo /&gt;</code><span>Logotipo oficial para navegación, acceso e identificación del producto.</span></div>
+      <div class="logo-example logo-example--compact"><div class="logo-surface"><cs-c-locater-flotas-logo variant="icon" size="lg" /></div><code>variant="icon"</code><span>Isotipo para espacios compactos donde el nombre del producto ya está visible.</span></div>
       <div class="logo-example"><div class="logo-surface"><img src="/logos/c-locator-logo.png" alt="C-Locator by Comsatel" /></div><code>/logos/c-locator-logo.png</code><span>Logotipo completo para navegación expandida y superficies amplias.</span></div>
       <div class="logo-example logo-example--compact"><div class="logo-surface"><img src="/logos/c-locator-logo-compact.png" alt="C-Locator by Comsatel" /></div><code>/logos/c-locator-logo-compact.png</code><span>Marca compacta para rail o espacios restringidos con contexto de producto.</span></div>
       <div class="logo-example logo-example--design-system"><div class="logo-surface"><img src="/logos/design-system-by-comsatel.png" alt="Design System by Comsatel" /></div><code>/logos/design-system-by-comsatel.png</code><span>Identificador de la plataforma Design System en documentación y superficies institucionales.</span></div>
     </div>
   </section>
+
+  <!-- props:start CLocaterFlotasLogo -->
+  <section class="section">
+    <h2 class="section__title" id="component-api">Componente C-Locater Flotas</h2>
+    <p class="section__intro">El componente distribuye los assets oficiales sin que una aplicación consuma rutas internas.</p>
+    <div class="table"><div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div><div class="table__row"><code>variant</code><code>"full" | "icon"</code><code>"full"</code><span>Logotipo horizontal o isotipo compacto.</span></div><div class="table__row"><code>size</code><code>"sm" | "md" | "lg"</code><code>"md"</code><span>Tamaño atado a la escala de layout.</span></div><div class="table__row"><code>alt</code><code>string</code><code>"C-Locater Flotas by Comsatel"</code><span>Nombre alternativo del logo identificador.</span></div><div class="table__row"><code>decorative</code><code>boolean</code><code>false</code><span>Oculta la imagen al lector de pantalla cuando el nombre ya es visible.</span></div></div>
+  </section>
+  <!-- props:end -->
+
+  <!-- a11y:start CLocaterFlotasLogo -->
+  <section class="section"><h2 class="section__title" id="component-accessibility">Accesibilidad del componente</h2><p class="section__intro">El logo anuncia su nombre por defecto. Cuando acompaña texto idéntico, activa <code>decorative</code> para evitar una repetición.</p></section>
+  <!-- a11y:end -->
 
   <section class="section">
     <h2 class="section__title" id="accessibility">Accesibilidad</h2>

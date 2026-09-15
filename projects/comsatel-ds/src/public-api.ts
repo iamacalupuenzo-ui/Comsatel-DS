@@ -3,6 +3,7 @@
  */
 
 export * from './lib/button/button';
+export * from './lib/brand/c-locater-flotas-logo';
 export * from './lib/icons/icon';
 export * from './lib/icons/icon-registry';
 export * from './lib/badge/badge';

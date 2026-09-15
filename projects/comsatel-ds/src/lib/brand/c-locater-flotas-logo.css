@@ -1,0 +1,8 @@
+:host { display: inline-flex; line-height: 0; }
+.cs-c-locater-flotas-logo { display: block; width: auto; max-width: 100%; object-fit: contain; }
+.cs-c-locater-flotas-logo--full.cs-c-locater-flotas-logo--sm { height: var(--layout-size-sm); }
+.cs-c-locater-flotas-logo--full.cs-c-locater-flotas-logo--md { height: var(--layout-size-md); }
+.cs-c-locater-flotas-logo--full.cs-c-locater-flotas-logo--lg { height: var(--layout-size-lg); }
+.cs-c-locater-flotas-logo--icon.cs-c-locater-flotas-logo--sm { width: var(--layout-size-sm); height: var(--layout-size-sm); }
+.cs-c-locater-flotas-logo--icon.cs-c-locater-flotas-logo--md { width: var(--layout-size-md); height: var(--layout-size-md); }
+.cs-c-locater-flotas-logo--icon.cs-c-locater-flotas-logo--lg { width: var(--layout-size-lg); height: var(--layout-size-lg); }

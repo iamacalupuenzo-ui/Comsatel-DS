@@ -6,6 +6,7 @@
 .logo-example { display:flex; flex-direction:column; align-items:flex-start; gap:var(--layout-gap-sm); color:var(--color-text-base-subtle); font-size:var(--font-size-content-note); line-height:var(--font-line-height-content-note); }
 .logo-surface { width:100%; min-height:var(--layout-size-2xl); display:flex; align-items:center; padding:var(--layout-padding-2xl); border:var(--layout-border-thin) solid var(--color-border-neutral-subtle); border-radius:var(--radius-lg); background:var(--elevation-surface-default); }
 .logo-surface img,.guide-logo img { max-width:100%; max-height:var(--layout-size-md); width:auto; height:auto; object-fit:contain; }
+.logo-surface cs-c-locater-flotas-logo { max-width:100%; }
 .logo-example--compact .logo-surface img { max-height:var(--layout-size-lg); }
 .logo-example--design-system .logo-surface { min-height:var(--layout-size-3xl); justify-content:center; }
 .logo-example--design-system .logo-surface img { max-height:var(--layout-size-2xl); }
