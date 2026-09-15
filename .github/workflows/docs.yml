@@ -38,7 +38,7 @@ jobs:
         run: npm run test:docs
 
       - name: Tests unitarios
-        run: npm run test:ci
+        run: npm run test:ci -- --reporters=verbose
 
       # Comprueba que la superficie pública se pueda empaquetar antes de publicar.
       - name: Compilar librería
