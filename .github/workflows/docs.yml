@@ -37,12 +37,14 @@ jobs:
       - name: Tests de los validadores
         run: npm run test:docs
 
-      - name: Tests unitarios
-        run: npm run test:ci -- --reporters=verbose
-
       # Comprueba que la superficie pública se pueda empaquetar antes de publicar.
+      # La aplicación importa `comsatel-ds` desde dist/, por lo que debe
+      # existir antes de compilar las pruebas unitarias en un checkout limpio.
       - name: Compilar librería
         run: npm run build:lib
+
+      - name: Tests unitarios
+        run: npm run test:ci
 
       # Las historias son documentación ejecutable: se compilan con la librería ya construida.
       - name: Compilar Storybook
