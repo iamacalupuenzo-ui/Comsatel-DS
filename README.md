@@ -31,6 +31,19 @@ npm run build-storybook
 `check:docs` valida cobertura de guías, API, accesibilidad, ejemplos y las
 notas de versión. El workflow remoto repite esos gates antes de publicar.
 
+## Catálogo desplegado en Vercel
+
+Vercel publica el catálogo visual Angular, no el paquete de componentes. La
+configuración versionada en `vercel.json` establece el directorio público real
+de Angular (`dist/comsatel-ds-angular/browser`) y redirige las rutas del
+catálogo a `index.html` para que enlaces directos como `/components/input`
+funcionen tras una recarga.
+
+En el proyecto de Vercel, usa la raíz de este repositorio, el comando de build
+`npm run build` y deja que `vercel.json` controle el directorio de salida. Si
+el panel tiene un valor anterior en **Output Directory**, elimínalo o cámbialo
+a `dist/comsatel-ds-angular/browser` antes de redeplegar.
+
 ## Consumir la librería
 
 La distribución privada se publica como
