@@ -260,24 +260,10 @@
 
       <app-demo-shell
         [controls]="[]"
-        code="<cs-input-group>
-  <cs-input-group-addon><cs-icon name=&quot;lock&quot;></cs-icon></cs-input-group-addon>
-  <cs-input-group-input [type]=&quot;show ? 'text' : 'password'&quot; aria-label=&quot;Password&quot; placeholder=&quot;Enter password&quot;></cs-input-group-input>
-  <cs-input-group-addon align=&quot;inline-end&quot;>
-    <button type=&quot;button&quot; aria-label=&quot;Show or hide password&quot; (click)=&quot;show = !show&quot;><cs-icon [name]=&quot;show ? 'eye-off' : 'eye'&quot;></cs-icon></button>
-  </cs-input-group-addon>
-</cs-input-group>"
+        code="<cs-password-input aria-label=&quot;Password&quot; placeholder=&quot;Enter password&quot;></cs-password-input>"
       >
         <div class="field-wrap">
-          <cs-input-group>
-            <cs-input-group-addon><cs-icon name="lock" [size]="16"></cs-icon></cs-input-group-addon>
-            <cs-input-group-input [type]="showPassword() ? 'text' : 'password'" aria-label="Password" placeholder="Enter password"></cs-input-group-input>
-            <cs-input-group-addon align="inline-end">
-              <button type="button" class="password-toggle" [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'" (click)="togglePassword()">
-                <cs-icon [name]="showPassword() ? 'eye-off' : 'eye'" [size]="16"></cs-icon>
-              </button>
-            </cs-input-group-addon>
-          </cs-input-group>
+          <cs-password-input aria-label="Password" placeholder="Enter password"></cs-password-input>
         </div>
       </app-demo-shell>
 
@@ -323,7 +309,7 @@
       <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No marques un campo como inválido solo con el borde rojo.</p><cs-input aria-label="Email address" [invalid]="true" placeholder="you@example.com"></cs-input></div></article>
       <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Mantén todos los campos de un mismo formulario en el mismo tamaño.</p><div class="col"><cs-input fieldSize="md" aria-label="First name" placeholder="First name"></cs-input><cs-input fieldSize="md" aria-label="Last name" placeholder="Last name"></cs-input></div></div></article>
       <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No mezcles tamaños sm y lg en un mismo formulario sin una razón de jerarquía.</p><div class="col"><cs-input fieldSize="lg" aria-label="First name" placeholder="First name"></cs-input><cs-input fieldSize="sm" aria-label="Last name" placeholder="Last name"></cs-input></div></div></article>
-      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Permite mostrar u ocultar la contraseña para que el usuario pueda verificar lo escrito.</p><cs-input-group><cs-input-group-addon><cs-icon name="lock" [size]="16"></cs-icon></cs-input-group-addon><cs-input-group-input aria-label="Password" [type]="guidelineShowPassword() ? 'text' : 'password'" placeholder="Enter password"></cs-input-group-input><cs-input-group-addon align="inline-end"><button type="button" class="password-toggle" [attr.aria-label]="guidelineShowPassword() ? 'Hide password' : 'Show password'" [attr.aria-pressed]="guidelineShowPassword()" (click)="toggleGuidelinePassword()"><cs-icon [name]="guidelineShowPassword() ? 'eye-off' : 'eye'" [size]="16"></cs-icon></button></cs-input-group-addon></cs-input-group></div></article>
+      <article class="guide-card guide-card--do"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="circle-check" [size]="16"></cs-icon><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Usa PasswordInput: permite mostrar u ocultar la contraseña sin reconstruir el comportamiento accesible.</p><cs-password-input aria-label="Password" placeholder="Enter password"></cs-password-input></div></article>
       <article class="guide-card guide-card--dont"><div class="guide-card__header"><cs-icon class="guide-card__header-icon" name="x" [size]="16"></cs-icon><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No fuerces una contraseña oculta sin forma de revelarla antes de enviarla.</p><cs-input aria-label="Password" type="password" placeholder="Password"></cs-input></div></article>
     </div>
   </section>
@@ -344,6 +330,22 @@
       <div class="table__row"><code class="table__name">aria-describedby</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">IDs de la ayuda, error o instrucciones complementarias.</span></div>
       <div class="table__row"><code class="table__name">placeholder</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto de ayuda mostrado cuando el campo está vacío.</span></div>
       <div class="table__row"><code class="table__name">value</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Valor controlado. Se puede combinar con (valueChange).</span></div>
+    </div>
+  </section>
+
+  <!-- Props: PasswordInput -->
+  <section class="section">
+    <h2 class="section__title" id="props-password-input">Propiedades de PasswordInput</h2>
+    <p class="section__intro">Mantiene la misma API nativa de Input y añade únicamente el comportamiento de visibilidad de contraseña.</p>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">fieldSize</code><code class="table__type">"sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Altura de todo el control compuesto.</span></div>
+      <div class="table__row"><code class="table__name">autocomplete</code><code class="table__type">string</code><code class="table__default">"current-password"</code><span class="table__desc">Usa <code class="inline-code">new-password</code> al crear o cambiar una contraseña.</span></div>
+      <div class="table__row"><code class="table__name">leadingIcon</code><code class="table__type">IconName | null</code><code class="table__default">"lock"</code><span class="table__desc">Ícono inicial; usa <code class="inline-code">null</code> para omitirlo.</span></div>
+      <div class="table__row"><code class="table__name">value / valueChange</code><code class="table__type">string / EventEmitter&lt;string&gt;</code><code class="table__default">""</code><span class="table__desc">Valor controlado por el formulario consumidor.</span></div>
+      <div class="table__row"><code class="table__name">visibilityChange</code><code class="table__type">EventEmitter&lt;boolean&gt;</code><code class="table__default">—</code><span class="table__desc">Notifica si el texto se encuentra visible.</span></div>
+      <div class="table__row"><code class="table__name">showPasswordLabel / hidePasswordLabel</code><code class="table__type">string</code><code class="table__default">etiquetas en español</code><span class="table__desc">Nombres accesibles del botón de visibilidad.</span></div>
+      <div class="table__row"><code class="table__name">invalid / disabled / required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Estados visuales y semánticos del input nativo.</span></div>
     </div>
   </section>
 

@@ -4,8 +4,8 @@ Campo de texto de una línea. `Input` resuelve el caso simple; `InputGroup` comp
 campo con adornos (íconos, botones, prefijos, dropdowns) que se ven como un solo
 control.
 
-- **Import:** `import { Input, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from '@iamacalupuenzo-ui/comsatel-ds';`
-- **Selectores:** `<cs-input>`, `<cs-input-group>`, `<cs-input-group-addon>`, `<cs-input-group-input>`, `<cs-input-group-text>`
+- **Import:** `import { Input, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText, PasswordInput } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Selectores:** `<cs-input>`, `<cs-input-group>`, `<cs-input-group-addon>`, `<cs-input-group-input>`, `<cs-input-group-text>`, `<cs-password-input>`
 - **Clases raíz emitidas:** `.cs-input`, `.cs-input-group`, `.cs-input-group-addon`, `.cs-input-group-input`, `.cs-input-group-text`
 
 ```html
@@ -133,6 +133,58 @@ El grupo dibuja el marco; el `InputGroupInput` de adentro va sin borde propio.
 </cs-input-group>
 ```
 
+## Contraseña con visibilidad
+
+`PasswordInput` es el patrón oficial para una contraseña con control de
+visibilidad. Encapsula el `InputGroup`, el botón nativo de ícono y sus etiquetas
+accesibles. No reconstruyas esa composición en cada producto ni uses
+`cs-button`: el control es una acción compacta integrada al campo, no una
+acción general del producto.
+
+```html
+<label for="login-password">Contraseña</label>
+<cs-password-input
+  id="login-password"
+  name="password"
+  autocomplete="current-password"
+  [value]="password"
+  (valueChange)="password = $event"
+></cs-password-input>
+```
+
+El formulario consumidor conserva el valor, la validación y los mensajes de
+error; `PasswordInput` solo controla la revelación. El ícono de candado se puede
+omitir con `[leadingIcon]="null"`. Para una contraseña nueva, cambia
+`autocomplete="new-password"`.
+
+## Props de `PasswordInput`
+
+<!-- props:start PasswordInput -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/input/password-input.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+
+| Prop | Type | Default | Description |
+| :-- | :-- | :-- | :-- |
+| `fieldSize` | `'sm' \| 'md' \| 'lg'` | `'md'` | Alto de todo el control. |
+| `id` | `string \| undefined` | `undefined` | Id del input real para asociarlo con su etiqueta. |
+| `name` | `string` | `''` | Nombre nativo enviado por el formulario. |
+| `placeholder` | `string` | `''` | Ejemplo breve; no sustituye una etiqueta. |
+| `autocomplete` | `string` | `'current-password'` | Usa `new-password` para creación o cambio. |
+| `required` | `boolean` | `false` | Conserva el requisito nativo del campo. |
+| `readonly` | `boolean` | `false` | Muestra el valor sin permitir edición. |
+| `disabled` | `boolean` | `false` | Deshabilita tanto el campo como el toggle. |
+| `invalid` | `boolean` | `false` | Expone `aria-invalid`; acompáñalo con un mensaje. |
+| `leadingIcon` | `IconName \| null` | `'lock'` | Ícono inicial; `null` lo omite. |
+| `aria-label` | `string` | `''` | Nombre accesible alternativo sin etiqueta visible. |
+| `aria-labelledby` | `string` | `''` | Id del elemento que da nombre al campo. |
+| `aria-describedby` | `string` | `''` | Id de ayuda, reglas o contexto adicional. |
+| `aria-errormessage` | `string` | `''` | Id del mensaje específico de error. |
+| `showPasswordLabel` | `string` | `'Mostrar contraseña'` | Etiquetas accesibles del botón de visibilidad. |
+| `hidePasswordLabel` | `string` | `'Ocultar contraseña'` | Etiquetas accesibles del botón de visibilidad. |
+| `value` | `string` | `''` | Valor controlado del campo. |
+| `valueChange` | `EventEmitter<string>` | n/a | Valor controlado del campo. |
+| `visibilityChange` | `EventEmitter<boolean>` | n/a | Emite si la contraseña se muestra. |
+<!-- props:end -->
+
 ## Accesibilidad (a11y) y teclado
 
 - Es un `<input>` nativo: foco, escritura, selección y atajos del sistema los da el
@@ -147,6 +199,9 @@ El grupo dibuja el marco; el `InputGroupInput` de adentro va sin borde propio.
   de foco aparece alrededor de todo el grupo, no solo del `<input>`.
 - Un botón dentro de un `InputGroupAddon` es un control aparte en el orden de
   tabulación, y necesita su propio `aria-label`.
+- `PasswordInput` conserva ese botón nativo, anuncia si la contraseña está visible
+  con `aria-pressed` y recibe foco con <kbd>Tab</kbd>. El consumidor sigue siendo
+  responsable de una etiqueta visible o de un nombre accesible para el campo.
 
 <!-- a11y:start Input -->
 <!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/input/input.ts: no editar a mano, corre npm run docs:a11y -->
@@ -157,6 +212,18 @@ El grupo dibuja el marco; el `InputGroupInput` de adentro va sin borde propio.
 | :-- | :-- |
 | Elementos nativos | `input[type="text"]` |
 | Atributos ARIA | `aria-required`, `aria-invalid`, `aria-label`, `aria-labelledby`, `aria-describedby`, `aria-errormessage` |
+<!-- a11y:end -->
+
+<!-- a11y:start PasswordInput -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/input/password-input.ts: no editar a mano, corre npm run docs:a11y -->
+
+#### Contrato a11y generado desde el código: `cs-password-input`
+
+| Aspecto | Qué hace el código |
+| :-- | :-- |
+| Elementos nativos | `button` |
+| Atributos ARIA | `aria-hidden="true"`, `aria-label`, `aria-labelledby`, `aria-describedby`, `aria-errormessage`, `aria-pressed` |
+| Compone | `cs-input-group`, `cs-input-group-addon`, `cs-icon`, `cs-input-group-input` |
 <!-- a11y:end -->
 
 <!-- a11y:start InputGroup -->
@@ -208,5 +275,7 @@ No renderiza controles nativos, roles ni atributos ARIA propios, y no maneja tec
   (`import { Input as NgInput } from '@angular/core'`).
 - Dentro de un `InputGroup` va `cs-input-group-input`, **no** `cs-input`: meter un
   `cs-input` completo adentro produce doble marco.
+- En una contraseña con visibilidad, el botón nativo vive dentro del addon final;
+  envolverlo en `cs-button` cambia la geometría y no representa el patrón del DS.
 - `InputGroupAddon` es `display: contents`. Su `(click)` vive en el `<div>` interno: si
   lo pruebas por JavaScript, disparar `.click()` sobre el host no ejecuta el handler.

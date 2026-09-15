@@ -26,7 +26,6 @@ const meta: Meta<InputGroup> = {
     `,
   }),
 };
-
 export default meta;
 type Story = StoryObj<InputGroup>;
 
@@ -42,7 +41,6 @@ export const TrailingIcon: Story = {
     `,
   }),
 };
-
 export const LeadingText: Story = {
   render: () => ({
     template: `
@@ -53,7 +51,6 @@ export const LeadingText: Story = {
     `,
   }),
 };
-
 export const TrailingText: Story = {
   render: () => ({
     template: `
@@ -98,20 +95,6 @@ export const WithTrailingButton: Story = {
       <cs-input-group>
         <cs-input-group-input aria-label="Invite link" placeholder="Enter invite link"></cs-input-group-input>
         <cs-input-group-addon align="inline-end" [compact]="true"><cs-button size="xs" variant="secondary">Copiar</cs-button></cs-input-group-addon>
-      </cs-input-group>
-    `,
-  }),
-};
-
-export const PasswordToggle: Story = {
-  render: () => ({
-    template: `
-      <cs-input-group>
-        <cs-input-group-addon><cs-icon name="lock" [size]="16"></cs-icon></cs-input-group-addon>
-        <cs-input-group-input type="password" aria-label="Password" placeholder="Enter password"></cs-input-group-input>
-        <cs-input-group-addon align="inline-end">
-          <button type="button" aria-label="Show password"><cs-icon name="eye" [size]="16"></cs-icon></button>
-        </cs-input-group-addon>
       </cs-input-group>
     `,
   }),

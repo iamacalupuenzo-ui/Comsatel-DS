@@ -8,7 +8,9 @@ Storybook permanecen en el repositorio principal.
 
 Cada proyecto consumidor configura una vez el registro privado y autentica su
 instalación con un token clásico de GitHub con permiso `read:packages`.
-Nunca se debe versionar ese token.
+Ese es el único permiso requerido para consumir el paquete: un proyecto consumidor
+no necesita ni debe solicitar alcance `repo` para leer el código privado del
+sistema de diseño. Nunca se debe versionar el token.
 
 ```ini
 # .npmrc del proyecto consumidor
@@ -17,7 +19,7 @@ Nunca se debe versionar ese token.
 ```
 
 ```bash
-npm install @iamacalupuenzo-ui/comsatel-ds@0.1.2
+npm install @iamacalupuenzo-ui/comsatel-ds@0.1.4
 ```
 
 El proyecto debe usar Angular 22, que es una dependencia de pares de la
@@ -52,6 +54,30 @@ export class ProductHeaderComponent {}
 
 Para una imagen decorativa junto a un nombre visible, usa
 `[decorative]="true"`; no repite el nombre al lector de pantalla.
+
+## Contraseña con visibilidad
+
+La librería exporta `PasswordInput` para este caso. Encapsula el grupo, el botón
+nativo de ícono y el comportamiento accesible de mostrar u ocultar la contraseña.
+La aplicación mantiene el valor, la validación y los mensajes de error.
+
+```ts
+import { PasswordInput } from '@iamacalupuenzo-ui/comsatel-ds';
+```
+
+```html
+<cs-password-input
+  id="login-password"
+  name="password"
+  autocomplete="current-password"
+  [value]="password"
+  (valueChange)="password = $event"
+></cs-password-input>
+```
+
+No reconstruyas el control con `InputGroup` ni uses `cs-button` dentro del
+addon. El caso de correo, en cambio, sigue siendo el componente genérico
+`cs-input type="email"` con `autocomplete="email"`.
 
 ## Cargar estilos públicos
 

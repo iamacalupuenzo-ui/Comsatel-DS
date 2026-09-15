@@ -4,3 +4,29 @@
 
 @import './tokens.css';
 @import './typography-tokens.css';
+
+/* Acción nativa de ícono integrada en InputGroup para composiciones avanzadas. */
+.cs-input-group-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--layout-padding-2xs);
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--color-text-base-subtle);
+  cursor: pointer;
+}
+
+.cs-input-group-icon-button:hover:not(:disabled) {
+  color: var(--color-text-base-default);
+}
+
+.cs-input-group-icon-button:focus-visible {
+  outline: var(--layout-border-thick) solid var(--color-border-brand-default);
+  outline-offset: var(--layout-border-thin);
+}
+
+.cs-input-group-icon-button:disabled {
+  cursor: not-allowed;
+}

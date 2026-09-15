@@ -5,6 +5,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
   InputGroupText,
+  PasswordInput,
   Button,
   Icon,
   InputDropdown,
@@ -46,7 +47,7 @@ const CURRENCIES: InputDropdownOption[] = [
 
 @Component({
   selector: 'app-input-page',
-  imports: [Input, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText, Button, Icon, InputDropdown, DemoShell],
+  imports: [Input, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText, PasswordInput, Button, Icon, InputDropdown, DemoShell],
   templateUrl: './input-page.html',
   styleUrl: './input-page.css',
 })
@@ -98,15 +99,4 @@ export class InputPage {
     }
   });
 
-  /* Password toggle demo */
-  protected readonly showPassword = signal(false);
-  protected togglePassword(): void {
-    this.showPassword.update((v) => !v);
-  }
-
-  /* Password toggle in the usage guideline stays isolated from the Playground. */
-  protected readonly guidelineShowPassword = signal(false);
-  protected toggleGuidelinePassword(): void {
-    this.guidelineShowPassword.update((v) => !v);
-  }
 }
