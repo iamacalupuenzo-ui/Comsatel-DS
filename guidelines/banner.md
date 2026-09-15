@@ -4,7 +4,7 @@ Mensaje persistente a nivel de página o sección: una condición que sigue sien
 hasta que alguien la resuelve. Para una confirmación efímera de algo que acaba de
 pasar, el componente es `Toast`.
 
-- **Import:** `import { Banner } from 'comsatel-ds';`
+- **Import:** `import { Banner } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-banner>`
 - **Clase raíz emitida:** `.cs-banner`
 

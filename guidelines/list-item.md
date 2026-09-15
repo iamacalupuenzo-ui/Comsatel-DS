@@ -4,7 +4,7 @@ Fila accionable para abrir un recurso o ejecutar una acción contextual. No es
 un control de selección de formulario ni el organismo de telemetría
 `FleetUnitList`.
 
-- **Import:** `import { ListItem } from 'comsatel-ds';`
+- **Import:** `import { ListItem } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-list-item>`
 
 ```html

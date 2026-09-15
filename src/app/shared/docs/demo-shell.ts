@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, computed, input, signal } from '@angular/core';
-import { InputDropdown, type InputDropdownOption } from 'comsatel-ds';
+import { InputDropdown, type InputDropdownOption } from '@iamacalupuenzo-ui/comsatel-ds';
 import { CodeBlock } from './code-block';
 
 export type DemoMode = 'light' | 'dark';

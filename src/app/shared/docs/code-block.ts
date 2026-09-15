@@ -1,6 +1,6 @@
 import { Component, computed, input, signal } from '@angular/core';
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
-import { Button, Icon } from 'comsatel-ds';
+import { Button, Icon } from '@iamacalupuenzo-ui/comsatel-ds';
 import { highlight } from './highlight';
 
 // Puerto 1:1 de CodeBlock en DocsComponents.tsx — versión standalone para

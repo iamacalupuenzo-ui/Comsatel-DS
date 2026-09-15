@@ -45,7 +45,7 @@ test('ejemplos: un select nativo falla', () => {
 });
 
 test('ejemplos: importar algo que la librería no exporta falla', () => {
-  assert.match(failuresOf("```ts\nimport { Button, Boton } from 'comsatel-ds';\n```"), /`Boton` no lo exporta/);
+  assert.match(failuresOf("```ts\nimport { Button, Boton } from '@iamacalupuenzo-ui/comsatel-ds';\n```"), /`Boton` no lo exporta/);
 });
 
 test('ejemplos: un bloque marcado con examples:skip no se valida', () => {

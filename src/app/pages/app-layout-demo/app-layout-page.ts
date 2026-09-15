@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AppLayout, AppLayoutState, Icon, PressScale, type IconName } from 'comsatel-ds';
+import { AppLayout, AppLayoutState, Icon, PressScale, type IconName } from '@iamacalupuenzo-ui/comsatel-ds';
 import { CodeBlock } from '../../shared/docs/code-block';
 
 interface DemoNavItem {

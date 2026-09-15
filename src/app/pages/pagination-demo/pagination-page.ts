@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Pagination } from 'comsatel-ds';
+import { Pagination } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 const TOTAL_PAGES_OPTIONS = ['3', '10', '25'] as const;

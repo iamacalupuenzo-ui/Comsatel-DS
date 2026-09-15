@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild, signal } from '@angular/core';
-import { Tag, TableTree, type IconName, type TableTreeColumn, type TableTreeItem, type TagSeverity } from 'comsatel-ds';
+import { Tag, TableTree, type IconName, type TableTreeColumn, type TableTreeItem, type TagSeverity } from '@iamacalupuenzo-ui/comsatel-ds';
 import { CodeBlock } from '../../shared/docs/code-block';
 
 // Mismo criterio de estado que ya usa FleetUnitList (fleet-unit-list.ts:

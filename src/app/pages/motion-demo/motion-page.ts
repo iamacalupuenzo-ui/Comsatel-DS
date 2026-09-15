@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Icon, Motion, type MotionPreset } from 'comsatel-ds';
+import { Icon, Motion, type MotionPreset } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 import { PresetCard } from './preset-card';
 
@@ -44,7 +44,7 @@ export class MotionPage {
 
   protected readonly pgCode = computed(
     () =>
-      `import { Motion } from 'comsatel-ds';\n\n` +
+      `import { Motion } from '@iamacalupuenzo-ui/comsatel-ds';\n\n` +
       `<cs-motion [show]="${this.pgShow()}" preset="${this.pgPreset()}">\n` +
       `  <div>...</div>\n` +
       `</cs-motion>`,

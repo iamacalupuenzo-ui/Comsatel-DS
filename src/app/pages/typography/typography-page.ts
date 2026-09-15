@@ -8,7 +8,7 @@ import {
   type InputDropdownOption,
   type StyleName,
   type WeightName,
-} from 'comsatel-ds';
+} from '@iamacalupuenzo-ui/comsatel-ds';
 
 const STYLE_NAMES = Object.keys(textStyles) as StyleName[];
 const WEIGHT_NAMES = Object.keys(weights) as WeightName[];

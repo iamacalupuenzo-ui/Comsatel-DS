@@ -2,7 +2,7 @@ import { Component, TemplateRef, ViewChild, computed, signal } from '@angular/co
 import {
   Avatar, Button, ColumnManager, Icon, Input, InputDropdown, InputGroup, InputGroupAddon, InputGroupInput, Pagination, Skeleton, Table, Tag,
   type ColumnManagerItem, type IconName, type InputDropdownOption, type SortOrder, type TableCellValue, type TableColumn, type TableRow, type TagSeverity,
-} from 'comsatel-ds';
+} from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 type UnitStatus = 'active' | 'stopped' | 'offline';

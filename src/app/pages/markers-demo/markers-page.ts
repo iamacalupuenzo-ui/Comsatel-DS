@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Icon } from 'comsatel-ds';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds';
 import { CodeBlock } from '../../shared/docs/code-block';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 import { VehiclePill, type VehicleStatus, type VehicleType, type MarkerVisualState } from './vehicle-pill';

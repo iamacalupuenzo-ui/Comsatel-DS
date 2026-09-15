@@ -3,7 +3,7 @@
 Etiqueta breve que aparece al pasar el mouse o al enfocar el elemento que envuelve.
 Es texto complementario: nunca la única fuente de una instrucción necesaria.
 
-- **Import:** `import { Tooltip } from 'comsatel-ds';`
+- **Import:** `import { Tooltip } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-tooltip>`
 - **Clase raíz emitida:** `.cs-tooltip`
 

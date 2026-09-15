@@ -3,7 +3,7 @@
 Diálogo que interrumpe la tarea y exige una decisión antes de seguir. Si el contenido
 puede convivir con la página, no es un modal.
 
-- **Import:** `import { Modal } from 'comsatel-ds';`
+- **Import:** `import { Modal } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-modal>`
 - **Clase raíz emitida:** `.cs-modal`
 

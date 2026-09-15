@@ -4,7 +4,7 @@ Muestra el avance de un proceso de varios pasos: cuáles se completaron, cuál e
 y cuáles faltan. Es el único componente de pasos del sistema: `Stepper` quedó obsoleto
 (ver al final).
 
-- **Import:** `import { ProgressIndicator } from 'comsatel-ds';`
+- **Import:** `import { ProgressIndicator } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-progress-indicator>`
 - **Clase raíz emitida:** `.cs-progress-indicator`
 

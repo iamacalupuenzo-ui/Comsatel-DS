@@ -4,7 +4,7 @@ import {
   ProgressIndicator,
   type ProgressIndicatorOrientation,
   type ProgressIndicatorStep,
-} from 'comsatel-ds';
+} from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 const ORIENTATIONS: ProgressIndicatorOrientation[] = ['horizontal', 'vertical'];

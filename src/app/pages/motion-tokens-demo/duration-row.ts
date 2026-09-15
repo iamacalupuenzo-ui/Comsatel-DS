@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { gsap } from 'gsap';
-import { tokenEase, tokenSeconds } from 'comsatel-ds';
+import { tokenEase, tokenSeconds } from '@iamacalupuenzo-ui/comsatel-ds';
 
 /** Una fila del catálogo de --motion-duration-*: mueve un bloque a duración
  * variable, siempre con --motion-easing-default — así la fila aísla el

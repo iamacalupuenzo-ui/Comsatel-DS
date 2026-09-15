@@ -1,64 +1,47 @@
-# ComsatelDs
+# @iamacalupuenzo-ui/comsatel-ds
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.0.
+Biblioteca Angular del Sistema de Diseño Comsatel. El paquete contiene los
+componentes, tokens y utilidades públicos; las páginas de documentación y
+Storybook permanecen en el repositorio principal.
 
-## Code scaffolding
+## Instalarla en otra plataforma
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Cada proyecto consumidor configura una vez el registro privado y autentica su
+instalación con un token de GitHub de solo lectura de paquetes. Nunca se debe
+versionar ese token.
 
-```bash
-ng generate component component-name
+```ini
+# .npmrc del proyecto consumidor
+@iamacalupuenzo-ui:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_TOKEN}
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
 ```bash
-ng generate --help
+npm install @iamacalupuenzo-ui/comsatel-ds@0.1.0
 ```
 
-## Building
+El proyecto debe usar Angular 22, que es una dependencia de pares de la
+librería. Importa únicamente los componentes que necesita; el bundler elimina
+las exportaciones que no se usan.
 
-To build the library, run:
+```ts
+import { Button } from '@iamacalupuenzo-ui/comsatel-ds';
 
-```bash
-ng build comsatel-ds
+@Component({
+  imports: [Button],
+  template: '<cs-button variant="primary">Guardar</cs-button>',
+})
+export class ExampleComponent {}
 ```
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
+## Publicar una versión
 
-### Publishing the Library
+La publicación la realiza GitHub Actions, no una máquina local. Se actualiza
+la versión en `package.json`, se valida el cambio y se crea un tag con el
+formato `ds-v<versión>` (por ejemplo, `ds-v0.1.1`). El workflow compila la
+librería, ejecuta los gates de documentación, los tests unitarios y Storybook
+antes de publicar el contenido de `dist/comsatel-ds` en GitHub Packages.
 
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
-
-   ```bash
-   cd dist/comsatel-ds
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Las plataformas consumidoras no reciben cambios en ejecución. Adoptan una
+nueva versión al actualizar su dependencia y lockfile en un cambio revisable,
+probarla y desplegarla como parte de su propio ciclo de entrega.

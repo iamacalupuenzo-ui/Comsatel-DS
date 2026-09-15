@@ -4,7 +4,7 @@ Navegación lateral de la aplicación: grupos de ítems con ícono, badge, atajo
 subniveles. Tiene dos modos, expandido (labels completos) y rail (solo íconos, con
 flyout al pasar el mouse).
 
-- **Import:** `import { Menu } from 'comsatel-ds';`
+- **Import:** `import { Menu } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-menu>`
 - **Clase raíz emitida:** `.cs-menu`
 

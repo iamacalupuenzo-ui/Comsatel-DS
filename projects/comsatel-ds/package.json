@@ -1,6 +1,15 @@
 {
-  "name": "comsatel-ds",
-  "version": "0.0.1",
+  "name": "@iamacalupuenzo-ui/comsatel-ds",
+  "version": "0.1.0",
+  "description": "Biblioteca Angular del Sistema de Diseño Comsatel.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamacalupuenzo-ui/Comsatel-DS.git",
+    "directory": "projects/comsatel-ds"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "peerDependencies": {
     "@angular/common": "^22.1.0",
     "@angular/core": "^22.1.0",

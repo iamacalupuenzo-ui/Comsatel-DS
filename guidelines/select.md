@@ -4,7 +4,7 @@ Campo de selección que admite **múltiple**. Para selección simple en un formu
 `InputDropdown` suele ser la opción correcta; `Select` gana cuando el usuario puede
 elegir varias opciones y quitarlas una por una.
 
-- **Import:** `import { Select } from 'comsatel-ds';`
+- **Import:** `import { Select } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-select>`
 - **Clase raíz emitida:** `.cs-select`
 

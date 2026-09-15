@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Icon } from 'comsatel-ds';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds';
 
 /** Etiqueta compacta de dispositivo GPS para vistas de zoom alejado — ver
  * gps-full para la tarjeta completa que aparece a zoom cercano. */

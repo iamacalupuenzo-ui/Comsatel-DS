@@ -4,7 +4,7 @@ Representación visual de una persona o empresa. `Avatar` es la pieza base;
 `AvatarLabel` le agrega nombre y subtítulo; `AvatarGroup` apila varios con un contador;
 `AvatarAddButton` es el control para sumar a alguien.
 
-- **Import:** `import { Avatar, AvatarLabel, AvatarGroup, AvatarAddButton } from 'comsatel-ds';`
+- **Import:** `import { Avatar, AvatarLabel, AvatarGroup, AvatarAddButton } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selectores:** `<cs-avatar>`, `<cs-avatar-label>`, `<cs-avatar-group>`, `<cs-avatar-add-button>`
 - **Clases raíz emitidas:** `.cs-avatar`, `.cs-avatar-label`, `.cs-avatar-group`, `.cs-avatar-add`
 

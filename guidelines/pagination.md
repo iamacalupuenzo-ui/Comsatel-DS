@@ -3,7 +3,7 @@
 Recorre páginas de un conjunto de resultados. El componente no sabe nada de los datos:
 recibe la página actual y el total, y avisa cuándo el usuario pide otra.
 
-- **Import:** `import { Pagination } from 'comsatel-ds';`
+- **Import:** `import { Pagination } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-pagination>`
 - **Clase raíz emitida:** `.cs-pagination`
 

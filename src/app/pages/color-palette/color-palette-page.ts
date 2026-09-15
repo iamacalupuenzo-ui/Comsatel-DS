@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { primitiveColors } from 'comsatel-ds';
+import { primitiveColors } from '@iamacalupuenzo-ui/comsatel-ds';
 
 const SHADES = ['050', '100', '200', '300', '400', '500', '600', '700', '800', '900'] as const;
 

@@ -1,7 +1,7 @@
 /**
  * Valida cada bloque de código de las guías contra la librería real.
  *
- * - ```ts: todo lo que se importa de `comsatel-ds` tiene que existir en `public-api.ts`.
+ * - ```ts: todo lo que se importa de `@iamacalupuenzo-ui/comsatel-ds` tiene que existir en `public-api.ts`.
  * - ```html: todo `<cs-*>` tiene que ser un selector real, y cada atributo una prop, un
  *   output, un slot de proyección o un atributo nativo válido. Un atributo estático sobre
  *   una prop `boolean` o `number` falla, porque Angular pasa texto (`<cs-button disabled>`
@@ -98,11 +98,11 @@ function checkHtml(html, at, ctx) {
 
 function checkTs(ts, at, ctx) {
   const failures = [];
-  for (const m of ts.matchAll(/import\s*(?:type\s*)?\{([^}]*)\}\s*from\s*'comsatel-ds'/g)) {
+  for (const m of ts.matchAll(/import\s*(?:type\s*)?\{([^}]*)\}\s*from\s*'@iamacalupuenzo-ui\/comsatel-ds'/g)) {
     const line = ts.slice(0, m.index).split('\n').length - 1;
     for (const raw of m[1].split(',')) {
       const name = raw.replace(/^\s*type\s+/, '').split(/\s+as\s+/)[0].trim();
-      if (name && !ctx.symbols.has(name)) failures.push(`${at(line)}: \`${name}\` no lo exporta \`comsatel-ds\``);
+      if (name && !ctx.symbols.has(name)) failures.push(`${at(line)}: \`${name}\` no lo exporta \`@iamacalupuenzo-ui/comsatel-ds\``);
     }
   }
   return failures;

@@ -1,4 +1,4 @@
-import type { IconName } from 'comsatel-ds';
+import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds';
 
 // Estructura de navegación — calco 1:1 de nav.ts en el sistema de diseño
 // React (mismo orden, mismos hijos, incluidos los links a páginas que ni

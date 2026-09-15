@@ -102,7 +102,7 @@ Dos familias: `--font-family-heading` (Manrope) para títulos y `--font-family-c
 helper del sistema, que resuelve familia, tamaño, peso, interlineado y tracking juntos:
 
 ```ts
-import { componentTypography, textStyle } from 'comsatel-ds';
+import { componentTypography, textStyle } from '@iamacalupuenzo-ui/comsatel-ds';
 
 get labelStyle(): Record<string, string> {
   return textStyle(componentTypography.tooltip, 'accent');

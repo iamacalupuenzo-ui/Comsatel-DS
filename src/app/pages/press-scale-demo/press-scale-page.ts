@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { Button, Icon, PressScale } from 'comsatel-ds';
+import { Button, Icon, PressScale } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell } from '../../shared/docs/demo-shell';
 
 @Component({

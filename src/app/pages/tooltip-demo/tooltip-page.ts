@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Tooltip, Button, Icon, type TooltipSide } from 'comsatel-ds';
+import { Tooltip, Button, Icon, type TooltipSide } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 const SIDES: TooltipSide[] = ['top', 'bottom', 'left', 'right'];

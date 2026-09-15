@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Tab, Tabs, type TabsVariant } from 'comsatel-ds';
+import { Tab, Tabs, type TabsVariant } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 import { CodeBlock } from '../../shared/docs/code-block';
 

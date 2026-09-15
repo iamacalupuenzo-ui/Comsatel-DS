@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Toast, Icon, type ToastVariant, type ToastAction } from 'comsatel-ds';
+import { Toast, Icon, type ToastVariant, type ToastAction } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 import { CodeBlock } from '../../shared/docs/code-block';
 

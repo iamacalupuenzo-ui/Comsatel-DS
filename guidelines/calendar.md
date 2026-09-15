@@ -3,7 +3,7 @@
 `Calendar` es la grilla de fechas. `DateTimePicker` es el campo de formulario que
 combina fecha y hora. `DateTimeRangePicker` hace lo mismo para un rango.
 
-- **Import:** `import { Calendar, DateTimePicker, DateTimeRangePicker } from 'comsatel-ds';`
+- **Import:** `import { Calendar, DateTimePicker, DateTimeRangePicker } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selectores:** `<cs-calendar>`, `<cs-datetime-picker>`, `<cs-datetime-range-picker>`
 - **Clases raíz emitidas:** `.cs-calendar`, `.cs-datetime-picker`, `.cs-dtrp`
 

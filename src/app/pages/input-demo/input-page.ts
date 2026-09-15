@@ -10,7 +10,7 @@ import {
   InputDropdown,
   type InputFieldSize,
   type InputDropdownOption,
-} from 'comsatel-ds';
+} from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type ControlOption, type DemoState } from '../../shared/docs/demo-shell';
 
 const SIZES: InputFieldSize[] = ['sm', 'md', 'lg'];

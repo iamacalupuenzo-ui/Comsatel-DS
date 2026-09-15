@@ -3,7 +3,7 @@
 Globo de onboarding que señala un elemento de la interfaz y explica para qué sirve.
 Se usa en recorridos guiados, no para mensajes del día a día.
 
-- **Import:** `import { Spotlight } from 'comsatel-ds';`
+- **Import:** `import { Spotlight } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-spotlight>`
 - **Clase raíz emitida:** `.cs-spotlight`
 

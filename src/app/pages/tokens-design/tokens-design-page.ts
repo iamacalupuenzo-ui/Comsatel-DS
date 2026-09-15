@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Banner } from 'comsatel-ds';
+import { Banner } from '@iamacalupuenzo-ui/comsatel-ds';
 
 @Component({
   selector: 'app-tokens-design-page',

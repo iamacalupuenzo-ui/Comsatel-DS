@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Select, type SelectOption } from 'comsatel-ds';
+import { Select, type SelectOption } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 const TEAM_OPTIONS: SelectOption[] = [

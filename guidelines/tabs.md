@@ -4,7 +4,7 @@ Vistas alternativas del mismo contexto: el usuario cambia de panel sin cambiar d
 página. Si cada opción lleva a un lugar distinto de la aplicación, eso es navegación
 (`Menu`), no tabs.
 
-- **Import:** `import { Tabs, Tab } from 'comsatel-ds';`
+- **Import:** `import { Tabs, Tab } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selectores:** `<cs-tabs>`, `<cs-tab>`
 - **Clases raíz emitidas:** `.cs-tabs`, `.cs-tab-panel`
 

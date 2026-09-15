@@ -3,7 +3,7 @@
 Secciones colapsables para contenido secundario que no tiene que estar visible todo el
 tiempo. No lo uses para esconder algo que el usuario necesita para decidir.
 
-- **Import:** `import { Accordion, AccordionItem } from 'comsatel-ds';`
+- **Import:** `import { Accordion, AccordionItem } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selectores:** `<cs-accordion>`, `<cs-accordion-item>`
 - **Clase raíz emitida:** `.cs-accordion-item`
 

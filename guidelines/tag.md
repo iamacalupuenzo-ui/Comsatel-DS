@@ -3,7 +3,7 @@
 Etiqueta de clasificación con valor propio: categoría, severidad, filtro aplicado.
 A diferencia de `Badge`, recibe el texto por prop y acepta un ícono del sistema.
 
-- **Import:** `import { Tag } from 'comsatel-ds';`
+- **Import:** `import { Tag } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-tag>`
 - **Clase raíz emitida:** `.cs-tag`
 

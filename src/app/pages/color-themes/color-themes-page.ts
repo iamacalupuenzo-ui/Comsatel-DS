@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Banner } from 'comsatel-ds';
+import { Banner } from '@iamacalupuenzo-ui/comsatel-ds';
 import { CodeBlock } from '../../shared/docs/code-block';
 
 interface ThemeSwatchEntry {

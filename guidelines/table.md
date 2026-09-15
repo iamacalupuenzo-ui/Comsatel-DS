@@ -5,7 +5,7 @@ jerarquía: filas que se expanden para mostrar hijos, con carga perezosa.
 `ColumnManager` administra el orden y la visibilidad de las columnas desde un
 panel compacto; no sustituye un selector de valores.
 
-- **Import:** `import { ColumnManager, Table, TableTree } from 'comsatel-ds';`
+- **Import:** `import { ColumnManager, Table, TableTree } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selectores:** `<cs-table>`, `<cs-table-tree>`, `<cs-column-manager>`
 - **Clases raíz emitidas:** `.cs-table`, `.cs-table-tree`
 

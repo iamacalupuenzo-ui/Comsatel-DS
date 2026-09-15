@@ -2,7 +2,7 @@
   <p class="eyebrow">Fundamentos / Guía de instalación</p>
   <h1 class="title">Guía de instalación</h1>
   <p class="description">
-    Cómo se consume <code class="inline-code">comsatel-ds</code> hoy, y cómo un agente de IA
+    Cómo se consume <code class="inline-code">@iamacalupuenzo-ui/comsatel-ds</code> hoy, y cómo un agente de IA
     (o cualquier herramienta que hable MCP) accede a la librería sin tener que leer el código
     fuente componente por componente.
   </p>
@@ -12,13 +12,13 @@
     <p class="section__intro">
       Angular/Router y la librería viven en el mismo workspace (<code class="inline-code">projects/comsatel-ds/</code>).
       No hace falta <code class="inline-code">npm install</code> nada aparte: el proyecto ya
-      resuelve el import <code class="inline-code">from 'comsatel-ds'</code> contra el build
+      resuelve el import <code class="inline-code">from '@iamacalupuenzo-ui/comsatel-ds'</code> contra el build
       compilado de la librería.
     </p>
     <app-code-block
       code="// tsconfig.json
 &quot;paths&quot;: {
-  &quot;comsatel-ds&quot;: [&quot;./dist/comsatel-ds&quot;]
+  &quot;@iamacalupuenzo-ui/comsatel-ds&quot;: [&quot;./dist/comsatel-ds&quot;]
 }"
     ></app-code-block>
     <p class="section__intro">
@@ -29,7 +29,7 @@
     <app-code-block code="npm run build:lib"></app-code-block>
     <p class="section__intro">Y en cualquier componente o página de la app:</p>
     <app-code-block
-      code="import { Button } from 'comsatel-ds';
+      code="import { Button } from '@iamacalupuenzo-ui/comsatel-ds';
 
 @Component({
   imports: [Button],
@@ -40,11 +40,14 @@
 
   <section class="section">
     <h2 class="section__title" id="external">Desde otro proyecto</h2>
-    <cs-banner variant="warning" [icon]="true">
-      <code class="inline-code">comsatel-ds</code> todavía no está publicado en ningún registro
-      (npm, GitHub Packages, un registro privado) — <code class="inline-code">npm install
-      comsatel-ds</code> no funciona hoy fuera de este workspace. Si otro proyecto necesita
-      consumirlo, hace falta agregar un paso de publicación antes; no está armado todavía.
+    <cs-banner variant="brand" [icon]="true">
+      La librería quedó configurada para publicarse como paquete privado en GitHub Packages.
+      Después de publicar una versión, configura en el proyecto
+      consumidor <code class="inline-code">@iamacalupuenzo-ui:registry=https://npm.pkg.github.com</code>
+      y un token con permiso de lectura de paquetes fuera del repositorio. Después instala una
+      versión concreta: <code class="inline-code">npm install @iamacalupuenzo-ui/comsatel-ds@0.1.0</code>.
+      Cada adopción se revisa, prueba y despliega desde la plataforma consumidora; una nueva
+      versión de la librería no modifica automáticamente una aplicación ya desplegada.
     </cs-banner>
   </section>
 

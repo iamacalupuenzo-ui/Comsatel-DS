@@ -3,7 +3,7 @@
 Único punto de entrada para íconos dentro de la librería y del producto. Dibuja un SVG del
 registro curado del sistema (101 íconos de Lucide). No se usa otra librería de íconos.
 
-- **Import:** `import { Icon } from 'comsatel-ds';`
+- **Import:** `import { Icon } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-icon>`
 
 ```html

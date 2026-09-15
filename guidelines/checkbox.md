@@ -3,7 +3,7 @@
 Selección múltiple independiente: cada casilla se marca sin afectar a las demás. Para
 elegir una sola opción de un conjunto, el componente es `Radio`/`RadioGroup`.
 
-- **Import:** `import { Checkbox } from 'comsatel-ds';`
+- **Import:** `import { Checkbox } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-checkbox>`
 - **Clase raíz emitida:** `.cs-checkbox`
 

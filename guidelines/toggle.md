@@ -4,7 +4,7 @@ Interruptor de efecto inmediato: activa o desactiva algo al instante, sin botón
 confirmación. Si el cambio recién se aplica al guardar un formulario, el componente
 correcto es `Checkbox`.
 
-- **Import:** `import { Toggle } from 'comsatel-ds';`
+- **Import:** `import { Toggle } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-toggle>`
 - **Clase raíz emitida:** `.cs-toggle`
 

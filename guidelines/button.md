@@ -3,7 +3,7 @@
 Dispara una acción: envío de formulario, navegación, apertura de diálogo u operación
 destructiva. Nueve variantes cubren los roles semánticos de la UI.
 
-- **Import:** `import { Button } from 'comsatel-ds';`
+- **Import:** `import { Button } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-button>`
 - **Clase raíz emitida:** `.cs-button` (más `.cs-button--<variant>` y `.cs-button--<size>`)
 

@@ -4,7 +4,7 @@ Campo de texto de una línea. `Input` resuelve el caso simple; `InputGroup` comp
 campo con adornos (íconos, botones, prefijos, dropdowns) que se ven como un solo
 control.
 
-- **Import:** `import { Input, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from 'comsatel-ds';`
+- **Import:** `import { Input, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selectores:** `<cs-input>`, `<cs-input-group>`, `<cs-input-group-addon>`, `<cs-input-group-input>`, `<cs-input-group-text>`
 - **Clases raíz emitidas:** `.cs-input`, `.cs-input-group`, `.cs-input-group-addon`, `.cs-input-group-input`, `.cs-input-group-text`
 

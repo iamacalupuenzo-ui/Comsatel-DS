@@ -5,7 +5,7 @@ nombre, última señal y estado; al expandirla aparecen alerta, velocidad, bater
 ubicación, diagnóstico y el botón de detalle. Compone `cs-accordion`, `cs-accordion-item`,
 `cs-badge`, `cs-button` y `cs-icon`.
 
-- **Import:** `import { FleetUnitList, type FleetUnit } from 'comsatel-ds';`
+- **Import:** `import { FleetUnitList, type FleetUnit } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-fleet-unit-list>`
 - **Clase raíz emitida:** `.cs-fleet-unit-list` (sobre el `cs-accordion` interno)
 
@@ -19,7 +19,7 @@ ubicación, diagnóstico y el botón de detalle. Compone `cs-accordion`, `cs-acc
 ```
 
 ```ts
-import { FleetUnitList, type FleetUnit } from 'comsatel-ds';
+import { FleetUnitList, type FleetUnit } from '@iamacalupuenzo-ui/comsatel-ds';
 
 const units: FleetUnit[] = [
   {

@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { Header } from 'comsatel-ds';
+import { Header } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell } from '../../shared/docs/demo-shell';
 @Component({ selector: 'app-header-page', imports: [Header, DemoShell], templateUrl: './header-page.html', styleUrl: './header-page.css' })
 export class HeaderPage {

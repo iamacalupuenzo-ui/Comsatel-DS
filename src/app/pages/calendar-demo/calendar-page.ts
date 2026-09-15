@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Calendar } from 'comsatel-ds';
+import { Calendar } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type ControlOption, type DemoState } from '../../shared/docs/demo-shell';
 
 const WEEK_START_OPTIONS: ControlOption[] = [

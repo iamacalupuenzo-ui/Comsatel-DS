@@ -4,7 +4,7 @@ Anima la entrada y la salida de un contenido según un booleano, siempre con los
 duración y easing del sistema. Un preset elige qué se anima; las duraciones y los easings
 eligen cuánto tarda y cómo acelera.
 
-- **Import:** `import { Motion } from 'comsatel-ds';`
+- **Import:** `import { Motion } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-motion>`
 - **Clase raíz emitida:** `.cs-motion`
 
@@ -36,7 +36,7 @@ Para animar con GSAP fuera de `cs-motion`, la librería exporta los mismos easin
 lectura de duraciones desde los tokens:
 
 ```ts
-import { tokenEase, tokenSeconds } from 'comsatel-ds';
+import { tokenEase, tokenSeconds } from '@iamacalupuenzo-ui/comsatel-ds';
 
 gsap.to(element, {
   height: 'auto',

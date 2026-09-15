@@ -3,7 +3,7 @@
 Etiqueta corta de estado o conteo, no interactiva. Acompaña a otro elemento; nunca es
 el sujeto de la acción.
 
-- **Import:** `import { Badge } from 'comsatel-ds';`
+- **Import:** `import { Badge } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-badge>`
 - **Clase raíz emitida:** `.cs-badge`
 

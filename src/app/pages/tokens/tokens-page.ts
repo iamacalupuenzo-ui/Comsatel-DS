@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { ALL_TOKENS, type TokenSection } from 'comsatel-ds';
+import { ALL_TOKENS, type TokenSection } from '@iamacalupuenzo-ui/comsatel-ds';
 
 @Component({
   selector: 'app-tokens-page',

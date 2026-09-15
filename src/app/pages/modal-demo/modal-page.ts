@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Button, Icon, Input, Modal, type ModalAppearance, type ModalScrollBehavior, type ModalWidthToken } from 'comsatel-ds';
+import { Button, Icon, Input, Modal, type ModalAppearance, type ModalScrollBehavior, type ModalWidthToken } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 import { CodeBlock } from '../../shared/docs/code-block';
 

@@ -4,7 +4,7 @@ import { filter } from 'rxjs';
 import { NAVIGATION, type NavItem } from '../../lib/nav';
 import { SidenavState } from '../../lib/sidenav-state';
 import { TableOfContents } from '../table-of-contents/table-of-contents';
-import { Icon, PressScale } from 'comsatel-ds';
+import { Icon, PressScale } from '@iamacalupuenzo-ui/comsatel-ds';
 
 @Component({
   selector: 'app-shell',

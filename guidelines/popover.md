@@ -4,7 +4,7 @@ Motor de posicionamiento y portal para cualquier capa flotante: menús, flyouts,
 calendarios, paneles. Es la pieza sobre la que se construyen otros componentes, no un
 componente de producto por sí solo.
 
-- **Import:** `import { Popover } from 'comsatel-ds';`
+- **Import:** `import { Popover } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-popover>`
 - **Clase raíz emitida:** `.cs-popover`
 

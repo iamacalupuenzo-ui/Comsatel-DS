@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Avatar, AvatarLabel, AvatarGroup, AvatarAddButton, Icon, type AvatarSize, type AvatarStatus } from 'comsatel-ds';
+import { Avatar, AvatarLabel, AvatarGroup, AvatarAddButton, Icon, type AvatarSize, type AvatarStatus } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 const SIZES: AvatarSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];

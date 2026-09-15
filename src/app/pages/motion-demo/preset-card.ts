@@ -1,5 +1,5 @@
 import { Component, Input, signal } from '@angular/core';
-import { Motion, type MotionPreset } from 'comsatel-ds';
+import { Motion, type MotionPreset } from '@iamacalupuenzo-ui/comsatel-ds';
 
 @Component({
   selector: 'app-preset-card',

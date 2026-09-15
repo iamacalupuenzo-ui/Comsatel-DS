@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DateTimeRangePicker, type DateTimeRangeValue } from 'comsatel-ds';
+import { DateTimeRangePicker, type DateTimeRangeValue } from '@iamacalupuenzo-ui/comsatel-ds';
 import { CodeBlock } from '../../shared/docs/code-block';
 
 @Component({

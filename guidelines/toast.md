@@ -4,7 +4,7 @@ Confirmación efímera de algo que acaba de pasar. No interrumpe y no exige resp
 la condición sigue siendo cierta hasta que alguien la resuelva, el componente es
 `Banner`; si hay que decidir antes de seguir, es `Modal`.
 
-- **Import:** `import { Toast } from 'comsatel-ds';`
+- **Import:** `import { Toast } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-toast>`
 - **Clase raíz emitida:** `.cs-toast`
 

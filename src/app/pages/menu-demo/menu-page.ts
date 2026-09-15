@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, signal } from '@angular/core';
-import { Menu, type MenuGroupData, type MenuMode } from 'comsatel-ds';
+import { Menu, type MenuGroupData, type MenuMode } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 // Menú real planeado para C-Locater Flotas (ver

@@ -4,7 +4,7 @@
 forma aproximada del contenido, no un spinner ni un texto de "cargando". Así la pantalla
 no salta cuando los datos llegan.
 
-- **Import:** `import { Skeleton } from 'comsatel-ds';`
+- **Import:** `import { Skeleton } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-skeleton>`
 - **Clase raíz emitida:** `.cs-skeleton`
 

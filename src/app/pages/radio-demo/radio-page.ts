@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Icon, Radio, RadioGroup, type RadioSize } from 'comsatel-ds';
+import { Icon, Radio, RadioGroup, type RadioSize } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 import { CodeBlock } from '../../shared/docs/code-block';
 

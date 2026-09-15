@@ -7,7 +7,7 @@ import {
   PreviewCard,
   SpotlightCard,
   type AvatarGroupItem,
-} from 'comsatel-ds';
+} from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell } from '../../shared/docs/demo-shell';
 
 // cs-avatar-group no fabrica placeholders solo — a diferencia de React

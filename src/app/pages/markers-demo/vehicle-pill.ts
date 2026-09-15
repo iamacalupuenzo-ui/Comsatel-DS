@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Icon, type IconName } from 'comsatel-ds';
+import { Icon, type IconName } from '@iamacalupuenzo-ui/comsatel-ds';
 
 export type VehicleStatus = 'active' | 'stopped' | 'offline';
 export type VehicleType = 'car' | 'motorcycle' | 'truck' | 'bus' | 'machinery';

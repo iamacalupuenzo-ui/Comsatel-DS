@@ -3,7 +3,7 @@
 Cinco componentes distintos, cada uno con su propósito. No hay una "Card" genérica con
 slots libres: se elige la que corresponde al contenido.
 
-- **Import:** `import { ActionCard, CardBanner, FeatureSpotlightCard, SpotlightCard, PreviewCard } from 'comsatel-ds';`
+- **Import:** `import { ActionCard, CardBanner, FeatureSpotlightCard, SpotlightCard, PreviewCard } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selectores:** `<cs-action-card>`, `<cs-card-banner>`, `<cs-feature-spotlight-card>`, `<cs-spotlight-card>`, `<cs-preview-card>`
 - **Clases raíz emitidas:** `.cs-action-card`, `.cs-card-banner`, `.cs-feature-spotlight-card`, `.cs-spotlight-card`, `.cs-preview-card`
 

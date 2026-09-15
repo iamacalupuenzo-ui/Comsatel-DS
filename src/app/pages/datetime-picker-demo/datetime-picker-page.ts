@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { DateTimePicker } from 'comsatel-ds';
+import { DateTimePicker } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type ControlOption, type DemoState } from '../../shared/docs/demo-shell';
 
 const WEEK_START_OPTIONS: ControlOption[] = [

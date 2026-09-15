@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Checkbox, Icon, type CheckboxSize } from 'comsatel-ds';
+import { Checkbox, Icon, type CheckboxSize } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 const SIZES: CheckboxSize[] = ['sm', 'md', 'lg'];

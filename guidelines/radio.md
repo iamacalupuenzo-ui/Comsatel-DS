@@ -6,7 +6,7 @@ opciones independientes que se marcan por separado, el componente es `Checkbox`.
 `Radio` siempre vive dentro de un `RadioGroup`: el grupo administra el `name`
 compartido, el valor seleccionado y el estado deshabilitado.
 
-- **Import:** `import { Radio, RadioGroup } from 'comsatel-ds';`
+- **Import:** `import { Radio, RadioGroup } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selectores:** `<cs-radio-group>`, `<cs-radio>`
 - **Clases raíz emitidas:** `.cs-radio`, `.cs-radio-group`, `.cs-radio-ring`, `.cs-radio-dot`
 

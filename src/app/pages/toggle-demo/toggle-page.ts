@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Button, Icon, Toggle, type ToggleSize } from 'comsatel-ds';
+import { Button, Icon, Toggle, type ToggleSize } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 const SIZES: ToggleSize[] = ['sm', 'md', 'lg'];

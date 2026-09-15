@@ -3,7 +3,7 @@
 El armazón de una aplicación: barra superior, navegación lateral colapsable, área de
 contenido y panel opcional.
 
-- **Import:** `import { AppLayout, Header } from 'comsatel-ds';`
+- **Import:** `import { AppLayout, Header } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selectores:** `<cs-app-layout>`, `<cs-header>`
 - **Clases raíz emitidas:** `.cs-app-layout`, `.cs-header`
 

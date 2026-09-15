@@ -3,7 +3,7 @@
 Dos comportamientos de movimiento reutilizables que se aplican sobre un elemento que ya
 existe, en vez de envolverlo en un componente.
 
-- **Import:** `import { PressScale, Collapse } from 'comsatel-ds';`
+- **Import:** `import { PressScale, Collapse } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selectores:** `[csPressScale]`, `[csCollapse]`
 
 ## csPressScale

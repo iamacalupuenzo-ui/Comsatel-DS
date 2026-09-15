@@ -259,7 +259,7 @@ export function components() {
   return out;
 }
 
-/** Todo nombre que un consumidor puede importar desde `comsatel-ds`. */
+/** Todo nombre que un consumidor puede importar desde `@iamacalupuenzo-ui/comsatel-ds`. */
 export function exportedSymbols() {
   const names = new Set();
   for (const file of exportedFiles()) {

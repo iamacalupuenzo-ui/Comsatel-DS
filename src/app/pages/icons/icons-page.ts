@@ -1,6 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
-import { Button, ICON_REGISTRY, InputDropdown, type InputDropdownOption } from 'comsatel-ds';
+import { Button, ICON_REGISTRY, InputDropdown, type InputDropdownOption } from '@iamacalupuenzo-ui/comsatel-ds';
 import { CodeBlock } from '../../shared/docs/code-block';
 
 interface CatalogEntry {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Icon } from 'comsatel-ds';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds';
 import { CodeBlock } from '../../shared/docs/code-block';
 
 @Component({

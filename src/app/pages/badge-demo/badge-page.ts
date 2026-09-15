@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Badge, Icon, type BadgeSize, type BadgeVariant } from 'comsatel-ds';
+import { Badge, Icon, type BadgeSize, type BadgeVariant } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 const VARIANTS: BadgeVariant[] = [

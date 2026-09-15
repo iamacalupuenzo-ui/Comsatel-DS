@@ -1,5 +1,5 @@
 import { Component, ElementRef, QueryList, ViewChild, ViewChildren, computed, signal } from '@angular/core';
-import { Button, Icon, Popover, type IconName, type PopoverPlacement } from 'comsatel-ds';
+import { Button, Icon, Popover, type IconName, type PopoverPlacement } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 import { CodeBlock } from '../../shared/docs/code-block';
 

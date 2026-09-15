@@ -4,7 +4,7 @@ Dos componentes distintos que comparten estilos. `Dropdown` es un **menú de acc
 que cuelga de un botón. `InputDropdown` es un **campo de formulario** que elige un
 valor: se ve y se comporta como un input, no como un menú.
 
-- **Import:** `import { Dropdown, InputDropdown } from 'comsatel-ds';`
+- **Import:** `import { Dropdown, InputDropdown } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selectores:** `<cs-dropdown>`, `<cs-input-dropdown>`
 - **Clases raíz emitidas:** `.cs-dropdown`, `.cs-dropdown-item`, `.cs-input-dropdown`, `.cs-country-flag`
 

@@ -8,7 +8,7 @@ import {
   type DropdownSize,
   type DropdownTrigger,
   type InputDropdownOption,
-} from 'comsatel-ds';
+} from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 const SIMPLE_GROUPS: DropdownGroup[] = [

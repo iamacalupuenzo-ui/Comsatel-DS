@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Icon, Tag, type IconName, type TagSeverity, type TagSize } from 'comsatel-ds';
+import { Icon, Tag, type IconName, type TagSeverity, type TagSize } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 const SEVERITIES: TagSeverity[] = ['primary', 'secondary', 'success', 'info', 'warn', 'danger', 'contrast'];

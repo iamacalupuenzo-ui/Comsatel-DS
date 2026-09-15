@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Icon, ListItem, Tag, type IconName } from 'comsatel-ds';
+import { Icon, ListItem, Tag, type IconName } from '@iamacalupuenzo-ui/comsatel-ds';
 import { CodeBlock } from '../../shared/docs/code-block';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 

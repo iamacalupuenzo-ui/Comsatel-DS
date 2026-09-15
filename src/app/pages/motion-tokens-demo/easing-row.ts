@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { gsap } from 'gsap';
-import { tokenEase, tokenSeconds } from 'comsatel-ds';
+import { tokenEase, tokenSeconds } from '@iamacalupuenzo-ui/comsatel-ds';
 
 /** Una fila del catálogo de --motion-easing-*: mueve un bloque siempre a
  * --motion-duration-slow, variando solo la curva — así se aísla el efecto
