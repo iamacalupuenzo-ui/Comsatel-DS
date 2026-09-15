@@ -19,6 +19,9 @@
   border-radius: var(--radius-full);
   background-color: var(--elevation-surface-default);
   box-shadow: var(--shadow-sm);
+  /* 1.5px no coincide con ningún paso de la escala de borde (0/1/2/4px) —
+     mismo criterio de excepción que vehicle-pill.css: a 2px el anillo de
+     acento se ve demasiado grueso en esta píldora compacta. */
   border: 1.5px solid color-mix(in srgb, var(--color-map-gps-svr-x) 25%, transparent);
   font: inherit;
   color: var(--color-map-gps-svr-x);
@@ -33,7 +36,7 @@
   background-color: var(--color-background-neutral-default);
   box-shadow: var(--shadow-lg);
 }
-.gps-compact:focus-visible { outline: 2px solid var(--color-border-focused); outline-offset: 2px; }
+.gps-compact:focus-visible { outline: var(--layout-border-thick) solid var(--color-border-focused); outline-offset: var(--layout-border-thick); }
 
 .gps-compact__label {
   font-family: var(--font-family-content);

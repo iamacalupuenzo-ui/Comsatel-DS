@@ -12,7 +12,10 @@ import type { SortOrder, TableCellValue, TableColumn, TableRow, TableTemplateCel
  * forma esperada (usa `cs-skeleton`, ver ese componente); con datos ya
  * visibles (`isLoading` + N filas, un refetch) mantiene las filas reales
  * atenuadas + spinner — la persona sigue viendo qué está por actualizarse
- * y no pierde su posición de scroll.
+ * y no pierde su posición de scroll. Reordenar y mostrar/ocultar columnas
+ * son responsabilidad de quien consume Table (un panel de columnas
+ * compuesto aparte, ver table-page.ts) — los headers de la tabla en sí no
+ * llevan ningún control de columnas, solo el botón de orden cuando aplica.
  */
 @Component({
   selector: 'cs-table',

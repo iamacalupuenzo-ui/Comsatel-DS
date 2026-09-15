@@ -1,0 +1,58 @@
+<div class="cs-input-dropdown">
+  <span [id]="labelId" class="cs-input-dropdown__label">{{ label }}</span>
+  <div class="cs-input-dropdown__wrap">
+    <button
+      #trigger
+      type="button"
+      [attr.aria-label]="ariaLabel"
+      [attr.aria-labelledby]="labelId"
+      [disabled]="disabled"
+      class="cs-input-dropdown__trigger cs-column-manager__trigger"
+      [style.height.px]="tok.height"
+      [style.padding-inline.px]="tok.paddingX"
+      [style.font-size]="tok.fontSize"
+      [style.line-height]="tok.lineHeight"
+      [style.color]="disabled ? 'var(--color-text-disabled)' : 'var(--color-text-base-default)'"
+      [style.border-color]="borderColor"
+      [style.box-shadow]="extraShadow"
+      (click)="toggle()"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+    >
+      <span class="cs-input-dropdown__value">{{ triggerText }}</span>
+      <cs-icon name="chevron-down" [size]="16" class="cs-input-dropdown__chevron" [class.cs-input-dropdown__chevron--open]="open()" aria-hidden="true" />
+    </button>
+
+    <cs-popover [isOpen]="open() && !disabled" [triggerRef]="triggerElement" placement="bottom-end" ariaLabel="Administrar columnas" (closed)="onPopoverClosed()">
+      <div class="cs-column-manager__panel">
+        @for (column of columns; track column.key) {
+          <div
+            class="cs-column-manager__row"
+            [class.cs-column-manager__row--dragging]="dragKey() === column.key"
+            [class.cs-column-manager__row--drop-target]="dropTargetKey() === column.key"
+            [style.height.px]="tok.height"
+            draggable="true"
+            (dragstart)="onDragStart(column.key, $event)"
+            (dragover)="onDragOver(column.key, $event)"
+            (dragleave)="onDragLeave(column.key)"
+            (drop)="onDrop(column.key, $event)"
+            (dragend)="onDragEnd()"
+          >
+            <cs-icon name="grip-vertical" [size]="14" aria-hidden="true" class="cs-column-manager__handle" />
+            <span class="cs-column-manager__item-label">{{ column.label }}</span>
+            <button
+              type="button"
+              class="cs-column-manager__visibility"
+              [disabled]="isVisibilityLocked(column)"
+              [attr.aria-pressed]="column.visible"
+              [attr.aria-label]="(column.visible ? 'Ocultar columna ' : 'Mostrar columna ') + column.label"
+              (click)="toggleVisibility(column)"
+            >
+              <cs-icon [name]="column.visible ? 'eye' : 'eye-off'" [size]="16" aria-hidden="true" />
+            </button>
+          </div>
+        }
+      </div>
+    </cs-popover>
+  </div>
+</div>

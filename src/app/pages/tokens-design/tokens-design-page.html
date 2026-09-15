@@ -1,0 +1,88 @@
+<div class="page">
+  <p class="eyebrow">Tokens / Uso en diseño</p>
+  <h1 class="title">Uso en diseño</h1>
+  <p class="description">
+    Cómo elegir el token correcto al diseñar una pantalla o un componente nuevo, sin tener que leer
+    código para hacerlo.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="source-of-truth">Fuente de verdad</h2>
+    <cs-banner variant="neutral" [icon]="true">
+      Hoy no hay sincronización automática entre estas variables y un archivo de diseño: este
+      catálogo (<a class="inline-link" routerLink="/foundations/tokens">/foundations/tokens</a> y
+      <code class="inline-code">tokens.css</code>) es la única fuente de verdad. Si un archivo de
+      diseño tiene una variable con el mismo nombre pero un valor distinto, el archivo de diseño
+      está desactualizado — no al revés.
+    </cs-banner>
+    <p class="section__intro">
+      Esto no es una limitación de esta página: es el estado real del proyecto. Documentarlo así, en
+      vez de asumir una sincronización que no existe, es lo que evita que un diseño se apruebe con
+      un color que ya cambió en código.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="pick-by-role">Elegí por rol, no por valor</h2>
+    <p class="section__intro">
+      La pregunta no es "¿qué azul uso?" — es "¿qué ROL cumple este texto o este fondo?". El rol
+      determina el token; el token ya resuelve el valor correcto para el tema activo.
+    </p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Necesito…</span><span>Token</span></div>
+      <div class="table__row"><span>Texto de mayor jerarquía en la pantalla</span><code class="table__name">--color-text-base-boldest</code></div>
+      <div class="table__row"><span>Texto de apoyo, menos importante</span><code class="table__name">--color-text-base-subtle</code></div>
+      <div class="table__row"><span>Fondo de la acción principal</span><code class="table__name">--color-background-brand-default</code></div>
+      <div class="table__row"><span>Un mensaje de error</span><code class="table__name">--color-text-danger-default</code></div>
+      <div class="table__row"><span>Un fila o ítem ya seleccionado</span><code class="table__name">--color-background-selected</code></div>
+      <div class="table__row"><span>Separar dos secciones visualmente</span><code class="table__name">--color-border-divider</code></div>
+    </div>
+    <p class="footnote">
+      Ver <a class="inline-link" routerLink="/foundations/color/semantic">Semantic tokens</a> para el catálogo completo
+      de color, y <a class="inline-link" routerLink="/foundations/tokens">todos los tokens</a> para espaciado, radio,
+      sombra y motion con su valor resuelto en claro y oscuro.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="contrast">Contraste, no a ojo</h2>
+    <p class="section__intro">
+      Un color puede "verse" legible y aun así no cumplir el mínimo real. Antes de aprobar un diseño
+      con un color nuevo o una combinación texto/fondo que no está en el catálogo:
+    </p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Elemento</span><span>Mínimo</span></div>
+      <div class="table__row"><span>Texto de lectura normal contra su fondo</span><span>4.5:1</span></div>
+      <div class="table__row"><span>Texto grande (≥24px, o ≥18.66px en negrita)</span><span>3:1</span></div>
+      <div class="table__row"><span>Bordes y controles no textuales con significado (anillo de foco, borde de un campo)</span><span>3:1</span></div>
+    </div>
+    <p class="footnote">
+      La luminosidad que se percibe a ojo (o el "L%" de HSL) no es un proxy confiable de contraste
+      WCAG real — un color puede parecer suficientemente claro u oscuro y aun así fallar el cálculo
+      real de luminancia relativa. Pedí que se verifique con la fórmula real antes de aprobar,
+      especialmente en pares nuevos que no están ya en el catálogo.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="no-match">Cuando ningún token calza</h2>
+    <p class="section__intro">
+      Va a pasar: un tamaño, un espaciado o un color que el diseño necesita y que no coincide con
+      ningún paso de la escala existente.
+    </p>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header"><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Proponé el valor y flageálo como una decisión nueva a registrar — quedará documentado como excepción explícita en el código, con el motivo.</p>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header"><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No redondees en silencio al token más cercano en el archivo de diseño: si desarrollo lo implementa literal, el tamaño visual cambió sin que nadie lo haya aprobado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

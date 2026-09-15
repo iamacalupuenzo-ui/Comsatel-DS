@@ -8,6 +8,7 @@
     [class.marker-pill--hover]="visualState === 'hover'"
     [class.marker-pill--active]="visualState === 'active'"
     [class.marker-pill--selected]="selected"
+    [class.marker-pill--tier-base]="iconTier === 'base'"
     (click)="activated.emit()"
   >
     @if (alarm) {

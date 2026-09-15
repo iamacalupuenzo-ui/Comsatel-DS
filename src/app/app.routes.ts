@@ -11,8 +11,27 @@ export const routes: Routes = [
       import('./pages/evaluation-tracking/evaluation-tracking-page').then((m) => m.EvaluationTrackingPage),
   },
   {
+    path: 'foundations/installation',
+    loadComponent: () =>
+      import('./pages/installation/installation-page').then((m) => m.InstallationPage),
+  },
+  {
     path: 'foundations/tokens',
     loadComponent: () => import('./pages/tokens/tokens-page').then((m) => m.TokensPage),
+  },
+  {
+    path: 'foundations/tokens/explained',
+    loadComponent: () =>
+      import('./pages/tokens-explained/tokens-explained-page').then((m) => m.TokensExplainedPage),
+  },
+  {
+    path: 'foundations/tokens/code',
+    loadComponent: () => import('./pages/tokens-code/tokens-code-page').then((m) => m.TokensCodePage),
+  },
+  {
+    path: 'foundations/tokens/design',
+    loadComponent: () =>
+      import('./pages/tokens-design/tokens-design-page').then((m) => m.TokensDesignPage),
   },
   {
     path: 'foundations/color',
@@ -28,6 +47,10 @@ export const routes: Routes = [
     path: 'foundations/color/semantic',
     loadComponent: () =>
       import('./pages/color-semantic/color-semantic-page').then((m) => m.ColorSemanticPage),
+  },
+  {
+    path: 'foundations/color/themes',
+    loadComponent: () => import('./pages/color-themes/color-themes-page').then((m) => m.ColorThemesPage),
   },
   {
     path: 'foundations/typography',
@@ -56,6 +79,8 @@ export const routes: Routes = [
     path: 'foundations/icons',
     loadComponent: () => import('./pages/icons/icons-page').then((m) => m.IconsPage),
   },
+  { path: 'foundations/logos', loadComponent: () => import('./pages/logos/logos-page').then((m) => m.LogosPage) },
+  { path: 'foundations/grids', loadComponent: () => import('./pages/grids/grids-page').then((m) => m.GridsPage) },
   {
     path: 'foundations/effects',
     loadComponent: () => import('./pages/effects/effects-page').then((m) => m.EffectsPage),

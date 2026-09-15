@@ -2,9 +2,11 @@
 
 `Table` es una tabla de datos con orden y estado de carga. `TableTree` agrega
 jerarquía: filas que se expanden para mostrar hijos, con carga perezosa.
+`ColumnManager` administra el orden y la visibilidad de las columnas desde un
+panel compacto; no sustituye un selector de valores.
 
-- **Import:** `import { Table, TableTree } from 'comsatel-ds';`
-- **Selectores:** `<cs-table>`, `<cs-table-tree>`
+- **Import:** `import { ColumnManager, Table, TableTree } from 'comsatel-ds';`
+- **Selectores:** `<cs-table>`, `<cs-table-tree>`, `<cs-column-manager>`
 - **Clases raíz emitidas:** `.cs-table`, `.cs-table-tree`
 
 ```html
@@ -39,6 +41,23 @@ jerarquía: filas que se expanden para mostrar hijos, con carga perezosa.
 
 Una celda es texto plano, o un template: `{ template: TemplateRef, context? }` para
 meter un `Badge`, un `Button` o cualquier componente en la celda.
+
+## Props de `ColumnManager`
+
+<!-- props:start ColumnManager -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/column-manager/column-manager.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+
+| Prop | Type | Default | Description |
+| :-- | :-- | :-- | :-- |
+| `label` | `string` | `'Columnas'` | Etiqueta visible del control. |
+| `aria-label` | `string` | `'Administrar columnas'` | Nombre accesible del panel de administración. |
+| `columns` | `readonly ColumnManagerItem[]` | `[]` | Columnas ordenadas, con `key`, `label` y visibilidad actual. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Tamaño del trigger y de las filas del panel. |
+| `disabled` | `boolean` | `false` | Impide abrir o modificar la configuración. |
+| `minVisible` | `number` | `1` | Mínimo de columnas que deben permanecer visibles. |
+| `visibilityChange` | `EventEmitter<string[]>` | n/a | Emite las keys de las columnas visibles. |
+| `orderChange` | `EventEmitter<string[]>` | n/a | Emite las keys en el nuevo orden de arrastre. |
+<!-- props:end -->
 
 ## Props de `TableTree`
 
@@ -80,6 +99,18 @@ meter un `Badge`, un `Button` o cualquier componente en la celda.
 | Compone | `cs-icon`, `cs-skeleton` |
 <!-- a11y:end -->
 
+<!-- a11y:start ColumnManager -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/column-manager/column-manager.ts: no editar a mano, corre npm run docs:a11y -->
+
+#### Contrato a11y generado desde el código: `cs-column-manager`
+
+| Aspecto | Qué hace el código |
+| :-- | :-- |
+| Elementos nativos | `button` |
+| Atributos ARIA | `aria-hidden="true"`, `aria-label`, `aria-labelledby`, `aria-pressed` |
+| Compone | `cs-icon`, `cs-popover` |
+<!-- a11y:end -->
+
 <!-- a11y:start TableTree -->
 <!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/table-tree/table-tree.ts: no editar a mano, corre npm run docs:a11y -->
 
@@ -104,3 +135,6 @@ meter un `Badge`, un `Button` o cualquier componente en la celda.
   tiene". Para mostrar el chevron antes de cargar, usa `hasChildren: true`.
 - Las celdas de template reciben su `context`: no captures variables del componente
   padre asumiendo que están disponibles dentro del template.
+- `ColumnManager` recibe el estado de las columnas y emite el orden o las keys
+  visibles; la tabla consumidora aplica ambos cambios. El ojo aparece solo en cada
+  fila, donde mostrar u ocultar es una acción concreta.

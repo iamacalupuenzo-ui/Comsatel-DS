@@ -60,6 +60,7 @@ export * from './lib/menu/menu-types';
 export * from './lib/menu/menu';
 export * from './lib/table/table-types';
 export * from './lib/table/table';
+export * from './lib/column-manager/column-manager';
 export * from './lib/table-tree/table-tree-types';
 export * from './lib/table-tree/table-tree';
 export * from './lib/motion/motion';

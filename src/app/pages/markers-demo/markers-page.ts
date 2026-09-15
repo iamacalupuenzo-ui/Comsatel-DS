@@ -56,22 +56,22 @@ export class MarkersPage {
   );
 
   protected readonly pgCode = computed(() => {
-    const typeProp = this.pgVehicleType() !== 'car' ? `\n  vehicleType: '${this.pgVehicleType()}',` : '';
-    const alarmProp = this.pgAlarm() ? `\n  hasAlarm: true,` : '';
-    const selectedProp = this.pgSelected() ? `\n  selected: true,` : '';
+    const typeProp = this.pgVehicleType() !== 'car' ? `\npill.vehicleType = '${this.pgVehicleType()}';` : '';
+    const alarmProp = this.pgAlarm() ? `\npill.alarm = true;` : '';
+    const selectedProp = this.pgSelected() ? `\npill.selected = true;` : '';
     const stateComment = this.pgVisualState() !== 'default' ? ` // estado visual: ${this.pgVisualState()} (CSS :${this.pgVisualState()}, no una prop)` : '';
     return (
-      `// Patrón de integración Leaflet; no es una exportación de comsatel-ds.\n` +
-      `L.marker(position, {\n` +
-      `  icon: L.divIcon({\n` +
-      `    className: 'cs-map-marker',\n` +
-      `    html: renderVehicleMarker({\n` +
-      `      status: '${this.pgStatus()}',\n` +
-      `      name: 'V-204',\n` +
-      `      plate: 'ABC-204',${typeProp}${alarmProp}${selectedProp}\n` +
-      `    }),\n` +
-      `  }),\n` +
-      `});${stateComment}`
+      `// Patrón de integración MapLibre GL; no es una exportación de comsatel-ds\n` +
+      `// (ver /map/theme, live-map-preview.ts, para el caso real completo).\n` +
+      `const ref = createComponent(VehiclePill, { environmentInjector });\n` +
+      `const pill = ref.instance;\n` +
+      `pill.status = '${this.pgStatus()}';\n` +
+      `pill.label = 'V-204';\n` +
+      `pill.plate = 'ABC-204';${typeProp}${alarmProp}${selectedProp}\n` +
+      `ref.changeDetectorRef.detectChanges();${stateComment}\n\n` +
+      `new Marker({ element: ref.location.nativeElement, anchor: 'bottom' })\n` +
+      `  .setLngLat(position)\n` +
+      `  .addTo(map);`
     );
   });
 }

@@ -53,10 +53,17 @@
   color: var(--color-text-brand-default);
 }
 
+.row-card__actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding-inline: var(--layout-padding-lg);
+  border-left: var(--layout-border-thin) solid var(--color-border-divider);
+}
+
 .row-card__replay {
-  margin-left: auto;
-  font-size: var(--font-size-label-micro);
-  line-height: var(--font-line-height-label-micro);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
   font-weight: var(--font-weight-accent);
   padding: var(--layout-padding-2xs) var(--layout-padding-md);
   border-radius: var(--radius-full);

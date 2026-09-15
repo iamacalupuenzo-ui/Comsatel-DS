@@ -1,0 +1,123 @@
+<div class="page">
+  <p class="eyebrow">Tokens / Uso en código</p>
+  <h1 class="title">Uso en código</h1>
+  <p class="description">
+    Cómo se consume un token dentro de <code class="inline-code">comsatel-ds</code> y de cualquier
+    proyecto que la importe. Dos mecanismos: la variable CSS directa, para casi todo, y el helper
+    de tipografía, para texto.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="css">Color, espaciado, radio, sombra, motion</h2>
+    <p class="section__intro">
+      Se escribe <code class="inline-code">var(--token)</code> directo en cualquier propiedad CSS —
+      no hace falta importar nada.
+    </p>
+    <div class="static-block">
+      <div class="static-block__preview">
+        <div class="preview-chip">Ejemplo</div>
+      </div>
+      <app-code-block
+        code=".cs-example {
+  padding: var(--layout-padding-lg);
+  border-radius: var(--radius-md);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
+  background-color: var(--elevation-surface-default);
+  box-shadow: var(--shadow-sm);
+  color: var(--color-text-base-default);
+}"
+      ></app-code-block>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="typography">Tipografía</h2>
+    <p class="section__intro">
+      <strong>No se escribe <code class="inline-code">font-size</code> a mano.</strong> El helper
+      <code class="inline-code">textStyle()</code> resuelve familia, tamaño, interlineado, peso y
+      tracking juntos, a partir de un nombre de estilo semántico
+      (<code class="inline-code">StyleName</code>, ej. <code class="inline-code">'label/small'</code>).
+    </p>
+    <app-code-block
+      code="import { textStyle } from 'comsatel-ds';
+
+get style() {
+  return textStyle('label/small', 'accent');
+}"
+    ></app-code-block>
+    <p class="section__intro">
+      Cuando el estilo depende del tamaño de un componente (<code class="inline-code">sm</code>/<code class="inline-code">md</code>/<code class="inline-code">lg</code>), se pasa por
+      <code class="inline-code">componentTypography</code> en vez de escribir el nombre del estilo
+      suelto — así la decisión de qué tamaño de texto usa cada tamaño de componente queda en un solo
+      lugar. Ejemplo real de <code class="inline-code">cs-badge</code>:
+    </p>
+    <app-code-block
+      code="import { componentTypography, textStyle } from 'comsatel-ds';
+
+get style(): Record&lt;string, string&gt; {
+  return {
+    ...textStyle(componentTypography.badge[this.size], 'accent'),
+    borderRadius: 'var(--radius-full)',
+  };
+}"
+    ></app-code-block>
+    <p class="footnote">
+      La plantilla aplica el resultado con <code class="inline-code">[ngStyle]="style"</code> — el
+      objeto que devuelve <code class="inline-code">textStyle()</code> ya son propiedades CSS
+      camelCase listas para eso.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="zindex">z-index</h2>
+    <p class="section__intro">
+      Nunca un número suelto. La escala es jerárquica a propósito: escribir
+      <code class="inline-code">z-index: 999</code> rompe el orden acordado del sistema con el
+      próximo componente que sí use el token correcto.
+    </p>
+    <div class="table">
+      <div class="table__head"><span>Token</span><span>Valor</span></div>
+      <div class="table__row"><code class="table__name">--elevation-z-index-dropdown</code><code class="table__default">100</code></div>
+      <div class="table__row"><code class="table__name">--elevation-z-index-sticky</code><code class="table__default">200</code></div>
+      <div class="table__row"><code class="table__name">--elevation-z-index-modal</code><code class="table__default">300</code></div>
+      <div class="table__row"><code class="table__name">--elevation-z-index-overlay</code><code class="table__default">400</code></div>
+      <div class="table__row"><code class="table__name">--elevation-z-index-toast</code><code class="table__default">500</code></div>
+      <div class="table__row"><code class="table__name">--elevation-z-index-tooltip</code><code class="table__default">600</code></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="verify">Cómo se verifica</h2>
+    <p class="section__intro">
+      Este proyecto tiene un gate automático — no depende de que quien revisa se acuerde de mirarlo
+      a mano.
+    </p>
+    <app-code-block code="npm run check:docs"></app-code-block>
+    <p class="footnote">
+      Corre <code class="inline-code">check:guidelines</code>, <code class="inline-code">check:props</code>,
+      <code class="inline-code">check:a11y</code> y <code class="inline-code">check:examples</code> —
+      este último valida cada bloque de código de las guías contra la API real de la librería, así
+      que un ejemplo con una prop que no existe falla el build antes de llegar a producción.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon name="check" [size]="13" aria-hidden="true" class="guide-card__header-icon" /><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Usa el token semántico, incluso cuando el valor primitivo parece más directo.</p>
+          <code class="guide-card__code">color: var(--color-text-base-boldest);</code>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon name="x" [size]="13" aria-hidden="true" class="guide-card__header-icon" /><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No escribas el hex ni un primitivo directo: pierde el theming automático y se desincroniza el día que el token cambie.</p>
+          <code class="guide-card__code">color: #101828;</code>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

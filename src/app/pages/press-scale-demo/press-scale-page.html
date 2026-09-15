@@ -33,7 +33,7 @@
     <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
     <div class="guide-grid">
       <div class="guide-card guide-card--do">
-        <div class="guide-card__header"><cs-icon name="check" [size]="13" aria-hidden="true" /><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__header"><cs-icon name="check" [size]="13" aria-hidden="true" class="guide-card__header-icon" /><span class="guide-card__header-label">Recomendado</span></div>
         <div class="guide-card__body">
           <p class="guide-card__text">Aplícala a un control existente cuando el feedback de presión complemente una acción ya clara.</p>
           <cs-button size="xs" csPressScale (click)="guideCount.set(guideCount() + 1)">Guardar</cs-button>
@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="guide-card guide-card--dont">
-        <div class="guide-card__header"><cs-icon name="x" [size]="13" aria-hidden="true" /><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__header"><cs-icon name="x" [size]="13" aria-hidden="true" class="guide-card__header-icon" /><span class="guide-card__header-label">Evita</span></div>
         <div class="guide-card__body">
           <p class="guide-card__text">No la uses para convertir un contenedor visual en interactivo. La directiva no aporta semántica, teclado ni nombre accesible.</p>
           <code class="guide-card__code">&lt;div csPressScale&gt;Resumen&lt;/div&gt;</code>

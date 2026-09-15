@@ -1,0 +1,95 @@
+<div class="page">
+  <p class="eyebrow">Color / Temas</p>
+  <h1 class="title">Temas</h1>
+  <p class="description">
+    Dos temas: <strong>Light</strong> y <strong>Dark</strong>. No hay un tercer tema "Glass" —
+    se evaluó y se descartó explícitamente: no encaja con el sistema de diseño de Comsatel.
+    Cualquier mención a Glass en documentación de referencia (React, notas antiguas) está
+    desactualizada.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="how">Cómo se activa</h2>
+    <p class="section__intro">
+      Cada familia de color tiene dos definiciones en <code class="inline-code">tokens.css</code>,
+      una por selector de atributo, con el MISMO nombre de token en ambas:
+    </p>
+    <app-code-block
+      code="[data-theme=&quot;light&quot;] {
+  --color-background-base: #ffffff;
+  --color-text-base-boldest: #101828;
+  /* … */
+}
+
+[data-theme=&quot;dark&quot;] {
+  --color-background-base: #0c0e16;
+  --color-text-base-boldest: #f9fafb;
+  /* … */
+}"
+    ></app-code-block>
+    <p class="section__intro">
+      Un consumidor activa un tema poniendo el atributo en cualquier ancestro — típicamente
+      <code class="inline-code">&lt;html&gt;</code> o <code class="inline-code">&lt;body&gt;</code> —
+      y todo lo que esté adentro resuelve sus tokens contra ese tema, sin que el componente sepa en
+      cuál está.
+    </p>
+    <app-code-block [code]="usageCode"></app-code-block>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="scope">Qué NO resuelve el sistema todavía</h2>
+    <cs-banner variant="neutral" [icon]="true">
+      Este sitio no tiene un selector de tema global para toda la app — cada página de componente
+      trae su propio Canvas con el toggle Light/Dark, para poder comparar ambos lado a lado sin
+      salir de la documentación. Persistir la preferencia del usuario en la app real (localStorage,
+      <code class="inline-code">prefers-color-scheme</code>) es responsabilidad de quien consume la
+      librería, igual que ya lo es <code class="inline-code">SidenavState</code> para el estado del
+      menú lateral.
+    </cs-banner>
+    <p class="section__intro">Ejemplo real, el propio Canvas que usa cada página de componente de este sitio:</p>
+    <app-code-block [code]="demoShellCode"></app-code-block>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="comparison">Comparación</h2>
+    <p class="section__intro">
+      El nombre del token no cambia entre temas — solo el valor al que resuelve. Una muestra de la
+      escala base:
+    </p>
+    <div class="theme-table">
+      <div class="theme-table__head">
+        <span>Token</span>
+        <span>Light</span>
+        <span>Dark</span>
+        <span>Uso</span>
+      </div>
+      @for (s of swatches; track s.token) {
+        <div class="theme-table__row">
+          <code class="theme-table__token">{{ s.token }}</code>
+          <div class="theme-table__swatch">
+            <span class="theme-table__dot" [style.background-color]="s.light"></span>
+            <code>{{ s.light }}</code>
+          </div>
+          <div class="theme-table__swatch theme-table__swatch--dark">
+            <span class="theme-table__dot" [style.background-color]="s.dark"></span>
+            <code>{{ s.dark }}</code>
+          </div>
+          <span class="theme-table__usage">{{ s.usage }}</span>
+        </div>
+      }
+    </div>
+    <p class="footnote">
+      Catálogo completo con los dos valores resueltos: <a class="inline-link" routerLink="/foundations/tokens">todos los tokens</a>.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Regla</span></div>
+      <div class="table__row"><strong>Contraste por tema</strong><span>Cada par texto/fondo se verifica en LOS DOS temas por separado — un color que pasa en light puede fallar en dark, porque el fondo base es el opuesto.</span></div>
+      <div class="table__row"><strong>No basta con verse bien</strong><span>La luminosidad percibida (o el "L%" de HSL) no es un proxy confiable del contraste WCAG real — hay que calcular la luminancia relativa real antes de dar un color por bueno en un tema nuevo.</span></div>
+      <div class="table__row"><strong>Preferencia del sistema</strong><span>Si la app consumidora respeta <code class="inline-code">prefers-color-scheme</code>, la primera carga debería coincidir con la preferencia del sistema operativo, no forzar siempre light.</span></div>
+    </div>
+  </section>
+</div>

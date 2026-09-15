@@ -1,0 +1,134 @@
+<div class="page">
+  <p class="eyebrow">Tokens / Tokens explicados</p>
+  <h1 class="title">Tokens explicados</h1>
+  <p class="description">
+    Un token es un valor de diseño con nombre: en vez de escribir <code class="inline-code">#1b4079</code>
+    o <code class="inline-code">16px</code> en un componente, se escribe
+    <code class="inline-code">var(--color-background-brand-default)</code> o
+    <code class="inline-code">var(--layout-padding-lg)</code>. El nombre describe el ROL del valor, no el
+    valor en sí — eso es lo que permite que todo el sistema cambie de tema o de escala sin tocar
+    componentes.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="layers">Las tres capas</h2>
+    <p class="section__intro">
+      Ningún token vive solo: cada uno resuelve a otro, hasta llegar a un valor primitivo. Tres
+      capas, siempre en el mismo orden.
+    </p>
+    <div class="layer-chain">
+      <div class="layer-card">
+        <p class="layer-card__tag">1. Primitivo</p>
+        <code class="layer-card__token">--font-primitive-size-micro</code>
+        <p class="layer-card__value">0.6875rem (11px)</p>
+        <p class="layer-card__desc">La materia prima: un valor puro, sin significado de uso. Nunca se
+        consume directo desde un componente.</p>
+      </div>
+      <div class="layer-arrow" aria-hidden="true">→</div>
+      <div class="layer-card">
+        <p class="layer-card__tag">2. Semántico</p>
+        <code class="layer-card__token">--font-size-label-small</code>
+        <p class="layer-card__value">= primitivo anterior</p>
+        <p class="layer-card__desc">Le da un ROL al primitivo: "este tamaño es para una etiqueta chica de
+        UI". Esta es la capa que un componente puede usar.</p>
+      </div>
+      <div class="layer-arrow" aria-hidden="true">→</div>
+      <div class="layer-card">
+        <p class="layer-card__tag">3. Componente</p>
+        <code class="layer-card__token">componentTypography.badge.sm</code>
+        <p class="layer-card__value">→ 'label/small'</p>
+        <p class="layer-card__desc">Ata el token semántico a un componente y tamaño específicos, para que
+        no se repita la decisión en cada lugar que dibuja un Badge chico.</p>
+      </div>
+    </div>
+    <p class="footnote">
+      La misma cadena aplica a color, espaciado, radio, sombra y motion — solo cambia el nombre de
+      la familia. Ver <code class="inline-code">--layout-padding-2xs</code> …
+      <code class="inline-code">--layout-padding-6xl</code> como ejemplo de escala semántica de
+      espaciado, o <code class="inline-code">--color-text-base-boldest</code> como ejemplo de color.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="naming">Cómo se nombran</h2>
+    <p class="section__intro">
+      El nombre sigue el patrón <code class="inline-code">--categoría-rol-variante</code>. Leer el
+      nombre alcanza para saber qué es, sin abrir <code class="inline-code">tokens.css</code>.
+    </p>
+    <div class="table">
+      <div class="table__head"><span>Token</span><span>Cómo se lee</span></div>
+      <div class="table__row">
+        <code class="table__name">--color-text-base-subtle</code>
+        <span class="table__desc">Color → de texto → rol "base" (neutro, no marca/peligro/éxito) → variante "subtle" (menos énfasis que "default").</span>
+      </div>
+      <div class="table__row">
+        <code class="table__name">--color-background-brand-default-hover</code>
+        <span class="table__desc">Color → de fondo → rol "brand" → variante "default" → estado "hover".</span>
+      </div>
+      <div class="table__row">
+        <code class="table__name">--layout-padding-lg</code>
+        <span class="table__desc">Escala de layout → padding interno → paso "lg" de la escala.</span>
+      </div>
+      <div class="table__row">
+        <code class="table__name">--elevation-z-index-modal</code>
+        <span class="table__desc">Elevación → capa z-index → para qué se usa ("modal").</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="theming">Cómo funciona el tema</h2>
+    <p class="section__intro">
+      El modo oscuro no es una versión distinta de los componentes: es el MISMO token semántico
+      resuelto a otro valor. <code class="inline-code">tokens.css</code> define cada familia dos
+      veces — una en <code class="inline-code">:root</code>, otra dentro de
+      <code class="inline-code">[data-theme="dark"]</code> — con el mismo nombre en ambas.
+    </p>
+    <app-code-block
+      code="/* :root (light) */
+--color-text-base-boldest: #101828;
+
+/* [data-theme=&quot;dark&quot;] */
+--color-text-base-boldest: #f2f4f7;"
+    ></app-code-block>
+    <p class="footnote">
+      Por eso un componente que usa <code class="inline-code">var(--color-text-base-boldest)</code>
+      nunca necesita saber en qué tema está — el navegador resuelve el valor correcto solo. Usar el
+      color crudo en vez del token es lo que rompe el modo oscuro.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="gaps">Cuando un valor no tiene token</h2>
+    <p class="section__intro">
+      No todo valor visual coincide con un paso de la escala — y eso está bien, siempre que quede
+      explícito.
+    </p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Situación</span><span>Qué hacer</span></div>
+      <div class="table__row">
+        <strong>El valor coincide exacto con un token</strong>
+        <span>Se ata al token, siempre. Un número suelto que por casualidad coincide con
+        <code class="inline-code">--layout-border-thick</code> (2px) es un hallazgo de auditoría, no una
+        excepción válida.</span>
+      </div>
+      <div class="table__row">
+        <strong>El valor no coincide con ningún paso de la escala</strong>
+        <span>Se deja explícito con un comentario que explica por qué (ej. un diámetro de punto de
+        6px, o un borde de 1.5px que a 2px se vería demasiado grueso) — nunca se redondea al token
+        más cercano cambiando el tamaño visual sin que quede documentado.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Tokens y accesibilidad</h2>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Regla</span></div>
+      <div class="table__row"><strong>Foco visible</strong><span>El anillo de foco usa <code class="inline-code">--color-border-focused</code> en toda la librería. Nunca se quita el <code class="inline-code">outline</code> de un control ni se reemplaza por un color crudo.</span></div>
+      <div class="table__row"><strong>Contraste</strong><span>Todo par de texto y fondo cumple 4.5:1 como mínimo, y 3:1 para bordes y controles no textuales — verificado con la fórmula de luminancia relativa de WCAG, no a ojo ni comparando luminosidad HSL.</span></div>
+      <div class="table__row"><strong>El color nunca es la única señal</strong><span>Un estado de peligro o de éxito lleva texto o ícono además del token de color.</span></div>
+      <div class="table__row"><strong>Movimiento reducido</strong><span>Cualquier animación por token de motion (GSAP o CSS) respeta <code class="inline-code">prefers-reduced-motion</code>.</span></div>
+    </div>
+  </section>
+</div>

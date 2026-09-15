@@ -1,0 +1,20 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+cs-banner {
+  display: block;
+  margin-bottom: var(--layout-padding-lg);
+}
+
+.inline-link {
+  color: var(--color-text-link-default);
+  text-decoration: underline;
+}
+
+.footnote {
+  margin: var(--layout-padding-lg) 0 0;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtle);
+}

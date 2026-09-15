@@ -72,4 +72,8 @@ export class TableTree implements OnChanges {
   protected isTemplateCell(cell: TableCellValue): cell is TableTemplateCell {
     return typeof cell === 'object' && cell !== null && 'template' in cell;
   }
+
+  protected skeletonRowsFor(item: TableTreeItem): number[] {
+    return Array.from({ length: item.skeletonRowCount ?? 1 }, (_, i) => i);
+  }
 }

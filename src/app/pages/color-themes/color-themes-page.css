@@ -1,0 +1,89 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+cs-banner {
+  display: block;
+  margin-bottom: var(--layout-padding-lg);
+}
+
+.inline-link {
+  color: var(--color-text-link-default);
+  text-decoration: underline;
+}
+
+.theme-table {
+  border-radius: var(--radius-lg);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
+  overflow: hidden;
+}
+.theme-table__head,
+.theme-table__row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap: var(--layout-gap-md);
+  align-items: center;
+  padding: var(--layout-padding-md) var(--layout-padding-lg);
+}
+.theme-table__head {
+  background-color: var(--color-background-neutral-subtlest);
+  font-size: var(--font-size-label-small);
+  line-height: var(--font-line-height-label-small);
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-base-subtle);
+}
+.theme-table__row {
+  border-top: var(--layout-border-thin) solid var(--color-border-divider);
+}
+.theme-table__token {
+  font-family: monospace;
+  font-size: var(--font-size-label-small);
+  line-height: var(--font-line-height-label-small);
+  color: var(--color-text-brand-default);
+  overflow-wrap: anywhere;
+}
+.theme-table__swatch {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-xs);
+  font-family: monospace;
+  font-size: var(--font-size-label-small);
+  line-height: var(--font-line-height-label-small);
+  color: var(--color-text-base-subtle);
+}
+.theme-table__dot {
+  width: var(--layout-size-2xs);
+  height: var(--layout-size-2xs);
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
+}
+.theme-table__swatch--dark {
+  padding: var(--layout-padding-2xs) var(--layout-padding-sm);
+  border-radius: var(--radius-sm);
+  /* Valor crudo a propósito, no var(--color-background-base): esta columna
+     debe mostrarse siempre oscura para dar contexto de contraste, sin
+     importar en qué tema esté la página misma — no puede depender de
+     [data-theme] heredado. */
+  background-color: #0c0e16;
+}
+.theme-table__usage {
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtle);
+}
+
+@media (max-width: 767px) {
+  .theme-table__head { display: none; }
+  .theme-table__row {
+    grid-template-columns: 1fr;
+    gap: var(--layout-gap-2xs);
+  }
+}
+
+.footnote {
+  margin: var(--layout-padding-lg) 0 0;
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+  color: var(--color-text-base-subtle);
+}

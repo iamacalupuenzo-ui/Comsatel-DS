@@ -4,7 +4,7 @@
     <span class="unit-cell__text"><strong>{{ unit.name }}</strong><span>{{ unit.plate }}</span></span>
   </button>
 </ng-template>
-<ng-template #statusCell let-status><cs-badge [variant]="statusBadge(status)" size="sm">{{ statusText(status) }}</cs-badge></ng-template>
+<ng-template #statusCell let-status><cs-tag [severity]="statusSeverity(status)" [icon]="statusIcon(status)" [value]="statusText(status)" [rounded]="true" size="sm" /></ng-template>
 
 <div class="page">
   <p class="eyebrow">Componentes / Table</p>
@@ -26,13 +26,32 @@
           </div>
           <cs-input-dropdown label="Estado" size="sm" [options]="statusOptions" [value]="statusFilter()" (valueChange)="setStatusFilter($event)"></cs-input-dropdown>
           @if (paginate()) { <cs-input-dropdown label="Filas" size="sm" [options]="pageSizeOptions" [value]="rowsPerPageValue()" (valueChange)="setRowsPerPage($event)"></cs-input-dropdown> }
+          <cs-column-manager
+            label="Columnas"
+            size="sm"
+            [columns]="columnManagerItems()"
+            (visibilityChange)="onColumnVisibilityChange($event)"
+            (orderChange)="onColumnOrderChange($event)"
+          />
         </div>
-        <div class="table-demo__meta">
-          <p class="table-demo__summary" role="status" aria-live="polite">{{ tableSummary() }}</p>
-          @if (hasActiveFilters()) { <cs-button variant="tertiary" size="xs" (click)="clearFilters()">Limpiar filtros</cs-button> }
-        </div>
+        @if (hasActiveFilters()) {
+          <div class="table-demo__clear">
+            <cs-button variant="tertiary" size="xs" (click)="clearFilters()">Limpiar filtros</cs-button>
+          </div>
+        }
         <div class="table-frame">
-          <cs-table caption="Unidades de flota" [columns]="columns" [rows]="rows()" [sortKey]="sortKey()" [sortOrder]="sortOrder()" [isLoading]="isLoading()" [highlightedRowKey]="selectedId()" [skeletonRowCount]="5" minWidth="40rem" (sort)="onSort($event)">
+          <cs-table
+            caption="Unidades de flota"
+            [columns]="visibleColumns()"
+            [rows]="rows()"
+            [sortKey]="sortKey()"
+            [sortOrder]="sortOrder()"
+            [isLoading]="isLoading()"
+            [highlightedRowKey]="selectedId()"
+            [skeletonRowCount]="5"
+            minWidth="40rem"
+            (sort)="onSort($event)"
+          >
             <div emptyState class="empty-state">
               <cs-icon name="search" [size]="20" aria-hidden="true"></cs-icon>
               <p class="empty-state__title">{{ hasActiveFilters() ? 'No hay coincidencias' : 'No hay unidades disponibles' }}</p>
@@ -41,7 +60,12 @@
             </div>
           </cs-table>
         </div>
-        @if (paginate() && sortedUnits().length > rowsPerPage()) { <div class="table-pager"><cs-pagination [totalPages]="totalPages()" [page]="page()" (pageChange)="setPage($event)"></cs-pagination></div> }
+        <div class="table-demo__footer">
+          <p class="table-demo__summary" role="status" aria-live="polite">{{ tableSummary() }}</p>
+          @if (paginate() && sortedUnits().length > rowsPerPage()) {
+            <cs-pagination [totalPages]="totalPages()" [page]="page()" (pageChange)="setPage($event)"></cs-pagination>
+          }
+        </div>
       </div>
     </app-demo-shell>
   </section>
@@ -65,9 +89,10 @@
       <div class="table__row"><strong>Semántica</strong><span>Usa elementos nativos table, caption, thead, th con scope y td. caption nombra la tabla para lectores de pantalla sin duplicar el título visual.</span></div>
       <div class="table__row"><strong>Ordenamiento</strong><span>Las columnas ordenables son botones alcanzables con Tab; Enter y Espacio funcionan de forma nativa. aria-sort anuncia el orden aplicado y el botón explica el siguiente orden.</span></div>
       <div class="table__row"><strong>Carga</strong><span>El contenedor marca aria-busy mientras carga. Skeleton es decorativo (aria-hidden) y un estado vivo anuncia que las filas se están actualizando.</span></div>
-      <div class="table__row"><strong>Controles externos</strong><span>La búsqueda tiene label asociado; filtros y filas por página usan combobox con label. Pagination expone navegación, página actual y botones con nombre accesible.</span></div>
+      <div class="table__row"><strong>Controles externos</strong><span>La búsqueda tiene label asociado; filtros y filas por página usan combobox con label. Columnas abre un panel de administración con nombre accesible. Pagination expone navegación, página actual y botones con nombre accesible.</span></div>
       <div class="table__row"><strong>Selección y acciones</strong><span>Una fila visualmente seleccionable contiene un botón con un nombre específico; no depende de un clic silencioso sobre tr.</span></div>
       <div class="table__row"><strong>Responsividad</strong><span>El scroll horizontal conserva el orden de lectura y evita ocultar columnas sin una alternativa equivalente.</span></div>
+      <div class="table__row"><strong>Administrar columnas</strong><span>Column Manager se abre fuera de los headers y reúne las dos tareas relacionadas: arrastrar para reordenar y usar el ojo para mostrar u ocultar. Comparte el tamaño, fondo, borde y foco del estándar de select, sin fingir una selección de valor. No permite dejar la tabla sin columnas visibles.</span></div>
     </div>
   </section>
 

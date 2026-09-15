@@ -31,12 +31,15 @@ const GPS_STATUS_TOKENS: ColorSwatchEntry[] = [
 
 const USAGE_CODE = `mapDark = signal(false);
 
-<img
-  [src]="mapDark()
-    ? 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
-    : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'"
-/>
-<!-- en la práctica: L.tileLayer(url, { attribution }).addTo(map) -->`;
+const STYLE_URL = {
+  light: 'https://tiles.openfreemap.org/styles/positron',
+  dark: 'https://tiles.openfreemap.org/styles/dark',
+};
+
+new Map({
+  container: mapEl,
+  style: mapDark() ? STYLE_URL.dark : STYLE_URL.light,
+});`;
 
 @Component({
   selector: 'app-map-theme-page',

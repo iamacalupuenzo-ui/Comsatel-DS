@@ -36,15 +36,16 @@ export const NAVIGATION: NavSection[] = [
   {
     title: 'Fundamentos',
     items: [
+      { title: 'Guía de instalación', href: '/foundations/installation', icon: 'download' },
       {
         title: 'Tokens',
         href: '/foundations/tokens',
         icon: 'layers',
         children: [
           { title: 'All design tokens', href: '/foundations/tokens' },
-          { title: 'Tokens explained', href: '/foundations/tokens/explained', pending: true },
-          { title: 'Use in code', href: '/foundations/tokens/code', pending: true },
-          { title: 'Use in design', href: '/foundations/tokens/design', pending: true },
+          { title: 'Tokens explicados', href: '/foundations/tokens/explained' },
+          { title: 'Uso en código', href: '/foundations/tokens/code' },
+          { title: 'Uso en diseño', href: '/foundations/tokens/design' },
         ],
       },
       {
@@ -55,7 +56,7 @@ export const NAVIGATION: NavSection[] = [
           { title: 'Overview', href: '/foundations/color' },
           { title: 'Color palette', href: '/foundations/color/palette' },
           { title: 'Semantic tokens', href: '/foundations/color/semantic' },
-          { title: 'Themes', href: '/foundations/color/themes', pending: true },
+          { title: 'Temas', href: '/foundations/color/themes' },
         ],
       },
       {
@@ -78,8 +79,8 @@ export const NAVIGATION: NavSection[] = [
       },
       { title: 'Radios', href: '/foundations/radius', icon: 'square' },
       { title: 'Íconos', href: '/foundations/icons', icon: 'shapes' },
-      { title: 'Logos', href: '/foundations/logos', pending: true, icon: 'image' },
-      { title: 'Grids', href: '/foundations/grids', pending: true, icon: 'layout-grid' },
+      { title: 'Logos', href: '/foundations/logos', icon: 'image' },
+      { title: 'Grids', href: '/foundations/grids', icon: 'layout-grid' },
       { title: 'Layout', href: '/foundations/layout', icon: 'panels-top-left' },
       { title: 'Efectos', href: '/foundations/effects', icon: 'sparkles' },
     ],

@@ -23,9 +23,17 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "maplibre-gl-worker.mjs",
+                "input": "node_modules/maplibre-gl/dist"
+              },
+              {
+                "glob": "maplibre-gl-shared.mjs",
+                "input": "node_modules/maplibre-gl/dist"
               }
             ],
-            "styles": ["projects/comsatel-ds/src/styles/index.css", "node_modules/leaflet/dist/leaflet.css", "src/styles.css"]
+            "styles": ["projects/comsatel-ds/src/styles/index.css", "node_modules/maplibre-gl/dist/maplibre-gl.css", "src/styles.css"]
           },
           "configurations": {
             "production": {
@@ -53,6 +61,11 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "prebundle": {
+              "exclude": ["maplibre-gl"]
+            }
+          },
           "configurations": {
             "production": {
               "buildTarget": "comsatel-ds-angular:build:production"
@@ -79,7 +92,7 @@
                 "input": "public"
               }
             ],
-            "styles": ["projects/comsatel-ds/src/styles/index.css", "node_modules/leaflet/dist/leaflet.css", "src/styles.css"]
+            "styles": ["projects/comsatel-ds/src/styles/index.css", "node_modules/maplibre-gl/dist/maplibre-gl.css", "src/styles.css"]
           },
           "configurations": {
             "production": {

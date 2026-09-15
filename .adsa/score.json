@@ -1,7 +1,7 @@
 {
   "tool": "adsa",
   "rubric": "1.0",
-  "generatedAt": "2026-09-11T21:13:02.623Z",
+  "generatedAt": "2026-09-15T02:12:57.909Z",
   "target": {
     "name": "comsatel-ds-angular",
     "version": "0.0.0"
@@ -20,11 +20,11 @@
     "gap-handling": 5
   },
   "summary": {
-    "components": 28,
-    "documented": 28,
-    "guides": 36,
-    "codeBlocks": 42,
+    "components": 29,
+    "documented": 27,
+    "guides": 37,
+    "codeBlocks": 43,
     "unknownImports": 0,
-    "guidesWithA11y": 36
+    "guidesWithA11y": 37
   }
 }

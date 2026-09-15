@@ -5,9 +5,11 @@
   <div class="row-card__body">
     <div class="row-card__head">
       <code class="row-card__token">{{ token }}</code>
-      <button type="button" class="row-card__replay" (click)="replay()" [attr.aria-label]="'Repetir animación de ' + token">Repetir</button>
     </div>
     <code class="row-card__curve">{{ curve }}</code>
     <p class="row-card__desc">{{ description }}</p>
+  </div>
+  <div class="row-card__actions">
+    <button type="button" class="row-card__replay" (click)="replay()" [attr.aria-label]="'Repetir animación de ' + token">Repetir</button>
   </div>
 </div>

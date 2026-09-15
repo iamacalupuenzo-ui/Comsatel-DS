@@ -1,7 +1,7 @@
 import { Component, TemplateRef, ViewChild, computed, signal } from '@angular/core';
 import {
-  Avatar, Badge, Button, Icon, Input, InputDropdown, InputGroup, InputGroupAddon, InputGroupInput, Pagination, Skeleton, Table,
-  type BadgeVariant, type InputDropdownOption, type SortOrder, type TableColumn, type TableRow,
+  Avatar, Button, ColumnManager, Icon, Input, InputDropdown, InputGroup, InputGroupAddon, InputGroupInput, Pagination, Skeleton, Table, Tag,
+  type ColumnManagerItem, type IconName, type InputDropdownOption, type SortOrder, type TableCellValue, type TableColumn, type TableRow, type TagSeverity,
 } from 'comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
@@ -18,8 +18,14 @@ interface FleetUnit {
   updatedMinutes: number;
 }
 
+// Mismo criterio de estado que ya usa FleetUnitList y Table tree
+// (fleet-unit-list.ts / table-tree-page.ts: STATUS_SEVERITY/STATUS_ICON) —
+// un solo lenguaje visual de estado en todo el sistema, no una variante
+// local nueva por página (C8, hallazgo real: esta página seguía en
+// cs-badge sin ícono cuando el resto del sistema ya migró a cs-tag).
 const STATUS_LABEL: Record<UnitStatus, string> = { active: 'Activo', stopped: 'Detenido', offline: 'Sin señal' };
-const STATUS_VARIANT: Record<UnitStatus, BadgeVariant> = { active: 'success', stopped: 'warning', offline: 'neutral' };
+const STATUS_SEVERITY: Record<UnitStatus, TagSeverity> = { active: 'success', stopped: 'warn', offline: 'secondary' };
+const STATUS_ICON: Record<UnitStatus, IconName> = { active: 'activity', stopped: 'circle-pause', offline: 'wifi-off' };
 const STATUS_OPTIONS: InputDropdownOption[] = [
   { value: 'all', label: 'Todos los estados' }, { value: 'active', label: 'Activo' },
   { value: 'stopped', label: 'Detenido' }, { value: 'offline', label: 'Sin señal' },
@@ -48,14 +54,13 @@ const COLUMNS: TableColumn[] = [
 
 @Component({
   selector: 'app-table-page',
-  imports: [Avatar, Badge, Button, DemoShell, Icon, Input, InputDropdown, InputGroup, InputGroupAddon, InputGroupInput, Pagination, Skeleton, Table],
+  imports: [Avatar, Button, ColumnManager, DemoShell, Icon, Input, InputDropdown, InputGroup, InputGroupAddon, InputGroupInput, Pagination, Skeleton, Table, Tag],
   templateUrl: './table-page.html',
   styleUrl: './table-page.css',
 })
 export class TablePage {
   protected readonly columns = COLUMNS;
   protected readonly statusLabel = STATUS_LABEL;
-  protected readonly statusVariant = STATUS_VARIANT;
   protected readonly statusOptions = STATUS_OPTIONS;
   protected readonly pageSizeOptions = PAGE_SIZE_OPTIONS;
   @ViewChild('unitCell', { static: true }) private unitCellRef!: TemplateRef<unknown>;
@@ -79,8 +84,24 @@ export class TablePage {
   protected readonly selectedId = signal<string | undefined>(undefined);
   protected readonly guideQuery = signal('');
 
+  // La administración de columnas conserva sus dos tareas: ordenar y elegir
+  // visibilidad. No es un select de valor, sino un panel de configuración.
+  protected readonly columnOrder = signal<string[]>(COLUMNS.map((column) => column.key));
+  protected readonly hiddenKeys = signal<ReadonlySet<string>>(new Set());
+
   protected readonly isLoading = computed(() => this.loadState() === 'loading-empty' || this.loadState() === 'loading-refetch');
   protected readonly hasActiveFilters = computed(() => this.query().trim().length > 0 || this.statusFilter() !== 'all');
+  protected readonly orderedColumns = computed<TableColumn[]>(() =>
+    this.columnOrder().map((key) => COLUMNS.find((column) => column.key === key)!),
+  );
+  protected readonly visibleColumns = computed<TableColumn[]>(() => {
+    const hidden = this.hiddenKeys();
+    return this.orderedColumns().filter((column) => !hidden.has(column.key));
+  });
+  protected readonly columnManagerItems = computed<ColumnManagerItem[]>(() => {
+    const hidden = this.hiddenKeys();
+    return this.orderedColumns().map((column) => ({ key: column.key, label: column.label, visible: !hidden.has(column.key) }));
+  });
   protected readonly filteredUnits = computed(() => {
     if (this.loadState() === 'empty') return [];
     const query = this.query().trim().toLocaleLowerCase();
@@ -109,10 +130,8 @@ export class TablePage {
   });
   protected readonly rows = computed<TableRow[]>(() => {
     if (this.loadState() === 'loading-empty') return [];
-    return this.visibleUnits().map((unit) => ({ key: unit.id, cells: [
-      { template: this.unitCellRef, context: { $implicit: unit } },
-      { template: this.statusCellRef, context: { $implicit: unit.status } }, unit.driver, unit.updated,
-    ] }));
+    const cols = this.visibleColumns();
+    return this.visibleUnits().map((unit) => ({ key: unit.id, cells: cols.map((col) => this.cellFor(unit, col.key)) }));
   });
   protected readonly tableSummary = computed(() => {
     const total = this.sortedUnits().length;
@@ -122,7 +141,7 @@ export class TablePage {
     const first = (this.page() - 1) * this.rowsPerPage() + 1;
     return `${first}–${Math.min(this.page() * this.rowsPerPage(), total)} de ${total} unidades`;
   });
-  protected readonly usageCode = `<cs-table\n  caption="Unidades de flota"\n  [columns]="columns"\n  [rows]="rows()"\n  [sortKey]="sortKey()"\n  [sortOrder]="sortOrder()"\n  (sort)="onSort($event)"\n  [isLoading]="isLoading()"\n  minWidth="40rem"\n>\n  <div emptyState>Sin resultados</div>\n</cs-table>`;
+  protected readonly usageCode = `<cs-table\n  caption="Unidades de flota"\n  [columns]="visibleColumns()"\n  [rows]="rows()"\n  [sortKey]="sortKey()"\n  [sortOrder]="sortOrder()"\n  (sort)="onSort($event)"\n  [isLoading]="isLoading()"\n  minWidth="40rem"\n>\n  <div emptyState>Sin resultados</div>\n</cs-table>`;
 
   protected onPlaygroundState(state: DemoState): void {
     if (state['loadState']) this.loadState.set(state['loadState'] as LoadState);
@@ -143,8 +162,27 @@ export class TablePage {
   protected setGuideQuery(value: string): void { this.guideQuery.set(value); }
   protected initials(name: string): string { return name.split(' ').map((part) => part[0]).join('').slice(0, 2).toUpperCase(); }
   protected statusText(status: unknown): string { return STATUS_LABEL[status as UnitStatus]; }
-  protected statusBadge(status: unknown): BadgeVariant { return STATUS_VARIANT[status as UnitStatus]; }
+  protected statusSeverity(status: unknown): TagSeverity { return STATUS_SEVERITY[status as UnitStatus]; }
+  protected statusIcon(status: unknown): IconName { return STATUS_ICON[status as UnitStatus]; }
   protected rowsPerPageValue(): string { return String(this.rowsPerPage()); }
+  protected onColumnVisibilityChange(visibleKeys: string[]): void {
+    if (visibleKeys.length === 0) return;
+    this.hiddenKeys.set(new Set(COLUMNS.filter((column) => !visibleKeys.includes(column.key)).map((column) => column.key)));
+  }
+  protected onColumnOrderChange(order: string[]): void {
+    if (order.length !== COLUMNS.length || new Set(order).size !== COLUMNS.length || order.some((key) => !COLUMNS.some((column) => column.key === key))) return;
+    this.columnOrder.set(order);
+  }
+
+  private cellFor(unit: FleetUnit, key: string): TableCellValue {
+    switch (key) {
+      case 'unit': return { template: this.unitCellRef, context: { $implicit: unit } };
+      case 'status': return { template: this.statusCellRef, context: { $implicit: unit.status } };
+      case 'driver': return unit.driver;
+      case 'updated': return unit.updated;
+      default: return '';
+    }
+  }
   private sortValue(unit: FleetUnit, key: string): string | number {
     if (key === 'unit') return unit.name;
     if (key === 'status') return STATUS_LABEL[unit.status];

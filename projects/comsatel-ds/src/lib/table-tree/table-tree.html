@@ -13,9 +13,11 @@
     <tbody [style.opacity]="bodyOpacity">
       @if (showSkeleton) {
         <tr class="cs-table-tree__row">
-          <td [attr.colspan]="columns.length" class="cs-table-tree__td" [style.padding-left.px]="indentFor(0)">
-            <cs-skeleton [width]="160" />
-          </td>
+          @for (col of columns; track col.key; let i = $index) {
+            <td class="cs-table-tree__td" [style.padding-left.px]="i === 0 ? indentFor(0) : null">
+              <cs-skeleton [width]="col.width ? '70%' : undefined" />
+            </td>
+          }
         </tr>
       } @else if (isEmpty) {
         <tr>
@@ -70,11 +72,15 @@
   </tr>
   @if (isExpandable(item) && isExpanded(item.id)) {
     @if (item.children === undefined) {
-      <tr class="cs-table-tree__row">
-        <td [attr.colspan]="columns.length" class="cs-table-tree__td" [style.padding-left.px]="indentFor(depth + 1)">
-          <cs-skeleton [width]="160" />
-        </td>
-      </tr>
+      @for (i of skeletonRowsFor(item); track i) {
+        <tr class="cs-table-tree__row">
+          @for (col of columns; track col.key; let ci = $index) {
+            <td class="cs-table-tree__td" [style.padding-left.px]="ci === 0 ? indentFor(depth + 1) : null">
+              <cs-skeleton [width]="col.width ? '70%' : undefined" />
+            </td>
+          }
+        </tr>
+      }
     } @else {
       @for (child of item.children; track child.id) {
         <ng-container *ngTemplateOutlet="rowTpl; context: { item: child, depth: depth + 1 }"></ng-container>

@@ -2,15 +2,13 @@
 
 :host { display: block; }
 
+/* Sin fondo/min-height/radio propios: el Canvas de DemoShell ya centra y da
+   contexto visual — duplicar eso acá se veía como una caja adentro de otra. */
 .press-scale-stage {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: var(--layout-gap-md);
-  min-height: 160px;
-  border-radius: var(--radius-lg);
-  background-color: var(--color-background-neutral-subtle);
 }
 
 .press-scale-stage__result,

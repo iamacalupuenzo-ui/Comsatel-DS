@@ -17,4 +17,12 @@ export interface TableTreeItem {
    * sea `undefined` (carga perezosa) — sin esto, un nodo sin hijos
    * cargados no mostraría el chevron hasta tenerlos. */
   hasChildren?: boolean;
+  /** Cuántas filas skeleton dibujar mientras `children` es `undefined` —
+   * mismo criterio que `skeletonRowCount` en `Table`. Por defecto 1 si no
+   * se declara: si se sabe de antemano cuántos hijos va a resolver la
+   * carga (ej. el total ya vino en la respuesta paginada del padre), este
+   * valor evita que aparezca una sola fila cuando en realidad van a
+   * aparecer varias — el salto de "1 fila" a "N filas reales" se siente
+   * como un layout shift más grande del necesario. */
+  skeletonRowCount?: number;
 }

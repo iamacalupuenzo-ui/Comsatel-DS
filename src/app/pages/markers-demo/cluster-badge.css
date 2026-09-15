@@ -8,6 +8,9 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-full);
+  /* 3px no coincide con ningún paso de la escala de borde (0/1/2/4px) — a
+     2px el aro blanco se pierde contra el fondo del mapa en insignias
+     pequeñas (2 dígitos); a 4px se come demasiado espacio del conteo. */
   border: 3px solid var(--elevation-surface-default);
   font: inherit;
   box-shadow: var(--shadow-lg);
@@ -20,7 +23,7 @@
 .cluster-badge:active {
   transform: scale(0.95);
 }
-.cluster-badge:focus-visible { outline: 2px solid var(--color-border-focused); outline-offset: 2px; }
+.cluster-badge:focus-visible { outline: var(--layout-border-thick) solid var(--color-border-focused); outline-offset: var(--layout-border-thick); }
 
 /* Pulso continuo mientras alguna unidad del cluster tiene un evento activo
    — decorativo y en bucle, no una transición de entrada/salida: no sale de

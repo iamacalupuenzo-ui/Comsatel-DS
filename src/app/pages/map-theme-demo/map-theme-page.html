@@ -24,33 +24,26 @@
   <section class="section">
     <h2 class="section__title" id="providers">Proveedores de tiles</h2>
     <p class="section__intro">
-      Dos sets de tiles aprobados, uno por modo. Ambos corren sobre datos de OpenStreetMap; solo
-      cambia el render.
+      Dos estilos vectoriales de OpenFreeMap, uno por modo. Ambos corren sobre datos de
+      OpenStreetMap, sin API key ni cuenta: se sirven gratis desde
+      <code>tiles.openfreemap.org</code>, sin el límite de requests que sí tienen CARTO y Stadia
+      Maps en sus planes gratuitos.
     </p>
-    <div class="warning-banner">
-      <p class="warning-banner__text">
-        Ambos proveedores exigen API key del lado del proveedor y C-Locater no tiene ninguna
-        configurada: hoy devuelven un tile de error ("API KEY REQUIRED" / "401 Invalid
-        Authentication") en vez del mapa, probablemente también en producción. La vista previa de
-        abajo usa Esri World Gray Base (gratis, sin key) solo para que se pueda ver un mapa
-        funcionando mientras se resuelve la key real.
-      </p>
-    </div>
-    <div class="preview-grid">
+    <div class="preview-stack">
       <div>
         <app-live-map-preview mode="light" />
         <div class="preview-caption">
           <p class="preview-caption__title">Claro</p>
-          <p class="preview-caption__provider">CartoDB Voyager</p>
-          <p class="preview-caption__attribution">Atribución obligatoria: OpenStreetMap contributors, CartoDB</p>
+          <p class="preview-caption__provider">OpenFreeMap · Positron</p>
+          <p class="preview-caption__attribution">Atribución obligatoria: OpenStreetMap contributors, OpenFreeMap</p>
         </div>
       </div>
       <div>
         <app-live-map-preview mode="dark" />
         <div class="preview-caption">
           <p class="preview-caption__title">Oscuro</p>
-          <p class="preview-caption__provider">Stadia Maps · Alidade Smooth Dark</p>
-          <p class="preview-caption__attribution">Atribución obligatoria: OpenStreetMap contributors, Stadia Maps</p>
+          <p class="preview-caption__provider">OpenFreeMap · Dark</p>
+          <p class="preview-caption__attribution">Atribución obligatoria: OpenStreetMap contributors, OpenFreeMap</p>
         </div>
       </div>
     </div>
@@ -59,8 +52,8 @@
   <section class="section">
     <h2 class="section__title" id="usage">Uso en Angular</h2>
     <p class="section__intro">
-      El estado del tema del mapa vive separado del tema de la app; Leaflet solo necesita la URL
-      correcta al crear el tile layer.
+      El estado del tema del mapa vive separado del tema de la app; MapLibre solo necesita la URL de
+      estilo correcta al crear el mapa.
     </p>
     <app-code-block [code]="usageCode"></app-code-block>
   </section>

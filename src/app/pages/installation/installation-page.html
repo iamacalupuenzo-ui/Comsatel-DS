@@ -1,0 +1,112 @@
+<div class="page">
+  <p class="eyebrow">Fundamentos / Guía de instalación</p>
+  <h1 class="title">Guía de instalación</h1>
+  <p class="description">
+    Cómo se consume <code class="inline-code">comsatel-ds</code> hoy, y cómo un agente de IA
+    (o cualquier herramienta que hable MCP) accede a la librería sin tener que leer el código
+    fuente componente por componente.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="workspace">Dentro de este repositorio</h2>
+    <p class="section__intro">
+      Angular/Router y la librería viven en el mismo workspace (<code class="inline-code">projects/comsatel-ds/</code>).
+      No hace falta <code class="inline-code">npm install</code> nada aparte: el proyecto ya
+      resuelve el import <code class="inline-code">from 'comsatel-ds'</code> contra el build
+      compilado de la librería.
+    </p>
+    <app-code-block
+      code="// tsconfig.json
+&quot;paths&quot;: {
+  &quot;comsatel-ds&quot;: [&quot;./dist/comsatel-ds&quot;]
+}"
+    ></app-code-block>
+    <p class="section__intro">
+      Antes de usar un componente por primera vez (o después de tocar cualquier archivo dentro de
+      <code class="inline-code">projects/comsatel-ds/src/lib/</code>), hay que compilar la librería
+      — <code class="inline-code">ng serve</code> NO la reconstruye solo:
+    </p>
+    <app-code-block code="npm run build:lib"></app-code-block>
+    <p class="section__intro">Y en cualquier componente o página de la app:</p>
+    <app-code-block
+      code="import { Button } from 'comsatel-ds';
+
+@Component({
+  imports: [Button],
+  template: '&lt;cs-button variant=&quot;primary&quot;&gt;Guardar&lt;/cs-button&gt;',
+})"
+    ></app-code-block>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="external">Desde otro proyecto</h2>
+    <cs-banner variant="warning" [icon]="true">
+      <code class="inline-code">comsatel-ds</code> todavía no está publicado en ningún registro
+      (npm, GitHub Packages, un registro privado) — <code class="inline-code">npm install
+      comsatel-ds</code> no funciona hoy fuera de este workspace. Si otro proyecto necesita
+      consumirlo, hace falta agregar un paso de publicación antes; no está armado todavía.
+    </cs-banner>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="agents">Para agentes de IA</h2>
+    <p class="section__intro">
+      Este repositorio expone su superficie a un agente por dos caminos, sin que haga falta
+      instalar nada aparte de lo que ya trae el proyecto.
+    </p>
+
+    <div class="subsection">
+      <h3 class="subsection__title">adsa-cli, vía npx</h3>
+      <p class="section__intro">
+        Búsqueda y documentación de componentes desde la terminal, sin instalación local — así lo
+        instruye <code class="inline-code">AGENTS.md</code> de este repo:
+      </p>
+      <app-code-block
+        code="npx adsa-cli search &quot;necesito una lista de vehículos con estado&quot;
+npx adsa-cli docs Table"
+      ></app-code-block>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title">Servidor MCP</h3>
+      <p class="section__intro">
+        <code class="inline-code">.mcp.json</code>, en la raíz del repo, ya registra un servidor
+        MCP — cualquier cliente compatible (Claude Code incluido) lo detecta solo y expone las
+        guías de <code class="inline-code">guidelines/</code> como herramientas, sin configuración
+        extra de quien lo usa.
+      </p>
+      <app-code-block
+        code="{
+  &quot;mcpServers&quot;: {
+    &quot;adsa&quot;: { &quot;command&quot;: &quot;npx&quot;, &quot;args&quot;: [&quot;--yes&quot;, &quot;adsa-cli@0.1.5&quot;, &quot;mcp&quot;] }
+  }
+}"
+      ></app-code-block>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title">Verificación antes de dar el trabajo por terminado</h3>
+      <p class="section__intro">
+        Gate único que corre en CI y que cualquier agente debería correr antes de cerrar un cambio:
+      </p>
+      <app-code-block code="npm run check:docs"></app-code-block>
+      <p class="footnote">
+        Valida que cada componente exportado tenga guía, que las tablas de props coincidan con el
+        código, que los contratos de accesibilidad reflejen los templates reales, y que cada bloque
+        de código de las guías use la API real de la librería. El puntaje de agent-readiness
+        (<code class="inline-code">npx adsa-cli audit</code>) está gateado aparte en
+        <code class="inline-code">.github/workflows/docs.yml</code>, contra el baseline versionado
+        en <code class="inline-code">.adsa/score.json</code>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="next">Siguiente paso</h2>
+    <p class="section__intro">
+      Con la librería importable, <a class="inline-link" routerLink="/foundations/tokens">los tokens</a>
+      son la base de cualquier componente nuevo — ver también
+      <a class="inline-link" routerLink="/foundations/tokens/code">uso de tokens en código</a>.
+    </p>
+  </section>
+</div>

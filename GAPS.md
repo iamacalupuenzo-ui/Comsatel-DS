@@ -7,15 +7,12 @@ Mantenlo corto y al día. Cada fila es una decisión, no un pendiente del backlo
 
 | Qué falta | Qué usar en su lugar | Por qué o estado |
 | :-- | :-- | :-- |
-| Logos (página de fundamentos) | Nada | Deliberado: es un enlace muerto incluso en el sistema React de referencia. No se construye salvo pedido explícito. |
-| Grids (página de fundamentos) | Nada | Deliberado, igual que Logos. |
-| List item | Las filas de `cs-menu`, o componer con las piezas existentes | Pendiente, sin responsable. La entrada del nav está marcada `pending: true`. |
-| Temas de color (`/foundations/color/themes`) | Los tokens light y dark, que ya funcionan. No hay tema "Glass" | Pendiente, sin responsable. La referencia React también tiene menciones desactualizadas a Glass: hace falta una decisión antes de construir. |
-| Tokens explicados, uso en código y uso en diseño (`/foundations/tokens/*`) | `guidelines/design-tokens.md` y `tokens.css` | Pendiente, sin responsable. Son subpáginas de documentación, no funcionalidad faltante. |
 | `cs-stepper` | `cs-progress-indicator` | Obsoleto desde 2026-09-11: tenía la misma API. Sigue exportado solo por compatibilidad y no se usa en código nuevo. |
 | Estado de error por paso en `ProgressIndicator` | Un `cs-banner` sobre el recorrido que explique qué falló | Pendiente, sin responsable. |
 | Navegación por flechas en `cs-menu` | El orden natural de tabulación | Deliberado por ahora: se construye solo si se pide explícitamente. |
 | Cola, posición y temporizador de toasts | Un servicio propio de la aplicación que monte y saque cada `cs-toast` | Deliberado: el componente solo dibuja el mensaje. |
+| Publicar comsatel-ds en un registro | Consumirlo dentro de este workspace via tsconfig paths (./dist/comsatel-ds) | Pendiente, sin responsable. npm install comsatel-ds no funciona hoy fuera de este repo; no hay paso de publicación (npm/GitHub Packages/registro privado) configurado todavia. |
+| Alternativa de teclado para reordenar columnas | Arrastrar la fila con el puntero (mouse/touch) en el panel "Columnas" | Deliberado por ahora: decisión explícita del usuario 2026-09-14. PrimeNG (la referencia funcional) tampoco la tiene, es un gap de accesibilidad conocido en su propio repo. El reordenamiento vive en el panel de columnas de la página de docs de Table, no en cs-table — mouse-only. |
 
 ## Reportar un hueco nuevo
 

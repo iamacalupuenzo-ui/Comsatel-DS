@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Motion, type MotionPreset } from 'comsatel-ds';
+import { Icon, Motion, type MotionPreset } from 'comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 import { PresetCard } from './preset-card';
 
@@ -16,7 +16,7 @@ const PRESET_LABELS: Record<MotionPreset, string> = {
 
 @Component({
   selector: 'app-motion-page',
-  imports: [Motion, DemoShell, PresetCard],
+  imports: [Icon, Motion, DemoShell, PresetCard],
   templateUrl: './motion-page.html',
   styleUrl: './motion-page.css',
 })

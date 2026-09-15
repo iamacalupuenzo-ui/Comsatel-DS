@@ -1,0 +1,19 @@
+@import '../../shared/styles/doc-page.css';
+:host { display:block; }
+.logos { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--layout-gap-xl); }
+.logo-example { grid-column:span 2; }
+.logo-example--design-system { grid-column:span 2; }
+.logo-example { display:flex; flex-direction:column; align-items:flex-start; gap:var(--layout-gap-sm); color:var(--color-text-base-subtle); font-size:var(--font-size-content-note); line-height:var(--font-line-height-content-note); }
+.logo-surface { width:100%; min-height:var(--layout-size-2xl); display:flex; align-items:center; padding:var(--layout-padding-2xl); border:var(--layout-border-thin) solid var(--color-border-neutral-subtle); border-radius:var(--radius-lg); background:var(--elevation-surface-default); }
+.logo-surface img,.guide-logo img { max-width:100%; max-height:var(--layout-size-md); width:auto; height:auto; object-fit:contain; }
+.logo-example--compact .logo-surface img { max-height:var(--layout-size-lg); }
+.logo-example--design-system .logo-surface { min-height:var(--layout-size-3xl); justify-content:center; }
+.logo-example--design-system .logo-surface img { max-height:var(--layout-size-2xl); }
+.guide-logo { margin-top:var(--layout-padding-md); padding:var(--layout-padding-xl); background:var(--elevation-surface-default); }
+.guide-logo--bad { box-shadow:var(--shadow-md); border:var(--layout-border-thin) solid var(--color-border-brand-default); }
+
+@media (max-width: 720px) {
+  .logos { grid-template-columns:1fr; }
+  .logo-example,
+  .logo-example--design-system { grid-column:auto; }
+}

@@ -1,5 +1,5 @@
 <ng-template #statusCell let-status>
-  <cs-badge [variant]="statusVariant[status]" size="sm">{{ statusLabel[status] }}</cs-badge>
+  <cs-tag [severity]="statusSeverity[status]" [icon]="statusIcon[status]" [value]="statusLabel[status]" [rounded]="true" size="sm" />
 </ng-template>
 
 <div class="page">
@@ -79,6 +79,7 @@
         <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
         <div class="table__row"><code class="table__name">children</code><code class="table__type">TableTreeItem[] | undefined</code><code class="table__default">—</code><span class="table__desc">undefined = todavía no se cargaron (carga perezosa: dibuja skeleton al expandir). [] = se cargaron y no tiene ninguno.</span></div>
         <div class="table__row"><code class="table__name">hasChildren</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Fuerza el chevron expandible aunque children todavía sea undefined.</span></div>
+        <div class="table__row"><code class="table__name">skeletonRowCount</code><code class="table__type">number</code><code class="table__default">1</code><span class="table__desc">Cuántas filas skeleton dibujar mientras children es undefined — declarala cuando ya sepas cuántos hijos van a resolverse, para que el salto de skeleton a datos reales no cambie de cantidad de filas.</span></div>
       </div>
     </div>
   </section>

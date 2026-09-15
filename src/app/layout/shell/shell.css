@@ -53,28 +53,13 @@
 .topnav__logo {
   display: flex;
   align-items: center;
-  gap: var(--layout-gap-md);
   text-decoration: none;
-  font-weight: var(--font-weight-emphasis);
-  color: var(--color-text-base-boldest);
 }
 
-.topnav__badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--layout-size-sm);
+.topnav__logo img {
+  display: block;
+  width: auto;
   height: var(--layout-size-sm);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-background-brand-default);
-  color: var(--color-text-inverse);
-  font-size: var(--font-size-label-small);
-  font-weight: var(--font-weight-bold);
-}
-
-.topnav__tag {
-  font-size: var(--font-size-content-note);
-  color: var(--color-text-base-subtlest);
 }
 
 /* Fondo oscuro del drawer mobile — solo se monta cuando el drawer está

@@ -1,0 +1,133 @@
+<title>Segunda revisión</title>
+<style>
+:root{--bg:#faf9f7;--card:#fff;--ink:#1d2433;--sub:#6b7280;--line:#e6e3de;--accent:#1b4079;--done:#12b76a;--pending:#f79009}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0f1115;--card:#181b21;--ink:#e8eaed;--sub:#9aa3af;--line:#2a2e37;--accent:#6f9ce8}}
+:root[data-theme="dark"]{--bg:#0f1115;--card:#181b21;--ink:#e8eaed;--sub:#9aa3af;--line:#2a2e37;--accent:#6f9ce8}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,Segoe UI,sans-serif;padding-inline:20px;padding-block:32px;max-width:880px;margin:0 auto}
+h1{font-size:1.4rem;margin:0 0 4px}
+.sub{color:var(--sub);font-size:.9rem;margin:0 0 28px}
+.group{margin-bottom:28px}
+.group h2{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);margin:0 0 10px;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.88rem}
+.item input{width:16px;height:16px;flex-shrink:0;accent-color:var(--accent)}
+.item label{flex:1;cursor:pointer}
+.tag{font-size:.68rem;padding:2px 7px;border-radius:99px;flex-shrink:0}
+.tag.next{background:color-mix(in srgb, var(--pending) 18%, transparent);color:var(--pending)}
+.progress{position:sticky;top:0;background:var(--bg);padding-block:10px 16px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+.bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:6px}
+.fill{height:100%;background:var(--done);width:0%;transition:width .3s}
+.count{font-size:.8rem;color:var(--sub)}
+</style>
+
+<h1>Segunda revisión — Comsatel Design System</h1>
+<p class="sub">33 componentes ya construidos. Marcá los que confirmás correctos (mismos tokens, animaciones y sombras del sistema) — quedan como referencia de lo ya revisado, no hace falta tocarlos de nuevo.</p>
+
+<div class="progress">
+  <span class="count" id="count">0 / 33 revisados</span>
+  <div class="bar"><div class="fill" id="fill"></div></div>
+</div>
+
+<div class="group">
+  <h2>Recién auditados esta sesión</h2>
+  <div class="grid">
+    <div class="item"><label>Table tree <span class="tag next">recién corregido</span></label><input type="checkbox" data-id="table-tree"></div>
+    <div class="item"><label>PressScale <span class="tag next">recién corregido</span></label><input type="checkbox" data-id="press-scale"></div>
+  </div>
+</div>
+
+<div class="group">
+  <h2>Acción / entrada</h2>
+  <div class="grid">
+    <div class="item"><label>Button</label><input type="checkbox" data-id="button"></div>
+    <div class="item"><label>Input + InputGroup</label><input type="checkbox" data-id="input"></div>
+    <div class="item"><label>Checkbox</label><input type="checkbox" data-id="checkbox"></div>
+    <div class="item"><label>Radio</label><input type="checkbox" data-id="radio"></div>
+    <div class="item"><label>Toggle</label><input type="checkbox" data-id="toggle"></div>
+    <div class="item"><label>Dropdown + InputDropdown</label><input type="checkbox" data-id="dropdown"></div>
+    <div class="item"><label>Select</label><input type="checkbox" data-id="select"></div>
+  </div>
+</div>
+
+<div class="group">
+  <h2>Fecha y hora</h2>
+  <div class="grid">
+    <div class="item"><label>Calendar</label><input type="checkbox" data-id="calendar"></div>
+    <div class="item"><label>Date time picker</label><input type="checkbox" data-id="datetime-picker"></div>
+    <div class="item"><label>Date time range picker</label><input type="checkbox" data-id="datetime-range-picker"></div>
+  </div>
+</div>
+
+<div class="group">
+  <h2>Feedback / estado</h2>
+  <div class="grid">
+    <div class="item"><label>Badge</label><input type="checkbox" data-id="badge"></div>
+    <div class="item"><label>Tag</label><input type="checkbox" data-id="tag"></div>
+    <div class="item"><label>Banner</label><input type="checkbox" data-id="banner"></div>
+    <div class="item"><label>Toast</label><input type="checkbox" data-id="toast"></div>
+    <div class="item"><label>Progress indicator</label><input type="checkbox" data-id="progress-indicator"></div>
+    <div class="item"><label>Stepper (obsoleto)</label><input type="checkbox" data-id="stepper"></div>
+    <div class="item"><label>Skeleton</label><input type="checkbox" data-id="skeleton"></div>
+    <div class="item"><label>Tooltip</label><input type="checkbox" data-id="tooltip"></div>
+  </div>
+</div>
+
+<div class="group">
+  <h2>Overlay / navegación</h2>
+  <div class="grid">
+    <div class="item"><label>Modal</label><input type="checkbox" data-id="modal"></div>
+    <div class="item"><label>Popover</label><input type="checkbox" data-id="popover"></div>
+    <div class="item"><label>Spotlight</label><input type="checkbox" data-id="spotlight"></div>
+    <div class="item"><label>Menu</label><input type="checkbox" data-id="menu"></div>
+    <div class="item"><label>Tab</label><input type="checkbox" data-id="tab"></div>
+    <div class="item"><label>Pagination</label><input type="checkbox" data-id="pagination"></div>
+    <div class="item"><label>Accordion</label><input type="checkbox" data-id="accordion"></div>
+  </div>
+</div>
+
+<div class="group">
+  <h2>Datos / listas</h2>
+  <div class="grid">
+    <div class="item"><label>Table</label><input type="checkbox" data-id="table"></div>
+    <div class="item"><label>List item</label><input type="checkbox" data-id="list-item"></div>
+    <div class="item"><label>Fleet unit list</label><input type="checkbox" data-id="fleet-unit-list"></div>
+  </div>
+</div>
+
+<div class="group">
+  <h2>Identidad / layout</h2>
+  <div class="grid">
+    <div class="item"><label>Avatar (+Group)</label><input type="checkbox" data-id="avatar"></div>
+    <div class="item"><label>Card (5 piezas)</label><input type="checkbox" data-id="card"></div>
+    <div class="item"><label>Header</label><input type="checkbox" data-id="header"></div>
+    <div class="item"><label>App Layout</label><input type="checkbox" data-id="app-layout"></div>
+  </div>
+</div>
+
+<div class="group">
+  <h2>Animación</h2>
+  <div class="grid">
+    <div class="item"><label>Motion</label><input type="checkbox" data-id="motion"></div>
+  </div>
+</div>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+const KEY = 'comsatel-review-v1';
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ return {}; } }
+function save(state){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+function update(){
+  const state = load();
+  let checked = 0;
+  boxes.forEach(b => { if(state[b.dataset.id]) { b.checked = true; checked++; } });
+  document.getElementById('count').textContent = checked + ' / ' + boxes.length + ' revisados';
+  document.getElementById('fill').style.width = (checked/boxes.length*100) + '%';
+}
+boxes.forEach(b => b.addEventListener('change', () => {
+  const state = load();
+  state[b.dataset.id] = b.checked;
+  save(state);
+  update();
+}));
+update();
+</script>
