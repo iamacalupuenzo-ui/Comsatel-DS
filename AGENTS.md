@@ -39,3 +39,7 @@ This project uses comsatel-ds-angular. Before writing any UI:
   filas marcadas "Sin descripción": `npm run check:props` falla mientras quede alguna.
 - Antes de dar el trabajo por terminado, estos dos comandos tienen que pasar:
   `npm run check:docs` y `npm run test:ci`.
+- Si el cambio altera la API pública, la versión o la distribución de la librería,
+  actualiza `docs/releases/<versión>.md` con resumen, impacto para consumidores y
+  verificación. No crees un tag `ds-v<versión>` hasta que
+  `npm run check:release-notes` pase.

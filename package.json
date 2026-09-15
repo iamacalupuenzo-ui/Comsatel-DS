@@ -19,8 +19,9 @@
     "check:props": "node scripts/props.mjs --check",
     "check:a11y": "node scripts/a11y.mjs --check",
     "check:examples": "node scripts/examples.mjs",
+    "check:release-notes": "node scripts/release-notes.mjs",
     "test:docs": "node --test scripts/checks.test.mjs",
-    "check:docs": "npm run check:guidelines && npm run check:props && npm run check:a11y && npm run check:examples && npm run test:docs",
+    "check:docs": "npm run check:guidelines && npm run check:props && npm run check:a11y && npm run check:examples && npm run check:release-notes && npm run test:docs",
     "gap:report": "node scripts/gap.mjs"
   },
   "private": true,

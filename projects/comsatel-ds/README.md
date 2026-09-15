@@ -7,8 +7,8 @@ Storybook permanecen en el repositorio principal.
 ## Instalarla en otra plataforma
 
 Cada proyecto consumidor configura una vez el registro privado y autentica su
-instalación con un token de GitHub de solo lectura de paquetes. Nunca se debe
-versionar ese token.
+instalación con un token clásico de GitHub con permiso `read:packages`.
+Nunca se debe versionar ese token.
 
 ```ini
 # .npmrc del proyecto consumidor
@@ -37,10 +37,13 @@ export class ExampleComponent {}
 ## Publicar una versión
 
 La publicación la realiza GitHub Actions, no una máquina local. Se actualiza
-la versión en `package.json`, se valida el cambio y se crea un tag con el
-formato `ds-v<versión>` (por ejemplo, `ds-v0.1.1`). El workflow compila la
-librería, ejecuta los gates de documentación, los tests unitarios y Storybook
-antes de publicar el contenido de `dist/comsatel-ds` en GitHub Packages.
+la versión en `package.json`, se crea `docs/releases/<versión>.md`, se valida
+el cambio y se crea un tag con el formato `ds-v<versión>` (por ejemplo,
+`ds-v0.1.1`). La [plantilla de notas de versión](https://github.com/iamacalupuenzo-ui/Comsatel-DS/tree/main/docs/releases)
+exige un resumen, los cambios, el impacto para consumidores y la verificación.
+El workflow comprueba esa nota, compila la librería, ejecuta los gates de
+documentación, los tests unitarios y Storybook antes de publicar el contenido
+de `dist/comsatel-ds` en GitHub Packages.
 
 Las plataformas consumidoras no reciben cambios en ejecución. Adoptan una
 nueva versión al actualizar su dependencia y lockfile en un cambio revisable,

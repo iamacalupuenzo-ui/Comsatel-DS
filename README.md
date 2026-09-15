@@ -1,59 +1,64 @@
-# ComsatelDsAngular
+# Comsatel Design System para Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.7.
+Repositorio de la biblioteca Angular, el catálogo visual, las guías para
+agentes y los controles de calidad del Sistema de Diseño Comsatel. La
+aplicación documenta los componentes; el paquete distribuible contiene solo
+la API pública de la librería.
 
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Inicio rápido
 
 ```bash
-ng generate component component-name
+npm ci --legacy-peer-deps
+npm run build:lib
+npm start -- --port 4300
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Abre `http://localhost:4300/`. Después de modificar archivos de
+`projects/comsatel-ds/`, vuelve a ejecutar `npm run build:lib`; el servidor
+de Angular no recompila la librería automáticamente.
+
+## Verificación
+
+Antes de integrar un cambio ejecuta:
 
 ```bash
-ng generate --help
+npm run check:docs
+npm run build:lib
+npm run test:ci
+npm run build-storybook
 ```
 
-## Building
+`check:docs` valida cobertura de guías, API, accesibilidad, ejemplos y las
+notas de versión. El workflow remoto repite esos gates antes de publicar.
 
-To build the project run:
+## Consumir la librería
 
-```bash
-ng build
-```
+La distribución privada se publica como
+`@iamacalupuenzo-ui/comsatel-ds` en GitHub Packages. Consulta las
+[instrucciones de instalación](projects/comsatel-ds/README.md) para
+configurar el registro, el token de lectura y las dependencias de pares de
+Angular 22.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Versiones y publicaciones
 
-## Running unit tests
+Cada versión tiene una nota breve en [docs/releases](docs/releases/README.md).
+La nota explica qué cambió, el impacto para las plataformas consumidoras y la
+evidencia de verificación. Se crea antes de publicar, con el mismo número que
+`projects/comsatel-ds/package.json`.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Para publicar una versión aprobada:
 
-```bash
-ng test
-```
+1. Actualiza el número de versión y crea `docs/releases/<versión>.md`.
+2. Ejecuta los gates de verificación.
+3. Crea y envía el tag `ds-v<versión>`.
 
-## Running end-to-end tests
+GitHub Actions verifica el tag, genera la librería y publica únicamente
+`dist/comsatel-ds`. Las aplicaciones consumidoras actualizan su dependencia
+y lockfile en un cambio propio; una nueva versión nunca modifica por sí sola
+una aplicación desplegada.
 
-For end-to-end (e2e) testing, run:
+## Trabajo asistido
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Lee [AGENTS.md](AGENTS.md) antes de modificar una interfaz. Las guías de
+`guidelines/` y el servidor MCP describen la API, accesibilidad y patrones
+reales del sistema.

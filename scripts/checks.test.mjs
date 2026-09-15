@@ -1,5 +1,6 @@
 // Cada validador se rompe a propósito: un check que nunca falla no demuestra nada.
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -98,4 +99,14 @@ test('lectura: los saltos CRLF de Windows se normalizan antes de comparar', () =
   const text = readText(file);
   assert.doesNotMatch(text, /\r/);
   assert.equal(checkMarkdown(text, 'guia.md', ctx).blocks, 1);
+});
+
+test('notas de versión: una versión sin archivo falla antes de publicar', () => {
+  const result = spawnSync(process.execPath, ['scripts/release-notes.mjs'], {
+    cwd: process.cwd(),
+    encoding: 'utf8',
+    env: { ...process.env, RELEASE_NOTES_VERSION: '99.99.99' },
+  });
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /Falta la nota de versión docs\/releases\/99\.99\.99\.md/);
 });
