@@ -48,3 +48,6 @@ de `dist/comsatel-ds` en GitHub Packages.
 Las plataformas consumidoras no reciben cambios en ejecución. Adoptan una
 nueva versión al actualizar su dependencia y lockfile en un cambio revisable,
 probarla y desplegarla como parte de su propio ciclo de entrega.
+
+Para construir una aplicación Angular consumidora sin clonar este workspace,
+consulta la [guía de arquitectura de aplicación](https://github.com/iamacalupuenzo-ui/Comsatel-DS/blob/main/docs/consumer-angular.md).

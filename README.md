@@ -39,6 +39,11 @@ La distribución privada se publica como
 configurar el registro, el token de lectura y las dependencias de pares de
 Angular 22.
 
+Si vas a crear una plataforma Angular nueva, sigue la
+[guía para aplicaciones consumidoras](docs/consumer-angular.md). Indica cómo
+usar una base Angular limpia y la arquitectura de producto sin clonar este
+workspace.
+
 ## Versiones y publicaciones
 
 Cada versión tiene una nota breve en [docs/releases](docs/releases/README.md).

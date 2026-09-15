@@ -20,6 +20,18 @@ This project uses comsatel-ds-angular. Before writing any UI:
 
 ## Comsatel DS: reglas del proyecto
 
+### Si el pedido es construir una aplicación de producto
+
+- Este repositorio es una librería y catálogo, no la plantilla de una aplicación
+  de negocio. No lo clones ni copies para iniciar un producto.
+- Trabaja en el repositorio de la plataforma destino. Si aún no existe, crea
+  una base Angular limpia y sigue `docs/consumer-angular.md`.
+- La pantalla de producto vive en `features/`; `core/` contiene sesión y
+  guards, y `layout/` compone el shell autenticado. Importa únicamente la API
+  pública de `@iamacalupuenzo-ui/comsatel-ds`.
+- Un login es una composición de `features/auth/login`, no una razón para
+  modificar o duplicar componentes del Design System.
+
 - **Busca en `guidelines/` antes de escribir UI.** Cada guía trae la tabla de props y el
   contrato a11y generados desde el código, y las trampas conocidas. Para armar una
   pantalla completa, empieza por `guidelines/patterns/index.md`.
