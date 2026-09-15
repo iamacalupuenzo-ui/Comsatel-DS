@@ -6,6 +6,8 @@ un control de selección de formulario ni el organismo de telemetría
 
 - **Import:** `import { ListItem } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-list-item>`
+- **Clase raíz emitida:** `.cs-list-item`. Se documenta para diagnóstico, no para
+  que el consumidor copie o sobrescriba estilos internos.
 
 ```html
 <cs-list-item

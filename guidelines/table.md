@@ -7,7 +7,8 @@ panel compacto; no sustituye un selector de valores.
 
 - **Import:** `import { ColumnManager, Table, TableTree } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selectores:** `<cs-table>`, `<cs-table-tree>`, `<cs-column-manager>`
-- **Clases raíz emitidas:** `.cs-table`, `.cs-table-tree`
+- **Clases raíz emitidas:** `.cs-table`, `.cs-table-tree`, `.cs-column-manager`.
+  Son detalles para inspección; la integración usa los selectores públicos.
 
 ```html
 <cs-table

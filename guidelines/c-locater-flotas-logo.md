@@ -3,6 +3,9 @@
 Usa el logotipo completo para identificar el producto. Reserva el isotipo para
 espacios compactos en los que el nombre ya sea visible.
 
+- **Clase raíz emitida:** `.cs-c-locater-flotas-logo`. Es un detalle de
+  inspección; el consumidor usa el selector público y no depende de esta clase.
+
 <!-- props:start CLocaterFlotasLogo -->
 <!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/brand/c-locater-flotas-logo.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
