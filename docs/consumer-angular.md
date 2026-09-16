@@ -32,7 +32,7 @@ como variable de entorno segura:
 ```
 
 ```bash
-npm install @iamacalupuenzo-ui/comsatel-ds@0.1.1
+npm install @iamacalupuenzo-ui/comsatel-ds@0.1.4
 ```
 
 No uses un rango automático para la primera adopción. Actualiza la versión y
