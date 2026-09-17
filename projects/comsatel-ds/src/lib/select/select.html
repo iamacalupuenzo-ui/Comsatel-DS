@@ -1,6 +1,6 @@
 <div class="cs-select">
   @if (label) {
-    <span [id]="labelId" class="cs-select__label">
+    <span [id]="labelId" class="cs-select__label" [ngStyle]="labelStyle">
       {{ label }}
       @if (required) {
         <span class="cs-select__required">*</span>

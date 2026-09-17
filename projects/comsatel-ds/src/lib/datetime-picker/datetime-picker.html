@@ -3,7 +3,7 @@
     <!-- Campo de fecha -->
     <div class="cs-datetime-picker__field">
       @if (datePickerProps.label) {
-        <label class="cs-datetime-picker__label" [attr.for]="resolvedId">
+        <label class="cs-datetime-picker__label" [attr.for]="resolvedId" [ngStyle]="fieldLabelStyle">
           {{ datePickerProps.label }}
           @if (required) {
             <span class="cs-datetime-picker__required">*</span>
@@ -83,7 +83,7 @@
     @if (!disabled && (dateIso() || time())) {
       <div class="cs-datetime-picker__clear-wrap">
         @if (datePickerProps.label || timePickerProps.label) {
-          <span aria-hidden="true" class="cs-datetime-picker__label cs-datetime-picker__label--spacer">&nbsp;</span>
+          <span aria-hidden="true" class="cs-datetime-picker__label cs-datetime-picker__label--spacer" [ngStyle]="fieldLabelStyle">&nbsp;</span>
         }
         <button
           type="button"

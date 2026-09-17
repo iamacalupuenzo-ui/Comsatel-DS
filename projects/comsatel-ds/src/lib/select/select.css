@@ -11,11 +11,6 @@
 }
 
 .cs-select__label {
-  font-family: var(--font-family-content);
-  letter-spacing: var(--font-letter-spacing-content);
-  font-size: var(--font-size-content-note);
-  font-weight: var(--font-weight-accent);
-  line-height: var(--font-line-height-content-note);
   color: var(--color-text-base-default);
 }
 .cs-select__required {

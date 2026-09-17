@@ -1,9 +1,12 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostBinding, Input, OnChanges, Output, ViewChild, signal } from '@angular/core';
+import { NgStyle } from '@angular/common';
 import { Icon } from '../icons/icon';
 import { INPUT_TOKENS } from './dropdown-tokens';
 import type { DropdownSize, InputDropdownOption } from './dropdown-types';
 import { CountryFlag } from './country-flag';
 import { Popover } from '../popover/popover';
+import { fieldLabelTypography } from '../input/input-tokens';
+import { textStyle } from '../tokens/typography';
 
 let uid = 0;
 
@@ -13,7 +16,7 @@ let uid = 0;
 // corta o más larga.
 @Component({
   selector: 'cs-input-dropdown',
-  imports: [CountryFlag, Icon, Popover],
+  imports: [NgStyle, CountryFlag, Icon, Popover],
   templateUrl: './input-dropdown.html',
   styleUrl: './input-dropdown.css',
 })
@@ -99,6 +102,10 @@ export class InputDropdown implements AfterViewInit, OnChanges {
 
   get tok() {
     return INPUT_TOKENS[this.size];
+  }
+
+  get labelStyle(): Record<string, string> {
+    return textStyle(fieldLabelTypography[this.size], 'accent');
   }
 
   get selectedOption(): InputDropdownOption | undefined {

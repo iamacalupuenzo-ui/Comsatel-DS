@@ -1,7 +1,7 @@
 # C-Locater Flotas Logo
 
-Usa el logotipo completo para identificar el producto. Reserva el isotipo para
-espacios compactos en los que el nombre ya sea visible.
+Usa el wordmark oficial para identificar el producto. No sustituirlo por un
+isotipo ni añadirle elementos de identidad adicionales.
 
 - **Clase raíz emitida:** `.cs-c-locater-flotas-logo`. Es un detalle de
   inspección; el consumidor usa el selector público y no depende de esta clase.
@@ -11,9 +11,9 @@ espacios compactos en los que el nombre ya sea visible.
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
-| `variant` | `'full' \| 'icon'` | `'full'` | Muestra el logotipo horizontal o el isotipo compacto. |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Define una altura basada en la escala de layout del sistema. |
-| `alt` | `string` | `'C-Locater Flotas by Comsatel'` | Proporciona el nombre alternativo cuando la marca identifica el producto. |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'md'` | Define una altura basada en la escala de layout del sistema. |
+| `fit` | `'content' \| 'container'` | `'content'` | Con `container` usa el ancho disponible sin perder la proporción. |
+| `alt` | `string` | `'C-Locater Flotas by Comsatel'` | Proporciona el nombre alternativo del wordmark cuando identifica el producto. |
 | `decorative` | `boolean` | `false` | Oculta la imagen al lector de pantalla si un nombre idéntico ya es visible. |
 <!-- props:end -->
 

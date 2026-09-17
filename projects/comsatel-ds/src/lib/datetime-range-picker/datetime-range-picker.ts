@@ -1,8 +1,11 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, signal } from '@angular/core';
+import { NgStyle } from '@angular/common';
 import { Icon } from '../icons/icon';
 import { Calendar } from '../calendar/calendar';
 import { InputDropdown } from '../dropdown/input-dropdown';
 import type { DropdownSize } from '../dropdown/dropdown-types';
+import { fieldLabelTypography } from '../input/input-tokens';
+import { textStyle } from '../tokens/typography';
 import { generateTimeOptions, formatRangeDisplay, type TimeOption } from './datetime-range-picker-helpers';
 
 export interface DateTimeRangeValue {
@@ -28,7 +31,7 @@ let uid = 0;
  */
 @Component({
   selector: 'cs-datetime-range-picker',
-  imports: [Icon, Calendar, InputDropdown],
+  imports: [NgStyle, Icon, Calendar, InputDropdown],
   templateUrl: './datetime-range-picker.html',
   styleUrl: './datetime-range-picker.css',
 })
@@ -95,6 +98,9 @@ export class DateTimeRangePicker implements OnInit {
   }
   protected get rowHeight(): number {
     return this.size === 'sm' ? 28 : this.size === 'lg' ? 40 : 32;
+  }
+  protected get fieldLabelStyle(): Record<string, string> {
+    return textStyle(fieldLabelTypography[this.size], 'accent');
   }
   protected get displayText(): string {
     const pending = this.pendingStart();

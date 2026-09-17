@@ -3,14 +3,14 @@
     <!-- Campo de rango de fechas -->
     <div class="cs-dtrp__field">
       @if (dateLabel) {
-        <label [attr.for]="resolvedId" class="cs-dtrp__label">
+        <label [attr.for]="resolvedId" class="cs-dtrp__label" [ngStyle]="fieldLabelStyle">
           {{ dateLabel }}
           @if (required) {
             <span class="cs-dtrp__required">*</span>
           }
         </label>
       } @else if (timeLabel) {
-        <span aria-hidden="true" class="cs-dtrp__label cs-dtrp__label--spacer">&nbsp;</span>
+        <span aria-hidden="true" class="cs-dtrp__label cs-dtrp__label--spacer" [ngStyle]="fieldLabelStyle">&nbsp;</span>
       }
 
       <div class="cs-dtrp__date-wrap">
@@ -59,9 +59,9 @@
     <!-- Ventana horaria -->
     <div class="cs-dtrp__field">
       @if (timeLabel) {
-        <span [id]="resolvedId + '-time-label'" class="cs-dtrp__label">{{ timeLabel }}</span>
+        <span [id]="resolvedId + '-time-label'" class="cs-dtrp__label" [ngStyle]="fieldLabelStyle">{{ timeLabel }}</span>
       } @else if (dateLabel) {
-        <span aria-hidden="true" class="cs-dtrp__label cs-dtrp__label--spacer">&nbsp;</span>
+        <span aria-hidden="true" class="cs-dtrp__label cs-dtrp__label--spacer" [ngStyle]="fieldLabelStyle">&nbsp;</span>
       }
       <div class="cs-dtrp__time-row">
         <div class="cs-dtrp__time-field">
@@ -99,7 +99,7 @@
     @if (!disabled && hasValue) {
       <div class="cs-dtrp__field">
         @if (dateLabel || timeLabel) {
-          <span aria-hidden="true" class="cs-dtrp__label cs-dtrp__label--spacer">&nbsp;</span>
+          <span aria-hidden="true" class="cs-dtrp__label cs-dtrp__label--spacer" [ngStyle]="fieldLabelStyle">&nbsp;</span>
         }
         <button
           type="button"

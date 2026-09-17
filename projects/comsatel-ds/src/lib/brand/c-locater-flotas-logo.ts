@@ -1,31 +1,26 @@
 import { Component, Input } from '@angular/core';
+import { C_LOCATER_FLOTAS_WORDMARK_SOURCE } from './c-locater-flotas-wordmark-source';
 
-export type CLocaterFlotasLogoVariant = 'full' | 'icon';
-export type CLocaterFlotasLogoSize = 'sm' | 'md' | 'lg';
+export type CLocaterFlotasLogoSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type CLocaterFlotasLogoFit = 'content' | 'container';
 
-// Las rutas deben permanecer estáticas: Angular/Vite las analiza y reescribe
-// al pre-empaquetar dependencias ESM de una aplicación consumidora.
-const FULL_LOGO_SOURCE = new URL(
-  '../assets/logos/c-locater-flotas-logo.png',
-  import.meta.url,
-).toString();
-const ICON_LOGO_SOURCE = new URL(
-  '../assets/logos/c-locater-flotas-isotype.png',
-  import.meta.url,
-).toString();
+// El recurso se embebe para no depender de rutas relativas en la caché de
+// pre-bundling de Vite ni de que la aplicación copie assets de node_modules.
+const WORDMARK_SOURCE = C_LOCATER_FLOTAS_WORDMARK_SOURCE;
 
 @Component({
   selector: 'cs-c-locater-flotas-logo',
   templateUrl: './c-locater-flotas-logo.html',
   styleUrl: './c-locater-flotas-logo.css',
+  host: {
+    '[class.cs-c-locater-flotas-logo-host--fit-container]': "fit === 'container'",
+  },
 })
 export class CLocaterFlotasLogo {
-  @Input() variant: CLocaterFlotasLogoVariant = 'full';
   @Input() size: CLocaterFlotasLogoSize = 'md';
+  @Input() fit: CLocaterFlotasLogoFit = 'content';
   @Input() alt = 'C-Locater Flotas by Comsatel';
   @Input() decorative = false;
 
-  protected get source(): string {
-    return this.variant === 'icon' ? ICON_LOGO_SOURCE : FULL_LOGO_SOURCE;
-  }
+  protected readonly source = WORDMARK_SOURCE;
 }

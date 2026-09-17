@@ -4,7 +4,7 @@
   [class.cs-input-dropdown--full]="fullWidth"
 >
   @if (label) {
-    <label class="cs-input-dropdown__label" [id]="labelId" [attr.for]="resolvedId">
+    <label class="cs-input-dropdown__label" [id]="labelId" [attr.for]="resolvedId" [ngStyle]="labelStyle">
       {{ label }}
       @if (required) {
         <span class="cs-input-dropdown__required" aria-hidden="true">*</span>

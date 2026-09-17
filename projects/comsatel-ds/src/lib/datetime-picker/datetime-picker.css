@@ -17,9 +17,6 @@
 }
 
 .cs-datetime-picker__label {
-  font-size: var(--font-size-content-note);
-  line-height: var(--font-line-height-content-note);
-  font-weight: var(--font-weight-accent);
   color: var(--color-text-base-default);
 }
 .cs-datetime-picker__label--spacer {

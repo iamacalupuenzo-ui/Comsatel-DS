@@ -17,6 +17,28 @@ control.
 ></cs-input>
 ```
 
+## Etiqueta externa y escala
+
+`Input`, `InputGroupInput` y `PasswordInput` no encapsulan una etiqueta: el
+formulario consumidor conserva su anatomía, validación y mensajes. Para que
+una etiqueta externa mantenga la misma escala que un campo, el paquete expone
+`fieldLabelTypography`. No uses el `placeholder` como sustituto de la etiqueta.
+
+```ts
+import { fieldLabelTypography, textStyle } from '@iamacalupuenzo-ui/comsatel-ds';
+
+protected readonly emailLabelStyle = textStyle(fieldLabelTypography.md, 'accent');
+```
+
+```html
+<label for="email" [ngStyle]="emailLabelStyle">Correo corporativo</label>
+<cs-input id="email" fieldSize="md" autocomplete="email"></cs-input>
+```
+
+Usa la clave del mismo tamaño del control: `xs` usa `label/small`; `sm` y
+`md`, `content/note`; y `lg`, `content/caption`. Para un campo `lg`, cambia
+la receta a `textStyle(fieldLabelTypography.lg, 'accent')`.
+
 ## Props de `Input`
 
 <!-- props:start Input -->

@@ -1,9 +1,12 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, signal } from '@angular/core';
+import { NgStyle } from '@angular/common';
 import { Icon } from '../icons/icon';
 import { Badge, type BadgeSize } from '../badge/badge';
 import { INPUT_TOKENS } from '../dropdown/dropdown-tokens';
 import type { DropdownSize } from '../dropdown/dropdown-types';
 import { Popover } from '../popover/popover';
+import { fieldLabelTypography } from '../input/input-tokens';
+import { textStyle } from '../tokens/typography';
 
 export interface SelectOption {
   label: string;
@@ -24,7 +27,7 @@ let uid = 0;
  */
 @Component({
   selector: 'cs-select',
-  imports: [Icon, Badge, Popover],
+  imports: [NgStyle, Icon, Badge, Popover],
   templateUrl: './select.html',
   styleUrl: './select.css',
 })
@@ -50,6 +53,10 @@ export class Select {
 
   protected get tok() {
     return INPUT_TOKENS[this.size];
+  }
+
+  protected get labelStyle(): Record<string, string> {
+    return textStyle(fieldLabelTypography[this.size], 'accent');
   }
 
   protected get chipSize(): BadgeSize {

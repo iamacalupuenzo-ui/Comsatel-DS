@@ -12,6 +12,7 @@ import {
   input,
   signal,
 } from '@angular/core';
+import { NgStyle } from '@angular/common';
 import { Calendar } from '../calendar/calendar';
 import { Icon } from '../icons/icon';
 import { InputDropdown } from '../dropdown/input-dropdown';
@@ -19,6 +20,8 @@ import type { InputDropdownOption } from '../dropdown/dropdown-types';
 import { InputGroup } from '../input/input-group';
 import { InputGroupAddon } from '../input/input-group-addon';
 import { InputGroupInput } from '../input/input-group-input';
+import { fieldLabelTypography } from '../input/input-tokens';
+import { textStyle } from '../tokens/typography';
 import {
   combineValue,
   formatDateDisplay,
@@ -66,7 +69,7 @@ let uid = 0;
 // fecha precargada.
 @Component({
   selector: 'cs-datetime-picker',
-  imports: [Calendar, Icon, InputDropdown, InputGroup, InputGroupAddon, InputGroupInput],
+  imports: [NgStyle, Calendar, Icon, InputDropdown, InputGroup, InputGroupAddon, InputGroupInput],
   templateUrl: './datetime-picker.html',
   styleUrl: './datetime-picker.css',
 })
@@ -121,6 +124,10 @@ export class DateTimePicker implements OnInit {
   protected readonly viewYear = signal<number | undefined>(undefined);
 
   protected readonly timeOptions = computed<InputDropdownOption[]>(() => generateTimeOptions(this.timeStep()));
+
+  protected get fieldLabelStyle(): Record<string, string> {
+    return textStyle(fieldLabelTypography[this.size], 'accent');
+  }
 
   @ViewChild('dateField') private dateFieldRef?: ElementRef<HTMLElement>;
 

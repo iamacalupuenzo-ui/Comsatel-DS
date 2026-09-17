@@ -1,4 +1,21 @@
+import type { StyleName } from '../tokens/typography';
+
 export type InputFieldSize = 'sm' | 'md' | 'lg';
+
+/**
+ * Tipografía pública para etiquetas de campos de formulario.
+ *
+ * La etiqueta es metadato del campo, no su valor: por eso `sm` y `md`
+ * conservan la densidad de `content/note`, mientras que `lg` gana
+ * legibilidad con `content/caption`. `xs` queda disponible para los
+ * controles que lo soportan (Select e InputDropdown).
+ */
+export const fieldLabelTypography: Record<'xs' | InputFieldSize, StyleName> = {
+  xs: 'label/small',
+  sm: 'content/note',
+  md: 'content/note',
+  lg: 'content/caption',
+};
 
 // Puerto 1:1 de la escala de tamaño de input.tsx (React): sm=28px/12px,
 // md=32px/13px (por defecto), lg=40px/16px. Compartida entre cs-input y
