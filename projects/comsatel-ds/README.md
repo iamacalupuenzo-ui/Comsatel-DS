@@ -36,21 +36,26 @@ import { Button } from '@iamacalupuenzo-ui/comsatel-ds';
 export class ExampleComponent {}
 ```
 
-## Marca C-Locater Flotas
+## Marca C-Flotas
 
-El paquete exporta el logotipo horizontal y el isotipo como un componente
-accesible. Usa el logo completo cuando identifica el producto y el isotipo
-solo en espacios compactos donde el nombre ya es evidente.
+El paquete exporta el wordmark C-Flotas by Comsatel y el isotipo CF como un
+componente accesible y auto-contenido. Usa el wordmark cuando identifica el
+producto y el isotipo solo en espacios compactos donde el nombre ya es
+evidente.
 
 ```ts
-import { CLocaterFlotasLogo } from '@iamacalupuenzo-ui/comsatel-ds';
+import { CFlotasLogo } from '@iamacalupuenzo-ui/comsatel-ds';
 
 @Component({
-  imports: [CLocaterFlotasLogo],
-  template: '<cs-c-locater-flotas-logo size="md" />',
+  imports: [CFlotasLogo],
+  template: '<cs-c-flotas-logo size="md" />',
 })
 export class ProductHeaderComponent {}
 ```
+
+Para el isotipo: `<cs-c-flotas-logo variant="isotype" />`. Los nombres y
+valores antiguos `CLocaterFlotasLogo`, `cs-c-locater-flotas-logo`, `full` e
+`icon` se mantienen solo para compatibilidad de instalaciones previas.
 
 Para una imagen decorativa junto a un nombre visible, usa
 `[decorative]="true"`; no repite el nombre al lector de pantalla.

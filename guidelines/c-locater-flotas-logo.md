@@ -1,26 +1,31 @@
-# C-Locater Flotas Logo
+# C-Flotas Logo
 
-Usa el wordmark oficial para identificar el producto. No sustituirlo por un
-isotipo ni añadirle elementos de identidad adicionales.
+Usa el wordmark oficial C-Flotas by Comsatel para identificar el producto.
+El isotipo CF se reserva para railes o espacios compactos donde el nombre del
+producto ya es evidente. No añadas, sustituyas, recolorees ni apliques sombra
+a ninguno de los dos recursos.
 
-- **Clase raíz emitida:** `.cs-c-locater-flotas-logo`. Es un detalle de
-  inspección; el consumidor usa el selector público y no depende de esta clase.
+- **Selector canónico:** `cs-c-flotas-logo`.
+- **Compatibilidad:** `cs-c-locater-flotas-logo` y la clase TypeScript
+  `CLocaterFlotasLogo` siguen disponibles para consumidores anteriores, pero
+  los usos nuevos deben adoptar el nombre C-Flotas.
 
-<!-- props:start CLocaterFlotasLogo -->
+<!-- props:start CFlotasLogo -->
 <!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/brand/c-locater-flotas-logo.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
+| `variant` | `'wordmark' \| 'isotype' \| 'full' \| 'icon'` | `'wordmark'` | Selecciona el wordmark o el isotipo CF. `full` e `icon` son alias de compatibilidad. |
 | `size` | `'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'md'` | Define una altura basada en la escala de layout del sistema. |
-| `fit` | `'content' \| 'container'` | `'content'` | Con `container` usa el ancho disponible sin perder la proporción. |
-| `alt` | `string` | `'C-Locater Flotas by Comsatel'` | Proporciona el nombre alternativo del wordmark cuando identifica el producto. |
+| `fit` | `'content' \| 'container'` | `'content'` | Con `container` el wordmark usa el ancho disponible sin perder la proporción. |
+| `alt` | `string` | `'C-Flotas by Comsatel'` | Proporciona el nombre alternativo del logo cuando identifica el producto. |
 | `decorative` | `boolean` | `false` | Oculta la imagen al lector de pantalla si un nombre idéntico ya es visible. |
 <!-- props:end -->
 
-<!-- a11y:start CLocaterFlotasLogo -->
+<!-- a11y:start CFlotasLogo -->
 <!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/brand/c-locater-flotas-logo.ts: no editar a mano, corre npm run docs:a11y -->
 
-#### Contrato a11y generado desde el código: `cs-c-locater-flotas-logo`
+#### Contrato a11y generado desde el código: `cs-c-flotas-logo, cs-c-locater-flotas-logo`
 
 | Aspecto | Qué hace el código |
 | :-- | :-- |

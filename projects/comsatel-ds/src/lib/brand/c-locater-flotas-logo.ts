@@ -1,26 +1,40 @@
 import { Component, Input } from '@angular/core';
-import { C_LOCATER_FLOTAS_WORDMARK_SOURCE } from './c-locater-flotas-wordmark-source';
+import { C_FLOTAS_ISOTYPE_SOURCE, C_FLOTAS_WORDMARK_SOURCE } from './c-flotas-logo-source';
 
-export type CLocaterFlotasLogoSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-export type CLocaterFlotasLogoFit = 'content' | 'container';
-
-// El recurso se embebe para no depender de rutas relativas en la caché de
-// pre-bundling de Vite ni de que la aplicación copie assets de node_modules.
-const WORDMARK_SOURCE = C_LOCATER_FLOTAS_WORDMARK_SOURCE;
+export type CFlotasLogoSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type CFlotasLogoFit = 'content' | 'container';
+/** `full` e `icon` se preservan temporalmente para consumidores anteriores. */
+export type CFlotasLogoVariant = 'wordmark' | 'isotype' | 'full' | 'icon';
 
 @Component({
-  selector: 'cs-c-locater-flotas-logo',
+  selector: 'cs-c-flotas-logo, cs-c-locater-flotas-logo',
   templateUrl: './c-locater-flotas-logo.html',
   styleUrl: './c-locater-flotas-logo.css',
   host: {
-    '[class.cs-c-locater-flotas-logo-host--fit-container]': "fit === 'container'",
+    '[class.cs-c-flotas-logo-host--fit-container]': "fit === 'container' && resolvedVariant === 'wordmark'",
   },
 })
-export class CLocaterFlotasLogo {
-  @Input() size: CLocaterFlotasLogoSize = 'md';
-  @Input() fit: CLocaterFlotasLogoFit = 'content';
-  @Input() alt = 'C-Locater Flotas by Comsatel';
+export class CFlotasLogo {
+  @Input() variant: CFlotasLogoVariant = 'wordmark';
+  @Input() size: CFlotasLogoSize = 'md';
+  @Input() fit: CFlotasLogoFit = 'content';
+  @Input() alt = 'C-Flotas by Comsatel';
   @Input() decorative = false;
 
-  protected readonly source = WORDMARK_SOURCE;
+  protected get resolvedVariant(): 'wordmark' | 'isotype' {
+    return this.variant === 'isotype' || this.variant === 'icon' ? 'isotype' : 'wordmark';
+  }
+
+  protected get source(): string {
+    return this.resolvedVariant === 'isotype' ? C_FLOTAS_ISOTYPE_SOURCE : C_FLOTAS_WORDMARK_SOURCE;
+  }
 }
+
+/** @deprecated Usa `CFlotasLogo`; se conserva para evitar una migración forzada. */
+export { CFlotasLogo as CLocaterFlotasLogo };
+/** @deprecated Usa `CFlotasLogoSize`. */
+export type { CFlotasLogoSize as CLocaterFlotasLogoSize };
+/** @deprecated Usa `CFlotasLogoFit`. */
+export type { CFlotasLogoFit as CLocaterFlotasLogoFit };
+/** @deprecated Usa `CFlotasLogoVariant`. */
+export type { CFlotasLogoVariant as CLocaterFlotasLogoVariant };

@@ -1,9 +1,10 @@
 :host { display: inline-flex; line-height: 0; }
-:host(.cs-c-locater-flotas-logo-host--fit-container) { display: flex; width: 100%; }
-.cs-c-locater-flotas-logo { display: block; width: auto; max-width: 100%; object-fit: contain; }
-.cs-c-locater-flotas-logo--sm { height: var(--layout-size-sm); }
-.cs-c-locater-flotas-logo--md { height: var(--layout-size-md); }
-.cs-c-locater-flotas-logo--lg { height: var(--layout-size-lg); }
-.cs-c-locater-flotas-logo--xl { height: var(--layout-size-xl); }
-.cs-c-locater-flotas-logo--2xl { height: var(--layout-size-2xl); }
-.cs-c-locater-flotas-logo--fit-container { width: 100%; height: auto; }
+:host(.cs-c-flotas-logo-host--fit-container) { display: flex; width: 100%; }
+.cs-c-flotas-logo { display: block; width: auto; max-width: 100%; object-fit: contain; }
+.cs-c-flotas-logo--sm { height: var(--layout-size-sm); }
+.cs-c-flotas-logo--md { height: var(--layout-size-md); }
+.cs-c-flotas-logo--lg { height: var(--layout-size-lg); }
+.cs-c-flotas-logo--xl { height: var(--layout-size-xl); }
+.cs-c-flotas-logo--2xl { height: var(--layout-size-2xl); }
+.cs-c-flotas-logo--isotype { width: auto; }
+:host(.cs-c-flotas-logo-host--fit-container) .cs-c-flotas-logo--wordmark { width: 100%; height: auto; }
