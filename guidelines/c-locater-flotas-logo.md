@@ -1,7 +1,7 @@
 # C-Flotas Logo
 
 Usa el wordmark oficial C-Flotas by Comsatel para identificar el producto.
-El isotipo CF se reserva para railes o espacios compactos donde el nombre del
+El isotipo C-FL se reserva para railes o espacios compactos donde el nombre del
 producto ya es evidente. No añadas, sustituyas, recolorees ni apliques sombra
 a ninguno de los dos recursos.
 
@@ -15,7 +15,7 @@ a ninguno de los dos recursos.
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
-| `variant` | `'wordmark' \| 'isotype' \| 'full' \| 'icon'` | `'wordmark'` | Selecciona el wordmark o el isotipo CF. `full` e `icon` son alias de compatibilidad. |
+| `variant` | `'wordmark' \| 'isotype' \| 'full' \| 'icon'` | `'wordmark'` | Selecciona el wordmark o el isotipo C-FL. `full` e `icon` son alias de compatibilidad. |
 | `size` | `'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'md'` | Define una altura basada en la escala de layout del sistema. |
 | `fit` | `'content' \| 'container'` | `'content'` | Con `container` el wordmark usa el ancho disponible sin perder la proporción. |
 | `alt` | `string` | `'C-Flotas by Comsatel'` | Proporciona el nombre alternativo del logo cuando identifica el producto. |

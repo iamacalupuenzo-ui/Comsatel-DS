@@ -9,23 +9,23 @@ function svgSource(svg: string): string {
 }
 
 export const C_FLOTAS_WORDMARK_SOURCE = svgSource(`
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 112" role="img">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 730 112" role="img">
     <title>C-Flotas by Comsatel</title>
-    <g fill="#121212">
-      <path d="M22 16h120l-10 24H62L48 72h70l-10 24H0L22 16Z"/>
-      <path d="M151 53h34l-9 21h-34l9-21Z"/>
-    </g>
-    <text x="190" y="78" fill="#121212" font-family="Arial Black, Arial, sans-serif" font-size="62" font-style="italic" font-weight="900" letter-spacing="-3">FLOTAS</text>
-    <path d="M505 48h2v31h-2z" fill="#9ca3af"/>
-    <text x="520" y="64" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700">by</text>
-    <text x="520" y="84" fill="#20252d" font-family="Arial Black, Arial, sans-serif" font-size="24" font-style="italic" font-weight="900" letter-spacing="-1.4">COMSATEL</text>
+    <path fill="#202020" d="M78 16H38C17 16 3 33 3 56s14 40 35 40h40l-4-20H39c-11 0-18-8-18-20s7-20 18-20h35l4-20Z"/>
+    <path fill="#202020" d="M91 48h25l-3 16H88l3-16Z"/>
+    <rect x="128" y="16" width="284" height="80" rx="18" fill="#202020"/>
+    <text x="149" y="75" fill="#ffffff" font-family="Arial Black, Arial, sans-serif" font-size="53" font-style="italic" font-weight="900" letter-spacing="-2.6">FLOTAS</text>
+    <text x="428" y="67" fill="#202020" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">by</text>
+    <text x="457" y="68" fill="#202020" font-family="Arial Black, Arial, sans-serif" font-size="27" font-style="italic" font-weight="900" letter-spacing="-1.6">COMSATEL</text>
   </svg>
 `);
 
 export const C_FLOTAS_ISOTYPE_SOURCE = svgSource(`
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136 112" role="img">
-    <title>CF, C-Flotas by Comsatel</title>
-    <path fill="#121212" d="M18 14h62l-9 21H41L30 77h30l-9 21H0l8-20 12-43 8-21Z"/>
-    <path fill="#121212" d="M72 14h61l-9 21H94l-4 10h28l-9 20H81L70 98H46l10-24 16-60Z"/>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 282 112" role="img">
+    <title>C-FL, C-Flotas by Comsatel</title>
+    <path fill="#202020" d="M78 16H38C17 16 3 33 3 56s14 40 35 40h40l-4-20H39c-11 0-18-8-18-20s7-20 18-20h35l4-20Z"/>
+    <path fill="#202020" d="M91 48h25l-3 16H88l3-16Z"/>
+    <rect x="128" y="16" width="130" height="80" rx="18" fill="#202020"/>
+    <text x="151" y="75" fill="#ffffff" font-family="Arial Black, Arial, sans-serif" font-size="57" font-style="italic" font-weight="900" letter-spacing="-4">FL</text>
   </svg>
 `);

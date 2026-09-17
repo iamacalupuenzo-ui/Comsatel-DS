@@ -38,7 +38,7 @@ export class ExampleComponent {}
 
 ## Marca C-Flotas
 
-El paquete exporta el wordmark C-Flotas by Comsatel y el isotipo CF como un
+El paquete exporta el wordmark C-Flotas by Comsatel y el isotipo C-FL como un
 componente accesible y auto-contenido. Usa el wordmark cuando identifica el
 producto y el isotipo solo en espacios compactos donde el nombre ya es
 evidente.
