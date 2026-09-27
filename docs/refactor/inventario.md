@@ -83,7 +83,7 @@ evaluación pendiente, no un defecto demostrado ni un rediseño ya aprobado.
 | Pagination | Página actual y controles legibles | P2 / pendiente | Evaluación individual pendiente |
 | Toast | Semántica de estado, contraste y acciones | P2 / pendiente | Evaluación individual pendiente |
 | Popover | Superficie, separación y cierre contextual | P1 / pendiente | Evaluación individual pendiente |
-| Select | Limpieza opcional; reelegir no vacía | P1 / pendiente | Evaluación individual pendiente |
+| Select | Limpieza opcional; reelegir no vacía; secundario y etiquetas largas | P1 / pendiente | Simple/múltiple probado; [alcance P0](p0-verificacion.md#inputdropdown) |
 | Spotlight | Jerarquía y contraste del mensaje | P2 / pendiente | Evaluación individual pendiente |
 | Menu | Drawer expandido y selección independiente de foco | P2 / pendiente | Evaluación individual pendiente |
 | Table | Filtro en encabezado y columnas fijas opacas | P1 / pendiente | Evaluación individual pendiente |
@@ -103,7 +103,7 @@ evaluación pendiente, no un defecto demostrado ni un rediseño ya aprobado.
 | VehiclePill | Densidad y selección de unidades del producto | P1 / pendiente | Evaluación individual pendiente |
 | GpsCompact / GpsFull | Contraste, señal y metadatos coherentes | P1 / pendiente | Evaluación individual pendiente |
 | ClusterBadge | Cantidad, interacción y legibilidad | P1 / pendiente | Evaluación individual pendiente |
-| Panel plegable | Header persistente, chevron, contexto y Escape por capas | P0 / pendiente | Evaluación individual pendiente |
+| Panel plegable | Header persistente, chevron, contexto y Escape por capas | P0 / hecho — `d6d72a8` | [Patrón, navegador y tests](p0-verificacion.md#panel-plegable) |
 | Autocomplete / Combobox (ausente) | Consulta remota, carga/error/vacío y teclado | P1 / pendiente | Evaluación individual pendiente |
 | DatePicker (ausente) | Campo de fecha sin hora y límites | P1 / pendiente | Evaluación individual pendiente |
 | FileUpload (ausente) | Límites, reemplazo, eliminación y estados | P2 / pendiente | Evaluación individual pendiente |

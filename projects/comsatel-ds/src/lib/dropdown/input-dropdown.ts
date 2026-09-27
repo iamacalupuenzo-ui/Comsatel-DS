@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostBinding, Input, OnChanges, Output, ViewChild, signal } from '@angular/core';
+import { afterEveryRender, AfterViewInit, Component, ElementRef, EventEmitter, HostBinding, Input, OnChanges, Output, ViewChild, signal } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { Icon } from '../icons/icon';
 import { INPUT_TOKENS } from './dropdown-tokens';
@@ -79,7 +79,20 @@ export class InputDropdown implements AfterViewInit, OnChanges {
 
   @ViewChild('measure') measureRef?: ElementRef<HTMLSpanElement>;
 
-  constructor(private elementRef: ElementRef<HTMLElement>) {}
+  private pendingFocus: 'first' | 'last' | null = null;
+
+  constructor(private elementRef: ElementRef<HTMLElement>) {
+    afterEveryRender(() => {
+      if (!this.open() || !this.pendingFocus) return;
+      const options = this.enabledOptionElements();
+      const option = this.pendingFocus === 'last' ? options.at(-1) : options[0];
+      // Popover publica su posición en otro render; un nodo oculto no recibe foco.
+      if (option && getComputedStyle(option).visibility !== 'hidden') {
+        this.pendingFocus = null;
+        option.focus();
+      }
+    });
+  }
 
   get resolvedId(): string {
     return this.id ?? this.triggerId;
@@ -154,23 +167,20 @@ export class InputDropdown implements AfterViewInit, OnChanges {
 
   toggle(): void {
     if (this.disabled || this.readonly) return;
+    this.pendingFocus = null;
     this.open.update((v) => !v);
     this.focused.set(true);
   }
 
   private close(restoreFocus = false): void {
+    this.pendingFocus = null;
     this.open.set(false);
     this.focused.set(false);
     if (restoreFocus) queueMicrotask(() => this.triggerRef?.nativeElement.focus());
   }
 
   private focusOption(last = false): void {
-    // Popover porta el listbox a document.body durante el siguiente render.
-    // Dos frames aseguran que la lista exista antes de mover foco desde el trigger.
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      const options = this.enabledOptionElements();
-      (last ? options.at(-1) : options[0])?.focus();
-    }));
+    this.pendingFocus = last ? 'last' : 'first';
   }
 
   onTriggerKeydown(event: KeyboardEvent): void {
@@ -226,8 +236,7 @@ export class InputDropdown implements AfterViewInit, OnChanges {
 
   protected onPopoverClosed(): void {
     if (this.open()) {
-      this.open.set(false);
-      this.focused.set(false);
+      this.close();
     }
   }
 

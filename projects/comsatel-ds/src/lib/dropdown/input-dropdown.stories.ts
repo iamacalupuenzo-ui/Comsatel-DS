@@ -41,10 +41,22 @@ export const Disabled: Story = {
   args: { value: 'pe', disabled: true },
 };
 
-// `embedded` y `fullWidth` no tienen una demo propia como InputDropdown
-// suelto en la página real — solo se usan compuestos dentro de InputGroup
-// (ver Componentes/Input/InputGroup: LeadingDropdown/TrailingDropdown), que
-// es donde el sistema real los documenta.
+export const SecondaryBounded: Story = {
+  args: {
+    label: 'Ubicación', surface: 'secondary', fullWidth: true, matchTriggerWidth: true,
+    value: 'long', options: [
+      { label: 'Todas', value: 'all' },
+      { label: 'Unidades sin ubicación durante los últimos treinta días', value: 'long' },
+      { label: 'Integración pendiente', value: 'disabled', disabled: true },
+    ],
+  },
+  render: args => ({ props: args, template: `
+    <div style="width: min(100%, calc(var(--layout-size-lg) * 6));">
+      <cs-input-dropdown [label]="label" [options]="options" [value]="value" (valueChange)="value = $event"
+        [surface]="surface" [fullWidth]="fullWidth" [matchTriggerWidth]="matchTriggerWidth" />
+    </div>`,
+  }),
+};
 
 export const AllSizes: Story = {
   render: (args) => ({

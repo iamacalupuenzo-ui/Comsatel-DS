@@ -37,6 +37,12 @@ En `/components/dropdown`: ancho de menú/trigger igual con tolerancia menor a
 con Enter, omisión de opción disabled, Escape y retorno de foco; readonly no
 abre por teclado. Temas claro/oscuro, 1280×900 y 390×844 sin salir del viewport.
 Capturas `tmp/qa/dropdown-light.png` y `dropdown-dark.png`; consola sin errores.
+La regresión final detectó una carrera entre el foco y la visibilidad del portal:
+se corrigió con afterEveryRender, esperando una opción visible y cancelando la
+solicitud al cerrar. Prueba pública de foco/retorno y story SecondaryBounded.
+El cambio de etiqueta corta a larga conserva ancho; Select existente se probó
+en modo simple/múltiple, quitar chip y Escape. Su superficie secundaria sigue
+en P1; InputDropdown conserva el contrato simple para no romper consumidores.
 Gates completos aprobados; C1–C4: tokens, tamaños existentes e inline limitando
 el ancho; C5–C11: composición Popover, nombre del listbox y foco real; C12:
 roles secundarios/selección; C13: texto y line-height conservan sus parejas.
