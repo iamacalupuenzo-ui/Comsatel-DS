@@ -55,5 +55,43 @@
       }
     },
     "errors": []
+  },
+  "punto3": {
+    "filters": [
+      {
+        "name": "Estado",
+        "text": "Todos los estados",
+        "width": 144,
+        "height": 28,
+        "font": "12px"
+      },
+      {
+        "name": "Financiera",
+        "text": "Todas las financieras",
+        "width": 144,
+        "height": 28,
+        "font": "12px"
+      }
+    ],
+    "combinedFilters": "4 unidades",
+    "escapeAndContext": true,
+    "collapseClosesOverlay": true,
+    "empty": true,
+    "light": "rgb(245, 245, 245)",
+    "dark": "rgb(12, 14, 22)",
+    "mobile": [
+      {
+        "width": 144,
+        "right": 188,
+        "height": 28
+      },
+      {
+        "width": 144,
+        "right": 336,
+        "height": 28
+      }
+    ],
+    "reducedMotion": true,
+    "errors": []
   }
 }

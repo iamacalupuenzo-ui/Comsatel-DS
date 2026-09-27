@@ -13,9 +13,9 @@
 .panel-toggle cs-icon { transition: transform var(--motion-duration-medium) var(--motion-easing-default); }
 .panel-toggle[aria-expanded="true"] cs-icon { transform: rotate(180deg); }
 .panel-boundary { min-height: 0; }
-.panel-body { background: var(--elevation-surface-default); color: var(--color-text-base-default); border-radius: 0 0 var(--radius-md) var(--radius-md); pointer-events: auto; }
+.panel-body { background: var(--color-background-canvas); color: var(--color-text-base-default); border-radius: 0 0 var(--radius-md) var(--radius-md); pointer-events: auto; }
 .panel-body--closed { pointer-events: none; }
 .panel-content { padding: var(--layout-padding-lg); }
 .panel-content p { font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); }
-.panel-filters { padding: var(--layout-padding-lg); }
+.panel-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--layout-gap-xs); max-width: calc(var(--layout-size-lg) * 6 + var(--layout-gap-xs)); }
 @media (prefers-reduced-motion: reduce) { .panel-toggle cs-icon { transition: none; } }

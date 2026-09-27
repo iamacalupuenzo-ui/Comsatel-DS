@@ -9,7 +9,7 @@ Escape cierra primero el menú; el siguiente contrae y devuelve foco al chevron.
 ## Composición y responsabilidad
 
 La demo `/animations/motion#collapsible-panel` combina `Input`, `Collapse`,
-`FleetUnitList`, `Popover`, `Checkbox`, `Button` e `Icon` desde la API pública.
+`FleetUnitList`, `InputDropdown` e `Icon` desde la API pública.
 Storybook incluye **Patrones/Panel plegable**. El ejemplo de catálogo vive en
 `src/app/pages/motion-demo/collapsible-panel-example.*`; no es otro componente
 publicado ni contiene servicios del producto.
@@ -38,14 +38,19 @@ scrollTop antes de mover foco y restáuralo con afterNextRender al abrir.
 
 El área de layout deja pasar punteros; solo encabezado y cuerpo visible los
 reciben. El botón del lienzo demuestra que cerrar libera el área inferior.
-El Popover se controla por signal y se cierra también al usar el chevron.
+Los dos filtros InputDropdown size sm permanecen visibles bajo el buscador.
+Estado y financiera se controlan por signals; el chevron cierra los overlays
+mediante sus disparadores antes de ocultar el cuerpo.
 La composición deja el primer Escape al menú; evita dos cierres con la misma
 pulsación y no instala listeners globales duplicados.
 
-Tokens usados: fondos secondary-subtlest/subtle y sus estados, texto/ícono/borde
-secondary-default, border-focused, layout-border-thin/thick, layout-size-md/lg,
+Tokens usados: lienzo color-background-canvas, superficies elevation-surface-default,
+texto/ícono/borde neutros, border-focused, layout-border-thin/thick, layout-size-md/lg,
 layout-padding/gap, radius-sm/md/lg/full, motion-duration-medium y
-motion-easing-default, tipografía content-note. No agrega tokens. Movimiento
+motion-easing-default, tipografía content-note. Filtros de 144px = layout-size-lg por 3, separados
+por layout-gap-xs (4px), y adaptables al ancho disponible. En ambos temas
+size sm conserva 28px/12px; colores siguen los roles de InputDropdown.
+No agrega tokens. Movimiento
 reducido elimina interpolación y rotación animada.
 
 ## Qué sigue en el producto

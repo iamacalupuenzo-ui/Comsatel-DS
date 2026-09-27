@@ -6,7 +6,7 @@
       <cs-input #search [id]="'panel-search'" aria-label="Buscar por nombre de unidad"
         placeholder="Buscar unidades…" [value]="query()" (valueChange)="updateQuery($event)"
         (click)="setOpen(true)" (keydown.enter)="setOpen(true)" />
-      @if (activeOnly()) { <span class="panel-count" aria-label="1 filtro activo">1</span> }
+      @if (activeFilterCount()) { <span class="panel-count" [attr.aria-label]="activeFilterCount() + ' filtros activos'">{{ activeFilterCount() }}</span> }
       <button type="button" class="panel-control" [class.panel-clear--empty]="!query()"
         [disabled]="!query()" aria-label="Limpiar búsqueda" (click)="clearQuery()"><cs-icon name="x" aria-hidden="true" /></button>
       <button #toggleButton id="panel-toggle" type="button" class="panel-control panel-toggle"
@@ -19,20 +19,20 @@
       <section #body id="panel-body" class="panel-body" [class.panel-body--closed]="!open()"
         [csCollapse]="open()" csCollapseMode="full" role="region" aria-label="Resultados de unidades">
         <div class="panel-content">
-          <div #filterTrigger>
-            <cs-button variant="secondary" [selected]="activeOnly()" (click)="filtersOpen.set(!filtersOpen())">Filtros</cs-button>
+          <div class="panel-filters" aria-label="Filtros de unidades">
+            <cs-input-dropdown size="sm" aria-label="Estado" placeholder="Todos los estados"
+              [options]="statusOptions" [value]="status()" (valueChange)="status.set($event)"
+              [fullWidth]="true" [matchTriggerWidth]="true" />
+            <cs-input-dropdown size="sm" aria-label="Financiera" placeholder="Todas las financieras"
+              [options]="financierOptions" [value]="financier()" (valueChange)="financier.set($event)"
+              [fullWidth]="true" [matchTriggerWidth]="true" />
           </div>
           <p role="status">{{ filtered().length }} unidades de demostración</p>
           <cs-fleet-unit-list [units]="filtered()" [selectable]="true" [pinnable]="true"
-            [defaultExpandedIds]="['demo-1']" [selectedId]="selected()" (selectedIdChange)="selected.set($event)"
+            [selectedId]="selected()" (selectedIdChange)="selected.set($event)"
             [pinnedIds]="pinned()" (pinnedIdsChange)="pinned.set($event)" />
         </div>
       </section>
     </div>
   </div>
 </div>
-<cs-popover [isOpen]="filtersOpen()" [triggerRef]="filterTrigger" ariaLabel="Filtrar unidades" (closed)="filtersOpen.set(false)">
-  <div class="panel-filters">
-    <cs-checkbox label="Solo en marcha" [checked]="activeOnly()" (checkedChange)="activeOnly.set($event)" />
-  </div>
-</cs-popover>

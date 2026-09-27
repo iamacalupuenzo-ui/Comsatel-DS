@@ -52,6 +52,7 @@ foco en Fijar, Escape y retorno al disparador, fijado y disabled. Storybook
 estático en 4302 renderiza tres filas sin acordeón. Dependencias existentes;
 no se reinstalaron ni se interrumpió 4300. No equivale a checkout limpio.
 
+Geometría implementada en `7b3ca1c`; paridad pendiente.
 Punto 2: alto 64px, radio 6px, título 13px/700, subtítulo 12px; hover neutro
 con sombra y selección con borde fino, fondo y barra interior de 3px/radio 5px.
 Todos los valores derivan de tokens existentes documentados en la guía, con
@@ -61,6 +62,21 @@ Punto 2: build, check:docs (19), test:ci (11) y Storybook pasan. Chromium midió
 oscuro conserva geometría con sus roles propios. Sin errores JavaScript.
 [Mediciones de ambos temas](paridad-correcciones.json); capturas inspeccionadas
 con contenedor de prueba de 320px. Esto no sustituye el veredicto de paridad.
+
+Punto 3: dos InputDropdown sm visibles, estado y financiera, con valores
+controlados y filtros combinables. Se elimina el botón único Filtros y su
+Popover. Consulta, filtros, selección, fijados y scroll se conservan al contraer.
+Referencia funcional: [Select de PrimeNG](https://primeng.dev/select), solo
+como comparación de selección simple, combobox/listbox y Escape con retorno de
+foco. InputDropdown usa foco real en opciones; no aria-activedescendant.
+Carga remota y formularios quedan fuera de esta composición de catálogo.
+La paridad del panel continúa pendiente; ActionCard y Select múltiple son
+capacidad adelantada al producto, no evaluables contra una instancia real.
+Punto 3: build, check:docs (19), test:ci (12) y Storybook pasan. Chromium
+verificó dos filtros 144×28px/12px, filtros combinados, vacío, Escape en dos
+pasos, cierre de overlays al contraer, contexto restaurado, claro/oscuro y
+390px con movimiento reducido. Storybook confirmó selección y contexto; sin
+errores JavaScript en la app. [Resultados medidos](paridad-correcciones.json).
 
 ## Qué aprendimos del producto
 
@@ -96,8 +112,9 @@ evaluación pendiente, no un defecto demostrado ni un rediseño ya aprobado.
 | --- | --- | --- | --- |
 | Collapse | Altura completa acotada, scroll y accesibilidad | P0 / pendiente de paridad — `945ca58` | [Navegador y gates](p0-verificacion.md#collapse) |
 | InputDropdown | Ancho optativo, truncado y foco tras render visible | P0 / pendiente de paridad — `de5208d`, `eb1d000` | [Navegador y gates](p0-verificacion.md#inputdropdown) |
-| FleetUnitList | Tarjeta operativa, fijado/selección y telemetría | P0 / pendiente de paridad — `a46fd48` | [Navegador, contraste y tests](p0-verificacion.md#fleetunitlist) |
-| ActionCard | Superficie secundaria y foco/selección independientes | P0 / pendiente de paridad — `0ff6f4b` | [Navegador y tests](p0-verificacion.md#actioncard) |
+| FleetUnitList | Fila plana, acciones aparte, geometría y estados corregidos | P0 / pendiente de revalidación — `75a8c12`, `7b3ca1c` | [Mediciones](paridad-correcciones.json) |
+| ActionCard | Capacidad adelantada al producto; falta una notificación comparable | P0 / no evaluable, sin reclamar paridad | [Veredicto independiente](paridad-p0.md#actioncard--no-evaluable) |
+| Select múltiple | Capacidad adelantada al producto; no existe caso con chips en las pantallas medidas | P0 / no evaluable, sin reclamar paridad | [Veredicto independiente](paridad-p0.md) |
 
 ## Fundamentos, demos y brechas nuevas
 
@@ -105,7 +122,7 @@ evaluación pendiente, no un defecto demostrado ni un rediseño ya aprobado.
 | --- | --- | --- | --- |
 | Fundación secundaria | Escala y roles claros/oscuros con contraste | P0 / pendiente de paridad — `3dfb750` | [Contraste](secundario.md#contraste-comprobado) |
 | Tokens de selección | Roles existentes, borde de 2 px y foco separado | P0 / pendiente de paridad — `d545545` | [Contrato y contraste](seleccion.md) |
-| Panel plegable | Header persistente, chevron, contexto y Escape por capas | P0 / pendiente de paridad — `d6d72a8` | [Patrón, navegador y tests](p0-verificacion.md#panel-plegable) |
+| Panel plegable | Dos filtros visibles y contexto conservado | P0 / pendiente de revalidación | [Mediciones](paridad-correcciones.json) |
 
 ## Mantenimiento
 

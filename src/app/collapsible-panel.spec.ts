@@ -1,3 +1,5 @@
+import { By } from '@angular/platform-browser';
+import { InputDropdown } from '@iamacalupuenzo-ui/comsatel-ds';
 import { TestBed } from '@angular/core/testing';
 import { CollapsiblePanelExample } from './pages/motion-demo/collapsible-panel-example';
 
@@ -32,5 +34,22 @@ describe('Patrón de panel plegable', () => {
     input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
     await fixture.whenStable();
     expect(fixture.nativeElement.querySelector('#panel-toggle').getAttribute('aria-expanded')).toBe('true');
+  });
+  it('combina los dos filtros visibles y conserva sus valores al contraer', async () => {
+    const fixture = TestBed.createComponent(CollapsiblePanelExample);
+    await fixture.whenStable();
+    const filters = fixture.debugElement.queryAll(By.directive(InputDropdown));
+    expect(filters.length).toBe(2);
+    expect(filters.every(filter => filter.componentInstance.size === 'sm')).toBe(true);
+    filters[0].componentInstance.valueChange.emit('active');
+    filters[1].componentInstance.valueChange.emit('norte');
+    await fixture.whenStable();
+    expect(fixture.nativeElement.querySelector('[role="status"]').textContent).toContain('4 unidades');
+    fixture.nativeElement.querySelector('#panel-toggle').click();
+    await fixture.whenStable();
+    fixture.nativeElement.querySelector('#panel-toggle').click();
+    await fixture.whenStable();
+    expect(filters[0].componentInstance.value).toBe('active');
+    expect(filters[1].componentInstance.value).toBe('norte');
   });
 });
