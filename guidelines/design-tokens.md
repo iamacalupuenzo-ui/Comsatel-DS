@@ -54,6 +54,10 @@ Las superficies por elevación son tokens aparte: `--elevation-surface-default`,
 
 ## Color secundario cálido (0.3.0, borrador local)
 
+Escala **optativa**, visible completa (050–950) en Color / Paleta y con sus
+diez roles en Color / Tokens semánticos. No se usa por defecto en componentes:
+requiere una elección explícita como `surface="secondary"` cuando esa API existe.
+
 | Token | Claro / oscuro | Uso |
 | :-- | :-- | :-- |
 | `--elevation-surface-secondary` | `#fcfaf4` / `#30291c` | Tarjetas y controles cálidos |

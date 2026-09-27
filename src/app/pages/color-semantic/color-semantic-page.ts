@@ -42,6 +42,15 @@ export class ColorSemanticPage {
 
   protected readonly bgFamilies: BgFamily[] = [
     {
+      label: 'Secondary · escala optativa',
+      emphasis: ['subtlest', 'subtle'].map((level) => ({
+        name: level,
+        default: { cssVar: `--color-background-secondary-${level}`, token: `color/background/secondary/${level}`, description: 'Fondo cálido optativo; requiere elección explícita' },
+        hover: { cssVar: `--color-background-secondary-${level}-hover`, token: `color/background/secondary/${level}:hover`, description: 'Hover del fondo cálido optativo' },
+        pressed: { cssVar: `--color-background-secondary-${level}-pressed`, token: `color/background/secondary/${level}:pressed`, description: 'Presionado del fondo cálido optativo' },
+      })),
+    },
+    {
       label: 'Neutral',
       emphasis: [
         { name: 'Subtlest', default: { cssVar: '--color-background-neutral-subtlest', token: 'color/background/neutral/subtlest', description: 'Relleno neutral más tenue, filas cebra' }, hover: { cssVar: '--color-background-neutral-subtlest-hover', token: 'color/background/neutral/subtlest:hover', description: 'Hover sobre neutral subtlest' }, pressed: { cssVar: '--color-background-neutral-subtlest-pressed', token: 'color/background/neutral/subtlest:pressed', description: 'Pressed sobre neutral subtlest' } },
@@ -62,6 +71,16 @@ export class ColorSemanticPage {
   ];
 
   protected readonly groups: Group[] = [
+    {
+      label: 'Secondary · superficie e indicadores optativos', id: 'secondary',
+      description: 'Escala optativa. Estos roles se usan únicamente al elegir una superficie cálida; los controles predeterminados mantienen los neutros del sistema.',
+      tokens: [
+        { cssVar: '--elevation-surface-secondary', token: 'elevation/surface/secondary', description: 'Superficie cálida optativa de tarjetas y controles' },
+        { cssVar: '--color-text-secondary-default', token: 'color/text/secondary/default', description: 'Texto sobre superficies cálidas' },
+        { cssVar: '--color-border-secondary-default', token: 'color/border/secondary/default', description: 'Borde sobre superficies cálidas' },
+        { cssVar: '--color-icon-secondary-default', token: 'color/icon/secondary/default', description: 'Íconos sobre superficies cálidas' },
+      ],
+    },
     {
       label: 'Text', id: 'text', description: 'Controla el color de todo el contenido tipográfico.',
       tokens: [

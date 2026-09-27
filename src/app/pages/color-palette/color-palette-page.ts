@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { primitiveColors } from '@iamacalupuenzo-ui/comsatel-ds';
 
-const SHADES = ['050', '100', '200', '300', '400', '500', '600', '700', '800', '900'] as const;
+const SHADES = ['050', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'] as const;
 
 interface FamilyDef {
   key: keyof typeof primitiveColors;
@@ -10,6 +10,7 @@ interface FamilyDef {
 }
 
 const FAMILY_DEFS: FamilyDef[] = [
+  { key: 'secondary', label: 'Secondary · escala optativa', description: 'Crema cálido de 050 a 950. Se activa explícitamente; no es el lienzo ni la superficie predeterminada de los controles.' },
   { key: 'brand', label: 'Brand', description: 'Identidad central de la marca. Se usa en acciones primarias, links, estados activos y expresiones de marca.' },
   { key: 'gray', label: 'Gray', description: 'Base neutral para texto, fondos, separadores y elementos de UI sutiles en todos los temas.' },
   { key: 'success', label: 'Success', description: 'Feedback positivo, acciones confirmadas, indicadores de conexión y banners de éxito.' },
