@@ -1,50 +1,39 @@
-<cs-accordion
-  class="cs-fleet-unit-list"
-  [type]="type"
-  [defaultExpandedIds]="defaultExpandedIds"
-  [expandedIds]="expandedIds"
-  (expandedIdsChange)="expandedIdsChange.emit($event)"
->
+<ul class="cs-fleet-unit-list" aria-label="Unidades de flota">
   @for (unit of orderedUnits; track unit.id) {
-    <cs-accordion-item
-      class="cs-fleet-unit-list__item cs-focus-within"
+    <li class="cs-fleet-unit-list__item cs-focus-within"
       [class.cs-fleet-unit-list__item--secondary]="surface() === 'secondary'"
-      [class.cs-fleet-unit-list__item--interactive]="selectable() || pinnable()"
+      [class.cs-fleet-unit-list__item--interactive]="!unit.disabled"
       [class.cs-fleet-unit-list__item--selected]="selectedId() === unit.id"
       [class.cs-fleet-unit-list__item--pinned]="pinnedIds().includes(unit.id)"
-      [attr.data-unit-id]="unit.id"
-      [id]="unit.id"
-      [disabled]="unit.disabled ?? false"
-      [surface]="appearance === 'filled' ? 'filled' : 'outlined'"
-    >
-      <div header class="cs-fleet-unit-list__header">
-        <div class="cs-fleet-unit-list__vehicle-icon"><cs-icon name="truck" [size]="16" aria-hidden="true" /></div>
-        <div class="cs-fleet-unit-list__identity">
+      [attr.data-unit-id]="unit.id">
+      <button type="button" class="cs-fleet-unit-list__header"
+        [disabled]="unit.disabled || !selectable()" [attr.aria-pressed]="selectedId() === unit.id"
+        [attr.aria-label]="'Seleccionar, ' + unit.name" (click)="select(unit)">
+        <span class="cs-fleet-unit-list__vehicle-icon">
+          <cs-icon name="truck" [size]="16" aria-hidden="true" />
+          @if (pinnedIds().includes(unit.id)) { <cs-icon class="cs-fleet-unit-list__pin" name="star" [size]="12" aria-label="Fijada" /> }
+        </span>
+        <span class="cs-fleet-unit-list__identity">
           <span class="cs-fleet-unit-list__name">{{ unit.name }}</span>
           <span class="cs-fleet-unit-list__signal">{{ unit.lastSeen }}</span>
-          @if (unit.disabled && surface() === 'secondary') { <span class="cs-fleet-unit-list__state">No disponible</span> }
-          @if (pinnedIds().includes(unit.id)) { <span class="cs-fleet-unit-list__state"><cs-icon name="star" [size]="16" aria-hidden="true" />Fijada</span> }
-          @if (selectedId() === unit.id) { <span class="cs-fleet-unit-list__state"><cs-icon name="check" [size]="16" aria-hidden="true" />Seleccionada</span> }
-        </div>
-        <cs-tag
-          [severity]="statusSeverity[unit.status]"
-          [icon]="statusIcon[unit.status]"
-          [value]="unit.statusLabel"
-          [rounded]="true"
-        />
-      </div>
-
-      <div class="cs-fleet-unit-list__body">
-        @if (selectable() || pinnable()) {
+        </span>
+        <cs-tag [severity]="statusSeverity[unit.status]" [icon]="statusIcon[unit.status]" [value]="unit.statusLabel" [rounded]="true" />
+      </button>
+      <span #actionAnchor class="cs-fleet-unit-list__action-trigger">
+        <cs-button variant="tertiary" size="xs" [disabled]="unit.disabled ?? false"
+          [aria-label]="'Más acciones para ' + unit.name" (click)="toggleActions(unit, actionAnchor.querySelector('button')!)">
+          <cs-icon name="more-horizontal" [size]="16" aria-hidden="true" />
+        </cs-button>
+      </span>
+      <cs-popover [isOpen]="actionUnitId() === unit.id" [triggerRef]="actionAnchor" placement="bottom-end"
+        [ariaLabel]="'Acciones y detalle de ' + unit.name" (closed)="closeActions()">
+        <div class="cs-fleet-unit-list__body">
           <div class="cs-fleet-unit-list__actions">
-            @if (selectable()) {
-              <cs-button variant="default" size="sm" [selected]="selectedId() === unit.id" [disabled]="unit.disabled ?? false" [aria-label]="(selectedId() === unit.id ? 'Quitar selección, ' : 'Seleccionar, ') + unit.name" (click)="select(unit)">{{ selectedId() === unit.id ? 'Quitar selección' : 'Seleccionar' }}</cs-button>
-            }
             @if (pinnable()) {
-              <cs-button variant="default" size="sm" [disabled]="unit.disabled ?? false" [aria-label]="(pinnedIds().includes(unit.id) ? 'Desfijar, ' : 'Fijar, ') + unit.name" (click)="pin(unit)"><cs-icon name="star" [size]="16" aria-hidden="true" />{{ pinnedIds().includes(unit.id) ? 'Desfijar' : 'Fijar' }}</cs-button>
+              <cs-button variant="tertiary" size="sm" [disabled]="unit.disabled ?? false" (click)="pin(unit)">{{ pinnedIds().includes(unit.id) ? 'Desfijar' : 'Fijar' }}</cs-button>
             }
+            <cs-button variant="tertiary" size="sm" [disabled]="unit.disabled ?? false" (click)="showDetail(unit)">{{ detailLabel }}</cs-button>
           </div>
-        }
         @if (unit.alert) {
           <p class="cs-fleet-unit-list__alert"><cs-icon name="alert-triangle" [size]="14" aria-hidden="true" />{{ unit.alert }}</p>
         }
@@ -61,8 +50,8 @@
             }
           }
         </dl>
-        <cs-button variant="tertiary" size="xs" [disabled]="unit.disabled ?? false" [aria-label]="detailLabel + ', ' + unit.name" (click)="!unit.disabled && detailClick.emit(unit)">{{ detailLabel }}</cs-button>
-      </div>
-    </cs-accordion-item>
+        </div>
+      </cs-popover>
+    </li>
   }
-</cs-accordion>
+</ul>

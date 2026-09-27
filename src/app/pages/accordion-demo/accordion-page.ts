@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { FleetUnitList, Icon, type FleetUnit, type FleetUnitListAppearance } from '@iamacalupuenzo-ui/comsatel-ds';
+import { Accordion, AccordionItem, FleetUnitList, Icon, type FleetUnit, type FleetUnitListAppearance } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 import { CodeBlock } from '../../shared/docs/code-block';
 
@@ -23,7 +23,7 @@ const DISABLED_UNITS: FleetUnit[] = UNITS.map((unit) =>
 
 @Component({
   selector: 'app-accordion-page',
-  imports: [FleetUnitList, Icon, DemoShell, CodeBlock],
+  imports: [Accordion, AccordionItem, FleetUnitList, Icon, DemoShell, CodeBlock],
   templateUrl: './accordion-page.html',
   styleUrl: './accordion-page.css',
 })
@@ -52,12 +52,11 @@ export class AccordionPage {
     if (s['appearance']) this.appearance.set(s['appearance'] as FleetUnitListAppearance);
   }
 
-  protected readonly pgCode = computed(() => {
-    const typeProp = this.type() !== 'single' ? ` type="${this.type()}"` : '';
-    const appearanceProp = this.appearance() !== 'outlined' ? ` appearance="${this.appearance()}"` : '';
-    return `<cs-fleet-unit-list [units]="units"${typeProp}${appearanceProp}\n  [defaultExpandedIds]="['norte-04']"\n  (detailClick)="onDetail($event)"\n/>`;
-  });
-
-  protected readonly typeCode = `<cs-fleet-unit-list [units]="units" type="multiple"\n  [defaultExpandedIds]="['norte-04', 'norte-07']"\n/>`;
-  protected readonly disabledCode = `<cs-fleet-unit-list [units]="unitsWithUnavailableGps"\n  [defaultExpandedIds]="['norte-04']"\n/>\n<!-- La unidad con disabled: true se mantiene visible. -->`;
+  protected readonly pgCode = computed(() => `<cs-accordion type="${this.type()}">
+  <cs-accordion-item id="unidad" surface="${this.appearance()}">
+    <span header>Unidad</span><p>Detalle de la unidad</p>
+  </cs-accordion-item>
+</cs-accordion>`);
+  protected readonly typeCode = `<cs-accordion type="multiple">...</cs-accordion>`;
+  protected readonly disabledCode = `<cs-accordion-item id="unidad" [disabled]="true">...</cs-accordion-item>`;
 }

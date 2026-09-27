@@ -11,14 +11,14 @@ const meta: Meta<FleetUnitList> = {
   title: 'Organismos/FleetUnitList',
   component: FleetUnitList,
   tags: ['autodocs'],
-  args: { units: UNITS, defaultExpandedIds: ['norte-04'], type: 'single' },
+  args: { units: UNITS, selectable: true, pinnable: true },
 };
 
 export default meta;
 type Story = StoryObj<FleetUnitList>;
 
 export const Default: Story = {};
-export const Multiple: Story = { args: { type: 'multiple', defaultExpandedIds: ['norte-04', 'norte-07'] } };
+export const Selected: Story = { args: { selectedId: 'norte-04' } };
 export const Filled: Story = { args: { appearance: 'filled' } };
 
 // Estados comprobados en el ejemplo FleetUnitList de la página Accordion.

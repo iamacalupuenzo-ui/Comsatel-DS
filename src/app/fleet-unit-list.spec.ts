@@ -20,10 +20,10 @@ describe('FleetUnitList: estados independientes', () => {
     await fixture.whenStable();
     expect(changes).toEqual(['a']);
     expect(fixture.componentInstance.selectedId()).toBeNull();
-    expect(fixture.nativeElement.querySelector('[data-unit-id="a"] .cs-accordion-item__header').getAttribute('aria-expanded')).toBe('true');
+    expect(fixture.nativeElement.querySelector('cs-accordion')).toBeNull();
     fixture.componentRef.setInput('selectedId', 'a');
     await fixture.whenStable();
-    expect(fixture.nativeElement.querySelector('button[aria-label="Quitar selección, Unidad A"]').getAttribute('aria-pressed')).toBe('true');
+    expect(fixture.nativeElement.querySelector('button[aria-label="Seleccionar, Unidad A"]').getAttribute('aria-pressed')).toBe('true');
   });
 
   it('ordena fijados sin mutar unidades y conserva controles deshabilitados', async () => {
@@ -31,7 +31,7 @@ describe('FleetUnitList: estados independientes', () => {
     fixture.componentRef.setInput('units', units);
     fixture.componentRef.setInput('pinnedIds', ['b']);
     await fixture.whenStable();
-    expect(fixture.nativeElement.querySelector('cs-accordion-item').dataset.unitId).toBe('b');
+    expect(fixture.nativeElement.querySelector('[data-unit-id]').dataset.unitId).toBe('b');
     expect(units.map(unit => unit.id)).toEqual(['a', 'b']);
     expect(fixture.nativeElement.querySelector('[data-unit-id="b"] button').disabled).toBe(true);
   });

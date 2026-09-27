@@ -36,3 +36,12 @@
 .cs-fleet-unit-list__telemetry dt { color: var(--color-text-base-subtlest); font-size: var(--font-size-label-small); line-height: var(--font-line-height-label-small); }
 .cs-fleet-unit-list__telemetry dd { margin: var(--layout-padding-2xs) 0 0; overflow: hidden; color: var(--color-text-base-default); font-size: var(--font-size-content-note); font-weight: var(--font-weight-accent); line-height: var(--font-line-height-content-note); text-overflow: ellipsis; white-space: nowrap; }
 @media (max-width: 767px) { .cs-fleet-unit-list__telemetry { grid-template-columns: 1fr; } }
+
+.cs-fleet-unit-list { display: flex; flex-direction: column; gap: var(--layout-gap-md); margin: 0; padding: 0; list-style: none; }
+.cs-fleet-unit-list__item { display: flex; align-items: center; position: relative; border: var(--layout-border-thin) solid var(--color-border-divider); border-radius: var(--radius-lg); background: var(--elevation-surface-default); }
+.cs-fleet-unit-list__header { flex: 1; border: 0; background: transparent; color: inherit; text-align: left; font: inherit; padding: var(--layout-padding-lg); cursor: pointer; }
+.cs-fleet-unit-list__header:disabled { cursor: default; opacity: var(--opacity-disabled); }
+.cs-fleet-unit-list__action-trigger { flex-shrink: 0; padding-right: var(--layout-padding-sm); }
+.cs-fleet-unit-list__vehicle-icon { position: relative; }
+.cs-fleet-unit-list__pin { position: absolute; top: 0; right: 0; color: var(--color-icon-brand-default); }
+.cs-fleet-unit-list__body { padding: var(--layout-padding-lg); max-width: min(calc(var(--layout-size-2xl) * 5), 85vw); }

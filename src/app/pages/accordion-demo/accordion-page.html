@@ -6,7 +6,7 @@
   <section class="section" id="fleet-secondary">
     <h2 class="section__title">FleetUnitList: selección y fijados</h2>
     <p class="section__intro">Expande para leer y actuar. Seleccionar conserva check y borde; fijar conserva estrella y mueve la unidad al inicio. Ninguna acción sustituye la expansión. Los estados son controlados por el consumidor.</p>
-    <cs-fleet-unit-list id="warm-fleet" [units]="disabledUnits" [selectable]="true" [pinnable]="true" [selectedId]="warmSelectedId()" (selectedIdChange)="warmSelectedId.set($event)" [pinnedIds]="warmPinnedIds()" (pinnedIdsChange)="warmPinnedIds.set($event)" [defaultExpandedIds]="['norte-04']" (detailClick)="onDetail($event)" />
+    <cs-fleet-unit-list id="warm-fleet" [units]="disabledUnits" [selectable]="true" [pinnable]="true" [selectedId]="warmSelectedId()" (selectedIdChange)="warmSelectedId.set($event)" [pinnedIds]="warmPinnedIds()" (pinnedIdsChange)="warmPinnedIds.set($event)" (detailClick)="onDetail($event)" />
     <p class="section__intro">surface admite default/secondary; selectable y pinnable nacen en false. selectedId y pinnedIds se actualizan con sus eventos Change. El foco sigue al control cuando una unidad cambia de orden. Conserva las etiquetas y el detalle; no uses el color como único indicador.</p>
   </section>
 
@@ -14,7 +14,13 @@
     <h2 class="section__title" id="playground">Playground</h2>
     <p class="section__intro">Haz clic en una unidad para expandirla. El organismo conserva la misma jerarquía en todos los ejemplos; elige la superficie que mejor calce con el contexto de la plataforma.</p>
     <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
-      <cs-fleet-unit-list class="accordion-demo" [units]="units" [type]="type()" [appearance]="appearance()" [defaultExpandedIds]="['norte-04']" (detailClick)="onDetail($event)" />
+      <cs-accordion class="accordion-demo" [type]="type()" [defaultExpandedIds]="['norte-04']">
+ @for (unit of units; track unit.id) {
+ <cs-accordion-item [id]="unit.id" [disabled]="unit.disabled ?? false" [surface]="appearance()">
+ <span header>{{ unit.name }}</span><p>{{ unit.location }} · {{ unit.speed }} · {{ unit.battery }}</p>
+ </cs-accordion-item>
+ }
+ </cs-accordion>
     </app-demo-shell>
     @if (selectedUnit()) { <p class="result" role="status">{{ selectedUnit() }}</p> }
   </section>
@@ -26,11 +32,23 @@
       <div class="static-block__preview appearance-compare">
         <div class="appearance-compare__col">
           <div class="appearance-compare__heading"><span class="appearance-compare__label">A · Tarjetas delineadas</span><span class="appearance-compare__description">Mayor separación entre unidades.</span></div>
-          <cs-fleet-unit-list class="accordion-demo" [units]="highlightedUnit" [defaultExpandedIds]="['norte-04']" />
+          <cs-accordion class="accordion-demo" type="single" [defaultExpandedIds]="['norte-04']">
+ @for (unit of highlightedUnit; track unit.id) {
+ <cs-accordion-item [id]="unit.id" [disabled]="unit.disabled ?? false" surface="outlined">
+ <span header>{{ unit.name }}</span><p>{{ unit.location }} · {{ unit.speed }} · {{ unit.battery }}</p>
+ </cs-accordion-item>
+ }
+ </cs-accordion>
         </div>
         <div class="appearance-compare__col">
           <div class="appearance-compare__heading"><span class="appearance-compare__label">B · Superficies rellenas</span><span class="appearance-compare__description">Menos borde; útil dentro de otro panel.</span></div>
-          <cs-fleet-unit-list class="accordion-demo" [units]="highlightedUnit" appearance="filled" [defaultExpandedIds]="['norte-04']" />
+          <cs-accordion class="accordion-demo" type="single" [defaultExpandedIds]="['norte-04']">
+ @for (unit of highlightedUnit; track unit.id) {
+ <cs-accordion-item [id]="unit.id" [disabled]="unit.disabled ?? false" surface="filled">
+ <span header>{{ unit.name }}</span><p>{{ unit.location }} · {{ unit.speed }} · {{ unit.battery }}</p>
+ </cs-accordion-item>
+ }
+ </cs-accordion>
         </div>
       </div>
     </div>
@@ -41,8 +59,20 @@
     <p class="section__intro"><code class="inline-code">single</code> (por defecto) cierra el ítem anterior cuando se abre uno nuevo. <code class="inline-code">multiple</code> permite cualquier cantidad abierta a la vez — útil cuando los ítems son independientes, no una vista enfocada en uno solo como una lista de flota.</p>
     <div class="static-block">
       <div class="static-block__preview type-compare">
-        <div class="type-compare__col"><span class="type-compare__label">single</span><cs-fleet-unit-list class="accordion-demo" [units]="units" type="single" [defaultExpandedIds]="['norte-04']" /></div>
-        <div class="type-compare__col"><span class="type-compare__label">multiple</span><cs-fleet-unit-list class="accordion-demo" [units]="units" type="multiple" [defaultExpandedIds]="['norte-04', 'norte-07']" /></div>
+        <div class="type-compare__col"><span class="type-compare__label">single</span><cs-accordion class="accordion-demo" type="single" [defaultExpandedIds]="['norte-04']">
+ @for (unit of units; track unit.id) {
+ <cs-accordion-item [id]="unit.id" [disabled]="unit.disabled ?? false" surface="outlined">
+ <span header>{{ unit.name }}</span><p>{{ unit.location }} · {{ unit.speed }} · {{ unit.battery }}</p>
+ </cs-accordion-item>
+ }
+ </cs-accordion></div>
+        <div class="type-compare__col"><span class="type-compare__label">multiple</span><cs-accordion class="accordion-demo" type="multiple" [defaultExpandedIds]="['norte-04']">
+ @for (unit of units; track unit.id) {
+ <cs-accordion-item [id]="unit.id" [disabled]="unit.disabled ?? false" surface="outlined">
+ <span header>{{ unit.name }}</span><p>{{ unit.location }} · {{ unit.speed }} · {{ unit.battery }}</p>
+ </cs-accordion-item>
+ }
+ </cs-accordion></div>
       </div>
       <app-code-block [code]="typeCode"></app-code-block>
     </div>
@@ -52,7 +82,13 @@
     <h2 class="section__title" id="disabled">Ítem deshabilitado</h2>
     <p class="section__intro">Un ítem deshabilitado no se puede abrir/cerrar — su encabezado se atenúa y pierde el cursor de puntero, pero se sigue mostrando en su lugar para que la lista no salte.</p>
     <div class="static-block">
-      <div class="static-block__preview"><cs-fleet-unit-list class="accordion-demo" [units]="disabledUnits" [defaultExpandedIds]="['norte-04']" /></div>
+      <div class="static-block__preview"><cs-accordion class="accordion-demo" type="single" [defaultExpandedIds]="['norte-04']">
+ @for (unit of disabledUnits; track unit.id) {
+ <cs-accordion-item [id]="unit.id" [disabled]="unit.disabled ?? false" surface="outlined">
+ <span header>{{ unit.name }}</span><p>{{ unit.location }} · {{ unit.speed }} · {{ unit.battery }}</p>
+ </cs-accordion-item>
+ }
+ </cs-accordion></div>
       <app-code-block [code]="disabledCode"></app-code-block>
     </div>
   </section>
@@ -62,7 +98,13 @@
     <div class="guide-grid">
       <div class="guide-card guide-card--do">
         <div class="guide-card__header"><cs-icon name="check" [size]="13" aria-hidden="true" class="guide-card__header-icon" /><span class="guide-card__header-label">Recomendado</span></div>
-        <div class="guide-card__body"><p class="guide-card__text">Usa Accordion cuando expandir el detalle de un ítem es el punto — el estado completo de una unidad de flota, una respuesta de FAQ, una sección de configuración.</p><cs-fleet-unit-list class="accordion-demo" [units]="highlightedUnit" [defaultExpandedIds]="['norte-04']" /></div>
+        <div class="guide-card__body"><p class="guide-card__text">Usa Accordion cuando expandir el detalle de un ítem es el punto — el estado completo de una unidad de flota, una respuesta de FAQ, una sección de configuración.</p><cs-accordion class="accordion-demo" type="single" [defaultExpandedIds]="['norte-04']">
+ @for (unit of highlightedUnit; track unit.id) {
+ <cs-accordion-item [id]="unit.id" [disabled]="unit.disabled ?? false" surface="outlined">
+ <span header>{{ unit.name }}</span><p>{{ unit.location }} · {{ unit.speed }} · {{ unit.battery }}</p>
+ </cs-accordion-item>
+ }
+ </cs-accordion></div>
       </div>
       <div class="guide-card guide-card--dont">
         <div class="guide-card__header"><cs-icon name="x" [size]="13" aria-hidden="true" class="guide-card__header-icon" /><span class="guide-card__header-label">Evita</span></div>
@@ -70,11 +112,11 @@
       </div>
       <div class="guide-card guide-card--do">
         <div class="guide-card__header"><cs-icon name="check" [size]="13" aria-hidden="true" class="guide-card__header-icon" /><span class="guide-card__header-label">Recomendado</span></div>
-        <div class="guide-card__body"><p class="guide-card__text">Usa <code class="inline-code">type=&quot;single&quot;</code> por defecto para una lista donde tiene sentido enfocarse en un ítem a la vez — evita que la lista crezca de alto de forma impredecible.</p><code class="guide-card__code">&lt;cs-fleet-unit-list type="single"&gt;</code></div>
+        <div class="guide-card__body"><p class="guide-card__text">Usa <code class="inline-code">type=&quot;single&quot;</code> por defecto para una lista donde tiene sentido enfocarse en un ítem a la vez — evita que la lista crezca de alto de forma impredecible.</p><code class="guide-card__code">&lt;cs-accordion type="single"&gt;</code></div>
       </div>
       <div class="guide-card guide-card--dont">
         <div class="guide-card__header"><cs-icon name="x" [size]="13" aria-hidden="true" class="guide-card__header-icon" /><span class="guide-card__header-label">Evita</span></div>
-        <div class="guide-card__body"><p class="guide-card__text">No recurras a <code class="inline-code">type=&quot;multiple&quot;</code> solo porque está disponible — es para ítems independientes (un FAQ), no una lista pensada para enfocar la atención en una sola entrada.</p><code class="guide-card__code">&lt;cs-fleet-unit-list type="multiple"&gt;</code></div>
+        <div class="guide-card__body"><p class="guide-card__text">No recurras a <code class="inline-code">type=&quot;multiple&quot;</code> solo porque está disponible — es para ítems independientes (un FAQ), no una lista pensada para enfocar la atención en una sola entrada.</p><code class="guide-card__code">&lt;cs-accordion type="multiple"&gt;</code></div>
       </div>
     </div>
   </section>

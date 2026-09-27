@@ -38,6 +38,19 @@ neutros y los roles de marca conservados en Button y Spotlight.
 Las mediciones están en [la evidencia de navegador](color-verificacion.json).
 Esta evidencia verifica color y funcionamiento, no certifica paridad completa.
 
+## Correcciones solicitadas por paridad (2026-09-27)
+
+FleetUnitList: fila plana, selección directa y acciones/telemetría en Popover.
+Entradas de expansión obsoletas sin efecto; selección activa por defecto.
+Pendiente de revalidación de paridad. Referencia funcional: [Button APG](https://www.w3.org/WAI/ARIA/apg/patterns/button/).
+Enter/Espacio, nombre estable y aria-pressed; el Popover recibe y devuelve foco.
+El contenido mixto usa dialog y botones con Tab, no un menú ARIA.
+Punto 1: build, check:docs (19 pruebas), test:ci (11) y Storybook pasan.
+Chromium aislado sobre build servido en 4301: selección sin acordeón, apertura,
+foco en Fijar, Escape y retorno al disparador, fijado y disabled. Storybook
+estático en 4302 renderiza tres filas sin acordeón. Dependencias existentes;
+no se reinstalaron ni se interrumpió 4300. No equivale a checkout limpio.
+
 ## Qué aprendimos del producto
 
 La lectura de `features/fleet-map/fleet-map-canvas.component.ts` muestra un mapa

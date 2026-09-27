@@ -1,21 +1,15 @@
 # FleetUnitList
 
-Organismo para leer y actuar rápido sobre varias unidades de flota. Cada unidad muestra
-nombre, última señal y estado; al expandirla aparecen alerta, velocidad, batería,
-ubicación, diagnóstico y el botón de detalle. Compone `cs-accordion`, `cs-accordion-item`,
-`cs-badge`, `cs-button` y `cs-icon`.
+Organismo de filas planas: la fila selecciona y el botón de tres puntos abre
+acciones y telemetría en Popover separado. No expande unidades.
 
 - **Import:** `import { FleetUnitList, type FleetUnit } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-fleet-unit-list>`
-- **Clase raíz emitida:** `.cs-fleet-unit-list` (sobre el `cs-accordion` interno)
+- **Clase raíz emitida:** `.cs-fleet-unit-list`
 
 ```html
-<cs-fleet-unit-list
-  [units]="units"
-  [defaultExpandedIds]="['norte-04']"
-  detailLabel="Ver detalle"
-  (detailClick)="openUnit($event)"
-></cs-fleet-unit-list>
+<cs-fleet-unit-list [units]="units" [selectedId]="selectedId"
+  (selectedIdChange)="selectedId = $event" (detailClick)="openUnit($event)" />
 ```
 
 ```ts
@@ -43,17 +37,17 @@ const units: FleetUnit[] = [
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
 | `units` | `FleetUnit[]` | requerido | Unidades a listar. Cada `id` tiene que ser único: es la clave del acordeón. |
-| `type` | `'single' \| 'multiple'` | `'single'` | Una unidad abierta a la vez, o varias. Se reenvía a `cs-accordion`. |
-| `defaultExpandedIds` | `string[]` | `[]` | Unidades abiertas al inicio (modo no controlado). |
-| `expandedIds` | `string[] \| undefined` | `undefined` | Unidades abiertas (modo controlado). |
+| `type` | `'single' \| 'multiple'` | `'single'` | Obsoleto, conservado sin efecto. |
+| `defaultExpandedIds` | `string[]` | `[]` | Obsoleto, conservado sin efecto. |
+| `expandedIds` | `string[] \| undefined` | `undefined` | Obsoleto, conservado sin efecto. |
 | `detailLabel` | `string` | `'Ver detalle'` | Texto visible del botón de acción. Su nombre accesible le agrega el nombre de la unidad. |
 | `appearance` | `'outlined' \| 'filled'` | `'outlined'` | Delineado para separar unidades densas o relleno cuando la lista ya vive dentro de un panel. |
 | `surface` | `'default' \| 'secondary'` | `'default'` | Superficie cálida optativa, independiente de expansión y selección. |
-| `selectable` | `boolean` | `false` | Muestra la acción de seleccionar dentro del detalle. |
-| `pinnable` | `boolean` | `false` | Muestra la acción de fijar dentro del detalle. |
+| `selectable` | `boolean` | `true` | Habilita selección directa de fila, activa por defecto. |
+| `pinnable` | `boolean` | `false` | Muestra Fijar en el Popover. |
 | `selectedId` | `string \| null` | `null` | Unidad seleccionada controlada; no modifica expansión ni fijados. |
 | `pinnedIds` | `string[]` | `[]` | Fijados controlados; se ordenan primero conservando el orden original de cada grupo. |
-| `expandedIdsChange` | `EventEmitter<string[]>` | n/a | Emite las unidades abiertas al cambiar. |
+| `expandedIdsChange` | `EventEmitter<string[]>` | n/a | Obsoleto, ya no emite. |
 | `detailClick` | `EventEmitter<FleetUnit>` | n/a | Emite la unidad completa al pulsar el botón de detalle. |
 | `selectedIdChange` | `OutputEmitterRef<string \| null>` | n/a | Solicita selección o limpieza; el consumidor actualiza selectedId. |
 | `pinnedIdsChange` | `OutputEmitterRef<string[]>` | n/a | Solicita la lista de fijados; el consumidor actualiza pinnedIds. |
@@ -72,21 +66,11 @@ El `status` decide el color y el ícono del badge, con un mapeo fijo:
 
 ## Accesibilidad (a11y) y teclado
 
-- Cada unidad es un `cs-accordion-item`: el encabezado es un `<button>` con
-  `aria-expanded` y `aria-controls`, y su nombre accesible es el texto del encabezado
-  (nombre, última señal y estado). Los íconos son `aria-hidden`.
-- **Flechas arriba y abajo** recorren las unidades, **Home** va a la primera y **End** a
-  la última, por el comportamiento de `cs-accordion`.
-- El panel cerrado queda con `aria-hidden` e `inert`: la telemetría y el botón de detalle
-  no se leen ni reciben foco hasta expandir la unidad.
-- El estado se comunica con texto (`statusLabel`), no solo con el color del badge.
-- La telemetría es una lista de definiciones (`<dl>`), así que se lee como pares
-  "Velocidad, 62 km/h".
-- Cada botón de detalle se nombra con `detailLabel` más el nombre de la unidad ("Ver
-  detalle, Camión Norte 04"): el texto visible queda al inicio del nombre accesible y un
-  lector de pantalla distingue un botón de otro.
-- La alerta de una unidad es texto estático: si aparece mientras el usuario mira la
-  lista, no se anuncia.
+- Botón nativo de selección: Enter/Espacio y aria-pressed, nombre estable.
+- Tab recorre selección y acciones; no hay navegación de acordeón.
+- El Popover tiene nombre, portal y relaciones ARIA; su primera acción recibe foco.
+- Escape cierra y devuelve foco al disparador. Fijar y detalle también cierran.
+- Telemetría en dl; estado con texto y fijado con estrella.
 
 <!-- a11y:start FleetUnitList -->
 <!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/fleet-unit-list/fleet-unit-list.ts: no editar a mano, corre npm run docs:a11y -->
@@ -95,34 +79,19 @@ El `status` decide el color y el ícono del badge, con un mapeo fijo:
 
 | Aspecto | Qué hace el código |
 | :-- | :-- |
-| Atributos ARIA | `aria-hidden="true"`, `aria-label` |
+| Elementos nativos | `ul`, `button` |
+| Atributos ARIA | `aria-label="Unidades de flota"`, `aria-hidden="true"`, `aria-label="Fijada"`, `aria-pressed`, `aria-label` |
 | Foco | Mueve el foco por código (`.focus()`) |
-| Compone | `cs-accordion`, `cs-accordion-item`, `cs-icon`, `cs-tag`, `cs-button` |
+| Compone | `cs-icon`, `cs-tag`, `cs-button`, `cs-popover` |
 <!-- a11y:end -->
 
 ## Trampas
 
-- **No rearmes esta composición a mano** con `cs-accordion`, `cs-badge` y `cs-icon`: para
-  una lista de unidades de flota ya existe este organismo.
-- `statusLabel` no se deduce de `status`: pasa un texto coherente con el estado. El mapeo
-  de `status` a color e ícono es fijo y no se configura.
-- Los valores llegan como texto ya formateado: las unidades (km/h, %) y las fechas
-  relativas las formateas tú antes.
-- Para un valor que falta, usa un texto como "Sin dato", no una raya: los lectores de
-  pantalla la leen de forma inconsistente o la omiten. La propia story del componente usa
-  una raya para la velocidad de una unidad sin señal.
-- `expandedIds` (controlado) y `defaultExpandedIds` (no controlado) son excluyentes, igual
-  que en `cs-accordion`.
-- `detailClick` solo emite la unidad: navegar al detalle es responsabilidad de quien lo
-  usa.
-- La telemetría se ordena en 2 columnas y baja a 1 por debajo de 767px de ancho.
+`type`, `expandedIds`, `defaultExpandedIds` y `expandedIdsChange` se conservan
+obsoletos sin efecto. Migra a selección controlada; usa Accordion si necesitas
+expansión. selectedIdChange y pinnedIdsChange solo solicitan cambios al consumidor.
 
 ## Tokens usados
 
-Superficie/texto/borde secundarios; `color-background-selected`,
-`color-text-selected`, `color-border-selected`, `color-border-focused`,
-`color-border-brand-default`, `layout-border-thin/thick`, `layout-padding-2xs`,
-`layout-gap-*`, `radius-md/full`, `shadow-sm` y pares tipográficos
-`content-note`/`label-small`. Los estados usan texto success/warning bolder en
-superficie cálida. No agrega tokens; comparte el foco con ActionCard.
-El breakpoint histórico 767px queda exceptuado en el validador de estilos.
+Superficies, borde, foco y tipografía del sistema; secondary es optativo.
+La telemetría conserva el breakpoint histórico de 767px documentado en el validador.
