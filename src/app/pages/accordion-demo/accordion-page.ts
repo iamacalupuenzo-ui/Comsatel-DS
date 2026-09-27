@@ -28,6 +28,8 @@ const DISABLED_UNITS: FleetUnit[] = UNITS.map((unit) =>
   styleUrl: './accordion-page.css',
 })
 export class AccordionPage {
+  protected readonly warmSelectedId = signal<string | null>(null);
+  protected readonly warmPinnedIds = signal<string[]>([]);
   protected readonly units = UNITS;
   protected readonly disabledUnits = DISABLED_UNITS;
   protected readonly highlightedUnit = [UNITS[0]];

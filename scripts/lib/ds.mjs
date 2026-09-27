@@ -184,7 +184,7 @@ function stripComments(text) {
   return out;
 }
 
-function parseMembers(source) {
+export function parseMembers(source) {
   const body = stripComments(source);
   const inputs = [];
   const outputs = [];
@@ -223,6 +223,12 @@ function parseMembers(source) {
     let type = m[3] ? squash(m[3]) : inferType(defaultValue);
     if (defaultValue === undefined && !m[2]) type += ' | undefined';
     inputs.push({ name: alias ? alias[1] : m[1], property: m[1], type, defaultValue, required: Boolean(m[2]), optional: defaultValue === undefined });
+  }
+  for (const m of body.matchAll(/readonly\s+(\w+)\s*=\s*output\s*(?:<([^>]*(?:<[^>]*>[^>]*)*)>)?\s*\(/g)) {
+    const open = m.index + m[0].length - 1;
+    const args = body.slice(open + 1, matching(body, open));
+    const alias = args.match(/alias\s*:\s*'([^']+)'/);
+    outputs.push({ name: alias ? alias[1] : m[1], type: `OutputEmitterRef<${m[2] ? squash(m[2]) : 'void'}>` });
   }
   return { inputs, outputs };
 }

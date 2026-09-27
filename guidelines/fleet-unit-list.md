@@ -48,8 +48,15 @@ const units: FleetUnit[] = [
 | `expandedIds` | `string[] \| undefined` | `undefined` | Unidades abiertas (modo controlado). |
 | `detailLabel` | `string` | `'Ver detalle'` | Texto visible del botón de acción. Su nombre accesible le agrega el nombre de la unidad. |
 | `appearance` | `'outlined' \| 'filled'` | `'outlined'` | Delineado para separar unidades densas o relleno cuando la lista ya vive dentro de un panel. |
+| `surface` | `'default' \| 'secondary'` | `'default'` | Superficie cálida optativa, independiente de expansión y selección. |
+| `selectable` | `boolean` | `false` | Muestra la acción de seleccionar dentro del detalle. |
+| `pinnable` | `boolean` | `false` | Muestra la acción de fijar dentro del detalle. |
+| `selectedId` | `string \| null` | `null` | Unidad seleccionada controlada; no modifica expansión ni fijados. |
+| `pinnedIds` | `string[]` | `[]` | Fijados controlados; se ordenan primero conservando el orden original de cada grupo. |
 | `expandedIdsChange` | `EventEmitter<string[]>` | n/a | Emite las unidades abiertas al cambiar. |
 | `detailClick` | `EventEmitter<FleetUnit>` | n/a | Emite la unidad completa al pulsar el botón de detalle. |
+| `selectedIdChange` | `OutputEmitterRef<string \| null>` | n/a | Solicita selección o limpieza; el consumidor actualiza selectedId. |
+| `pinnedIdsChange` | `OutputEmitterRef<string[]>` | n/a | Solicita la lista de fijados; el consumidor actualiza pinnedIds. |
 <!-- props:end -->
 
 `FleetUnit` es `{ id, name, status, statusLabel, lastSeen, speed, battery, location,
@@ -89,6 +96,7 @@ El `status` decide el color y el ícono del badge, con un mapeo fijo:
 | Aspecto | Qué hace el código |
 | :-- | :-- |
 | Atributos ARIA | `aria-hidden="true"`, `aria-label` |
+| Foco | Mueve el foco por código (`.focus()`) |
 | Compone | `cs-accordion`, `cs-accordion-item`, `cs-icon`, `cs-tag`, `cs-button` |
 <!-- a11y:end -->
 

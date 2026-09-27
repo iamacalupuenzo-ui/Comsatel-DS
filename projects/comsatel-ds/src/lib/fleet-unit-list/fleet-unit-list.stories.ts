@@ -20,3 +20,8 @@ type Story = StoryObj<FleetUnitList>;
 export const Default: Story = {};
 export const Multiple: Story = { args: { type: 'multiple', defaultExpandedIds: ['norte-04', 'norte-07'] } };
 export const Filled: Story = { args: { appearance: 'filled' } };
+
+// Estados comprobados en el ejemplo FleetUnitList de la página Accordion.
+export const SecondarySelectedAndPinned: Story = {
+  args: { surface: 'secondary', selectable: true, pinnable: true, selectedId: 'norte-04', pinnedIds: ['norte-04'] },
+};

@@ -3,6 +3,13 @@
   <h1 class="title">Accordion</h1>
   <p class="description">Un accordion deja que cada ítem se expanda para mostrar más detalle sin salir de la lista — una unidad de flota que se expande a su tarjeta de estado completa. Por defecto solo un ítem queda abierto a la vez, que es como se lee una lista así: enfocarse en una cosa, no varios paneles abiertos compitiendo por la atención.</p>
 
+  <section class="section" id="fleet-secondary">
+    <h2 class="section__title">FleetUnitList: selección y fijados</h2>
+    <p class="section__intro">Expande para leer y actuar. Seleccionar conserva check y borde; fijar conserva estrella y mueve la unidad al inicio. Ninguna acción sustituye la expansión. Los estados son controlados por el consumidor.</p>
+    <cs-fleet-unit-list id="warm-fleet" [units]="disabledUnits" surface="secondary" [selectable]="true" [pinnable]="true" [selectedId]="warmSelectedId()" (selectedIdChange)="warmSelectedId.set($event)" [pinnedIds]="warmPinnedIds()" (pinnedIdsChange)="warmPinnedIds.set($event)" [defaultExpandedIds]="['norte-04']" (detailClick)="onDetail($event)" />
+    <p class="section__intro">surface admite default/secondary; selectable y pinnable nacen en false. selectedId y pinnedIds se actualizan con sus eventos Change. El foco sigue al control cuando una unidad cambia de orden. Conserva las etiquetas y el detalle; no uses el color como único indicador.</p>
+  </section>
+
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>
     <p class="section__intro">Haz clic en una unidad para expandirla. El organismo conserva la misma jerarquía en todos los ejemplos; elige la superficie que mejor calce con el contexto de la plataforma.</p>

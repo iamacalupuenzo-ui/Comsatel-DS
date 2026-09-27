@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, input, output } from '@angular/core';
 import { Accordion, AccordionType } from '../accordion/accordion';
 import { AccordionItem } from '../accordion/accordion-item';
 import { Button } from '../button/button';
@@ -52,6 +52,7 @@ const TELEMETRY_FIELDS: TelemetryField[] = [
 /** Organismo para la lectura y acción rápida sobre unidades de flota. */
 @Component({
   selector: 'cs-fleet-unit-list',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Accordion, AccordionItem, Button, Icon, Tag],
   templateUrl: './fleet-unit-list.html',
   styleUrl: './fleet-unit-list.css',
@@ -64,8 +65,34 @@ export class FleetUnitList {
   @Input() detailLabel = 'Ver detalle';
   /** Cambia solo la superficie de lectura; la jerarquía y la interacción son iguales. */
   @Input() appearance: FleetUnitListAppearance = 'outlined';
+  readonly surface = input<'default' | 'secondary'>('default');
+  readonly selectable = input(false);
+  readonly pinnable = input(false);
+  readonly selectedId = input<string | null>(null);
+  readonly pinnedIds = input<string[]>([]);
   @Output() readonly expandedIdsChange = new EventEmitter<string[]>();
   @Output() readonly detailClick = new EventEmitter<FleetUnit>();
+  readonly selectedIdChange = output<string | null>();
+  readonly pinnedIdsChange = output<string[]>();
+
+  protected get orderedUnits(): FleetUnit[] {
+    return [...this.units].sort((a, b) => Number(this.pinnedIds().includes(b.id)) - Number(this.pinnedIds().includes(a.id)));
+  }
+
+  protected select(unit: FleetUnit): void {
+    if (!unit.disabled) this.selectedIdChange.emit(this.selectedId() === unit.id ? null : unit.id);
+  }
+
+  protected pin(unit: FleetUnit): void {
+    if (unit.disabled) return;
+    const active = document.activeElement;
+    this.pinnedIdsChange.emit(this.pinnedIds().includes(unit.id)
+      ? this.pinnedIds().filter(id => id !== unit.id) : [...this.pinnedIds(), unit.id]);
+    // Mover un nodo conservado por @for puede soltar el foco del navegador.
+    requestAnimationFrame(() => {
+      if (active instanceof HTMLElement && active.isConnected && document.activeElement === document.body) active.focus();
+    });
+  }
 
   protected readonly statusSeverity = STATUS_SEVERITY;
   protected readonly statusIcon = STATUS_ICON;

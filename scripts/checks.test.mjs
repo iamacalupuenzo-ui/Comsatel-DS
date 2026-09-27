@@ -8,8 +8,14 @@ import { test } from 'node:test';
 import { contract } from './a11y.mjs';
 import { checkMarkdown, context } from './examples.mjs';
 import { coverage } from './guidelines.mjs';
-import { components, readText } from './lib/ds.mjs';
+import { components, parseMembers, readText } from './lib/ds.mjs';
 import { MISSING, regenerate, renderProps } from './props.mjs';
+
+test('props: reconoce outputs modernos y sus alias sin perder el contrato', () => {
+  const parsed = parseMembers("readonly selectedId = input<string | null>(null); readonly changed = output<string | null>({ alias: 'selectedIdChange' });");
+  assert.equal(parsed.inputs[0].name, 'selectedId');
+  assert.deepEqual(parsed.outputs, [{ name: 'selectedIdChange', type: 'OutputEmitterRef<string | null>' }]);
+});
 
 const ctx = context();
 const byName = new Map(components().map((c) => [c.name, c]));

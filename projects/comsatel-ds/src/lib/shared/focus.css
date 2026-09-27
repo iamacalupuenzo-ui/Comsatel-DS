@@ -1,0 +1,5 @@
+/* Contrato compartido: foco independiente del borde de selección. */
+.cs-focus-within:has(:focus-visible) {
+  outline: var(--layout-border-thick) solid var(--color-border-focused);
+  outline-offset: var(--layout-padding-2xs);
+}

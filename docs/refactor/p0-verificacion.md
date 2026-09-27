@@ -41,5 +41,28 @@ Gates completos aprobados; C1–C4: tokens, tamaños existentes e inline limitan
 el ancho; C5–C11: composición Popover, nombre del listbox y foco real; C12:
 roles secundarios/selección; C13: texto y line-height conservan sus parejas.
 
+## FleetUnitList
+
+Comparación: [Accordion oficial](https://primeng.dev/accordion) y tarjetas del
+buscador en FleetOperations. Expansión single/multiple, región etiquetada,
+flechas/Home/End y disabled provienen del Accordion existente; selección y
+fijado son estados controlados propios, independientes. No es un listbox ni
+un formulario remoto: carga asíncrona y filtrado pertenecen al consumidor.
+
+Navegador en `/components/accordion`: seleccionar sin fijar; fijar otra unidad
+reordena conservando foco y selección; seleccionar una fijada conserva estrella
+y check; unidad disabled no abre. Escritorio y móvil sin desborde, ambos temas.
+Se revisaron etiquetas de telemetría, contorno exterior de foco y grosor visual
+de selección de 2 px sin salto de layout. Colores de texto del estado semántico
+usan tonos bolder en la superficie secundaria; disabled conserva legibilidad y
+texto “No disponible”. Capturas: `tmp/qa/fleet-{light,dark,mobile}.png`.
+
+Tests públicos comprueban que un evento no muta el valor controlado, que
+selección no cambia expansión y que ordenar fijados no muta las unidades.
+Storybook añade la combinación secundaria/seleccionada/fijada ya revisada.
+C1–C3/C13: tokens y tipografía; C4: eventos controlados y foco tras reordenar;
+C5–C11: composición, regiones, orden y contenido sin copia de controles;
+C12: contraste de textos secundarios y estados, con señales no cromáticas.
+
 **Pregunta de comprobación:** ¿Por qué full necesita una altura definida por su
 contenedor mientras auto no la necesita?
