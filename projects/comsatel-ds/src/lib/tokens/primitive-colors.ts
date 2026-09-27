@@ -2,6 +2,20 @@
 // Figma's primitive/color collection is synced to these values (aliased by the theme).
 
 export const primitiveColors = {
+  // Familia secundaria cálida: anclas de producto y extensión tonal para contraste.
+  secondary: {
+    "050": "#fcfaf4",
+    "100": "#f8f5ed",
+    "200": "#efe9dc",
+    "300": "#ddd3bd",
+    "400": "#c4b596",
+    "500": "#a79570",
+    "600": "#7b6948",
+    "700": "#685a3d",
+    "800": "#493f2b",
+    "900": "#30291c",
+    "950": "#211c13",
+  },
   brand: {
     "050": "#f0f4ff",
     "100": "#e0eaff",

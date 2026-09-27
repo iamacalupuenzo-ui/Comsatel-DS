@@ -45,6 +45,24 @@ Cada familia (`brand`, `danger`, `warning`, `success`) sigue la misma escala pos
 Las superficies por elevación son tokens aparte: `--elevation-surface-default`,
 `-raised`, `-overlay`, `-sunken`.
 
+## Color secundario cálido (0.3.0, borrador local)
+
+| Token | Claro / oscuro | Uso |
+| :-- | :-- | :-- |
+| `--elevation-surface-secondary` | `#fcfaf4` / `#30291c` | Tarjetas y controles cálidos |
+| `--color-background-secondary-subtlest` | `#f8f5ed` / `#211c13` | Panel cálido |
+| `--color-background-secondary-subtle` | `#efe9dc` / `#493f2b` | Énfasis cálido |
+| `--color-background-secondary-subtlest-hover` | `#efe9dc` / `#493f2b` | Hover del panel/control |
+| `--color-background-secondary-subtlest-pressed` | `#ddd3bd` / `#685a3d` | Presionado del panel/control |
+| `--color-background-secondary-subtle-hover` | `#ddd3bd` / `#685a3d` | Hover del énfasis |
+| `--color-background-secondary-subtle-pressed` | `#c4b596` / `#7b6948` | Presionado del énfasis |
+| `--color-text-secondary-default` | `#493f2b` / `#fcfaf4` | Texto sobre todos los fondos secundarios |
+| `--color-border-secondary-default`, `--color-icon-secondary-default` | `#685a3d` / `#efe9dc` | Indicadores con contraste ≥3:1 |
+
+La familia no cambia selección, foco ni la variante secundaria de Button.
+Consume roles; los primitivos `--color-primitive-secondary-*` son internos a la
+arquitectura. Contraste y plan: [refactor del secundario](../docs/refactor/secundario.md).
+
 ## Espaciado (spacing)
 
 Tres escalas separadas, con los mismos pasos pero usos distintos.

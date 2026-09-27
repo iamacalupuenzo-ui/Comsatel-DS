@@ -9,6 +9,31 @@
    -------------------------------------------------------------------------- */
 :root,
 [data-theme="light"] {
+  /* Secundario cálido: primitivos invariantes; consumir los roles semánticos. */
+  --color-primitive-secondary-050: #fcfaf4;
+  --color-primitive-secondary-100: #f8f5ed;
+  --color-primitive-secondary-200: #efe9dc;
+  --color-primitive-secondary-300: #ddd3bd;
+  --color-primitive-secondary-400: #c4b596;
+  --color-primitive-secondary-500: #a79570;
+  --color-primitive-secondary-600: #7b6948;
+  --color-primitive-secondary-700: #685a3d;
+  --color-primitive-secondary-800: #493f2b;
+  --color-primitive-secondary-900: #30291c;
+  --color-primitive-secondary-950: #211c13;
+
+  /* Superficie de tarjeta, panel, énfasis y estados secundarios. */
+  --elevation-surface-secondary: var(--color-primitive-secondary-050);
+  --color-background-secondary-subtlest: var(--color-primitive-secondary-100);
+  --color-background-secondary-subtle: var(--color-primitive-secondary-200);
+  --color-background-secondary-subtlest-hover: var(--color-primitive-secondary-200);
+  --color-background-secondary-subtlest-pressed: var(--color-primitive-secondary-300);
+  --color-background-secondary-subtle-hover: var(--color-primitive-secondary-300);
+  --color-background-secondary-subtle-pressed: var(--color-primitive-secondary-400);
+  --color-border-secondary-default: var(--color-primitive-secondary-700);
+  --color-text-secondary-default: var(--color-primitive-secondary-800);
+  --color-icon-secondary-default: var(--color-primitive-secondary-700);
+
   /* Backgrounds */
   --color-background-base: #ffffff;
   --color-background-selected: #f0f6ff;
@@ -318,6 +343,16 @@
    DARK
    -------------------------------------------------------------------------- */
 [data-theme="dark"] {
+  --elevation-surface-secondary: var(--color-primitive-secondary-900);
+  --color-background-secondary-subtlest: var(--color-primitive-secondary-950);
+  --color-background-secondary-subtle: var(--color-primitive-secondary-800);
+  --color-background-secondary-subtlest-hover: var(--color-primitive-secondary-800);
+  --color-background-secondary-subtlest-pressed: var(--color-primitive-secondary-700);
+  --color-background-secondary-subtle-hover: var(--color-primitive-secondary-700);
+  --color-background-secondary-subtle-pressed: var(--color-primitive-secondary-600);
+  --color-border-secondary-default: var(--color-primitive-secondary-200);
+  --color-text-secondary-default: var(--color-primitive-secondary-050);
+  --color-icon-secondary-default: var(--color-primitive-secondary-200);
   --color-background-base: #0c0e16;
   --color-background-selected: #0c192c;
   --color-background-disabled: #1a1d2e;

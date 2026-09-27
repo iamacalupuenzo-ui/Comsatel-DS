@@ -37,6 +37,9 @@ jobs:
       - name: Tests de los validadores
         run: npm run test:docs
 
+      - name: Contraste y coherencia de tokens secundarios
+        run: npm run check:secondary-tokens
+
       # Comprueba que la superficie pública se pueda empaquetar antes de publicar.
       # La aplicación importa `comsatel-ds` desde dist/, por lo que debe
       # existir antes de compilar las pruebas unitarias en un checkout limpio.
