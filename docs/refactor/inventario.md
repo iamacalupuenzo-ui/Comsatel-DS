@@ -36,7 +36,7 @@ evaluación pendiente, no un defecto demostrado ni un rediseño ya aprobado.
 | --- | --- | --- | --- |
 | Collapse | Altura completa acotada, scroll y accesibilidad | P0 / hecho — `945ca58` | [Navegador y gates](p0-verificacion.md#collapse) |
 | InputDropdown | Ancho del trigger configurable y truncado | P0 / hecho — `de5208d` | [Navegador y gates](p0-verificacion.md#inputdropdown) |
-| FleetUnitList | Tarjeta operativa, fijado/selección y telemetría | P0 / pendiente | Evaluación individual pendiente |
+| FleetUnitList | Tarjeta operativa, fijado/selección y telemetría | P0 / hecho — `a46fd48` | [Navegador, contraste y tests](p0-verificacion.md#fleetunitlist) |
 | ActionCard | Superficie secundaria y foco/selección independientes | P0 / pendiente | Evaluación individual pendiente |
 | CardBanner | Contraste y semántica sobre superficie cálida | P1 / pendiente | Evaluación individual pendiente |
 | FeatureSpotlightCard | Jerarquía y superficie optativa | P2 / pendiente | Evaluación individual pendiente |

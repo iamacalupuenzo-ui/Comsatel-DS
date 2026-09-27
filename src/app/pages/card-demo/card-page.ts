@@ -37,6 +37,10 @@ const BANNER_VARIANTS = [
   styleUrl: './card-page.css',
 })
 export class CardPage {
+  protected readonly warmSelected = signal(false);
+  protected readonly warmToggle = signal(false);
+  protected readonly warmActions = signal(0);
+  protected configureWarm(): void { this.warmActions.update(count => count + 1); }
   protected readonly bannerVariants = BANNER_VARIANTS;
   protected readonly placeholderAvatars = PLACEHOLDER_AVATARS;
   protected readonly guideToggle = signal(true);

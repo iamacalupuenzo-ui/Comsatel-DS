@@ -21,6 +21,14 @@ type Story = StoryObj<ActionCard>;
 
 export const WithButton: Story = {};
 
+export const SecondarySelected: Story = {
+  args: { surface: 'secondary', selectable: true, selected: true, showToggle: true },
+};
+
+export const SecondaryDisabled: Story = {
+  args: { surface: 'secondary', selectable: true, disabled: true },
+};
+
 export const WithToggle: Story = {
   args: { showButton: false, showToggle: true, toggleChecked: true },
 };

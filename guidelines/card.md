@@ -33,11 +33,33 @@ slots libres: se elige la que corresponde al contenido.
 | `buttonLabel` | `string` | `'Action'` | Texto del botón. |
 | `showLabel` | `boolean` | `false` | Muestra una etiqueta de estado en vez del control. |
 | `label` | `string` | `'Coming soon'` | Texto de esa etiqueta. |
+| `surface` | `'default' \| 'secondary'` | `'default'` | Superficie cálida optativa. |
+| `selectable` | `boolean` | `false` | Agrega un botón de selección independiente y permite envolver el contenido. |
+| `selected` | `boolean` | `false` | Estado controlado con check y borde seleccionado. |
+| `disabled` | `boolean` | `false` | Deshabilita selección, acción e interruptor sin ocultar contenido. |
 | `buttonClick` | `EventEmitter<void>` | n/a | Emite al hacer clic en el botón. |
 | `toggleCheckedChange` | `EventEmitter<boolean>` | n/a | Emite el nuevo estado del toggle. |
+| `selectedChange` | `OutputEmitterRef<boolean>` | n/a | Solicita cambiar selección; el consumidor actualiza selected. |
 <!-- props:end -->
 
 ## Props de `CardBanner`
+
+### Selección de ActionCard (0.3.0 local)
+
+`surface="secondary"` conserva la familia cálida. `selectable` agrega una acción
+de selección y permite envolver texto y controles; el layout anterior sigue
+siendo el predeterminado. Actualiza `selected` cuando recibas `selectedChange`.
+El botón y el toggle conservan sus eventos independientes. No hagas clicable el
+contenedor completo ni anides estos controles dentro de otro botón.
+
+Tokens usados: `elevation-surface-secondary`, `color-text-secondary-default`,
+`color-border-secondary-default`, `color-background-selected`,
+`color-border-selected`, `color-text-selected`, `color-border-brand-default`,
+`color-border-focused`, `layout-border-thin/thick`, `layout-padding-2xs/xl`,
+`layout-gap-xs/lg/3xl`, `shadow-xs/sm`, `radius-lg` y pares tipográficos
+`font-size-content-ui/note` + `font-line-height-content-ui/note`.
+No agrega tokens. Foco exterior compartido con FleetUnitList; el check acompaña
+al borde seleccionado sin cambiar su geometría.
 
 <!-- props:start CardBanner -->
 <!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/card/card-banner.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
@@ -108,7 +130,7 @@ slots libres: se elige la que corresponde al contenido.
 | Aspecto | Qué hace el código |
 | :-- | :-- |
 | Atributos ARIA | `aria-label` |
-| Compone | `cs-toggle`, `cs-button` |
+| Compone | `cs-icon`, `cs-button`, `cs-toggle` |
 <!-- a11y:end -->
 
 <!-- a11y:start CardBanner -->

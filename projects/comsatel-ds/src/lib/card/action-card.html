@@ -1,4 +1,8 @@
-<div class="cs-action-card">
+<div class="cs-action-card cs-focus-within"
+  [class.cs-action-card--secondary]="surface() === 'secondary'"
+  [class.cs-action-card--selectable]="selectable()"
+  [class.cs-action-card--selected]="selected()"
+  [class.cs-action-card--disabled]="disabled()">
   <div class="cs-action-card__main">
     @if (showLogo) {
       <div class="cs-action-card__logo">
@@ -12,15 +16,28 @@
       @if (description) {
         <p class="cs-action-card__description">{{ description }}</p>
       }
+      @if (selected()) {
+        <span class="cs-action-card__state"><cs-icon name="check" />Seleccionada</span>
+      }
+      @if (disabled()) { <span class="cs-action-card__state">No disponible</span> }
     </div>
   </div>
+
+  @if (selectable()) {
+    <cs-button variant="secondary" size="sm" [selected]="selected()" [disabled]="disabled()"
+      [aria-label]="(selected() ? 'Quitar selección, ' : 'Seleccionar, ') + title"
+      (click)="!disabled() && selectedChange.emit(!selected())">
+      {{ selected() ? 'Quitar selección' : 'Seleccionar' }}
+    </cs-button>
+  }
 
   @if (showToggle) {
     <cs-toggle
       size="md"
       [checked]="toggleChecked"
+      [disabled]="disabled()"
       [aria-label]="title"
-      (checkedChange)="toggleCheckedChange.emit($event)"
+      (checkedChange)="!disabled() && toggleCheckedChange.emit($event)"
     ></cs-toggle>
   }
 
@@ -29,7 +46,9 @@
       variant="default"
       size="sm"
       class="cs-action-card__button"
-      (click)="buttonClick.emit()"
+      [disabled]="disabled()"
+      [aria-label]="buttonLabel + ', ' + title"
+      (click)="!disabled() && buttonClick.emit()"
     >{{ buttonLabel }}</cs-button>
   }
 

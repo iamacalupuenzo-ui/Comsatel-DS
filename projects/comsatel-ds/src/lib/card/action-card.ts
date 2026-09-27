@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, input, output } from '@angular/core';
 import { Button } from '../button/button';
 import { Toggle } from '../toggle/toggle';
+import { Icon } from '../icons/icon';
 
 // Puerto 1:1 de ActionCard (card.tsx) — fila de acción con logo opcional,
 // título/descripción, y un control de la derecha (toggle real, botón, o
@@ -8,7 +9,8 @@ import { Toggle } from '../toggle/toggle';
 // redibujar un track/thumb aparte, aunque React sí lo hacía a mano ahí.
 @Component({
   selector: 'cs-action-card',
-  imports: [Button, Toggle],
+  imports: [Button, Toggle, Icon],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './action-card.html',
   styleUrl: './action-card.css',
 })
@@ -22,6 +24,11 @@ export class ActionCard {
   @Input() buttonLabel = 'Action';
   @Input() showLabel = false;
   @Input() label = 'Coming soon';
+  readonly surface = input<'default' | 'secondary'>('default');
+  readonly selectable = input(false);
+  readonly selected = input(false);
+  readonly disabled = input(false);
+  readonly selectedChange = output<boolean>();
   @Output() readonly buttonClick = new EventEmitter<void>();
   @Output() readonly toggleCheckedChange = new EventEmitter<boolean>();
 }

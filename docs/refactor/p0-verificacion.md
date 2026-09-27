@@ -64,5 +64,20 @@ C1–C3/C13: tokens y tipografía; C4: eventos controlados y foco tras reordenar
 C5–C11: composición, regiones, orden y contenido sin copia de controles;
 C12: contraste de textos secundarios y estados, con señales no cromáticas.
 
+## ActionCard
+
+Referencia: [Card oficial](https://primeng.dev/card), contenedor sin interacción
+implícita. En el DS, cada acción conserva su propio control nativo mediante
+Button y Toggle; no se crea una tarjeta-botón con botones anidados.
+
+`/components/card` permite seleccionar, alternar y ejecutar acción por separado.
+Se comprobó Enter, Espacio, foco exterior de 2 px, check y borde sin cambio de
+geometría; tres controles disabled; texto largo adaptable en 390×844 y ambos
+temas. Capturas inspeccionadas `tmp/qa/action-{light,dark,mobile}.png`; sin
+errores de página. Tests públicos cubren independencia y disabled; dos historias
+conservan los estados revisados. C1–C3/C13: tokens y tipografía; C4/C6–C11:
+acciones controladas y composición; C5: jerarquía sin áreas clicables anidadas;
+C12: roles secundarios y seleccionados, check y texto explícito.
+
 **Pregunta de comprobación:** ¿Por qué full necesita una altura definida por su
 contenedor mientras auto no la necesita?
