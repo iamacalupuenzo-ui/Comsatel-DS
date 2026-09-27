@@ -6,6 +6,17 @@ Cada fila cerrada combina interacción real, revisión del DOM y gates técnicos
 Las API nuevas son optativas y preservan los contratos anteriores.
 La versión 0.3.0 sigue local: no se publica en este lote.
 
+## Gates y skill
+
+Cada commit funcional pasó build de librería/aplicación, check:docs, test:ci y
+build de Storybook. El cierre contiene 19 tests de validadores y 9 de componentes.
+Se mantienen advertencias previas de presupuestos y tamaño, sin errores.
+El skill externo `C:/Users/Enzo Macalupu/.claude/skills/comsatel-design-system/`
+actualiza SKILL.md, token-architecture.md, component-inventory.md y
+verification-gates.md; agrega referencias promocion-desde-producto.md y
+angular-componentes.md. Esos archivos están fuera del control de versiones
+de este repo y se entregan en su ubicación autorizada, con UTF-8 verificado.
+
 ## Collapse
 
 Referencia funcional: [Disclosure de WAI-ARIA](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/).
