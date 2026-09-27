@@ -2,6 +2,8 @@
 
 :host { display: block; }
 
+.secondary-dropdown-stage { display: grid; gap: var(--layout-gap-xl); width: min(100%, var(--layout-sidenav-width-expanded)); padding: var(--layout-padding-lg); background: var(--color-background-secondary-subtlest); border-radius: var(--radius-lg); }
+
 /* Zona de preview: espacio generoso abajo para que el menú desplegado no
    quede visualmente pegado al borde del Canvas (mismo criterio que React,
    que reserva paddingBottom extra en cada demo de Dropdown). */

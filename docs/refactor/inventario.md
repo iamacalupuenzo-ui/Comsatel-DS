@@ -34,7 +34,7 @@ evaluación pendiente, no un defecto demostrado ni un rediseño ya aprobado.
 
 | Componente | Qué cambia o se revisa y por qué | Prioridad / estado |
 | --- | --- | --- |
-| Collapse | Altura completa acotada, scroll y accesibilidad | P0 / pendiente |
+| Collapse | Altura completa acotada, scroll y accesibilidad | P0 / hecho — `945ca58` |
 | InputDropdown | Ancho del trigger configurable y truncado | P0 / pendiente |
 | FleetUnitList | Tarjeta operativa, fijado/selección y telemetría | P0 / pendiente |
 | ActionCard | Superficie secundaria y foco/selección independientes | P0 / pendiente |

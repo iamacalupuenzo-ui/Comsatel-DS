@@ -85,6 +85,12 @@ const SIZES: DropdownSize[] = ['xs', 'sm', 'md', 'lg'];
   styleUrl: './dropdown-page.css',
 })
 export class DropdownPage {
+  protected readonly warmValue = signal('long');
+  protected readonly warmOptions: InputDropdownOption[] = [
+    { value: 'all', label: 'Todas las unidades' },
+    { value: 'long', label: 'Sin ubicación en los últimos treinta días' },
+    { value: 'disabled', label: 'Opción no disponible', disabled: true },
+  ];
   protected readonly sizes = SIZES;
   protected readonly simpleGroups = SIMPLE_GROUPS;
   protected readonly variantGroups = VARIANT_GROUPS;

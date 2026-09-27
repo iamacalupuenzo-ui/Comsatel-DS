@@ -1,5 +1,6 @@
 :host {
   display: inline-flex;
+  min-width: 0;
 }
 :host(.cs-input-dropdown-host--embedded) {
   display: flex;
@@ -56,6 +57,8 @@
 }
 
 .cs-input-dropdown__trigger {
+  box-sizing: border-box;
+  overflow: hidden;
   width: 100%;
   display: inline-flex;
   align-items: center;
@@ -115,6 +118,8 @@
 }
 
 .cs-input-dropdown__menu {
+  box-sizing: border-box;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -177,3 +182,27 @@
   flex-shrink: 0;
   color: var(--color-text-brand-bolder);
 }
+
+.cs-input-dropdown__trigger:focus-visible {
+  outline: var(--layout-border-thick) solid var(--color-border-focused);
+  outline-offset: var(--layout-padding-2xs);
+}
+.cs-input-dropdown__option:focus-visible {
+  outline: var(--layout-border-thick) solid var(--color-border-focused);
+  outline-offset: calc(var(--layout-border-thick) * -1);
+}
+.cs-input-dropdown__trigger--secondary:not(:disabled),
+.cs-input-dropdown__menu--secondary { background: var(--elevation-surface-secondary); }
+.cs-input-dropdown__menu--secondary { border-color: var(--color-border-secondary-default); }
+.cs-input-dropdown__trigger--secondary:hover:not(:disabled) { background: var(--color-background-secondary-subtlest-hover); }
+.cs-input-dropdown__trigger--secondary:active:not(:disabled) { background: var(--color-background-secondary-subtlest-pressed); }
+.cs-input-dropdown__menu--secondary .cs-input-dropdown__option:not(:disabled) { color: var(--color-text-secondary-default); }
+.cs-input-dropdown__menu--secondary .cs-input-dropdown__option:disabled { color: var(--color-text-secondary-default); opacity: 1; font-style: italic; font-weight: var(--font-weight-regular); }
+.cs-input-dropdown__menu--secondary .cs-input-dropdown__option:hover:not(.cs-input-dropdown__option--selected):not(:disabled) { background: var(--color-background-secondary-subtlest-hover); }
+.cs-input-dropdown__menu--secondary .cs-input-dropdown__option:active:not(.cs-input-dropdown__option--selected):not(:disabled) { background: var(--color-background-secondary-subtlest-pressed); }
+.cs-input-dropdown__option--selected,
+.cs-input-dropdown__menu--secondary .cs-input-dropdown__option--selected:not(:disabled) {
+  color: var(--color-text-selected);
+  background: var(--color-background-selected);
+}
+.cs-input-dropdown__option--selected .cs-input-dropdown__check { color: var(--color-icon-selected); }

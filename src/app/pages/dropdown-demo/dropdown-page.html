@@ -6,6 +6,16 @@
     ítems agrupados, atajos de teclado, badges, variantes destructiva/éxito, y tamaños xs / sm / md / lg.
   </p>
 
+  <section class="section" id="secondary-dropdown">
+    <h2 class="section__title">Campo sobre superficie cálida</h2>
+    <p class="section__intro">surface="secondary" es optativo. Para buscadores de ancho acotado, usa fullWidth y matchTriggerWidth: el menú sigue al campo y el texto largo trunca sin esconder el chevron. Sin matchTriggerWidth se conserva el ancho por contenido.</p>
+    <div class="secondary-dropdown-stage">
+      <cs-input-dropdown id="warm-dropdown" label="Ubicación" [options]="warmOptions" [value]="warmValue()" (valueChange)="warmValue.set($event)" [fullWidth]="true" [matchTriggerWidth]="true" surface="secondary" />
+      <cs-input-dropdown id="warm-readonly" label="Solo lectura" [options]="warmOptions" [value]="warmValue()" [fullWidth]="true" [readonly]="true" surface="secondary" />
+    </div>
+    <p class="section__intro">La opción elegida conserva check y azul. Flechas, Inicio/Fin, Enter y Escape operan la lista; foco y selección se dibujan por separado. Solo lectura no abre la lista tampoco con teclado.</p>
+  </section>
+
   <!-- Playground -->
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>

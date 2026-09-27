@@ -45,9 +45,10 @@
       [attr.data-slot]="embedded ? 'input-group-control' : null"
       [disabled]="disabled"
       class="cs-input-dropdown__trigger"
+      [class.cs-input-dropdown__trigger--secondary]="surface === 'secondary' && !embedded"
       [class.cs-input-dropdown__trigger--embedded]="embedded"
       [style.height.px]="tok.height"
-      [style.min-width.px]="minWidth()"
+      [style.min-width.px]="fullWidth || embedded ? 0 : minWidth()"
       [style.padding-inline.px]="embedded ? null : tok.paddingX"
       [style.font-size]="tok.fontSize"
       [style.line-height]="tok.lineHeight"
@@ -68,8 +69,8 @@
       <cs-icon name="chevron-down" [size]="16" class="cs-input-dropdown__chevron" [class.cs-input-dropdown__chevron--open]="open()"></cs-icon>
     </button>
 
-    <cs-popover [isOpen]="open() && !disabled" [triggerRef]="triggerRef ?? null" placement="bottom-start" [offset]="4" [role]="null" [bare]="true" (closed)="onPopoverClosed()">
-      <div [id]="menuId" role="listbox" [attr.aria-labelledby]="label ? labelId : null" aria-orientation="vertical" class="cs-input-dropdown__menu" [style.max-height.px]="tok.height * 9 + 8" (keydown)="onOptionsKeydown($event)">
+    <cs-popover [isOpen]="open() && !disabled" [matchTriggerWidth]="matchTriggerWidth" [triggerRef]="triggerRef ?? null" placement="bottom-start" [offset]="4" [role]="null" [bare]="true" (closed)="onPopoverClosed()">
+      <div [id]="menuId" role="listbox" [attr.aria-label]="ariaLabel || (!label ? placeholder : null)" [attr.aria-labelledby]="ariaLabelledby || (!ariaLabel && label ? labelId : null)" aria-orientation="vertical" class="cs-input-dropdown__menu" [class.cs-input-dropdown__menu--secondary]="surface === 'secondary'" [style.max-height.px]="tok.height * 9 + 8" (keydown)="onOptionsKeydown($event)">
         <div class="cs-input-dropdown__options">
           @for (opt of options; track opt.value; let oi = $index) {
             <button

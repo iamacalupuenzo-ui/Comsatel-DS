@@ -25,5 +25,21 @@ de visuales propios. C12: demo usa texto/secundario con contraste certificado.
 La copia explicativa global del catálogo conserva contraste oscuro débil,
 registrado para la revisión completa de colores, fuera del cuerpo de Collapse.
 
+## InputDropdown
+
+Referencia funcional: [Select oficial](https://primeng.dev/select), ejemplos de
+tamaños, disabled/invalid y teclado/listbox. Filtrado remoto y multiselección
+no corresponden al contrato de este selector simple: se mantienen fuera.
+El coordinador confirmó conservar false en matchTriggerWidth.
+
+En `/components/dropdown`: ancho de menú/trigger igual con tolerancia menor a
+1 px, elipsis real (`scrollWidth > clientWidth`), ArrowDown/Home/End, selección
+con Enter, omisión de opción disabled, Escape y retorno de foco; readonly no
+abre por teclado. Temas claro/oscuro, 1280×900 y 390×844 sin salir del viewport.
+Capturas `tmp/qa/dropdown-light.png` y `dropdown-dark.png`; consola sin errores.
+Gates completos aprobados; C1–C4: tokens, tamaños existentes e inline limitando
+el ancho; C5–C11: composición Popover, nombre del listbox y foco real; C12:
+roles secundarios/selección; C13: texto y line-height conservan sus parejas.
+
 **Pregunta de comprobación:** ¿Por qué full necesita una altura definida por su
 contenedor mientras auto no la necesita?

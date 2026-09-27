@@ -58,6 +58,9 @@ export class InputDropdown implements AfterViewInit, OnChanges {
   // trigger se quedaba en su ancho de contenido natural, dejando un hueco
   // enorme entre el valor mostrado y el botón de limpiar de al lado.
   @Input() fullWidth = false;
+  /** Optativo: conserva por defecto el ancho por contenido del menú. */
+  @Input() matchTriggerWidth = false;
+  @Input() surface: 'default' | 'secondary' = 'default';
 
   @HostBinding('class.cs-input-dropdown-host--embedded') get isEmbeddedHost(): boolean {
     return this.embedded;
@@ -136,15 +139,16 @@ export class InputDropdown implements AfterViewInit, OnChanges {
     if (this.disabled) return 'var(--color-border-neutral-subtle)';
     if (this.invalid) return 'var(--color-border-danger-default)';
     if (this.focused() || this.open()) return 'var(--color-border-brand-default)';
-    return 'var(--color-border-neutral-default)';
+    return this.surface === 'secondary' ? 'var(--color-border-secondary-default)' : 'var(--color-border-neutral-default)';
   }
   get extraShadow(): string {
     if (this.embedded) return 'none';
-    if (this.invalid && !this.disabled) return '0 0 0 2px var(--color-border-danger-subtle)';
-    return !this.disabled && (this.focused() || this.open()) ? '0 0 0 2px var(--color-border-brand-subtle)' : 'none';
+    if (this.invalid && !this.disabled) return '0 0 0 var(--layout-border-thick) var(--color-border-danger-subtle)';
+    return !this.disabled && (this.focused() || this.open()) ? '0 0 0 var(--layout-border-thick) var(--color-border-brand-subtle)' : 'none';
   }
   get textColor(): string {
     if (this.disabled) return 'var(--color-text-disabled)';
+    if (this.surface === 'secondary') return 'var(--color-text-secondary-default)';
     return this.selectedOption ? 'var(--color-text-base-default)' : 'var(--color-text-base-subtlest)';
   }
 
@@ -170,7 +174,7 @@ export class InputDropdown implements AfterViewInit, OnChanges {
   }
 
   onTriggerKeydown(event: KeyboardEvent): void {
-    if (this.disabled) return;
+    if (this.disabled || this.readonly) return;
     if (!['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) {
       if (event.key === 'Escape' && this.open()) {
         event.preventDefault();
