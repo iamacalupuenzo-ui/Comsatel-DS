@@ -18,6 +18,8 @@
 .cs-fleet-unit-list__item.cs-fleet-unit-list__item--selected { border-color: var(--color-border-selected); background: var(--color-background-selected); box-shadow: inset 0 0 0 var(--layout-border-thin) var(--color-border-selected), var(--shadow-sm); }
 .cs-fleet-unit-list__item--selected .cs-fleet-unit-list__state { color: var(--color-text-selected); }
 .cs-fleet-unit-list__item--pinned + .cs-fleet-unit-list__item:not(.cs-fleet-unit-list__item--pinned) { margin-top: var(--layout-gap-lg); }
+.cs-fleet-unit-list__item--interactive .cs-fleet-unit-list__header { flex-wrap: wrap; }
+.cs-fleet-unit-list__item--interactive .cs-fleet-unit-list__identity { min-width: min(100%, calc(var(--layout-size-lg) * 2)); }
 
 .cs-fleet-unit-list { width: 100%; }
 .cs-fleet-unit-list__header { display: flex; align-items: center; gap: var(--layout-gap-md); min-width: 0; }

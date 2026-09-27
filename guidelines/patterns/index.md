@@ -6,6 +6,7 @@ estados que hay que cubrir y las trampas que ya se encontraron.
 
 | Tarea | Patrón | Componentes principales |
 | :-- | :-- | :-- |
+| Despejar un lienzo y retomar búsqueda con contexto | [Panel plegable](collapsible-panel.md) | `csCollapse`, `cs-input`, `cs-fleet-unit-list`, `cs-popover` |
 | Encontrar un registro entre muchos (vehículos, conductores, alertas) | [Página de listado](list-page.md) | `cs-app-layout`, `cs-input-group`, `cs-input-dropdown`, `cs-table`, `cs-pagination` |
 | Ver y operar sobre un registro concreto | [Página de detalle](detail-page.md) | `cs-badge`, `cs-dropdown`, `cs-tabs`, `cs-table`, `cs-modal` |
 | Cambiar la configuración y guardarla | [Formulario de configuración](settings-form.md) | `cs-input`, `cs-radio-group`, `cs-checkbox`, `cs-datetime-picker`, `cs-button`, `cs-banner` |

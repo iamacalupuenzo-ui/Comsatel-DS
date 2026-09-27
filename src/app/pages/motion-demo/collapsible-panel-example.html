@@ -1,0 +1,38 @@
+<div class="panel-stage">
+  <button type="button" class="panel-canvas" (click)="touchCanvas()">Lienzo de demostración: {{ canvasClicks() }} interacciones</button>
+  <div class="panel-layout">
+    <header class="panel-header">
+      <cs-icon name="search" aria-hidden="true" />
+      <cs-input #search [id]="'panel-search'" aria-label="Buscar por nombre de unidad"
+        placeholder="Buscar unidades…" [value]="query()" (valueChange)="updateQuery($event)"
+        (click)="setOpen(true)" (keydown.enter)="setOpen(true)" />
+      @if (activeOnly()) { <span class="panel-count" aria-label="1 filtro activo">1</span> }
+      <button type="button" class="panel-control" [class.panel-clear--empty]="!query()"
+        [disabled]="!query()" aria-label="Limpiar búsqueda" (click)="clearQuery()"><cs-icon name="x" aria-hidden="true" /></button>
+      <button #toggleButton id="panel-toggle" type="button" class="panel-control panel-toggle"
+        [attr.aria-expanded]="open()" aria-controls="panel-body"
+        [attr.aria-label]="open() ? 'Contraer resultados' : 'Expandir resultados'" (click)="setOpen(!open())">
+        <cs-icon name="chevron-down" aria-hidden="true" />
+      </button>
+    </header>
+    <div class="panel-boundary">
+      <section #body id="panel-body" class="panel-body" [class.panel-body--closed]="!open()"
+        [csCollapse]="open()" csCollapseMode="full" role="region" aria-label="Resultados de unidades">
+        <div class="panel-content">
+          <div #filterTrigger>
+            <cs-button variant="secondary" [selected]="activeOnly()" (click)="filtersOpen.set(!filtersOpen())">Filtros</cs-button>
+          </div>
+          <p role="status">{{ filtered().length }} unidades de demostración</p>
+          <cs-fleet-unit-list surface="secondary" [units]="filtered()" [selectable]="true" [pinnable]="true"
+            [defaultExpandedIds]="['demo-1']" [selectedId]="selected()" (selectedIdChange)="selected.set($event)"
+            [pinnedIds]="pinned()" (pinnedIdsChange)="pinned.set($event)" />
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<cs-popover [isOpen]="filtersOpen()" [triggerRef]="filterTrigger" ariaLabel="Filtrar unidades" (closed)="filtersOpen.set(false)">
+  <div class="panel-filters">
+    <cs-checkbox label="Solo en marcha" [checked]="activeOnly()" (checkedChange)="activeOnly.set($event)" />
+  </div>
+</cs-popover>

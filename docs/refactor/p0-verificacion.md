@@ -79,5 +79,23 @@ conservan los estados revisados. C1–C3/C13: tokens y tipografía; C4/C6–C11:
 acciones controladas y composición; C5: jerarquía sin áreas clicables anidadas;
 C12: roles secundarios y seleccionados, check y texto explícito.
 
+## Panel plegable
+
+La [composición](../../guidelines/patterns/collapsible-panel.md) usa la API pública
+y datos ficticios. Contrato contrastado con [Panel oficial](https://primeng.dev/panel)
+y el plan del buscador de FleetOperations: encabezado persistente, chevron,
+acciones separadas y región accesible. No agrega otro componente publicado.
+
+Navegador: consulta, filtro, selección, fijado y scroll permanecen tras cerrar;
+limpiar no abre; Enter abre; primer Escape cierra filtro y devuelve foco, segundo
+contrae. El lienzo recibe clics debajo del encabezado cerrado. Diez inversiones
+rápidas, movimiento reducido, ambos temas y 320/390/767/768 px sin desborde.
+Se corrigió el mínimo intrínseco de grid y el solapamiento de indicadores de
+FleetUnitList en espacio estrecho, solo para la nueva variante interactiva.
+Capturas inspeccionadas `tmp/qa/panel-{light,dark,320}.png`. Tests de consulta,
+DOM persistente y teclado; historia **Patrones/Panel plegable**.
+C1–C3/C13: tokens; C4/C6/C9–C11: contexto, foco, portal y cuerpo inert;
+C5/C7/C8: encabezado constante y layout acotado; C12: roles cálidos y seleccionados.
+
 **Pregunta de comprobación:** ¿Por qué full necesita una altura definida por su
 contenedor mientras auto no la necesita?

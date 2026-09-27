@@ -1,11 +1,9 @@
 import type { StorybookConfig } from '@storybook/angular';
 
-// Apunta a la librería comsatel-ds — nunca a la app de documentación
-// (src/app). La app sigue siendo el sitio de referencia del sistema de
-// diseño en español; Storybook documenta/prueba los componentes reales de
-// la librería de forma aislada.
+// Componentes reales de la librería y composiciones verificadas que consumen
+// únicamente su API pública. No incluye páginas completas del catálogo.
 const config: StorybookConfig = {
-  stories: ['../projects/comsatel-ds/src/lib/**/*.stories.ts'],
+  stories: ['../projects/comsatel-ds/src/lib/**/*.stories.ts', '../src/app/pages/motion-demo/collapsible-panel-example.stories.ts'],
   addons: ['@storybook/addon-docs', '@storybook/addon-a11y'],
   framework: {
     name: '@storybook/angular',

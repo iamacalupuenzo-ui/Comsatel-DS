@@ -2,6 +2,7 @@ import { Component, computed, signal } from '@angular/core';
 import { Collapse, Icon, Motion, type MotionPreset } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 import { PresetCard } from './preset-card';
+import { CollapsiblePanelExample } from './collapsible-panel-example';
 
 const PRESETS: MotionPreset[] = ['fade', 'scale', 'slide-up', 'slide-down', 'slide-left', 'slide-right'];
 
@@ -16,7 +17,7 @@ const PRESET_LABELS: Record<MotionPreset, string> = {
 
 @Component({
   selector: 'app-motion-page',
-  imports: [Collapse, Icon, Motion, DemoShell, PresetCard],
+  imports: [Collapse, Icon, Motion, DemoShell, PresetCard, CollapsiblePanelExample],
   templateUrl: './motion-page.html',
   styleUrl: './motion-page.css',
 })

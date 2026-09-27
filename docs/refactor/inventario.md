@@ -97,7 +97,7 @@ evaluación pendiente, no un defecto demostrado ni un rediseño ya aprobado.
 | --- | --- | --- | --- |
 | Fundación secundaria | Escala y roles claros/oscuros con contraste | P0 / hecho — `3dfb750` | [Contraste](secundario.md#contraste-comprobado) |
 | Sistema de colores completo | Reconciliar marca, neutral, secundario, estados, foco y glass; evitar significados duplicados | P1 / pendiente | Evaluación individual pendiente |
-| Tokens de selección | Evaluar superficie dedicada; documentar borde thick y foco separado de 2 px | P0 / pendiente | Evaluación individual pendiente |
+| Tokens de selección | Roles existentes, borde de 2 px y foco separado | P0 / hecho — `d545545` | [Contrato y contraste](seleccion.md) |
 | Catálogo de tokens | Reconciliar ALL_TOKENS y paleta con CSS real | P1 / pendiente | Evaluación individual pendiente |
 | LiveMapPreview / tema | Evaluar selección, recentrado, rutas y eventos del producto en demo pública | P1 / pendiente | Evaluación individual pendiente |
 | VehiclePill | Densidad y selección de unidades del producto | P1 / pendiente | Evaluación individual pendiente |
