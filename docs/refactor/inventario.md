@@ -2,9 +2,41 @@
 
 ## En 30 segundos
 
-El lote P0 está cerrado: Collapse, InputDropdown, FleetUnitList, ActionCard, selección y panel.
-Cada cierre enlaza su evidencia; los componentes P1/P2 conservan su revisión pendiente.
-La versión 0.3.0 sigue local: integrar el producto requiere una publicación autorizada.
+La corrección de color incorpora lienzo humo y conserva el crema como opción explícita.
+El lote P0 requiere validación de paridad independiente antes de cerrarse.
+La versión 0.3.0 sigue local, sin push, tag ni publicación.
+
+## Corrección de rumbo: color (2026-09-26)
+
+`b53a003` agrega `--color-background-canvas`: humo `#f5f5f5` en claro y
+superficie sunken (`#0c0e16`) en oscuro. `95a3156` muestra los once pasos
+secondary (050–950) y sus diez roles como escala optativa en Color.
+
+La revisión de `235de7b` encontró que ActionCard, InputDropdown, Select y
+FleetUnitList ya tenían `surface=default`; el crema estaba detrás de una
+opción explícita. El teñido visible venía de las demos P0 y del CSS del panel.
+Se retira allí, ActionCard usa superficie blanca y el panel combina lienzo
+humo, superficies blancas y secundarios neutros pequeños. Button usa brand
+en su variante llamada secondary; Spotlight usa brand e inverse. Ninguno
+consume la familia crema, por lo que conserva su contrato.
+
+No se modifican tipografía, radios ni estructura. La demo de InputDropdown
+identificada como «superficie cálida» y las stories optativas siguen disponibles.
+El siguiente ciclo debe comparar cada componente con FleetOperations y recibir
+el veredicto aprobado de Claude independiente; los cierres históricos no bastan.
+
+Tras `npm ci --legacy-peer-deps`, pasaron build, check:docs (incluido
+check-component-tokens y 19 pruebas), test:ci (11 pruebas) y build de Storybook.
+Persisten advertencias de presupuestos y archivos no usados. En Chromium
+aislado se midieron ambas páginas de Color y los seis componentes en claro y
+oscuro, sin errores JavaScript: lienzo 245/245/245 y 12/14/22; tarjetas y
+campos blancos en claro y 17/24/39 en oscuro. También se probaron selección
+y acción de ActionCard, apertura/cierre de Select e InputDropdown, colapso del
+panel y ancho de Select a 390 px. Se inspeccionaron capturas de paleta y panel.
+Siete stories renderizaron sin errores, con fondos blancos para los controles
+neutros y los roles de marca conservados en Button y Spotlight.
+Las mediciones están en [la evidencia de navegador](color-verificacion.json).
+Esta evidencia verifica color y funcionamiento, no certifica paridad completa.
 
 ## Qué aprendimos del producto
 
@@ -38,24 +70,26 @@ evaluación pendiente, no un defecto demostrado ni un rediseño ya aprobado.
 
 | Componente | Qué cambia o se revisa y por qué | Prioridad / estado | Evidencia |
 | --- | --- | --- | --- |
-| Collapse | Altura completa acotada, scroll y accesibilidad | P0 / hecho — `945ca58` | [Navegador y gates](p0-verificacion.md#collapse) |
-| InputDropdown | Ancho optativo, truncado y foco tras render visible | P0 / hecho — `de5208d`, `eb1d000` | [Navegador y gates](p0-verificacion.md#inputdropdown) |
-| FleetUnitList | Tarjeta operativa, fijado/selección y telemetría | P0 / hecho — `a46fd48` | [Navegador, contraste y tests](p0-verificacion.md#fleetunitlist) |
-| ActionCard | Superficie secundaria y foco/selección independientes | P0 / hecho — `0ff6f4b` | [Navegador y tests](p0-verificacion.md#actioncard) |
+| Collapse | Altura completa acotada, scroll y accesibilidad | P0 / pendiente de paridad — `945ca58` | [Navegador y gates](p0-verificacion.md#collapse) |
+| InputDropdown | Ancho optativo, truncado y foco tras render visible | P0 / pendiente de paridad — `de5208d`, `eb1d000` | [Navegador y gates](p0-verificacion.md#inputdropdown) |
+| FleetUnitList | Tarjeta operativa, fijado/selección y telemetría | P0 / pendiente de paridad — `a46fd48` | [Navegador, contraste y tests](p0-verificacion.md#fleetunitlist) |
+| ActionCard | Superficie secundaria y foco/selección independientes | P0 / pendiente de paridad — `0ff6f4b` | [Navegador y tests](p0-verificacion.md#actioncard) |
 
 ## Fundamentos, demos y brechas nuevas
 
 | Área | Qué cambia y por qué | Prioridad / estado | Evidencia |
 | --- | --- | --- | --- |
-| Fundación secundaria | Escala y roles claros/oscuros con contraste | P0 / hecho — `3dfb750` | [Contraste](secundario.md#contraste-comprobado) |
-| Tokens de selección | Roles existentes, borde de 2 px y foco separado | P0 / hecho — `d545545` | [Contrato y contraste](seleccion.md) |
-| Panel plegable | Header persistente, chevron, contexto y Escape por capas | P0 / hecho — `d6d72a8` | [Patrón, navegador y tests](p0-verificacion.md#panel-plegable) |
+| Fundación secundaria | Escala y roles claros/oscuros con contraste | P0 / pendiente de paridad — `3dfb750` | [Contraste](secundario.md#contraste-comprobado) |
+| Tokens de selección | Roles existentes, borde de 2 px y foco separado | P0 / pendiente de paridad — `d545545` | [Contrato y contraste](seleccion.md) |
+| Panel plegable | Header persistente, chevron, contexto y Escape por capas | P0 / pendiente de paridad — `d6d72a8` | [Patrón, navegador y tests](p0-verificacion.md#panel-plegable) |
 
 ## Mantenimiento
 
 La columna Evidencia responde a la instrucción específica del coordinador;
 el inventario usa cuatro columnas como excepción al formato general de tres.
 
+Cada componente necesita el veredicto aprobado de Claude independiente para pasar a hecho.
+Los hashes históricos prueban implementación, no aprobación visual.
 Cada cambio o brecha agrega/actualiza su fila y evidencia. Al iniciar usa
 **en curso**; al verificar, **hecho — hash**, anotando el commit en una entrega
 documental posterior. No heredes cierres históricos. ColumnManager requiere

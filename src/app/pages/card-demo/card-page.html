@@ -9,14 +9,14 @@
   <section class="section" id="action-secondary">
     <h2 class="section__title">Selección y acción independientes</h2>
     <p class="section__intro">Selecciona la tarjeta sin activar el seguimiento. El contorno de foco conserva el borde seleccionado.</p>
-    <cs-action-card id="warm-action" surface="secondary" [selectable]="true"
+    <cs-action-card id="warm-action" [selectable]="true"
       title="Seguimiento de unidades de la operación norte"
       description="Mantén visibles los avisos de esta operación y configura sus preferencias sin perder la selección."
       [selected]="warmSelected()" (selectedChange)="warmSelected.set($event)"
       [showToggle]="true" [toggleChecked]="warmToggle()" (toggleCheckedChange)="warmToggle.set($event)"
       buttonLabel="Configurar" (buttonClick)="configureWarm()" />
     <p>Acciones ejecutadas: {{ warmActions() }}</p>
-    <cs-action-card id="disabled-action" surface="secondary" [selectable]="true" [disabled]="true"
+    <cs-action-card id="disabled-action" [selectable]="true" [disabled]="true"
       title="Integración pendiente" description="Disponible cuando se complete la integración." buttonLabel="Configurar" [showToggle]="true" />
   </section>
 

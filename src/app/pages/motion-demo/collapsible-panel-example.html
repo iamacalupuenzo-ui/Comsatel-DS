@@ -23,7 +23,7 @@
             <cs-button variant="secondary" [selected]="activeOnly()" (click)="filtersOpen.set(!filtersOpen())">Filtros</cs-button>
           </div>
           <p role="status">{{ filtered().length }} unidades de demostración</p>
-          <cs-fleet-unit-list surface="secondary" [units]="filtered()" [selectable]="true" [pinnable]="true"
+          <cs-fleet-unit-list [units]="filtered()" [selectable]="true" [pinnable]="true"
             [defaultExpandedIds]="['demo-1']" [selectedId]="selected()" (selectedIdChange)="selected.set($event)"
             [pinnedIds]="pinned()" (pinnedIdsChange)="pinned.set($event)" />
         </div>

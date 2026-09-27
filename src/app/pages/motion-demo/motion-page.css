@@ -4,7 +4,7 @@
 
 .collapse-examples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--layout-gap-xl); margin-top: var(--layout-gap-md); }
 .collapse-boundary { height: calc(var(--layout-size-3xl) * 3); min-width: 0; }
-.collapse-body { box-sizing: border-box; background: var(--color-background-secondary-subtlest); color: var(--color-text-secondary-default); border-radius: var(--radius-md); }
+.collapse-body { box-sizing: border-box; background: var(--elevation-surface-default); color: var(--color-text-base-default); border-radius: var(--radius-md); }
 .collapse-row { margin: 0; padding: var(--layout-padding-lg); font-size: var(--font-size-content-caption); line-height: var(--font-line-height-content-caption); }
 
 .playground-stage {

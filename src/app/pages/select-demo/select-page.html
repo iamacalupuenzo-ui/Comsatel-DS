@@ -11,11 +11,11 @@
     <h2 class="section__title">Texto largo en un espacio acotado</h2>
     <p class="section__intro">El campo y los chips respetan el ancho disponible. Oculta la limpieza cuando el valor sea obligatorio; reelegir conserva la selección.</p>
     <div class="bounded-selects">
-      <cs-select id="bounded-single" label="Operación" surface="secondary" [showClear]="false"
+      <cs-select id="bounded-single" label="Operación" [showClear]="false"
         [options]="longOptions" [value]="longSingle()" (valueChange)="longSingle.set($event)" />
-      <cs-select id="bounded-multiple" label="Operaciones" surface="secondary" [multiple]="true"
+      <cs-select id="bounded-multiple" label="Operaciones" [multiple]="true"
         [options]="longOptions" [value]="longMultiple()" (valueChange)="longMultiple.set($event)" />
-      <cs-select id="bounded-disabled" label="Deshabilitado" surface="secondary" [multiple]="true" [disabled]="true"
+      <cs-select id="bounded-disabled" label="Deshabilitado" [multiple]="true" [disabled]="true"
         [options]="longOptions" [value]="['north']" />
       <cs-select id="bounded-readonly" label="Solo lectura" [readonly]="true" [options]="longOptions" value="north" />
       <cs-select id="bounded-invalid" label="Operación requerida" [invalid]="true" aria-describedby="select-error" [options]="longOptions" />

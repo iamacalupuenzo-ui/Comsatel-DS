@@ -1,0 +1,655 @@
+{
+  "foundations/color/palette": {
+    "title": "Paleta de color",
+    "secondary": {
+      "count": 11,
+      "last": "root-color-secondary-950#211c13"
+    },
+    "light": [
+      {
+        "selector": ".base-row__swatch",
+        "bg": "rgb(245, 245, 245)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 24
+      },
+      {
+        "selector": ".base-row__swatch",
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 24
+      },
+      {
+        "selector": ".base-row__swatch",
+        "bg": "rgb(0, 0, 0)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 24
+      },
+      {
+        "selector": ".base-row__swatch",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 24
+      }
+    ],
+    "dark": [
+      {
+        "selector": ".base-row__swatch",
+        "bg": "rgb(12, 14, 22)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 24
+      },
+      {
+        "selector": ".base-row__swatch",
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 24
+      },
+      {
+        "selector": ".base-row__swatch",
+        "bg": "rgb(0, 0, 0)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 24
+      },
+      {
+        "selector": ".base-row__swatch",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 24
+      }
+    ]
+  },
+  "foundations/color/semantic": {
+    "title": "Tokens semánticos",
+    "secondaryTokens": [
+      "--color-background-secondary-subtlest",
+      "--color-background-secondary-subtlest-hover",
+      "--color-background-secondary-subtlest-pressed",
+      "--color-background-secondary-subtle",
+      "--color-background-secondary-subtle-hover",
+      "--color-background-secondary-subtle-pressed",
+      "--elevation-surface-secondary",
+      "--color-text-secondary-default",
+      "--color-border-secondary-default",
+      "--color-icon-secondary-default"
+    ],
+    "light": [
+      {
+        "selector": ".table-row__swatch",
+        "bg": "rgb(245, 245, 245)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(234, 236, 240)",
+        "width": 20
+      },
+      {
+        "selector": ".table-row__swatch",
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(234, 236, 240)",
+        "width": 20
+      },
+      {
+        "selector": ".table-row__swatch",
+        "bg": "rgb(240, 246, 255)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(234, 236, 240)",
+        "width": 20
+      },
+      {
+        "selector": ".table-row__swatch",
+        "bg": "rgb(242, 244, 247)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(234, 236, 240)",
+        "width": 20
+      }
+    ],
+    "dark": [
+      {
+        "selector": ".table-row__swatch",
+        "bg": "rgb(12, 14, 22)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(52, 64, 84)",
+        "width": 20
+      },
+      {
+        "selector": ".table-row__swatch",
+        "bg": "rgb(12, 14, 22)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(52, 64, 84)",
+        "width": 20
+      },
+      {
+        "selector": ".table-row__swatch",
+        "bg": "rgb(12, 25, 44)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(52, 64, 84)",
+        "width": 20
+      },
+      {
+        "selector": ".table-row__swatch",
+        "bg": "rgb(26, 29, 46)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(52, 64, 84)",
+        "width": 20
+      }
+    ]
+  },
+  "components/card": {
+    "title": "Card",
+    "light": [
+      {
+        "selector": "#warm-action .cs-action-card",
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 944
+      },
+      {
+        "selector": "#disabled-action .cs-action-card",
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 944
+      }
+    ],
+    "dark": [
+      {
+        "selector": "#warm-action .cs-action-card",
+        "bg": "rgb(17, 24, 39)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 944
+      },
+      {
+        "selector": "#disabled-action .cs-action-card",
+        "bg": "rgb(17, 24, 39)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 944
+      }
+    ]
+  },
+  "components/select": {
+    "title": "Select",
+    "light": [
+      {
+        "selector": "#bounded-single .cs-select__trigger",
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 288
+      },
+      {
+        "selector": "#bounded-multiple .cs-select__trigger",
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 288
+      }
+    ],
+    "dark": [
+      {
+        "selector": "#bounded-single .cs-select__trigger",
+        "bg": "rgb(17, 24, 39)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 288
+      },
+      {
+        "selector": "#bounded-multiple .cs-select__trigger",
+        "bg": "rgb(17, 24, 39)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 288
+      }
+    ]
+  },
+  "components/accordion": {
+    "title": "Accordion",
+    "light": [
+      {
+        "selector": "#warm-fleet .cs-fleet-unit-list__item",
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(234, 236, 240)",
+        "width": 944
+      },
+      {
+        "selector": "#warm-fleet .cs-fleet-unit-list__item",
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(234, 236, 240)",
+        "width": 944
+      },
+      {
+        "selector": "#warm-fleet .cs-fleet-unit-list__item",
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(234, 236, 240)",
+        "width": 944
+      }
+    ],
+    "dark": [
+      {
+        "selector": "#warm-fleet .cs-fleet-unit-list__item",
+        "bg": "rgb(17, 24, 39)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(29, 41, 57)",
+        "width": 944
+      },
+      {
+        "selector": "#warm-fleet .cs-fleet-unit-list__item",
+        "bg": "rgb(17, 24, 39)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(29, 41, 57)",
+        "width": 944
+      },
+      {
+        "selector": "#warm-fleet .cs-fleet-unit-list__item",
+        "bg": "rgb(17, 24, 39)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(29, 41, 57)",
+        "width": 944
+      }
+    ]
+  },
+  "components/dropdown": {
+    "title": "Dropdown",
+    "light": [
+      {
+        "selector": ".cs-input-dropdown__trigger",
+        "bg": "rgb(252, 250, 244)",
+        "color": "rgb(73, 63, 43)",
+        "border": "rgb(104, 90, 61)",
+        "width": 216
+      },
+      {
+        "selector": ".cs-input-dropdown__trigger",
+        "bg": "rgb(252, 250, 244)",
+        "color": "rgb(73, 63, 43)",
+        "border": "rgb(104, 90, 61)",
+        "width": 216
+      },
+      {
+        "selector": ".cs-input-dropdown__trigger",
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 71.375
+      },
+      {
+        "selector": ".cs-input-dropdown__trigger",
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 53.09375
+      }
+    ],
+    "dark": [
+      {
+        "selector": ".cs-input-dropdown__trigger",
+        "bg": "rgb(48, 41, 28)",
+        "color": "rgb(252, 250, 244)",
+        "border": "rgb(239, 233, 220)",
+        "width": 216
+      },
+      {
+        "selector": ".cs-input-dropdown__trigger",
+        "bg": "rgb(48, 41, 28)",
+        "color": "rgb(252, 250, 244)",
+        "border": "rgb(239, 233, 220)",
+        "width": 216
+      },
+      {
+        "selector": ".cs-input-dropdown__trigger",
+        "bg": "rgb(17, 24, 39)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 71.375
+      },
+      {
+        "selector": ".cs-input-dropdown__trigger",
+        "bg": "rgb(17, 24, 39)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 53.09375
+      }
+    ]
+  },
+  "components/button": {
+    "title": "Button",
+    "light": [
+      {
+        "selector": ".cs-button--primary",
+        "bg": "rgb(27, 64, 121)",
+        "color": "rgb(255, 255, 255)",
+        "border": "rgb(255, 255, 255)",
+        "width": 134.28125
+      },
+      {
+        "selector": ".cs-button--primary",
+        "bg": "rgb(27, 64, 121)",
+        "color": "rgb(255, 255, 255)",
+        "border": "rgb(255, 255, 255)",
+        "width": 70.765625
+      },
+      {
+        "selector": ".cs-button--primary",
+        "bg": "rgb(27, 64, 121)",
+        "color": "rgb(255, 255, 255)",
+        "border": "rgb(255, 255, 255)",
+        "width": 82.578125
+      },
+      {
+        "selector": ".cs-button--primary",
+        "bg": "rgb(27, 64, 121)",
+        "color": "rgb(255, 255, 255)",
+        "border": "rgb(255, 255, 255)",
+        "width": 84.46875
+      },
+      {
+        "selector": ".cs-button--secondary",
+        "bg": "rgb(240, 246, 255)",
+        "color": "rgb(21, 53, 101)",
+        "border": "rgb(21, 53, 101)",
+        "width": 86.984375
+      },
+      {
+        "selector": ".cs-button--secondary",
+        "bg": "rgb(240, 246, 255)",
+        "color": "rgb(21, 53, 101)",
+        "border": "rgb(21, 53, 101)",
+        "width": 38
+      },
+      {
+        "selector": ".cs-button--secondary",
+        "bg": "rgb(240, 246, 255)",
+        "color": "rgb(21, 53, 101)",
+        "border": "rgb(21, 53, 101)",
+        "width": 38
+      },
+      {
+        "selector": ".cs-button--default",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 74.484375
+      },
+      {
+        "selector": ".cs-button--default",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 69.375
+      },
+      {
+        "selector": ".cs-button--default",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 74.484375
+      },
+      {
+        "selector": ".cs-button--default",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 74.484375
+      }
+    ],
+    "dark": [
+      {
+        "selector": ".cs-button--primary",
+        "bg": "rgb(73, 129, 215)",
+        "color": "rgb(16, 24, 40)",
+        "border": "rgb(16, 24, 40)",
+        "width": 134.28125
+      },
+      {
+        "selector": ".cs-button--primary",
+        "bg": "rgb(73, 129, 215)",
+        "color": "rgb(16, 24, 40)",
+        "border": "rgb(16, 24, 40)",
+        "width": 70.765625
+      },
+      {
+        "selector": ".cs-button--primary",
+        "bg": "rgb(73, 129, 215)",
+        "color": "rgb(16, 24, 40)",
+        "border": "rgb(16, 24, 40)",
+        "width": 82.578125
+      },
+      {
+        "selector": ".cs-button--primary",
+        "bg": "rgb(73, 129, 215)",
+        "color": "rgb(16, 24, 40)",
+        "border": "rgb(16, 24, 40)",
+        "width": 84.46875
+      },
+      {
+        "selector": ".cs-button--secondary",
+        "bg": "rgb(10, 18, 31)",
+        "color": "rgb(63, 122, 213)",
+        "border": "rgb(63, 122, 213)",
+        "width": 86.984375
+      },
+      {
+        "selector": ".cs-button--secondary",
+        "bg": "rgb(10, 18, 31)",
+        "color": "rgb(63, 122, 213)",
+        "border": "rgb(63, 122, 213)",
+        "width": 38
+      },
+      {
+        "selector": ".cs-button--secondary",
+        "bg": "rgb(10, 18, 31)",
+        "color": "rgb(63, 122, 213)",
+        "border": "rgb(63, 122, 213)",
+        "width": 38
+      },
+      {
+        "selector": ".cs-button--default",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 74.484375
+      },
+      {
+        "selector": ".cs-button--default",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 69.375
+      },
+      {
+        "selector": ".cs-button--default",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 74.484375
+      },
+      {
+        "selector": ".cs-button--default",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 74.484375
+      }
+    ]
+  },
+  "components/spotlight": {
+    "title": "Spotlight",
+    "light": [
+      {
+        "selector": ".cs-spotlight__callout",
+        "bg": "rgb(18, 42, 79)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(52, 64, 84)",
+        "width": 280
+      },
+      {
+        "selector": ".cs-spotlight__callout",
+        "bg": "rgb(18, 42, 79)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(52, 64, 84)",
+        "width": 280
+      },
+      {
+        "selector": ".cs-spotlight__callout",
+        "bg": "rgb(18, 42, 79)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(52, 64, 84)",
+        "width": 280
+      },
+      {
+        "selector": ".cs-spotlight__callout",
+        "bg": "rgb(18, 42, 79)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(52, 64, 84)",
+        "width": 280
+      }
+    ],
+    "dark": [
+      {
+        "selector": ".cs-spotlight__callout",
+        "bg": "rgb(164, 192, 236)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(208, 213, 221)",
+        "width": 280
+      },
+      {
+        "selector": ".cs-spotlight__callout",
+        "bg": "rgb(164, 192, 236)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(208, 213, 221)",
+        "width": 280
+      },
+      {
+        "selector": ".cs-spotlight__callout",
+        "bg": "rgb(164, 192, 236)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(208, 213, 221)",
+        "width": 280
+      },
+      {
+        "selector": ".cs-spotlight__callout",
+        "bg": "rgb(164, 192, 236)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(208, 213, 221)",
+        "width": 280
+      }
+    ]
+  },
+  "animations/motion": {
+    "title": "Motion",
+    "light": [
+      {
+        "selector": ".panel-canvas",
+        "bg": "rgb(245, 245, 245)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(208, 213, 221)",
+        "width": 944
+      },
+      {
+        "selector": ".panel-header",
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(52, 64, 84)",
+        "width": 944
+      },
+      {
+        "selector": ".panel-body",
+        "bg": "rgb(255, 255, 255)",
+        "color": "rgb(52, 64, 84)",
+        "border": "rgb(52, 64, 84)",
+        "width": 944
+      }
+    ],
+    "dark": [
+      {
+        "selector": ".panel-canvas",
+        "bg": "rgb(12, 14, 22)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(71, 84, 103)",
+        "width": 944
+      },
+      {
+        "selector": ".panel-header",
+        "bg": "rgb(17, 24, 39)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(208, 213, 221)",
+        "width": 944
+      },
+      {
+        "selector": ".panel-body",
+        "bg": "rgb(17, 24, 39)",
+        "color": "rgb(208, 213, 221)",
+        "border": "rgb(208, 213, 221)",
+        "width": 944
+      }
+    ]
+  },
+  "errors": [],
+  "interacciones": [
+    "ActionCard: selección controlada activa check y borde",
+    "ActionCard: acción independiente de selección",
+    "Select: apertura con flecha y cierre con Escape",
+    "InputDropdown: variante cálida explícita abre y cierra",
+    "Panel: contraer y expandir conserva controles y superficie neutra",
+    "Select: trigger acotado a viewport de 390 px"
+  ],
+  "storybook": {
+    "results": [
+      {
+        "id": "componentes-card-actioncard--with-button",
+        "bg": "rgb(255, 255, 255)"
+      },
+      {
+        "id": "componentes-card-actioncard--secondary-selected",
+        "bg": "rgb(240, 246, 255)"
+      },
+      {
+        "id": "componentes-select--default",
+        "bg": "rgb(255, 255, 255)"
+      },
+      {
+        "id": "componentes-dropdown-inputdropdown--empty",
+        "bg": "rgb(255, 255, 255)"
+      },
+      {
+        "id": "organismos-fleetunitlist--default",
+        "bg": "rgb(255, 255, 255)"
+      },
+      {
+        "id": "componentes-button--primary",
+        "bg": "rgb(27, 64, 121)"
+      },
+      {
+        "id": "componentes-spotlight--default",
+        "bg": "rgb(18, 42, 79)"
+      }
+    ],
+    "errors": []
+  },
+  "contrasteLienzo": [
+    {
+      "theme": "light",
+      "text": "344054",
+      "background": "f5f5f5",
+      "ratio": 9.6
+    },
+    {
+      "theme": "dark",
+      "text": "d0d5dd",
+      "background": "0c0e16",
+      "ratio": 13.07
+    }
+  ]
+}

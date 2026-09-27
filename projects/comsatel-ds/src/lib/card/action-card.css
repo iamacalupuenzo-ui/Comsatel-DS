@@ -7,7 +7,7 @@
   gap: var(--layout-gap-3xl);
   border-radius: var(--radius-lg);
   border: var(--layout-border-thin) solid var(--color-border-neutral-default);
-  background-color: var(--color-background-neutral-subtlest);
+  background-color: var(--elevation-surface-default);
   box-shadow: var(--shadow-xs);
 }
 
