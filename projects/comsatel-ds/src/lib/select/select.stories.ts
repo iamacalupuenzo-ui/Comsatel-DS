@@ -41,3 +41,15 @@ export const Multiple: Story = {
 export const Disabled: Story = {
   args: { disabled: true, value: 'design' },
 };
+
+export const SecondaryLongValues: Story = {
+  args: { surface: 'secondary', multiple: true, value: ['north', 'south'], options: [
+    { value: 'north', label: 'Operación logística de la zona norte con seguimiento continuo de unidades' },
+    { value: 'south', label: 'Operación de distribución y mantenimiento de la zona sur' },
+  ] },
+  render: args => ({ props: args, template: `
+    <div style="width:min(100%, calc(var(--layout-size-lg) * 6))">
+      <cs-select [label]="label" [surface]="surface" [multiple]="multiple" [options]="options" [value]="value" (valueChange)="value=$event" />
+    </div>`,
+  }),
+};

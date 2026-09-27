@@ -9,6 +9,7 @@ export const componentStyles = [
   'projects/comsatel-ds/src/lib/fleet-unit-list/fleet-unit-list.css',
   'projects/comsatel-ds/src/lib/card/action-card.css',
   'projects/comsatel-ds/src/lib/shared/focus.css',
+  'projects/comsatel-ds/src/lib/select/select.css',
   'src/app/pages/motion-demo/collapsible-panel-example.css',
 ];
 // CSS no permite var() en media queries. Conserva el umbral histórico md - 1.

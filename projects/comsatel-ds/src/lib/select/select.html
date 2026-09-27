@@ -1,4 +1,4 @@
-<div class="cs-select">
+<div class="cs-select" [attr.data-size]="size" [class.cs-select--secondary]="surface() === 'secondary'">
   @if (label) {
     <span [id]="labelId" class="cs-select__label" [ngStyle]="labelStyle">
       {{ label }}
@@ -20,8 +20,11 @@
         [attr.aria-expanded]="open()"
         [attr.aria-controls]="menuId"
         [attr.aria-disabled]="disabled || null"
+        [attr.aria-readonly]="readonly() || null"
+        [attr.aria-invalid]="invalid() || null"
+        [attr.aria-describedby]="ariaDescribedby() || null"
           [attr.aria-required]="required || null"
-        class="cs-select__trigger"
+        class="cs-select__trigger cs-focus-ring"
         [class.cs-select__trigger--disabled]="disabled"
         [style.min-height.px]="tok.height"
         [style.padding-inline.px]="tok.paddingX"
@@ -40,11 +43,12 @@
             <span class="cs-select__chips">
               @for (opt of selectedOptions; track opt.value) {
                 <cs-badge [size]="chipSize" variant="neutral" class="cs-select__chip">
-                  {{ opt.label }}
+                  <span class="cs-select__chip-label" [title]="opt.label">{{ opt.label }}</span>
                   <button
                     type="button"
-                    class="cs-select__chip-remove"
+                    class="cs-select__chip-remove cs-focus-ring"
                     [attr.aria-label]="removeOptionLabel(opt.label)"
+                    [disabled]="disabled || readonly() || opt.disabled"
                     [style.width.px]="chipRemoveSize"
                     [style.height.px]="chipRemoveSize"
                     (click)="removeOption(opt, $event)"
@@ -55,16 +59,16 @@
               }
             </span>
           } @else {
-            <span class="cs-select__placeholder">{{ placeholder }}</span>
+            <span class="cs-select__placeholder cs-select__placeholder--empty">{{ placeholder }}</span>
           }
         } @else {
-          <span class="cs-select__placeholder">{{ singleSelected ? singleSelected!.label : placeholder }}</span>
+          <span class="cs-select__placeholder" [class.cs-select__placeholder--empty]="!singleSelected">{{ singleSelected ? singleSelected!.label : placeholder }}</span>
         }
         <cs-icon name="chevron-down" [size]="16" class="cs-select__chevron" [class.cs-select__chevron--open]="open()" />
       </div>
 
         <cs-popover [isOpen]="open() && !disabled" [triggerRef]="trigger" placement="bottom-start" [offset]="4" [matchTriggerWidth]="true" [role]="null" (closed)="onPopoverClosed()">
-          <div [id]="menuId" role="listbox" [attr.aria-multiselectable]="multiple ? true : null" class="cs-select__menu" [style.max-height.px]="tok.height * 9 + 8">
+          <div [id]="menuId" role="listbox" [attr.aria-label]="label || placeholder" [attr.aria-multiselectable]="multiple ? true : null" class="cs-select__menu" [class.cs-select__menu--secondary]="surface() === 'secondary'" [style.max-height.px]="tok.height * 9 + 8">
           <div class="cs-select__menu-inner">
             @for (opt of options; track opt.value) {
               <button
@@ -72,7 +76,7 @@
                 role="option"
                 [attr.aria-selected]="isSelected(opt)"
                 [disabled]="opt.disabled"
-                class="cs-select__option"
+                class="cs-select__option cs-focus-ring"
                 [class.cs-select__option--selected]="isSelected(opt)"
                 [style.height.px]="tok.height"
                 [style.padding-inline.px]="tok.paddingX"
@@ -92,8 +96,8 @@
         </cs-popover>
     </div>
 
-    @if (!disabled && hasValue && !multiple) {
-      <button type="button" tabindex="-1" class="cs-select__clear" [attr.aria-label]="clearControlLabel" [style.width.px]="tok.height" [style.height.px]="tok.height" (click)="clearAll()">
+    @if (showClear() && !disabled && !readonly() && hasValue && !multiple) {
+      <button type="button" class="cs-select__clear cs-focus-ring" [attr.aria-label]="clearControlLabel" [style.width.px]="tok.height" [style.height.px]="tok.height" (click)="clearAll()">
         <cs-icon name="x" [size]="16" />
       </button>
     }

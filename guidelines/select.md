@@ -35,6 +35,11 @@ elegir varias opciones y quitarlas una por una.
 | `required` | `boolean` | `false` | Marca el campo como requerido. |
 | `clearControlLabel` | `string` | `'Limpiar'` | Nombre accesible del botón que limpia todo. |
 | `removeOptionLabel` | `(label: string) => string` | `` (label) => `Quitar ${label}` `` | Nombre accesible del botón que quita un chip. |
+| `showClear` | `boolean` | `true` | Muestra la limpieza en selección simple; false evita overrides del consumidor. |
+| `surface` | `'default' \| 'secondary'` | `'default'` | Superficie cálida optativa del campo y menú. |
+| `invalid` | `boolean` | `false` | Borde de error y aria-invalid; acompaña con una explicación. |
+| `readonly` | `boolean` | `false` | Conserva foco y lectura; bloquea apertura, limpieza y quitar chips. |
+| `aria-describedby` | `string` | `''` | Identificador del texto de ayuda o error. |
 | `valueChange` | `EventEmitter<string \| string[]>` | n/a | Emite el nuevo valor. |
 <!-- props:end -->
 
@@ -56,13 +61,27 @@ elegir varias opciones y quitarlas una por una.
 | :-- | :-- |
 | Elementos nativos | `button` |
 | Roles | `combobox`, `listbox`, `option` |
-| Atributos ARIA | `aria-haspopup="listbox"`, `aria-hidden="true"`, `aria-label`, `aria-labelledby`, `aria-expanded`, `aria-controls`, `aria-disabled`, `aria-required`, `aria-multiselectable`, `aria-selected` |
-| Teclas que maneja el código | `ArrowDown`, `ArrowUp`, `Home`, `End`, `Enter`, `Escape`, `Space` |
+| Atributos ARIA | `aria-haspopup="listbox"`, `aria-hidden="true"`, `aria-label`, `aria-labelledby`, `aria-expanded`, `aria-controls`, `aria-disabled`, `aria-readonly`, `aria-invalid`, `aria-describedby`, `aria-required`, `aria-multiselectable`, `aria-selected` |
+| Teclas que maneja el código | `ArrowDown`, `ArrowUp`, `Home`, `End`, `Enter`, `Escape`, `Tab`, `Space` |
 | Foco | Mueve el foco por código (`.focus()`) |
 | Compone | `cs-badge`, `cs-icon`, `cs-popover` |
 <!-- a11y:end -->
 
 ## Trampas
+
+- `showClear` conserva true por compatibilidad; usa `[showClear]="false"` para
+  campos obligatorios sin limpieza. Reelegir en simple emite el mismo valor.
+- El texto simple y los chips truncan dentro del contenedor, reservando quitar
+  y chevron. El texto completo del chip sigue en su nombre y atributo title.
+- `readonly` bloquea cambios y apertura; `disabled` también deshabilita quitar
+  chips. El teclado de esos botones no debe propagarse al combobox.
+
+Tokens: superficie/texto/borde secundarios, roles selected y focused,
+layout-border-thin/thick, layout-padding/gap y layout-size-2xs, tipografía
+INPUT_TOKENS. El límite de chip se deriva del contenedor y los espacios reales,
+sin nuevos valores visuales. El foco usa shared/focus.css. Ningún token nuevo.
+Las tablas numéricas históricas de control/ícono conservan sus métricas;
+su reconciliación global corresponde al catálogo de tokens del lote P1.
 
 - **`value` cambia de forma según `multiple`**: `string` en simple, `string[]` en
   múltiple. Si alternas `multiple` en caliente, tienes que convertir el valor tú.

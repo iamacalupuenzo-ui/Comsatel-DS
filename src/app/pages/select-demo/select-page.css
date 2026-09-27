@@ -26,3 +26,5 @@
 @media (max-width: 640px) {
   .states-grid { grid-template-columns: 1fr; }
 }
+.bounded-selects { display: grid; gap: var(--layout-gap-lg); width: min(100%, calc(var(--layout-size-lg) * 6)); }
+.bounded-selects p { margin: 0; color: var(--color-text-danger-bolder); font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, signal } from '@angular/core';
+import { afterEveryRender, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild, input, signal } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { Icon } from '../icons/icon';
 import { Badge, type BadgeSize } from '../badge/badge';
@@ -27,6 +27,7 @@ let uid = 0;
  */
 @Component({
   selector: 'cs-select',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgStyle, Icon, Badge, Popover],
   templateUrl: './select.html',
   styleUrl: './select.css',
@@ -42,6 +43,11 @@ export class Select {
   @Input() size: DropdownSize = 'md';
   @Input() disabled = false;
   @Input() required = false;
+  readonly showClear = input(true);
+  readonly surface = input<'default' | 'secondary'>('default');
+  readonly invalid = input(false);
+  readonly readonly = input(false);
+  readonly ariaDescribedby = input('', { alias: 'aria-describedby' });
   @Input() clearControlLabel = 'Limpiar';
   @Input() removeOptionLabel: (label: string) => string = (label) => `Quitar ${label}`;
   @ViewChild('trigger', { read: ElementRef }) private triggerRef?: ElementRef<HTMLElement>;
@@ -50,6 +56,20 @@ export class Select {
   protected readonly focused = signal(false);
   protected readonly menuId = `cs-select-${++uid}`;
   protected readonly labelId = `${this.menuId}-label`;
+  private pendingFocus: 'first' | 'last' | null = null;
+
+  constructor() {
+    afterEveryRender(() => {
+      if (!this.open() || !this.pendingFocus) return;
+      const options = this.enabledOptionElements();
+      const selected = options.find(element => element.getAttribute('aria-selected') === 'true');
+      const option = selected ?? (this.pendingFocus === 'last' ? options.at(-1) : options[0]);
+      if (option && getComputedStyle(option).visibility !== 'hidden') {
+        this.pendingFocus = null;
+        option.focus();
+      }
+    });
+  }
 
   protected get tok() {
     return INPUT_TOKENS[this.size];
@@ -84,8 +104,9 @@ export class Select {
 
   protected get borderColor(): string {
     if (this.disabled) return 'var(--color-border-neutral-subtle)';
+    if (this.invalid()) return 'var(--color-border-danger-default)';
     if (this.focused() || this.open()) return 'var(--color-border-brand-default)';
-    return 'var(--color-border-neutral-default)';
+    return this.surface() === 'secondary' ? 'var(--color-border-secondary-default)' : 'var(--color-border-neutral-default)';
   }
   protected get extraShadow(): string {
     return !this.disabled && (this.focused() || this.open())
@@ -94,11 +115,12 @@ export class Select {
   }
   protected get textColor(): string {
     if (this.disabled) return 'var(--color-text-disabled)';
-    return this.hasValue ? 'var(--color-text-base-default)' : 'var(--color-text-base-subtlest)';
+    if (this.surface() === 'secondary') return 'var(--color-text-secondary-default)';
+    return 'var(--color-text-base-default)';
   }
 
   protected toggle(): void {
-    if (this.disabled) return;
+    if (this.disabled || this.readonly()) return;
     const next = !this.open();
     this.open.set(next);
     this.focused.set(true);
@@ -113,7 +135,7 @@ export class Select {
   }
 
   protected onKeydown(e: KeyboardEvent): void {
-    if (this.disabled) return;
+    if (this.disabled || this.readonly() || e.target !== e.currentTarget) return;
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Home' || e.key === 'End') {
       e.preventDefault();
       if (!this.open()) this.open.set(true);
@@ -130,7 +152,7 @@ export class Select {
   }
 
   protected selectOption(opt: SelectOption): void {
-    if (opt.disabled) return;
+    if (opt.disabled || this.disabled || this.readonly()) return;
     if (this.multiple) {
       const next = this.selectedValues.includes(opt.value)
         ? this.selectedValues.filter((v) => v !== opt.value)
@@ -138,18 +160,20 @@ export class Select {
       this.valueChange.emit(next);
     } else {
       this.valueChange.emit(opt.value);
-      this.open.set(false);
-      this.focused.set(false);
+      this.closeMenu();
     }
   }
 
   protected clearAll(): void {
+    if (this.disabled || this.readonly()) return;
     this.valueChange.emit(this.multiple ? [] : '');
+    this.triggerRef?.nativeElement.focus();
   }
 
   protected removeOption(opt: SelectOption, event: Event): void {
     event.stopPropagation();
     this.selectOption(opt);
+    this.triggerRef?.nativeElement.focus();
   }
 
   protected isSelected(opt: SelectOption): boolean {
@@ -157,6 +181,7 @@ export class Select {
   }
 
   protected onPopoverClosed(): void {
+    this.pendingFocus = null;
     if (this.open()) {
       this.open.set(false);
       this.focused.set(false);
@@ -178,22 +203,20 @@ export class Select {
     } else if (event.key === 'Escape') {
       event.preventDefault();
       this.closeMenu();
+    } else if (event.key === 'Tab') {
+      this.closeMenu();
     }
   }
 
   protected closeMenu(): void {
+    this.pendingFocus = null;
     this.open.set(false);
     this.focused.set(false);
     this.triggerRef?.nativeElement.focus();
   }
 
   private focusInitialOption(last = false): void {
-    setTimeout(() => {
-      const options = this.enabledOptionElements();
-      if (!options.length) return;
-      const selected = options.find((element) => element.getAttribute('aria-selected') === 'true');
-      (selected ?? options[last ? options.length - 1 : 0]).focus();
-    });
+    this.pendingFocus = last ? 'last' : 'first';
   }
 
   private enabledOptionElements(): HTMLButtonElement[] {

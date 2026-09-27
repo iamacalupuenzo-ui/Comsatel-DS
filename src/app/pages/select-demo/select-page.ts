@@ -16,6 +16,14 @@ const TEAM_OPTIONS: SelectOption[] = [
   styleUrl: './select-page.css',
 })
 export class SelectPage {
+  protected readonly longOptions: SelectOption[] = [
+    { value: 'all', label: 'Todas' },
+    { value: 'north', label: 'Operación logística de la zona norte con seguimiento continuo de unidades' },
+    { value: 'south', label: 'Operación de distribución y mantenimiento de la zona sur' },
+    { value: 'pending', label: 'Integración pendiente', disabled: true },
+  ];
+  protected readonly longSingle = signal<string | string[]>('north');
+  protected readonly longMultiple = signal<string | string[]>(['north', 'south']);
   protected readonly teamOptions = TEAM_OPTIONS;
 
   /* Playground */
