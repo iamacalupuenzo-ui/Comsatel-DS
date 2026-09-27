@@ -115,4 +115,14 @@ El `status` decide el color y el ícono del badge, con un mapeo fijo:
   que en `cs-accordion`.
 - `detailClick` solo emite la unidad: navegar al detalle es responsabilidad de quien lo
   usa.
-- La telemetría se ordena en 4 columnas y baja a 2 por debajo de 767px de ancho.
+- La telemetría se ordena en 2 columnas y baja a 1 por debajo de 767px de ancho.
+
+## Tokens usados
+
+Superficie/texto/borde secundarios; `color-background-selected`,
+`color-text-selected`, `color-border-selected`, `color-border-focused`,
+`color-border-brand-default`, `layout-border-thin/thick`, `layout-padding-2xs`,
+`layout-gap-*`, `radius-md/full`, `shadow-sm` y pares tipográficos
+`content-note`/`label-small`. Los estados usan texto success/warning bolder en
+superficie cálida. No agrega tokens; comparte el foco con ActionCard.
+El breakpoint histórico 767px queda exceptuado en el validador de estilos.

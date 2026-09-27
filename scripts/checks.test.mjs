@@ -10,6 +10,12 @@ import { checkMarkdown, context } from './examples.mjs';
 import { coverage } from './guidelines.mjs';
 import { components, parseMembers, readText } from './lib/ds.mjs';
 import { MISSING, regenerate, renderProps } from './props.mjs';
+import { looseValues } from './check-component-tokens.mjs';
+
+test('tokens de componentes: rechaza colores, dimensiones, tiempos y capas literales', () => {
+  assert.deepEqual(looseValues('a { color:#fff; padding: 8px; transition: opacity .2s; z-index: 8; }'), ['#fff', '8px', '2s', 'z-index: 8']);
+  assert.deepEqual(looseValues('a { color:var(--color-text-selected); padding:var(--layout-padding-md); width:100%; opacity:0; }'), []);
+});
 
 test('props: reconoce outputs modernos y sus alias sin perder el contrato', () => {
   const parsed = parseMembers("readonly selectedId = input<string | null>(null); readonly changed = output<string | null>({ alias: 'selectedIdChange' });");

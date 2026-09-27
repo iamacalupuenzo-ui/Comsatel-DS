@@ -1,5 +1,12 @@
 # Dropdown e InputDropdown
 
+Tokens usados por el secundario de InputDropdown: `elevation-surface-secondary`,
+`color-background-secondary-subtlest-hover/pressed`, `color-text-secondary-default`,
+`color-border-secondary-default`, roles `*-selected`, `color-border-focused`,
+`layout-border-thick`, `layout-padding-2xs`. Conserva tamaños de INPUT_TOKENS y
+tipografía existente; no agrega tokens. La superficie portaleada consume los
+mismos roles que el disparador.
+
 Dos componentes distintos que comparten estilos. `Dropdown` es un **menú de acciones**
 que cuelga de un botón. `InputDropdown` es un **campo de formulario** que elige un
 valor: se ve y se comporta como un input, no como un menú.

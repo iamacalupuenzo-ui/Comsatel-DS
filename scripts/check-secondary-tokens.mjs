@@ -24,6 +24,14 @@ for (const [, step, value] of primitives.matchAll(/"(\d+)": "(#[\da-f]+)"/g)) {
   previous = luminance(value);
 }
 for (const [theme, vars] of Object.entries({ light, dark })) {
+  const selectedBackground = resolve(vars, '--color-background-selected');
+  for (const role of ['--color-text-selected', '--color-border-selected', '--color-border-focused']) {
+    const minimum = role.includes('text') ? 4.5 : 3;
+    const backgrounds = role.includes('text') ? [selectedBackground] : [selectedBackground, resolve(vars, '--elevation-surface-secondary'), resolve(vars, '--color-background-secondary-subtlest')];
+    const contrasts = backgrounds.map(bg => ratio(resolve(vars, role), bg));
+    assert.ok(contrasts.every(value => value >= minimum), `${theme}: ${role} incumple ${minimum}:1 sobre selección/secundario`);
+    console.log(`${theme}: ${role}, mínimo ${Math.min(...contrasts).toFixed(2)}:1`);
+  }
   const backgrounds = Object.keys(vars).filter(k => k.startsWith('--color-background-secondary-') || k === '--elevation-surface-secondary');
   for (const [foreground, minimum] of [['--color-text-secondary-default', 4.5], ['--color-border-secondary-default', 3], ['--color-icon-secondary-default', 3]]) {
     const contrasts = backgrounds.map(bg => ratio(resolve(vars, foreground), resolve(vars, bg)));

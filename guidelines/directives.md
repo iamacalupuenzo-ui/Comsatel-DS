@@ -1,5 +1,8 @@
 # Directivas: csPressScale y csCollapse
 
+Tokens de Collapse: `--motion-duration-medium` y `--motion-easing-default`.
+Full usa porcentaje del padre; no agrega tamaños, colores ni tokens nuevos.
+
 Dos comportamientos de movimiento reutilizables que se aplican sobre un elemento que ya
 existe, en vez de envolverlo en un componente.
 

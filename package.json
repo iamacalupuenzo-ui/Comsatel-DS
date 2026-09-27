@@ -22,7 +22,8 @@
     "check:examples": "node scripts/examples.mjs",
     "check:release-notes": "node scripts/release-notes.mjs",
     "test:docs": "node --test scripts/checks.test.mjs",
-    "check:docs": "npm run check:guidelines && npm run check:props && npm run check:a11y && npm run check:examples && npm run check:release-notes && npm run check:secondary-tokens && npm run test:docs",
+    "check:docs": "npm run check:guidelines && npm run check:props && npm run check:a11y && npm run check:examples && npm run check:release-notes && npm run check:secondary-tokens && npm run check:component-tokens && npm run test:docs",
+    "check:component-tokens": "node scripts/check-component-tokens.mjs",
     "check:secondary-tokens": "node scripts/check-secondary-tokens.mjs",
     "gap:report": "node scripts/gap.mjs"
   },
