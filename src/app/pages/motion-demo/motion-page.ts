@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Icon, Motion, type MotionPreset } from '@iamacalupuenzo-ui/comsatel-ds';
+import { Collapse, Icon, Motion, type MotionPreset } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 import { PresetCard } from './preset-card';
 
@@ -16,11 +16,14 @@ const PRESET_LABELS: Record<MotionPreset, string> = {
 
 @Component({
   selector: 'app-motion-page',
-  imports: [Icon, Motion, DemoShell, PresetCard],
+  imports: [Collapse, Icon, Motion, DemoShell, PresetCard],
   templateUrl: './motion-page.html',
   styleUrl: './motion-page.css',
 })
 export class MotionPage {
+  protected readonly collapseOpen = signal(true);
+  protected readonly collapseLong = signal(false);
+  protected readonly collapseRows = Array.from({ length: 20 }, (_, index) => index + 1);
   protected readonly presets = PRESETS;
   protected readonly presetLabels = PRESET_LABELS;
 

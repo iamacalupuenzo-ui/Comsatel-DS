@@ -42,6 +42,7 @@ ejemplo, los subniveles de `cs-menu`). El primer render aplica el estado sin ani
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
 | `csCollapse` | `boolean` | `false` | `true` expande, `false` colapsa. |
+| `csCollapseMode` | `'auto' \| 'full'` | `'auto'` | auto conserva la altura natural; full llena la altura definida por el padre y habilita scroll interno. |
 <!-- props:end -->
 
 ## Accesibilidad (a11y) y teclado
@@ -79,6 +80,13 @@ ejemplo, los subniveles de `cs-menu`). El primer render aplica el estado sin ani
 <!-- a11y:end -->
 
 ## Trampas
+
+- `csCollapseMode="full"` requiere un padre con altura definida y un anfitrión sin
+  padding; aplica espaciado al contenido interior. Al expandir resuelve `100%`,
+  incluso con pocos resultados; al cerrar llega a cero. El consumidor conserva
+  el header fuera del cuerpo y devuelve el foco al disparador antes de ocultar.
+- Cambiar de estado interrumpe la animación anterior. Al destruir se cancelan
+  tweens; el modo `auto` existente conserva su contrato.
 
 - `csPressScale` va sobre un control interactivo real (`button`, `a`). Sobre un `div` da
   feedback de algo que no se puede activar.

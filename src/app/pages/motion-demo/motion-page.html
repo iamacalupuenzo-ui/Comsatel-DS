@@ -8,6 +8,28 @@
     slide-*); duración y curva de entrada/salida se pueden ajustar por separado.
   </p>
 
+  <section class="section" id="collapse-full">
+    <h2 class="section__title">Collapse: altura acotada</h2>
+    <p class="section__intro">El modo full ocupa la región disponible aunque haya un solo resultado. El modo auto conserva la altura del contenido. El disparador permanece fuera de la región oculta.</p>
+    <div class="row">
+      <button type="button" class="guide-card__action" (click)="collapseOpen.set(!collapseOpen())" [attr.aria-expanded]="collapseOpen()" aria-controls="collapse-full-body collapse-auto-body">Alternar regiones</button>
+      <button type="button" class="guide-card__action" (click)="collapseLong.set(!collapseLong())" [attr.aria-pressed]="collapseLong()">Alternar lista larga</button>
+    </div>
+    <div class="collapse-examples">
+      <div class="collapse-boundary">
+        <div id="collapse-full-body" [csCollapse]="collapseOpen()" csCollapseMode="full" class="collapse-body">
+          @for (row of (collapseLong() ? collapseRows : [1]); track row) {
+            <p class="collapse-row">Unidad {{ row }}</p>
+          }
+        </div>
+      </div>
+      <div class="collapse-boundary">
+        <div id="collapse-auto-body" [csCollapse]="collapseOpen()" class="collapse-body"><p class="collapse-row">Altura natural</p></div>
+      </div>
+    </div>
+    <p class="section__intro">Contrato: csCollapseMode acepta auto (predeterminado) o full. El padre de full necesita altura definida; no coloques padding en el anfitrión. Conserva el encabezado fuera del cuerpo, mueve el foco antes de cerrarlo y compón aria-expanded/aria-controls en su botón. No uses full para submenús de altura natural.</p>
+  </section>
+
   <!-- Playground -->
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>

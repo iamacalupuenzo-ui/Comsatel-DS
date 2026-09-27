@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnChanges, inject } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, OnDestroy, inject } from '@angular/core';
 import { gsap } from 'gsap';
 import { tokenEase } from '../motion/eases';
 import { prefersReducedMotion, tokenSeconds } from '../motion/token-duration';
@@ -21,14 +21,21 @@ import { prefersReducedMotion, tokenSeconds } from '../motion/token-duration';
     '[attr.aria-hidden]': 'expanded ? null : "true"',
   },
 })
-export class Collapse implements OnChanges {
+export class Collapse implements OnChanges, OnDestroy {
   @Input('csCollapse') expanded = false;
+  /** auto conserva la altura natural; full llena un contenedor con altura definida. */
+  @Input() csCollapseMode: 'auto' | 'full' = 'auto';
 
   private readonly el = inject(ElementRef<HTMLElement>).nativeElement as HTMLElement;
   private animatedOnce = false;
 
   ngOnChanges(): void {
-    const height = this.expanded ? 'auto' : 0;
+    const height = this.expanded ? (this.csCollapseMode === 'full' ? '100%' : 'auto') : 0;
+    // En full el anfitrión es la región desplazable. El padre define su límite;
+    // el porcentaje final se adapta al viewport sin medir ni fijar píxeles.
+    this.el.style.minHeight = '0';
+    this.el.style.overflowY = this.csCollapseMode === 'full' && this.expanded ? 'auto' : 'hidden';
+    gsap.killTweensOf(this.el);
     // El primer render no anima (evita el flash antes de que el consumidor
     // sincronice), y tampoco se anima si la persona pidió reducir el movimiento.
     if (!this.animatedOnce || prefersReducedMotion()) {
@@ -38,8 +45,13 @@ export class Collapse implements OnChanges {
     }
     gsap.to(this.el, {
       height,
+      overwrite: true,
       duration: tokenSeconds(this.el, '--motion-duration-medium'),
       ease: tokenEase(this.el, '--motion-easing-default', 'cubic-bezier(0.2, 0, 0, 1)'),
     });
+  }
+
+  ngOnDestroy(): void {
+    gsap.killTweensOf(this.el);
   }
 }
