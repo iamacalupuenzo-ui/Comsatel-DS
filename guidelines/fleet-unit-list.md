@@ -95,3 +95,11 @@ expansión. selectedIdChange y pinnedIdsChange solo solicitan cambios al consumi
 
 Superficies, borde, foco y tipografía del sistema; secondary es optativo.
 La telemetría conserva el breakpoint histórico de 767px documentado en el validador.
+
+Geometría en ambos temas: `layout-size-2xl` (64px), `radius-md` (6px),
+`content-ui` (13px)/`font-weight-bold` (700), subtítulo `content-note` (12px).
+Barra interior de `layout-border-thin + layout-border-thick` (3px), radio
+`radius-md - layout-border-thin` (5px); borde seleccionado fino, sin doble inset.
+Hover: `color-border-neutral-default` (claro #d0d5dd, oscuro #475467) y shadow-sm.
+Título: `color-text-base-default` (claro #344054, oscuro #d0d5dd).
+Selección: `color-border-selected` y `color-background-selected`, adaptados al tema.

@@ -45,11 +45,22 @@ Entradas de expansión obsoletas sin efecto; selección activa por defecto.
 Pendiente de revalidación de paridad. Referencia funcional: [Button APG](https://www.w3.org/WAI/ARIA/apg/patterns/button/).
 Enter/Espacio, nombre estable y aria-pressed; el Popover recibe y devuelve foco.
 El contenido mixto usa dialog y botones con Tab, no un menú ARIA.
+Interacción implementada en `75a8c12`; paridad pendiente.
 Punto 1: build, check:docs (19 pruebas), test:ci (11) y Storybook pasan.
 Chromium aislado sobre build servido en 4301: selección sin acordeón, apertura,
 foco en Fijar, Escape y retorno al disparador, fijado y disabled. Storybook
 estático en 4302 renderiza tres filas sin acordeón. Dependencias existentes;
 no se reinstalaron ni se interrumpió 4300. No equivale a checkout limpio.
+
+Punto 2: alto 64px, radio 6px, título 13px/700, subtítulo 12px; hover neutro
+con sombra y selección con borde fino, fondo y barra interior de 3px/radio 5px.
+Todos los valores derivan de tokens existentes documentados en la guía, con
+colores adaptados a claro/oscuro. Pendiente de revalidación independiente.
+Punto 2: build, check:docs (19), test:ci (11) y Storybook pasan. Chromium midió
+64px/6px/13px/700/12px, hover 208/213/221 y barra interior 3px/5px en claro;
+oscuro conserva geometría con sus roles propios. Sin errores JavaScript.
+[Mediciones de ambos temas](paridad-correcciones.json); capturas inspeccionadas
+con contenedor de prueba de 320px. Esto no sustituye el veredicto de paridad.
 
 ## Qué aprendimos del producto
 
