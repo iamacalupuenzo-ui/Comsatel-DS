@@ -89,6 +89,9 @@ con AGENTS.md. Los gates funcionales/DOM/visuales quedan para cada componente:
 esta fase solo agrega tokens sin consumidores. El coordinador autorizó 0.3.0
 local, no publicada.
 
+Implementación confirmada en `3dfb750`; las dos referencias externas del skill
+se actualizaron en UTF-8 y no forman parte del commit de este repositorio.
+
 Verificación realizada: `npm ci --legacy-peer-deps`, `npm run build:lib`,
 `npm run check:docs` (17 pruebas de validadores), `npm run test:ci` (2 pruebas)
 y `npm run build-storybook`: todos finalizaron correctamente. Contraste incluido

@@ -95,7 +95,7 @@ evaluación pendiente, no un defecto demostrado ni un rediseño ya aprobado.
 
 | Área | Qué cambia y por qué | Prioridad / estado |
 | --- | --- | --- |
-| Fundación secundaria | Escala y roles claros/oscuros con contraste | P0 / en curso |
+| Fundación secundaria | Escala y roles claros/oscuros con contraste | P0 / hecho — `3dfb750` |
 | Sistema de colores completo | Reconciliar marca, neutral, secundario, estados, foco y glass; evitar significados duplicados | P1 / pendiente |
 | Tokens de selección | Evaluar superficie dedicada; documentar borde thick y foco separado de 2 px | P0 / pendiente |
 | Catálogo de tokens | Reconciliar ALL_TOKENS y paleta con CSS real | P1 / pendiente |
