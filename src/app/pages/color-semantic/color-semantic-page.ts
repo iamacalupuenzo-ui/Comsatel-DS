@@ -30,6 +30,7 @@ interface Group {
 })
 export class ColorSemanticPage {
   protected readonly bgBase: Omit<TokenRow, 'name'>[] = [
+    { cssVar: '--color-background-canvas', token: 'color/background/canvas', description: 'Lienzo humo detrás de superficies interactivas: #f5f5f5 en claro y superficie sunken (#0c0e16) en oscuro' },
     { cssVar: '--color-background-base', token: 'color/background/base', description: 'Fondo raíz de la página' },
     { cssVar: '--color-background-selected', token: 'color/background/selected', description: 'Relleno de ítem activo o seleccionado' },
     { cssVar: '--color-background-disabled', token: 'color/background/disabled', description: 'Fondo de control deshabilitado' },

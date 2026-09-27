@@ -28,6 +28,13 @@ Cada familia (`brand`, `danger`, `warning`, `success`) sigue la misma escala pos
 
 ## Color: fondo y borde
 
+`--color-background-canvas` es el lienzo humo de la aplicación: `#f5f5f5`
+en claro y `var(--elevation-surface-sunken)` (`#0c0e16`) en oscuro, por debajo
+de la superficie interactiva oscura existente (`#111827`). No sustituye
+`--color-background-base`. Para controles y tarjetas usa
+`--elevation-surface-default` (blanco en claro); para secundarios pequeños,
+`--color-background-neutral-subtle`.
+
 | Token | Value (light) | Use for |
 | :-- | :-- | :-- |
 | `--color-background-brand-default` | `#1b4079` | Fondo de la acción primaria |

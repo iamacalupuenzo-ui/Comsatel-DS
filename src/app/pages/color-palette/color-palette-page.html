@@ -8,6 +8,19 @@
   </p>
 
   <section class="section">
+    <h2 class="section__title" id="lienzo">Lienzo humo</h2>
+    <p class="section__intro">Usa el token semántico para el lienzo de la aplicación. Las superficies interactivas conservan elevation-surface-default y los secundarios pequeños usan color-background-neutral-subtle.</p>
+    <div class="panel">
+      <div class="base-row">
+        <div class="base-row__swatch" [style.background-color]="'var(--color-background-canvas)'"></div>
+        <code class="base-row__token">--color-background-canvas</code>
+        <span class="base-row__name">Lienzo según el tema activo</span>
+        <span class="base-row__hex">Claro: #f5f5f5 · Oscuro: #0c0e16</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
     <h2 class="section__title" id="familias">Familias de color</h2>
     <div class="family-grid">
       @for (f of families; track f.key) {
