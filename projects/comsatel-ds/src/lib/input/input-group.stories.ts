@@ -102,7 +102,7 @@ export const WithTrailingButton: Story = {
 };
 
 export const AppliedFilterAndClear: Story = {
-  render: () => ({ template: `<div style="width:280px"><cs-input-group [active]="true"><cs-input-group-addon><cs-icon name="search" [size]="16" aria-hidden="true" /></cs-input-group-addon><cs-input-group-input aria-label="Buscar unidades" value="VHC-001" /><cs-input-group-clear label="Limpiar búsqueda" /></cs-input-group></div>` }),
+  render: () => ({ props: { value: 'VHC-001' }, template: `<div style="width:280px"><cs-input-group [active]="!!value"><cs-input-group-addon><cs-icon name="search" [size]="16" aria-hidden="true" /></cs-input-group-addon><cs-input-group-input aria-label="Buscar unidades" [value]="value" (valueChange)="value = $event" /><cs-input-group-clear label="Limpiar búsqueda" /></cs-input-group></div>` }),
 };
 export const CalendarTrailingIcon: Story = {
   render: () => ({ template: `<div style="width:280px"><cs-input-group><cs-input-group-input aria-label="Fecha" [readonly]="true" value="28/09/2026" /><cs-input-group-addon align="inline-end"><cs-icon name="calendar" [size]="16" aria-hidden="true" /></cs-input-group-addon></cs-input-group></div>` }),
@@ -111,7 +111,7 @@ export const ErrorWithMessage: Story = {
   render: () => ({ template: `<div style="width:280px"><cs-input-group><cs-input-group-input aria-label="Buscar" [invalid]="true" aria-errormessage="search-error" /></cs-input-group><p id="search-error">Ingresa un valor válido.</p></div>` }),
 };
 export const GroupStatesAndSizes: Story = {
-  render: () => ({ template: `<div style="display:grid;gap:var(--layout-gap-md);width:280px"><cs-input-group><cs-input-group-input fieldSize="sm" aria-label="Vacío pequeño" placeholder="Vacío sm" /></cs-input-group><cs-input-group><cs-input-group-input fieldSize="md" aria-label="Con texto mediano" value="Con texto md" /></cs-input-group><cs-input-group><cs-input-group-input fieldSize="lg" aria-label="Requerido grande" [required]="true" /></cs-input-group><cs-input-group><cs-input-group-input aria-label="Deshabilitado" [disabled]="true" value="Deshabilitado" /></cs-input-group><cs-input-group><cs-input-group-input aria-label="Solo lectura" [readonly]="true" value="Solo lectura" /></cs-input-group></div>` }),
+  render: () => ({ template: `<div style="display:grid;gap:var(--layout-gap-md);width:280px"><cs-input-group><cs-input-group-input fieldSize="sm" aria-label="Vacío pequeño" placeholder="Vacío sm" /></cs-input-group><cs-input-group><cs-input-group-input fieldSize="md" aria-label="Con texto mediano" value="Con texto md" /></cs-input-group><cs-input-group><cs-input-group-input fieldSize="lg" aria-label="Requerido grande" [required]="true" placeholder="Requerido lg" /></cs-input-group><cs-input-group><cs-input-group-input aria-label="Deshabilitado" [disabled]="true" value="Deshabilitado" /></cs-input-group><cs-input-group><cs-input-group-input aria-label="Solo lectura" [readonly]="true" value="Solo lectura" /></cs-input-group></div>` }),
 };
 export const HoverAndFocus: Story = {
   parameters: { docs: { description: { story: 'Pasa el cursor sobre el primer grupo y usa Tab para comprobar el foco visible del segundo; ambos mantienen el mismo ancho.' } } },

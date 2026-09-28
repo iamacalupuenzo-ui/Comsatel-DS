@@ -24,10 +24,10 @@
   background-color: var(--color-background-selected);
   color: var(--color-text-selected);
 }
-.cs-input:hover:not(:disabled):not(:focus-visible) {
+.cs-input:hover:not(:disabled):not(:read-only):not(:focus-visible) {
   border-color: var(--color-border-neutral-bolder);
 }
-.cs-input[data-active='true']:hover:not(:disabled):not(:focus-visible) {
+.cs-input[data-active='true']:hover:not(:disabled):not(:read-only):not(:focus-visible) {
   border-color: var(--color-border-selected);
 }
 .cs-input:-webkit-autofill,

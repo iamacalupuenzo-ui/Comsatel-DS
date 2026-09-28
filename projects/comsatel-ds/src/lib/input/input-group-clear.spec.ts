@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { InputGroup } from './input-group';
 import { InputGroupAddon } from './input-group-addon';
@@ -25,6 +25,14 @@ class HostInAddon {
   onCleared(): void { this.cleared++; }
 }
 
+@Component({
+  imports: [InputGroup, InputGroupInput, InputGroupClear],
+  template: `<cs-input-group><cs-input-group-input aria-label="Buscar" [value]="value()" /><cs-input-group-clear /></cs-input-group>`,
+})
+class HostControlled {
+  value = signal('VHC-001');
+}
+
 describe('InputGroupClear', () => {
   it('limpia el valor controlado, emite el evento y devuelve el foco', async () => {
     await TestBed.configureTestingModule({ imports: [Host] }).compileComponents();
@@ -39,6 +47,14 @@ describe('InputGroupClear', () => {
     expect(fixture.componentInstance.cleared).toBe(1);
     expect(input.value).toBe('');
     expect(document.activeElement).toBe(input);
+    expect(fixture.nativeElement.querySelector('button')).toBeNull();
+
+    input.value = 'VHC-003';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    fixture.detectChanges();
+    expect(fixture.componentInstance.value).toBe('VHC-003');
+    expect(input.value).toBe('VHC-003');
+    expect(fixture.nativeElement.querySelector('button')).not.toBeNull();
   });
 
   it('encuentra el input cuando la acción está dentro de un addon', async () => {
@@ -53,5 +69,25 @@ describe('InputGroupClear', () => {
     expect(fixture.componentInstance.cleared).toBe(1);
     expect(input.value).toBe('');
     expect(document.activeElement).toBe(input);
+    expect(fixture.nativeElement.querySelector('button')).toBeNull();
+  });
+
+  it('no muestra la acción de limpieza si el campo comienza vacío', async () => {
+    await TestBed.configureTestingModule({ imports: [Host] }).compileComponents();
+    const fixture = TestBed.createComponent(Host);
+    fixture.componentInstance.value = '';
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('button')).toBeNull();
+  });
+
+  it('oculta la acción si el valor controlado se vacía desde fuera', async () => {
+    await TestBed.configureTestingModule({ imports: [HostControlled] }).compileComponents();
+    const fixture = TestBed.createComponent(HostControlled);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('button')).not.toBeNull();
+    fixture.componentInstance.value.set('');
+    fixture.detectChanges();
+    expect((fixture.nativeElement.querySelector('input') as HTMLInputElement).value).toBe('');
+    expect(fixture.nativeElement.querySelector('button')).toBeNull();
   });
 });

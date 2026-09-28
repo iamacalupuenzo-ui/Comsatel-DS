@@ -4,6 +4,8 @@
 }
 
 .cs-input-group {
+  --cs-input-group-padding-start: 10px;
+  --cs-input-group-padding-end: 10px;
   position: relative;
   display: flex;
   width: 100%;
@@ -15,9 +17,11 @@
   background-color: var(--elevation-surface-default);
   transition: border-color var(--motion-duration-fast) var(--motion-easing-default), box-shadow var(--motion-duration-fast) var(--motion-easing-default);
 }
-.cs-input-group:has([data-field-size='lg']) { height: 40px; }
+.cs-input-group:has([data-field-size='lg']) { height: 40px; --cs-input-group-padding-start: 14px; --cs-input-group-padding-end: 14px; }
 .cs-input-group:has([data-field-size='sm']) { height: 28px; }
-.cs-input-group:hover:not(:has([data-slot='input-group-control']:disabled)) {
+.cs-input-group:has(> cs-input-group-addon:first-child) { --cs-input-group-padding-start: var(--layout-padding-sm); }
+.cs-input-group:has(> cs-input-group-addon:last-child) { --cs-input-group-padding-end: var(--layout-padding-sm); }
+.cs-input-group:hover:not(:has([data-slot='input-group-control']:disabled, [data-slot='input-group-control']:read-only)) {
   border-color: var(--color-border-neutral-bolder);
 }
 .cs-input-group--active:not(:has([data-slot='input-group-control']:focus-visible, [data-slot='input-group-control'][aria-invalid='true'], [data-slot='input-group-control']:disabled)) {

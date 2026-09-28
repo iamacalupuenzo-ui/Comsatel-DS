@@ -14,7 +14,7 @@
   font-weight: var(--font-weight-regular);
   letter-spacing: var(--font-letter-spacing-content);
   outline: none;
-  padding-inline: var(--layout-padding-sm);
+  padding-inline: var(--cs-input-group-padding-start, 10px) var(--cs-input-group-padding-end, 10px);
 }
 .cs-input-group-input::placeholder {
   color: var(--color-text-base-subtlest);

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { INPUT_FIELD_TOKENS, type InputFieldSize } from './input-tokens';
 
 let uid = 0;
@@ -11,7 +11,7 @@ let uid = 0;
   templateUrl: './input-group-input.html',
   styleUrl: './input-group-input.css',
 })
-export class InputGroupInput {
+export class InputGroupInput implements OnChanges {
   @Input() fieldSize: InputFieldSize = 'md';
   @Input() type = 'text';
   @Input() name = '';
@@ -43,6 +43,17 @@ export class InputGroupInput {
   @Output() blurred = new EventEmitter<void>();
   @Output() enterKey = new EventEmitter<void>();
   @Output() escapeKey = new EventEmitter<void>();
+
+  constructor(private readonly element: ElementRef<HTMLElement>) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['value'] && !changes['value'].firstChange) {
+      this.element.nativeElement.dispatchEvent(new CustomEvent('cs-input-group-value-sync', {
+        bubbles: true,
+        detail: this.value,
+      }));
+    }
+  }
 
   private readonly autoId = `cs-input-group-input-${++uid}`;
 

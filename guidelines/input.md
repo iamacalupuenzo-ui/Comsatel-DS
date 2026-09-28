@@ -290,6 +290,14 @@ No renderiza controles nativos, roles ni atributos ARIA propios, y no maneja tec
 
 ## Trampas
 
+En `readonly`, Input e InputGroup mantienen el borde y el fondo normales, pero
+el hover no cambia el borde. Así se distingue la falta de edición al pasar el
+cursor sin sugerir que el campo está deshabilitado. El foco visible permanece;
+el filtro de fecha de solo lectura conserva el addon de calendario clicable.
+Un InputGroup sin addon inicial alinea el texto a 10 px con `cs-input` en
+`sm` y `md` (14 px en `lg`); junto a un addon conserva 6 px de separación.
+La X de limpieza aparece solo cuando el campo tiene valor.
+
 - **Es controlado.** `valueChange` emite, pero si no reasignas `value`, el campo puede
   desincronizarse del estado de tu componente.
 - La clase se llama `Input` y choca con el decorador `@Input()` de Angular. Dentro de

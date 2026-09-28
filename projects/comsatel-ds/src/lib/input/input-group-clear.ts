@@ -1,11 +1,11 @@
-import { Component, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, Output, EventEmitter, OnDestroy, signal } from '@angular/core';
 import { Icon } from '../icons/icon';
 
 /** Acción de limpieza para un cs-input-group, directa o dentro de un addon. */
 @Component({
   selector: 'cs-input-group-clear',
   imports: [Icon],
-  template: `<button type="button" class="clear" [attr.aria-label]="label" [disabled]="disabled" (click)="clear()"><cs-icon name="x" [size]="16" aria-hidden="true" /></button>`,
+  template: `@if (hasValue()) { <button type="button" class="clear" [attr.aria-label]="label" [disabled]="disabled" (click)="clear()"><cs-icon name="x" [size]="16" aria-hidden="true" /></button> }`,
   styles: [
     `:host { display: contents; }
     .clear { display: grid; place-items: center; flex: none; width: var(--layout-size-sm); height: var(--layout-size-sm); margin-inline-end: var(--layout-padding-2xs); padding: 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--color-icon-neutral-subtle); cursor: pointer; }
@@ -14,15 +14,39 @@ import { Icon } from '../icons/icon';
     .clear:disabled { opacity: var(--opacity-disabled); cursor: not-allowed; }`,
   ],
 })
-export class InputGroupClear {
+export class InputGroupClear implements AfterViewInit, OnDestroy {
   @Input() label = 'Limpiar campo';
   @Input() disabled = false;
   @Output() cleared = new EventEmitter<void>();
+  protected readonly hasValue = signal(false);
+  private observedInput: HTMLInputElement | null = null;
+  private observedGroup: HTMLElement | null = null;
+  private readonly syncValue = () => this.hasValue.set(!!this.observedInput?.value);
+  private readonly syncControlledValue = (event: Event) => {
+    this.hasValue.set(!!(event as CustomEvent<string>).detail);
+  };
 
   constructor(private readonly element: ElementRef<HTMLElement>) {}
 
+  ngAfterViewInit(): void {
+    this.observedGroup = this.element.nativeElement.closest('.cs-input-group');
+    this.observedInput = this.findInput();
+    this.observedInput?.addEventListener('input', this.syncValue);
+    this.observedGroup?.addEventListener('cs-input-group-value-sync', this.syncControlledValue);
+    this.syncValue();
+  }
+
+  ngOnDestroy(): void {
+    this.observedInput?.removeEventListener('input', this.syncValue);
+    this.observedGroup?.removeEventListener('cs-input-group-value-sync', this.syncControlledValue);
+  }
+
+  private findInput(): HTMLInputElement | null {
+    return this.element.nativeElement.closest('.cs-input-group')?.querySelector('input') ?? null;
+  }
+
   clear(): void {
-    const input = this.element.nativeElement.closest('.cs-input-group')?.querySelector('input');
+    const input = this.findInput();
     if (!input || input.disabled || input.readOnly) return;
     input.value = '';
     input.dispatchEvent(new Event('input', { bubbles: true }));
