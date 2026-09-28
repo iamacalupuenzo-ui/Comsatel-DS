@@ -9,6 +9,130 @@
    -------------------------------------------------------------------------- */
 :root,
 [data-theme="light"] {
+  /* Primitivos de color: valores literales existentes; los sufijos distinguen pasos compartidos. */
+  /* blue */
+  --color-primitive-blue-300: #60a5fa;
+  --color-primitive-blue-400: #3b82f6;
+  /* brand */
+  --color-primitive-brand-050: #ffffff;
+  --color-primitive-brand-100: #f0f6ff;
+  --color-primitive-brand-100a: #dbe9ff;
+  --color-primitive-brand-100b: #e0eafa;
+  --color-primitive-brand-200: #cbdcf6;
+  --color-primitive-brand-200a: #c0d7fc;
+  --color-primitive-brand-200b: #a4c0ec;
+  --color-primitive-brand-200c: #9bbef3;
+  --color-primitive-brand-300: #79a1e0;
+  --color-primitive-brand-400: #6596e2;
+  --color-primitive-brand-400a: #4d83d5;
+  --color-primitive-brand-400b: #4981d7;
+  --color-primitive-brand-500: #3f7ad5;
+  --color-primitive-brand-500a: #3474d8;
+  --color-primitive-brand-700: #1b4079;
+  --color-primitive-brand-700a: #153565;
+  --color-primitive-brand-800: #122a4f;
+  --color-primitive-brand-800a: #0f213d;
+  --color-primitive-brand-900: #0c192c;
+  --color-primitive-brand-900a: #0a121f;
+  /* danger */
+  --color-primitive-danger-050: #fff1f3;
+  --color-primitive-danger-100: #ffe4e8;
+  --color-primitive-danger-100a: #fecdd6;
+  --color-primitive-danger-200: #fea3b4;
+  --color-primitive-danger-300: #fd6f8e;
+  --color-primitive-danger-400: #f63d68;
+  --color-primitive-danger-500: #e31b54;
+  --color-primitive-danger-600: #c01048;
+  --color-primitive-danger-600a: #a11043;
+  --color-primitive-danger-800: #3b0f20;
+  --color-primitive-danger-900: #1f0a12;
+  /* gray */
+  --color-primitive-gray-050: #ffffff;
+  --color-primitive-gray-050a: #f9fafb;
+  --color-primitive-gray-050b: #fcfaf4;
+  --color-primitive-gray-100: #f5f5f5;
+  --color-primitive-gray-100a: #f2f4f7;
+  --color-primitive-gray-100b: #dbe9ff;
+  --color-primitive-gray-100c: #eaecf0;
+  --color-primitive-gray-200: #d0d5dd;
+  --color-primitive-gray-300: #a78bfa;
+  --color-primitive-gray-300a: #60a5fa;
+  --color-primitive-gray-400: #8b5cf6;
+  --color-primitive-gray-400a: #98a2b3;
+  --color-primitive-gray-400b: #f63d68;
+  --color-primitive-gray-400c: #3b82f6;
+  --color-primitive-gray-400d: #fdb022;
+  --color-primitive-gray-500: #2ed3b7;
+  --color-primitive-gray-500a: #f79009;
+  --color-primitive-gray-500b: #667085;
+  --color-primitive-gray-600: #dc6803;
+  --color-primitive-gray-600a: #c01048;
+  --color-primitive-gray-600b: #15b79e;
+  --color-primitive-gray-600c: #12b76a;
+  --color-primitive-gray-600d: #b54708;
+  --color-primitive-gray-600e: #475467;
+  --color-primitive-gray-700: #344054;
+  --color-primitive-gray-700a: #027a48;
+  --color-primitive-gray-700b: #153565;
+  --color-primitive-gray-800: #1d2939;
+  --color-primitive-gray-800a: #30291c;
+  --color-primitive-gray-800b: #1a1d2e;
+  --color-primitive-gray-900: #101828;
+  --color-primitive-gray-900a: #111827;
+  --color-primitive-gray-900b: #0c0e16;
+  /* lime */
+  --color-primitive-lime-500: #86cb3c;
+  --color-primitive-lime-600: #669f2a;
+  /* orange */
+  --color-primitive-orange-400: #fdb022;
+  --color-primitive-orange-600: #dc6803;
+  /* overlay */
+  --color-primitive-overlay-050: rgba(255,255,255,0.06);
+  --color-primitive-overlay-050a: rgba(255,255,255,0.1);
+  --color-primitive-overlay-050b: rgba(255,255,255,0.32);
+  --color-primitive-overlay-500: rgba(230,45,85,0.2);
+  --color-primitive-overlay-500a: rgba(230,45,85,0.3);
+  --color-primitive-overlay-950: rgba(0,0,0,0.04);
+  --color-primitive-overlay-950a: rgba(0,0,0,0.08);
+  --color-primitive-overlay-950b: rgba(0,0,0,0.5);
+  --color-primitive-overlay-950c: rgba(0,0,0,0.7);
+  /* pink */
+  --color-primitive-pink-300: #f472b6;
+  --color-primitive-pink-400: #ec4899;
+  /* purple */
+  --color-primitive-purple-300: #a78bfa;
+  --color-primitive-purple-400: #8b5cf6;
+  /* success */
+  --color-primitive-success-100: #ecfdf3;
+  --color-primitive-success-100a: #d1fadf;
+  --color-primitive-success-200: #a6f4c5;
+  --color-primitive-success-300: #6ce9a6;
+  --color-primitive-success-500: #32d583;
+  --color-primitive-success-600: #12b76a;
+  --color-primitive-success-700: #039855;
+  --color-primitive-success-700a: #027a48;
+  --color-primitive-success-800: #05603a;
+  --color-primitive-success-800a: #054f31;
+  --color-primitive-success-900: #032116;
+  /* teal */
+  --color-primitive-teal-500: #2ed3b7;
+  --color-primitive-teal-600: #15b79e;
+  /* warning */
+  --color-primitive-warning-100: #fffaeb;
+  --color-primitive-warning-200: #fef0c7;
+  --color-primitive-warning-300: #fedf89;
+  --color-primitive-warning-400: #fec84b;
+  --color-primitive-warning-400a: #fdb022;
+  --color-primitive-warning-500: #f79009;
+  --color-primitive-warning-600: #dc6803;
+  --color-primitive-warning-600a: #b54708;
+  --color-primitive-warning-700: #93370d;
+  --color-primitive-warning-800: #3b2700;
+  --color-primitive-warning-900: #1f1500;
+  /* yellow */
+  --color-primitive-yellow-500: #facc15;
+  --color-primitive-yellow-500a: #eab308;
+
   /* Secundario cálido: primitivos invariantes; consumir los roles semánticos. */
   --color-primitive-secondary-050: #fcfaf4;
   --color-primitive-secondary-100: #f8f5ed;
