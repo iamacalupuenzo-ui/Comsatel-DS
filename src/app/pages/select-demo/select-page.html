@@ -23,6 +23,22 @@
     </div>
   </section>
 
+  <!-- Filtro de barra -->
+  <section class="section">
+    <h2 class="section__title" id="select-filter">Filtro múltiple de barra</h2>
+    <p class="section__intro">
+      En una barra de filtros, el modo múltiple muestra un resumen de una línea en vez de chips: la opción si es
+      una sola, o el conteo si son varias. Ninguna o todas las opciones marcadas equivalen a «todos», y en ese caso
+      el filtro deja de verse aplicado. Con <code>menuFit</code>, la lista mide al menos lo mismo que el campo y crece
+      con la opción más larga hasta el borde visible.
+    </p>
+    <div class="bounded-selects">
+      <cs-select label="Tipo de unidad" placeholder="Todos los tipos" [multiple]="true" multipleDisplay="summary"
+        [summaryLabel]="unitTypeSummary" [menuFit]="true" [options]="unitTypeOptions"
+        [value]="filterValue()" [active]="filterActive()" (valueChange)="filterValue.set($any($event))" />
+    </div>
+  </section>
+
   <!-- Playground -->
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>
@@ -37,6 +53,11 @@
           [size]="pgSize()"
           [required]="pgRequired()"
           [disabled]="pgDisabled()"
+          [readonly]="pgReadonly()"
+          [invalid]="pgInvalid()"
+          [multipleDisplay]="pgSummary() ? 'summary' : 'chips'"
+          [active]="pgActive()"
+          [menuFit]="pgMenuFit()"
           [value]="pgMultiple() ? pgMultipleValue() : pgSingleValue()"
           (valueChange)="pgMultiple() ? pgMultipleValue.set($any($event)) : pgSingleValue.set($any($event))"
         />
@@ -47,7 +68,7 @@
   <!-- Estados -->
   <section class="section">
     <h2 class="section__title" id="states">Estados</h2>
-    <p class="section__intro">Placeholder (vacío), lleno (valor único), múltiple (chips) y deshabilitado.</p>
+    <p class="section__intro">Placeholder (vacío), lleno (valor único), múltiple (chips y resumen), filtro aplicado, error, solo lectura y deshabilitado. El foco y la apertura tienen prioridad sobre el estado aplicado, y el error sobre ambos.</p>
     <div class="static-block">
       <div class="static-block__preview states-grid">
         <div class="states-grid__item">
@@ -65,6 +86,22 @@
         <div class="states-grid__item">
           <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" value="design" [disabled]="true" />
           <span class="states-grid__label">Deshabilitado</span>
+        </div>
+        <div class="states-grid__item">
+          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" value="design" [active]="true" />
+          <span class="states-grid__label">Filtro aplicado</span>
+        </div>
+        <div class="states-grid__item">
+          <cs-select placeholder="Todos los equipos" [options]="teamOptions" [multiple]="true" multipleDisplay="summary" [value]="['design', 'eng']" [active]="true" />
+          <span class="states-grid__label">Resumen múltiple aplicado</span>
+        </div>
+        <div class="states-grid__item">
+          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" value="design" [invalid]="true" />
+          <span class="states-grid__label">Error</span>
+        </div>
+        <div class="states-grid__item">
+          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" value="design" [readonly]="true" />
+          <span class="states-grid__label">Solo lectura</span>
         </div>
       </div>
     </div>
@@ -153,6 +190,12 @@
       <div class="table__row"><code class="table__name">size</code><code class="table__type">"xs" | "sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Altura y tipografía del trigger; si hay label, también determina su escala.</span></div>
       <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita el trigger, oculta el menú y el control de limpiar.</span></div>
       <div class="table__row"><code class="table__name">required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Agrega un asterisco al label.</span></div>
+      <div class="table__row"><code class="table__name">multipleDisplay</code><code class="table__type">"chips" | "summary"</code><code class="table__default">"chips"</code><span class="table__desc">En modo múltiple, chips por opción o un resumen de una línea (la opción o el conteo). En «summary», ninguna o todas equivalen a «todos».</span></div>
+      <div class="table__row"><code class="table__name">summaryLabel</code><code class="table__type">(count: number) =&gt; string</code><code class="table__default">"{{ '{' }}n{{ '}' }} seleccionados"</code><span class="table__desc">Texto del resumen cuando hay varias opciones elegidas.</span></div>
+      <div class="table__row"><code class="table__name">active</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Filtro aplicado: borde, fondo y texto de selección. Cede ante foco, apertura y error.</span></div>
+      <div class="table__row"><code class="table__name">menuFit</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">La lista mide al menos el ancho del campo y crece con la opción más larga hasta el borde visible; recién ahí parte el texto.</span></div>
+      <div class="table__row"><code class="table__name">invalid</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Borde y anillo de error; combínalo con aria-describedby hacia el mensaje.</span></div>
+      <div class="table__row"><code class="table__name">readonly</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el valor sin permitir abrir la lista ni limpiar.</span></div>
       <div class="table__row"><code class="table__name">clearControlLabel</code><code class="table__type">string</code><code class="table__default">"Limpiar"</code><span class="table__desc">aria-label del botón que limpia una selección simple. A propósito no forma parte del tab order.</span></div>
       <div class="table__row"><code class="table__name">removeOptionLabel</code><code class="table__type">(label: string) =&gt; string</code><code class="table__default">"Quitar {{ '{' }}label{{ '}' }}"</code><span class="table__desc">Arma el nombre accesible de la acción de quitar junto a cada chip en modo múltiple.</span></div>
     </div>

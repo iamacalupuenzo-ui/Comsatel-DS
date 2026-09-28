@@ -205,12 +205,16 @@
         <cs-input-dropdown
           [label]="ipgShowLabel() ? 'Team' : undefined"
           placeholder="Select a team…"
-          [options]="inputOptions"
+          [options]="ipgOptions()"
           [value]="ipgValue()"
           (valueChange)="ipgValue.set($event)"
           [size]="ipgSize()"
           [required]="ipgRequired()"
           [disabled]="ipgDisabled()"
+          [readonly]="ipgReadonly()"
+          [invalid]="ipgInvalid()"
+          [active]="ipgActive()"
+          [menuFit]="ipgMenuFit()"
         ></cs-input-dropdown>
       </div>
     </app-demo-shell>
@@ -219,7 +223,7 @@
   <!-- Input Dropdown — Estados -->
   <section class="section">
     <h2 class="section__title" id="input-dropdown-states">Input Dropdown — Estados</h2>
-    <p class="section__intro">Placeholder (vacío), lleno (con valor seleccionado) y deshabilitado.</p>
+    <p class="section__intro">Placeholder (vacío), lleno, filtro aplicado, error, solo lectura y deshabilitado. El foco y la apertura tienen prioridad sobre el estado aplicado, y el error sobre ambos. Al pasar el cursor, el borde se refuerza igual que en Input.</p>
     <app-demo-shell
       [controls]="[]"
       code="<cs-input-dropdown label=&quot;Placeholder&quot; [options]=&quot;options&quot;></cs-input-dropdown>
@@ -230,8 +234,44 @@
         <cs-input-dropdown label="Placeholder" placeholder="Select a team…" [options]="inputOptions"></cs-input-dropdown>
         <cs-input-dropdown label="Filled" [options]="inputOptions" [value]="stateValueFilled()"></cs-input-dropdown>
         <cs-input-dropdown label="Disabled" [options]="inputOptions" value="design" [disabled]="true"></cs-input-dropdown>
+        <cs-input-dropdown label="Filtro aplicado" [options]="inputOptions" value="design" [active]="true"></cs-input-dropdown>
+        <cs-input-dropdown label="Error" [options]="inputOptions" value="design" [invalid]="true"></cs-input-dropdown>
+        <cs-input-dropdown label="Solo lectura" [options]="inputOptions" value="design" [readonly]="true"></cs-input-dropdown>
+        <cs-input-dropdown size="xs" aria-label="Celda de tabla (xs, 24 px)" [options]="inputOptions" value="design" [menuFit]="true"></cs-input-dropdown>
       </div>
     </app-demo-shell>
+  </section>
+
+  <!-- Input Dropdown — Filtro de barra -->
+  <section class="section">
+    <h2 class="section__title" id="input-dropdown-filter">Input Dropdown — Filtro de barra</h2>
+    <p class="section__intro">
+      En una barra de filtros, <code>active</code> marca el filtro aplicado cuando el valor no es «todos».
+      Con <code>menuFit</code>, la lista mide al menos lo mismo que el campo y crece con la opción más larga hasta el
+      borde visible; recién ahí parte el texto. Al abrir, el foco va a la opción elegida, y Escape cierra solo esta
+      lista, no el panel que la contiene.
+    </p>
+    <div class="stage stage--col">
+      <div style="width: 200px;">
+        <cs-input-dropdown aria-label="Estado" [fullWidth]="true" [menuFit]="true" [options]="filterOptions"
+          [value]="filterValue()" [active]="!!filterValue()" (valueChange)="filterValue.set($event)"></cs-input-dropdown>
+      </div>
+    </div>
+  </section>
+
+  <!-- Input Dropdown — Etiquetas de estado -->
+  <section class="section">
+    <h2 class="section__title" id="input-dropdown-tags">Input Dropdown — Etiquetas de estado</h2>
+    <p class="section__intro">
+      Cada opción puede llevar una etiqueta de estado (<code>tag</code>) con tono <code>success</code>, <code>danger</code>
+      o <code>neutral</code>. Se muestra junto al texto, en el campo y en la lista; por ejemplo, la señal de cada GPS.
+    </p>
+    <div class="stage stage--col">
+      <div style="width: 280px;">
+        <cs-input-dropdown label="GPS" [fullWidth]="true" [menuFit]="true" [options]="gpsOptions"
+          [value]="gpsValue()" (valueChange)="gpsValue.set($event)"></cs-input-dropdown>
+      </div>
+    </div>
   </section>
 
   <!-- Accesibilidad -->
@@ -387,7 +427,10 @@
     <h2 class="section__title" id="props-input-dropdown">InputDropdown — Propiedades</h2>
     <div class="table">
       <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
-      <div class="table__row"><code class="table__name">options</code><code class="table__type">InputDropdownOption[]</code><code class="table__default">—</code><span class="table__desc">Array de opciones {{ '{' }} value, label, disabled? {{ '}' }}.</span></div>
+      <div class="table__row"><code class="table__name">options</code><code class="table__type">InputDropdownOption[]</code><code class="table__default">—</code><span class="table__desc">Array de opciones {{ '{' }} value, label, disabled?, tag? {{ '}' }}. <code class="inline-code">tag</code> es {{ '{' }} label, tone: 'success' | 'danger' | 'neutral' {{ '}' }}.</span></div>
+      <div class="table__row"><code class="table__name">active</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Filtro aplicado: borde, fondo y texto de selección. Cede ante foco, apertura y error.</span></div>
+      <div class="table__row"><code class="table__name">menuFit</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">La lista mide al menos el ancho del campo y crece con la opción más larga hasta el borde visible; recién ahí parte el texto.</span></div>
+      <div class="table__row"><code class="table__name">fullWidth</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">El campo ocupa todo el ancho de su contenedor.</span></div>
       <div class="table__row"><code class="table__name">value</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Valor seleccionado, controlado.</span></div>
       <div class="table__row"><code class="table__name">(valueChange)</code><code class="table__type">EventEmitter&lt;string&gt;</code><code class="table__default">—</code><span class="table__desc">Se dispara cuando el usuario selecciona una opción.</span></div>
       <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Label mostrado encima del trigger; escala junto con el tamaño del campo.</span></div>

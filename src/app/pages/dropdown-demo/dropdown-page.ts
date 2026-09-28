@@ -179,20 +179,54 @@ export class DropdownPage {
     { kind: 'toggle', label: 'Etiqueta', key: 'showLabel', default: true },
     { kind: 'toggle', label: 'Requerido', key: 'required', default: false },
     { kind: 'toggle', label: 'Deshabilitado', key: 'disabled', default: false },
+    { kind: 'toggle', label: 'Solo lectura', key: 'readonly', default: false },
+    { kind: 'toggle', label: 'Error', key: 'invalid', default: false },
+    { kind: 'toggle', label: 'Filtro aplicado', key: 'active', default: false },
+    { kind: 'toggle', label: 'Menú ajustado al campo', key: 'menuFit', default: false },
+    { kind: 'toggle', label: 'Etiquetas de estado', key: 'tags', default: false },
   ];
 
   protected readonly ipgSize = signal<DropdownSize>('md');
   protected readonly ipgShowLabel = signal(true);
   protected readonly ipgRequired = signal(false);
   protected readonly ipgDisabled = signal(false);
+  protected readonly ipgReadonly = signal(false);
+  protected readonly ipgInvalid = signal(false);
+  protected readonly ipgActive = signal(false);
+  protected readonly ipgMenuFit = signal(false);
+  protected readonly ipgTags = signal(false);
   protected readonly ipgValue = signal('');
+  protected readonly ipgOptions = computed<InputDropdownOption[]>(() =>
+    this.ipgTags()
+      ? this.inputOptions.map((option, index) => ({ ...option, tag: index % 2 ? { label: 'Sin señal', tone: 'danger' as const } : { label: 'Con señal', tone: 'success' as const } }))
+      : this.inputOptions,
+  );
 
   protected onInputPlaygroundState(s: DemoState): void {
     if (s['size']) this.ipgSize.set(s['size'] as DropdownSize);
     if (s['showLabel'] !== undefined) this.ipgShowLabel.set(!!s['showLabel']);
     if (s['required'] !== undefined) this.ipgRequired.set(!!s['required']);
     if (s['disabled'] !== undefined) this.ipgDisabled.set(!!s['disabled']);
+    if (s['readonly'] !== undefined) this.ipgReadonly.set(!!s['readonly']);
+    if (s['invalid'] !== undefined) this.ipgInvalid.set(!!s['invalid']);
+    if (s['active'] !== undefined) this.ipgActive.set(!!s['active']);
+    if (s['menuFit'] !== undefined) this.ipgMenuFit.set(!!s['menuFit']);
+    if (s['tags'] !== undefined) this.ipgTags.set(!!s['tags']);
   }
+
+  /* Input Dropdown — Filtro de barra */
+  protected readonly filterOptions: InputDropdownOption[] = [
+    { label: 'Todos los estados', value: '' },
+    { label: 'Pendiente', value: 'pendiente' },
+    { label: 'Observado', value: 'observado' },
+    { label: 'Unidades sin ubicación durante los últimos treinta días', value: 'sin-ubicacion' },
+  ];
+  protected readonly filterValue = signal('observado');
+  protected readonly gpsOptions: InputDropdownOption[] = [
+    { label: 'GPS principal', value: 'principal', tag: { label: 'Con señal', tone: 'success' } },
+    { label: 'GPS de respaldo', value: 'respaldo', tag: { label: 'Sin señal', tone: 'danger' } },
+  ];
+  protected readonly gpsValue = signal('principal');
 
   protected readonly ipgCode = computed(() => {
     const lines = [`<cs-input-dropdown`];
@@ -200,6 +234,10 @@ export class DropdownPage {
     lines.push(`  placeholder="Select a team…"`, `  size="${this.ipgSize()}"`);
     if (this.ipgRequired()) lines.push(`  [required]="true"`);
     if (this.ipgDisabled()) lines.push(`  [disabled]="true"`);
+    if (this.ipgReadonly()) lines.push(`  [readonly]="true"`);
+    if (this.ipgInvalid()) lines.push(`  [invalid]="true"`);
+    if (this.ipgActive()) lines.push(`  [active]="true"`);
+    if (this.ipgMenuFit()) lines.push(`  [menuFit]="true"`);
     lines.push(`  [options]="options"`, `  [value]="value"`, `  (valueChange)="value = $event"`, `></cs-input-dropdown>`);
     return lines.join('\n');
   });

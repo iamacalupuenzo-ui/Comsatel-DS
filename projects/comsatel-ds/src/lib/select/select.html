@@ -26,6 +26,7 @@
           [attr.aria-required]="required || null"
         class="cs-select__trigger cs-focus-ring"
         [class.cs-select__trigger--disabled]="disabled"
+        [class.cs-select__trigger--active]="isActiveVisual"
         [style.min-height.px]="tok.height"
         [style.padding-inline.px]="tok.paddingX"
         [style.font-size]="tok.fontSize"
@@ -38,7 +39,9 @@
         (focus)="onFocus()"
         (blur)="onBlur()"
       >
-        @if (multiple) {
+        @if (multiple && multipleDisplay === 'summary') {
+          <span class="cs-select__placeholder cs-select__summary" [class.cs-select__summary--all]="summaryIsPlaceholder" [attr.title]="summaryText">{{ summaryText }}</span>
+        } @else if (multiple) {
           @if (selectedOptions.length > 0) {
             <span class="cs-select__chips">
               @for (opt of selectedOptions; track opt.value) {
@@ -67,8 +70,8 @@
         <cs-icon name="chevron-down" [size]="16" class="cs-select__chevron" [class.cs-select__chevron--open]="open()" />
       </div>
 
-        <cs-popover [isOpen]="open() && !disabled" [triggerRef]="trigger" placement="bottom-start" [offset]="4" [matchTriggerWidth]="true" [role]="null" (closed)="onPopoverClosed()">
-          <div [id]="menuId" role="listbox" [attr.aria-label]="label || placeholder" [attr.aria-multiselectable]="multiple ? true : null" class="cs-select__menu" [class.cs-select__menu--secondary]="surface() === 'secondary'" [style.max-height.px]="tok.height * 9 + 8">
+        <cs-popover [isOpen]="open() && !disabled" [triggerRef]="trigger" placement="bottom-start" [offset]="4" [matchTriggerWidth]="!menuFit" [role]="null" (closed)="onPopoverClosed()">
+          <div [id]="menuId" role="listbox" [attr.aria-label]="label || placeholder" [attr.aria-multiselectable]="multiple ? true : null" class="cs-select__menu" [class.cs-select__menu--fit]="menuFit" [style.min-width.px]="menuFit ? menuMinWidth() : null" [style.max-width.px]="menuFit ? menuMaxWidth() : null" [class.cs-select__menu--secondary]="surface() === 'secondary'" [style.max-height.px]="tok.height * 9 + 8">
           <div class="cs-select__menu-inner">
             @for (opt of options; track opt.value) {
               <button
@@ -78,7 +81,8 @@
                 [disabled]="opt.disabled"
                 class="cs-select__option cs-focus-ring"
                 [class.cs-select__option--selected]="isSelected(opt)"
-                [style.height.px]="tok.height"
+                [style.height.px]="menuFit ? null : tok.height"
+                [style.min-height.px]="menuFit ? tok.height : null"
                 [style.padding-inline.px]="tok.paddingX"
                 [style.font-size]="tok.fontSize"
                 [style.line-height]="tok.lineHeight"

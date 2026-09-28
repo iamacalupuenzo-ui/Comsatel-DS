@@ -48,12 +48,26 @@ export class Select {
   readonly invalid = input(false);
   readonly readonly = input(false);
   readonly ariaDescribedby = input('', { alias: 'aria-describedby' });
+  /**
+   * Cómo se muestran las opciones elegidas en modo múltiple: 'chips' (una insignia por opción) o
+   * 'summary' (una línea de texto: la opción si es una sola, o el conteo). En 'summary', ninguna o
+   * todas las opciones elegidas equivalen a «todos» y se muestra el placeholder.
+   */
+  @Input() multipleDisplay: 'chips' | 'summary' = 'chips';
+  /** Texto del resumen cuando hay varias opciones elegidas. */
+  @Input() summaryLabel: (count: number) => string = (count) => `${count} seleccionados`;
+  /** Filtro aplicado: borde, fondo y texto de selección. Foco, apertura y error tienen prioridad. */
+  @Input() active = false;
+  /** Menú ajustado al campo: como mínimo el ancho del trigger y crece con la opción más larga hasta el borde visible. */
+  @Input() menuFit = false;
   @Input() clearControlLabel = 'Limpiar';
   @Input() removeOptionLabel: (label: string) => string = (label) => `Quitar ${label}`;
   @ViewChild('trigger', { read: ElementRef }) private triggerRef?: ElementRef<HTMLElement>;
 
   protected readonly open = signal(false);
   protected readonly focused = signal(false);
+  protected readonly menuMinWidth = signal<number | null>(null);
+  protected readonly menuMaxWidth = signal<number | null>(null);
   protected readonly menuId = `cs-select-${++uid}`;
   protected readonly labelId = `${this.menuId}-label`;
   private pendingFocus: 'first' | 'last' | null = null;
@@ -102,10 +116,27 @@ export class Select {
     return this.multiple ? this.selectedValues.length > 0 : !!this.value;
   }
 
+  /** Texto de una línea para el modo 'summary'. */
+  protected get summaryText(): string {
+    const count = this.selectedOptions.length;
+    if (!count || count === this.options.length) return this.placeholder;
+    return count === 1 ? this.selectedOptions[0].label : this.summaryLabel(count);
+  }
+  protected get summaryIsPlaceholder(): boolean {
+    const count = this.selectedOptions.length;
+    return !count || count === this.options.length;
+  }
+
+  /** Estado aplicado visible: cede ante foco, apertura, error y disabled. */
+  protected get isActiveVisual(): boolean {
+    return this.active && !this.disabled && !this.invalid() && !this.open() && !this.focused();
+  }
+
   protected get borderColor(): string {
     if (this.disabled) return 'var(--color-border-neutral-subtle)';
     if (this.invalid()) return 'var(--color-border-danger-default)';
     if (this.focused() || this.open()) return 'var(--color-border-brand-default)';
+    if (this.active) return 'var(--color-border-selected)';
     return this.surface() === 'secondary' ? 'var(--color-border-secondary-default)' : 'var(--color-border-neutral-default)';
   }
   protected get extraShadow(): string {
@@ -115,6 +146,7 @@ export class Select {
   }
   protected get textColor(): string {
     if (this.disabled) return 'var(--color-text-disabled)';
+    if (this.isActiveVisual) return 'var(--color-text-selected)';
     if (this.surface() === 'secondary') return 'var(--color-text-secondary-default)';
     return 'var(--color-text-base-default)';
   }
@@ -122,9 +154,18 @@ export class Select {
   protected toggle(): void {
     if (this.disabled || this.readonly()) return;
     const next = !this.open();
+    if (next) this.measureMenu();
     this.open.set(next);
     this.focused.set(true);
     if (next) this.focusInitialOption();
+  }
+
+  private measureMenu(): void {
+    if (!this.menuFit) return;
+    const rect = this.triggerRef?.nativeElement.getBoundingClientRect();
+    if (!rect) return;
+    this.menuMinWidth.set(rect.width);
+    this.menuMaxWidth.set(Math.max(rect.width, window.innerWidth - rect.left - 16));
   }
 
   protected onFocus(): void {
@@ -138,11 +179,15 @@ export class Select {
     if (this.disabled || this.readonly() || e.target !== e.currentTarget) return;
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Home' || e.key === 'End') {
       e.preventDefault();
-      if (!this.open()) this.open.set(true);
+      if (!this.open()) {
+        this.measureMenu();
+        this.open.set(true);
+      }
       this.focusInitialOption(e.key === 'ArrowUp' || e.key === 'End');
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       const next = !this.open();
+      if (next) this.measureMenu();
       this.open.set(next);
       this.focused.set(true);
       if (next) this.focusInitialOption();
@@ -202,6 +247,8 @@ export class Select {
       this.selectOption(option);
     } else if (event.key === 'Escape') {
       event.preventDefault();
+      // Solo cierra esta lista: dentro de otro panel flotante no debe cerrar también el de afuera.
+      event.stopPropagation();
       this.closeMenu();
     } else if (event.key === 'Tab') {
       this.closeMenu();

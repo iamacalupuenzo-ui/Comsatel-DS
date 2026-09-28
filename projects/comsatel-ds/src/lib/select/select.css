@@ -180,6 +180,37 @@
   color: var(--color-text-selected);
 }
 
+/* Resumen de una línea (multipleDisplay='summary'): «todos» no es un placeholder vacío, es un valor. */
+.cs-select__summary--all {
+  color: var(--color-text-base-subtle);
+}
+.cs-select__trigger:hover:not(.cs-select__trigger--disabled):not([aria-expanded='true']):not([aria-invalid='true']):not(:focus-visible):not(.cs-select__trigger--active):not([aria-readonly='true']) {
+  border-color: var(--color-border-neutral-bolder) !important;
+}
+/* Filtro aplicado: el borde y el color vienen de los getters; aquí el fondo, el peso y el chevron. */
+.cs-select__trigger--active {
+  background-color: var(--color-background-selected);
+  font-weight: var(--font-weight-accent);
+}
+.cs-select__trigger--active .cs-select__summary--all {
+  color: inherit;
+}
+.cs-select__trigger--active .cs-select__chevron {
+  color: var(--color-icon-selected);
+}
+/* Menú ajustado al campo: ancho por contenido entre el mínimo (trigger) y el máximo (borde visible). */
+.cs-select__menu--fit {
+  width: max-content;
+}
+.cs-select__menu--fit .cs-select__option {
+  padding-block: var(--layout-padding-xs);
+}
+.cs-select__menu--fit .cs-select__option-label {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+
 .cs-select__clear {
   flex-shrink: 0;
   display: inline-flex;
