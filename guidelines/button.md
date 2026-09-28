@@ -20,7 +20,7 @@ destructiva. Nueve variantes cubren los roles semánticos de la UI.
 | :-- | :-- | :-- | :-- |
 | `variant` | `'primary' \| 'secondary' \| 'default' \| 'tertiary' \| 'subtle' \| 'link' \| 'destructive' \| 'success' \| 'warning'` | `'primary'` | Rol semántico del botón. |
 | `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'sm'` | Altura y padding. |
-| `loading` | `boolean` | `false` | Reemplaza el contenido por un spinner y deshabilita el botón. |
+| `loading` | `boolean` | `false` | Oculta el contenido, conserva la geometría y muestra un spinner; además deshabilita el botón. |
 | `selected` | `boolean` | `false` | Estado tipo toggle. Emite `aria-pressed="true"`. |
 | `disabled` | `boolean` | `false` | Deshabilita la interacción. |
 | `fullWidth` | `boolean` | `false` | Estira el botón al 100% de su contenedor. |
@@ -71,7 +71,7 @@ solo del registro de íconos del sistema (`cs-icon`), nunca de otra librería.
 | Aspecto | Qué hace el código |
 | :-- | :-- |
 | Elementos nativos | `button` |
-| Atributos ARIA | `aria-hidden="true"`, `aria-label`, `aria-pressed` |
+| Atributos ARIA | `aria-hidden="true"`, `aria-label`, `aria-pressed`, `aria-hidden` |
 <!-- a11y:end -->
 
 ## Trampas
@@ -79,7 +79,7 @@ solo del registro de íconos del sistema (`cs-icon`), nunca de otra librería.
 - **Siempre emite `type="button"`.** Dentro de un `<form>` no dispara el submit: hay
   que manejar el envío con `(click)` o con el submit del formulario por otra vía. No
   existe una prop `type`.
-- `loading` reemplaza el contenido proyectado, no lo superpone: el texto desaparece
+- `loading` conserva el espacio del contenido proyectado y superpone el spinner: el ancho no cambia durante la carga.
   mientras carga. Si el ancho no debe saltar, fíjalo desde el contenedor.
 - `fullWidth` también marca el host con `.cs-button-host--full`; si el botón está
   dentro de un flex container que ya lo estira, no hace falta.

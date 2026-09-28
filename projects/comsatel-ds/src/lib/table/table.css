@@ -10,6 +10,7 @@
 
 .cs-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   border-spacing: 0;
   font-family: var(--font-family-content);
@@ -89,6 +90,12 @@
   font-size: var(--font-size-content-note);
   line-height: var(--font-line-height-content-note);
   color: var(--color-text-base-default);
+}
+
+.cs-table__cell--truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cs-table__empty {

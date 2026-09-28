@@ -38,6 +38,7 @@ export class Button {
       `cs-button--${this.size}`,
     ];
     if (this.selected) parts.push('cs-button--selected');
+    if (this.loading) parts.push('cs-button--loading');
     if (this.fullWidth) parts.push('cs-button--full');
     return parts.join(' ');
   }

@@ -11,6 +11,8 @@
             class="cs-table__th"
             [attr.aria-sort]="ariaSortFor(col)"
             [style.width]="col.width"
+            [style.min-width]="col.minWidth"
+            [style.max-width]="col.maxWidth"
             [style.text-align]="col.align ?? 'left'"
           >
             @if (isSortable(col)) {
@@ -34,7 +36,7 @@
         @for (i of skeletonRowIndices; track i) {
           <tr class="cs-table__row">
             @for (col of columns; track col.key) {
-              <td class="cs-table__td">
+              <td class="cs-table__td" [class.cs-table__cell--truncate]="col.truncate">
                 <cs-skeleton [width]="col.width ? '70%' : undefined" />
               </td>
             }
@@ -50,7 +52,13 @@
         @for (row of rows; track row.key) {
           <tr class="cs-table__row" [class.cs-table__row--highlighted]="row.key === highlightedRowKey">
             @for (cell of row.cells; track $index; let i = $index) {
-              <td class="cs-table__td" [style.text-align]="columns[i]?.align ?? 'left'">
+              <td
+                class="cs-table__td"
+                [class.cs-table__cell--truncate]="columns[i]?.truncate"
+                [style.min-width]="columns[i]?.minWidth"
+                [style.max-width]="columns[i]?.maxWidth"
+                [style.text-align]="columns[i]?.align ?? 'left'"
+              >
                 @if (isTemplateCell(cell)) {
                   <ng-container *ngTemplateOutlet="cell.template; context: cell.context"></ng-container>
                 } @else {

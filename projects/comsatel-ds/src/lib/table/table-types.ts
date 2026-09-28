@@ -6,7 +6,14 @@ export interface TableColumn {
   key: string;
   label: string;
   isSortable?: boolean;
+  /** Ancho fijo. Si se omite, la columna absorbe el espacio restante. */
   width?: string;
+  /** Límite inferior para contenido que no debe comprimirse. */
+  minWidth?: string;
+  /** Límite superior para columnas de contenido variable. */
+  maxWidth?: string;
+  /** Recorta el contenido visualmente sin alterar el valor disponible al consumidor. */
+  truncate?: boolean;
   align?: 'left' | 'center' | 'right';
 }
 

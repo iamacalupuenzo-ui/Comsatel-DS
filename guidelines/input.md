@@ -56,7 +56,7 @@ la receta a `textStyle(fieldLabelTypography.lg, 'accent')`.
 | `readonly` | `boolean` | `false` | Solo lectura. |
 | `disabled` | `boolean` | `false` | Deshabilitado. |
 | `invalid` | `boolean` | `false` | Estado de error. Emite `aria-invalid`. |
-| `active` | `boolean` | `false` | Filtro aplicado: borde, fondo y texto de selección. Cede ante foco, apertura y error. |
+| `active` | `boolean` | `false` | Filtro aplicado: borde, fondo y texto de valor. Cede ante foco, error y deshabilitado. |
 | `aria-label` | `string` | `''` | Nombre accesible sin label visible. |
 | `aria-labelledby` | `string` | `''` | Id del elemento que lo nombra. |
 | `aria-describedby` | `string` | `''` | Id del texto de ayuda. |
@@ -91,7 +91,7 @@ escribir un `<input>` propio.
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
-| `active` | `boolean` | `false` | Filtro aplicado: borde, fondo y texto de selección. Cede ante foco, apertura y error. |
+| `active` | `boolean` | `false` | Propaga el filtro aplicado al grupo y sus controles: borde, fondo y texto de valor. Cede ante foco, error y deshabilitado. |
 <!-- props:end -->
 
 ## Props de `InputGroupInput`
@@ -146,9 +146,9 @@ escribir un `<input>` propio.
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
-| `label` | `string` | `'Limpiar campo'` | Nombre accesible del botón de limpiar. |
-| `disabled` | `boolean` | `false` | Deshabilita el botón de limpiar. |
-| `cleared` | `EventEmitter<void>` | n/a | Emite después de vaciar el campo y devolverle el foco. |
+| `label` | `string` | `'Limpiar campo'` | Nombre accesible del botón de limpieza. |
+| `disabled` | `boolean` | `false` | Impide limpiar el campo. |
+| `cleared` | `EventEmitter<void>` | n/a | Se emite después de limpiar y devolver el foco al campo. |
 <!-- props:end -->
 
 ## Composición de un grupo

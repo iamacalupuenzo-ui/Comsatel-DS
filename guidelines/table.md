@@ -28,7 +28,7 @@ panel compacto; no sustituye un selector de valores.
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
-| `columns` | `TableColumn[]` | requerido | `{ key, label, isSortable?, width?, align? }`. |
+| `columns` | `TableColumn[]` | requerido | `{ key, label, isSortable?, width?, minWidth?, maxWidth?, truncate?, align? }`. |
 | `rows` | `TableRow[]` | requerido | `{ key, cells }`. |
 | `caption` | `string \| undefined` | `undefined` | Título accesible de la tabla. |
 | `isLoading` | `boolean` | `false` | Muestra filas skeleton en lugar de los datos. |
