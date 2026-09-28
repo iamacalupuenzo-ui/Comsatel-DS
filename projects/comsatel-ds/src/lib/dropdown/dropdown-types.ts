@@ -43,7 +43,14 @@ export interface InputDropdownOption {
   countryFlag?: CountryFlagCode;
   /** Prefijo decorativo, por ejemplo el símbolo de una moneda. */
   leadingText?: string;
+  /** Etiqueta de estado junto al texto, en el trigger y en la lista (por ejemplo, la señal de un GPS). */
+  tag?: InputDropdownOptionTag;
   disabled?: boolean;
+}
+
+export interface InputDropdownOptionTag {
+  label: string;
+  tone: 'success' | 'danger' | 'neutral';
 }
 
 export type CountryFlagCode = 'br' | 'de' | 'es' | 'fr' | 'gb' | 'it' | 'jp';

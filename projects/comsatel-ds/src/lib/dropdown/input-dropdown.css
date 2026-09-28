@@ -183,6 +183,64 @@
   color: var(--color-text-brand-bolder);
 }
 
+/* Hover: mismo refuerzo de borde que Input; no aplica en foco, apertura, error, disabled ni readonly. */
+.cs-input-dropdown__trigger:hover:not(:disabled):not(:focus-visible):not([aria-expanded='true']):not([aria-invalid='true']):not(.cs-input-dropdown__trigger--embedded):not(.cs-input-dropdown__trigger--readonly):not(.cs-input-dropdown__trigger--active) {
+  border-color: var(--color-border-neutral-bolder) !important;
+}
+.cs-input-dropdown__trigger--readonly {
+  cursor: default;
+}
+/* Filtro aplicado: el borde y el color de texto vienen de los getters; aquí el fondo y el peso. */
+.cs-input-dropdown__trigger--active {
+  background-color: var(--color-background-selected);
+  font-weight: var(--font-weight-accent);
+}
+.cs-input-dropdown__trigger--active .cs-input-dropdown__chevron {
+  color: var(--color-icon-selected);
+}
+
+/* Menú ajustado al campo: ancho por contenido entre el mínimo (trigger) y el máximo (borde visible). */
+.cs-input-dropdown__menu--fit {
+  width: max-content;
+}
+.cs-input-dropdown__menu--fit .cs-input-dropdown__option {
+  padding-block: var(--layout-padding-xs);
+}
+.cs-input-dropdown__menu--fit .cs-input-dropdown__option-label {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+/* Etiqueta de estado de una opción (por ejemplo, «Con señal»). */
+.cs-input-dropdown__tag {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  block-size: 20px;
+  padding-inline: var(--layout-padding-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-emphasis);
+  line-height: 1;
+  white-space: nowrap;
+}
+.cs-input-dropdown__tag[data-tone='success'] {
+  background: var(--color-background-success-subtlest);
+  color: var(--color-text-success-bolder);
+}
+.cs-input-dropdown__tag[data-tone='danger'] {
+  background: var(--color-background-danger-subtlest);
+  color: var(--color-text-danger-default);
+}
+.cs-input-dropdown__tag[data-tone='neutral'] {
+  background: var(--color-background-neutral-subtle);
+  color: var(--color-text-base-subtle);
+}
+.cs-input-dropdown__trigger .cs-input-dropdown__value {
+  flex: 0 1 auto;
+}
+
 .cs-input-dropdown__trigger:focus-visible {
   outline: var(--layout-border-thick) solid var(--color-border-focused);
   outline-offset: var(--layout-padding-2xs);

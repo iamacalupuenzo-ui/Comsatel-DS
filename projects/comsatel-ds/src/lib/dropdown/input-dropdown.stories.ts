@@ -71,3 +71,65 @@ export const AllSizes: Story = {
     `,
   }),
 };
+
+const FILTER_OPTIONS = [
+  { label: 'Todos los estados', value: '' },
+  { label: 'Pendiente', value: 'pendiente' },
+  { label: 'Observado', value: 'observado' },
+  { label: 'Unidades sin ubicación durante los últimos treinta días', value: 'sin-ubicacion' },
+];
+
+/** Filtro de barra: estado aplicado cuando el valor no es «todos», menú al menos tan ancho como el campo. */
+export const AppliedFilter: Story = {
+  render: () => ({
+    props: { options: FILTER_OPTIONS, value: 'observado' },
+    template: `
+      <div style="display: grid; gap: 12px; width: 200px;">
+        <cs-input-dropdown aria-label="Estado" [fullWidth]="true" [menuFit]="true" [options]="options"
+          [value]="value" [active]="!!value" (valueChange)="value = $event" />
+        <cs-input-dropdown aria-label="Estado sin filtro" [fullWidth]="true" [menuFit]="true" [options]="options" value="" />
+      </div>
+    `,
+  }),
+};
+
+/** Menú ajustado: la opción larga crece hasta el borde visible y recién ahí parte el texto. */
+export const MenuFitLongOption: Story = {
+  render: () => ({
+    props: { options: FILTER_OPTIONS },
+    template: `<div style="width: 160px;"><cs-input-dropdown aria-label="Estado" [fullWidth]="true" [menuFit]="true" [options]="options" value="sin-ubicacion" [active]="true" /></div>`,
+  }),
+};
+
+/** Etiqueta de estado junto al texto, en el campo y en la lista. */
+export const WithTags: Story = {
+  render: () => ({
+    props: {
+      options: [
+        { label: 'GPS principal', value: 'p', tag: { label: 'Con señal', tone: 'success' } },
+        { label: 'GPS de respaldo', value: 'r', tag: { label: 'Sin señal', tone: 'danger' } },
+      ],
+      value: 'p',
+    },
+    template: `<div style="width: 260px;"><cs-input-dropdown label="GPS" [fullWidth]="true" [menuFit]="true" [options]="options" [value]="value" (valueChange)="value = $event" /></div>`,
+  }),
+};
+
+/** Todos los estados del campo, con el tamaño xs (24 px) para celdas de tabla. */
+export const AllStates: Story = {
+  render: () => ({
+    props: { options: FILTER_OPTIONS },
+    template: `
+      <div style="display: grid; gap: 12px; width: 220px;">
+        <cs-input-dropdown label="Vacío" placeholder="Selecciona" [fullWidth]="true" [options]="options" />
+        <cs-input-dropdown label="Con valor" [fullWidth]="true" [options]="options" value="pendiente" />
+        <cs-input-dropdown label="Aplicado" [fullWidth]="true" [options]="options" value="pendiente" [active]="true" />
+        <cs-input-dropdown label="Error" [fullWidth]="true" [options]="options" value="pendiente" [invalid]="true" />
+        <cs-input-dropdown label="Requerido" placeholder="Selecciona" [fullWidth]="true" [options]="options" [required]="true" />
+        <cs-input-dropdown label="Solo lectura" [fullWidth]="true" [options]="options" value="pendiente" [readonly]="true" />
+        <cs-input-dropdown label="Deshabilitado" [fullWidth]="true" [options]="options" value="pendiente" [disabled]="true" />
+        <cs-input-dropdown size="xs" aria-label="Celda de tabla" [fullWidth]="true" [menuFit]="true" [options]="options" value="pendiente" />
+      </div>
+    `,
+  }),
+};

@@ -4,7 +4,7 @@
   [class.cs-input-dropdown--full]="fullWidth"
 >
   @if (label) {
-    <label class="cs-input-dropdown__label" [id]="labelId" [attr.for]="resolvedId" [ngStyle]="labelStyle">
+    <label class="cs-input-dropdown__label" [id]="labelId" [attr.for]="resolvedId" [ngStyle]="labelStyle" (click)="onLabelClick($event)">
       {{ label }}
       @if (required) {
         <span class="cs-input-dropdown__required" aria-hidden="true">*</span>
@@ -45,6 +45,9 @@
       [attr.data-slot]="embedded ? 'input-group-control' : null"
       [disabled]="disabled"
       class="cs-input-dropdown__trigger"
+      [class.cs-input-dropdown__trigger--active]="isActiveVisual"
+      [class.cs-input-dropdown__trigger--readonly]="readonly"
+      [attr.title]="selectedOption ? selectedTriggerLabel : null"
       [class.cs-input-dropdown__trigger--secondary]="surface === 'secondary' && !embedded"
       [class.cs-input-dropdown__trigger--embedded]="embedded"
       [style.height.px]="tok.height"
@@ -66,11 +69,14 @@
         <span aria-hidden="true" class="cs-input-dropdown__leading-text">{{ selectedOption!.leadingText }}</span>
       }
       <span class="cs-input-dropdown__value">{{ selectedTriggerLabel }}</span>
+      @if (selectedOption?.tag; as tag) {
+        <span class="cs-input-dropdown__tag" [attr.data-tone]="tag.tone">{{ tag.label }}</span>
+      }
       <cs-icon name="chevron-down" [size]="16" class="cs-input-dropdown__chevron" [class.cs-input-dropdown__chevron--open]="open()"></cs-icon>
     </button>
 
     <cs-popover [isOpen]="open() && !disabled" [matchTriggerWidth]="matchTriggerWidth" [triggerRef]="triggerRef ?? null" placement="bottom-start" [offset]="4" [role]="null" [bare]="true" (closed)="onPopoverClosed()">
-      <div [id]="menuId" role="listbox" [attr.aria-label]="ariaLabel || (!label ? placeholder : null)" [attr.aria-labelledby]="ariaLabelledby || (!ariaLabel && label ? labelId : null)" aria-orientation="vertical" class="cs-input-dropdown__menu" [class.cs-input-dropdown__menu--secondary]="surface === 'secondary'" [style.max-height.px]="tok.height * 9 + 8" (keydown)="onOptionsKeydown($event)">
+      <div [id]="menuId" role="listbox" [attr.aria-label]="ariaLabel || (!label ? placeholder : null)" [attr.aria-labelledby]="ariaLabelledby || (!ariaLabel && label ? labelId : null)" aria-orientation="vertical" class="cs-input-dropdown__menu" [class.cs-input-dropdown__menu--fit]="menuFit" [style.min-width.px]="menuFit ? menuMinWidth() : null" [style.max-width.px]="menuFit ? menuMaxWidth() : null" [class.cs-input-dropdown__menu--secondary]="surface === 'secondary'" [style.max-height.px]="tok.height * 9 + 8" (keydown)="onOptionsKeydown($event)">
         <div class="cs-input-dropdown__options">
           @for (opt of options; track opt.value; let oi = $index) {
             <button
@@ -83,7 +89,8 @@
               class="cs-input-dropdown__option"
               [class.cs-input-dropdown__option--selected]="opt.value === value"
               [class.cs-input-dropdown__option--disabled]="opt.disabled"
-              [style.height.px]="tok.height"
+              [style.height.px]="menuFit ? null : tok.height"
+              [style.min-height.px]="menuFit ? tok.height : null"
               [style.padding-inline.px]="tok.paddingX"
               [style.font-size]="tok.fontSize"
               [style.line-height]="tok.lineHeight"
@@ -95,6 +102,9 @@
                 <span aria-hidden="true" class="cs-input-dropdown__leading-text">{{ opt.leadingText }}</span>
               }
               <span class="cs-input-dropdown__option-label">{{ opt.label }}</span>
+              @if (opt.tag; as tag) {
+                <span class="cs-input-dropdown__tag" [attr.data-tone]="tag.tone">{{ tag.label }}</span>
+              }
               @if (opt.value === value) {
                 <cs-icon name="check" [size]="16" class="cs-input-dropdown__check" aria-hidden="true"></cs-icon>
               }

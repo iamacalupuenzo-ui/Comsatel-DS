@@ -61,6 +61,14 @@ export class InputDropdown implements AfterViewInit, OnChanges {
   /** Optativo: conserva por defecto el ancho por contenido del menú. */
   @Input() matchTriggerWidth = false;
   @Input() surface: 'default' | 'secondary' = 'default';
+  /** Filtro aplicado: borde, fondo y texto de selección. Foco, apertura y error tienen prioridad. */
+  @Input() active = false;
+  /**
+   * Menú ajustado al campo: mide como mínimo el ancho del trigger y crece con la opción más
+   * larga hasta el borde visible de la ventana; recién ahí la opción parte el texto en dos líneas.
+   * Pensado para filtros de barra, donde el menú no debe quedar más angosto que el campo.
+   */
+  @Input() menuFit = false;
 
   @HostBinding('class.cs-input-dropdown-host--embedded') get isEmbeddedHost(): boolean {
     return this.embedded;
@@ -72,6 +80,8 @@ export class InputDropdown implements AfterViewInit, OnChanges {
   protected readonly open = signal(false);
   protected readonly focused = signal(false);
   protected readonly minWidth = signal<number | undefined>(undefined);
+  protected readonly menuMinWidth = signal<number | null>(null);
+  protected readonly menuMaxWidth = signal<number | null>(null);
   protected readonly triggerId = `cs-input-dropdown-${++uid}`;
   protected readonly menuId = `${this.triggerId}-menu`;
 
@@ -79,13 +89,14 @@ export class InputDropdown implements AfterViewInit, OnChanges {
 
   @ViewChild('measure') measureRef?: ElementRef<HTMLSpanElement>;
 
-  private pendingFocus: 'first' | 'last' | null = null;
+  private pendingFocus: 'selected' | 'first' | 'last' | null = null;
 
   constructor(private elementRef: ElementRef<HTMLElement>) {
     afterEveryRender(() => {
       if (!this.open() || !this.pendingFocus) return;
       const options = this.enabledOptionElements();
-      const option = this.pendingFocus === 'last' ? options.at(-1) : options[0];
+      const selected = options.find((element) => element.getAttribute('aria-selected') === 'true');
+      const option = this.pendingFocus === 'last' ? options.at(-1) : this.pendingFocus === 'selected' ? (selected ?? options[0]) : options[0];
       // Popover publica su posición en otro render; un nodo oculto no recibe foco.
       if (option && getComputedStyle(option).visibility !== 'hidden') {
         this.pendingFocus = null;
@@ -152,6 +163,7 @@ export class InputDropdown implements AfterViewInit, OnChanges {
     if (this.disabled) return 'var(--color-border-neutral-subtle)';
     if (this.invalid) return 'var(--color-border-danger-default)';
     if (this.focused() || this.open()) return 'var(--color-border-brand-default)';
+    if (this.active) return 'var(--color-border-selected)';
     return this.surface === 'secondary' ? 'var(--color-border-secondary-default)' : 'var(--color-border-neutral-default)';
   }
   get extraShadow(): string {
@@ -161,15 +173,37 @@ export class InputDropdown implements AfterViewInit, OnChanges {
   }
   get textColor(): string {
     if (this.disabled) return 'var(--color-text-disabled)';
+    if (this.isActiveVisual) return 'var(--color-text-selected)';
     if (this.surface === 'secondary') return 'var(--color-text-secondary-default)';
     return this.selectedOption ? 'var(--color-text-base-default)' : 'var(--color-text-base-subtlest)';
   }
 
+  /** Estado aplicado visible: cede ante foco, apertura, error y disabled. */
+  get isActiveVisual(): boolean {
+    return this.active && !this.embedded && !this.disabled && !this.invalid && !this.open() && !this.focused();
+  }
+
   toggle(): void {
     if (this.disabled || this.readonly) return;
-    this.pendingFocus = null;
-    this.open.update((v) => !v);
+    const willOpen = !this.open();
+    if (willOpen) this.measureMenu();
+    this.pendingFocus = willOpen ? 'selected' : null;
+    this.open.set(willOpen);
     this.focused.set(true);
+  }
+
+  /** La etiqueta nombra el campo y le da foco, pero no abre la lista (igual que un select nativo). */
+  onLabelClick(event: MouseEvent): void {
+    event.preventDefault();
+    this.triggerRef?.nativeElement.focus();
+  }
+
+  private measureMenu(): void {
+    if (!this.menuFit) return;
+    const rect = this.triggerRef?.nativeElement.getBoundingClientRect();
+    if (!rect) return;
+    this.menuMinWidth.set(rect.width);
+    this.menuMaxWidth.set(Math.max(rect.width, window.innerWidth - rect.left - 16));
   }
 
   private close(restoreFocus = false): void {
@@ -193,7 +227,12 @@ export class InputDropdown implements AfterViewInit, OnChanges {
       return;
     }
     event.preventDefault();
-    if (!this.open()) this.open.set(true);
+    if (!this.open()) {
+      this.measureMenu();
+      this.open.set(true);
+      this.pendingFocus = event.key === 'ArrowUp' ? 'last' : 'selected';
+      return;
+    }
     this.focusOption(event.key === 'ArrowUp');
   }
 
@@ -203,6 +242,8 @@ export class InputDropdown implements AfterViewInit, OnChanges {
 
     if (event.key === 'Escape') {
       event.preventDefault();
+      // Solo cierra esta lista: dentro de otro panel flotante no debe cerrar también el de afuera.
+      event.stopPropagation();
       this.close(true);
       return;
     }
