@@ -17,6 +17,12 @@ Abre `http://localhost:4300/`. Después de modificar archivos de
 `projects/comsatel-ds/`, vuelve a ejecutar `npm run build:lib`; el servidor
 de Angular no recompila la librería automáticamente.
 
+**Antes de abrir Storybook o el sitio tras cambiar la API pública**, reconstruye
+la librería con `npx ng build comsatel-ds` (o `npm run build:lib`). El alias de
+`tsconfig.json` apunta a `dist/comsatel-ds`; si esa carpeta es antigua, el
+compilador no verá exportaciones nuevas aunque `src/public-api.ts` ya las tenga.
+Después puedes iniciar `npm run storybook -- --port 6007 --no-open` o `npm start`.
+
 ## Verificación
 
 Antes de integrar un cambio ejecuta:
