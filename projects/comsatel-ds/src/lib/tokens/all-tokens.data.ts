@@ -43,14 +43,22 @@ export const ALL_TOKENS: TokenSection[] = [
             "name": "--color-background-base",
             "light": "#ffffff",
             "dark": "#0c0e16",
-            "usage": "Fondo de página raíz",
+            "usage": "Base blanca para superficies; el lienzo de página usa canvas",
             "lightRef": "base-white",
             "darkRef": "surface-base"
           },
           {
+            "name": "--color-background-canvas",
+            "light": "#f5f5f5",
+            "dark": "#0c0e16",
+            "usage": "Lienzo humo detrás de tarjetas blancas en claro",
+            "lightRef": null,
+            "darkRef": null
+          },
+          {
             "name": "--color-background-selected",
-            "light": "#eef4ff",
-            "dark": "#1e2340",
+            "light": "#f0f6ff",
+            "dark": "#0c192c",
             "usage": "Relleno de ítem activo / seleccionado",
             "lightRef": "surface-selected-light",
             "darkRef": "surface-selected"
@@ -95,6 +103,21 @@ export const ALL_TOKENS: TokenSection[] = [
             "lightRef": null,
             "darkRef": null
           }
+        ]
+      },
+      {
+        "id": "chart",
+        "label": "Gráficos comparativos",
+        "description": "Roles de serie, estructura y tooltip. En contexto glass se aplican valores propios desde tokens.css.",
+        "version": "v0.3.0",
+        "rows": [
+          { "name": "--color-chart-series-current", "light": "#1b4079", "dark": "#a4c0ec", "usage": "Serie actual; acompañar con leyenda textual", "lightRef": null, "darkRef": null },
+          { "name": "--color-chart-series-previous", "light": "#667085", "dark": "#98a2b3", "usage": "Serie anterior; acompañar con leyenda textual", "lightRef": null, "darkRef": null },
+          { "name": "--color-chart-grid", "light": "#d0d5dd", "dark": "#475467", "usage": "Líneas de grilla", "lightRef": null, "darkRef": null },
+          { "name": "--color-chart-axis", "light": "#475467", "dark": "#d0d5dd", "usage": "Etiquetas y ejes", "lightRef": null, "darkRef": null },
+          { "name": "--color-chart-tooltip-background", "light": "#ffffff", "dark": "#1d2939", "usage": "Fondo del tooltip", "lightRef": null, "darkRef": null },
+          { "name": "--color-chart-tooltip-text", "light": "#344054", "dark": "#f9fafb", "usage": "Texto del tooltip", "lightRef": null, "darkRef": null },
+          { "name": "--color-chart-tooltip-border", "light": "#d0d5dd", "dark": "#667085", "usage": "Borde del tooltip", "lightRef": null, "darkRef": null }
         ]
       },
       {

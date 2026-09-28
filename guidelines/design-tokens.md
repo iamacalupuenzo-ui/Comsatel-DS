@@ -52,6 +52,24 @@ de la superficie interactiva oscura existente (`#111827`). No sustituye
 Las superficies por elevación son tokens aparte: `--elevation-surface-default`,
 `-raised`, `-overlay`, `-sunken`.
 
+El lienzo claro usa `--color-background-canvas: #f5f5f5`; tarjetas y controles usan
+`--elevation-surface-default: #ffffff`. La crema `--elevation-surface-secondary`
+solo se activa como variante explícita.
+
+## Color: gráficos comparativos
+
+| Rol | Claro / oscuro / glass | Uso |
+| :-- | :-- | :-- |
+| `--color-chart-series-current` | `#1b4079` / `#a4c0ec` / `#ffffff` | Serie actual, con leyenda |
+| `--color-chart-series-previous` | `#667085` / `#98a2b3` / `#dbe9ff` | Serie anterior, con leyenda |
+| `--color-chart-grid` | `#d0d5dd` / `#475467` / `rgba(255,255,255,0.32)` | Grilla |
+| `--color-chart-axis` | `#475467` / `#d0d5dd` / `#ffffff` | Ejes y etiquetas |
+| `--color-chart-tooltip-background` | `#ffffff` / `#1d2939` / `#ffffff` | Fondo de tooltip |
+| `--color-chart-tooltip-text` | `#344054` / `#f9fafb` / `#153565` | Texto de tooltip |
+| `--color-chart-tooltip-border` | `#d0d5dd` / `#667085` / `#d0d5dd` | Borde de tooltip |
+
+`data-theme="glass"` es un contexto limitado a gráficos, no un tercer tema completo.
+
 ## Color secundario cálido (0.3.0, borrador local)
 
 Escala **optativa**, visible completa (050–950) en Color / Paleta y con sus

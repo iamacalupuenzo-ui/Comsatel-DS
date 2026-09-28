@@ -22,7 +22,7 @@ const meta: Meta<DropdownItemComponent> = {
   },
   render: (args) => ({
     props: args,
-    template: `<div style="width: 220px; border: 1px solid var(--color-border-base-default); border-radius: var(--radius-md); overflow: hidden;"><cs-dropdown-item [item]="item" [size]="size" [selectionMode]="selectionMode"></cs-dropdown-item></div>`,
+    template: `<div style="width: 220px; border: 1px solid var(--color-border-default); border-radius: var(--radius-md); overflow: hidden;"><cs-dropdown-item [item]="item" [size]="size" [selectionMode]="selectionMode"></cs-dropdown-item></div>`,
   }),
 };
 

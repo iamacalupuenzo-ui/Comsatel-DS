@@ -38,6 +38,14 @@
   --color-background-base: #ffffff;
   /* Lienzo humo: detrás de superficies interactivas, no sustituye base. */
   --color-background-canvas: #f5f5f5;
+  /* Series comparativas y estructura del gráfico. */
+  --color-chart-series-current: #1b4079;
+  --color-chart-series-previous: #667085;
+  --color-chart-grid: #d0d5dd;
+  --color-chart-axis: #475467;
+  --color-chart-tooltip-background: #ffffff;
+  --color-chart-tooltip-text: #344054;
+  --color-chart-tooltip-border: #d0d5dd;
   --color-background-selected: #f0f6ff;
   --color-background-disabled: #f2f4f7;
   --color-background-neutral-subtlest: #f9fafb;
@@ -213,6 +221,8 @@
   --color-icon-neutral-subtle: #667085;
   --color-icon-neutral-default: #344054;
   --color-icon-neutral-bolder: #101828;
+  --color-icon-brand-default: var(--color-text-brand-default);
+  --color-icon-base-subtle: var(--color-icon-neutral-subtle);
 
   /* Accents */
   --color-accent-teal: #15b79e;
@@ -294,6 +304,7 @@
   --layout-border-none: 0px;
   --layout-border-thin: 1px;
   --layout-border-thick: 2px;
+  --layout-border-medium: var(--layout-border-thick);
   --layout-border-thicker: 4px;
   --layout-size-2xs: 16px;
   --layout-size-xs: 20px;
@@ -357,6 +368,13 @@
   --color-icon-secondary-default: var(--color-primitive-secondary-200);
   --color-background-base: #0c0e16;
   --color-background-canvas: var(--elevation-surface-sunken);
+  --color-chart-series-current: #a4c0ec;
+  --color-chart-series-previous: #98a2b3;
+  --color-chart-grid: #475467;
+  --color-chart-axis: #d0d5dd;
+  --color-chart-tooltip-background: #1d2939;
+  --color-chart-tooltip-text: #f9fafb;
+  --color-chart-tooltip-border: #667085;
   --color-background-selected: #0c192c;
   --color-background-disabled: #1a1d2e;
   --color-background-neutral-subtlest: #111827;
@@ -540,6 +558,18 @@
   --elevation-surface-raised: #1d2939;
   --elevation-surface-overlay: #344054;
   --elevation-surface-sunken: #0c0e16;
+}
+
+/* Contexto glass de gráficos: solo cambia los roles del gráfico; no crea un
+   tercer tema para los demás componentes. */
+[data-theme="glass"] {
+  --color-chart-series-current: #ffffff;
+  --color-chart-series-previous: #dbe9ff;
+  --color-chart-grid: rgba(255,255,255,0.32);
+  --color-chart-axis: #ffffff;
+  --color-chart-tooltip-background: #ffffff;
+  --color-chart-tooltip-text: #153565;
+  --color-chart-tooltip-border: #d0d5dd;
 }
 
 /* --------------------------------------------------------------------------

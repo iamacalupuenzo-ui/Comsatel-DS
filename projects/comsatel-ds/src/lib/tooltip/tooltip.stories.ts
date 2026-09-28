@@ -67,7 +67,7 @@ export const OnIconButton: Story = {
 export const AllSides: Story = {
   render: () => ({
     template: `
-      <div style="display: flex; gap: var(--layout-gap-6xl); padding: var(--layout-padding-6xl);">
+      <div style="display: flex; gap: var(--layout-gap-4xl); padding: var(--layout-padding-6xl);">
         <cs-tooltip content="Side: top" side="top"><cs-button variant="secondary">top</cs-button></cs-tooltip>
         <cs-tooltip content="Side: bottom" side="bottom"><cs-button variant="secondary">bottom</cs-button></cs-tooltip>
         <cs-tooltip content="Side: left" side="left"><cs-button variant="secondary">left</cs-button></cs-tooltip>
