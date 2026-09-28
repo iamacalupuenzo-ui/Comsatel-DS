@@ -111,6 +111,7 @@ export const ALL_TOKENS: TokenSection[] = [
         "description": "Roles de serie, estructura y tooltip. En contexto glass se aplican valores propios desde tokens.css.",
         "version": "v0.3.0",
         "rows": [
+          { "name": "--color-chart-surface", "light": "#ffffff", "dark": "#111827", "usage": "Superficie de contraste del gráfico", "lightRef": null, "darkRef": null },
           { "name": "--color-chart-series-current", "light": "#1b4079", "dark": "#a4c0ec", "usage": "Serie actual; acompañar con leyenda textual", "lightRef": null, "darkRef": null },
           { "name": "--color-chart-series-previous", "light": "#667085", "dark": "#98a2b3", "usage": "Serie anterior; acompañar con leyenda textual", "lightRef": null, "darkRef": null },
           { "name": "--color-chart-grid", "light": "#d0d5dd", "dark": "#475467", "usage": "Líneas de grilla", "lightRef": null, "darkRef": null },
@@ -123,7 +124,7 @@ export const ALL_TOKENS: TokenSection[] = [
       {
         "id": "background-neutral",
         "label": "Neutral",
-        "description": "Rellenos neutrales desde el más tenue (subtlest) hasta el más intenso (strongest). Usá subtlest para filas zebra y strongest para superficies casi negras.",
+        "description": "Rellenos neutrales desde el más tenue (subtlest) hasta el más intenso (strongest). Usa subtlest para filas zebra y strongest para superficies casi negras.",
         "version": "v1.0.0",
         "rows": [
           {
@@ -1530,7 +1531,7 @@ export const ALL_TOKENS: TokenSection[] = [
       {
         "id": "surface",
         "label": "Superficies",
-        "description": "Superficies de página desde sunken (bloques de código hundidos) hasta overlay (modales y drawers flotantes). Combiná una superficie con el paso de sombra de la misma elevación.",
+        "description": "Superficies de página desde sunken (bloques de código hundidos) hasta overlay (modales y drawers flotantes). Combina una superficie con el paso de sombra de la misma elevación.",
         "version": "v1.3.0",
         "rows": [
           {
@@ -2286,7 +2287,7 @@ export const ALL_TOKENS: TokenSection[] = [
       {
         "id": "shadow",
         "label": "Sombras",
-        "description": "Los pasos de sombra se mapean a la escala de elevación, usá xs para inputs, sm–md para cards y popovers, xl para modals y drawers.",
+        "description": "Los pasos de sombra se mapean a la escala de elevación, usa xs para inputs, sm–md para cards y popovers, xl para modals y drawers.",
         "version": "v1.1.0",
         "rows": [
           {

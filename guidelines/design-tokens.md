@@ -60,6 +60,7 @@ solo se activa como variante explícita.
 
 | Rol | Claro / oscuro / glass | Uso |
 | :-- | :-- | :-- |
+| `--color-chart-surface` | `#ffffff` / `#111827` / `#153565` | Fondo de contraste del gráfico |
 | `--color-chart-series-current` | `#1b4079` / `#a4c0ec` / `#ffffff` | Serie actual, con leyenda |
 | `--color-chart-series-previous` | `#667085` / `#98a2b3` / `#dbe9ff` | Serie anterior, con leyenda |
 | `--color-chart-grid` | `#d0d5dd` / `#475467` / `rgba(255,255,255,0.32)` | Grilla |

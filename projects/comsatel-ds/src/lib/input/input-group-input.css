@@ -9,7 +9,7 @@
   border: none;
   border-radius: 0;
   background-color: transparent;
-  color: var(--color-text-base-default);
+  color: var(--cs-input-group-value-color, var(--color-text-base-default));
   font-family: var(--font-family-content);
   font-weight: var(--font-weight-regular);
   letter-spacing: var(--font-letter-spacing-content);
@@ -18,6 +18,13 @@
 }
 .cs-input-group-input::placeholder {
   color: var(--color-text-base-subtlest);
+}
+.cs-input-group-input:-webkit-autofill,
+.cs-input-group-input:-webkit-autofill:hover,
+.cs-input-group-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-text-base-default);
+  caret-color: var(--color-text-base-default);
+  transition: background-color 0s 600000s, color 0s 600000s;
 }
 .cs-input-group-input:disabled {
   cursor: not-allowed;

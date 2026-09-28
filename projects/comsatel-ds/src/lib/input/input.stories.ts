@@ -40,6 +40,12 @@ export const Invalid: Story = {
 export const WithValue: Story = {
   args: { value: 'tu@ejemplo.com', type: 'email' },
 };
+export const Required: Story = { args: { required: true, ariaLabel: 'Correo requerido' } };
+export const Readonly: Story = { args: { readonly: true, value: 'Solo lectura', ariaLabel: 'Dato de consulta' } };
+export const AppliedFilter: Story = { args: { active: true, value: 'Unidades activas', ariaLabel: 'Filtro aplicado' } };
+export const FocusAndHover: Story = {
+  render: () => ({ template: `<div style="display:grid; gap:var(--layout-gap-md); width:260px"><cs-input placeholder="Pasa el cursor aquí" aria-label="Estado hover" /><cs-input placeholder="Enfoca con Tab" aria-label="Estado de foco" /></div>` }),
+};
 
 export const AllSizes: Story = {
   render: () => ({
@@ -60,6 +66,9 @@ export const AllStates: Story = {
         <cs-input placeholder="Por defecto"></cs-input>
         <cs-input [disabled]="true" placeholder="Deshabilitado"></cs-input>
         <cs-input [invalid]="true" placeholder="Inválido"></cs-input>
+        <cs-input [required]="true" aria-label="Requerido" placeholder="Requerido"></cs-input>
+        <cs-input [active]="true" value="Filtro aplicado" aria-label="Filtro aplicado"></cs-input>
+        <cs-input [readonly]="true" value="Solo lectura" aria-label="Solo lectura"></cs-input>
       </div>
     `,
   }),

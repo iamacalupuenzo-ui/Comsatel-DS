@@ -19,6 +19,26 @@
 .cs-input::placeholder {
   color: var(--color-text-base-subtlest);
 }
+.cs-input[data-active='true']:not(:focus-visible):not([aria-invalid='true']):not(:disabled) {
+  border-color: var(--color-border-selected);
+  background-color: var(--color-background-selected);
+  color: var(--color-text-selected);
+}
+.cs-input:hover:not(:disabled):not(:focus-visible) {
+  border-color: var(--color-border-neutral-bolder);
+}
+.cs-input[data-active='true']:hover:not(:disabled):not(:focus-visible) {
+  border-color: var(--color-border-selected);
+}
+.cs-input:-webkit-autofill,
+.cs-input:-webkit-autofill:hover,
+.cs-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-text-base-default);
+  caret-color: var(--color-text-base-default);
+  transition: background-color 0s 600000s, color 0s 600000s,
+    border-color var(--motion-duration-fast) var(--motion-easing-default),
+    box-shadow var(--motion-duration-fast) var(--motion-easing-default);
+}
 .cs-input:focus-visible {
   border-color: var(--color-border-brand-default);
   box-shadow: 0 0 0 2px var(--color-border-brand-subtle);

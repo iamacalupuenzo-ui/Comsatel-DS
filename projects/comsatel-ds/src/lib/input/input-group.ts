@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 // Puerto 1:1 de InputGroup en input-group.tsx. El grupo es dueño del
 // borde/anillo de foco/estado inválido — usa :has() para reaccionar al
@@ -11,4 +11,7 @@ import { Component } from '@angular/core';
   templateUrl: './input-group.html',
   styleUrl: './input-group.css',
 })
-export class InputGroup {}
+export class InputGroup {
+  /** Estado visual de un filtro aplicado. Error y foco tienen prioridad. */
+  @Input() active = false;
+}

@@ -27,6 +27,8 @@ export class Input {
   @NgInput() readonly = false;
   @NgInput() disabled = false;
   @NgInput() invalid = false;
+  /** Indica que el campo representa un filtro aplicado. */
+  @NgInput() active = false;
   @NgInput('aria-label') ariaLabel = '';
   @NgInput('aria-labelledby') ariaLabelledby = '';
   @NgInput('aria-describedby') ariaDescribedby = '';

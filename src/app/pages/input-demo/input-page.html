@@ -6,6 +6,23 @@
     diseño para todos los estados.
   </p>
 
+  <section class="section">
+    <h2 class="section__title" id="filtros">Filtro aplicado y limpieza</h2>
+    <p class="section__intro">Busca unidades con ícono inicial, estado aplicado y una acción de limpieza con nombre accesible. El grupo mantiene el mismo ancho al cambiar de estado.</p>
+    <div class="field-wrap col">
+      <cs-input-group [active]="!!searchValue()">
+        <cs-input-group-addon><cs-icon name="search" [size]="16" aria-hidden="true" /></cs-input-group-addon>
+        <cs-input-group-input aria-label="Buscar unidades" placeholder="Buscar unidades" [value]="searchValue()" (valueChange)="searchValue.set($event)" />
+        <cs-input-group-clear label="Limpiar búsqueda" />
+      </cs-input-group>
+      <cs-input-group>
+        <cs-input-group-input aria-label="Fecha de registro" [readonly]="true" value="28/09/2026" />
+        <cs-input-group-addon align="inline-end"><cs-icon name="calendar" [size]="16" aria-hidden="true" /></cs-input-group-addon>
+      </cs-input-group>
+      <cs-password-input aria-label="Contraseña" autocomplete="current-password" placeholder="Ingresa tu contraseña" />
+    </div>
+  </section>
+
   <!-- Playground -->
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>

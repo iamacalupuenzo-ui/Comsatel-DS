@@ -3,6 +3,7 @@ import {
   Input,
   InputGroup,
   InputGroupAddon,
+  InputGroupClear,
   InputGroupInput,
   InputGroupText,
   PasswordInput,
@@ -47,11 +48,12 @@ const CURRENCIES: InputDropdownOption[] = [
 
 @Component({
   selector: 'app-input-page',
-  imports: [Input, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText, PasswordInput, Button, Icon, InputDropdown, DemoShell],
+  imports: [Input, InputGroup, InputGroupAddon, InputGroupClear, InputGroupInput, InputGroupText, PasswordInput, Button, Icon, InputDropdown, DemoShell],
   templateUrl: './input-page.html',
   styleUrl: './input-page.css',
 })
 export class InputPage {
+  protected readonly searchValue = signal('VHC-001');
   protected readonly sizes = SIZES;
   protected readonly inputTypeLabels = INPUT_TYPE_LABELS;
   protected readonly phoneCodes = PHONE_CODES;
