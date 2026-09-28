@@ -56,6 +56,9 @@
                       <cs-icon [name]="item.icon" [size]="14" class="sidebar__item-icon" />
                     }
                     <span class="sidebar__item-text">{{ item.title }}</span>
+                    @if (item.change && sidenav.mode() !== 'rail') {
+                      <span class="change-badge change-badge--nav" [attr.data-kind]="item.change.kind">v{{ item.change.version }}</span>
+                    }
                   </span>
                   <cs-icon name="chevron-right" [size]="12" class="chevron" [class.chevron--open]="isOpen(item)" />
                 </button>
@@ -98,6 +101,10 @@
                     <cs-icon [name]="item.icon" [size]="14" class="sidebar__item-icon" />
                   }
                   <span class="sidebar__item-text">{{ item.title }}</span>
+                  @if (item.change && sidenav.mode() !== 'rail') {
+                    <span class="change-badge change-badge--nav" [attr.data-kind]="item.change.kind"
+                      [attr.title]="(item.change.kind === 'nuevo' ? 'Nuevo' : 'Actualizado') + ' en v' + item.change.version">v{{ item.change.version }}</span>
+                  }
                 </a>
               }
             </li>

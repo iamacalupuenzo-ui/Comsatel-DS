@@ -19,6 +19,14 @@ export interface NavItem {
    * propio. */
   icon?: IconName;
   children?: NavItem[];
+  /** Marca visible en el menú: componente nuevo o actualizado y la versión en que ocurrió. Se retira
+   * cuando la siguiente versión ya no lo toca, para que la marca siga indicando lo reciente. */
+  change?: NavChange;
+}
+
+export interface NavChange {
+  kind: 'nuevo' | 'actualizado';
+  version: string;
 }
 
 export interface NavSection {
@@ -52,6 +60,7 @@ export const NAVIGATION: NavSection[] = [
         title: 'Color',
         href: '/foundations/color',
         icon: 'palette',
+        change: { kind: 'actualizado', version: '0.3.0' },
         children: [
           { title: 'Overview', href: '/foundations/color' },
           { title: 'Color palette', href: '/foundations/color/palette' },
@@ -99,9 +108,9 @@ export const NAVIGATION: NavSection[] = [
       { title: 'Checkbox', href: '/components/checkbox', icon: 'check-square' },
       { title: 'Date time picker', href: '/components/datetime-picker', icon: 'calendar-clock' },
       { title: 'Date time range picker', href: '/components/datetime-range-picker', icon: 'calendar-range' },
-      { title: 'Dropdown', href: '/components/dropdown', icon: 'chevron-down' },
+      { title: 'Dropdown', href: '/components/dropdown', icon: 'chevron-down', change: { kind: 'actualizado', version: '0.3.0' } },
       { title: 'Header', href: '/components/header', icon: 'panel-top' },
-      { title: 'Input', href: '/components/input', icon: 'text-cursor-input' },
+      { title: 'Input', href: '/components/input', icon: 'text-cursor-input', change: { kind: 'actualizado', version: '0.3.0' } },
       { title: 'List item', href: '/components/list-item', icon: 'list' },
       { title: 'Menu', href: '/components/menu', icon: 'menu' },
       { title: 'Modal', href: '/components/modal', icon: 'app-window' },
@@ -109,7 +118,7 @@ export const NAVIGATION: NavSection[] = [
       { title: 'Popover', href: '/components/popover', icon: 'picture-in-picture-2' },
       { title: 'Progress indicator', href: '/components/progress-indicator', icon: 'loader' },
       { title: 'Radio', href: '/components/radio', icon: 'circle-dot' },
-      { title: 'Select', href: '/components/select', icon: 'chevrons-up-down' },
+      { title: 'Select', href: '/components/select', icon: 'chevrons-up-down', change: { kind: 'actualizado', version: '0.3.0' } },
       { title: 'Spotlight', href: '/components/spotlight', icon: 'flashlight' },
       { title: 'Tab', href: '/components/tab', icon: 'rows' },
       {

@@ -8,7 +8,7 @@
 
   <section class="section">
     <h2 class="section__title" id="filtros">Filtro aplicado y limpieza</h2>
-    <p class="section__intro">Busca unidades con ícono inicial, estado aplicado y una acción de limpieza con nombre accesible. El grupo mantiene el mismo ancho al cambiar de estado.</p>
+    <p class="section__intro"><span class="change-badge change-badge--intro" data-kind="nuevo">Nuevo · v0.3.0</span>Busca unidades con ícono inicial, estado aplicado y una acción de limpieza con nombre accesible. El grupo mantiene el mismo ancho al cambiar de estado.</p>
     <div class="field-wrap col">
       <cs-input-group [active]="!!searchValue()">
         <cs-input-group-addon><cs-icon name="search" [size]="16" aria-hidden="true" /></cs-input-group-addon>
@@ -26,7 +26,7 @@
   <!-- Playground -->
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>
-    <p class="section__intro">Ajusta los controles para explorar los tipos de input y sus estados.</p>
+    <p class="section__intro"><span class="change-badge change-badge--intro" data-kind="actualizado">Actualizado · v0.3.0</span>Ajusta los controles para explorar los tipos de input y sus estados.</p>
 
     <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
       <div class="field-wrap">
@@ -35,38 +35,38 @@
 
           @switch (pgType()) {
             @case ('leading-dropdown') {
-              <cs-input-group>
+              <cs-input-group [active]="pgActive()">
                 <cs-input-group-addon [divider]="true">
                   <cs-input-dropdown aria-label="Código de país" [options]="phoneCodes" [value]="pgPhoneCode()" (valueChange)="pgPhoneCode.set($event)" [size]="pgSize()" [embedded]="true"></cs-input-dropdown>
                 </cs-input-group-addon>
-                <cs-input-group-input aria-labelledby="playground-field-label" [aria-describedby]="pgInvalid() ? 'playground-email-error' : 'playground-email-help'" placeholder="Phone number" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()" [required]="true"></cs-input-group-input>
+                <cs-input-group-input aria-labelledby="playground-field-label" [aria-describedby]="pgInvalid() ? 'playground-email-error' : 'playground-email-help'" placeholder="Phone number" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()" [readonly]="pgReadonly()" [required]="true" value="enzo@empresa.com"></cs-input-group-input>@if (pgClear()) { <cs-input-group-clear label="Limpiar campo" /> }
               </cs-input-group>
             }
             @case ('trailing-dropdown') {
-              <cs-input-group>
+              <cs-input-group [active]="pgActive()">
                 <cs-input-group-addon><cs-input-group-text>$</cs-input-group-text></cs-input-group-addon>
-                <cs-input-group-input aria-labelledby="playground-field-label" [aria-describedby]="pgInvalid() ? 'playground-email-error' : 'playground-email-help'" placeholder="0.00" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()" [required]="true"></cs-input-group-input>
+                <cs-input-group-input aria-labelledby="playground-field-label" [aria-describedby]="pgInvalid() ? 'playground-email-error' : 'playground-email-help'" placeholder="0.00" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()" [readonly]="pgReadonly()" [required]="true" value="enzo@empresa.com"></cs-input-group-input>@if (pgClear()) { <cs-input-group-clear label="Limpiar campo" /> }
                 <cs-input-group-addon align="inline-end" [divider]="true">
                   <cs-input-dropdown aria-label="Moneda" [options]="currencies" [value]="pgCurrency()" (valueChange)="pgCurrency.set($event)" [size]="pgSize()" [embedded]="true"></cs-input-dropdown>
                 </cs-input-group-addon>
               </cs-input-group>
             }
             @case ('leading-text') {
-              <cs-input-group>
+              <cs-input-group [active]="pgActive()">
                 <cs-input-group-addon><cs-input-group-text>https://</cs-input-group-text></cs-input-group-addon>
-                <cs-input-group-input aria-labelledby="playground-field-label" [aria-describedby]="pgInvalid() ? 'playground-email-error' : 'playground-email-help'" placeholder="your-domain.com" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()" [required]="true"></cs-input-group-input>
+                <cs-input-group-input aria-labelledby="playground-field-label" [aria-describedby]="pgInvalid() ? 'playground-email-error' : 'playground-email-help'" placeholder="your-domain.com" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()" [readonly]="pgReadonly()" [required]="true" value="enzo@empresa.com"></cs-input-group-input>@if (pgClear()) { <cs-input-group-clear label="Limpiar campo" /> }
               </cs-input-group>
             }
             @case ('payment') {
-              <cs-input-group>
+              <cs-input-group [active]="pgActive()">
                 <cs-input-group-addon><cs-icon name="credit-card" [size]="16"></cs-icon></cs-input-group-addon>
-                <cs-input-group-input aria-labelledby="playground-field-label" [aria-describedby]="pgInvalid() ? 'playground-email-error' : 'playground-email-help'" placeholder="Card number" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()" [required]="true"></cs-input-group-input>
+                <cs-input-group-input aria-labelledby="playground-field-label" [aria-describedby]="pgInvalid() ? 'playground-email-error' : 'playground-email-help'" placeholder="Card number" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()" [readonly]="pgReadonly()" [required]="true" value="enzo@empresa.com"></cs-input-group-input>@if (pgClear()) { <cs-input-group-clear label="Limpiar campo" /> }
               </cs-input-group>
             }
             @default {
-              <cs-input-group>
+              <cs-input-group [active]="pgActive()">
                 <cs-input-group-addon><cs-icon name="mail" [size]="16"></cs-icon></cs-input-group-addon>
-                <cs-input-group-input aria-labelledby="playground-field-label" [aria-describedby]="pgInvalid() ? 'playground-email-error' : 'playground-email-help'" placeholder="Enter your email" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()" [required]="true"></cs-input-group-input>
+                <cs-input-group-input aria-labelledby="playground-field-label" [aria-describedby]="pgInvalid() ? 'playground-email-error' : 'playground-email-help'" placeholder="Enter your email" [fieldSize]="pgSize()" [disabled]="pgDisabled()" [invalid]="pgInvalid()" [readonly]="pgReadonly()" [required]="true" value="enzo@empresa.com"></cs-input-group-input>@if (pgClear()) { <cs-input-group-clear label="Limpiar campo" /> }
               </cs-input-group>
             }
           }
@@ -102,7 +102,7 @@
   <!-- Estados -->
   <section class="section">
     <h2 class="section__title" id="states">Estados</h2>
-    <p class="section__intro">Por defecto, focus (haz clic para activarlo), deshabilitado e inválido.</p>
+    <p class="section__intro"><span class="change-badge change-badge--intro" data-kind="actualizado">Actualizado · v0.3.0</span>Por defecto, focus (haz clic para activarlo), deshabilitado, inválido, requerido, solo lectura y filtro aplicado. El foco y el error tienen prioridad sobre el estado aplicado; en solo lectura el borde no cambia al pasar el cursor.</p>
     <app-demo-shell
       [controls]="[]"
       code="<cs-input placeholder=&quot;Default&quot; aria-label=&quot;Default input&quot;></cs-input>
@@ -113,6 +113,9 @@
         <cs-input placeholder="Default" aria-label="Default input"></cs-input>
         <cs-input [disabled]="true" placeholder="Disabled" aria-label="Disabled input"></cs-input>
         <cs-input [invalid]="true" placeholder="Invalid" aria-label="Invalid input"></cs-input>
+        <cs-input [required]="true" placeholder="Requerido" aria-label="Campo requerido"></cs-input>
+        <cs-input [readonly]="true" value="Solo lectura" aria-label="Campo de solo lectura"></cs-input>
+        <cs-input [active]="true" value="Filtro aplicado" aria-label="Filtro aplicado"></cs-input>
       </div>
     </app-demo-shell>
   </section>

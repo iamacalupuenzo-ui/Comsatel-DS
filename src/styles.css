@@ -5,3 +5,42 @@ h2[id],
 h3[id] {
   scroll-margin-top: 4.5rem;
 }
+
+/* Marca de cambio: «Nuevo» o «Actualizado» con la versión, junto al título de una sección o al
+   componente en el menú. Indica qué cambió en la última versión publicada; se retira cuando la
+   versión siguiente ya no toca ese componente. */
+.change-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--layout-gap-2xs);
+  block-size: var(--layout-size-xs);
+  margin-inline-start: var(--layout-gap-md);
+  padding-inline: var(--layout-padding-sm);
+  border-radius: var(--radius-full);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-emphasis);
+  line-height: 1;
+  letter-spacing: var(--font-letter-spacing-content);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.change-badge[data-kind='nuevo'] {
+  background: var(--color-background-success-subtlest);
+  color: var(--color-text-success-bolder);
+}
+.change-badge[data-kind='actualizado'] {
+  background: var(--color-background-selected);
+  color: var(--color-text-selected);
+}
+.change-badge--nav {
+  margin-inline-start: auto;
+  block-size: var(--layout-size-2xs);
+  padding-inline: var(--layout-padding-xs);
+  font-size: var(--font-size-label-small, var(--font-size-content-note));
+}
+/* Dentro del párrafo introductorio de una sección: el índice de la página lee el texto de los h2,
+   así que la marca va al inicio del párrafo y no dentro del título. */
+.change-badge--intro {
+  margin-inline: 0 var(--layout-gap-sm);
+}

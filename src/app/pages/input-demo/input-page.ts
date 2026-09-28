@@ -65,12 +65,18 @@ export class InputPage {
     { kind: 'select', label: 'Tipo', key: 'inputType', options: INPUT_TYPE_OPTIONS, default: 'default' },
     { kind: 'toggle', label: 'Deshabilitado', key: 'disabled', default: false },
     { kind: 'toggle', label: 'Inválido', key: 'invalid', default: false },
+    { kind: 'toggle', label: 'Solo lectura', key: 'readonly', default: false },
+    { kind: 'toggle', label: 'Filtro aplicado', key: 'active', default: false },
+    { kind: 'toggle', label: 'Botón limpiar', key: 'clear', default: false },
   ];
 
   protected readonly pgSize = signal<InputFieldSize>('md');
   protected readonly pgType = signal<InputTypeKind>('default');
   protected readonly pgDisabled = signal(false);
   protected readonly pgInvalid = signal(false);
+  protected readonly pgReadonly = signal(false);
+  protected readonly pgActive = signal(false);
+  protected readonly pgClear = signal(false);
   protected readonly pgPhoneCode = signal('+33');
   protected readonly pgCurrency = signal('USD');
 
@@ -79,6 +85,9 @@ export class InputPage {
     if (s['inputType']) this.pgType.set(s['inputType'] as InputTypeKind);
     if (s['disabled'] !== undefined) this.pgDisabled.set(!!s['disabled']);
     if (s['invalid'] !== undefined) this.pgInvalid.set(!!s['invalid']);
+    if (s['readonly'] !== undefined) this.pgReadonly.set(!!s['readonly']);
+    if (s['active'] !== undefined) this.pgActive.set(!!s['active']);
+    if (s['clear'] !== undefined) this.pgClear.set(!!s['clear']);
   }
 
   protected readonly pgCode = computed(() => {
@@ -86,18 +95,21 @@ export class InputPage {
     if (this.pgSize() !== 'md') props.push(`fieldSize="${this.pgSize()}"`);
     if (this.pgDisabled()) props.push(`[disabled]="true"`);
     if (this.pgInvalid()) props.push(`[invalid]="true"`);
+    if (this.pgReadonly()) props.push(`[readonly]="true"`);
     const attrs = props.length ? ' ' + props.join(' ') : '';
+    const group = this.pgActive() ? '<cs-input-group [active]="true">' : '<cs-input-group>';
+    const clear = this.pgClear() ? '\n  <cs-input-group-clear label="Limpiar campo"></cs-input-group-clear>' : '';
     switch (this.pgType()) {
       case 'leading-dropdown':
-        return `<cs-input-group>\n  <cs-input-group-addon [divider]="true"><cs-input-dropdown [options]="phoneCodes" [value]="code" [embedded]="true"></cs-input-dropdown></cs-input-group-addon>\n  <cs-input-group-input aria-label="Phone number" placeholder="Phone number"${attrs}></cs-input-group-input>\n</cs-input-group>`;
+        return `${group}\n  <cs-input-group-addon [divider]="true"><cs-input-dropdown [options]="phoneCodes" [value]="code" [embedded]="true"></cs-input-dropdown></cs-input-group-addon>\n  <cs-input-group-input aria-label="Phone number" placeholder="Phone number"${attrs}></cs-input-group-input>${clear}\n</cs-input-group>`;
       case 'trailing-dropdown':
-        return `<cs-input-group>\n  <cs-input-group-addon><cs-input-group-text>$</cs-input-group-text></cs-input-group-addon>\n  <cs-input-group-input aria-label="Amount" placeholder="0.00"${attrs}></cs-input-group-input>\n  <cs-input-group-addon align="inline-end" [divider]="true"><cs-input-dropdown [options]="currencies" [value]="currency" [embedded]="true"></cs-input-dropdown></cs-input-group-addon>\n</cs-input-group>`;
+        return `${group}\n  <cs-input-group-addon><cs-input-group-text>$</cs-input-group-text></cs-input-group-addon>\n  <cs-input-group-input aria-label="Amount" placeholder="0.00"${attrs}></cs-input-group-input>\n  <cs-input-group-addon align="inline-end" [divider]="true"><cs-input-dropdown [options]="currencies" [value]="currency" [embedded]="true"></cs-input-dropdown></cs-input-group-addon>\n</cs-input-group>`;
       case 'leading-text':
-        return `<cs-input-group>\n  <cs-input-group-addon><cs-input-group-text>https://</cs-input-group-text></cs-input-group-addon>\n  <cs-input-group-input aria-label="Website" placeholder="your-domain.com"${attrs}></cs-input-group-input>\n</cs-input-group>`;
+        return `${group}\n  <cs-input-group-addon><cs-input-group-text>https://</cs-input-group-text></cs-input-group-addon>\n  <cs-input-group-input aria-label="Website" placeholder="your-domain.com"${attrs}></cs-input-group-input>${clear}\n</cs-input-group>`;
       case 'payment':
-        return `<cs-input-group>\n  <cs-input-group-addon><cs-icon name="credit-card" [size]="16"></cs-icon></cs-input-group-addon>\n  <cs-input-group-input aria-label="Card number" placeholder="Card number"${attrs}></cs-input-group-input>\n</cs-input-group>`;
+        return `${group}\n  <cs-input-group-addon><cs-icon name="credit-card" [size]="16"></cs-icon></cs-input-group-addon>\n  <cs-input-group-input aria-label="Card number" placeholder="Card number"${attrs}></cs-input-group-input>${clear}\n</cs-input-group>`;
       default:
-        return `<cs-input-group>\n  <cs-input-group-addon><cs-icon name="mail" [size]="16"></cs-icon></cs-input-group-addon>\n  <cs-input-group-input aria-label="Email address" placeholder="Enter your email"${attrs}></cs-input-group-input>\n</cs-input-group>`;
+        return `${group}\n  <cs-input-group-addon><cs-icon name="mail" [size]="16"></cs-icon></cs-input-group-addon>\n  <cs-input-group-input aria-label="Email address" placeholder="Enter your email"${attrs}></cs-input-group-input>${clear}\n</cs-input-group>`;
     }
   });
 
