@@ -102,6 +102,12 @@ Tres escalas separadas, con los mismos pasos pero usos distintos.
 | `--layout-gap-2xs` … `--layout-gap-4xl` | 2, 4, 6, 8, 12, 16, 20, 24, 32px | Separación entre hijos de un flex/grid |
 | `--layout-size-2xs` … `--layout-size-3xl` | 16, 20, 24, 32, 40, 48, 56, 64, 80px | Alto/ancho de controles e íconos |
 
+La revisión de FleetOperations mantiene esta escala. Los filtros en
+`capture-order-toolbar.component.ts` y `fleet-map-search.component.ts` tienen
+`padding-inline: 10px`; `INPUT_FIELD_TOKENS` conserva 10 px en `sm/md` y 14 px
+en `lg`. Ninguno tiene token exacto de padding o gap: son excepciones de
+geometría documentadas, sin redondeo.
+
 ## Radio y borde
 
 | Token | Value | Use for |
