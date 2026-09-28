@@ -56,6 +56,7 @@ la receta a `textStyle(fieldLabelTypography.lg, 'accent')`.
 | `readonly` | `boolean` | `false` | Solo lectura. |
 | `disabled` | `boolean` | `false` | Deshabilitado. |
 | `invalid` | `boolean` | `false` | Estado de error. Emite `aria-invalid`. |
+| `active` | `boolean` | `false` | Filtro aplicado: borde, fondo y texto de selección. Cede ante foco, apertura y error. |
 | `aria-label` | `string` | `''` | Nombre accesible sin label visible. |
 | `aria-labelledby` | `string` | `''` | Id del elemento que lo nombra. |
 | `aria-describedby` | `string` | `''` | Id del texto de ayuda. |
@@ -90,7 +91,7 @@ escribir un `<input>` propio.
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
-| n/a | n/a | n/a | Sin props propias: se usa por composición. |
+| `active` | `boolean` | `false` | Filtro aplicado: borde, fondo y texto de selección. Cede ante foco, apertura y error. |
 <!-- props:end -->
 
 ## Props de `InputGroupInput`
@@ -136,6 +137,18 @@ escribir un `<input>` propio.
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
 | n/a | n/a | n/a | Sin props propias: se usa por composición. |
+<!-- props:end -->
+
+## Props de `InputGroupClear`
+
+<!-- props:start InputGroupClear -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/input/input-group-clear.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+
+| Prop | Type | Default | Description |
+| :-- | :-- | :-- | :-- |
+| `label` | `string` | `'Limpiar campo'` | Nombre accesible del botón de limpiar. |
+| `disabled` | `boolean` | `false` | Deshabilita el botón de limpiar. |
+| `cleared` | `EventEmitter<void>` | n/a | Emite después de vaciar el campo y devolverle el foco. |
 <!-- props:end -->
 
 ## Composición de un grupo
@@ -286,6 +299,19 @@ omitir con `[leadingIcon]="null"`. Para una contraseña nueva, cambia
 #### Contrato a11y generado desde el código: `cs-input-group-text`
 
 No renderiza controles nativos, roles ni atributos ARIA propios, y no maneja teclado: es presentacional.
+<!-- a11y:end -->
+
+<!-- a11y:start InputGroupClear -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/input/input-group-clear.ts: no editar a mano, corre npm run docs:a11y -->
+
+#### Contrato a11y generado desde el código: `cs-input-group-clear`
+
+| Aspecto | Qué hace el código |
+| :-- | :-- |
+| Elementos nativos | `button` |
+| Atributos ARIA | `aria-hidden="true"`, `aria-label` |
+| Foco | Mueve el foco por código (`.focus()`) |
+| Compone | `cs-icon` |
 <!-- a11y:end -->
 
 ## Trampas

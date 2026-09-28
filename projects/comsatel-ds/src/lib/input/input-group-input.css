@@ -19,11 +19,17 @@
 .cs-input-group-input::placeholder {
   color: var(--color-text-base-subtlest);
 }
+/* Autocompletado del navegador: Chrome pinta un fondo celeste solo en el <input> nativo, que dentro del
+   grupo deja una franja de color junto al ícono. El UA lo impone con !important, así que no se puede
+   pisar background-color: se tapa con una sombra interior del mismo color que la superficie del grupo
+   (--cs-input-group-surface) y se fija el color del texto. El retraso de transición cubre navegadores
+   que respetan la transición. */
 .cs-input-group-input:-webkit-autofill,
 .cs-input-group-input:-webkit-autofill:hover,
 .cs-input-group-input:-webkit-autofill:focus {
-  -webkit-text-fill-color: var(--color-text-base-default);
-  caret-color: var(--color-text-base-default);
+  -webkit-text-fill-color: var(--cs-input-group-value-color, var(--color-text-base-default));
+  caret-color: var(--cs-input-group-value-color, var(--color-text-base-default));
+  box-shadow: 0 0 0 1000px var(--cs-input-group-surface, var(--elevation-surface-default)) inset;
   transition: background-color 0s 600000s, color 0s 600000s;
 }
 .cs-input-group-input:disabled {

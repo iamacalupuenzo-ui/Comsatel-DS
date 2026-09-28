@@ -217,7 +217,7 @@
   display: inline-flex;
   flex: none;
   align-items: center;
-  block-size: 20px;
+  block-size: var(--layout-size-xs);
   padding-inline: var(--layout-padding-sm);
   border-radius: var(--radius-full);
   font-size: var(--font-size-content-note);

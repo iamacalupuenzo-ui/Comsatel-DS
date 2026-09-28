@@ -14,7 +14,9 @@
   height: 32px;
   border-radius: var(--radius-sm);
   border: var(--layout-border-thin) solid var(--color-border-neutral-default);
-  background-color: var(--elevation-surface-default);
+  /* Superficie actual del grupo; el campo interno la usa para tapar el fondo del autocompletado. */
+  --cs-input-group-surface: var(--elevation-surface-default);
+  background-color: var(--cs-input-group-surface);
   transition: border-color var(--motion-duration-fast) var(--motion-easing-default), box-shadow var(--motion-duration-fast) var(--motion-easing-default);
 }
 .cs-input-group:has([data-field-size='lg']) { height: 40px; --cs-input-group-padding-start: 14px; --cs-input-group-padding-end: 14px; }
@@ -26,6 +28,7 @@
 }
 .cs-input-group--active:not(:has([data-slot='input-group-control']:focus-visible, [data-slot='input-group-control'][aria-invalid='true'], [data-slot='input-group-control']:disabled)) {
   --cs-input-group-value-color: var(--color-text-selected);
+  --cs-input-group-surface: var(--color-background-selected);
   border-color: var(--color-border-selected);
   background-color: var(--color-background-selected);
   color: var(--color-text-selected);
@@ -43,6 +46,7 @@
   box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-danger-subtle);
 }
 .cs-input-group:has([data-slot='input-group-control']:disabled) {
+  --cs-input-group-surface: var(--color-background-neutral-subtle);
   background-color: var(--color-background-neutral-subtle);
   opacity: 0.6;
 }

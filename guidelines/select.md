@@ -33,6 +33,10 @@ elegir varias opciones y quitarlas una por una.
 | `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Alto del campo. |
 | `disabled` | `boolean` | `false` | Deshabilita el campo. |
 | `required` | `boolean` | `false` | Marca el campo como requerido. |
+| `multipleDisplay` | `'chips' \| 'summary'` | `'chips'` | En modo múltiple, una insignia por opción (chips) o un resumen de una línea (summary). En summary, ninguna o todas equivalen a «todos». |
+| `summaryLabel` | `(count: number) => string` | `` (count) => `${count} seleccionados` `` | Texto del resumen cuando hay varias opciones elegidas. |
+| `active` | `boolean` | `false` | Filtro aplicado: borde, fondo y texto de selección. Cede ante foco, apertura y error. |
+| `menuFit` | `boolean` | `false` | La lista mide al menos el ancho del campo y crece con la opción más larga hasta el borde visible; recién ahí parte el texto. |
 | `clearControlLabel` | `string` | `'Limpiar'` | Nombre accesible del botón que limpia todo. |
 | `removeOptionLabel` | `(label: string) => string` | `` (label) => `Quitar ${label}` `` | Nombre accesible del botón que quita un chip. |
 | `showClear` | `boolean` | `true` | Muestra la limpieza en selección simple; false evita overrides del consumidor. |

@@ -30,18 +30,30 @@
 .cs-input[data-active='true']:hover:not(:disabled):not(:read-only):not(:focus-visible) {
   border-color: var(--color-border-selected);
 }
+/* Autocompletado del navegador: el UA impone el fondo celeste con !important, así que se tapa con una
+   sombra interior del color de la superficie (--cs-input-surface) y se fija el color del texto. El
+   anillo de foco y el de error se suman a esa sombra más abajo. */
+.cs-input {
+  --cs-input-surface: var(--elevation-surface-default);
+}
+.cs-input[data-active='true']:not(:focus-visible):not([aria-invalid='true']):not(:disabled) {
+  --cs-input-surface: var(--color-background-selected);
+}
 .cs-input:-webkit-autofill,
 .cs-input:-webkit-autofill:hover,
 .cs-input:-webkit-autofill:focus {
   -webkit-text-fill-color: var(--color-text-base-default);
   caret-color: var(--color-text-base-default);
+  box-shadow: 0 0 0 1000px var(--cs-input-surface) inset;
   transition: background-color 0s 600000s, color 0s 600000s,
-    border-color var(--motion-duration-fast) var(--motion-easing-default),
-    box-shadow var(--motion-duration-fast) var(--motion-easing-default);
+    border-color var(--motion-duration-fast) var(--motion-easing-default);
 }
 .cs-input:focus-visible {
   border-color: var(--color-border-brand-default);
   box-shadow: 0 0 0 2px var(--color-border-brand-subtle);
+}
+.cs-input:-webkit-autofill:focus-visible {
+  box-shadow: 0 0 0 1000px var(--cs-input-surface) inset, 0 0 0 2px var(--color-border-brand-subtle);
 }
 .cs-input:disabled {
   pointer-events: none;
@@ -53,4 +65,7 @@
 .cs-input[aria-invalid='true'] {
   border-color: var(--color-border-danger-default);
   box-shadow: 0 0 0 2px var(--color-border-danger-subtle);
+}
+.cs-input[aria-invalid='true']:-webkit-autofill {
+  box-shadow: 0 0 0 1000px var(--cs-input-surface) inset, 0 0 0 2px var(--color-border-danger-subtle);
 }
