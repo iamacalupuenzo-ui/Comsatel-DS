@@ -95,6 +95,10 @@ arquitectura. Contraste y plan: [refactor del secundario](../docs/refactor/secun
 
 ## Espaciado (spacing)
 
+`--layout-padding-*`, `--layout-gap-*`, `--layout-radius-*` y `--layout-border-*`
+son primitivos. Los 10 px de padding en FleetOperations y `INPUT_FIELD_TOKENS`,
+y los 14 px de `INPUT_FIELD_TOKENS` son excepciones exactas; no se redondean.
+
 Tres escalas separadas, con los mismos pasos pero usos distintos.
 
 | Token | Value | Use for |
@@ -111,6 +115,9 @@ geometría documentadas, sin redondeo.
 
 ## Radio y borde
 
+`--radius-*` son alias de `--layout-radius-*` con `var()`, incluido
+`--radius-none`. El radio de 10 px (`--layout-radius-xl`) es un paso existente.
+
 | Token | Value | Use for |
 | :-- | :-- | :-- |
 | `--layout-radius-xs` … `--layout-radius-3xl` | 2, 4, 6, 8, 10, 12, 16px | Esquinas, de control chico a contenedor grande |
@@ -119,6 +126,8 @@ geometría documentadas, sin redondeo.
 | `--layout-border-thin` / `-thick` / `-thicker` | 1, 2, 4px | Grosor de borde |
 
 ## Sombra y z-index
+
+`--shadow-*` y `--elevation-z-index-*` son primitivos de efecto.
 
 | Token | Value | Use for |
 | :-- | :-- | :-- |
@@ -134,6 +143,9 @@ Un `z-index` numérico escrito a mano es un bug: rompe el orden acordado del sis
 
 ## Motion
 
+`--motion-*` son primitivos de movimiento; los roles de interacción los consumen
+sin alterar sus duraciones ni curvas.
+
 | Token | Value | Use for |
 | :-- | :-- | :-- |
 | `--motion-duration-fast` | `100ms` | Hover, foco, cambios de color |
@@ -147,6 +159,13 @@ Un `z-index` numérico escrito a mano es un bug: rompe el orden acordado del sis
 | `--motion-easing-spring` | `cubic-bezier(0.15, 1.15, 0.6, 1)` | Rebote intencional |
 
 ## Tipografía
+
+Fuente de datos: `lib/tokens/typography.mjs`; su puerto TypeScript está en
+`projects/comsatel-ds/src/lib/tokens/typography.ts`. La salida generada es
+`projects/comsatel-ds/src/styles/typography-tokens.css`: se regenera desde
+la fuente y no se edita a mano. Familia, tamaño, peso, interlineado y tracking
+son primitivos; estilos como `componentTypography.tooltip` son roles que
+combinan esos valores para un uso concreto.
 
 Dos familias: `--font-family-heading` (Manrope) para títulos y `--font-family-content`
 (Public Sans) para el resto. La escala de tamaños va de `--font-primitive-size-2xs`

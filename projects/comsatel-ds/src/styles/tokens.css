@@ -351,7 +351,7 @@
   --elevation-surface-overlay: var(--color-primitive-white);
   --elevation-surface-sunken: var(--color-primitive-gray-050);
 
-  /* Z-index */
+  /* Primitivos de efecto: capas */
   --elevation-z-index-base: 0;
   --elevation-z-index-raised: 1;
   --elevation-z-index-dropdown: 100;
@@ -361,7 +361,7 @@
   --elevation-z-index-toast: 500;
   --elevation-z-index-tooltip: 600;
 
-  /* Layout */
+  /* Primitivos de espaciado, radios y bordes; 10px es un paso exacto de radio. */
   --layout-padding-none: 0px;
   --layout-padding-2xs: 2px;
   --layout-padding-xs: 4px;
@@ -384,6 +384,7 @@
   --layout-gap-2xl: 20px;
   --layout-gap-3xl: 24px;
   --layout-gap-4xl: 32px;
+  --layout-radius-none: 0px;
   --layout-radius-xs: 2px;
   --layout-radius-sm: 4px;
   --layout-radius-md: 6px;
@@ -426,7 +427,7 @@
 
   /* Tipografía generada por Tailwind desde lib/tokens/typography.mjs. */
 
-  /* Motion */
+  /* Primitivos de movimiento */
   --motion-duration-fast: 100ms;
   --motion-duration-leaving: 150ms;
   --motion-duration-medium: 200ms;
@@ -667,10 +668,11 @@
 }
 
 /* --------------------------------------------------------------------------
-   RADIUS & SHADOWS — theme-independent, defined once globally
+   ALIAS DE RADIO Y PRIMITIVOS DE EFECTO — independientes del tema
    -------------------------------------------------------------------------- */
 :root {
-  --radius-none: 0px;
+  /* Alias de radio: siempre apuntan al primitivo de igual valor. */
+  --radius-none: var(--layout-radius-none);
   --radius-xs: var(--layout-radius-xs);
   --radius-sm: var(--layout-radius-sm);
   --radius-md: var(--layout-radius-md);
@@ -679,6 +681,7 @@
   --radius-2xl: var(--layout-radius-2xl);
   --radius-full: var(--layout-radius-full);
 
+  /* Primitivos de efecto: sombras */
   --shadow-xs: 0 1px 2px 0 rgba(28, 28, 28, 0.05);
   --shadow-sm: 0 1px 3px 0 rgba(28, 28, 28, 0.08), 0 1px 2px -1px rgba(28, 28, 28, 0.06);
   --shadow-md: 0 2px 4px 0 rgba(28, 28, 28, 0.05), 0 4px 6px 0 rgba(28, 28, 28, 0.08);
