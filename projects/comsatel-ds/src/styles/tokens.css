@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Comsatel Design System — CSS Custom Properties
+   Comsatel Design System â€” CSS Custom Properties
    Source: Figma file IrNVKJjxRai7EcEIIOgRkK (theme collection)
    Modes: Light | Dark
    ========================================================================== */
@@ -90,16 +90,14 @@
   --color-primitive-black-alpha-08: rgba(0,0,0,0.08);
   --color-primitive-black-alpha-50: rgba(0,0,0,0.5);
   --color-primitive-black-alpha-70: rgba(0,0,0,0.7);
-  --color-primitive-brand-exact-0f213d: #0f213d;
-  --color-primitive-brand-exact-f0f6ff: #f0f6ff;
-  --color-primitive-brand-exact-3474d8: #3474d8;
-  --color-primitive-neutral-exact-0c0e16: #0c0e16;
-  --color-primitive-brand-exact-79a1e0: #79a1e0;
-  --color-primitive-brand-exact-0a121f: #0a121f;
-  --color-primitive-brand-exact-4d83d5: #4d83d5;
-  --color-primitive-neutral-exact-f5f5f5: #f5f5f5;
+  --color-primitive-brand-text-subtle: #3474d8;
+  --color-primitive-neutral-ink: #0c0e16;
+  --color-primitive-brand-raised-light: #79a1e0;
+  --color-primitive-brand-dark-subtlest: #0a121f;
+  --color-primitive-brand-link-visited: #4d83d5;
+  --color-primitive-neutral-canvas: #f5f5f5;
 
-  /* Secundario cálido: primitivos invariantes; consumir los roles semánticos. */
+  /* Secundario cÃ¡lido: primitivos invariantes; consumir los roles semÃ¡nticos. */
   --color-primitive-secondary-050: #fcfaf4;
   --color-primitive-secondary-100: #f8f5ed;
   --color-primitive-secondary-200: #efe9dc;
@@ -112,7 +110,7 @@
   --color-primitive-secondary-900: #30291c;
   --color-primitive-secondary-950: #211c13;
 
-  /* Superficie de tarjeta, panel, énfasis y estados secundarios. */
+  /* Superficie de tarjeta, panel, Ã©nfasis y estados secundarios. */
   --elevation-surface-secondary: var(--color-primitive-secondary-050);
   --color-background-secondary-subtlest: var(--color-primitive-secondary-100);
   --color-background-secondary-subtle: var(--color-primitive-secondary-200);
@@ -126,9 +124,9 @@
 
   /* Backgrounds */
   --color-background-base: var(--color-primitive-white);
-  /* Lienzo humo: detrás de superficies interactivas, no sustituye base. */
-  --color-background-canvas: var(--color-primitive-neutral-exact-f5f5f5);
-  /* Series comparativas y estructura del gráfico. */
+  /* Lienzo humo: detrÃ¡s de superficies interactivas, no sustituye base. */
+  --color-background-canvas: var(--color-primitive-neutral-canvas);
+  /* Series comparativas y estructura del grÃ¡fico. */
   --color-chart-surface: var(--color-primitive-white);
   --color-chart-series-current: var(--color-primitive-brand-700);
   --color-chart-series-previous: var(--color-primitive-gray-500);
@@ -137,7 +135,7 @@
   --color-chart-tooltip-background: var(--color-primitive-white);
   --color-chart-tooltip-text: var(--color-primitive-gray-700);
   --color-chart-tooltip-border: var(--color-primitive-gray-300);
-  --color-background-selected: var(--color-primitive-brand-exact-f0f6ff);
+  --color-background-selected: #f0f6ff;
   --color-background-disabled: var(--color-primitive-gray-100);
   --color-background-neutral-subtlest: var(--color-primitive-gray-050);
   --color-background-neutral-subtle: var(--color-primitive-gray-100);
@@ -145,12 +143,12 @@
   --color-background-neutral-bolder: var(--color-primitive-gray-300);
   --color-background-neutral-boldest: var(--color-primitive-gray-400);
   --color-background-neutral-strongest: var(--color-primitive-gray-700);
-  --color-background-brand-subtlest: var(--color-primitive-brand-exact-f0f6ff);
+  --color-background-brand-subtlest: #f0f6ff;
   --color-background-brand-subtle: var(--color-primitive-brand-050);
   --color-background-brand-default: var(--color-primitive-brand-700);
   --color-background-brand-bolder: var(--color-primitive-brand-800);
   --color-background-brand-boldest: var(--color-primitive-brand-900);
-  --color-background-brand-strongest: var(--color-primitive-brand-exact-0f213d);
+  --color-background-brand-strongest: #0f213d;
   --color-background-danger-subtlest: var(--color-primitive-danger-050);
   --color-background-danger-subtle: var(--color-primitive-danger-100);
   --color-background-danger-default: var(--color-primitive-danger-500);
@@ -169,7 +167,7 @@
   --color-background-success-bolder: var(--color-primitive-success-600);
   --color-background-success-boldest: var(--color-primitive-success-700);
   --color-background-success-strongest: var(--color-primitive-success-800);
-  /* Background state variants — hover / pressed */
+  /* Background state variants â€” hover / pressed */
   --color-background-neutral-subtlest-hover: var(--color-primitive-gray-100);
   --color-background-neutral-subtlest-pressed: var(--color-primitive-gray-200);
   --color-background-neutral-subtle-hover: var(--color-primitive-gray-200);
@@ -189,7 +187,7 @@
   --color-background-brand-default-hover: var(--color-primitive-brand-800);
   --color-background-brand-default-pressed: var(--color-primitive-brand-900);
   --color-background-brand-bolder-hover: var(--color-primitive-brand-900);
-  --color-background-brand-bolder-pressed: var(--color-primitive-brand-exact-0f213d);
+  --color-background-brand-bolder-pressed: #0f213d;
   --color-background-brand-boldest-hover: var(--color-primitive-brand-800);
   --color-background-brand-boldest-pressed: var(--color-primitive-brand-700);
   --color-background-brand-strongest-hover: var(--color-primitive-brand-900);
@@ -246,7 +244,7 @@
   --color-text-selected: var(--color-primitive-brand-800);
   --color-text-disabled: var(--color-primitive-gray-400);
   --color-text-brand-subtlest: var(--color-primitive-brand-400);
-  --color-text-brand-subtle: var(--color-primitive-brand-exact-3474d8);
+  --color-text-brand-subtle: var(--color-primitive-brand-text-subtle);
   --color-text-brand-default: var(--color-primitive-brand-800);
   --color-text-brand-bolder: var(--color-primitive-brand-900);
   --color-text-danger-subtlest: var(--color-primitive-danger-300);
@@ -263,7 +261,7 @@
   --color-text-success-bolder: var(--color-primitive-success-700);
   --color-text-link-default: var(--color-primitive-brand-800);
   --color-text-link-hover: var(--color-primitive-brand-900);
-  --color-text-link-pressed: var(--color-primitive-brand-exact-0f213d);
+  --color-text-link-pressed: #0f213d;
   --color-text-link-visited: var(--color-primitive-brand-700);
 
   /* Borders */
@@ -324,10 +322,10 @@
   --color-accent-yellow: var(--color-primitive-yellow-200);
   --color-accent-orange: var(--color-primitive-warning-600);
 
-  /* Map — categorías GPS y estado del marcador de vehículo; alias sobre
+  /* Map â€” categorÃ­as GPS y estado del marcador de vehÃ­culo; alias sobre
      accents/status ya existentes (ver Mapa / Tema del mapa), no colores
-     nuevos. El vehículo reutiliza los 3 tokens de estado de arriba sin el
-     tier de warning; el GPS sí usa los 4 (agrega low-signal). */
+     nuevos. El vehÃ­culo reutiliza los 3 tokens de estado de arriba sin el
+     tier de warning; el GPS sÃ­ usa los 4 (agrega low-signal). */
   --color-map-gps-flotas: var(--color-primitive-blue-400);
   --color-map-gps-basico: var(--color-primitive-teal-300);
   --color-map-gps-contingencia: var(--color-primitive-purple-400);
@@ -408,8 +406,8 @@
   --layout-size-2xl: 64px;
   --layout-size-3xl: 80px;
 
-  /* Breakpoints — cinco puntos, declarados una sola vez y compartidos por
-     cada decisión responsive del sistema (incluye qué modo de side nav
+  /* Breakpoints â€” cinco puntos, declarados una sola vez y compartidos por
+     cada decisiÃ³n responsive del sistema (incluye quÃ© modo de side nav
      aplica por defecto, ver foundations/layout). */
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
@@ -417,15 +415,15 @@
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
 
-  /* Layout — estructura del shell de página (topnav/sidenav/panel), no
+  /* Layout â€” estructura del shell de pÃ¡gina (topnav/sidenav/panel), no
      confundir con la escala primitiva --layout-padding/gap/radius/size de
-     arriba. Ver foundations/layout para el detalle de las cuatro áreas. */
+     arriba. Ver foundations/layout para el detalle de las cuatro Ã¡reas. */
   --layout-topnav-height: 56px;
   --layout-sidenav-width-expanded: 240px;
   --layout-sidenav-width-collapsed: 64px;
   --layout-panel-width: 192px;
 
-  /* Tipografía generada por Tailwind desde lib/tokens/typography.mjs. */
+  /* TipografÃ­a generada por Tailwind desde lib/tokens/typography.mjs. */
 
   /* Primitivos de movimiento */
   --motion-duration-fast: 100ms;
@@ -458,8 +456,8 @@
   --color-border-secondary-default: var(--color-primitive-secondary-200);
   --color-text-secondary-default: var(--color-primitive-secondary-050);
   --color-icon-secondary-default: var(--color-primitive-secondary-200);
-  --color-background-base: var(--color-primitive-neutral-exact-0c0e16);
-  --color-background-canvas: var(--color-primitive-neutral-exact-0c0e16);
+  --color-background-base: var(--color-primitive-neutral-ink);
+  --color-background-canvas: var(--color-primitive-neutral-ink);
   --color-chart-surface: var(--color-primitive-gray-900);
   --color-chart-series-current: var(--color-primitive-brand-300);
   --color-chart-series-previous: var(--color-primitive-gray-400);
@@ -476,10 +474,10 @@
   --color-background-neutral-bolder: var(--color-primitive-gray-600);
   --color-background-neutral-boldest: var(--color-primitive-gray-500);
   --color-background-neutral-strongest: var(--color-primitive-gray-400);
-  --color-background-brand-subtlest: var(--color-primitive-brand-exact-0a121f);
+  --color-background-brand-subtlest: var(--color-primitive-brand-dark-subtlest);
   --color-background-brand-subtle: var(--color-primitive-brand-950);
   --color-background-brand-default: var(--color-primitive-brand-600);
-  --color-background-brand-bolder: var(--color-primitive-brand-exact-79a1e0);
+  --color-background-brand-bolder: var(--color-primitive-brand-raised-light);
   --color-background-brand-boldest: var(--color-primitive-brand-300);
   --color-background-brand-strongest: var(--color-primitive-brand-100);
   --color-background-danger-subtlest: var(--color-primitive-danger-950);
@@ -500,7 +498,7 @@
   --color-background-success-bolder: var(--color-primitive-success-600);
   --color-background-success-boldest: var(--color-primitive-success-500);
   --color-background-success-strongest: var(--color-primitive-success-400);
-  /* Background state variants — hover / pressed (dark) */
+  /* Background state variants â€” hover / pressed (dark) */
   --color-background-neutral-subtlest-hover: var(--color-primitive-gray-800);
   --color-background-neutral-subtlest-pressed: var(--color-primitive-gray-700);
   --color-background-neutral-subtle-hover: var(--color-primitive-gray-700);
@@ -517,7 +515,7 @@
   --color-background-brand-subtlest-pressed: var(--color-primitive-brand-900);
   --color-background-brand-subtle-hover: var(--color-primitive-brand-900);
   --color-background-brand-subtle-pressed: var(--color-primitive-brand-800);
-  --color-background-brand-default-hover: var(--color-primitive-brand-exact-79a1e0);
+  --color-background-brand-default-hover: var(--color-primitive-brand-raised-light);
   --color-background-brand-default-pressed: var(--color-primitive-brand-300);
   --color-background-brand-bolder-hover: var(--color-primitive-brand-300);
   --color-background-brand-bolder-pressed: var(--color-primitive-brand-100);
@@ -593,7 +591,7 @@
   --color-text-link-default: var(--color-primitive-brand-600);
   --color-text-link-hover: var(--color-primitive-brand-500);
   --color-text-link-pressed: var(--color-primitive-brand-400);
-  --color-text-link-visited: var(--color-primitive-brand-exact-4d83d5);
+  --color-text-link-visited: var(--color-primitive-brand-link-visited);
   --color-border-default: var(--color-primitive-gray-700);
   --color-border-selected: var(--color-primitive-brand-600);
   --color-border-disabled: var(--color-primitive-gray-800);
@@ -632,7 +630,7 @@
   --color-accent-yellow: var(--color-primitive-yellow-100);
   --color-accent-orange: var(--color-primitive-warning-400);
 
-  /* Map (dark) — mismos alias que el tema claro, ver ese bloque. */
+  /* Map (dark) â€” mismos alias que el tema claro, ver ese bloque. */
   --color-map-gps-flotas: var(--color-primitive-blue-300);
   --color-map-gps-basico: var(--color-primitive-teal-200);
   --color-map-gps-contingencia: var(--color-primitive-purple-300);
@@ -651,11 +649,11 @@
   --elevation-surface-default: var(--color-primitive-gray-900);
   --elevation-surface-raised: var(--color-primitive-gray-800);
   --elevation-surface-overlay: var(--color-primitive-gray-700);
-  --elevation-surface-sunken: var(--color-primitive-neutral-exact-0c0e16);
+  --elevation-surface-sunken: var(--color-primitive-neutral-ink);
 }
 
-/* Contexto glass de gráficos: solo cambia los roles del gráfico; no crea un
-   tercer tema para los demás componentes. */
+/* Contexto glass de grÃ¡ficos: solo cambia los roles del grÃ¡fico; no crea un
+   tercer tema para los demÃ¡s componentes. */
 [data-theme="glass"] {
   --color-chart-surface: var(--color-primitive-brand-800);
   --color-chart-series-current: var(--color-primitive-white);
@@ -668,7 +666,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   ALIAS DE RADIO Y PRIMITIVOS DE EFECTO — independientes del tema
+   ALIAS DE RADIO Y PRIMITIVOS DE EFECTO â€” independientes del tema
    -------------------------------------------------------------------------- */
 :root {
   /* Alias de radio: siempre apuntan al primitivo de igual valor. */
