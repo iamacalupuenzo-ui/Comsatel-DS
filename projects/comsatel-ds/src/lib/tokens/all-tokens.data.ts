@@ -66,7 +66,7 @@ export const ALL_TOKENS: TokenSection[] = [
           {
             "name": "--color-background-disabled",
             "light": "#f2f4f7",
-            "dark": "#1a1d2e",
+            "dark": "#111827",
             "usage": "Fondo de control deshabilitado",
             "lightRef": "gray-100",
             "darkRef": "surface-disabled"
@@ -330,7 +330,7 @@ export const ALL_TOKENS: TokenSection[] = [
           {
             "name": "--color-background-brand-default",
             "light": "#6172f3",
-            "dark": "#3538cd",
+            "dark": "#3f7ad5",
             "usage": "Fondo de acción primaria, botones, CTAs",
             "lightRef": "brand-500",
             "darkRef": "brand-700"
@@ -394,7 +394,7 @@ export const ALL_TOKENS: TokenSection[] = [
           {
             "name": "--color-background-brand-boldest-pressed",
             "light": "#6172f3",
-            "dark": "#a4bcfb",
+            "dark": "#dbe9ff",
             "usage": "Estado pressed de boldest",
             "lightRef": "brand-500",
             "darkRef": "brand-300"
@@ -410,7 +410,7 @@ export const ALL_TOKENS: TokenSection[] = [
           {
             "name": "--color-background-brand-strongest-hover",
             "light": "#3538cd",
-            "dark": "#a4bcfb",
+            "dark": "#dbe9ff",
             "usage": "Estado hover de strongest",
             "lightRef": "brand-700",
             "darkRef": "brand-300"
@@ -1178,7 +1178,7 @@ export const ALL_TOKENS: TokenSection[] = [
           {
             "name": "--color-border-brand-subtle",
             "light": "#a4bcfb",
-            "dark": "#3538cd",
+            "dark": "#3f7ad5",
             "usage": "Borde de marca sutil",
             "lightRef": "brand-300",
             "darkRef": "brand-700"
