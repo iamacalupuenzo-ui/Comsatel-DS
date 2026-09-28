@@ -44,3 +44,7 @@ h3[id] {
 .change-badge--intro {
   margin-inline: 0 var(--layout-gap-sm);
 }
+/* Junto al nombre del componente, en el título de su página. */
+.change-badge--title {
+  margin-inline-start: var(--layout-gap-lg);
+}

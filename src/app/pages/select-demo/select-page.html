@@ -1,6 +1,6 @@
 <div class="page">
   <p class="eyebrow">Componentes / Select</p>
-  <h1 class="title">Select</h1>
+  <h1 class="title">Select<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.0</span></h1>
   <p class="description">
     Select permite elegir uno o varios valores dentro de un formulario, a diferencia de Dropdown,
     que dispara acciones. En modo múltiple, las opciones elegidas se muestran como chips dentro del
@@ -23,26 +23,10 @@
     </div>
   </section>
 
-  <!-- Filtro de barra -->
-  <section class="section">
-    <h2 class="section__title" id="select-filter">Filtro múltiple de barra</h2>
-    <p class="section__intro"><span class="change-badge change-badge--intro" data-kind="nuevo">Nuevo · v0.3.0</span>
-      En una barra de filtros, el modo múltiple muestra un resumen de una línea en vez de chips: la opción si es
-      una sola, o el conteo si son varias. Ninguna o todas las opciones marcadas equivalen a «todos», y en ese caso
-      el filtro deja de verse aplicado. Con <code>menuFit</code>, la lista mide al menos lo mismo que el campo y crece
-      con la opción más larga hasta el borde visible.
-    </p>
-    <div class="bounded-selects">
-      <cs-select label="Tipo de unidad" placeholder="Todos los tipos" [multiple]="true" multipleDisplay="summary"
-        [summaryLabel]="unitTypeSummary" [menuFit]="true" [options]="unitTypeOptions"
-        [value]="filterValue()" [active]="filterActive()" (valueChange)="filterValue.set($any($event))" />
-    </div>
-  </section>
-
   <!-- Playground -->
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>
-    <p class="section__intro"><span class="change-badge change-badge--intro" data-kind="actualizado">Actualizado · v0.3.0</span>Ajusta los controles para explorar la selección simple y múltiple.</p>
+    <p class="section__intro">Ajusta los controles para explorar la selección simple y múltiple.</p>
     <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
       <div class="select-stage">
         <cs-select
@@ -68,7 +52,7 @@
   <!-- Estados -->
   <section class="section">
     <h2 class="section__title" id="states">Estados</h2>
-    <p class="section__intro"><span class="change-badge change-badge--intro" data-kind="actualizado">Actualizado · v0.3.0</span>Placeholder (vacío), lleno (valor único), múltiple (chips y resumen), filtro aplicado, error, solo lectura y deshabilitado. El foco y la apertura tienen prioridad sobre el estado aplicado, y el error sobre ambos.</p>
+    <p class="section__intro">Placeholder (vacío), lleno (valor único), múltiple (chips y resumen), filtro aplicado, error, solo lectura y deshabilitado. El foco y la apertura tienen prioridad sobre el estado aplicado, y el error sobre ambos.</p>
     <div class="static-block">
       <div class="static-block__preview states-grid">
         <div class="states-grid__item">

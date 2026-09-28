@@ -1,6 +1,6 @@
 <div class="page">
   <p class="eyebrow">Componentes / Dropdown</p>
-  <h1 class="title">Dropdown</h1>
+  <h1 class="title">Dropdown<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.0</span></h1>
   <p class="description">
     Los dropdowns presentan una lista de opciones activada por un botón, ícono o input. Admite
     ítems agrupados, atajos de teclado, badges, variantes destructiva/éxito, y tamaños xs / sm / md / lg.
@@ -198,7 +198,7 @@
   <!-- Input Dropdown — Playground -->
   <section class="section">
     <h2 class="section__title" id="input-dropdown-playground">Input Dropdown — Playground</h2>
-    <p class="section__intro"><span class="change-badge change-badge--intro" data-kind="actualizado">Actualizado · v0.3.0</span>Un combobox tipo select vinculado a un valor. Admite label, placeholder, required, disabled y estado controlado.</p>
+    <p class="section__intro">Un combobox tipo select vinculado a un valor. Admite label, placeholder, required, disabled y estado controlado.</p>
 
     <app-demo-shell [controls]="inputPlaygroundControls" [code]="ipgCode()" (stateChange)="onInputPlaygroundState($event)">
       <div class="stage stage--wide">
@@ -223,7 +223,7 @@
   <!-- Input Dropdown — Estados -->
   <section class="section">
     <h2 class="section__title" id="input-dropdown-states">Input Dropdown — Estados</h2>
-    <p class="section__intro"><span class="change-badge change-badge--intro" data-kind="actualizado">Actualizado · v0.3.0</span>Placeholder (vacío), lleno, filtro aplicado, error, solo lectura y deshabilitado. El foco y la apertura tienen prioridad sobre el estado aplicado, y el error sobre ambos. Al pasar el cursor, el borde se refuerza igual que en Input.</p>
+    <p class="section__intro">Placeholder (vacío), lleno, filtro aplicado, error, solo lectura y deshabilitado. El foco y la apertura tienen prioridad sobre el estado aplicado, y el error sobre ambos. Al pasar el cursor, el borde se refuerza igual que en Input.</p>
     <app-demo-shell
       [controls]="[]"
       code="<cs-input-dropdown label=&quot;Placeholder&quot; [options]=&quot;options&quot;></cs-input-dropdown>
@@ -238,40 +238,10 @@
         <cs-input-dropdown label="Error" [options]="inputOptions" value="design" [invalid]="true"></cs-input-dropdown>
         <cs-input-dropdown label="Solo lectura" [options]="inputOptions" value="design" [readonly]="true"></cs-input-dropdown>
         <cs-input-dropdown size="xs" aria-label="Celda de tabla (xs, 24 px)" [options]="inputOptions" value="design" [menuFit]="true"></cs-input-dropdown>
+        <cs-input-dropdown label="Con etiquetas de estado" [menuFit]="true" [options]="gpsOptions" [value]="gpsValue()" (valueChange)="gpsValue.set($event)"></cs-input-dropdown>
+        <cs-input-dropdown label="Filtro con opción larga" [menuFit]="true" [options]="filterOptions" [value]="filterValue()" [active]="!!filterValue()" (valueChange)="filterValue.set($event)"></cs-input-dropdown>
       </div>
     </app-demo-shell>
-  </section>
-
-  <!-- Input Dropdown — Filtro de barra -->
-  <section class="section">
-    <h2 class="section__title" id="input-dropdown-filter">Input Dropdown — Filtro de barra</h2>
-    <p class="section__intro"><span class="change-badge change-badge--intro" data-kind="nuevo">Nuevo · v0.3.0</span>
-      En una barra de filtros, <code>active</code> marca el filtro aplicado cuando el valor no es «todos».
-      Con <code>menuFit</code>, la lista mide al menos lo mismo que el campo y crece con la opción más larga hasta el
-      borde visible; recién ahí parte el texto. Al abrir, el foco va a la opción elegida, y Escape cierra solo esta
-      lista, no el panel que la contiene.
-    </p>
-    <div class="stage stage--col">
-      <div style="width: 200px;">
-        <cs-input-dropdown aria-label="Estado" [fullWidth]="true" [menuFit]="true" [options]="filterOptions"
-          [value]="filterValue()" [active]="!!filterValue()" (valueChange)="filterValue.set($event)"></cs-input-dropdown>
-      </div>
-    </div>
-  </section>
-
-  <!-- Input Dropdown — Etiquetas de estado -->
-  <section class="section">
-    <h2 class="section__title" id="input-dropdown-tags">Input Dropdown — Etiquetas de estado</h2>
-    <p class="section__intro"><span class="change-badge change-badge--intro" data-kind="nuevo">Nuevo · v0.3.0</span>
-      Cada opción puede llevar una etiqueta de estado (<code>tag</code>) con tono <code>success</code>, <code>danger</code>
-      o <code>neutral</code>. Se muestra junto al texto, en el campo y en la lista; por ejemplo, la señal de cada GPS.
-    </p>
-    <div class="stage stage--col">
-      <div style="width: 280px;">
-        <cs-input-dropdown label="GPS" [fullWidth]="true" [menuFit]="true" [options]="gpsOptions"
-          [value]="gpsValue()" (valueChange)="gpsValue.set($event)"></cs-input-dropdown>
-      </div>
-    </div>
   </section>
 
   <!-- Accesibilidad -->
