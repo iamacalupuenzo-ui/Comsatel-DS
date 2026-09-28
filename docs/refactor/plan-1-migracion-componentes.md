@@ -4,9 +4,12 @@
 
 El DS ya ofrece los controles principales, pero le faltan contratos para filtros aplicados, fecha sola, autocompletado, paneles de mapa y gráficos comparativos. La ejecución sigue ahora el [marco atómico](plan-1/marco-atomico.md): Primitivos → Semánticos → Átomos → Moléculas → Organismos → Plantillas → Páginas de referencia, con validación entre niveles. La lógica de órdenes, telemetría y datos queda como contexto de los ejemplos, no como API del DS.
 
+El eje de orden es el [marco atómico](plan-1/marco-atomico.md), con el [inventario completo de componentes y patrones](plan-1/marco-atomico-inventario.md) como segunda parte.
+
 ## Recursos
 
-- [Marco atómico — orden, puertas e inventario completo](plan-1/marco-atomico.md)
+- [Marco atómico — fundamentos, orden y puertas](plan-1/marco-atomico.md)
+- [Marco atómico — inventario de niveles 2 a 6](plan-1/marco-atomico-inventario.md)
 - [Parte 0 — Método y matriz](plan-1/parte-0-metodo.md)
 - [Parte 1 — Tokens y fundamentos](plan-1/parte-1-tokens.md)
 - [Parte 2 — Controles básicos](plan-1/parte-2-basicos.md)
