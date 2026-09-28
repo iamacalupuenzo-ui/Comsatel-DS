@@ -238,8 +238,6 @@
         <cs-input-dropdown label="Error" [options]="inputOptions" value="design" [invalid]="true"></cs-input-dropdown>
         <cs-input-dropdown label="Solo lectura" [options]="inputOptions" value="design" [readonly]="true"></cs-input-dropdown>
         <cs-input-dropdown size="xs" aria-label="Celda de tabla (xs, 24 px)" [options]="inputOptions" value="design" [menuFit]="true"></cs-input-dropdown>
-        <cs-input-dropdown label="Con etiquetas de estado" [menuFit]="true" [options]="gpsOptions" [value]="gpsValue()" (valueChange)="gpsValue.set($event)"></cs-input-dropdown>
-        <cs-input-dropdown label="Filtro con opción larga" [menuFit]="true" [options]="filterOptions" [value]="filterValue()" [active]="!!filterValue()" (valueChange)="filterValue.set($event)"></cs-input-dropdown>
       </div>
     </app-demo-shell>
   </section>

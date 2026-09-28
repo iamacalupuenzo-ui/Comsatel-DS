@@ -32,22 +32,21 @@ export class SelectPage {
     { kind: 'select', label: 'Tamaño', key: 'size', options: ['xs', 'sm', 'md', 'lg'], default: 'md' },
     { kind: 'toggle', label: 'Label', key: 'showLabel', default: true },
     { kind: 'toggle', label: 'Requerido', key: 'required', default: false },
-    { kind: 'toggle', label: 'Deshabilitado', key: 'disabled', default: false },
-    { kind: 'toggle', label: 'Solo lectura', key: 'readonly', default: false },
-    { kind: 'toggle', label: 'Error', key: 'invalid', default: false },
+    { kind: 'select', label: 'Estado', key: 'state', options: [{ value: 'default', label: 'Por defecto' }, { value: 'active', label: 'Filtro aplicado' }, { value: 'invalid', label: 'Error' }, { value: 'readonly', label: 'Solo lectura' }, { value: 'disabled', label: 'Deshabilitado' }], default: 'default' },
     { kind: 'toggle', label: 'Resumen en una línea', key: 'summary', default: false },
-    { kind: 'toggle', label: 'Filtro aplicado', key: 'active', default: false },
     { kind: 'toggle', label: 'Menú ajustado al campo', key: 'menuFit', default: false },
   ];
   protected readonly pgMultiple = signal(false);
   protected readonly pgSize = signal<'xs' | 'sm' | 'md' | 'lg'>('md');
   protected readonly pgShowLabel = signal(true);
   protected readonly pgRequired = signal(false);
-  protected readonly pgDisabled = signal(false);
-  protected readonly pgReadonly = signal(false);
-  protected readonly pgInvalid = signal(false);
+  /** Un solo estado a la vez: se elige en el selector «Estado» del playground. */
+  protected readonly pgState = signal('default');
+  protected readonly pgDisabled = computed(() => this.pgState() === 'disabled');
+  protected readonly pgReadonly = computed(() => this.pgState() === 'readonly');
+  protected readonly pgInvalid = computed(() => this.pgState() === 'invalid');
   protected readonly pgSummary = signal(false);
-  protected readonly pgActive = signal(false);
+  protected readonly pgActive = computed(() => this.pgState() === 'active');
   protected readonly pgMenuFit = signal(false);
   protected readonly pgSingleValue = signal('');
   protected readonly pgMultipleValue = signal<string[]>([]);
@@ -77,11 +76,8 @@ export class SelectPage {
     if (s['size']) this.pgSize.set(s['size'] as 'xs' | 'sm' | 'md' | 'lg');
     if (s['showLabel'] !== undefined) this.pgShowLabel.set(!!s['showLabel']);
     if (s['required'] !== undefined) this.pgRequired.set(!!s['required']);
-    if (s['disabled'] !== undefined) this.pgDisabled.set(!!s['disabled']);
-    if (s['readonly'] !== undefined) this.pgReadonly.set(!!s['readonly']);
-    if (s['invalid'] !== undefined) this.pgInvalid.set(!!s['invalid']);
+    if (s['state']) this.pgState.set(String(s['state']));
     if (s['summary'] !== undefined) this.pgSummary.set(!!s['summary']);
-    if (s['active'] !== undefined) this.pgActive.set(!!s['active']);
     if (s['menuFit'] !== undefined) this.pgMenuFit.set(!!s['menuFit']);
   }
 

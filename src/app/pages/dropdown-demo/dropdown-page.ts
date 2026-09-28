@@ -178,10 +178,7 @@ export class DropdownPage {
     { kind: 'select', label: 'Tamaño', key: 'size', options: SIZES, default: 'md' },
     { kind: 'toggle', label: 'Etiqueta', key: 'showLabel', default: true },
     { kind: 'toggle', label: 'Requerido', key: 'required', default: false },
-    { kind: 'toggle', label: 'Deshabilitado', key: 'disabled', default: false },
-    { kind: 'toggle', label: 'Solo lectura', key: 'readonly', default: false },
-    { kind: 'toggle', label: 'Error', key: 'invalid', default: false },
-    { kind: 'toggle', label: 'Filtro aplicado', key: 'active', default: false },
+    { kind: 'select', label: 'Estado', key: 'state', options: [{ value: 'default', label: 'Por defecto' }, { value: 'active', label: 'Filtro aplicado' }, { value: 'invalid', label: 'Error' }, { value: 'readonly', label: 'Solo lectura' }, { value: 'disabled', label: 'Deshabilitado' }], default: 'default' },
     { kind: 'toggle', label: 'Menú ajustado al campo', key: 'menuFit', default: false },
     { kind: 'toggle', label: 'Etiquetas de estado', key: 'tags', default: false },
   ];
@@ -189,10 +186,12 @@ export class DropdownPage {
   protected readonly ipgSize = signal<DropdownSize>('md');
   protected readonly ipgShowLabel = signal(true);
   protected readonly ipgRequired = signal(false);
-  protected readonly ipgDisabled = signal(false);
-  protected readonly ipgReadonly = signal(false);
-  protected readonly ipgInvalid = signal(false);
-  protected readonly ipgActive = signal(false);
+  /** Un solo estado a la vez: se elige en el selector «Estado» del playground. */
+  protected readonly ipgState = signal('default');
+  protected readonly ipgDisabled = computed(() => this.ipgState() === 'disabled');
+  protected readonly ipgReadonly = computed(() => this.ipgState() === 'readonly');
+  protected readonly ipgInvalid = computed(() => this.ipgState() === 'invalid');
+  protected readonly ipgActive = computed(() => this.ipgState() === 'active');
   protected readonly ipgMenuFit = signal(false);
   protected readonly ipgTags = signal(false);
   protected readonly ipgValue = signal('');
@@ -206,10 +205,7 @@ export class DropdownPage {
     if (s['size']) this.ipgSize.set(s['size'] as DropdownSize);
     if (s['showLabel'] !== undefined) this.ipgShowLabel.set(!!s['showLabel']);
     if (s['required'] !== undefined) this.ipgRequired.set(!!s['required']);
-    if (s['disabled'] !== undefined) this.ipgDisabled.set(!!s['disabled']);
-    if (s['readonly'] !== undefined) this.ipgReadonly.set(!!s['readonly']);
-    if (s['invalid'] !== undefined) this.ipgInvalid.set(!!s['invalid']);
-    if (s['active'] !== undefined) this.ipgActive.set(!!s['active']);
+    if (s['state']) this.ipgState.set(String(s['state']));
     if (s['menuFit'] !== undefined) this.ipgMenuFit.set(!!s['menuFit']);
     if (s['tags'] !== undefined) this.ipgTags.set(!!s['tags']);
   }

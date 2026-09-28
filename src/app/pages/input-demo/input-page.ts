@@ -63,19 +63,18 @@ export class InputPage {
   protected readonly playgroundControls: ControlDef[] = [
     { kind: 'select', label: 'Tamaño', key: 'size', options: SIZES, default: 'md' },
     { kind: 'select', label: 'Tipo', key: 'inputType', options: INPUT_TYPE_OPTIONS, default: 'default' },
-    { kind: 'toggle', label: 'Deshabilitado', key: 'disabled', default: false },
-    { kind: 'toggle', label: 'Inválido', key: 'invalid', default: false },
-    { kind: 'toggle', label: 'Solo lectura', key: 'readonly', default: false },
-    { kind: 'toggle', label: 'Filtro aplicado', key: 'active', default: false },
+    { kind: 'select', label: 'Estado', key: 'state', options: [{ value: 'default', label: 'Por defecto' }, { value: 'active', label: 'Filtro aplicado' }, { value: 'invalid', label: 'Error' }, { value: 'readonly', label: 'Solo lectura' }, { value: 'disabled', label: 'Deshabilitado' }], default: 'default' },
     { kind: 'toggle', label: 'Botón limpiar', key: 'clear', default: false },
   ];
 
   protected readonly pgSize = signal<InputFieldSize>('md');
   protected readonly pgType = signal<InputTypeKind>('default');
-  protected readonly pgDisabled = signal(false);
-  protected readonly pgInvalid = signal(false);
-  protected readonly pgReadonly = signal(false);
-  protected readonly pgActive = signal(false);
+  /** Un solo estado a la vez: se elige en el selector «Estado» del playground. */
+  protected readonly pgState = signal('default');
+  protected readonly pgDisabled = computed(() => this.pgState() === 'disabled');
+  protected readonly pgInvalid = computed(() => this.pgState() === 'invalid');
+  protected readonly pgReadonly = computed(() => this.pgState() === 'readonly');
+  protected readonly pgActive = computed(() => this.pgState() === 'active');
   protected readonly pgClear = signal(false);
   protected readonly pgPhoneCode = signal('+33');
   protected readonly pgCurrency = signal('USD');
@@ -83,10 +82,7 @@ export class InputPage {
   protected onPlaygroundState(s: DemoState): void {
     if (s['size']) this.pgSize.set(s['size'] as InputFieldSize);
     if (s['inputType']) this.pgType.set(s['inputType'] as InputTypeKind);
-    if (s['disabled'] !== undefined) this.pgDisabled.set(!!s['disabled']);
-    if (s['invalid'] !== undefined) this.pgInvalid.set(!!s['invalid']);
-    if (s['readonly'] !== undefined) this.pgReadonly.set(!!s['readonly']);
-    if (s['active'] !== undefined) this.pgActive.set(!!s['active']);
+    if (s['state']) this.pgState.set(String(s['state']));
     if (s['clear'] !== undefined) this.pgClear.set(!!s['clear']);
   }
 

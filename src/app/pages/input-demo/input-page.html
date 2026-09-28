@@ -99,16 +99,6 @@
         <cs-input [required]="true" placeholder="Requerido" aria-label="Campo requerido"></cs-input>
         <cs-input [readonly]="true" value="Solo lectura" aria-label="Campo de solo lectura"></cs-input>
         <cs-input [active]="true" value="Filtro aplicado" aria-label="Filtro aplicado"></cs-input>
-        <cs-input-group [active]="!!searchValue()">
-          <cs-input-group-addon><cs-icon name="search" [size]="16" aria-hidden="true" /></cs-input-group-addon>
-          <cs-input-group-input aria-label="Buscar unidades" placeholder="Buscar unidades" [value]="searchValue()" (valueChange)="searchValue.set($event)" />
-          <cs-input-group-clear label="Limpiar búsqueda" />
-        </cs-input-group>
-        <cs-input-group>
-          <cs-input-group-input aria-label="Fecha de registro" [readonly]="true" value="28/09/2026" />
-          <cs-input-group-addon align="inline-end"><cs-icon name="calendar" [size]="16" aria-hidden="true" /></cs-input-group-addon>
-        </cs-input-group>
-        <cs-password-input aria-label="Contraseña" autocomplete="current-password" placeholder="Ingresa tu contraseña" />
       </div>
     </app-demo-shell>
   </section>
