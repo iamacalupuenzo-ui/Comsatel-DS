@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { Icon } from '../icons/icon';
 
-/** Acción de limpieza para un cs-input-group; se proyecta al final del grupo. */
+/** Acción de limpieza para un cs-input-group, directa o dentro de un addon. */
 @Component({
   selector: 'cs-input-group-clear',
   imports: [Icon],
@@ -22,7 +22,7 @@ export class InputGroupClear {
   constructor(private readonly element: ElementRef<HTMLElement>) {}
 
   clear(): void {
-    const input = this.element.nativeElement.parentElement?.querySelector('input');
+    const input = this.element.nativeElement.closest('.cs-input-group')?.querySelector('input');
     if (!input || input.disabled || input.readOnly) return;
     input.value = '';
     input.dispatchEvent(new Event('input', { bubbles: true }));

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { InputGroup } from './input-group';
+import { InputGroupAddon } from './input-group-addon';
 import { InputGroupInput } from './input-group-input';
 import { InputGroupClear } from './input-group-clear';
 
@@ -14,6 +15,16 @@ class Host {
   onCleared(): void { this.cleared++; }
 }
 
+@Component({
+  imports: [InputGroup, InputGroupAddon, InputGroupInput, InputGroupClear],
+  template: `<cs-input-group><cs-input-group-input aria-label="Buscar" [value]="value" (valueChange)="value = $event" /><cs-input-group-addon align="inline-end"><cs-input-group-clear label="Limpiar búsqueda" (cleared)="onCleared()" /></cs-input-group-addon></cs-input-group>`,
+})
+class HostInAddon {
+  value = 'VHC-002';
+  cleared = 0;
+  onCleared(): void { this.cleared++; }
+}
+
 describe('InputGroupClear', () => {
   it('limpia el valor controlado, emite el evento y devuelve el foco', async () => {
     await TestBed.configureTestingModule({ imports: [Host] }).compileComponents();
@@ -22,6 +33,20 @@ describe('InputGroupClear', () => {
     const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
     const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
     expect(button.getAttribute('aria-label')).toBe('Limpiar búsqueda');
+    button.click();
+    fixture.detectChanges();
+    expect(fixture.componentInstance.value).toBe('');
+    expect(fixture.componentInstance.cleared).toBe(1);
+    expect(input.value).toBe('');
+    expect(document.activeElement).toBe(input);
+  });
+
+  it('encuentra el input cuando la acción está dentro de un addon', async () => {
+    await TestBed.configureTestingModule({ imports: [HostInAddon] }).compileComponents();
+    const fixture = TestBed.createComponent(HostInAddon);
+    fixture.detectChanges();
+    const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+    const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
     button.click();
     fixture.detectChanges();
     expect(fixture.componentInstance.value).toBe('');
