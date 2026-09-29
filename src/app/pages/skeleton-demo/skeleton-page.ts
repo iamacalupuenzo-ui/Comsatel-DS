@@ -15,14 +15,16 @@ const VARIANTS: { value: SkeletonVariant; label: string; when: string }[] = [
   styleUrl: './skeleton-page.css',
 })
 export class SkeletonPage {
+  protected readonly states = VARIANTS;
   protected readonly controls: ControlDef[] = [
-    { kind: 'select', label: 'Variante', key: 'variant', options: VARIANTS.map(({ value, label }) => ({ value, label })), default: 'text' },
+    { kind: 'select', label: 'Estado', key: 'variant', options: VARIANTS.map(({ value, label }) => ({ value, label })), default: 'text' },
     { kind: 'select', label: 'Ancho', key: 'width', options: ['100%', '75%', '50%'], default: '100%' },
   ];
   protected readonly variant = signal<SkeletonVariant>('text');
   protected readonly width = signal('100%');
   protected readonly info = computed(() => VARIANTS.find((v) => v.value === this.variant()) ?? VARIANTS[0]);
   protected readonly size = computed(() => (this.variant() === 'circle' ? 40 : this.variant() === 'rectangle' ? 96 : undefined));
+  protected stateCode(variant: SkeletonVariant): string { return `<cs-skeleton variant="${variant}" ${variant === 'circle' ? '[width]="40" [height]="40"' : variant === 'rectangle' ? 'width="100%" [height]="96"' : 'width="100%"'} />`; }
 
   protected onState(s: DemoState): void {
     if (s['variant']) this.variant.set(s['variant'] as SkeletonVariant);

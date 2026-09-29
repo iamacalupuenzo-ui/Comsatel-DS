@@ -12,9 +12,8 @@
     <h2 class="section__title" id="playground">Playground</h2>
     <p class="section__intro">Cambia el mensaje y el requerido. El control usa como id el valor de <code>for</code>, y FormField genera los ids de la ayuda y del error.</p>
     <ul class="section__intro state-list">
-      <li><strong>Tamaño:</strong> usa el mismo que el control. El label sigue la escala de campos: 12 px en sm y md, 14 px en lg.</li>
-      <li><strong>Ayuda:</strong> enlázala con <code>aria-describedby="{{ '{' }}for{{ '}' }}-help"</code>.</li>
-      <li><strong>Error:</strong> reemplaza a la ayuda; márcalo en el control con <code>[invalid]</code> y <code>aria-errormessage="{{ '{' }}for{{ '}' }}-error"</code>.</li>
+      <li><strong>{{ message() === 'none' ? 'Por defecto' : message() === 'helper' ? 'Con ayuda' : 'Con error' }}.</strong> {{ message() === 'helper' ? 'Aclara el dato esperado antes de escribir.' : message() === 'error' ? 'Indica cómo corregir el valor.' : 'Úsalo cuando la etiqueta basta para entender el campo.' }}</li>
+      <li><strong>Propiedades:</strong> <code>{{ message() === 'helper' ? 'helperText="…"' : message() === 'error' ? 'errorMessage="…"' : 'label="Código de unidad"' }}</code></li>
     </ul>
     <app-demo-shell [controls]="controls" [code]="code()" (stateChange)="onState($event)">
       <div class="stage">
@@ -23,6 +22,24 @@
         </cs-form-field>
       </div>
     </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada estado usa el mismo tamaño para la etiqueta y el control. Cámbialo dentro de cada caja.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'form-field-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="stateSizeControls" [code]="stateCode(state.key)" (stateChange)="onStateSize(state.key, $event)">
+          <div class="stage">
+            <cs-form-field [for]="'ff-state-' + state.key" label="Código de unidad" [size]="stateSizeOf(state.key)" [helperText]="state.key === 'helper' ? 'Placa o código interno de la unidad.' : ''" [errorMessage]="state.key === 'error' ? 'Ingresa el código de la unidad.' : ''" [required]="state.key === 'required'">
+              <cs-input [id]="'ff-state-' + state.key" [fieldSize]="stateSizeOf(state.key)" [invalid]="state.key === 'error'" [required]="state.key === 'required'" [aria-describedby]="state.key === 'helper' ? 'ff-state-helper-help' : ''" [aria-errormessage]="state.key === 'error' ? 'ff-state-error-error' : ''" />
+            </cs-form-field>
+          </div>
+        </app-demo-shell>
+      </div>
+    }
   </section>
 
   <!-- Casos de uso -->

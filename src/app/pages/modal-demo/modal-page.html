@@ -12,7 +12,8 @@
     <h2 class="section__title" id="playground">Playground</h2>
     <p class="section__intro">Abre el modal y ajusta apariencia, ancho y superficie.</p>
     <ul class="section__intro state-list">
-      <li><strong>Superficie.</strong> <code>surface="canvas"</code> usa el lienzo de la página cuando el modal lleva campos o tarjetas blancas; así se distinguen del fondo. La blanca, la predeterminada, es para texto corrido y confirmaciones.</li>
+      <li><strong>{{ pgAppearance() === 'default' ? 'Por defecto' : pgAppearance() === 'warning' ? 'Advertencia' : 'Peligro' }}.</strong> {{ pgAppearance() === 'default' ? 'Confirma una acción habitual.' : pgAppearance() === 'warning' ? 'Advierte sobre consecuencias que requieren atención.' : 'Confirma una acción destructiva.' }}</li>
+      <li><strong>Propiedades:</strong> <code>appearance="{{ pgAppearance() }}" surface="{{ pgSurface() }}"</code></li>
     </ul>
 
     <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
@@ -33,6 +34,24 @@
         recorrido original no cambia.
       </cs-modal>
     </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="surface">Superficie</h2>
+    <p class="section__intro">El fondo se elige según el contenido que se va a mostrar.</p>
+    @for (surface of surfaces; track surface.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'modal-surface-' + surface.key">{{ surface.title }}</h3>
+        <p class="section__intro">{{ surface.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="surfaceCode(surface.key)">
+          <cs-button variant="secondary" (click)="surfaceOpen.set(surface.key)">Abrir modal</cs-button>
+        </app-demo-shell>
+        <cs-modal [isOpen]="surfaceOpen() === surface.key" title="Editar unidad" [surface]="surface.key" [primaryAction]="{ label: 'Guardar' }" [secondaryAction]="{ label: 'Cancelar' }" (closed)="surfaceOpen.set(null)" (primaryActionClick)="surfaceOpen.set(null)" (secondaryActionClick)="surfaceOpen.set(null)">
+          @if (surface.key === 'canvas') { <div class="surface-card">Datos de la unidad: placa BAB711.</div> }
+          @else { <p>Confirma los cambios de la unidad BAB711.</p> }
+        </cs-modal>
+      </div>
+    }
   </section>
 
   <!-- Apariencia -->

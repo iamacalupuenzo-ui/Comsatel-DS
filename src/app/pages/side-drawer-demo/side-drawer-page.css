@@ -1,3 +1,7 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
 .stage {
   display: flex;
   justify-content: center;

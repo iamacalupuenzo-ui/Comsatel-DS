@@ -10,13 +10,24 @@ import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/de
 })
 export class FormFieldPage {
   protected readonly controls: ControlDef[] = [
-    { kind: 'select', label: 'Mensaje', key: 'message', options: [{ value: 'none', label: 'Ninguno' }, { value: 'helper', label: 'Ayuda' }, { value: 'error', label: 'Error' }], default: 'helper' },
+    { kind: 'select', label: 'Estado', key: 'message', options: [{ value: 'none', label: 'Por defecto' }, { value: 'helper', label: 'Con ayuda' }, { value: 'error', label: 'Con error' }], default: 'helper' },
     { kind: 'toggle', label: 'Requerido', key: 'required', default: true },
     { kind: 'select', label: 'Tamaño', key: 'size', options: [{ value: 'sm', label: 'sm' }, { value: 'md', label: 'md' }, { value: 'lg', label: 'lg' }], default: 'md' },
   ];
   protected readonly message = signal<'none' | 'helper' | 'error'>('helper');
   protected readonly required = signal(true);
   protected readonly size = signal<'sm' | 'md' | 'lg'>('md');
+  protected readonly states = [
+    { key: 'none', title: 'Por defecto', intro: 'Etiqueta y control sin texto auxiliar.', props: 'label="Código de unidad"' },
+    { key: 'helper', title: 'Con ayuda', intro: 'Explica el formato esperado antes de escribir.', props: 'helperText="Placa o código interno de la unidad."' },
+    { key: 'error', title: 'Con error', intro: 'Reemplaza la ayuda y vincula el mensaje al control.', props: 'errorMessage="Ingresa el código de la unidad."' },
+    { key: 'required', title: 'Requerido', intro: 'Muestra el asterisco junto a la etiqueta.', props: '[required]="true"' },
+  ];
+  protected readonly stateSizeControls: ControlDef[] = [{ kind: 'select', label: 'Tamaño', key: 'size', options: ['sm', 'md', 'lg'], default: 'md' }];
+  protected readonly stateSizes = signal<Record<string, 'sm' | 'md' | 'lg'>>({});
+  protected stateSizeOf(key: string): 'sm' | 'md' | 'lg' { return this.stateSizes()[key] ?? 'md'; }
+  protected onStateSize(key: string, s: DemoState): void { if (s['size']) this.stateSizes.update((sizes) => ({ ...sizes, [key]: s['size'] as 'sm' | 'md' | 'lg' })); }
+  protected stateCode(key: string): string { return `<cs-form-field for="unit-${key}" label="Código de unidad" size="${this.stateSizeOf(key)}" ${this.states.find((state) => state.key === key)?.props ?? ''}>\n  <cs-input id="unit-${key}" fieldSize="${this.stateSizeOf(key)}" />\n</cs-form-field>`; }
 
   protected onState(s: DemoState): void {
     if (s['message']) this.message.set(s['message'] as 'none' | 'helper' | 'error');

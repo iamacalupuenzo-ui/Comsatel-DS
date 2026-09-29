@@ -1,6 +1,6 @@
 <div class="page">
   <p class="eyebrow">Componentes / Skeleton</p>
-  <h1 class="title">Skeleton<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo en el sitio · v0.3.12</span></h1>
+  <h1 class="title">Skeleton<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.12</span></h1>
   <p class="description">
     Skeleton reserva el espacio de un contenido que todavía se está cargando, con la forma aproximada del resultado.
     Úsalo cuando la espera es breve y la forma del contenido es predecible; para esperas largas o sin forma conocida,
@@ -20,6 +20,20 @@
         <cs-skeleton [variant]="variant()" [width]="variant() === 'circle' ? size() : width()" [height]="size()" />
       </div>
     </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada forma representa un tipo de contenido que todavía se está cargando.</p>
+    @for (state of states; track state.value) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'skeleton-state-' + state.value">{{ state.label }}</h3>
+        <p class="section__intro">{{ state.when }}</p>
+        <app-demo-shell [controls]="[]" [code]="stateCode(state.value)">
+          <div class="stage"><cs-skeleton [variant]="state.value" [width]="state.value === 'circle' ? 40 : '100%'" [height]="state.value === 'circle' ? 40 : state.value === 'rectangle' ? 96 : undefined" /></div>
+        </app-demo-shell>
+      </div>
+    }
   </section>
 
   <!-- Casos de uso -->

@@ -56,3 +56,9 @@
   padding-inline-start: var(--layout-padding-xl);
 }
 .state-list code { overflow-wrap: anywhere; }
+.surface-card {
+  padding: var(--layout-padding-lg);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--color-background-base);
+}
