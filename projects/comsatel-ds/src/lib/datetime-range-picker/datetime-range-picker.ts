@@ -36,6 +36,7 @@ let uid = 0;
         [minDate]="minDate"
         [maxDate]="maxDate"
         [weekStartDay]="weekStartDay"
+        [active]="active"
         [value]="{ from: startDate(), to: endDate() }"
         (valueChange)="setDates($event)"
       />
@@ -47,6 +48,7 @@ let uid = 0;
           [disabled]="disabled"
           [invalid]="invalid"
           [minuteStep]="minuteStep()"
+          [active]="active"
           [value]="startTime()"
           (valueChange)="setStartTime($event)"
         />
@@ -57,6 +59,7 @@ let uid = 0;
           [disabled]="disabled"
           [invalid]="invalid"
           [minuteStep]="minuteStep()"
+          [active]="active"
           [value]="endTime()"
           (valueChange)="setEndTime($event)"
         />
@@ -81,9 +84,10 @@ let uid = 0;
       .cs-datetime-range-picker > cs-date-range-picker {
         flex: 1 1 calc(var(--layout-size-3xl) * 3);
       }
+      /* Crece para ocupar la fila: en un panel angosto las dos horas se reparten todo el ancho. */
       .cs-datetime-range-picker__times {
         display: flex;
-        flex: 0 1 auto;
+        flex: 1 1 calc(var(--layout-size-3xl) * 3);
         gap: var(--layout-gap-md);
       }
       .cs-datetime-range-picker__times > cs-time-picker {
@@ -116,6 +120,8 @@ export class DateTimeRangePicker {
   @Input() minDate?: string;
   @Input() maxDate?: string;
   @Input() weekStartDay: 0 | 1 = 1;
+  /** Filtro aplicado: estilo de selección en los campos con valor (como en DateRangePicker y TimePicker). */
+  @Input() active = false;
   /** Intervalo de la columna de minutos de los TimePicker. */
   readonly minuteStep = input(5);
   /** Componente controlado. */

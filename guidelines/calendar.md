@@ -114,6 +114,7 @@ para que en Perú no se muestre el día anterior.
 | `minDate` | `string \| undefined` | `undefined` | Primera fecha seleccionable (YYYY-MM-DD). |
 | `maxDate` | `string \| undefined` | `undefined` | Última fecha seleccionable (YYYY-MM-DD). |
 | `weekStartDay` | `0 \| 1` | `1` | Domingo (0) o lunes (1) como primer día. |
+| `active` | `boolean` | `false` | Filtro aplicado: estilo de selección en los campos con valor. |
 | `minuteStep` | `number` | `5` | Intervalo de la columna de minutos. |
 | `value` | `DateTimeRangeValue \| null \| undefined` | `{}` | Valor controlado. |
 | `valueChange` | `EventEmitter<DateTimeRangeValue>` | n/a | Emite el valor al cambiar cualquier campo. |
