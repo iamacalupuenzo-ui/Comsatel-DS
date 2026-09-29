@@ -56,6 +56,7 @@ export * from './lib/app-layout/app-layout-state';
 export * from './lib/app-layout/app-layout';
 export * from './lib/header/header';
 export * from './lib/skeleton/skeleton';
+export * from './lib/stat/stat';
 export * from './lib/accordion/accordion-item';
 export * from './lib/accordion/accordion';
 export * from './lib/fleet-unit-list/fleet-unit-list';
