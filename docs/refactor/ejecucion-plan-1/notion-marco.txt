@@ -1,0 +1,2 @@
+﻿marco-atomico.md: https://app.notion.com/p/3e91a7d0638881249ab6d2bf93695e36
+marco-atomico-inventario.md: https://app.notion.com/p/3e91a7d063888126abd0dc5adea6fb99

@@ -1,0 +1,38 @@
+¿Qué patrones del mapa, Bitácora, Seguimiento, recupero y Notificaciones pueden vivir en el DS?
+
+## En 30 segundos
+
+El buscador del mapa, la fila de unidad, la tarjeta de posición/evento, el panel de GPS y la acción de copiar tienen contratos reutilizables. `FleetUnitList` ya existe en el DS 0.3.0 local y la revalidación P0 aprobó su fila; los paneles nuevos deben preservar los dos filtros visibles y la semántica de selección.
+
+## Mapa y Explorar
+
+| Origen → destino de biblioteca | Estado y decisión | Estados y aceptación |
+| --- | --- | --- |
+| `FO:features/fleet-map/fleet-map-search.component.ts` + `FO:features/fleet-map/fleet-map-tabs.component.ts` → `DS:projects/comsatel-ds/src/lib/map-search-panel/map-search-panel.ts`, `map-search-panel.stories.ts` | **No existe como organismo público: crear.** Cabecera plegable con búsqueda y resultados, más dos filtros `InputDropdown size="sm"` visibles. El demo actual de panel plegable en `DS:src/app/pages/motion-demo/` es referencia parcial, no componente exportado. | Colapsado/expandido, query vacía/con resultados/error/loading, filtros aplicados, selección, `inert` cerrado, Escape, móvil. No sustituir dos filtros por botón único. |
+| `FO:features/fleet-map/fleet-map-search.component.ts` (fila `.vehicle-card`) → `DS:projects/comsatel-ds/src/lib/fleet-unit-list/fleet-unit-list.ts`, `fleet-unit-list.stories.ts` | **Existe: conservar y ampliar solo si falta un estado.** `docs/refactor/paridad-p0.md` revalidó selección plana, 64 px, radio 6 px, tipografía 13/700 y 12/400, hover neutro y barra 3 px. Comprobar fijado y menú con datos reales. | Normal, hover, foco, seleccionado, fijado, seleccionado+fijado, menú, sin unidades, loading; no volver a acordeón. |
+| `FO:features/fleet-map/fleet-map-canvas.component.ts` + `FO:shared/map-tiles.ts` → `DS:src/app/pages/map-theme-demo/`, `src/app/pages/markers-demo/` | **Conservar infraestructura en producto.** DS documenta VehiclePill, marcadores y tokens, pero no asume proveedor de tiles, coordenadas ni telemetría. Si VehiclePill vive solo en demo, evaluar exportarlo como `DS:projects/comsatel-ds/src/lib/vehicle-pill/vehicle-pill.ts`. | Activo/sin señal/seleccionado/foco, zoom/solape, temas; sin geodatos reales. |
+| `FO:features/fleet-map/fleet-map.page.ts` (barra de unidad seleccionada) + `FO:features/fleet-map/capture-order-info-card.component.ts` → `DS:projects/comsatel-ds/src/lib/selected-unit-bar/selected-unit-bar.ts`, `selected-unit-bar.stories.ts` | **No existe: crear si el contrato es genérico.** Identidad, metadatos, ubicación, acciones proyectadas. La navegación a `/capturas?orden=` queda en producto. | Sin selección, seleccionada, datos parciales, posición obsoleta, acción, móvil, panel lateral abierto. Fondo blanco/borde de marca/barra lateral como decisión aprobada. |
+
+## Bitácora y Seguimiento
+
+| Origen → destino de biblioteca | Estado y decisión | Estados y aceptación |
+| --- | --- | --- |
+| `FO:features/fleet-map/bitacora-view.component.ts` + `FO:features/fleet-map/trip-events-panel.component.ts` + `FO:features/fleet-map/panel-header.component.ts` → `DS:projects/comsatel-ds/src/lib/event-timeline/event-timeline.ts`, `event-timeline.stories.ts` y `src/lib/panel-header/panel-header.ts` | **No existen: crear.** Línea/lista de eventos con ícono, tiempo, título, detalle, estado y filtros proyectados; encabezado reutilizable. Bitácora decide fechas y datos, DS solo presentación/selección. | Ninguno/uno/muchos, carga, error, evento activo, hora larga, scroll, primera/última tarjeta, móvil. |
+| `FO:features/fleet-map/following-view.component.ts` + `FO:features/fleet-map/following-unit-card.component.ts` → `DS:projects/comsatel-ds/src/lib/following-unit-card/following-unit-card.ts`, `following-unit-card.stories.ts` | **No existe: crear.** Financiera, expediente, última ubicación y último reporte; sin acoplar mini mapa. La cuadrícula y orden de celdas siguen en la vista de producto salvo que aparezca otro consumidor. | En línea/sin señal, ubicación conocida/desconocida, copiar, texto largo, mini mapa estrecho, móvil. |
+| `FO:features/fleet-map/fleet-map-tabs.component.ts` → `DS:projects/comsatel-ds/src/lib/tab/tabs.ts` y `src/lib/tab/tab.stories.ts` | **Existe con diferencias: modificar** para pestaña renombrable/cerrable por botones hermanos; reordenar por teclado además de arrastre. | Activa/inactiva, renombrar con F2/doble clic, nombre 30 caracteres, cerrar, foco, varias, móvil. |
+| `FO:features/fleet-map/copy-location-button.component.ts` → `DS:projects/comsatel-ds/src/lib/copy-action/copy-action.ts`, `copy-action.stories.ts` | **No existe: crear** acción de copia con texto y feedback local, sin toast general obligatorio ni formato de coordenada impuesto. | Reposo/hover/foco, copiando, copiado con check, fallo, disabled, `sm/md`. |
+
+## Vista de recupero y Notificaciones
+
+| Origen → destino de biblioteca | Estado y decisión | Estados y aceptación |
+| --- | --- | --- |
+| `FO:features/fleet-map/recovery-view.component.ts` + `FO:features/fleet-map/recovery-gps-panel.component.ts` → `DS:projects/comsatel-ds/src/lib/gps-selector-panel/gps-selector-panel.ts`, `gps-selector-panel.stories.ts` | **No existe: crear** selector de receptor principal/respaldo con calidad de señal, estado, acciones proyectadas y advertencia; cambio/confirmación y servicios GPS permanecen en Fleet. | Un/dos GPS, seleccionado, sin señal, posición vieja, advertencia, comando loading/error, móvil. |
+| `FO:features/fleet-map/recovery-view.component.ts` + `FO:features/fleet-map/trip-events-panel.component.ts` → `DS:projects/comsatel-ds/src/lib/position-card/position-card.ts`, `src/lib/event-card/event-card.ts`, historias | **No existen: crear** tarjetas de posición y evento con fecha/hora, fuente, estado y acciones; compartir `CopyAction` y `Tooltip`. | Con/sin coordenada, reciente/antiguo, tipo de evento, seleccionado, hover/foco, loading/error, lista con scroll. |
+| `FO:features/fleet-map/dialogs/recovery-gps-command-dialog.component.ts`, `recovery-gps-history-dialog.component.ts`, `recovery-gps-switch-dialog.component.ts` → `DS:projects/comsatel-ds/src/lib/modal/modal.ts` + `autocomplete/autocomplete.ts` + `table/table.ts` | **Componer.** Modal de comando, selector buscable e historial tabular comparten primitivos; «aceptado por mock» y reglas de cambio quedan en producto. | Comando disponible/no disponible, confirmación, envío, error, historial vacío/con filas, teclado. |
+| `FO:features/fleet-map/fleet-notifications-panel.component.ts` + `FO:features/fleet-map/fleet-notification-card.component.ts` → `DS:projects/comsatel-ds/src/lib/notification-panel/notification-panel.ts` + `src/lib/card/action-card.ts`, historias | **No existe panel; crear.** Agrupación, contador 99+, alto que crece hasta scroll y estado vacío de 88 px. `ActionCard` existe pero aún necesita paridad con una instancia poblada; no duplicar su fuente. | Vacío, 1/varias/100+, leído/no leído, acción, error/loading, scroll, móvil, foco. |
+
+## Dependencias y aceptación
+
+Depende de partes 1–3. El mapa real se usa como referencia visual; la biblioteca recibe fixtures sin coordenadas de clientes. La aceptación exige que selección y fijado sean independientes, que los dos filtros del buscador permanezcan visibles, que el tooltip no se recorte en listas y que las tarjetas comuniquen estado sin depender solo del color. Para `ActionCard` y unidad fijada, obtener evidencia renderizada antes de pasar a «igual». Cada organismo público tiene story y página del sitio; lo que solo es composición queda como receta en la página correspondiente.
+
+**Pregunta de comprobación:** ¿Qué interacción se perdería si `FleetUnitList` volviera a expandir la fila al hacer clic?
