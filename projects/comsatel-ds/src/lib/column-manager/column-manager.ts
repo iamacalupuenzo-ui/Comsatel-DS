@@ -1,7 +1,10 @@
+import { NgStyle } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, signal } from '@angular/core';
 import { INPUT_TOKENS } from '../dropdown/dropdown-tokens';
 import type { DropdownSize } from '../dropdown/dropdown-types';
 import { Icon } from '../icons/icon';
+import { fieldLabelTypography } from '../input/input-tokens';
+import { textStyle } from '../tokens/typography';
 import { Popover } from '../popover/popover';
 
 let nextColumnManagerId = 0;
@@ -20,7 +23,7 @@ export interface ColumnManagerItem {
  */
 @Component({
   selector: 'cs-column-manager',
-  imports: [Icon, Popover],
+  imports: [Icon, NgStyle, Popover],
   templateUrl: './column-manager.html',
   styleUrl: './column-manager.css',
 })
@@ -43,6 +46,10 @@ export class ColumnManager {
 
   protected get tok() {
     return INPUT_TOKENS[this.size];
+  }
+  /** Misma tipografía de label que Input dropdown del mismo tamaño. */
+  protected get labelStyle(): Record<string, string> {
+    return textStyle(fieldLabelTypography[this.size], 'accent');
   }
   protected get labelId(): string {
     return `${this.instanceId}-label`;

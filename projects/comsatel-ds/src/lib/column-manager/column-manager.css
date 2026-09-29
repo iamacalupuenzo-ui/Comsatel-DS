@@ -1,6 +1,9 @@
 @import '../dropdown/input-dropdown.css';
 
 :host { display: inline-flex; }
+/* Mismo apilado que Input dropdown: label encima del campo. */
+.cs-input-dropdown { display: inline-flex; flex-direction: column; gap: var(--layout-gap-xs); }
+.cs-input-dropdown__label { color: var(--color-text-base-default); }
 /* El resumen cambia con la cantidad visible; este ancho evita que el campo salte. */
 .cs-column-manager__trigger { min-width: 10rem; }
 /* Ancho de contenido del panel: corresponde a etiquetas y controles, no a un token de escala. */

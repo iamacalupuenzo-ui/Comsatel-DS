@@ -1,11 +1,13 @@
 <div class="cs-input-dropdown">
-  <span [id]="labelId" class="cs-input-dropdown__label">{{ label }}</span>
+  @if (label) {
+    <span [id]="labelId" class="cs-input-dropdown__label" [ngStyle]="labelStyle">{{ label }}</span>
+  }
   <div class="cs-input-dropdown__wrap">
     <button
       #trigger
       type="button"
       [attr.aria-label]="ariaLabel"
-      [attr.aria-labelledby]="labelId"
+      [attr.aria-labelledby]="label ? labelId : null"
       [disabled]="disabled"
       class="cs-input-dropdown__trigger cs-column-manager__trigger"
       [style.height.px]="tok.height"
