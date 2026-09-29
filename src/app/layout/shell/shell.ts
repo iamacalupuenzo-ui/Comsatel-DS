@@ -20,6 +20,10 @@ import { PressScale } from '@iamacalupuenzo-ui/comsatel-ds/motion';
 })
 export class Shell {
   protected readonly navigation = NAVIGATION;
+  /** Storybook publicado por Chromatic para la rama main: el enlace no cambia con cada build. */
+  protected readonly storybookUrl = 'https://main--6a9f1543484559c52ac25ffb.chromatic.com';
+  /** Panel de pruebas visuales de Chromatic (pide iniciar sesión con la cuenta del proyecto). */
+  protected readonly chromaticUrl = 'https://www.chromatic.com/builds?appId=6a9f1543484559c52ac25ffb';
   protected currentUrl: string;
   private openHrefs = new Set<string>();
 

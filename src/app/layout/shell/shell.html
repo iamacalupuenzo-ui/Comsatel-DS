@@ -13,6 +13,19 @@
   <a routerLink="/" class="topnav__logo">
     <img src="/logos/design-system-by-comsatel.png" alt="Design System by Comsatel" />
   </a>
+  <!-- Herramientas del DS fuera del sitio: Storybook (siempre la versión de main) y el panel de pruebas visuales. -->
+  <nav class="topnav__tools" aria-label="Herramientas del Design System">
+    <a class="topnav__tool" [href]="storybookUrl" target="_blank" rel="noopener noreferrer">
+      <cs-icon name="panels-top-left" [size]="16" aria-hidden="true" />
+      <span>Storybook</span>
+      <span class="topnav__sr-only">(se abre en otra pestaña)</span>
+    </a>
+    <a class="topnav__tool" [href]="chromaticUrl" target="_blank" rel="noopener noreferrer">
+      <cs-icon name="eye" [size]="16" aria-hidden="true" />
+      <span>Chromatic</span>
+      <span class="topnav__sr-only">(pruebas visuales, se abre en otra pestaña)</span>
+    </a>
+  </nav>
 </header>
 
 @if (sidenav.mode() === 'drawer' && sidenav.mobileOpen()) {
