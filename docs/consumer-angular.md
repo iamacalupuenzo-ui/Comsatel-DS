@@ -67,20 +67,21 @@ La lista completa está en `exports` del `package.json` publicado. Algunos ejemp
 
 `/shared` es apoyo interno de otras entradas: no lo importes desde una aplicación.
 
-El import raíz `@iamacalupuenzo-ui/comsatel-ds` sigue exportando todo, pero trae la
-librería **entera** al chunk que lo usa, aunque importes una sola pieza. Importa desde
-el subpath cuando ese archivo necesita cargar poco, por ejemplo el shell que va en el
-bundle inicial:
+El import raíz `@iamacalupuenzo-ui/comsatel-ds` sigue exportando todo. Desde la 0.6.0 la
+raíz no tiene código propio, solo reexporta los subpaths: el bundler descarta los
+componentes que la aplicación no usa. Pero junta en **un mismo chunk** todos los que la
+aplicación importa desde la raíz, y cada pantalla lo descarga completo aunque use pocos.
+Por eso la regla es importar siempre desde el subpath:
 
 ```ts
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { PressScale } from '@iamacalupuenzo-ui/comsatel-ds/motion';
 ```
 
-El ahorro solo aparece si **ningún** import de ese mismo chunk usa la raíz: un solo
-`import { Menu } from '@iamacalupuenzo-ui/comsatel-ds'` vuelve a traerla completa. En el
-sitio del DS, pasar el shell a subpaths bajó la librería del bundle inicial de 627 kB a
-29 kB.
+Medido en FleetOperations con la 0.6.0: con los imports desde la raíz, cada pantalla
+descargaba 390 kB del DS; por subpath, entre 133 kB (tablero) y 289 kB (mapa). Hasta la
+0.5.0 era peor: la raíz contenía el código de la librería y un solo import desde la raíz
+la traía entera.
 
 ## 3. Estructura recomendada
 
