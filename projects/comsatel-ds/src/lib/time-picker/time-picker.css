@@ -1,0 +1,133 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.cs-time-picker-field {
+  display: grid;
+  gap: var(--layout-gap-xs);
+  min-width: 0;
+}
+.cs-time-picker-field__label {
+  color: var(--color-text-base-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-ui);
+  font-weight: var(--font-weight-accent);
+  line-height: var(--font-line-height-content-ui);
+  letter-spacing: var(--font-letter-spacing-content);
+}
+.cs-time-picker-field__required {
+  margin-left: var(--layout-gap-2xs);
+  color: var(--color-text-danger-default);
+}
+.cs-time-picker-field__trigger {
+  min-width: 0;
+}
+.cs-time-picker-field__icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--layout-padding-xs);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-icon-neutral-subtle);
+  cursor: pointer;
+}
+.cs-time-picker-field__icon-button:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+.cs-time-picker-field__icon-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-focused);
+}
+.cs-time-picker-field__error {
+  margin: 0;
+  color: var(--color-text-danger-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+}
+
+/* Panel de dos columnas rotuladas; la opción elegida usa el estándar de menús (brand-subtlest + check). */
+.cs-time-picker-panel {
+  --elevation-surface-default: var(--color-background-base);
+  display: grid;
+  width: calc(var(--layout-size-3xl) * 2 + var(--layout-size-sm));
+  overflow: hidden;
+  border: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-background-base);
+  box-shadow: var(--shadow-xl);
+}
+.cs-time-picker-panel__columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.cs-time-picker-panel__group {
+  display: grid;
+  grid-template-rows: auto minmax(0, calc((var(--layout-size-sm) + var(--layout-padding-xs)) * 8));
+  min-width: 0;
+}
+.cs-time-picker-panel__group:first-child {
+  border-inline-end: var(--layout-border-thin) solid var(--color-border-divider);
+}
+.cs-time-picker-panel__group-label {
+  padding: var(--layout-padding-sm) var(--layout-padding-sm) var(--layout-padding-xs);
+  color: var(--color-text-base-subtle);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  font-weight: var(--font-weight-emphasis);
+  line-height: var(--font-line-height-content-note);
+}
+.cs-time-picker-panel__column {
+  display: grid;
+  align-content: start;
+  gap: var(--layout-gap-2xs);
+  margin: 0;
+  padding: 0 var(--layout-padding-xs) var(--layout-padding-xs);
+  list-style: none;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.cs-time-picker-panel__column::-webkit-scrollbar {
+  display: none;
+}
+.cs-time-picker-panel__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: calc(var(--layout-size-sm) + var(--layout-padding-xs));
+  padding-inline: var(--layout-padding-sm);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-base-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+  cursor: pointer;
+}
+.cs-time-picker-panel__option:hover:not(.cs-time-picker-panel__option--selected) {
+  background: var(--color-background-neutral-subtlest-hover);
+}
+.cs-time-picker-panel__option:focus-visible {
+  outline: var(--layout-border-thick) solid var(--color-border-focused);
+  outline-offset: var(--layout-padding-2xs);
+}
+.cs-time-picker-panel__option--selected {
+  background: var(--color-background-brand-subtlest);
+  color: var(--color-text-brand-bolder);
+  font-weight: var(--font-weight-emphasis);
+}
+.cs-time-picker-panel__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: var(--layout-size-md);
+  padding-inline: var(--layout-padding-lg);
+  border-top: var(--layout-border-thin) solid var(--color-border-divider);
+  background: var(--color-background-neutral-subtle);
+}

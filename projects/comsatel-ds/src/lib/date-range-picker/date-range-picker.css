@@ -1,0 +1,71 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.cs-date-picker-field {
+  display: grid;
+  gap: var(--layout-gap-xs);
+  min-width: 0;
+}
+.cs-date-picker-field__label {
+  color: var(--color-text-base-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-ui);
+  font-weight: var(--font-weight-accent);
+  line-height: var(--font-line-height-content-ui);
+  letter-spacing: var(--font-letter-spacing-content);
+}
+.cs-date-picker-field__required {
+  margin-left: var(--layout-gap-2xs);
+  color: var(--color-text-danger-default);
+}
+.cs-date-picker-field__trigger {
+  min-width: 0;
+}
+.cs-date-picker-field__icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--layout-padding-xs);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-icon-neutral-subtle);
+  cursor: pointer;
+}
+.cs-date-picker-field__icon-button:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+.cs-date-picker-field__icon-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-focused);
+}
+.cs-date-picker-field__error {
+  margin: 0;
+  color: var(--color-text-danger-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+}
+
+.cs-date-picker-panel {
+  --elevation-surface-default: var(--color-background-base);
+  display: grid;
+  overflow: hidden;
+  border: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-background-base);
+  box-shadow: var(--shadow-xl);
+}
+/* Pie de 40 px con separador y superficie neutral; «Limpiar» a la derecha, igual que TimePicker. */
+.cs-date-picker-panel__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: var(--layout-size-md);
+  padding-inline: var(--layout-padding-lg);
+  border-top: var(--layout-border-thin) solid var(--color-border-divider);
+  background: var(--color-background-neutral-subtle);
+}

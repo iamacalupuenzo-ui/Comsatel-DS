@@ -1,0 +1,100 @@
+<div class="cs-time-picker-field">
+  @if (label) {
+    <!-- Texto, no <label>: el título nombra el campo, pero hacer clic en él no abre el selector. -->
+    <span class="cs-time-picker-field__label" [id]="labelId">
+      {{ label }}
+      @if (required) {
+        <span class="cs-time-picker-field__required" aria-hidden="true">*</span>
+      }
+    </span>
+  }
+  <div #trigger class="cs-time-picker-field__trigger">
+    <cs-input-group [active]="active && !!displayValue()">
+      <cs-input-group-input
+        [id]="inputId"
+        [fieldSize]="size"
+        [readonly]="true"
+        [disabled]="disabled"
+        [invalid]="invalid"
+        [required]="required"
+        [value]="displayValue()"
+        [placeholder]="placeholder"
+        ariaHasPopup="dialog"
+        [ariaExpanded]="open()"
+        [ariaControls]="panelId"
+        [aria-labelledby]="label ? labelId : ''"
+        [aria-label]="label ? '' : ariaLabel"
+        [aria-errormessage]="invalid && errorMessage ? errorId : ''"
+        (focused)="openPicker()"
+        (enterKey)="togglePicker()"
+        (escapeKey)="closePicker()"
+      />
+      <cs-input-group-addon align="inline-end" [compact]="true">
+        <button
+          type="button"
+          class="cs-time-picker-field__icon-button"
+          aria-label="Abrir selector de hora"
+          [disabled]="disabled"
+          [attr.aria-expanded]="open()"
+          [attr.aria-controls]="panelId"
+          (click)="togglePicker()"
+        >
+          <cs-icon name="timer" [size]="iconSize" aria-hidden="true" />
+        </button>
+      </cs-input-group-addon>
+    </cs-input-group>
+  </div>
+
+  <cs-popover
+    [isOpen]="open()"
+    [triggerRef]="trigger"
+    placement="bottom-start"
+    [offset]="4"
+    role="dialog"
+    [ariaLabel]="'Seleccionar ' + (label || ariaLabel || 'hora')"
+    [bare]="true"
+    (closed)="closePicker()"
+  >
+    <div [id]="panelId" class="cs-time-picker-panel">
+      <div class="cs-time-picker-panel__columns">
+        <div class="cs-time-picker-panel__group">
+          <span class="cs-time-picker-panel__group-label" [id]="panelId + '-hour'">Hora</span>
+          <ol class="cs-time-picker-panel__column" [attr.aria-labelledby]="panelId + '-hour'">
+            @for (h of hours; track h) {
+              <li>
+                <button type="button" class="cs-time-picker-panel__option" [class.cs-time-picker-panel__option--selected]="hour() === h" [attr.aria-pressed]="hour() === h" (click)="selectHour(h)">
+                  {{ pad(h) }}
+                  @if (hour() === h) {
+                    <cs-icon name="check" [size]="16" aria-hidden="true" />
+                  }
+                </button>
+              </li>
+            }
+          </ol>
+        </div>
+        <div class="cs-time-picker-panel__group">
+          <span class="cs-time-picker-panel__group-label" [id]="panelId + '-minute'">Minuto</span>
+          <ol class="cs-time-picker-panel__column" [attr.aria-labelledby]="panelId + '-minute'">
+            @for (m of minutes(); track m) {
+              <li>
+                <button type="button" class="cs-time-picker-panel__option" [class.cs-time-picker-panel__option--selected]="minute() === m" [attr.aria-pressed]="minute() === m" (click)="selectMinute(m)">
+                  {{ pad(m) }}
+                  @if (minute() === m) {
+                    <cs-icon name="check" [size]="16" aria-hidden="true" />
+                  }
+                </button>
+              </li>
+            }
+          </ol>
+        </div>
+      </div>
+      <div class="cs-time-picker-panel__actions">
+        <cs-button variant="tertiary" size="sm" [disabled]="!displayValue()" (click)="clear()">{{ clearLabel }}</cs-button>
+      </div>
+    </div>
+  </cs-popover>
+
+  @if (invalid && errorMessage) {
+    <p class="cs-time-picker-field__error" [id]="errorId">{{ errorMessage }}</p>
+  }
+</div>

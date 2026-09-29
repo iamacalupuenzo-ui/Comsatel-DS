@@ -151,6 +151,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/calendar-demo/calendar-page').then((m) => m.CalendarPage),
   },
   {
+    path: 'components/date-range-picker',
+    loadComponent: () => import('./pages/date-range-picker-demo/date-range-picker-page').then((m) => m.DateRangePickerPage),
+  },
+  {
     path: 'components/datetime-picker',
     loadComponent: () =>
       import('./pages/datetime-picker-demo/datetime-picker-page').then((m) => m.DateTimePickerPage),
@@ -174,6 +178,10 @@ export const routes: Routes = [
   {
     path: 'components/pagination',
     loadComponent: () => import('./pages/pagination-demo/pagination-page').then((m) => m.PaginationPage),
+  },
+  {
+    path: 'components/time-picker',
+    loadComponent: () => import('./pages/time-picker-demo/time-picker-page').then((m) => m.TimePickerPage),
   },
   {
     path: 'components/toast',

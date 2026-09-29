@@ -1,0 +1,77 @@
+<div class="cs-date-picker-field">
+  @if (label) {
+    <!-- Texto, no <label>: el título nombra el campo, pero hacer clic en él no abre el calendario. -->
+    <span class="cs-date-picker-field__label" [id]="labelId">
+      {{ label }}
+      @if (required) {
+        <span class="cs-date-picker-field__required" aria-hidden="true">*</span>
+      }
+    </span>
+  }
+  <div #trigger class="cs-date-picker-field__trigger">
+    <cs-input-group [active]="active && !!from()">
+      <cs-input-group-input
+        [id]="inputId"
+        [fieldSize]="size"
+        [readonly]="true"
+        [disabled]="disabled"
+        [invalid]="invalid"
+        [required]="required"
+        [value]="displayValue()"
+        [placeholder]="placeholder"
+        ariaHasPopup="dialog"
+        [ariaExpanded]="open()"
+        [ariaControls]="panelId"
+        [aria-labelledby]="label ? labelId : ''"
+        [aria-label]="label ? '' : ariaLabel"
+        [aria-errormessage]="invalid && errorMessage ? errorId : ''"
+        (focused)="openPicker()"
+        (enterKey)="togglePicker()"
+        (escapeKey)="closePicker()"
+      />
+      <cs-input-group-addon align="inline-end" [compact]="true">
+        <button
+          type="button"
+          class="cs-date-picker-field__icon-button"
+          aria-label="Abrir calendario"
+          [disabled]="disabled"
+          [attr.aria-expanded]="open()"
+          [attr.aria-controls]="panelId"
+          (click)="togglePicker()"
+        >
+          <cs-icon name="calendar" [size]="iconSize" aria-hidden="true" />
+        </button>
+      </cs-input-group-addon>
+    </cs-input-group>
+  </div>
+
+  <cs-popover
+    [isOpen]="open()"
+    [triggerRef]="trigger"
+    placement="bottom-start"
+    [offset]="4"
+    role="dialog"
+    [ariaLabel]="'Seleccionar ' + (label || ariaLabel || 'rango de fechas')"
+    [bare]="true"
+    (closed)="closePicker()"
+  >
+    <div [id]="panelId" class="cs-date-picker-panel">
+      <cs-calendar
+        [selected]="pendingStart()"
+        [rangeSelected]="rangeSelected()"
+        [weekStartDay]="weekStartDay"
+        [minDate]="minDate"
+        [maxDate]="maxDate"
+        [ariaLabelledby]="label ? labelId : undefined"
+        (dateChange)="selectDate($event)"
+      />
+      <div class="cs-date-picker-panel__actions">
+        <cs-button variant="tertiary" size="sm" [disabled]="!from()" (click)="clear()">{{ clearLabel }}</cs-button>
+      </div>
+    </div>
+  </cs-popover>
+
+  @if (invalid && errorMessage) {
+    <p class="cs-date-picker-field__error" [id]="errorId">{{ errorMessage }}</p>
+  }
+</div>

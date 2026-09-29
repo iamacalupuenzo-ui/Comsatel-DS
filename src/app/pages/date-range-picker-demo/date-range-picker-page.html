@@ -1,0 +1,99 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Date range picker</p>
+  <h1 class="title">Date range picker<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.8</span></h1>
+  <p class="description">
+    Filtro de rango de fechas, solo fecha: el campo abre un calendario con «Limpiar» en el pie. El primer clic
+    fija el inicio y el segundo, el fin. Para rangos con horas en un panel angosto, combínalo con dos Time
+    picker; para fecha y horas en una sola fila de formulario, usa Date time range picker.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Abre el calendario y elige un rango. Cambia el estado, el tamaño y el primer día de la semana; debajo se explica cuándo usar el estado elegido.</p>
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <div class="stage">
+        <cs-date-range-picker
+          label="Fecha de registro"
+          placeholder="Todas las fechas"
+          [value]="pgValue()"
+          (valueChange)="pgValue.set($event)"
+          [size]="pgSize()"
+          [weekStartDay]="pgWeek()"
+          [required]="pgRequired()"
+          [active]="pgState() === 'active'"
+          [invalid]="pgState() === 'invalid'"
+          [errorMessage]="pgState() === 'invalid' ? 'Elige un rango de hasta 31 días.' : ''"
+          [disabled]="pgState() === 'disabled'"
+        />
+        <div class="state-note">
+          <strong>{{ pgStateInfo().label }}</strong>
+          <p><b>Cuándo usarlo:</b> {{ pgStateInfo().when }}</p>
+          <p><b>Propiedades:</b> <code>{{ pgStateInfo().props }}</code></p>
+        </div>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Estados -->
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada estado en su propia caja, con cuándo usarlo y el código que lo produce. Cambia el tamaño desde el control de cada caja.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'date-range-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="stateSizeControls" [code]="stateCode(state)" (stateChange)="onStateSize(state.key, $event)">
+          <div class="stage">
+            @switch (state.key) {
+              @case ('empty') { <cs-date-range-picker label="Fecha de registro" placeholder="Todas las fechas" [size]="sizeOf(state.key)" /> }
+              @case ('start') { <cs-date-range-picker label="Fecha de registro" [value]="{ from: '2026-09-21', to: '' }" [size]="sizeOf(state.key)" /> }
+              @case ('range') { <cs-date-range-picker label="Fecha de registro" [value]="rangeValue()" (valueChange)="rangeValue.set($event)" [size]="sizeOf(state.key)" /> }
+              @case ('active') { <cs-date-range-picker label="Fecha de registro" [value]="{ from: '2026-09-21', to: '2026-09-28' }" [active]="true" [size]="sizeOf(state.key)" /> }
+              @case ('invalid') { <cs-date-range-picker label="Fecha de registro" [invalid]="true" errorMessage="Elige un rango de hasta 31 días." [size]="sizeOf(state.key)" /> }
+              @case ('required') { <cs-date-range-picker label="Fecha de registro" [required]="true" [size]="sizeOf(state.key)" /> }
+              @case ('disabled') { <cs-date-range-picker label="Fecha de registro" [disabled]="true" [size]="sizeOf(state.key)" /> }
+            }
+          </div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <!-- Casos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-panel">Rango con horas en un panel angosto</h3>
+      <p class="section__intro">Bitácora y la vista de recupero: el rango de fechas arriba y, debajo, «Hora desde» y «Hora hasta» con Time picker, cada uno marcado como filtro aplicado cuando tiene hora.</p>
+      <app-demo-shell [controls]="[]" [code]="panelCode">
+        <div class="stage">
+          <cs-date-range-picker label="Rango de fechas" placeholder="Todas las fechas" [value]="panelRange()" (valueChange)="panelRange.set($event)" />
+          <div class="time-row">
+            <cs-time-picker label="Hora desde" [active]="true" [value]="panelFrom()" (valueChange)="panelFrom.set($event)" />
+            <cs-time-picker label="Hora hasta" [active]="true" [value]="panelTo()" (valueChange)="panelTo.set($event)" />
+          </div>
+        </div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">value</code><code class="table__type">DateRangeValue</code><code class="table__default">{{ '{' }} from: '', to: '' {{ '}' }}</code><span class="table__desc">Rango controlado en formato YYYY-MM-DD; to vacío mientras se elige el segundo día.</span></div>
+      <div class="table__row"><code class="table__name">(valueChange)</code><code class="table__type">EventEmitter&lt;DateRangeValue&gt;</code><code class="table__default">—</code><span class="table__desc">Emite en cada clic y al limpiar.</span></div>
+      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Título visible; no abre el calendario al hacer clic.</span></div>
+      <div class="table__row"><code class="table__name">placeholder</code><code class="table__type">string</code><code class="table__default">"Selecciona un rango"</code><span class="table__desc">Texto cuando no hay rango.</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">"sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Altura y tipografía del campo.</span></div>
+      <div class="table__row"><code class="table__name">active</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Filtro aplicado (con rango elegido).</span></div>
+      <div class="table__row"><code class="table__name">invalid / errorMessage</code><code class="table__type">boolean / string</code><code class="table__default">false / ''</code><span class="table__desc">Error con su mensaje, enlazado con aria-errormessage.</span></div>
+      <div class="table__row"><code class="table__name">required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Asterisco en el label y aria-required.</span></div>
+      <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita el campo y el botón del calendario.</span></div>
+      <div class="table__row"><code class="table__name">weekStartDay</code><code class="table__type">0 | 1</code><code class="table__default">1</code><span class="table__desc">Primer día de la semana: 1 = lunes, 0 = domingo.</span></div>
+      <div class="table__row"><code class="table__name">minDate / maxDate</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Primer y último día elegibles (YYYY-MM-DD).</span></div>
+    </div>
+  </section>
+</div>
