@@ -1,20 +1,47 @@
 # Calendar, DateTimePicker y DateTimeRangePicker
 
-`Calendar` es la grilla de fechas. `DateTimePicker` es el campo de formulario que
-combina fecha y hora. `DateTimeRangePicker` hace lo mismo para un rango.
+`Calendar` es la grilla de fechas. `DateTimePicker` y `DateTimeRangePicker` son **organismos**:
+no dibujan sus propios campos, componen los del sistema.
 
-- **Import:** `import { Calendar, DateTimePicker, DateTimeRangePicker } from '@iamacalupuenzo-ui/comsatel-ds';`
+| Componente | Compone | Valor |
+| :-- | :-- | :-- |
+| `DateTimePicker` | `DatePicker` + `TimePicker` | `{ date, time }` |
+| `DateTimeRangePicker` | `DateRangePicker` + dos `TimePicker` | `{ startDate, endDate, startTime, endTime }` |
+
+- **Import:** `import { Calendar, DateTimePicker, DateTimeRangePicker, formatDate, formatDateTime } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selectores:** `<cs-calendar>`, `<cs-datetime-picker>`, `<cs-datetime-range-picker>`
-- **Clases raíz emitidas:** `.cs-calendar`, `.cs-datetime-picker`, `.cs-dtrp`
 
 ```html
-<cs-datetime-picker
-  [value]="scheduledAt"
-  (valueChange)="scheduledAt = $event"
-  [datePickerProps]="{ label: 'Fecha de salida', minDate: '2026-01-01' }"
-  [timePickerProps]="{ label: 'Hora' }"
-></cs-datetime-picker>
+<cs-datetime-range-picker
+  aria-label="Periodo de la bitácora"
+  [value]="period"
+  (valueChange)="period = $event"
+></cs-datetime-range-picker>
 ```
+
+## Formato de fecha y hora
+
+Todo el sistema usa un solo formato, con las funciones `formatDate`, `formatTime`,
+`formatDateTime` y `formatDayMonth`:
+
+| Dato | Formato | Motivo |
+| :-- | :-- | :-- |
+| Fecha | «27 sep. 2026» | El mes en letras evita confundir día y mes. |
+| Hora | «16:56» (24 h) | Más corta y sin «a. m.»; es el estándar en operación. |
+| Fecha y hora | «27 sep. 2026, 16:56» | Las dos reglas juntas. |
+
+No usan `Intl.DateTimeFormat` a propósito: cada locale y cada navegador devuelve algo distinto
+(«sept», «set.», «sep», «4:56 p. m.»). Una fecha sola `'YYYY-MM-DD'` se lee en horario local,
+para que en Perú no se muestre el día anterior.
+
+## Cuándo usar cada uno
+
+| Caso | Usa | Motivo |
+| :-- | :-- | :-- |
+| Un día | `DatePicker` | Solo fecha. |
+| Un día y una hora | `DateTimePicker` | Fecha y hora en una fila. |
+| Un periodo con horas (bitácora, recupero) | `DateTimeRangePicker` | Rango y dos horas, con los mismos campos que el resto del sistema. |
+| Un periodo sin horas | `DateRangePicker` | Solo el rango. |
 
 ## Props de `Calendar`
 
@@ -47,23 +74,23 @@ combina fecha y hora. `DateTimeRangePicker` hace lo mismo para un rango.
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Alto de los campos. |
-| `disabled` | `boolean` | `false` | Estados del campo. |
-| `invalid` | `boolean` | `false` | Estados del campo. |
-| `required` | `boolean` | `false` | Estados del campo. |
-| `helperText` | `string \| undefined` | `undefined` | Ayuda y mensaje de error. |
-| `errorText` | `string \| undefined` | `undefined` | Ayuda y mensaje de error. |
-| `clearControlLabel` | `string` | `'Limpiar'` | Nombre accesible del botón de limpiar. |
-| `datePickerProps` | `DateTimePickerDateProps` | `{}` | `{ label?, placeholder?, disabled?, minDate?, maxDate?, weekStartDay? }`. |
-| `timePickerProps` | `DateTimePickerTimeProps` | `{}` | `{ label?, placeholder? }`. |
-| `value` | `string \| undefined` | `undefined` | Valor (controlado). |
-| `defaultValue` | `string \| undefined` | `undefined` | Valor inicial (no controlado). |
-| `timeStep` | `number` | `30` | Minutos entre opciones de hora. |
-| `fieldId` | `string \| undefined` | `undefined` | Id del campo de fecha; se genera uno si no se pasa. |
-| `valueChange` | `EventEmitter<string>` | n/a | Emite el nuevo valor. |
+| `id` | `string \| undefined` | `undefined` | Id base; los campos internos usan id-date, id-time, etc. |
+| `aria-label` | `string` | `''` | Nombre del grupo o del campo para lectores de pantalla. |
+| `dateLabel` | `string` | `'Fecha'` | Label del campo de fecha. |
+| `timeLabel` | `string` | `'Hora'` | Label del campo de hora. |
+| `datePlaceholder` | `string` | `'Selecciona una fecha'` | Texto del campo de fecha sin valor. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Tamaño de los campos; define también su label. |
+| `required` | `boolean` | `false` | Marca los campos como obligatorios. |
+| `disabled` | `boolean` | `false` | Deshabilita los campos. |
+| `invalid` | `boolean` | `false` | Marca los campos con error. |
+| `errorMessage` | `string` | `''` | Mensaje de error visible. |
+| `minDate` | `string \| undefined` | `undefined` | Primera fecha seleccionable (YYYY-MM-DD). |
+| `maxDate` | `string \| undefined` | `undefined` | Última fecha seleccionable (YYYY-MM-DD). |
+| `weekStartDay` | `0 \| 1` | `1` | Domingo (0) o lunes (1) como primer día. |
+| `minuteStep` | `number` | `5` | Intervalo de la columna de minutos. |
+| `value` | `DateTimeValue \| null \| undefined` | `{ date: '', time: '' }` | Valor controlado. |
+| `valueChange` | `EventEmitter<DateTimeValue>` | n/a | Emite el valor al cambiar cualquier campo. |
 <!-- props:end -->
-
-`DateTimeRangeValue` es `{ startDate?, endDate?, startTime?, endTime? }`.
 
 ## Props de `DateTimeRangePicker`
 
@@ -72,42 +99,33 @@ combina fecha y hora. `DateTimeRangePicker` hace lo mismo para un rango.
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
-| `id` | `string \| undefined` | `undefined` | Id base de los campos; de él salen los ids de ayuda y de error. Se genera si no se pasa. |
-| `defaultValue` | `DateTimeRangeValue` | `{}` | Valor inicial (no controlado). |
-| `value` | `DateTimeRangeValue \| undefined` | `undefined` | Valor (controlado). |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Alto de los campos. |
-| `disabled` | `boolean` | `false` | Estados del campo. |
-| `invalid` | `boolean` | `false` | Estados del campo. |
-| `required` | `boolean` | `false` | Estados del campo. |
-| `helperText` | `string \| undefined` | `undefined` | Ayuda y mensaje de error. |
-| `errorText` | `string \| undefined` | `undefined` | Ayuda y mensaje de error. |
-| `clearControlLabel` | `string` | `'Limpiar'` | Nombre accesible del botón de limpiar. |
-| `timeStep` | `number` | `30` | Minutos entre opciones de hora. |
-| `dateLabel` | `string \| undefined` | `undefined` | Etiqueta del campo de rango de fechas. |
-| `datePlaceholder` | `string` | `'Selecciona un rango'` | Texto del campo sin rango elegido. |
-| `disabledDates` | `string[]` | `[]` | Fechas no seleccionables, en ISO `YYYY-MM-DD`. |
-| `minDate` | `string \| undefined` | `undefined` | Fecha mínima seleccionable. |
-| `maxDate` | `string \| undefined` | `undefined` | Fecha máxima seleccionable. |
-| `weekStartDay` | `0 \| 1` | `0` | Domingo (`0`) o lunes (`1`) como primer día. |
-| `timeLabel` | `string \| undefined` | `undefined` | Etiqueta de los campos de hora. |
-| `startTimePlaceholder` | `string` | `'Desde'` | Texto del campo de hora inicial. |
-| `endTimePlaceholder` | `string` | `'Hasta'` | Texto del campo de hora final. |
-| `valueChange` | `EventEmitter<DateTimeRangeValue>` | n/a | Emite el nuevo valor. |
+| `id` | `string \| undefined` | `undefined` | Id base; los campos internos usan id-date, id-time, etc. |
+| `aria-label` | `string` | `''` | Nombre del grupo o del campo para lectores de pantalla. |
+| `dateLabel` | `string` | `'Fechas'` | Label del campo de fecha. |
+| `startTimeLabel` | `string` | `'Hora desde'` | Label de la hora de inicio. |
+| `endTimeLabel` | `string` | `'Hora hasta'` | Label de la hora de fin. |
+| `datePlaceholder` | `string` | `'Selecciona un rango'` | Texto del campo de fecha sin valor. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Tamaño de los campos; define también su label. |
+| `required` | `boolean` | `false` | Marca los campos como obligatorios. |
+| `disabled` | `boolean` | `false` | Deshabilita los campos. |
+| `invalid` | `boolean` | `false` | Marca los campos con error. |
+| `errorMessage` | `string` | `''` | Mensaje de error visible. |
+| `minDate` | `string \| undefined` | `undefined` | Primera fecha seleccionable (YYYY-MM-DD). |
+| `maxDate` | `string \| undefined` | `undefined` | Última fecha seleccionable (YYYY-MM-DD). |
+| `weekStartDay` | `0 \| 1` | `1` | Domingo (0) o lunes (1) como primer día. |
+| `minuteStep` | `number` | `5` | Intervalo de la columna de minutos. |
+| `value` | `DateTimeRangeValue \| null \| undefined` | `{}` | Valor controlado. |
+| `valueChange` | `EventEmitter<DateTimeRangeValue>` | n/a | Emite el valor al cambiar cualquier campo. |
 <!-- props:end -->
 
 ## Accesibilidad (a11y) y teclado
 
-- La grilla siempre tiene nombre accesible: `ariaLabel` por defecto es `'Calendario'`,
-  o pasa `ariaLabelledby` si ya hay un título visible que la nombra.
-- El campo de fecha acepta **escritura directa**: se puede tipear y confirmar con
-  **Enter**, sin obligar a abrir el calendario con el mouse.
-- El popover del calendario cierra al hacer clic afuera (`document:mousedown`). Si lo
-  pruebas por JavaScript, `.click()` **no** dispara `mousedown`: hay que emitir el evento
-  real, o da un falso negativo.
-- `invalid` va siempre acompañado de `errorText`: el borde rojo solo no comunica el
-  error.
-- Los nombres de mes y día salen de `Intl.DateTimeFormat('es', …)` fijo: el sistema no
-  tiene mecanismo de locale, es español por diseño.
+- La grilla siempre tiene nombre accesible: `ariaLabel` por defecto es `'Calendario'`, o pasa
+  `ariaLabelledby` si ya hay un título visible que la nombra.
+- Los organismos son un `role="group"`; nómbralos con `aria-label` («Periodo de la bitácora»).
+- Cada campo conserva su teclado: el calendario se abre con Enter o con el botón, y el selector
+  de hora se maneja con flechas en sus columnas.
+- `invalid` va siempre acompañado de `errorMessage`: el borde rojo solo no comunica el error.
 
 <!-- a11y:start Calendar -->
 <!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/calendar/calendar.ts: no editar a mano, corre npm run docs:a11y -->
@@ -131,12 +149,9 @@ combina fecha y hora. `DateTimeRangePicker` hace lo mismo para un rango.
 
 | Aspecto | Qué hace el código |
 | :-- | :-- |
-| Elementos nativos | `label`, `button` |
-| Roles | `dialog` |
-| Atributos ARIA | `aria-label="Abrir calendario"`, `aria-hidden="true"`, `aria-label`, `aria-describedby` |
-| Foco | Mueve el foco por código (`.focus()`) |
-| Clic afuera | Escucha `document:mousedown` para cerrarse |
-| Compone | `cs-input-group`, `cs-input-group-input`, `cs-input-group-addon`, `cs-icon`, `cs-calendar`, `cs-input-dropdown` |
+| Roles | `group`, `alert` |
+| Atributos ARIA | `aria-label` |
+| Compone | `cs-date-picker`, `cs-time-picker` |
 <!-- a11y:end -->
 
 <!-- a11y:start DateTimeRangePicker -->
@@ -146,25 +161,18 @@ combina fecha y hora. `DateTimeRangePicker` hace lo mismo para un rango.
 
 | Aspecto | Qué hace el código |
 | :-- | :-- |
-| Elementos nativos | `label`, `button` |
-| Roles | `dialog` |
-| Atributos ARIA | `aria-hidden="true"`, `aria-haspopup="dialog"`, `aria-expanded`, `aria-controls`, `aria-invalid`, `aria-required`, `aria-label`, `aria-describedby`, `aria-labelledby` |
-| Teclas que maneja el código | `Escape` |
-| Foco | Mueve el foco por código (`.focus()`) |
-| Clic afuera | Escucha `document:mousedown` para cerrarse |
-| Compone | `cs-icon`, `cs-calendar`, `cs-input-dropdown` |
+| Roles | `group`, `alert` |
+| Atributos ARIA | `aria-label` |
+| Compone | `cs-date-range-picker`, `cs-time-picker` |
 <!-- a11y:end -->
 
 ## Trampas
 
-- **Las fechas son strings ISO `YYYY-MM-DD`, no objetos `Date`.** Pasar un `Date`
-  directo no funciona.
-- Controlado (`value`/`month`) y no controlado (`defaultValue`/`defaultMonth`) son modos
-  excluyentes. Con el modo controlado, sin reasignar el valor no cambia nada.
-- Varias props usan `input()` de señales en vez de `@Input()` clásico, a propósito:
-  hay `computed()` que las leen, y un `@Input()` plano no invalida el caché de un
-  `computed()`. Si extiendes estos componentes, respeta ese patrón.
-- El popover del calendario necesita espacio debajo: en una demo o un contenedor corto,
-  reserva alto o el panel queda flotando sobre lo que sigue.
-- `cs-country-flag` (usado por `InputDropdown`) es decorativo y está marcado
-  `aria-hidden`: la etiqueta textual conserva siempre el nombre del país.
+- **Las fechas son strings ISO `YYYY-MM-DD` y las horas `HH:mm`, no objetos `Date`.**
+- Controlado (`value`/`month`) y no controlado (`defaultValue`/`defaultMonth`) de Calendar son
+  modos excluyentes.
+- Varias props usan `input()` de señales en vez de `@Input()` clásico, a propósito: hay
+  `computed()` y `linkedSignal()` que las leen.
+- En la versión 0.3.27 los dos organismos cambiaron de API: ya no usan `datePickerProps`,
+  `timePickerProps` ni una lista fija de horas (`timeStep`); ahora componen `TimePicker`
+  (`minuteStep`).

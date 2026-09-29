@@ -1,107 +1,78 @@
 <div class="page">
-  <p class="eyebrow">Componentes / Selector de rango de fecha y hora</p>
-  <h1 class="title">Selector de rango de fecha y hora</h1>
-  <p class="description">
-    Elige un rango de fechas más una sola ventana horaria diaria que aplica a todo el rango —
-    "15 al 17 de sep, de 8:00 a. m. a 10:00 p. m." — para filtrar un historial o un reporte, no
-    para agendar un único momento de inicio/fin. Para eso, usa
-    <a class="inline-link" routerLink="/components/datetime-picker">Date time picker</a>.
-  </p>
+  <p class="eyebrow">Componentes / Date time range picker</p>
+  <h1 class="title">Date time range picker<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.27</span></h1>
+  <p class="description">Organismo de periodo con horas: compone Date range picker y dos Time picker («Hora desde» y «Hora hasta»). Úsalo para filtrar por un periodo con horas, como en la bitácora o el recupero del mapa. Sin horas, usa Date range picker.</p>
 
-  <!-- Playground -->
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>
-    <p class="section__intro">
-      Haz clic en el campo para elegir un rango de fechas en el calendario, luego define la
-      ventana horaria diaria.
-    </p>
-    <div class="static-block">
-      <div class="static-block__preview dtrp-demo">
+    <p class="section__intro">Elige un estado y un tamaño, y prueba los tres campos. El resultado usa el formato del sistema.</p>
+    <ul class="section__intro state-list">
+      <li><strong>{{ pgInfo().title }}.</strong> {{ pgInfo().intro }}</li>
+      <li><strong>Propiedades:</strong> <code>{{ pgInfo().props }}</code></li>
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="codeFor(pgState(), pgSize())" (stateChange)="onState($event)">
+      <div class="stage">
         <cs-datetime-range-picker
-          dateLabel="Rango de fechas"
-          timeLabel="Ventana horaria diaria"
+          aria-label="Periodo de la bitácora"
+          [size]="pgSize()"
           [value]="pgValue()"
+          [invalid]="pgState() === 'invalid'"
+          [errorMessage]="pgState() === 'invalid' ? 'La hora hasta debe ser posterior a la hora desde.' : ''"
+          [disabled]="pgState() === 'disabled'"
           (valueChange)="pgValue.set($event)"
         />
+        <p class="result" aria-live="polite">{{ pgResult() }}</p>
       </div>
-      <app-code-block [code]="usageCode"></app-code-block>
-    </div>
+    </app-demo-shell>
   </section>
 
-  <!-- Requerido y validación -->
   <section class="section">
-    <h2 class="section__title" id="validation">Requerido y validación</h2>
-    <div class="static-block">
-      <div class="static-block__preview dtrp-demo">
-        <cs-datetime-range-picker
-          dateLabel="Rango de fechas"
-          [required]="true"
-          [invalid]="true"
-          errorText="Elige un rango de fechas para continuar."
-          [value]="validationValue()"
-          (valueChange)="validationValue.set($event)"
-        />
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada estado en su propia caja, con su selector de tamaño.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'dtrp-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="stateSizeControls" [code]="codeFor(state.key, sizeOf(state.key))" (stateChange)="onStateSize(state.key, $event)">
+          <div class="stage">
+            <cs-datetime-range-picker
+              aria-label="Periodo de la bitácora"
+              [size]="sizeOf(state.key)"
+              [value]="valueFor(state.key)"
+              [invalid]="state.key === 'invalid'"
+              [errorMessage]="state.key === 'invalid' ? 'La hora hasta debe ser posterior a la hora desde.' : ''"
+              [disabled]="state.key === 'disabled'"
+            />
+          </div>
+        </app-demo-shell>
       </div>
-    </div>
+    }
   </section>
 
-  <!-- Deshabilitado -->
   <section class="section">
-    <h2 class="section__title" id="disabled">Deshabilitado</h2>
-    <div class="static-block">
-      <div class="static-block__preview">
-        <cs-datetime-range-picker dateLabel="Rango de fechas" [disabled]="true" />
-      </div>
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-bitacora">Periodo de la bitácora</h3>
+      <p class="section__intro">Filtra las posiciones de una unidad entre dos momentos, sin fechas futuras. Es el uso que tienen hoy la bitácora y el recupero del mapa.</p>
+      <app-demo-shell [controls]="[]" [code]="'<cs-datetime-range-picker\n  aria-label=&quot;Periodo de la bitácora&quot;\n  dateLabel=&quot;Periodo&quot;\n  maxDate=&quot;2026-09-29&quot;\n  size=&quot;sm&quot;\n/>'">
+        <div class="stage">
+          <cs-datetime-range-picker aria-label="Periodo de la bitácora" dateLabel="Periodo" maxDate="2026-09-29" size="sm" />
+        </div>
+      </app-demo-shell>
     </div>
   </section>
 
-  <!-- Accesibilidad -->
-  <section class="section">
-    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
-    <p class="section__intro">El rango mantiene una sola decisión de fechas y una ventana horaria diaria, con nombres independientes para cada control.</p>
-    <div class="table table--two-columns">
-      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
-      <div class="table__row"><strong>Nombre y relación</strong><span>El label de fecha se asocia al trigger con un id estable; las horas anuncian “Hora de inicio” y “Hora de fin”, además del label visible de la ventana.</span></div>
-      <div class="table__row"><strong>Calendario emergente</strong><span>El trigger expone <code class="inline-code">aria-haspopup="dialog"</code>, <code class="inline-code">aria-expanded</code> y <code class="inline-code">aria-controls</code>; la grilla anuncia cada fecha y el estado del rango.</span></div>
-      <div class="table__row"><strong>Ayuda y error</strong><span><code class="inline-code">helperText</code> y <code class="inline-code">errorText</code> se relacionan con el trigger y los dos combobox mediante <code class="inline-code">aria-describedby</code>.</span></div>
-      <div class="table__row"><strong>Teclado</strong><span>El calendario admite navegación por flechas, <kbd>Home</kbd>/<kbd>End</kbd>, <kbd>PageUp</kbd>/<kbd>PageDown</kbd> y selección por <kbd>Enter</kbd>/<kbd>Space</kbd>; <kbd>Escape</kbd> cierra y restaura el foco.</span></div>
-      <div class="table__row"><strong>Rango</strong><span>El primer clic deja un extremo pendiente y el segundo completa el rango; <code class="inline-code">disabledDates</code>, <code class="inline-code">minDate</code> y <code class="inline-code">maxDate</code> evitan selecciones imposibles.</span></div>
-      <div class="table__row"><strong>Acciones</strong><span>El botón de limpiar tiene nombre accesible, entra en el orden de tabulación y devuelve el foco al trigger de fechas.</span></div>
-    </div>
-  </section>
-
-  <!-- Lineamientos de uso -->
-  <section class="section">
-    <h2 class="section__title" id="usage">Lineamientos de uso</h2>
-    <p class="section__intro">Utiliza el rango cuando la hora se repite para cada día del periodo y reserva espacio para la selección abierta.</p>
-    <div class="guide-grid datetime-range-guidelines">
-      <div class="guide-card guide-card--do"><div class="guide-card__header"><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Explica que la ventana horaria aplica a todos los días del rango.</p><cs-datetime-range-picker dateLabel="Rango de fechas" timeLabel="Ventana horaria diaria" [defaultValue]="{ startDate: '2026-12-15', endDate: '2026-12-17', startTime: '08:00', endTime: '17:00' }" /></div></div>
-      <div class="guide-card guide-card--dont"><div class="guide-card__header"><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No uses este control para dos momentos independientes de inicio y fin.</p><a class="inline-link" routerLink="/components/datetime-picker">Usa Date time picker para un único momento.</a></div></div>
-      <div class="guide-card guide-card--do"><div class="guide-card__header"><span class="guide-card__header-label">Recomendado</span></div><div class="guide-card__body"><p class="guide-card__text">Deshabilita días no operativos antes de que el usuario complete el rango.</p><cs-datetime-range-picker dateLabel="Rango de fechas" [disabledDates]="['2026-12-16', '2026-12-17']" /></div></div>
-      <div class="guide-card guide-card--dont"><div class="guide-card__header"><span class="guide-card__header-label">Evita</span></div><div class="guide-card__body"><p class="guide-card__text">No abras el calendario sin espacio reservado: el overlay no debe tapar la siguiente sección.</p><cs-datetime-range-picker dateLabel="Rango de fechas" /></div></div>
-    </div>
-  </section>
-
-  <!-- Propiedades -->
   <section class="section">
     <h2 class="section__title" id="props">Propiedades</h2>
     <div class="table">
       <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
-      <div class="table__row"><code class="table__name">value</code><code class="table__type">{{ '{' }} startDate?, endDate?, startTime?, endTime? {{ '}' }}</code><code class="table__default">—</code><span class="table__desc">Valor controlado — pásalo junto con (valueChange) para manejar el estado tú mismo.</span></div>
-      <div class="table__row"><code class="table__name">defaultValue</code><code class="table__type">DateTimeRangeValue</code><code class="table__default">{{ '{' }}{{ '}' }}</code><span class="table__desc">Valor inicial, no controlado.</span></div>
-      <div class="table__row"><code class="table__name">(valueChange)</code><code class="table__type">EventEmitter&lt;DateTimeRangeValue&gt;</code><code class="table__default">—</code><span class="table__desc">Emite el valor completo en cada cambio (fecha o cualquiera de las dos horas).</span></div>
-      <div class="table__row"><code class="table__name">size</code><code class="table__type">"xs" | "sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Altura de los campos y escala de sus labels.</span></div>
-      <div class="table__row"><code class="table__name">timeStep</code><code class="table__type">number</code><code class="table__default">30</code><span class="table__desc">Minutos entre cada opción de la lista de horas.</span></div>
-      <div class="table__row"><code class="table__name">dateLabel</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Label sobre el campo de rango de fechas; sigue la escala de size.</span></div>
-      <div class="table__row"><code class="table__name">timeLabel</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Label sobre los dos campos de hora; sigue la escala de size.</span></div>
-      <div class="table__row"><code class="table__name">disabledDates</code><code class="table__type">string[]</code><code class="table__default">[]</code><span class="table__desc">Fechas ISO puntuales deshabilitadas en el calendario.</span></div>
-      <div class="table__row"><code class="table__name">minDate</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Fecha ISO mínima seleccionable.</span></div>
-      <div class="table__row"><code class="table__name">maxDate</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Fecha ISO máxima seleccionable.</span></div>
-      <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita ambos campos.</span></div>
-      <div class="table__row"><code class="table__name">required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Agrega un asterisco al label de fecha.</span></div>
-      <div class="table__row"><code class="table__name">invalid</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra errorText en vez de helperText.</span></div>
-      <div class="table__row"><code class="table__name">helperText</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Texto de ayuda debajo del control.</span></div>
-      <div class="table__row"><code class="table__name">errorText</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Mensaje de error, visible solo cuando invalid es true.</span></div>
+      <div class="table__row"><code class="table__name">value / (valueChange)</code><code class="table__type">DateTimeRangeValue</code><code class="table__default">{{ '{' }}{{ '}' }}</code><span class="table__desc">startDate, endDate ('YYYY-MM-DD'), startTime y endTime ('HH:mm').</span></div>
+      <div class="table__row"><code class="table__name">dateLabel / startTimeLabel / endTimeLabel</code><code class="table__type">string</code><code class="table__default">'Fechas' / 'Hora desde' / 'Hora hasta'</code><span class="table__desc">Labels de los tres campos.</span></div>
+      <div class="table__row"><code class="table__name">aria-label</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Nombre del grupo para lectores de pantalla.</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">"sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Tamaño de los campos.</span></div>
+      <div class="table__row"><code class="table__name">minDate / maxDate / weekStartDay</code><code class="table__type">string / 0 | 1</code><code class="table__default">— / 1</code><span class="table__desc">Límites y primer día del calendario.</span></div>
+      <div class="table__row"><code class="table__name">minuteStep</code><code class="table__type">number</code><code class="table__default">5</code><span class="table__desc">Intervalo de la columna de minutos.</span></div>
+      <div class="table__row"><code class="table__name">invalid / errorMessage</code><code class="table__type">boolean / string</code><code class="table__default">false / ''</code><span class="table__desc">Error del conjunto, debajo de los campos.</span></div>
     </div>
   </section>
 </div>

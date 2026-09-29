@@ -1,0 +1,74 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Date picker</p>
+  <h1 class="title">Date picker<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.27</span></h1>
+  <p class="description">Selector de una fecha: campo de solo lectura con la fecha en el formato del sistema y el calendario en un panel. Mismo aspecto que Date range picker. Para un periodo usa Date range picker; con hora, Date time picker.</p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Elige un estado y un tamaño, y abre el calendario con el campo o con el ícono.</p>
+    <ul class="section__intro state-list">
+      <li><strong>{{ pgInfo().title }}.</strong> {{ pgInfo().intro }}</li>
+      <li><strong>Propiedades:</strong> <code>{{ pgInfo().props }}</code></li>
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="codeFor(pgState(), pgSize())" (stateChange)="onState($event)">
+      <div class="stage">
+        <cs-date-picker
+          label="Fecha de captura"
+          [size]="pgSize()"
+          [value]="pgValue()"
+          [invalid]="pgState() === 'invalid'"
+          [errorMessage]="pgState() === 'invalid' ? 'Selecciona la fecha de captura.' : ''"
+          [disabled]="pgState() === 'disabled'"
+          (valueChange)="pgValue.set($event)"
+        />
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada estado en su propia caja, con su selector de tamaño.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'dp-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="stateSizeControls" [code]="codeFor(state.key, sizeOf(state.key))" (stateChange)="onStateSize(state.key, $event)">
+          <div class="stage">
+            <cs-date-picker
+              label="Fecha de captura"
+              [size]="sizeOf(state.key)"
+              [value]="valueFor(state.key)"
+              [invalid]="state.key === 'invalid'"
+              [errorMessage]="state.key === 'invalid' ? 'Selecciona la fecha de captura.' : ''"
+              [disabled]="state.key === 'disabled'"
+            />
+          </div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-reception">Fecha de recepción</h3>
+      <p class="section__intro">Un campo obligatorio de formulario que no admite fechas futuras.</p>
+      <app-demo-shell [controls]="[]" [code]="'<cs-date-picker label=&quot;Fecha de recepción&quot; maxDate=&quot;2026-09-29&quot; [required]=&quot;true&quot; />'">
+        <div class="stage"><cs-date-picker label="Fecha de recepción" maxDate="2026-09-29" [required]="true" /></div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">value / (valueChange)</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Fecha 'YYYY-MM-DD'.</span></div>
+      <div class="table__row"><code class="table__name">label / aria-label / placeholder</code><code class="table__type">string</code><code class="table__default">'' / '' / 'Selecciona una fecha'</code><span class="table__desc">Label visible, nombre accesible sin label y texto sin valor.</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">"sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Tamaño del campo y de su label.</span></div>
+      <div class="table__row"><code class="table__name">minDate / maxDate / weekStartDay</code><code class="table__type">string / 0 | 1</code><code class="table__default">— / 1</code><span class="table__desc">Límites y primer día del calendario.</span></div>
+      <div class="table__row"><code class="table__name">invalid / errorMessage</code><code class="table__type">boolean / string</code><code class="table__default">false / ''</code><span class="table__desc">Error con su mensaje.</span></div>
+      <div class="table__row"><code class="table__name">required / disabled / active</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Obligatorio, deshabilitado y estilo de filtro aplicado.</span></div>
+    </div>
+  </section>
+</div>

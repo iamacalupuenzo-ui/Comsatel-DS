@@ -296,4 +296,8 @@ export const routes: Routes = [
     path: 'components/file-upload',
     loadComponent: () => import('./pages/file-upload-demo/file-upload-page').then((m) => m.FileUploadPage),
   },
+  {
+    path: 'components/date-picker',
+    loadComponent: () => import('./pages/date-picker-demo/date-picker-page').then((m) => m.DatePickerPage),
+  },
 ];

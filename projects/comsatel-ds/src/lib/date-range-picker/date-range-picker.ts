@@ -10,6 +10,7 @@ import type { InputFieldSize } from '../input/input-tokens';
 import { Popover } from '../popover/popover';
 import { fieldLabelTypography } from '../input/input-tokens';
 import { textStyle } from '../tokens/typography';
+import { formatDate } from '../format/date-format';
 
 /** Rango de fechas en formato 'YYYY-MM-DD'; `to` vacío mientras se elige el segundo día. */
 export interface DateRangeValue {
@@ -123,11 +124,8 @@ export class DateRangePicker {
     this.valueChange.emit({ from: '', to: '' });
   }
 
-  /** Se arma la fecha con sus partes para que quede en horario local (new Date('YYYY-MM-DD') es UTC). */
+  /** Formato único del sistema: «27 sep. 2026» (ver format/date-format.ts). */
   private format(value: string): string {
-    const [year, month, day] = value.split('-').map(Number);
-    return new Intl.DateTimeFormat('es-PE', { day: '2-digit', month: 'short', year: 'numeric' }).format(
-      new Date(year, month - 1, day),
-    );
+    return formatDate(value);
   }
 }

@@ -1,13 +1,9 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, signal } from '@angular/core';
-import { NgStyle } from '@angular/common';
-import { Icon } from '../icons/icon';
-import { Calendar } from '../calendar/calendar';
-import { InputDropdown } from '../dropdown/input-dropdown';
-import type { DropdownSize } from '../dropdown/dropdown-types';
-import { fieldLabelTypography } from '../input/input-tokens';
-import { textStyle } from '../tokens/typography';
-import { generateTimeOptions, formatRangeDisplay, type TimeOption } from './datetime-range-picker-helpers';
+import { Component, EventEmitter, Input, Output, input, linkedSignal } from '@angular/core';
+import { DateRangePicker, type DateRangeValue } from '../date-range-picker/date-range-picker';
+import type { InputFieldSize } from '../input/input-tokens';
+import { TimePicker } from '../time-picker/time-picker';
 
+/** Rango con horas: fechas 'YYYY-MM-DD' y horas 'HH:mm' (24 h); vacío si falta. */
 export interface DateTimeRangeValue {
   startDate?: string;
   endDate?: string;
@@ -15,175 +11,140 @@ export interface DateTimeRangeValue {
   endTime?: string;
 }
 
-const FIELD_WIDTH = 258;
-
 let uid = 0;
 
 /**
- * Compone `cs-calendar` (selección de rango por dos clics, mismo criterio
- * que la demo de rango de Calendar: el primer clic guarda el extremo
- * pendiente vía `selected`, no `rangeSelected` — todavía no es un rango
- * real) + dos `cs-input-dropdown` para una VENTANA horaria que aplica a
- * todo el rango de fechas ("del 15 al 17 sep, de 8am a 10pm cada día"), no
- * un par de datetimes independientes. Construido a mano
- * (`@HostListener('document:mousedown')`, mismo patrón que InputDropdown),
- * sin librería de terceros.
+ * Organismo de rango con horas: DateRangePicker y dos TimePicker («Hora
+ * desde» y «Hora hasta»). Cada campo conserva su comportamiento; este
+ * componente los agrupa y emite los cuatro valores juntos. Si el ancho no
+ * alcanza, las horas bajan debajo del rango.
  */
 @Component({
   selector: 'cs-datetime-range-picker',
-  // El id va en el control interno; en el host quedaría duplicado y el label apuntaría al host.
   host: { '[attr.id]': 'null' },
-  imports: [NgStyle, Icon, Calendar, InputDropdown],
-  templateUrl: './datetime-range-picker.html',
-  styleUrl: './datetime-range-picker.css',
+  imports: [DateRangePicker, TimePicker],
+  template: `
+    <div class="cs-datetime-range-picker" role="group" [attr.aria-label]="ariaLabel || null">
+      <cs-date-range-picker
+        [id]="baseId + '-dates'"
+        [label]="dateLabel"
+        [placeholder]="datePlaceholder"
+        [size]="size"
+        [required]="required"
+        [disabled]="disabled"
+        [invalid]="invalid"
+        [minDate]="minDate"
+        [maxDate]="maxDate"
+        [weekStartDay]="weekStartDay"
+        [value]="{ from: startDate(), to: endDate() }"
+        (valueChange)="setDates($event)"
+      />
+      <div class="cs-datetime-range-picker__times">
+        <cs-time-picker
+          [id]="baseId + '-from'"
+          [label]="startTimeLabel"
+          [size]="size"
+          [disabled]="disabled"
+          [invalid]="invalid"
+          [minuteStep]="minuteStep()"
+          [value]="startTime()"
+          (valueChange)="setStartTime($event)"
+        />
+        <cs-time-picker
+          [id]="baseId + '-to'"
+          [label]="endTimeLabel"
+          [size]="size"
+          [disabled]="disabled"
+          [invalid]="invalid"
+          [minuteStep]="minuteStep()"
+          [value]="endTime()"
+          (valueChange)="setEndTime($event)"
+        />
+      </div>
+    </div>
+    @if (invalid && errorMessage) {
+      <p class="cs-datetime-range-picker__error" role="alert">{{ errorMessage }}</p>
+    }
+  `,
+  styles: [
+    `
+      :host {
+        display: grid;
+        gap: var(--layout-gap-xs);
+      }
+      .cs-datetime-range-picker {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: var(--layout-gap-md);
+      }
+      .cs-datetime-range-picker > cs-date-range-picker {
+        flex: 1 1 calc(var(--layout-size-3xl) * 3);
+      }
+      .cs-datetime-range-picker__times {
+        display: flex;
+        flex: 0 1 auto;
+        gap: var(--layout-gap-md);
+      }
+      .cs-datetime-range-picker__times > cs-time-picker {
+        flex: 1 1 calc(var(--layout-size-3xl) * 1.5);
+      }
+      .cs-datetime-range-picker__error {
+        margin: 0;
+        color: var(--color-text-danger-default);
+        font-family: var(--font-family-content);
+        font-size: var(--font-size-content-note);
+        line-height: var(--font-line-height-content-note);
+      }
+    `,
+  ],
 })
-export class DateTimeRangePicker implements OnInit {
+export class DateTimeRangePicker {
   @Input() id?: string;
-  @Input() defaultValue: DateTimeRangeValue = {};
-  @Input() value?: DateTimeRangeValue;
-  @Output() readonly valueChange = new EventEmitter<DateTimeRangeValue>();
-  @Input() size: DropdownSize = 'md';
+  /** Nombre del grupo para lectores de pantalla, por ejemplo «Periodo de la bitácora». */
+  @Input('aria-label') ariaLabel = '';
+  @Input() dateLabel = 'Fechas';
+  @Input() startTimeLabel = 'Hora desde';
+  @Input() endTimeLabel = 'Hora hasta';
+  @Input() datePlaceholder = 'Selecciona un rango';
+  @Input() size: InputFieldSize = 'md';
+  @Input() required = false;
   @Input() disabled = false;
   @Input() invalid = false;
-  @Input() required = false;
-  @Input() helperText?: string;
-  @Input() errorText?: string;
-  @Input() clearControlLabel = 'Limpiar';
-  @Input() timeStep = 30;
-
-  @Input() dateLabel?: string;
-  @Input() datePlaceholder = 'Selecciona un rango';
-  @Input() disabledDates: string[] = [];
+  /** Error del conjunto (por ejemplo «La hora hasta debe ser posterior»), debajo de los campos. */
+  @Input() errorMessage = '';
   @Input() minDate?: string;
   @Input() maxDate?: string;
-  @Input() weekStartDay: 0 | 1 = 0;
+  @Input() weekStartDay: 0 | 1 = 1;
+  /** Intervalo de la columna de minutos de los TimePicker. */
+  readonly minuteStep = input(5);
+  /** Componente controlado. */
+  readonly value = input<DateTimeRangeValue | null | undefined>({});
+  @Output() readonly valueChange = new EventEmitter<DateTimeRangeValue>();
 
-  @Input() timeLabel?: string;
-  @Input() startTimePlaceholder = 'Desde';
-  @Input() endTimePlaceholder = 'Hasta';
+  private readonly autoId = `cs-datetime-range-picker-${++uid}`;
+  protected get baseId(): string {
+    return this.id ?? this.autoId;
+  }
+  protected readonly startDate = linkedSignal(() => this.value()?.startDate ?? '');
+  protected readonly endDate = linkedSignal(() => this.value()?.endDate ?? '');
+  protected readonly startTime = linkedSignal(() => this.value()?.startTime ?? '');
+  protected readonly endTime = linkedSignal(() => this.value()?.endTime ?? '');
 
-  protected readonly dateOpen = signal(false);
-  protected readonly pendingStart = signal<string | null>(null);
-  protected readonly viewMonth = signal<number | undefined>(undefined);
-  protected readonly viewYear = signal<number | undefined>(undefined);
-  protected readonly gridId = `cs-dtrp-${++uid}`;
-  protected readonly fieldWidth = FIELD_WIDTH;
-  protected resolvedId = '';
-  protected helperId = '';
-  protected errorId = '';
-
-  private internal: DateTimeRangeValue = {};
-
-  constructor(private elementRef: ElementRef<HTMLElement>) {}
-
-  ngOnInit(): void {
-    this.resolvedId = this.id ?? `cs-datetime-range-picker-${++uid}`;
-    this.helperId = `${this.resolvedId}-help`;
-    this.errorId = `${this.resolvedId}-error`;
-    this.internal = this.defaultValue;
-    const sd = this.current.startDate;
-    if (sd) {
-      const [y, m] = sd.split('-').map(Number);
-      this.viewMonth.set(m);
-      this.viewYear.set(y);
-    }
+  protected setDates(range: DateRangeValue): void {
+    this.startDate.set(range.from);
+    this.endDate.set(range.to);
+    this.emit();
   }
-
-  protected get current(): DateTimeRangeValue {
-    return this.value ?? this.internal;
+  protected setStartTime(time: string): void {
+    this.startTime.set(time);
+    this.emit();
   }
-  protected get hasValue(): boolean {
-    return !!(this.current.startDate || this.current.startTime || this.current.endTime);
+  protected setEndTime(time: string): void {
+    this.endTime.set(time);
+    this.emit();
   }
-  protected get iconSize(): number {
-    return this.size === 'sm' ? 14 : 16;
-  }
-  protected get rowHeight(): number {
-    return this.size === 'sm' ? 28 : this.size === 'lg' ? 40 : 32;
-  }
-  protected get fieldLabelStyle(): Record<string, string> {
-    return textStyle(fieldLabelTypography[this.size], 'accent');
-  }
-  protected get displayText(): string {
-    const pending = this.pendingStart();
-    if (pending) return formatRangeDisplay(pending, undefined);
-    return formatRangeDisplay(this.current.startDate, this.current.endDate);
-  }
-  protected get timeOptions(): TimeOption[] {
-    return generateTimeOptions(this.timeStep);
-  }
-  protected get pendingSelected(): string[] {
-    const pending = this.pendingStart();
-    return pending ? [pending] : [];
-  }
-  protected get rangeSelected(): [string, string] | undefined {
-    const { startDate, endDate } = this.current;
-    return startDate && endDate ? [startDate, endDate] : undefined;
-  }
-
-  protected toggleDateOpen(): void {
-    if (this.disabled) return;
-    this.dateOpen.update((v) => !v);
-  }
-
-  protected handleDateClick(iso: string): void {
-    const start = this.pendingStart();
-    if (!start) {
-      this.pendingStart.set(iso);
-    } else {
-      const [startDate, endDate] = [start, iso].sort();
-      this.commit({ ...this.current, startDate, endDate });
-      this.pendingStart.set(null);
-      this.dateOpen.set(false);
-      this.restoreDateFocus();
-    }
-  }
-
-  protected onMonthChange(e: { month: number; year: number }): void {
-    this.viewMonth.set(e.month);
-    this.viewYear.set(e.year);
-  }
-
-  protected setStartTime(v: string): void {
-    this.commit({ ...this.current, startTime: v });
-  }
-  protected setEndTime(v: string): void {
-    this.commit({ ...this.current, endTime: v });
-  }
-  protected clearAll(): void {
-    this.commit({});
-    this.restoreDateFocus();
-  }
-
-  protected closeDate(): void {
-    this.dateOpen.set(false);
-    this.pendingStart.set(null);
-    this.restoreDateFocus();
-  }
-
-  protected get describedBy(): string {
-    return this.invalid && this.errorText ? this.errorId : this.helperText ? this.helperId : '';
-  }
-
-  private restoreDateFocus(): void {
-    setTimeout(() => this.elementRef.nativeElement.querySelector<HTMLButtonElement>('.cs-dtrp__date-trigger')?.focus());
-  }
-
-  private commit(next: DateTimeRangeValue): void {
-    if (this.value === undefined) this.internal = next;
-    this.valueChange.emit(next);
-  }
-
-  @HostListener('document:mousedown', ['$event'])
-  protected onDocumentMouseDown(e: MouseEvent): void {
-    if (this.dateOpen() && !this.elementRef.nativeElement.contains(e.target as Node)) {
-      this.dateOpen.set(false);
-      this.pendingStart.set(null);
-    }
-  }
-
-  @HostListener('document:keydown.escape')
-  protected onEscape(): void {
-    if (this.dateOpen()) this.closeDate();
+  private emit(): void {
+    this.valueChange.emit({ startDate: this.startDate(), endDate: this.endDate(), startTime: this.startTime(), endTime: this.endTime() });
   }
 }

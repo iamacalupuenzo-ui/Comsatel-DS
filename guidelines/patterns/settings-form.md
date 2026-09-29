@@ -51,10 +51,11 @@ Si cada cambio se aplica al instante, no es este patrón: son `cs-toggle` suelto
   ></cs-checkbox>
 
   <cs-datetime-picker
+    aria-label="Activar desde"
+    dateLabel="Activar desde"
+    timeLabel="Hora"
     [value]="startsAt"
     (valueChange)="startsAt = $event"
-    [datePickerProps]="{ label: 'Activar desde' }"
-    [timePickerProps]="{ label: 'Hora' }"
   ></cs-datetime-picker>
 
   <div class="settings__actions">
