@@ -153,6 +153,7 @@ export const NAVIGATION: NavSection[] = [
     items: [
       { title: 'Modal', href: '/components/modal', icon: 'app-window' },
       { title: 'Popover', href: '/components/popover', icon: 'picture-in-picture-2', change: { kind: 'actualizado', version: '0.3.3' } },
+      { title: 'Side drawer', href: '/components/side-drawer', icon: 'panels-top-left', change: { kind: 'nuevo', version: '0.3.14' } },
       { title: 'Tooltip', href: '/components/tooltip', icon: 'message-circle' },
     ],
   },
@@ -171,6 +172,7 @@ export const NAVIGATION: NavSection[] = [
       { title: 'Accordion', href: '/components/accordion', icon: 'chevrons-down-up' },
       { title: 'App Layout', href: '/components/app-layout', icon: 'layout-grid' },
       { title: 'Card', href: '/components/card', icon: 'credit-card' },
+      { title: 'Filter bar', href: '/components/filter-bar', icon: 'sliders', change: { kind: 'nuevo', version: '0.3.14' } },
       { title: 'Fleet unit list', href: '/components/fleet-unit-list', icon: 'truck', change: { kind: 'nuevo', version: '0.3.12' } },
       { title: 'List item', href: '/components/list-item', icon: 'list' },
       {

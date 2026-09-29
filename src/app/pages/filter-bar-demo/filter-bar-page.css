@@ -1,0 +1,13 @@
+.stage {
+  width: 100%;
+}
+.state-list {
+  display: grid;
+  gap: var(--layout-gap-xs);
+  padding-inline-start: var(--layout-padding-xl);
+}
+.state-list code { overflow-wrap: anywhere; }
+.more-filters {
+  display: grid;
+  gap: var(--layout-gap-lg);
+}

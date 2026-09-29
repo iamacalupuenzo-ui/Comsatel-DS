@@ -1,0 +1,30 @@
+.stage {
+  display: flex;
+  justify-content: center;
+}
+.state-list {
+  display: grid;
+  gap: var(--layout-gap-xs);
+  padding-inline-start: var(--layout-padding-xl);
+}
+.state-list code { overflow-wrap: anywhere; }
+.drawer-form {
+  display: grid;
+  gap: var(--layout-gap-lg);
+}
+.drawer-detail {
+  display: grid;
+  gap: var(--layout-gap-md);
+  margin: 0;
+}
+.drawer-detail div {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: var(--layout-gap-md);
+}
+.drawer-detail dt {
+  color: var(--color-text-base-subtle);
+}
+.drawer-detail dd {
+  margin: 0;
+}

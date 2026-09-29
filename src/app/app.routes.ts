@@ -264,4 +264,12 @@ export const routes: Routes = [
     path: 'components/form-field',
     loadComponent: () => import('./pages/form-field-demo/form-field-page').then((m) => m.FormFieldPage),
   },
+  {
+    path: 'components/side-drawer',
+    loadComponent: () => import('./pages/side-drawer-demo/side-drawer-page').then((m) => m.SideDrawerPage),
+  },
+  {
+    path: 'components/filter-bar',
+    loadComponent: () => import('./pages/filter-bar-demo/filter-bar-page').then((m) => m.FilterBarPage),
+  },
 ];

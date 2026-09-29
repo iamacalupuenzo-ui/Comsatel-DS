@@ -44,6 +44,8 @@ export * from './lib/card/feature-spotlight-card';
 export * from './lib/card/spotlight-card';
 export * from './lib/card/preview-card';
 export * from './lib/modal/modal';
+export * from './lib/side-drawer/side-drawer';
+export * from './lib/filter-bar/filter-bar';
 export * from './lib/directives/press-scale.directive';
 export * from './lib/directives/collapse.directive';
 export * from './lib/app-layout/app-layout-state';

@@ -1,0 +1,76 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Side drawer</p>
+  <h1 class="title">Side drawer<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.14</span></h1>
+  <p class="description">
+    Cajón lateral modal con encabezado, cuerpo con scroll propio y pie de acciones opcional. Se abre desde la derecha
+    sobre la pantalla actual, así la persona no pierde de vista de dónde vino. Para detalles de una fila y formularios
+    largos. Para una confirmación corta, usa Modal.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Elige el contenido y la superficie y abre el cajón. Escape, el botón de cerrar o un clic afuera lo cierran, y el foco vuelve al botón que lo abrió.</p>
+    <ul class="section__intro state-list">
+      <li><strong>{{ info().label }}.</strong> {{ info().when }}</li>
+      <li><strong>Superficie:</strong> <code>surface="canvas"</code> usa el lienzo de la página cuando el contenido lleva tarjetas o campos blancos encima; la blanca, para texto corrido.</li>
+      <li><strong>Propiedades:</strong> <code>{{ info().props }}</code></li>
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="code()" (stateChange)="onState($event)">
+      <div class="stage">
+        <cs-button variant="secondary" size="sm" (click)="open.set(true)">Abrir side drawer</cs-button>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <cs-side-drawer
+    [isOpen]="open()"
+    [title]="content() === 'form' ? 'Editar recupero' : 'Recupero REC-0142'"
+    [surface]="surface()"
+    [primaryAction]="primaryAction()"
+    [secondaryAction]="content() === 'form' ? secondaryAction : undefined"
+    (primaryActionClick)="save()"
+    (secondaryActionClick)="open.set(false)"
+    (closed)="open.set(false)"
+  >
+    @if (content() === 'form') {
+      <div class="drawer-form">
+        <cs-form-field for="sd-plate" label="Placa" [required]="true"><cs-input id="sd-plate" value="BAB711" [required]="true" /></cs-form-field>
+        <cs-form-field for="sd-insurer" label="Aseguradora"><cs-input id="sd-insurer" value="Pacífico Seguros" /></cs-form-field>
+        <cs-textarea label="Observaciones" [rows]="4" [maxLength]="500" value="La unidad se ubicó en el estacionamiento del centro comercial." />
+      </div>
+    } @else {
+      <dl class="drawer-detail">
+        <div><dt>Estado</dt><dd><cs-tag value="En gestión" severity="info" [rounded]="true" size="sm" /></dd></div>
+        <div><dt>Placa</dt><dd>BAB711</dd></div>
+        <div><dt>Aseguradora</dt><dd>Pacífico Seguros</dd></div>
+        <div><dt>Última ubicación</dt><dd>Av. Javier Prado Este 4200, Surco</dd></div>
+        <div><dt>Registro</dt><dd>27 sep. 2026, 10:42</dd></div>
+      </dl>
+    }
+  </cs-side-drawer>
+
+  <section class="section">
+    <h2 class="section__title" id="usage">Cuándo usarlo</h2>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Caso</span><span>Componente</span></div>
+      <div class="table__row"><strong>Ver el detalle de una fila</strong><span>Side drawer sin pie, abierto desde «Ver detalle» del menú de la fila.</span></div>
+      <div class="table__row"><strong>Formulario de más de cuatro campos</strong><span>Side drawer con acciones. El cuerpo hace scroll y el pie queda siempre visible.</span></div>
+      <div class="table__row"><strong>Confirmar o anular algo</strong><span>Modal: es una decisión corta que no necesita el contexto de la pantalla.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">isOpen</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Controla si está abierto.</span></div>
+      <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Título del encabezado; nombra el diálogo.</span></div>
+      <div class="table__row"><code class="table__name">width</code><code class="table__type">number</code><code class="table__default">560</code><span class="table__desc">Ancho máximo en px; hasta 767 px ocupa toda la pantalla.</span></div>
+      <div class="table__row"><code class="table__name">surface</code><code class="table__type">"default" | "canvas"</code><code class="table__default">"default"</code><span class="table__desc">Fondo blanco o lienzo de la página.</span></div>
+      <div class="table__row"><code class="table__name">primaryAction / secondaryAction</code><code class="table__type">SideDrawerAction</code><code class="table__default">—</code><span class="table__desc">label, icon?, disabled?, loading?. Sin ninguna, no hay pie.</span></div>
+      <div class="table__row"><code class="table__name">closeOnOverlayClick</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Cierra con un clic fuera del panel.</span></div>
+      <div class="table__row"><code class="table__name">closeLabel</code><code class="table__type">string</code><code class="table__default">'Cerrar'</code><span class="table__desc">Nombre accesible del botón de cierre.</span></div>
+      <div class="table__row"><code class="table__name">(closed) / (primaryActionClick) / (secondaryActionClick)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Pedido de cierre y clic en cada acción; el cajón no se cierra solo.</span></div>
+    </div>
+  </section>
+</div>
