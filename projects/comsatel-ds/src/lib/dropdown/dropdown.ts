@@ -42,9 +42,6 @@ export class Dropdown {
   get iconTriggerSize(): number {
     return this.size === 'sm' ? 20 : this.size === 'lg' ? 24 : 20;
   }
-  get menuWidth(): number {
-    return this.trigger === 'icon' ? 192 : 220;
-  }
   get menuTop(): number {
     return this.tok.height + 4;
   }

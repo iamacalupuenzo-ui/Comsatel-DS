@@ -61,10 +61,15 @@
 }
 
 /* Menú */
+/* Ancho por contenido: la opción más larga más su margen interno, entre 128 y 280 px (como
+   Material o Radix). Un ancho fijo dejaba menús de pocas opciones cortas demasiado anchos. */
 .cs-dropdown__menu {
   position: absolute;
   display: flex;
   flex-direction: column;
+  width: max-content;
+  min-width: calc(var(--layout-size-2xl) * 2);
+  max-width: calc(var(--layout-size-3xl) * 3.5);
   overflow: hidden;
   z-index: var(--elevation-z-index-dropdown);
   background-color: var(--color-background-base);

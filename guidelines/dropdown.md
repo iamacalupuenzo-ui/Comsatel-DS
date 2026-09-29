@@ -167,3 +167,7 @@ dividerAfter?, selected? }`.
   `display: contents`.
 - `placeholder` viene en inglés por defecto (`'Select an option'`): pasa el texto en
   español si el campo es visible para el usuario final.
+
+## Ancho del menú
+
+El menú de acciones mide lo que mide su opción más larga, más el margen interno de cada ítem, entre 128 y 280 px. Un ítem que no cabe en 280 px se recorta con puntos suspensivos. No fijes el ancho desde el producto: un ancho fijo deja menús de pocas opciones cortas demasiado anchos.
