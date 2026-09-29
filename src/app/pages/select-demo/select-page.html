@@ -2,76 +2,84 @@
   <p class="eyebrow">Componentes / Select</p>
   <h1 class="title">Select<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.4</span></h1>
   <p class="description">
-    Select permite elegir uno o varios valores dentro de un formulario, a diferencia de Dropdown,
-    que dispara acciones. En modo múltiple, las opciones elegidas se muestran como chips dentro del
-    propio campo y cada una tiene una acción para quitarla.
+    Select permite elegir uno o varios valores dentro de un formulario o de una barra de filtros, a diferencia
+    de Dropdown, que dispara acciones. En modo múltiple, la selección se muestra como chips (una insignia por
+    opción) o como un resumen de una línea.
   </p>
-
-  <section class="section" id="select-bounded">
-    <h2 class="section__title">Texto largo en un espacio acotado</h2>
-    <p class="section__intro">El campo y los chips respetan el ancho disponible. Oculta la limpieza cuando el valor sea obligatorio; reelegir conserva la selección.</p>
-    <div class="bounded-selects">
-      <cs-select id="bounded-single" label="Operación" [showClear]="false"
-        [options]="longOptions" [value]="longSingle()" (valueChange)="longSingle.set($event)" />
-      <cs-select id="bounded-multiple" label="Operaciones" [multiple]="true"
-        [options]="longOptions" [value]="longMultiple()" (valueChange)="longMultiple.set($event)" />
-      <cs-select id="bounded-disabled" label="Deshabilitado" [multiple]="true" [disabled]="true"
-        [options]="longOptions" [value]="['north']" />
-      <cs-select id="bounded-readonly" label="Solo lectura" [readonly]="true" [options]="longOptions" value="north" />
-      <cs-select id="bounded-invalid" label="Operación requerida" [invalid]="true" aria-describedby="select-error" [options]="longOptions" />
-      <p id="select-error">Selecciona una operación antes de continuar.</p>
-    </div>
-  </section>
-
-  <section class="section" id="multiple-density">
-    <h2 class="section__title">Densidad del modo múltiple</h2>
-    <p class="section__intro">Compara 2, 5 y 12 opciones en los cuatro tamaños. Chips conserva dos valores y un +N en una línea; summary muestra el conteo. Con las 12 opciones marcadas, ambos muestran «todos».</p>
-    <div class="density-controls">
-      @for (count of [2, 5, 12]; track count) {
-        <button type="button" [attr.aria-pressed]="inspectionCount() === count" (click)="inspectionCount.set(count)">{{ count }} marcadas</button>
-      }
-    </div>
-    <div class="density-grid">
-      @for (size of inspectionSizes; track size) {
-        <div class="density-item">
-          <strong>{{ size }} · chips</strong>
-          <cs-select label="Equipos" placeholder="Todos los equipos" [size]="size" [multiple]="true" [options]="inspectionOptions" [value]="inspectionValue()" />
-          <strong>{{ size }} · summary</strong>
-          <cs-select label="Equipos" placeholder="Todos los equipos" [size]="size" [multiple]="true" multipleDisplay="summary" [options]="inspectionOptions" [value]="inspectionValue()" />
-        </div>
-      }
-    </div>
-  </section>
 
   <!-- Playground -->
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>
-    <p class="section__intro">Ajusta los controles para explorar la selección simple y múltiple.</p>
+    <p class="section__intro">Elige el modo, el tamaño y el estado. El estado vale igual para la selección simple y la múltiple, y debajo del campo se explica cuándo usarlo.</p>
     <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
       <div class="select-stage">
-        <cs-select
-          [label]="pgShowLabel() ? 'Equipo' : undefined"
-          placeholder="Selecciona un equipo…"
-          [options]="teamOptions"
-          [multiple]="pgMultiple()"
-          [size]="pgSize()"
-          [required]="pgRequired()"
-          [disabled]="pgDisabled()"
-          [readonly]="pgReadonly()"
-          [invalid]="pgInvalid()"
-          [multipleDisplay]="pgSummary() ? 'summary' : 'chips'"
-          [active]="pgActive()"
-          [menuFit]="pgMenuFit()"
-          [value]="pgMultiple() ? pgSelectedMultipleValue() : pgSingleValue()"
-          (valueChange)="pgMultiple() ? pgMultipleValue.set($any($event)) : pgSingleValue.set($any($event))"
-        />
         @if (pgMultiple()) {
-          <div class="state-note">
-            <strong>{{ selectedMultipleState().name }}</strong>
-            <p><b>Cuándo usarlo:</b> {{ selectedMultipleState().when }}</p>
-            <p><b>Propiedades:</b> <code>{{ selectedMultipleState().props }}</code></p>
-          </div>
+          <cs-select
+            label="Equipo"
+            placeholder="Todos los equipos"
+            [options]="teamOptions"
+            [multiple]="true"
+            [multipleDisplay]="pgSummary() ? 'summary' : 'chips'"
+            [summaryLabel]="teamSummary"
+            [size]="pgSize()"
+            [required]="pgRequired()"
+            [menuFit]="pgMenuFit()"
+            [active]="pgState() === 'active'"
+            [invalid]="pgState() === 'invalid'"
+            [readonly]="pgState() === 'readonly'"
+            [disabled]="pgState() === 'disabled'"
+            [value]="pgMultipleValue()"
+            (valueChange)="pgMultipleValue.set($any($event))"
+          />
+        } @else {
+          <cs-select
+            label="Equipo"
+            placeholder="Selecciona un equipo…"
+            [options]="teamOptions"
+            [size]="pgSize()"
+            [required]="pgRequired()"
+            [menuFit]="pgMenuFit()"
+            [active]="pgState() === 'active'"
+            [invalid]="pgState() === 'invalid'"
+            [readonly]="pgState() === 'readonly'"
+            [disabled]="pgState() === 'disabled'"
+            [value]="pgSingleValue()"
+            (valueChange)="pgSingleValue.set($any($event))"
+          />
         }
+        <div class="state-note">
+          <strong>{{ pgStateInfo().label }}</strong>
+          <p><b>Cuándo usarlo:</b> {{ pgStateInfo().when }}</p>
+          <p><b>Propiedades:</b> <code>{{ pgStateInfo().props }}</code></p>
+        </div>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Selección múltiple -->
+  <section class="section">
+    <h2 class="section__title" id="multiple">Selección múltiple</h2>
+    <p class="section__intro">Cambia la cantidad de opciones marcadas, la visualización y el tamaño para ver cómo responde el campo. Los chips muestran hasta dos opciones y luego «+N»; el resumen siempre ocupa una línea. Con una selección parcial, el campo se marca como filtro aplicado.</p>
+    <app-demo-shell [controls]="multipleControls" [code]="mCode()" (stateChange)="onMultipleState($event)">
+      <div class="select-stage">
+        <cs-select
+          label="Equipos"
+          placeholder="Todos los equipos"
+          [options]="manyOptions"
+          [multiple]="true"
+          [multipleDisplay]="mDisplay()"
+          [summaryLabel]="teamSummary"
+          [size]="mSize()"
+          [menuFit]="true"
+          [active]="mActive()"
+          [value]="mValue()"
+          (valueChange)="mValue.set($any($event))"
+        />
+        <div class="state-note">
+          <strong>{{ mCountInfo().label }} marcada{{ mCountInfo().count === 1 ? '' : 's' }}</strong>
+          <p><b>Cuándo usarlo:</b> {{ mCountInfo().when }}</p>
+          <p><b>Chips o resumen:</b> usa chips en formularios, donde conviene ver y quitar cada opción; usa resumen en barras de filtro y en espacios angostos.</p>
+        </div>
       </div>
     </app-demo-shell>
   </section>
@@ -79,18 +87,95 @@
   <!-- Estados -->
   <section class="section">
     <h2 class="section__title" id="states">Estados</h2>
-    <p class="section__intro">Cada tarjeta muestra el control real, cuándo usarlo y las propiedades que producen el estado. El foco y la apertura tienen prioridad sobre el estado aplicado.</p>
-    <div class="static-block">
-      <div class="static-block__preview states-grid">
-        @for (state of multipleStates; track state.name) {
-          <div class="states-grid__item">
-            <cs-select label="Equipo" placeholder="Todos los equipos" [options]="teamOptions" [multiple]="true" multipleDisplay="summary" [value]="state.value" [active]="!!state.active" [invalid]="!!state.invalid" [readonly]="!!state.readonly" [disabled]="!!state.disabled" />
-            <strong class="states-grid__label">{{ state.name }}</strong>
-            <p><b>Cuándo usarlo:</b> {{ state.when }}</p>
-            <p><b>Propiedades:</b> <code>{{ state.props }}</code></p>
-          </div>
-        }
-      </div>
+    <p class="section__intro">Cada estado en su propio ejemplo, con cuándo usarlo y el código que lo produce. El foco y la apertura tienen prioridad sobre el filtro aplicado, y el error sobre ambos.</p>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="state-empty">Vacío</h3>
+      <p class="section__intro">Todavía no se eligió nada. El placeholder dice qué se espera.</p>
+      <app-demo-shell [controls]="[]" [code]="code.empty">
+        <div class="select-stage"><cs-select label="Equipo" placeholder="Selecciona un equipo…" [options]="teamOptions" /></div>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="state-filled">Con valor</h3>
+      <p class="section__intro">Hay una opción elegida. Con la X se limpia, salvo que el valor sea obligatorio (<code>[showClear]="false"</code>).</p>
+      <app-demo-shell [controls]="[]" [code]="code.filled">
+        <div class="select-stage"><cs-select label="Equipo" [options]="teamOptions" [value]="stateValue()" (valueChange)="stateValue.set($any($event))" /></div>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="state-active">Filtro aplicado</h3>
+      <p class="section__intro">Solo en barras de filtro: indica que el resultado está restringido por este campo.</p>
+      <app-demo-shell [controls]="[]" [code]="code.active">
+        <div class="select-stage"><cs-select label="Equipo" [options]="teamOptions" value="design" [active]="true" /></div>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="state-invalid">Error</h3>
+      <p class="section__intro">La selección no cumple una validación. Siempre con un mensaje que explique cómo resolverlo.</p>
+      <app-demo-shell [controls]="[]" [code]="code.invalid">
+        <div class="select-stage">
+          <cs-select label="Equipo" placeholder="Selecciona un equipo…" [options]="teamOptions" [invalid]="true" aria-describedby="select-error" />
+          <p class="field-error" id="select-error">Selecciona un equipo antes de continuar.</p>
+        </div>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="state-required">Requerido</h3>
+      <p class="section__intro">El formulario no se puede enviar sin este valor. El asterisco aparece junto al label.</p>
+      <app-demo-shell [controls]="[]" [code]="code.required">
+        <div class="select-stage"><cs-select label="Equipo" placeholder="Selecciona un equipo…" [options]="teamOptions" [required]="true" /></div>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="state-readonly">Solo lectura</h3>
+      <p class="section__intro">El valor se muestra, pero no se puede cambiar en este contexto; por ejemplo, en un detalle ya confirmado.</p>
+      <app-demo-shell [controls]="[]" [code]="code.readonly">
+        <div class="select-stage"><cs-select label="Equipo" [options]="teamOptions" value="design" [readonly]="true" /></div>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="state-disabled">Deshabilitado</h3>
+      <p class="section__intro">El control no está disponible en el paso actual; por ejemplo, hasta completar un campo previo.</p>
+      <app-demo-shell [controls]="[]" [code]="code.disabled">
+        <div class="select-stage"><cs-select label="Equipo" [options]="teamOptions" value="design" [disabled]="true" /></div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <!-- Texto largo -->
+  <section class="section">
+    <h2 class="section__title" id="long-text">Texto largo en un espacio acotado</h2>
+    <p class="section__intro">El campo respeta el ancho disponible: el texto se recorta con puntos suspensivos y el valor completo queda disponible al pasar el cursor.</p>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="long-single">Selección simple</h3>
+      <p class="section__intro">Una opción larga se recorta en una línea. Aquí el valor es obligatorio, así que no se muestra la X de limpiar.</p>
+      <app-demo-shell [controls]="[]" [code]="code.longSingle">
+        <div class="select-stage"><cs-select label="Operación" [options]="longOptions" [showClear]="false" [value]="longSingle()" (valueChange)="longSingle.set($event)" /></div>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="long-chips">Selección múltiple con chips</h3>
+      <p class="section__intro">Cada chip recorta su texto y, pasadas las dos opciones, el resto se resume en «+N».</p>
+      <app-demo-shell [controls]="[]" [code]="code.longChips">
+        <div class="select-stage"><cs-select label="Operaciones" [multiple]="true" [options]="longOptions" [value]="longChips()" (valueChange)="longChips.set($event)" /></div>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="long-summary">Selección múltiple con resumen</h3>
+      <p class="section__intro">Con una opción, el resumen muestra su nombre recortado; con varias, el conteo.</p>
+      <app-demo-shell [controls]="[]" [code]="code.longSummary">
+        <div class="select-stage"><cs-select label="Operaciones" [multiple]="true" multipleDisplay="summary" [options]="longOptions" [value]="longSummary()" (valueChange)="longSummary.set($event)" /></div>
+      </app-demo-shell>
     </div>
   </section>
 
