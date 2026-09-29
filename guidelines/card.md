@@ -4,6 +4,7 @@ Cinco componentes distintos, cada uno con su propósito. No hay una "Card" gené
 slots libres: se elige la que corresponde al contenido.
 
 - **Import:** `import { ActionCard, CardBanner, FeatureSpotlightCard, SpotlightCard, PreviewCard } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { ActionCard, CardBanner, FeatureSpotlightCard, SpotlightCard, PreviewCard } from '@iamacalupuenzo-ui/comsatel-ds/card';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-action-card>`, `<cs-card-banner>`, `<cs-feature-spotlight-card>`, `<cs-spotlight-card>`, `<cs-preview-card>`
 - **Clases raíz emitidas:** `.cs-action-card`, `.cs-card-banner`, `.cs-feature-spotlight-card`, `.cs-spotlight-card`, `.cs-preview-card`
 
@@ -20,7 +21,7 @@ slots libres: se elige la que corresponde al contenido.
 ## Props de `ActionCard`
 
 <!-- props:start ActionCard -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/card/action-card.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/card/src/action-card.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -62,7 +63,7 @@ No agrega tokens. Foco exterior compartido con FleetUnitList; el check acompaña
 al borde seleccionado sin cambiar su geometría.
 
 <!-- props:start CardBanner -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/card/card-banner.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/card/src/card-banner.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -78,7 +79,7 @@ al borde seleccionado sin cambiar su geometría.
 ## Props de `FeatureSpotlightCard`
 
 <!-- props:start FeatureSpotlightCard -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/card/feature-spotlight-card.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/card/src/feature-spotlight-card.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -88,7 +89,7 @@ al borde seleccionado sin cambiar su geometría.
 ## Props de `SpotlightCard`
 
 <!-- props:start SpotlightCard -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/card/spotlight-card.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/card/src/spotlight-card.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -100,7 +101,7 @@ al borde seleccionado sin cambiar su geometría.
 ## Props de `PreviewCard`
 
 <!-- props:start PreviewCard -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/card/preview-card.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/card/src/preview-card.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -123,7 +124,7 @@ al borde seleccionado sin cambiar su geometría.
   no tiene equivalente a pasar un nodo como prop.
 
 <!-- a11y:start ActionCard -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/card/action-card.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/card/src/action-card.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-action-card`
 
@@ -134,7 +135,7 @@ al borde seleccionado sin cambiar su geometría.
 <!-- a11y:end -->
 
 <!-- a11y:start CardBanner -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/card/card-banner.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/card/src/card-banner.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-card-banner`
 
@@ -144,7 +145,7 @@ al borde seleccionado sin cambiar su geometría.
 <!-- a11y:end -->
 
 <!-- a11y:start FeatureSpotlightCard -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/card/feature-spotlight-card.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/card/src/feature-spotlight-card.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-feature-spotlight-card`
 
@@ -154,7 +155,7 @@ al borde seleccionado sin cambiar su geometría.
 <!-- a11y:end -->
 
 <!-- a11y:start SpotlightCard -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/card/spotlight-card.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/card/src/spotlight-card.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-spotlight-card`
 
@@ -164,7 +165,7 @@ al borde seleccionado sin cambiar su geometría.
 <!-- a11y:end -->
 
 <!-- a11y:start PreviewCard -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/card/preview-card.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/card/src/preview-card.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-preview-card`
 

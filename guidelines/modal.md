@@ -4,6 +4,7 @@ Diálogo que interrumpe la tarea y exige una decisión antes de seguir. Si el co
 puede convivir con la página, no es un modal.
 
 - **Import:** `import { Modal } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Modal } from '@iamacalupuenzo-ui/comsatel-ds/modal';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-modal>`
 - **Clase raíz emitida:** `.cs-modal`
 
@@ -29,7 +30,7 @@ puede convivir con la página, no es un modal.
 ## Props
 
 <!-- props:start Modal -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/modal/modal.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/modal/src/modal.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -65,7 +66,7 @@ El contenido del cuerpo va proyectado.
   `overflow: hidden` de un ancestro lo recorta ni lo deja debajo de otra capa.
 
 <!-- a11y:start Modal -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/modal/modal.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/modal/src/modal.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-modal`
 

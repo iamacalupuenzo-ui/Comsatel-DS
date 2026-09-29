@@ -5,6 +5,7 @@ la condición sigue siendo cierta hasta que alguien la resuelva, el componente e
 `Banner`; si hay que decidir antes de seguir, es `Modal`.
 
 - **Import:** `import { Toast, ToastRegion } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Toast, ToastRegion } from '@iamacalupuenzo-ui/comsatel-ds/toast';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-toast>`, `<cs-toast-region>`
 - **Clase raíz emitida:** `.cs-toast`
 
@@ -41,7 +42,7 @@ No encola ni programa el cierre: eso sigue en la pantalla.
 ## Props
 
 <!-- props:start Toast -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/toast/toast.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/toast/src/toast.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -67,7 +68,7 @@ No encola ni programa el cierre: eso sigue en la pantalla.
 - El ícono es decorativo: el significado va en `title`, nunca solo en el color.
 
 <!-- a11y:start Toast -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/toast/toast.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/toast/src/toast.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-toast`
 
@@ -82,7 +83,7 @@ No encola ni programa el cierre: eso sigue en la pantalla.
 ## Props de `ToastRegion`
 
 <!-- props:start ToastRegion -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/toast/toast-region.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/toast/src/toast-region.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -90,7 +91,7 @@ No encola ni programa el cierre: eso sigue en la pantalla.
 <!-- props:end -->
 
 <!-- a11y:start ToastRegion -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/toast/toast-region.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/toast/src/toast-region.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-toast-region`
 

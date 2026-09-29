@@ -12,6 +12,7 @@ que cuelga de un botón. `InputDropdown` es un **campo de formulario** que elige
 valor: se ve y se comporta como un input, no como un menú.
 
 - **Import:** `import { Dropdown, InputDropdown } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Dropdown, InputDropdown, DropdownItemComponent } from '@iamacalupuenzo-ui/comsatel-ds/dropdown';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-dropdown>`, `<cs-input-dropdown>`
 - **Clases raíz emitidas:** `.cs-dropdown`, `.cs-dropdown-item`, `.cs-input-dropdown`, `.cs-country-flag`
 
@@ -29,7 +30,7 @@ valor: se ve y se comporta como un input, no como un menú.
 ## Props de `Dropdown`
 
 <!-- props:start Dropdown -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/dropdown/dropdown.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/dropdown/src/dropdown.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -53,7 +54,7 @@ dividerAfter?, selected? }`.
 ## Props de `InputDropdown`
 
 <!-- props:start InputDropdown -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/dropdown/input-dropdown.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/dropdown/src/input-dropdown.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -85,7 +86,7 @@ dividerAfter?, selected? }`.
 ## Props de `DropdownItemComponent`
 
 <!-- props:start DropdownItemComponent -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/dropdown/dropdown-item.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/dropdown/src/dropdown-item.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -110,7 +111,7 @@ dividerAfter?, selected? }`.
   conserva el nombre del país en texto.
 
 <!-- a11y:start Dropdown -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/dropdown/dropdown.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/dropdown/src/dropdown.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-dropdown`
 
@@ -126,7 +127,7 @@ dividerAfter?, selected? }`.
 <!-- a11y:end -->
 
 <!-- a11y:start DropdownItemComponent -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/dropdown/dropdown-item.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/dropdown/src/dropdown-item.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-dropdown-item`
 
@@ -139,7 +140,7 @@ dividerAfter?, selected? }`.
 <!-- a11y:end -->
 
 <!-- a11y:start InputDropdown -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/dropdown/input-dropdown.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/dropdown/src/input-dropdown.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-input-dropdown`
 

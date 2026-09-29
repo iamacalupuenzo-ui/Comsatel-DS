@@ -5,6 +5,7 @@ página. Si cada opción lleva a un lugar distinto de la aplicación, eso es nav
 (`Menu`), no tabs.
 
 - **Import:** `import { Tabs, Tab } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Tabs, Tab } from '@iamacalupuenzo-ui/comsatel-ds/tab';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-tabs>`, `<cs-tab>`
 - **Clases raíz emitidas:** `.cs-tabs`, `.cs-tab-panel`
 
@@ -22,7 +23,7 @@ página. Si cada opción lleva a un lugar distinto de la aplicación, eso es nav
 ## Props de `Tabs`
 
 <!-- props:start Tabs -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/tab/tabs.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/tab/src/tabs.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -35,7 +36,7 @@ página. Si cada opción lleva a un lugar distinto de la aplicación, eso es nav
 ## Props de `Tab`
 
 <!-- props:start Tab -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/tab/tab.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/tab/src/tab.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -58,7 +59,7 @@ El contenido del panel va proyectado dentro del `cs-tab`.
 - Los paneles inactivos se ocultan con `hidden`: su contenido no se lee ni recibe foco.
 
 <!-- a11y:start Tabs -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/tab/tabs.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/tab/src/tabs.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-tabs`
 
@@ -73,7 +74,7 @@ El contenido del panel va proyectado dentro del `cs-tab`.
 <!-- a11y:end -->
 
 <!-- a11y:start Tab -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/tab/tab.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/tab/src/tab.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-tab`
 

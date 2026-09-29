@@ -5,6 +5,7 @@ Campo de selección que admite **múltiple**. Para selección simple en un formu
 elegir varias opciones y quitarlas una por una.
 
 - **Import:** `import { Select } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Select } from '@iamacalupuenzo-ui/comsatel-ds/select';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-select>`
 - **Clase raíz emitida:** `.cs-select`
 
@@ -52,7 +53,7 @@ en filtros pequeños y el caso «todos» ya se alcanza dejando la selección vac
 ## Props
 
 <!-- props:start Select -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/select/select.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/select/src/select.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -89,7 +90,7 @@ en filtros pequeños y el caso «todos» ya se alcanza dejando la selección vac
 - Los textos por defecto ya vienen en español, a diferencia de `InputDropdown`.
 
 <!-- a11y:start Select -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/select/select.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/select/src/select.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-select`
 

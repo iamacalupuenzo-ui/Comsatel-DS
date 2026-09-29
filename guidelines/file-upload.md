@@ -4,6 +4,7 @@ Carga de **archivos**: una zona para arrastrar o elegir archivos (`FileDropzone`
 cada archivo adjunto (`FileItem`).
 
 - **Import:** `import { FileDropzone, FileItem, fileIconFor, formatFileSize } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { FileDropzone, FileItem } from '@iamacalupuenzo-ui/comsatel-ds/file-upload';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-file-dropzone>`, `<cs-file-item>`
 
 ```html
@@ -37,7 +38,7 @@ error se muestra con `errorMessage` y se anuncia con `role="alert"`.
 ## Props de `FileDropzone`
 
 <!-- props:start FileDropzone -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/file-upload/file-upload.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/file-upload/src/file-upload.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -55,7 +56,7 @@ error se muestra con `errorMessage` y se anuncia con `role="alert"`.
 ## Props de `FileItem`
 
 <!-- props:start FileItem -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/file-upload/file-upload.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/file-upload/src/file-upload.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -74,7 +75,7 @@ error se muestra con `errorMessage` y se anuncia con `role="alert"`.
 - En `FileItem`, el enlace dice que abre una pestaña nueva y el botón de quitar se nombra con `removeLabel`.
 
 <!-- a11y:start FileDropzone -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/file-upload/file-upload.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/file-upload/src/file-upload.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-file-dropzone`
 
@@ -87,7 +88,7 @@ error se muestra con `errorMessage` y se anuncia con `role="alert"`.
 <!-- a11y:end -->
 
 <!-- a11y:start FileItem -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/file-upload/file-upload.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/file-upload/src/file-upload.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-file-item`
 

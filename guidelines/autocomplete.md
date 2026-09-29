@@ -5,6 +5,7 @@ Campo de búsqueda que filtra una lista larga mientras se escribe y permite eleg
 comandos). Si caben en una lista corta, usa `InputDropdown`; para varios valores, `Select` múltiple.
 
 - **Import:** `import { Autocomplete, type AutocompleteOption } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Autocomplete } from '@iamacalupuenzo-ui/comsatel-ds/autocomplete';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-autocomplete>`
 - **Clase raíz emitida:** `.cs-autocomplete`
 
@@ -44,7 +45,7 @@ comandos). Si caben en una lista corta, usa `InputDropdown`; para varios valores
 ## Props
 
 <!-- props:start Autocomplete -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/autocomplete/autocomplete.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/autocomplete/src/autocomplete.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -72,7 +73,7 @@ comandos). Si caben en una lista corta, usa `InputDropdown`; para varios valores
 ## Accesibilidad
 
 <!-- a11y:start Autocomplete -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/autocomplete/autocomplete.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/autocomplete/src/autocomplete.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-autocomplete`
 

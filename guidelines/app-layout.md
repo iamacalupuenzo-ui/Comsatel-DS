@@ -4,7 +4,7 @@ El armazón de una aplicación: barra superior, navegación lateral colapsable, 
 contenido y panel opcional.
 
 - **Import:** `import { AppLayout, Header } from '@iamacalupuenzo-ui/comsatel-ds';`
-- **Import liviano:** `import { AppLayout, AppLayoutState } from '@iamacalupuenzo-ui/comsatel-ds/app-layout';` (`Header` sigue en la raíz hasta su ola; ver «Importar desde un subpath» en `docs/consumer-angular.md`)
+- **Import liviano:** `import { AppLayout, AppLayoutState } from '@iamacalupuenzo-ui/comsatel-ds/app-layout';` y `import { Header } from '@iamacalupuenzo-ui/comsatel-ds/header';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-app-layout>`, `<cs-header>`
 - **Clases raíz emitidas:** `.cs-app-layout`, `.cs-header`
 
@@ -34,7 +34,7 @@ lateral, `[panel]` para la columna derecha opcional, y el contenido sin atributo
 ## Props de `Header`
 
 <!-- props:start Header -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/header/header.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/header/src/header.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -71,7 +71,7 @@ lateral, `[panel]` para la columna derecha opcional, y el contenido sin atributo
 <!-- a11y:end -->
 
 <!-- a11y:start Header -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/header/header.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/header/src/header.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-header`
 

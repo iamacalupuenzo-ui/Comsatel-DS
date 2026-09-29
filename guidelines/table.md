@@ -6,6 +6,9 @@ jerarquía: filas que se expanden para mostrar hijos, con carga perezosa.
 panel compacto; no sustituye un selector de valores.
 
 - **Import:** `import { ColumnManager, Table, TableRowActions, TableTree } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Table, TableRowActions } from '@iamacalupuenzo-ui/comsatel-ds/table';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
+- **Import liviano:** `import { ColumnManager } from '@iamacalupuenzo-ui/comsatel-ds/column-manager';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
+- **Import liviano:** `import { TableTree } from '@iamacalupuenzo-ui/comsatel-ds/table-tree';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-table>`, `<cs-table-row-actions>`, `<cs-table-tree>`, `<cs-column-manager>`
 - **Clases raíz emitidas:** `.cs-table`, `.cs-table-tree`, `.cs-column-manager`.
   Son detalles para inspección; la integración usa los selectores públicos.
@@ -24,7 +27,7 @@ panel compacto; no sustituye un selector de valores.
 ## Props de `Table`
 
 <!-- props:start Table -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/table/table.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/table/src/table.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -99,7 +102,7 @@ muestra «Reintentar». El vacío y el error son estados distintos: no uses el
 ## Props de `TableRowActions`
 
 <!-- props:start TableRowActions -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/table/table-row-actions.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/table/src/table-row-actions.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -112,7 +115,7 @@ muestra «Reintentar». El vacío y el error son estados distintos: no uses el
 ## Props de `ColumnManager`
 
 <!-- props:start ColumnManager -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/column-manager/column-manager.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/column-manager/src/column-manager.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -129,7 +132,7 @@ muestra «Reintentar». El vacío y el error son estados distintos: no uses el
 ## Props de `TableTree`
 
 <!-- props:start TableTree -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/table-tree/table-tree.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/table-tree/src/table-tree.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -157,7 +160,7 @@ muestra «Reintentar». El vacío y el error son estados distintos: no uses el
   incluye la fila. El menú tiene `role="menu"`; Escape lo cierra y el foco vuelve al botón.
 
 <!-- a11y:start TableRowActions -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/table/table-row-actions.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/table/src/table-row-actions.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-table-row-actions`
 
@@ -170,7 +173,7 @@ muestra «Reintentar». El vacío y el error son estados distintos: no uses el
 <!-- a11y:end -->
 
 <!-- a11y:start Table -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/table/table.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/table/src/table.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-table`
 
@@ -183,7 +186,7 @@ muestra «Reintentar». El vacío y el error son estados distintos: no uses el
 <!-- a11y:end -->
 
 <!-- a11y:start ColumnManager -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/column-manager/column-manager.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/column-manager/src/column-manager.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-column-manager`
 
@@ -195,7 +198,7 @@ muestra «Reintentar». El vacío y el error son estados distintos: no uses el
 <!-- a11y:end -->
 
 <!-- a11y:start TableTree -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/table-tree/table-tree.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/table-tree/src/table-tree.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-table-tree`
 

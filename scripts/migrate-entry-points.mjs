@@ -52,12 +52,18 @@ for (const m of api.text.matchAll(/^export \* from '\.\/lib\/([^/']+)\/([^']+)';
 }
 
 // 2. Mover fuentes y crear la entrada.
+// Ruta vieja → nueva de cada archivo movido: con esto se recalculan las rutas relativas de los
+// recursos (@import, styleUrl, templateUrl) sin adivinar por patrones.
+const moved = new Map();
 for (const name of wave) {
   const from = join(LIB, name);
   const to = join(LIB_ROOT, name, 'src');
   if (!existsSync(from)) throw new Error(`No existe src/lib/${name}`);
   mkdirSync(to, { recursive: true });
-  for (const file of readdirSync(from)) git('mv', join(from, file), join(to, file));
+  for (const file of readdirSync(from)) {
+    git('mv', join(from, file), join(to, file));
+    moved.set(join(from, file), join(to, file));
+  }
   const pkgJson = join(LIB_ROOT, name, 'ng-package.json');
   if (!existsSync(pkgJson)) {
     writeFileSync(pkgJson, '{\n  "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",\n  "lib": { "entryFile": "public-api.ts" }\n}\n');
@@ -109,6 +115,9 @@ for (const file of files) {
     if (own && existsSync(join(LIB, folder))) return `${pre}'../../src/lib/${spec.slice(3)}'`;
     return all;
   });
+  // Historias de olas anteriores que apuntaban a una carpeta que seguía en src/lib: si esa carpeta
+  // ya es una entrada, pasan a su subpath.
+  out = out.replace(/(from\s*|import\s*\(?\s*)'\.\.\/\.\.\/src\/lib\/([a-z-]+)\/[^']+'/g, (all, pre, folder) => (isEntry(folder) && folder !== own ? `${pre}'${PKG}/${folder}'` : all));
   if (own) {
     // Import del propio subpath: se reparte por archivo con rutas relativas.
     const map = symbolFile(own);
@@ -130,21 +139,43 @@ for (const file of files) {
   }
 }
 
-// 5. @import de CSS entre carpetas: son recursos de compilación, no subpaths; se corrige la ruta
-// relativa según dónde quedaron el archivo y su destino.
-const locate = (folder) => (isEntry(folder) ? join(LIB_ROOT, folder, 'src') : join(LIB, folder));
-for (const file of files.filter((f) => f.endsWith('.css'))) {
+// 5. Recursos de compilación con ruta relativa: `@import` en CSS y `styleUrl`/`templateUrl` en TS
+// (date-picker usa el CSS de date-range-picker). No son subpaths: se resuelve la ruta desde donde
+// estaba el archivo, se sigue el destino si también se movió, y se vuelve a escribir relativa a
+// donde quedó. Así da igual cuántos niveles tenga la ruta original.
+const oldPathOf = new Map([...moved].map(([from, to]) => [to, from]));
+const rebase = (file, spec) => {
+  if (!spec.startsWith('.')) return null;
+  const oldDir = dirname(oldPathOf.get(file) ?? file);
+  const oldTarget = join(oldDir, spec);
+  const target = moved.get(oldTarget) ?? oldTarget;
+  if (!existsSync(target)) return null;
+  const next = relative(dirname(file), target).replace(/\\/g, '/');
+  const out = next.startsWith('.') ? next : './' + next;
+  return out === spec ? null : out;
+};
+for (const file of files) {
   const { crlf, text } = norm(read(file));
-  const out = text.replace(/@import\s+'\.\.\/([a-z-]+)\/([^']+)'/g, (all, folder, rest) => {
-    const target = join(locate(folder), rest);
-    if (!existsSync(target)) return all;
-    const spec = relative(dirname(file), target).replace(/\\/g, '/');
-    return `@import '${spec.startsWith('.') ? spec : './' + spec}'`;
+  const pattern = file.endsWith('.css') ? /(@import\s+)'([^']+)'/g : /((?:styleUrl|templateUrl)\s*:\s*|styleUrls\s*:\s*\[[^\]]*?)'([^']+\.(?:css|html))'/g;
+  const out = text.replace(pattern, (all, pre, spec) => {
+    const next = rebase(file, spec);
+    return next ? `${pre}'${next}'` : all;
   });
   if (out !== text) {
     write(file, out, crlf);
     changed.push(relative(ROOT, file).replace(/\\/g, '/'));
   }
+}
+// Ningún recurso relativo puede quedar apuntando a un archivo inexistente.
+const broken = [];
+for (const file of files) {
+  const text = read(file);
+  const refs = file.endsWith('.css') ? text.matchAll(/@import\s+'([^']+)'/g) : text.matchAll(/(?:styleUrl|templateUrl)\s*:\s*'([^']+)'/g);
+  for (const m of refs) if (m[1].startsWith('.') && !existsSync(join(dirname(file), m[1]))) broken.push(`${relative(ROOT, file)} → ${m[1]}`);
+}
+if (broken.length) {
+  console.error(`Recursos rotos después de mover:\n${broken.join('\n')}`);
+  process.exit(1);
 }
 
 // 6. La API pública después de mover debe ser la misma.
@@ -159,7 +190,7 @@ if (lost.length || gained.length) {
 // las entradas nuevas, cuenta los componentes movidos como no documentados y el gate baja de 45.
 const adsa = join(ROOT, 'adsa.config.json');
 const config = JSON.parse(read(adsa));
-config.source = ['projects/comsatel-ds/src/lib', ...readdirSync(LIB_ROOT).filter((d) => isEntry(d)).sort().map((d) => `projects/comsatel-ds/${d}/src`)];
+config.source = [...(existsSync(LIB) ? ['projects/comsatel-ds/src/lib'] : []), ...readdirSync(LIB_ROOT).filter((d) => isEntry(d)).sort().map((d) => `projects/comsatel-ds/${d}/src`)];
 writeFileSync(adsa, JSON.stringify(config, null, 2) + '\n');
 
 console.log(`entradas: ${wave.join(', ')}\n${changed.length} archivos reescritos; API pública intacta (${apiAfter.length} símbolos)`);

@@ -4,6 +4,7 @@ Filtro de **rango de fechas** (solo fecha): campo de solo lectura que abre un ca
 con «Limpiar» en el pie. El primer clic fija el inicio y el segundo el fin; se ordenan solos.
 
 - **Import:** `import { DateRangePicker, type DateRangeValue } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { DateRangePicker } from '@iamacalupuenzo-ui/comsatel-ds/date-range-picker';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-date-range-picker>`
 
 ```html
@@ -37,7 +38,7 @@ con «Limpiar» en el pie. El primer clic fija el inicio y el segundo el fin; se
 ## Props
 
 <!-- props:start DateRangePicker -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/date-range-picker/date-range-picker.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/date-range-picker/src/date-range-picker.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -62,7 +63,7 @@ con «Limpiar» en el pie. El primer clic fija el inicio y el segundo el fin; se
 ## Accesibilidad
 
 <!-- a11y:start DateRangePicker -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/date-range-picker/date-range-picker.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/date-range-picker/src/date-range-picker.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-date-range-picker`
 

@@ -4,6 +4,7 @@ Globo de onboarding que señala un elemento de la interfaz y explica para qué s
 Se usa en recorridos guiados, no para mensajes del día a día.
 
 - **Import:** `import { Spotlight } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Spotlight } from '@iamacalupuenzo-ui/comsatel-ds/spotlight';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-spotlight>`
 - **Clase raíz emitida:** `.cs-spotlight`
 
@@ -24,7 +25,7 @@ Se usa en recorridos guiados, no para mensajes del día a día.
 ## Props
 
 <!-- props:start Spotlight -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/spotlight/spotlight.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/spotlight/src/spotlight.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -54,7 +55,7 @@ Se usa en recorridos guiados, no para mensajes del día a día.
   por teclado, enfoca tú la acción principal al mostrarlo.
 
 <!-- a11y:start Spotlight -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/spotlight/spotlight.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/spotlight/src/spotlight.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-spotlight`
 

@@ -5,6 +5,7 @@ con contador y panel, y «Limpiar filtros» solo cuando hay algún criterio apli
 viven en la pantalla.
 
 - **Import:** `import { FilterBar } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { FilterBar } from '@iamacalupuenzo-ui/comsatel-ds/filter-bar';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-filter-bar>`
 
 ```html
@@ -41,7 +42,7 @@ Escape, con un clic fuera de él o con el mismo botón.
 ## Props
 
 <!-- props:start FilterBar -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/filter-bar/filter-bar.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/filter-bar/src/filter-bar.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -67,7 +68,7 @@ Escape, con un clic fuera de él o con el mismo botón.
 - «Más filtros» expone `aria-haspopup="dialog"`, `aria-expanded` y `aria-controls`; el panel es `role="dialog"`.
 
 <!-- a11y:start FilterBar -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/filter-bar/filter-bar.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/filter-bar/src/filter-bar.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-filter-bar`
 

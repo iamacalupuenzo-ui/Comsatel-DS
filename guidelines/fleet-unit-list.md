@@ -4,6 +4,7 @@ Organismo de filas planas: la fila selecciona y el botón de tres puntos abre
 acciones y telemetría en Popover separado. No expande unidades.
 
 - **Import:** `import { FleetUnitList, type FleetUnit } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { FleetUnitList } from '@iamacalupuenzo-ui/comsatel-ds/fleet-unit-list';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-fleet-unit-list>`
 - **Clase raíz emitida:** `.cs-fleet-unit-list`
 
@@ -32,7 +33,7 @@ const units: FleetUnit[] = [
 ## Props
 
 <!-- props:start FleetUnitList -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/fleet-unit-list/fleet-unit-list.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/fleet-unit-list/src/fleet-unit-list.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -73,7 +74,7 @@ El `status` decide el color y el ícono del badge, con un mapeo fijo:
 - Telemetría en dl; estado con texto y fijado con estrella.
 
 <!-- a11y:start FleetUnitList -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/fleet-unit-list/fleet-unit-list.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/fleet-unit-list/src/fleet-unit-list.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-fleet-unit-list`
 

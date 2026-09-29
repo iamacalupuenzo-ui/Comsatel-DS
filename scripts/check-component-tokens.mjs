@@ -5,11 +5,11 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 export const componentStyles = [
-  'projects/comsatel-ds/src/lib/dropdown/input-dropdown.css',
-  'projects/comsatel-ds/src/lib/fleet-unit-list/fleet-unit-list.css',
-  'projects/comsatel-ds/src/lib/card/action-card.css',
+  'projects/comsatel-ds/dropdown/src/input-dropdown.css',
+  'projects/comsatel-ds/fleet-unit-list/src/fleet-unit-list.css',
+  'projects/comsatel-ds/card/src/action-card.css',
   'projects/comsatel-ds/shared/src/focus.css',
-  'projects/comsatel-ds/src/lib/select/select.css',
+  'projects/comsatel-ds/select/src/select.css',
   'src/app/pages/motion-demo/collapsible-panel-example.css',
 ];
 // CSS no permite var() en media queries. Conserva el umbral histórico md - 1.

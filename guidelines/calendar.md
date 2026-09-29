@@ -9,7 +9,7 @@ no dibujan sus propios campos, componen los del sistema.
 | `DateTimeRangePicker` | `DateRangePicker` + dos `TimePicker` | `{ startDate, endDate, startTime, endTime }` |
 
 - **Import:** `import { Calendar, DateTimePicker, DateTimeRangePicker, formatDate, formatDateTime } from '@iamacalupuenzo-ui/comsatel-ds';`
-- **Import liviano:** `import { Calendar } from '@iamacalupuenzo-ui/comsatel-ds/calendar';` y `import { formatDate, formatDateTime } from '@iamacalupuenzo-ui/comsatel-ds/format';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
+- **Import liviano:** `import { Calendar } from '@iamacalupuenzo-ui/comsatel-ds/calendar';`, `import { DateTimePicker } from '@iamacalupuenzo-ui/comsatel-ds/datetime-picker';`, `import { DateTimeRangePicker } from '@iamacalupuenzo-ui/comsatel-ds/datetime-range-picker';` y `import { formatDate, formatDateTime } from '@iamacalupuenzo-ui/comsatel-ds/format';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-calendar>`, `<cs-datetime-picker>`, `<cs-datetime-range-picker>`
 - **Clases raíz emitidas:** `.cs-calendar`, `.cs-datetime-picker`, `.cs-datetime-range-picker`
 
@@ -73,7 +73,7 @@ para que en Perú no se muestre el día anterior.
 ## Props de `DateTimePicker`
 
 <!-- props:start DateTimePicker -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/datetime-picker/datetime-picker.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/datetime-picker/src/datetime-picker.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -98,7 +98,7 @@ para que en Perú no se muestre el día anterior.
 ## Props de `DateTimeRangePicker`
 
 <!-- props:start DateTimeRangePicker -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/datetime-range-picker/datetime-range-picker.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/datetime-range-picker/src/datetime-range-picker.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -147,7 +147,7 @@ para que en Perú no se muestre el día anterior.
 <!-- a11y:end -->
 
 <!-- a11y:start DateTimePicker -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/datetime-picker/datetime-picker.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/datetime-picker/src/datetime-picker.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-datetime-picker`
 
@@ -159,7 +159,7 @@ para que en Perú no se muestre el día anterior.
 <!-- a11y:end -->
 
 <!-- a11y:start DateTimeRangePicker -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/datetime-range-picker/datetime-range-picker.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/datetime-range-picker/src/datetime-range-picker.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-datetime-range-picker`
 

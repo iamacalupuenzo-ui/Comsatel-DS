@@ -5,6 +5,7 @@ grupos de seguimiento, las bitácoras y los recuperos. Se cierran con la X y los
 renombran como una hoja de cálculo (doble clic, F2 o el lápiz de la pestaña activa).
 
 - **Import:** `import { MapTabs, type MapTab, type MapTabRename } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { MapTabs } from '@iamacalupuenzo-ui/comsatel-ds/map-tabs';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-map-tabs>`
 - **Clases raíz emitidas:** `.cs-map-tabs`
 
@@ -47,7 +48,7 @@ sepa qué controla cada pestaña, dale a ese contenedor `role="tabpanel"`, un id
 ## Props
 
 <!-- props:start MapTabs -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/map-tabs/map-tabs.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/map-tabs/src/map-tabs.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -72,7 +73,7 @@ sepa qué controla cada pestaña, dale a ese contenedor `role="tabpanel"`, un id
 - Al renombrar, Enter confirma y devuelve el foco a la pestaña; Escape cancela.
 
 <!-- a11y:start MapTabs -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/map-tabs/map-tabs.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/map-tabs/src/map-tabs.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-map-tabs`
 

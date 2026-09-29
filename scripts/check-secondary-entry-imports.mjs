@@ -108,6 +108,26 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     }
     graph[basename(dir)] = [...deps];
   }
+  // Cada nombre importado de otro subpath tiene que estar en su public-api: si no, el build de
+  // ng-packagr falla lejos de la causa ("has no exported member").
+  const DECL = /export (?:declare )?(?:abstract )?(?:class|interface|type|const|let|function|enum)\s+(\w+)/g;
+  const exportsOf = Object.fromEntries(dirs.map((dir) => {
+    const names = new Set();
+    for (const m of readText(join(dir, 'public-api.ts')).matchAll(/export \* from '\.\/([^']+)'/g)) {
+      for (const d of readText(join(dir, `${m[1]}.ts`)).matchAll(DECL)) names.add(d[1]);
+    }
+    return [basename(dir), names];
+  }));
+  const allTs = [join(LIB_ROOT, 'src', 'lib'), ...dirs.map((d) => join(d, 'src'))].filter(existsSync).flatMap((d) => packagedTsFiles(d));
+  for (const file of allTs) {
+    const text = readText(file);
+    for (const m of text.matchAll(/import\s+(?:type\s+)?\{([^}]+)\}\s+from\s+['"]@iamacalupuenzo-ui\/comsatel-ds\/([a-z-]+)['"]/g)) {
+      for (const raw of m[1].split(',').map((n) => n.trim()).filter(Boolean)) {
+        const name = raw.replace(/^type\s+/, '').split(/\s+as\s+/)[0];
+        if (exportsOf[m[2]] && !exportsOf[m[2]].has(name)) failures.push(`${rel(file)}:${lineOf(text, m.index)} importa ${name} de /${m[2]}, que no lo exporta: agrégalo a projects/comsatel-ds/${m[2]}/public-api.ts.`);
+      }
+    }
+  }
   const cycle = findCycle(graph);
   if (cycle) failures.push(`Ciclo entre entradas secundarias: ${cycle}`);
   if (failures.length) {
