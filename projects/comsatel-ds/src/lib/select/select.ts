@@ -35,7 +35,7 @@ let uid = 0;
 export class Select {
   @Input() label?: string;
   @Input() placeholder = 'Selecciona una opción';
-  @Input() options: SelectOption[] = [];
+  @Input() options: readonly SelectOption[] = [];
   /** Habilita la selección de más de una opción; el valor pasa a ser un array. */
   @Input() multiple = false;
   @Input() value?: string | string[];
@@ -54,6 +54,8 @@ export class Select {
    * todas las opciones elegidas equivalen a «todos» y se muestra el placeholder.
    */
   @Input() multipleDisplay: 'chips' | 'summary' = 'chips';
+  /** Límite de chips visibles; el resto se resume como +N. */
+  @Input() maxVisibleChips = 2;
   /** Texto del resumen cuando hay varias opciones elegidas. */
   @Input() summaryLabel: (count: number) => string = (count) => `${count} seleccionados`;
   /** Filtro aplicado: borde, fondo y texto de selección. Foco, apertura y error tienen prioridad. */
@@ -112,6 +114,15 @@ export class Select {
   protected get selectedOptions(): SelectOption[] {
     return this.multiple ? this.options.filter((o) => this.selectedValues.includes(o.value)) : [];
   }
+  protected get visibleChips(): SelectOption[] {
+    return this.selectedOptions.slice(0, Math.max(0, this.maxVisibleChips));
+  }
+  protected get hiddenChipCount(): number {
+    return Math.max(0, this.selectedOptions.length - this.visibleChips.length);
+  }
+  protected get allSelected(): boolean {
+    return this.multiple && this.options.length > 0 && this.selectedOptions.length === this.options.length;
+  }
   protected get hasValue(): boolean {
     return this.multiple ? this.selectedValues.length > 0 : !!this.value;
   }
@@ -129,14 +140,14 @@ export class Select {
 
   /** Estado aplicado visible: cede ante foco, apertura, error y disabled. */
   protected get isActiveVisual(): boolean {
-    return this.active && !this.disabled && !this.invalid() && !this.open() && !this.focused();
+    return this.active && !this.allSelected && !this.disabled && !this.invalid() && !this.open() && !this.focused();
   }
 
   protected get borderColor(): string {
     if (this.disabled) return 'var(--color-border-neutral-subtle)';
     if (this.invalid()) return 'var(--color-border-danger-default)';
     if (this.focused() || this.open()) return 'var(--color-border-brand-default)';
-    if (this.active) return 'var(--color-border-selected)';
+    if (this.active && !this.allSelected) return 'var(--color-border-selected)';
     return this.surface() === 'secondary' ? 'var(--color-border-secondary-default)' : 'var(--color-border-neutral-default)';
   }
   protected get extraShadow(): string {

@@ -84,12 +84,13 @@
   min-width: 0;
   display: flex;
   flex: 1;
-  flex-wrap: wrap;
-  row-gap: var(--layout-gap-xs);
+  flex-wrap: nowrap;
+  overflow: hidden;
   column-gap: var(--layout-gap-2xs);
 }
 .cs-select__placeholder--empty { font-style: italic; }
-.cs-select__chip { max-width: 100%; }
+.cs-select__chip { max-width: 100%; min-width: 0; flex: 0 1 auto; }
+.cs-select__chip:last-child { flex-shrink: 0; }
 .cs-select__chip-label {
   display: block;
   overflow: hidden;

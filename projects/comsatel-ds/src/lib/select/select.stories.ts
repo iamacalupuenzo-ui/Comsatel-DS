@@ -99,3 +99,14 @@ export const MultipleSummaryStates: Story = {
     `,
   }),
 };
+
+/** Cada estado tiene una historia aislada para inspección visual y accesibilidad. */
+export const MultipleEmpty: Story = { args: { multiple: true, multipleDisplay: 'summary', placeholder: 'Todos los equipos', value: [] } };
+export const MultipleOne: Story = { args: { multiple: true, multipleDisplay: 'summary', value: ['design'] } };
+export const MultipleSeveral: Story = { args: { multiple: true, multipleDisplay: 'summary', value: ['design', 'engineering'] } };
+export const MultipleAll: Story = { args: { multiple: true, multipleDisplay: 'summary', placeholder: 'Todos los equipos', value: teamOptions.map(option => option.value), active: true } };
+export const MultipleActive: Story = { args: { multiple: true, multipleDisplay: 'summary', value: ['design', 'engineering'], active: true } };
+export const MultipleOpen: Story = { args: { multiple: true, multipleDisplay: 'summary', value: ['design'] }, play: async ({ canvasElement }) => { (canvasElement.querySelector('[role="combobox"]') as HTMLElement)?.click(); } };
+export const MultipleInvalid: Story = { args: { multiple: true, multipleDisplay: 'summary', value: ['design'], invalid: true } };
+export const MultipleReadonly: Story = { args: { multiple: true, multipleDisplay: 'summary', value: ['design'], readonly: true } };
+export const MultipleDisabled: Story = { args: { multiple: true, multipleDisplay: 'summary', value: ['design'], disabled: true } };

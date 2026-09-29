@@ -1,6 +1,6 @@
 <div class="page">
   <p class="eyebrow">Componentes / Select</p>
-  <h1 class="title">Select<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.0</span></h1>
+  <h1 class="title">Select<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.4</span></h1>
   <p class="description">
     Select permite elegir uno o varios valores dentro de un formulario, a diferencia de Dropdown,
     que dispara acciones. En modo múltiple, las opciones elegidas se muestran como chips dentro del
@@ -23,6 +23,26 @@
     </div>
   </section>
 
+  <section class="section" id="multiple-density">
+    <h2 class="section__title">Densidad del modo múltiple</h2>
+    <p class="section__intro">Compara 2, 5 y 12 opciones en los cuatro tamaños. Chips conserva dos valores y un +N en una línea; summary muestra el conteo. Con las 12 opciones marcadas, ambos muestran «todos».</p>
+    <div class="density-controls">
+      @for (count of [2, 5, 12]; track count) {
+        <button type="button" [attr.aria-pressed]="inspectionCount() === count" (click)="inspectionCount.set(count)">{{ count }} marcadas</button>
+      }
+    </div>
+    <div class="density-grid">
+      @for (size of inspectionSizes; track size) {
+        <div class="density-item">
+          <strong>{{ size }} · chips</strong>
+          <cs-select label="Equipos" placeholder="Todos los equipos" [size]="size" [multiple]="true" [options]="inspectionOptions" [value]="inspectionValue()" />
+          <strong>{{ size }} · summary</strong>
+          <cs-select label="Equipos" placeholder="Todos los equipos" [size]="size" [multiple]="true" multipleDisplay="summary" [options]="inspectionOptions" [value]="inspectionValue()" />
+        </div>
+      }
+    </div>
+  </section>
+
   <!-- Playground -->
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>
@@ -42,9 +62,16 @@
           [multipleDisplay]="pgSummary() ? 'summary' : 'chips'"
           [active]="pgActive()"
           [menuFit]="pgMenuFit()"
-          [value]="pgMultiple() ? pgMultipleValue() : pgSingleValue()"
+          [value]="pgMultiple() ? pgSelectedMultipleValue() : pgSingleValue()"
           (valueChange)="pgMultiple() ? pgMultipleValue.set($any($event)) : pgSingleValue.set($any($event))"
         />
+        @if (pgMultiple()) {
+          <div class="state-note">
+            <strong>{{ selectedMultipleState().name }}</strong>
+            <p><b>Cuándo usarlo:</b> {{ selectedMultipleState().when }}</p>
+            <p><b>Propiedades:</b> <code>{{ selectedMultipleState().props }}</code></p>
+          </div>
+        }
       </div>
     </app-demo-shell>
   </section>
@@ -52,41 +79,17 @@
   <!-- Estados -->
   <section class="section">
     <h2 class="section__title" id="states">Estados</h2>
-    <p class="section__intro">Placeholder (vacío), lleno (valor único), múltiple (chips y resumen), filtro aplicado, error, solo lectura y deshabilitado. El foco y la apertura tienen prioridad sobre el estado aplicado, y el error sobre ambos.</p>
+    <p class="section__intro">Cada tarjeta muestra el control real, cuándo usarlo y las propiedades que producen el estado. El foco y la apertura tienen prioridad sobre el estado aplicado.</p>
     <div class="static-block">
       <div class="static-block__preview states-grid">
-        <div class="states-grid__item">
-          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" value="" />
-          <span class="states-grid__label">Placeholder</span>
-        </div>
-        <div class="states-grid__item">
-          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" value="design" />
-          <span class="states-grid__label">Lleno</span>
-        </div>
-        <div class="states-grid__item">
-          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" [multiple]="true" [value]="stateMultipleValue()" (valueChange)="stateMultipleValue.set($any($event))" />
-          <span class="states-grid__label">Múltiple</span>
-        </div>
-        <div class="states-grid__item">
-          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" value="design" [disabled]="true" />
-          <span class="states-grid__label">Deshabilitado</span>
-        </div>
-        <div class="states-grid__item">
-          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" value="design" [active]="true" />
-          <span class="states-grid__label">Filtro aplicado</span>
-        </div>
-        <div class="states-grid__item">
-          <cs-select placeholder="Todos los equipos" [options]="teamOptions" [multiple]="true" multipleDisplay="summary" [value]="['design', 'eng']" [active]="true" />
-          <span class="states-grid__label">Resumen múltiple aplicado</span>
-        </div>
-        <div class="states-grid__item">
-          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" value="design" [invalid]="true" />
-          <span class="states-grid__label">Error</span>
-        </div>
-        <div class="states-grid__item">
-          <cs-select placeholder="Selecciona un equipo…" [options]="teamOptions" value="design" [readonly]="true" />
-          <span class="states-grid__label">Solo lectura</span>
-        </div>
+        @for (state of multipleStates; track state.name) {
+          <div class="states-grid__item">
+            <cs-select label="Equipo" placeholder="Todos los equipos" [options]="teamOptions" [multiple]="true" multipleDisplay="summary" [value]="state.value" [active]="!!state.active" [invalid]="!!state.invalid" [readonly]="!!state.readonly" [disabled]="!!state.disabled" />
+            <strong class="states-grid__label">{{ state.name }}</strong>
+            <p><b>Cuándo usarlo:</b> {{ state.when }}</p>
+            <p><b>Propiedades:</b> <code>{{ state.props }}</code></p>
+          </div>
+        }
       </div>
     </div>
   </section>
@@ -175,6 +178,7 @@
       <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita el trigger, oculta el menú y el control de limpiar.</span></div>
       <div class="table__row"><code class="table__name">required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Agrega un asterisco al label.</span></div>
       <div class="table__row"><code class="table__name">multipleDisplay</code><code class="table__type">"chips" | "summary"</code><code class="table__default">"chips"</code><span class="table__desc">En modo múltiple, chips por opción o un resumen de una línea (la opción o el conteo). En «summary», ninguna o todas equivalen a «todos».</span></div>
+      <div class="table__row"><code class="table__name">maxVisibleChips</code><code class="table__type">number</code><code class="table__default">2</code><span class="table__desc">Máximo de chips visibles antes de mostrar +N; mantiene el campo en una línea.</span></div>
       <div class="table__row"><code class="table__name">summaryLabel</code><code class="table__type">(count: number) =&gt; string</code><code class="table__default">"{{ '{' }}n{{ '}' }} seleccionados"</code><span class="table__desc">Texto del resumen cuando hay varias opciones elegidas.</span></div>
       <div class="table__row"><code class="table__name">active</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Filtro aplicado: borde, fondo y texto de selección. Cede ante foco, apertura y error.</span></div>
       <div class="table__row"><code class="table__name">menuFit</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">La lista mide al menos el ancho del campo y crece con la opción más larga hasta el borde visible; recién ahí parte el texto.</span></div>
@@ -182,6 +186,9 @@
       <div class="table__row"><code class="table__name">readonly</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el valor sin permitir abrir la lista ni limpiar.</span></div>
       <div class="table__row"><code class="table__name">clearControlLabel</code><code class="table__type">string</code><code class="table__default">"Limpiar"</code><span class="table__desc">aria-label del botón que limpia una selección simple. A propósito no forma parte del tab order.</span></div>
       <div class="table__row"><code class="table__name">removeOptionLabel</code><code class="table__type">(label: string) =&gt; string</code><code class="table__default">"Quitar {{ '{' }}label{{ '}' }}"</code><span class="table__desc">Arma el nombre accesible de la acción de quitar junto a cada chip en modo múltiple.</span></div>
+      <div class="table__row"><code class="table__name">showClear</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra el control para limpiar la selección simple.</span></div>
+      <div class="table__row"><code class="table__name">surface</code><code class="table__type">"default" | "secondary"</code><code class="table__default">"default"</code><span class="table__desc">Superficie del campo y el menú.</span></div>
+      <div class="table__row"><code class="table__name">aria-describedby</code><code class="table__type">string</code><code class="table__default">""</code><span class="table__desc">Identificador del mensaje de ayuda o error.</span></div>
     </div>
   </section>
 </div>

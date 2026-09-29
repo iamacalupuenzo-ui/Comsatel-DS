@@ -42,9 +42,9 @@
         @if (multiple && multipleDisplay === 'summary') {
           <span class="cs-select__placeholder cs-select__summary" [class.cs-select__summary--all]="summaryIsPlaceholder" [attr.title]="summaryText">{{ summaryText }}</span>
         } @else if (multiple) {
-          @if (selectedOptions.length > 0) {
+          @if (selectedOptions.length > 0 && !allSelected) {
             <span class="cs-select__chips">
-              @for (opt of selectedOptions; track opt.value) {
+              @for (opt of visibleChips; track opt.value) {
                 <cs-badge [size]="chipSize" variant="neutral" class="cs-select__chip">
                   <span class="cs-select__chip-label" [title]="opt.label">{{ opt.label }}</span>
                   <button
@@ -59,6 +59,9 @@
                     <cs-icon name="x" [size]="chipRemoveIconSize" aria-hidden="true" />
                   </button>
                 </cs-badge>
+              }
+              @if (hiddenChipCount > 0) {
+                <cs-badge [size]="chipSize" variant="neutral" class="cs-select__chip" [attr.title]="hiddenChipCount + ' opciones más'">+{{ hiddenChipCount }}</cs-badge>
               }
             </span>
           } @else {

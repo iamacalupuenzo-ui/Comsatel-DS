@@ -18,6 +18,37 @@ elegir varias opciones y quitarlas una por una.
 ></cs-select>
 ```
 
+## Cuándo usar Select múltiple
+
+| Decisión | Usa | Motivo |
+| :-- | :-- | :-- |
+| Mostrar cada valor elegido | `multipleDisplay="chips"` | Formulario con espacio suficiente; los chips permiten quitar valores concretos. Muestra hasta `maxVisibleChips` (2 por defecto) y luego `+N`. |
+| Filtrar en una barra o campo estrecho | `multipleDisplay="summary"` | Conserva una línea, muestra una opción o el conteo, y deja el texto completo en `title`. |
+| Elegir varios valores | `Select` múltiple | `InputDropdown` sirve para elegir un valor; no ofrece selección múltiple. |
+| Elegir uno entre pocos valores visibles | `RadioGroup` | Las alternativas permanecen a la vista. Para una condición binaria independiente, usa `Toggle`. |
+
+En un filtro, `[]` y todas las opciones marcadas significan «todos»; usa
+`[active]="selected.length > 0 && selected.length < options.length"`.
+El componente también evita pintar como aplicado el caso de todas marcadas.
+
+## Estados del modo múltiple
+
+| Estado | Cuándo | Propiedades |
+| :-- | :-- | :-- |
+| Vacío / todos | No hay restricción. | `[multiple]="true" [value]="[]" placeholder="Todos"` |
+| Una opción | Hay un solo valor. | `[multiple]="true" [value]="['a']"` |
+| Varias opciones | Hay varios valores. | `[multiple]="true" [value]="['a','b']"` |
+| Todas marcadas | El conjunto vuelve a ser todos. | `[multiple]="true" [value]="allValues"` |
+| Filtro aplicado | Selección parcial en un filtro. | `[multiple]="true" multipleDisplay="summary" [active]="true"` |
+| Foco y abierto | El usuario navega las opciones. | Foco o clic sobre el trigger; no requiere prop. |
+| Error | La selección incumple una regla. | `[invalid]="true" aria-describedby="error-id"` |
+| Solo lectura | Mostrar sin permitir cambios. | `[readonly]="true"` |
+| Deshabilitado | Campo indisponible. | `[disabled]="true"` |
+
+Para cuatro o más opciones, el menú conserva la lista simple y la selección individual.
+No se añade «Seleccionar todo / Limpiar» por defecto: aumenta las acciones visibles
+en filtros pequeños y el caso «todos» ya se alcanza dejando la selección vacía.
+
 ## Props
 
 <!-- props:start Select -->
@@ -27,13 +58,14 @@ elegir varias opciones y quitarlas una por una.
 | :-- | :-- | :-- | :-- |
 | `label` | `string \| undefined` | `undefined` | Etiqueta visible. |
 | `placeholder` | `string` | `'Selecciona una opción'` | Texto sin selección. |
-| `options` | `SelectOption[]` | `[]` | `{ label, value, disabled? }`. |
+| `options` | `readonly SelectOption[]` | `[]` | `{ label, value, disabled? }`. |
 | `multiple` | `boolean` | `false` | Permite elegir varias opciones. |
 | `value` | `string \| string[] \| undefined` | `undefined` | Valor seleccionado. Array cuando `multiple`. |
 | `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Alto del campo. |
 | `disabled` | `boolean` | `false` | Deshabilita el campo. |
 | `required` | `boolean` | `false` | Marca el campo como requerido. |
 | `multipleDisplay` | `'chips' \| 'summary'` | `'chips'` | En modo múltiple, una insignia por opción (chips) o un resumen de una línea (summary). En summary, ninguna o todas equivalen a «todos». |
+| `maxVisibleChips` | `number` | `2` | Limita los chips visibles; el resto se muestra como `+N` en una línea. |
 | `summaryLabel` | `(count: number) => string` | `` (count) => `${count} seleccionados` `` | Texto del resumen cuando hay varias opciones elegidas. |
 | `active` | `boolean` | `false` | Filtro aplicado: borde, fondo y texto de selección. Cede ante foco, apertura y error. |
 | `menuFit` | `boolean` | `false` | La lista mide al menos el ancho del campo y crece con la opción más larga hasta el borde visible; recién ahí parte el texto. |

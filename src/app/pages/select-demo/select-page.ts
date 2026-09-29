@@ -9,6 +9,17 @@ const TEAM_OPTIONS: SelectOption[] = [
   { label: 'Ventas', value: 'sales' },
 ];
 
+type MultipleState = {
+  name: string;
+  when: string;
+  props: string;
+  value: string[];
+  active?: boolean;
+  invalid?: boolean;
+  readonly?: boolean;
+  disabled?: boolean;
+};
+
 @Component({
   selector: 'app-select-page',
   imports: [Select, DemoShell],
@@ -25,6 +36,10 @@ export class SelectPage {
   protected readonly longSingle = signal<string | string[]>('north');
   protected readonly longMultiple = signal<string | string[]>(['north', 'south']);
   protected readonly teamOptions = TEAM_OPTIONS;
+  protected readonly inspectionOptions: SelectOption[] = Array.from({ length: 12 }, (_, index) => ({ label: `Equipo ${index + 1}`, value: `team-${index + 1}` }));
+  protected readonly inspectionSizes = ['xs', 'sm', 'md', 'lg'] as const;
+  protected readonly inspectionCount = signal(5);
+  protected readonly inspectionValue = computed(() => this.inspectionOptions.slice(0, this.inspectionCount()).map(option => option.value));
 
   /* Playground */
   protected readonly playgroundControls: ControlDef[] = [
@@ -32,7 +47,7 @@ export class SelectPage {
     { kind: 'select', label: 'Tamaño', key: 'size', options: ['xs', 'sm', 'md', 'lg'], default: 'md' },
     { kind: 'toggle', label: 'Label', key: 'showLabel', default: true },
     { kind: 'toggle', label: 'Requerido', key: 'required', default: false },
-    { kind: 'select', label: 'Estado', key: 'state', options: [{ value: 'default', label: 'Por defecto' }, { value: 'active', label: 'Filtro aplicado' }, { value: 'invalid', label: 'Error' }, { value: 'readonly', label: 'Solo lectura' }, { value: 'disabled', label: 'Deshabilitado' }], default: 'default' },
+    { kind: 'select', label: 'Estado', key: 'state', options: [{ value: 'default', label: 'Vacío / todos' }, { value: 'one', label: 'Una opción' }, { value: 'several', label: 'Varias opciones' }, { value: 'all', label: 'Todas marcadas' }, { value: 'active', label: 'Filtro aplicado' }, { value: 'invalid', label: 'Error' }, { value: 'readonly', label: 'Solo lectura' }, { value: 'disabled', label: 'Deshabilitado' }], default: 'default' },
     { kind: 'toggle', label: 'Resumen en una línea', key: 'summary', default: false },
     { kind: 'toggle', label: 'Menú ajustado al campo', key: 'menuFit', default: false },
   ];
@@ -50,6 +65,18 @@ export class SelectPage {
   protected readonly pgMenuFit = signal(false);
   protected readonly pgSingleValue = signal('');
   protected readonly pgMultipleValue = signal<string[]>([]);
+  protected readonly multipleStates: MultipleState[] = [
+    { name: 'Vacío / todos', when: 'Cuando no se ha limitado el conjunto. El placeholder comunica que se incluyen todas las opciones.', props: '[multiple]="true" [value]="[]" placeholder="Todos los equipos"', value: [] },
+    { name: 'Una opción', when: 'Cuando se eligió un solo criterio. Summary muestra su nombre completo en title.', props: '[multiple]="true" multipleDisplay="summary" [value]="[\'design\']"', value: ['design'] },
+    { name: 'Varias opciones', when: 'Cuando hay dos o más criterios; summary muestra el conteo y chips limita las insignias visibles.', props: '[multiple]="true" multipleDisplay="summary" [value]="[\'design\', \'eng\']"', value: ['design', 'eng'] },
+    { name: 'Todas marcadas', when: 'Cuando todas las opciones se eligieron; equivale a todos y no muestra filtro aplicado.', props: '[multiple]="true" [value]="todosLosValores"', value: TEAM_OPTIONS.map(option => option.value) },
+    { name: 'Filtro aplicado', when: 'Para filtros de barra con una selección parcial. Indica que el resultado está restringido.', props: '[multiple]="true" multipleDisplay="summary" [active]="true" [value]="[\'design\', \'eng\']"', value: ['design', 'eng'], active: true },
+    { name: 'Error', when: 'Cuando la selección no cumple una validación; acompáñalo con un mensaje asociado mediante aria-describedby.', props: '[multiple]="true" [invalid]="true" aria-describedby="error-id"', value: ['design'], invalid: true },
+    { name: 'Solo lectura', when: 'Cuando el valor debe verse sin permitir cambios.', props: '[multiple]="true" [readonly]="true"', value: ['design'], readonly: true },
+    { name: 'Deshabilitado', when: 'Cuando el control no está disponible en el flujo actual.', props: '[multiple]="true" [disabled]="true"', value: ['design'], disabled: true },
+  ];
+  protected readonly selectedMultipleState = computed(() => this.multipleStates.find(state => state.name === ({ default: 'Vacío / todos', one: 'Una opción', several: 'Varias opciones', all: 'Todas marcadas', active: 'Filtro aplicado', invalid: 'Error', readonly: 'Solo lectura', disabled: 'Deshabilitado' } as Record<string, string>)[this.pgState()]) ?? this.multipleStates[0]);
+  protected readonly pgSelectedMultipleValue = computed(() => this.pgState() === 'default' ? this.pgMultipleValue() : this.selectedMultipleState().value);
   protected readonly stateMultipleValue = signal<string[]>(['design', 'eng']);
   protected readonly guideLabelValue = signal('');
   protected readonly guideNoLabelValue = signal('');
@@ -93,6 +120,7 @@ export class SelectPage {
     if (this.pgSummary()) props.push('multipleDisplay="summary"');
     if (this.pgActive()) props.push('[active]="true"');
     if (this.pgMenuFit()) props.push('[menuFit]="true"');
+    if (this.pgMultiple() && this.pgState() !== 'default') props.push(`[value]="${JSON.stringify(this.pgSelectedMultipleValue()).replaceAll('"', "'")}"`);
     return `<cs-select\n  placeholder="Selecciona un equipo…"\n  [options]="teamOptions"\n  [value]="value"\n  (valueChange)="value = $event"${props.length ? '\n  ' + props.join('\n  ') : ''}\n/>`;
   });
 }
