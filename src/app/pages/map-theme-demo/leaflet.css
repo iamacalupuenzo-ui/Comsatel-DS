@@ -1,0 +1,3 @@
+/* Estilos de Leaflet solo para las páginas con mapa: en los estilos globales inflaban el bundle inicial
+   y rompían el límite del build de Vercel (desde 9881e0f). Sin encapsulación porque Leaflet crea su DOM. */
+@import 'leaflet/dist/leaflet.css';

@@ -1,4 +1,4 @@
-import { Component, ComponentRef, ElementRef, EnvironmentInjector, OnDestroy, OnInit, ViewChild, createComponent, inject, input, signal } from '@angular/core';
+import { Component, ComponentRef, ElementRef, EnvironmentInjector, OnDestroy, OnInit, ViewChild, createComponent, inject, input, signal, ViewEncapsulation } from '@angular/core';
 import * as L from 'leaflet';
 import { VehiclePill, type VehicleStatus } from '../markers-demo/vehicle-pill';
 
@@ -30,6 +30,9 @@ const UNITS: DemoUnit[] = [
 
 @Component({
   selector: 'app-product-map-preview',
+  // Sin encapsulación: el CSS de Leaflet tiene que alcanzar el DOM que crea la librería.
+  encapsulation: ViewEncapsulation.None,
+  styleUrl: './leaflet.css',
   template: `
     <div class="product-map__frame" [style.height.px]="height()">
       <div #mapEl class="product-map" role="img" aria-label="Mapa del producto centrado en Lima con tres unidades de ejemplo"></div>
@@ -46,7 +49,7 @@ const UNITS: DemoUnit[] = [
   `,
   styles: [
     `
-      :host { display: grid; gap: var(--layout-gap-sm); }
+      app-product-map-preview { display: grid; gap: var(--layout-gap-sm); }
       .product-map__frame { position: relative; }
       .product-map {
         width: 100%;
