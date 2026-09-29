@@ -70,6 +70,12 @@
         } @else {
           <span class="cs-select__placeholder" [class.cs-select__placeholder--empty]="!singleSelected">{{ singleSelected ? singleSelected!.label : placeholder }}</span>
         }
+        @if (showClear() && !disabled && !readonly() && hasValue && !multiple) {
+          <!-- La X va dentro del campo, igual que en Input, Autocomplete y los filtros de fecha. -->
+          <button type="button" class="cs-select__clear cs-focus-ring" [attr.aria-label]="clearControlLabel" (click)="clearAll($event)" (keydown)="$event.stopPropagation()">
+            <cs-icon name="x" [size]="14" aria-hidden="true" />
+          </button>
+        }
         <cs-icon name="chevron-down" [size]="16" class="cs-select__chevron" [class.cs-select__chevron--open]="open()" />
       </div>
 
@@ -103,10 +109,5 @@
         </cs-popover>
     </div>
 
-    @if (showClear() && !disabled && !readonly() && hasValue && !multiple) {
-      <button type="button" class="cs-select__clear cs-focus-ring" [attr.aria-label]="clearControlLabel" [style.width.px]="tok.height" [style.height.px]="tok.height" (click)="clearAll()">
-        <cs-icon name="x" [size]="16" />
-      </button>
-    }
   </div>
 </div>

@@ -1,6 +1,6 @@
 <div class="page">
   <p class="eyebrow">Componentes / Select</p>
-  <h1 class="title">Select<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.4</span></h1>
+  <h1 class="title">Select<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.9</span></h1>
   <p class="description">
     Select permite elegir uno o varios valores dentro de un formulario o de una barra de filtros, a diferencia
     de Dropdown, que dispara acciones. En modo múltiple, la selección se muestra como chips (una insignia por
@@ -11,11 +11,10 @@
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>
     <p class="section__intro">Elige el modo, el tamaño y el estado. El estado vale igual para la selección simple y la múltiple. Arriba del ejemplo se explica cuándo usar el estado elegido.</p>
-    <div class="state-note state-note--outside">
-      <strong>{{ pgStateInfo().label }}</strong>
-      <p><b>Cuándo usarlo:</b> {{ pgStateInfo().when }}</p>
-      <p><b>Propiedades:</b> <code>{{ pgStateInfo().props }}</code></p>
-    </div>
+    <ul class="section__intro state-list">
+      <li><strong>{{ pgStateInfo().label }}.</strong> {{ pgStateInfo().when }}</li>
+      <li><strong>Propiedades:</strong> <code>{{ pgStateInfo().props }}</code></li>
+    </ul>
     <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
       <div class="select-stage">
         @if (pgMultiple()) {
@@ -60,11 +59,10 @@
   <section class="section">
     <h2 class="section__title" id="multiple">Selección múltiple</h2>
     <p class="section__intro">Cambia la cantidad de opciones marcadas, la visualización y el tamaño para ver cómo responde el campo. Los chips muestran hasta dos opciones y luego «+N»; el resumen siempre ocupa una línea. Con una selección parcial, el campo se marca como filtro aplicado.</p>
-    <div class="state-note state-note--outside">
-      <strong>{{ mCountInfo().label }} marcada{{ mCountInfo().count === 1 ? '' : 's' }}</strong>
-      <p><b>Cuándo usarlo:</b> {{ mCountInfo().when }}</p>
-      <p><b>Chips o resumen:</b> usa chips en formularios, donde conviene ver y quitar cada opción; usa resumen en barras de filtro y en espacios angostos.</p>
-    </div>
+    <ul class="section__intro state-list">
+      <li><strong>{{ mCountInfo().label }} marcada{{ mCountInfo().count === 1 ? '' : 's' }}.</strong> {{ mCountInfo().when }}</li>
+      <li><strong>Chips o resumen:</strong> usa chips en formularios, donde conviene ver y quitar cada opción; usa resumen en barras de filtro y en espacios angostos.</li>
+    </ul>
     <app-demo-shell [controls]="multipleControls" [code]="mCode()" (stateChange)="onMultipleState($event)">
       <div class="select-stage">
         <cs-select
@@ -269,7 +267,7 @@
       <div class="table__row"><code class="table__name">menuFit</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">La lista mide al menos el ancho del campo y crece con la opción más larga hasta el borde visible; recién ahí parte el texto.</span></div>
       <div class="table__row"><code class="table__name">invalid</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Borde y anillo de error; combínalo con aria-describedby hacia el mensaje.</span></div>
       <div class="table__row"><code class="table__name">readonly</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el valor sin permitir abrir la lista ni limpiar.</span></div>
-      <div class="table__row"><code class="table__name">clearControlLabel</code><code class="table__type">string</code><code class="table__default">"Limpiar"</code><span class="table__desc">aria-label del botón que limpia una selección simple. A propósito no forma parte del tab order.</span></div>
+      <div class="table__row"><code class="table__name">clearControlLabel</code><code class="table__type">string</code><code class="table__default">"Limpiar"</code><span class="table__desc">aria-label de la X que limpia una selección simple; la X va dentro del campo, antes del chevron.</span></div>
       <div class="table__row"><code class="table__name">removeOptionLabel</code><code class="table__type">(label: string) =&gt; string</code><code class="table__default">"Quitar {{ '{' }}label{{ '}' }}"</code><span class="table__desc">Arma el nombre accesible de la acción de quitar junto a cada chip en modo múltiple.</span></div>
       <div class="table__row"><code class="table__name">showClear</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra el control para limpiar la selección simple.</span></div>
       <div class="table__row"><code class="table__name">surface</code><code class="table__type">"default" | "secondary"</code><code class="table__default">"default"</code><span class="table__desc">Obsoleto desde 0.3.5: la superficie crema se descartó y se eliminará en 0.4.0. No la uses.</span></div>

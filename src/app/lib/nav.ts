@@ -120,7 +120,7 @@ export const NAVIGATION: NavSection[] = [
       { title: 'Popover', href: '/components/popover', icon: 'picture-in-picture-2', change: { kind: 'actualizado', version: '0.3.3' } },
       { title: 'Progress indicator', href: '/components/progress-indicator', icon: 'loader' },
       { title: 'Radio', href: '/components/radio', icon: 'circle-dot' },
-      { title: 'Select', href: '/components/select', icon: 'chevrons-up-down', change: { kind: 'actualizado', version: '0.3.4' } },
+      { title: 'Select', href: '/components/select', icon: 'chevrons-up-down', change: { kind: 'actualizado', version: '0.3.9' } },
       { title: 'Spotlight', href: '/components/spotlight', icon: 'flashlight' },
       { title: 'Tab', href: '/components/tab', icon: 'rows' },
       {

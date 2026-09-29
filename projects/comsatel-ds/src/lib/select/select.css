@@ -212,15 +212,20 @@
   white-space: normal;
 }
 
+/* X dentro del campo, antes del chevron: mismo tamaño y tono que la X de InputGroup. */
 .cs-select__clear {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: var(--layout-size-2xs);
+  height: var(--layout-size-2xs);
+  margin-left: var(--layout-padding-xs);
+  padding: 0;
   border: none;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   background: none;
-  color: var(--color-text-base-subtle);
+  color: var(--color-icon-neutral-subtle);
   cursor: pointer;
   transition: background-color var(--motion-duration-fast) var(--motion-easing-default);
 }

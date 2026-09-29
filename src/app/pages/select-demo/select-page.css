@@ -12,27 +12,6 @@
   max-width: 100%;
 }
 
-/* Explicación del estado elegido en el playground: cuándo usarlo y qué props lo producen. */
-.state-note {
-  display: grid;
-  gap: var(--layout-gap-xs);
-  margin-top: var(--layout-gap-md);
-  padding: var(--layout-padding-md);
-  border-radius: var(--radius-sm);
-  background: var(--color-background-neutral-subtlest);
-}
-.state-note strong {
-  color: var(--color-text-base-default);
-  font-size: var(--font-size-content-ui);
-  line-height: var(--font-line-height-content-ui);
-}
-.state-note p {
-  margin: 0;
-  color: var(--color-text-base-subtle);
-  font-size: var(--font-size-content-note);
-  line-height: var(--font-line-height-content-note);
-}
-.state-note code { overflow-wrap: anywhere; }
 
 .field-error {
   margin: 0;
@@ -41,8 +20,10 @@
   line-height: var(--font-line-height-content-note);
 }
 
-/* Fuera de la caja del ejemplo: entre la descripción de la sección y el playground. */
-.state-note--outside {
-  margin-top: 0;
-  margin-bottom: var(--layout-gap-lg);
+/* Cuándo usar el estado elegido y sus propiedades: mismo estilo que la descripción de la sección, en lista. */
+.state-list {
+  display: grid;
+  gap: var(--layout-gap-xs);
+  padding-inline-start: var(--layout-padding-xl);
 }
+.state-list code { overflow-wrap: anywhere; }

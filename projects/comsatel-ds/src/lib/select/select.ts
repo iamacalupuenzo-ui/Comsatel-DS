@@ -221,7 +221,9 @@ export class Select {
     }
   }
 
-  protected clearAll(): void {
+  protected clearAll(event?: Event): void {
+    // Está dentro del trigger: sin esto, el clic también abriría la lista.
+    event?.stopPropagation();
     if (this.disabled || this.readonly()) return;
     this.valueChange.emit(this.multiple ? [] : '');
     this.triggerRef?.nativeElement.focus();
