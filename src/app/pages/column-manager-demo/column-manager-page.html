@@ -1,0 +1,38 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Column manager</p>
+  <h1 class="title">Column manager<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo en el sitio · v0.3.12</span></h1>
+  <p class="description">
+    Column manager deja que cada persona elija qué columnas ve en una tabla y en qué orden. Úsalo en matrices con
+    muchas columnas, junto a la barra de la tabla. El consumidor guarda la elección y la aplica a Table.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Abre el menú, oculta o muestra columnas y cámbialas de orden. El mínimo visible impide ocultar todas.</p>
+    <ul class="section__intro state-list">
+      <li><strong>Columnas visibles:</strong> {{ visibleLabels() }}.</li>
+      <li><strong>Mínimo visible:</strong> con <code>[minVisible]</code>, la última columna visible no se puede ocultar.</li>
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="code()" (stateChange)="onState($event)">
+      <div class="stage">
+        <cs-column-manager [columns]="columns()" [size]="size()" [minVisible]="minVisible()" [disabled]="disabled()" (visibilityChange)="onVisibility($event)" (orderChange)="onOrder($event)" />
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">columns</code><code class="table__type">ColumnManagerItem[]</code><code class="table__default">[]</code><span class="table__desc">Columnas {{ '{' }} key, label, visible {{ '}' }} en su orden actual.</span></div>
+      <div class="table__row"><code class="table__name">(visibilityChange)</code><code class="table__type">EventEmitter&lt;string[]&gt;</code><code class="table__default">—</code><span class="table__desc">Emite las keys visibles.</span></div>
+      <div class="table__row"><code class="table__name">(orderChange)</code><code class="table__type">EventEmitter&lt;string[]&gt;</code><code class="table__default">—</code><span class="table__desc">Emite las keys en el orden nuevo.</span></div>
+      <div class="table__row"><code class="table__name">minVisible</code><code class="table__type">number</code><code class="table__default">1</code><span class="table__desc">Columnas que siempre quedan visibles.</span></div>
+      <div class="table__row"><code class="table__name">label / aria-label</code><code class="table__type">string</code><code class="table__default">"Columnas"</code><span class="table__desc">Texto del botón y su nombre accesible.</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">DropdownSize</code><code class="table__default">"md"</code><span class="table__desc">Tamaño del botón y del menú.</span></div>
+      <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita el botón.</span></div>
+    </div>
+  </section>
+</div>

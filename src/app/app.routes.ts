@@ -244,4 +244,16 @@ export const routes: Routes = [
     path: 'animations/press-scale',
     loadComponent: () => import('./pages/press-scale-demo/press-scale-page').then((m) => m.PressScalePage),
   },
+  {
+    path: 'components/skeleton',
+    loadComponent: () => import('./pages/skeleton-demo/skeleton-page').then((m) => m.SkeletonPage),
+  },
+  {
+    path: 'components/column-manager',
+    loadComponent: () => import('./pages/column-manager-demo/column-manager-page').then((m) => m.ColumnManagerPage),
+  },
+  {
+    path: 'components/fleet-unit-list',
+    loadComponent: () => import('./pages/fleet-unit-list-demo/fleet-unit-list-page').then((m) => m.FleetUnitListPage),
+  },
 ];

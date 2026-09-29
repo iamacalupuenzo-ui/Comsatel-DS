@@ -1,0 +1,63 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Skeleton</p>
+  <h1 class="title">Skeleton<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo en el sitio · v0.3.12</span></h1>
+  <p class="description">
+    Skeleton reserva el espacio de un contenido que todavía se está cargando, con la forma aproximada del resultado.
+    Úsalo cuando la espera es breve y la forma del contenido es predecible; para esperas largas o sin forma conocida,
+    usa Progress indicator.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Elige la variante y el ancho. Arriba del ejemplo se explica cuándo usar la variante elegida.</p>
+    <ul class="section__intro state-list">
+      <li><strong>{{ info().label }}.</strong> {{ info().when }}</li>
+      <li><strong>Propiedades:</strong> <code>variant="{{ variant() }}"</code></li>
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="code()" (stateChange)="onState($event)">
+      <div class="stage">
+        <cs-skeleton [variant]="variant()" [width]="variant() === 'circle' ? size() : width()" [height]="size()" />
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Casos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-card">Tarjeta de unidad</h3>
+      <p class="section__intro">Mientras llega la telemetría: el círculo reserva el ícono y dos líneas, el nombre y la ubicación.</p>
+      <app-demo-shell [controls]="[]" [code]="cardCode">
+        <div class="stage sk-card">
+          <cs-skeleton variant="circle" [width]="40" [height]="40" />
+          <div class="sk-lines"><cs-skeleton width="60%" /><cs-skeleton width="90%" /></div>
+        </div>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-table">Filas de tabla</h3>
+      <p class="section__intro">Mientras se cargan los datos de una matriz: una línea por celda, con anchos distintos para que se lea como tabla.</p>
+      <app-demo-shell [controls]="[]" [code]="tableCode">
+        <div class="stage sk-table">
+          @for (row of [1, 2, 3]; track row) {
+            <div class="sk-row"><cs-skeleton width="30%" /><cs-skeleton width="20%" /><cs-skeleton width="35%" /></div>
+          }
+        </div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">variant</code><code class="table__type">"text" | "rectangle" | "circle"</code><code class="table__default">"text"</code><span class="table__desc">Forma del espacio reservado.</span></div>
+      <div class="table__row"><code class="table__name">width</code><code class="table__type">string | number</code><code class="table__default">—</code><span class="table__desc">Ancho; un número se toma en px.</span></div>
+      <div class="table__row"><code class="table__name">height</code><code class="table__type">string | number</code><code class="table__default">—</code><span class="table__desc">Alto; en texto lo define la línea.</span></div>
+    </div>
+  </section>
+</div>

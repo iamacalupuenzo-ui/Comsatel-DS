@@ -140,6 +140,7 @@ export const NAVIGATION: NavSection[] = [
       { title: 'Badge', href: '/components/badge', icon: 'badge-check' },
       { title: 'Banner', href: '/components/banner', icon: 'megaphone' },
       { title: 'Progress indicator', href: '/components/progress-indicator', icon: 'loader' },
+      { title: 'Skeleton', href: '/components/skeleton', icon: 'loader', change: { kind: 'nuevo', version: '0.3.12' } },
       { title: 'Spotlight', href: '/components/spotlight', icon: 'flashlight' },
       { title: 'Tag', href: '/components/tag', icon: 'tag' },
       { title: 'Toast', href: '/components/toast', icon: 'bell-ring' },
@@ -168,6 +169,7 @@ export const NAVIGATION: NavSection[] = [
       { title: 'Accordion', href: '/components/accordion', icon: 'chevrons-down-up' },
       { title: 'App Layout', href: '/components/app-layout', icon: 'layout-grid' },
       { title: 'Card', href: '/components/card', icon: 'credit-card' },
+      { title: 'Fleet unit list', href: '/components/fleet-unit-list', icon: 'truck', change: { kind: 'nuevo', version: '0.3.12' } },
       { title: 'List item', href: '/components/list-item', icon: 'list' },
       {
         title: 'Table',
@@ -176,6 +178,7 @@ export const NAVIGATION: NavSection[] = [
         children: [
           { title: 'Table', href: '/components/table' },
           { title: 'Table tree', href: '/components/table-tree' },
+          { title: 'Column manager', href: '/components/column-manager', change: { kind: 'nuevo', version: '0.3.12' } },
         ],
       },
     ],

@@ -1,0 +1,47 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Fleet unit list</p>
+  <h1 class="title">Fleet unit list<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo en el sitio · v0.3.12</span></h1>
+  <p class="description">
+    Lista de unidades de flota con su estado, último reporte y telemetría. Cada fila se puede seleccionar, fijar arriba
+    y abrir en detalle. Úsala en paneles laterales del mapa o en cualquier vista que muestre varias unidades a la vez.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Selecciona una unidad, fíjala desde el menú de sus acciones o cambia la apariencia.</p>
+    <ul class="section__intro state-list">
+      <li><strong>Seleccionada:</strong> {{ selectedId() ?? 'ninguna' }}. Una sola a la vez; la barra azul de la izquierda la marca.</li>
+      <li><strong>Fijadas:</strong> {{ pinnedIds().length ? pinnedIds().join(', ') : 'ninguna' }}. Se muestran primero, separadas del resto.</li>
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="code()" (stateChange)="onState($event)">
+      <div class="stage">
+        <cs-fleet-unit-list
+          [units]="units"
+          [appearance]="appearance()"
+          [selectable]="selectable()"
+          [pinnable]="pinnable()"
+          [selectedId]="selectedId()"
+          (selectedIdChange)="selectedId.set($event)"
+          [pinnedIds]="pinnedIds()"
+          (pinnedIdsChange)="pinnedIds.set($event)"
+        />
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">units</code><code class="table__type">FleetUnit[]</code><code class="table__default">—</code><span class="table__desc">Unidades con id, name, status, statusLabel, lastSeen, speed, battery, location, diagnostics?, alert?, disabled?.</span></div>
+      <div class="table__row"><code class="table__name">selectedId / (selectedIdChange)</code><code class="table__type">string | null</code><code class="table__default">null</code><span class="table__desc">Unidad seleccionada, controlada.</span></div>
+      <div class="table__row"><code class="table__name">pinnable</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Permite fijar unidades arriba de la lista.</span></div>
+      <div class="table__row"><code class="table__name">pinnedIds / (pinnedIdsChange)</code><code class="table__type">string[]</code><code class="table__default">[]</code><span class="table__desc">Unidades fijadas, controladas.</span></div>
+      <div class="table__row"><code class="table__name">selectable</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Permite seleccionar una fila.</span></div>
+      <div class="table__row"><code class="table__name">appearance</code><code class="table__type">"outlined" | "filled"</code><code class="table__default">"outlined"</code><span class="table__desc">Superficie de las filas.</span></div>
+      <div class="table__row"><code class="table__name">detailLabel / (detailClick)</code><code class="table__type">string / FleetUnit</code><code class="table__default">"Ver detalle"</code><span class="table__desc">Acción de detalle de cada unidad.</span></div>
+    </div>
+  </section>
+</div>

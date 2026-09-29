@@ -1,0 +1,20 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+/* 360px es el ancho de referencia de la muestra; no hay un token equivalente. */
+.stage {
+  display: grid;
+  gap: var(--layout-gap-sm);
+  width: 360px;
+  max-width: 100%;
+}
+
+
+/* Cuándo usar el estado elegido y sus propiedades: mismo estilo que la descripción de la sección, en lista. */
+.state-list {
+  display: grid;
+  gap: var(--layout-gap-xs);
+  padding-inline-start: var(--layout-padding-xl);
+}
+.state-list code { overflow-wrap: anywhere; }
