@@ -63,7 +63,7 @@ La numeración se corrió una versión respecto del plan: Textarea y FormField s
 ### Pendientes
 
 - ~~**Modal sin `surface`.**~~ Hecho en 0.3.15: `surface="canvas"`; FO lo usa en 17 modales y retiró `.capture-surface-modal`.
-- **Label de Column manager.** En la página de Table, el label «Columnas» se ve más grande que los de Estado y Filas. Hay que revisarlo.
+- ~~**Label de Column manager.**~~ Hecho en 0.3.16: no tomaba la tipografía de campo y heredaba los 16 px de la página.
 - **Storybook.** Las historias de Textarea, FormField, TableRowActions, SideDrawer y FilterBar siguen pendientes (para Codex).
 
 **Pregunta de comprobación:** ¿por qué el tablero no usa la Filter bar aunque tiene «Limpiar filtros»?

@@ -92,3 +92,16 @@ export const LongContent: Story = {
     `,
   }),
 };
+
+/** Lienzo de la página: para modales con campos o tarjetas blancas encima. */
+export const CanvasSurface: Story = {
+  args: { surface: 'canvas', title: 'Observar captura' },
+  render: (args) => ({
+    props: args,
+    template: `
+      <cs-modal [isOpen]="isOpen" [title]="title" [surface]="surface" [primaryAction]="primaryAction" [secondaryAction]="secondaryAction">
+        <div style="padding: 12px; border-radius: 8px; background: var(--elevation-surface-default)">La orden CAP-0001 pasará a Observado.</div>
+      </cs-modal>
+    `,
+  }),
+};

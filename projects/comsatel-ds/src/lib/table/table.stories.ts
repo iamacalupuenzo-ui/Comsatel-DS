@@ -34,3 +34,17 @@ export const Empty: Story = {
   args: { rows: [] },
   render: (args) => ({ props: args, template: '<cs-table [columns]="columns" [rows]="rows" [caption]="caption"><div emptyState style="padding: 24px; text-align: center;">No hay unidades disponibles.</div></cs-table>' }),
 };
+
+/** Columna de acciones fija al final: queda a la vista al desplazar y muestra sombra mientras hay contenido oculto. */
+export const StickyActions: Story = {
+  args: {
+    minWidth: '48rem',
+    columns: [...columns, { key: 'actions', label: 'Acciones', width: '88px', align: 'center', sticky: 'end' }],
+    rows: rows.map((row) => ({ ...row, cells: [...row.cells, 'Ver'] })),
+  },
+};
+
+export const LoadError: Story = {
+  args: { rows: [] },
+  render: (args) => ({ props: { ...args, onRetry: () => undefined }, template: '<cs-table [columns]="columns" [rows]="rows" [caption]="caption" error="No pudimos cargar las unidades" (retry)="onRetry()"></cs-table>' }),
+};
