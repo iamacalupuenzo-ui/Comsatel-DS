@@ -13,7 +13,7 @@ import {
   ViewEncapsulation,
   signal,
 } from '@angular/core';
-import { Button } from '../button/button';
+import { Button } from '@iamacalupuenzo-ui/comsatel-ds/button';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { Tooltip } from './tooltip';
-import { Button } from '../button/button';
+import { Button } from '@iamacalupuenzo-ui/comsatel-ds/button';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 // Tooltip usa <ng-content> para el elemento disparador (no un @Input) —

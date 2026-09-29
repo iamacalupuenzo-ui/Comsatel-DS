@@ -1,8 +1,8 @@
 import { NgStyle } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
-import { fieldLabelTypography, type InputFieldSize } from '../input/input-tokens';
-import { textStyle } from '../tokens/typography';
+import { fieldLabelTypography, type InputFieldSize } from '@iamacalupuenzo-ui/comsatel-ds/input';
+import { textStyle } from '@iamacalupuenzo-ui/comsatel-ds/tokens';
 
 /**
  * Envoltorio de un campo de formulario: label, el control proyectado, texto de ayuda y mensaje de

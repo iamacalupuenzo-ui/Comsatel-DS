@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, input, linkedSignal } from '@angular/core';
 import { DateRangePicker, type DateRangeValue } from '../date-range-picker/date-range-picker';
-import type { InputFieldSize } from '../input/input-tokens';
+import type { InputFieldSize } from '@iamacalupuenzo-ui/comsatel-ds/input';
 import { TimePicker } from '../time-picker/time-picker';
 
 /** Rango con horas: fechas 'YYYY-MM-DD' y horas 'HH:mm' (24 h); vacío si falta. */

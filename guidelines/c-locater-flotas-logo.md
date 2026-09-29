@@ -6,12 +6,13 @@ producto ya es evidente. No añadas, sustituyas, recolorees ni apliques sombra
 a ninguno de los dos recursos.
 
 - **Selector canónico:** `cs-c-flotas-logo`.
+- **Import liviano:** `import { CFlotasLogo } from '@iamacalupuenzo-ui/comsatel-ds/brand';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Compatibilidad:** `cs-c-locater-flotas-logo` y la clase TypeScript
   `CLocaterFlotasLogo` siguen disponibles para consumidores anteriores, pero
   los usos nuevos deben adoptar el nombre C-Flotas.
 
 <!-- props:start CFlotasLogo -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/brand/c-locater-flotas-logo.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/brand/src/c-locater-flotas-logo.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -23,7 +24,7 @@ a ninguno de los dos recursos.
 <!-- props:end -->
 
 <!-- a11y:start CFlotasLogo -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/brand/c-locater-flotas-logo.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/brand/src/c-locater-flotas-logo.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-c-flotas-logo, cs-c-locater-flotas-logo`
 

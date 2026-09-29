@@ -1,15 +1,15 @@
 import { NgStyle } from '@angular/common';
 import { Component, EventEmitter, Input, Output, computed, input, linkedSignal, signal } from '@angular/core';
-import { Button } from '../button/button';
+import { Button } from '@iamacalupuenzo-ui/comsatel-ds/button';
 import { Calendar } from '../calendar/calendar';
 import { formatDate } from '../format/date-format';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
-import { InputGroup } from '../input/input-group';
-import { InputGroupAddon } from '../input/input-group-addon';
-import { InputGroupInput } from '../input/input-group-input';
-import { fieldLabelTypography, type InputFieldSize } from '../input/input-tokens';
-import { Popover } from '../popover/popover';
-import { textStyle } from '../tokens/typography';
+import { InputGroup } from '@iamacalupuenzo-ui/comsatel-ds/input';
+import { InputGroupAddon } from '@iamacalupuenzo-ui/comsatel-ds/input';
+import { InputGroupInput } from '@iamacalupuenzo-ui/comsatel-ds/input';
+import { fieldLabelTypography, type InputFieldSize } from '@iamacalupuenzo-ui/comsatel-ds/input';
+import { Popover } from '@iamacalupuenzo-ui/comsatel-ds/popover';
+import { textStyle } from '@iamacalupuenzo-ui/comsatel-ds/tokens';
 
 let uid = 0;
 

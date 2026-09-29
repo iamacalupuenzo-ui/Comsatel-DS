@@ -4,6 +4,7 @@ Dispara una acción: envío de formulario, navegación, apertura de diálogo u o
 destructiva. Nueve variantes cubren los roles semánticos de la UI.
 
 - **Import:** `import { Button } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Button } from '@iamacalupuenzo-ui/comsatel-ds/button';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-button>`
 - **Clase raíz emitida:** `.cs-button` (más `.cs-button--<variant>` y `.cs-button--<size>`)
 
@@ -14,7 +15,7 @@ destructiva. Nueve variantes cubren los roles semánticos de la UI.
 ## Props
 
 <!-- props:start Button -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/button/button.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/button/src/button.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -64,7 +65,7 @@ solo del registro de íconos del sistema (`cs-icon`), nunca de otra librería.
   en un `cs-tooltip` sobre un contenedor, no sobre el botón deshabilitado.
 
 <!-- a11y:start Button -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/button/button.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/button/src/button.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-button`
 

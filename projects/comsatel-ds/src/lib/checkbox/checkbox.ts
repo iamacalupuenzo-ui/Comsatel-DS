@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild, signal } from '@angular/core';
 import { NgStyle } from '@angular/common';
-import { textStyle, type StyleName } from '../tokens/typography';
+import { textStyle, type StyleName } from '@iamacalupuenzo-ui/comsatel-ds/tokens';
 
 export type CheckboxSize = 'sm' | 'md' | 'lg';
 

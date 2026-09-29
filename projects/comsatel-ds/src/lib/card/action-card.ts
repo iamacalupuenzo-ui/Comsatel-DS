@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, input, output } from '@angular/core';
-import { Button } from '../button/button';
+import { Button } from '@iamacalupuenzo-ui/comsatel-ds/button';
 import { Toggle } from '../toggle/toggle';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 

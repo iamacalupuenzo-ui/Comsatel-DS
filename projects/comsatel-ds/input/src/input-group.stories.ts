@@ -3,11 +3,11 @@ import { moduleMetadata } from '@storybook/angular';
 import { InputGroup } from './input-group';
 import { InputGroupAddon } from './input-group-addon';
 import { InputGroupInput } from './input-group-input';
-import { InputGroupClear } from '@iamacalupuenzo-ui/comsatel-ds/input';
+import { InputGroupClear } from './input-group-clear';
 import { InputGroupText } from './input-group-text';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
-import { InputDropdown } from '../dropdown/input-dropdown';
-import { Button } from '../button/button';
+import { InputDropdown } from '../../src/lib/dropdown/input-dropdown';
+import { Button } from '@iamacalupuenzo-ui/comsatel-ds/button';
 
 // InputGroup siempre se usa compuesto con cs-input-group-addon,
 // cs-input-group-input y, opcionalmente, cs-input-group-text o

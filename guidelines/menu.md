@@ -5,6 +5,7 @@ subniveles. Tiene dos modos, expandido (labels completos) y rail (solo íconos, 
 flyout al pasar el mouse).
 
 - **Import:** `import { Menu } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Menu, type MenuGroupData } from '@iamacalupuenzo-ui/comsatel-ds/menu';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-menu>`
 - **Clase raíz emitida:** `.cs-menu`
 
@@ -15,7 +16,7 @@ flyout al pasar el mouse).
 ## Props
 
 <!-- props:start Menu -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/menu/menu.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/menu/src/menu.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -59,7 +60,7 @@ const navGroups: MenuGroupData[] = [
   de teclado también lo ve.
 
 <!-- a11y:start Menu -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/menu/menu.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/menu/src/menu.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-menu`
 

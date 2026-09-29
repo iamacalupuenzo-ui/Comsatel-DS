@@ -13,7 +13,7 @@ import {
   ViewEncapsulation,
   signal,
 } from '@angular/core';
-import { Button, type ButtonVariant } from '../button/button';
+import { Button, type ButtonVariant } from '@iamacalupuenzo-ui/comsatel-ds/button';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 export type ModalAppearance = 'default' | 'warning' | 'danger';

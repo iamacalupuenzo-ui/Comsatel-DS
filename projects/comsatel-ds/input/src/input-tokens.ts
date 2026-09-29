@@ -1,4 +1,4 @@
-import type { StyleName } from '../tokens/typography';
+import type { StyleName } from '@iamacalupuenzo-ui/comsatel-ds/tokens';
 
 export type InputFieldSize = 'sm' | 'md' | 'lg';
 

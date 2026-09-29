@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, computed, input, signal } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
-import { componentTypography, textStyle } from '../tokens/typography';
+import { componentTypography, textStyle } from '@iamacalupuenzo-ui/comsatel-ds/tokens';
 import { buildWeeks, monthYearLabel, toISODate, weekdayLabels, type DayCellData } from './calendar-helpers';
 
 // Puerto 1:1 de Calendar (calendar.tsx) — grilla de 6 semanas fijas,

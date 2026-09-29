@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, signa
 import { RouterLink } from '@angular/router';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { PressScale } from '@iamacalupuenzo-ui/comsatel-ds/motion';
-import { Collapse } from '../directives/collapse.directive';
-import { Popover } from '../popover/popover';
+import { Collapse } from '@iamacalupuenzo-ui/comsatel-ds/directives';
+import { Popover } from '@iamacalupuenzo-ui/comsatel-ds/popover';
 import type { MenuGroupData, MenuItemData, MenuMode } from './menu-types';
 
 /**

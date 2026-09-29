@@ -2,12 +2,17 @@
 // a los que apunta "exports". Si un subpath se pierde, el consumidor falla al importar y el
 // build de la librería no lo nota. Usa npm pack --dry-run: no crea el .tgz ni publica nada.
 import { spawnSync } from 'node:child_process';
-import { join } from 'node:path';
+import { basename, join } from 'node:path';
+import { secondaryEntries } from './check-secondary-entry-imports.mjs';
 import { ROOT, readText } from './lib/ds.mjs';
 
 const DIST = join(ROOT, 'dist', 'comsatel-ds');
-/** Entradas de JavaScript: cada una exige código (fesm2022/*.mjs) y tipos (types/*.d.ts). */
-const JS_ENTRIES = ['.', './icons', './input', './motion'];
+/**
+ * Entradas de JavaScript: la raíz y cada carpeta con ng-package.json propio. Cada una exige código
+ * (fesm2022/*.mjs) y tipos (types/*.d.ts). Se derivan del repo para que una entrada nueva no
+ * pueda quedar fuera del paquete sin que falle.
+ */
+const JS_ENTRIES = ['.', ...secondaryEntries().map((dir) => './' + basename(dir))];
 const CSS_FILES = ['styles.css', 'tokens.css', 'typography-tokens.css'];
 
 const fail = (message) => {
@@ -29,6 +34,10 @@ const files = new Set(listing.files.map((f) => f.path.replace(/^\.\//, '')));
 const manifest = JSON.parse(readText(join(DIST, 'package.json')));
 const exportsMap = manifest.exports ?? {};
 const failures = [];
+// Al revés también: un export que el repo no conoce es un subpath fantasma.
+for (const key of Object.keys(exportsMap)) {
+  if (!JS_ENTRIES.includes(key) && key !== './package.json' && key !== './styles.css') failures.push(`exports declara "${key}", que no es una entrada del repo`);
+}
 const inPackage = (target) => files.has(String(target).replace(/^\.\//, ''));
 
 for (const key of JS_ENTRIES) {

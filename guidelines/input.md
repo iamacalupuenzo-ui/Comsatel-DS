@@ -5,7 +5,7 @@ campo con adornos (íconos, botones, prefijos, dropdowns) que se ven como un sol
 control.
 
 - **Import:** `import { Input, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText, PasswordInput } from '@iamacalupuenzo-ui/comsatel-ds';`
-- **Import liviano:** `import { InputGroupClear } from '@iamacalupuenzo-ui/comsatel-ds/input';` (por ahora solo la X de limpiar; ver «Importar desde un subpath» en `docs/consumer-angular.md`)
+- **Import liviano:** `import { Input, InputGroup, InputGroupAddon, InputGroupClear, InputGroupInput, InputGroupText, PasswordInput } from '@iamacalupuenzo-ui/comsatel-ds/input';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-input>`, `<cs-input-group>`, `<cs-input-group-addon>`, `<cs-input-group-input>`, `<cs-input-group-text>`, `<cs-password-input>`
 - **Clases raíz emitidas:** `.cs-input`, `.cs-input-group`, `.cs-input-group-addon`, `.cs-input-group-input`, `.cs-input-group-text`
 
@@ -43,7 +43,7 @@ la receta a `textStyle(fieldLabelTypography.lg, 'accent')`.
 ## Props de `Input`
 
 <!-- props:start Input -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/input/input.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/input/src/input.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -76,7 +76,7 @@ escribir un `<input>` propio.
 ## Props de `InputGroupAddon`
 
 <!-- props:start InputGroupAddon -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/input/input-group-addon.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/input/src/input-group-addon.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -88,7 +88,7 @@ escribir un `<input>` propio.
 ## Props de `InputGroup`
 
 <!-- props:start InputGroup -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/input/input-group.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/input/src/input-group.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -98,7 +98,7 @@ escribir un `<input>` propio.
 ## Props de `InputGroupInput`
 
 <!-- props:start InputGroupInput -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/input/input-group-input.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/input/src/input-group-input.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -135,7 +135,7 @@ escribir un `<input>` propio.
 ## Props de `InputGroupText`
 
 <!-- props:start InputGroupText -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/input/input-group-text.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/input/src/input-group-text.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -198,7 +198,7 @@ omitir con `[leadingIcon]="null"`. Para una contraseña nueva, cambia
 ## Props de `PasswordInput`
 
 <!-- props:start PasswordInput -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/input/password-input.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/input/src/password-input.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -242,7 +242,7 @@ omitir con `[leadingIcon]="null"`. Para una contraseña nueva, cambia
   responsable de una etiqueta visible o de un nombre accesible para el campo.
 
 <!-- a11y:start Input -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/input/input.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/input/src/input.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-input`
 
@@ -253,7 +253,7 @@ omitir con `[leadingIcon]="null"`. Para una contraseña nueva, cambia
 <!-- a11y:end -->
 
 <!-- a11y:start PasswordInput -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/input/password-input.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/input/src/password-input.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-password-input`
 
@@ -265,7 +265,7 @@ omitir con `[leadingIcon]="null"`. Para una contraseña nueva, cambia
 <!-- a11y:end -->
 
 <!-- a11y:start InputGroup -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/input/input-group.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/input/src/input-group.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-input-group`
 
@@ -275,7 +275,7 @@ omitir con `[leadingIcon]="null"`. Para una contraseña nueva, cambia
 <!-- a11y:end -->
 
 <!-- a11y:start InputGroupAddon -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/input/input-group-addon.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/input/src/input-group-addon.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-input-group-addon`
 
@@ -285,7 +285,7 @@ omitir con `[leadingIcon]="null"`. Para una contraseña nueva, cambia
 <!-- a11y:end -->
 
 <!-- a11y:start InputGroupInput -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/input/input-group-input.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/input/src/input-group-input.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-input-group-input`
 
@@ -298,7 +298,7 @@ omitir con `[leadingIcon]="null"`. Para una contraseña nueva, cambia
 <!-- a11y:end -->
 
 <!-- a11y:start InputGroupText -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/input/input-group-text.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/input/src/input-group-text.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-input-group-text`
 

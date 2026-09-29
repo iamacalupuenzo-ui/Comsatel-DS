@@ -4,6 +4,7 @@ El armazón de una aplicación: barra superior, navegación lateral colapsable, 
 contenido y panel opcional.
 
 - **Import:** `import { AppLayout, Header } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { AppLayout, AppLayoutState } from '@iamacalupuenzo-ui/comsatel-ds/app-layout';` (`Header` sigue en la raíz hasta su ola; ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-app-layout>`, `<cs-header>`
 - **Clases raíz emitidas:** `.cs-app-layout`, `.cs-header`
 
@@ -22,7 +23,7 @@ lateral, `[panel]` para la columna derecha opcional, y el contenido sin atributo
 ## Props de `AppLayout`
 
 <!-- props:start AppLayout -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/app-layout/app-layout.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/app-layout/src/app-layout.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -56,7 +57,7 @@ lateral, `[panel]` para la columna derecha opcional, y el contenido sin atributo
   (y en una pantalla con navegación larga conviene), hay que agregarlo en la página.
 
 <!-- a11y:start AppLayout -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/app-layout/app-layout.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/app-layout/src/app-layout.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-app-layout`
 

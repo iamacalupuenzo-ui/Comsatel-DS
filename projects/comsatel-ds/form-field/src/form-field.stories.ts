@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import { Input } from '../input/input';
+import { Input } from '@iamacalupuenzo-ui/comsatel-ds/input';
 import { FormField } from './form-field';
 
 const meta: Meta<FormField> = {

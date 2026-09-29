@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
 
 const css = readFileSync(new URL('../projects/comsatel-ds/src/styles/tokens.css', import.meta.url), 'utf8');
-const primitives = readFileSync(new URL('../projects/comsatel-ds/src/lib/tokens/primitive-colors.ts', import.meta.url), 'utf8').match(/secondary: \{([^}]+)\}/)[1];
+const primitives = readFileSync(new URL('../projects/comsatel-ds/tokens/src/primitive-colors.ts', import.meta.url), 'utf8').match(/secondary: \{([^}]+)\}/)[1];
 const blocks = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)];
 const variables = body => Object.fromEntries([...body.matchAll(/(--[\w-]+):\s*([^;]+);/g)].map(m => [m[1], m[2].trim()]));
 const light = variables(blocks.find(m => m[1].includes('[data-theme="light"]'))[2]);

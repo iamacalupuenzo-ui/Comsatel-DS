@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Avatar } from '../avatar/avatar';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
-import { Popover } from '../popover/popover';
+import { Popover } from '@iamacalupuenzo-ui/comsatel-ds/popover';
 
 export interface HeaderUser { name: string; role: string; initials: string; avatarSrc?: string; }
 

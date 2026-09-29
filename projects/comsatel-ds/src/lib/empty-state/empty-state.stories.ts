@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import { Button } from '../button/button';
+import { Button } from '@iamacalupuenzo-ui/comsatel-ds/button';
 import { EmptyState } from './empty-state';
 
 const meta: Meta<EmptyState> = {
