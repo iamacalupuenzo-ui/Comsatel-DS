@@ -33,6 +33,15 @@
   background-clip: text;
   transition: background-color 0s 600000s, color 0s 600000s;
 }
+/* Mientras el valor precargado no se confirma, Chrome lo dibuja con su fuente de sistema (~13 px) y
+   no con la del campo: se ve más pequeño hasta el primer clic. La primera línea hereda la tipografía
+   real del input. */
+.cs-input-group-input:-webkit-autofill::first-line {
+  font-family: var(--font-family-content);
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}
 .cs-input-group-input:disabled {
   cursor: not-allowed;
   color: var(--color-text-base-subtlest);
