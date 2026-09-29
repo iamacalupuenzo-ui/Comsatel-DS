@@ -1,33 +1,22 @@
 <div class="page">
   <p class="eyebrow">Componentes / Filter bar</p>
   <h1 class="title">Filter bar<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.14</span></h1>
-  <p class="description">
-    Barra de filtros de una pantalla de datos: búsqueda, filtros principales a la vista, «Más filtros» para los
-    secundarios y «Limpiar filtros» cuando hay algún criterio aplicado. Es controlada: los valores viven en la
-    pantalla y la barra solo los presenta.
-  </p>
+  <p class="description">Barra de búsqueda y filtros para pantallas de datos. Mantén a la vista los criterios frecuentes y deja los secundarios en «Más filtros»; si la pantalla solo necesita buscar, usa un campo de búsqueda.</p>
 
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>
-    <p class="section__intro">Escribe, cambia el estado o abre «Más filtros». El contador y «Limpiar filtros» reaccionan a lo que apliques.</p>
+    <p class="section__intro">Elige un estado, cambia los filtros y observa el contador. Los valores pertenecen a la pantalla que usa la barra.</p>
     <ul class="section__intro state-list">
-      <li><strong>Filtros principales.</strong> Los que la persona usa casi siempre, a la vista. Dos o tres como máximo.</li>
-      <li><strong>Más filtros.</strong> Los secundarios, en un panel. El número entre paréntesis dice cuántos hay aplicados, porque desde afuera no se ven.</li>
-      <li><strong>Limpiar filtros.</strong> Aparece solo con algún criterio aplicado y borra búsqueda, principales y secundarios de una vez.</li>
+      <li><strong>{{ pgInfo().title }}.</strong> {{ pgInfo().intro }}</li>
+      <li><strong>Propiedades:</strong> <code>{{ pgInfo().props }}</code></li>
     </ul>
-    <app-demo-shell [controls]="controls" [code]="code()" (stateChange)="onState($event)">
-      <div class="stage">
-        <cs-filter-bar
-          ariaLabel="Filtros de capturas"
-          [searchLabel]="showSearch() ? 'Buscar orden o unidad' : ''"
-          searchPlaceholder="Buscar por orden o unidad"
-          [searchValue]="query()"
-          (searchChange)="query.set($event)"
-          [hasMoreFilters]="showMore()"
-          [moreFiltersCount]="moreCount()"
-          [hasActiveFilters]="hasActive()"
-          (clear)="clear()"
-        >
+    <app-demo-shell [controls]="controls" [code]="pgCode()" (stateChange)="onState($event)">
+      <div class="stage" [class.stage--narrow]="pgState() === 'narrow'">
+        <cs-filter-bar ariaLabel="Filtros de capturas"
+          [searchLabel]="pgState() === 'no-search' ? '' : 'Buscar orden o unidad'"
+          searchPlaceholder="Buscar por orden o unidad" [searchValue]="query()" (searchChange)="query.set($event)"
+          [hasMoreFilters]="pgState() !== 'no-more'" [moreFiltersCount]="moreCount()"
+          [hasActiveFilters]="hasActive()" (clear)="clear()">
           <cs-input-dropdown label="Estado" [options]="statusOptions" [value]="status()" (valueChange)="status.set($event)" [menuFit]="true" [active]="!!status()" />
           <div moreFilters class="more-filters">
             <cs-input-dropdown label="GPS" [options]="gpsOptions" [value]="gps()" (valueChange)="gps.set($event)" [fullWidth]="true" [menuFit]="true" [active]="!!gps()" />
@@ -39,13 +28,45 @@
   </section>
 
   <section class="section">
-    <h2 class="section__title" id="rules">Reglas</h2>
-    <div class="table table--two-columns">
-      <div class="table__head"><span>Decisión</span><span>Regla</span></div>
-      <div class="table__row"><strong>Selectores</strong><span>Un valor: Input dropdown con <code>[menuFit]</code> y <code>[active]</code>. Varios: Select múltiple. Dentro de «Más filtros», con <code>[fullWidth]</code>.</span></div>
-      <div class="table__row"><strong>Fechas</strong><span>Date range picker como filtro principal cuando la fecha es el eje de la pantalla, como en un tablero.</span></div>
-      <div class="table__row"><strong>Estado vacío</strong><span>Si los filtros no dejan filas, la tabla ofrece «Limpiar filtros» también en su vacío.</span></div>
-      <div class="table__row"><strong>Espacio reducido</strong><span>Hasta 767 px los campos se apilan a todo el ancho.</span></div>
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada estado tiene su propia caja. La barra no tiene tamaños; sus controles usan la altura md del sistema.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'filter-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="codeFor(state.key)">
+          <div class="stage" [class.stage--narrow]="state.key === 'narrow'">
+            <cs-filter-bar ariaLabel="Filtros de capturas"
+              [searchLabel]="state.key === 'no-search' ? '' : 'Buscar orden o unidad'"
+              searchPlaceholder="Buscar por orden o unidad"
+              [hasMoreFilters]="state.key !== 'no-more'"
+              [moreFiltersCount]="state.key === 'applied' ? appliedCount() : 0"
+              [hasActiveFilters]="state.key === 'applied' && appliedHasActive()" (clear)="clearApplied()">
+              <cs-input-dropdown label="Estado" [options]="statusOptions" [value]="state.key === 'applied' ? appliedStatus() : ''" (valueChange)="state.key === 'applied' && appliedStatus.set($event)" [menuFit]="true" [active]="state.key === 'applied' && !!appliedStatus()" />
+              <div moreFilters class="more-filters">
+                <cs-input-dropdown label="GPS" [options]="gpsOptions" [value]="state.key === 'applied' ? appliedGps() : ''" (valueChange)="state.key === 'applied' && appliedGps.set($event)" [fullWidth]="true" [menuFit]="true" [active]="state.key === 'applied' && !!appliedGps()" />
+                <cs-input-dropdown label="Contrato" [options]="contractOptions" [fullWidth]="true" [menuFit]="true" />
+              </div>
+            </cs-filter-bar>
+          </div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-captures">Matriz de capturas</h3>
+      <p class="section__intro">Busca una orden o unidad, filtra por estado y deja GPS y contrato en «Más filtros», como en la pantalla de Capturas.</p>
+      <app-demo-shell [controls]="[]" [code]="codeFor('default')">
+        <div class="stage">
+          <cs-filter-bar ariaLabel="Filtros de capturas" searchLabel="Buscar orden o unidad" searchPlaceholder="Buscar por orden o unidad" [hasMoreFilters]="true">
+            <cs-input-dropdown label="Estado" [options]="statusOptions" [menuFit]="true" />
+            <div moreFilters class="more-filters"><cs-input-dropdown label="GPS" [options]="gpsOptions" [fullWidth]="true" [menuFit]="true" /><cs-input-dropdown label="Contrato" [options]="contractOptions" [fullWidth]="true" [menuFit]="true" /></div>
+          </cs-filter-bar>
+        </div>
+      </app-demo-shell>
     </div>
   </section>
 
@@ -53,14 +74,12 @@
     <h2 class="section__title" id="props">Propiedades</h2>
     <div class="table">
       <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
-      <div class="table__row"><code class="table__name">ariaLabel</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Nombre del grupo de filtros.</span></div>
-      <div class="table__row"><code class="table__name">searchLabel</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Label de la búsqueda; vacío para no mostrarla.</span></div>
-      <div class="table__row"><code class="table__name">searchPlaceholder / searchValue</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Placeholder y texto de la búsqueda.</span></div>
-      <div class="table__row"><code class="table__name">(searchChange)</code><code class="table__type">EventEmitter&lt;string&gt;</code><code class="table__default">—</code><span class="table__desc">Texto escrito en la búsqueda.</span></div>
-      <div class="table__row"><code class="table__name">hasMoreFilters</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra «Más filtros» con el contenido marcado con <code>moreFilters</code>.</span></div>
-      <div class="table__row"><code class="table__name">moreFiltersCount</code><code class="table__type">number</code><code class="table__default">0</code><span class="table__desc">Filtros secundarios aplicados; activa el botón.</span></div>
-      <div class="table__row"><code class="table__name">hasActiveFilters</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra «Limpiar filtros».</span></div>
-      <div class="table__row"><code class="table__name">(clear)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Pedido de limpiar todos los filtros.</span></div>
+      <div class="table__row"><code class="table__name">ariaLabel</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Nombre accesible del grupo.</span></div>
+      <div class="table__row"><code class="table__name">searchLabel / searchPlaceholder / searchValue</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Etiqueta, indicación y texto de búsqueda. Sin etiqueta no aparece la búsqueda.</span></div>
+      <div class="table__row"><code class="table__name">(searchChange)</code><code class="table__type">EventEmitter&lt;string&gt;</code><code class="table__default">—</code><span class="table__desc">Emite lo escrito; la pantalla actualiza el valor.</span></div>
+      <div class="table__row"><code class="table__name">hasMoreFilters / moreFiltersCount</code><code class="table__type">boolean / number</code><code class="table__default">false / 0</code><span class="table__desc">Muestra el panel y cuenta los criterios secundarios activos.</span></div>
+      <div class="table__row"><code class="table__name">hasActiveFilters</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra «Limpiar filtros» cuando existe algún criterio.</span></div>
+      <div class="table__row"><code class="table__name">(clear)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Pide limpiar todos los valores; la pantalla ejecuta la acción.</span></div>
     </div>
   </section>
 </div>
