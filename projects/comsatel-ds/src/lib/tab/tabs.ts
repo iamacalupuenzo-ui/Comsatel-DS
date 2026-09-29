@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, contentChildren, signal } from '@angular/core';
-import { PressScale } from '../directives/press-scale.directive';
+import { PressScale } from '@iamacalupuenzo-ui/comsatel-ds/motion';
 import { Tab } from './tab';
 
 export type TabsVariant = 'line' | 'pill';

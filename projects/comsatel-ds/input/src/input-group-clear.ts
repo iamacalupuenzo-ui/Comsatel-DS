@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, Output, EventEmitter, OnDestroy, signal } from '@angular/core';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 /** Acción de limpieza para un cs-input-group, directa o dentro de un addon. */
 @Component({

@@ -9,7 +9,7 @@ import {
   Output,
   QueryList,
 } from '@angular/core';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { Radio } from './radio';
 
 export type RadioOrientation = 'vertical' | 'horizontal';

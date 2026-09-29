@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, signal } from '@angular/core';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { DropdownItemComponent } from './dropdown-item';
 import { ITEM_TOKENS } from './dropdown-tokens';
 import type { DropdownGroup, DropdownItem, DropdownPosition, DropdownSelectionMode, DropdownSize, DropdownTrigger } from './dropdown-types';

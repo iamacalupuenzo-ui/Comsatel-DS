@@ -13,7 +13,7 @@ registro curado del sistema (101 íconos de Lucide). No se usa otra librería de
 ## Props
 
 <!-- props:start Icon -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/icons/icon.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/icons/src/icon.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -45,7 +45,7 @@ cambiarle el color, cambia el `color` del contenedor con un token, no el SVG.
   texto equivalente cerca, visible o con `aria-label` en su contenedor.
 
 <!-- a11y:start Icon -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/icons/icon.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/icons/src/icon.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-icon`
 

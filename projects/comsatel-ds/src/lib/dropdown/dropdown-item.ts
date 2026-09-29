@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import type { DropdownItem, DropdownSelectionMode, DropdownSize } from './dropdown-types';
 import { ITEM_TOKENS, hoverBgFor } from './dropdown-tokens';
 import { radioDotSize } from '../shared/radio-glyph';

@@ -17,7 +17,7 @@ eligen cuánto tarda y cómo acelera.
 ## Props
 
 <!-- props:start Motion -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/motion/motion.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/motion/src/motion.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -60,7 +60,7 @@ devuelve `true`.
   sin animación, en el mismo momento en que cambia `show`.
 
 <!-- a11y:start Motion -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/motion/motion.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/motion/src/motion.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-motion`
 

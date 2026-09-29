@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, OnChanges, OnDestroy, inject } from '@angular/core';
 import { gsap } from 'gsap';
-import { tokenEase } from '../motion/eases';
-import { prefersReducedMotion, tokenSeconds } from '../motion/token-duration';
+import { tokenEase } from '@iamacalupuenzo-ui/comsatel-ds/motion';
+import { prefersReducedMotion, tokenSeconds } from '@iamacalupuenzo-ui/comsatel-ds/motion';
 
 /**
  * Anima la altura de un elemento entre 0 y su alto real ('auto') según un

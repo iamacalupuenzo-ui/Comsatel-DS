@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, signal } from '@angular/core';
 import { DropdownItemComponent } from '../dropdown/dropdown-item';
 import type { DropdownItem } from '../dropdown/dropdown-types';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { Popover } from '../popover/popover';
 
 /**

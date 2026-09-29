@@ -1,7 +1,7 @@
 import { NgStyle } from '@angular/common';
 import { Component, EventEmitter, Input, Output, computed, input, linkedSignal, signal } from '@angular/core';
 import { Button } from '../button/button';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { InputGroup } from '../input/input-group';
 import { InputGroupAddon } from '../input/input-group-addon';
 import { InputGroupInput } from '../input/input-group-input';

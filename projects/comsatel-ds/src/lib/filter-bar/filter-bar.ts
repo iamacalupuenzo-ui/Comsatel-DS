@@ -1,9 +1,9 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, signal } from '@angular/core';
 import { Button } from '../button/button';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { InputGroup } from '../input/input-group';
 import { InputGroupAddon } from '../input/input-group-addon';
-import { InputGroupClear } from '../input/input-group-clear';
+import { InputGroupClear } from '@iamacalupuenzo-ui/comsatel-ds/input';
 import { InputGroupInput } from '../input/input-group-input';
 import { Popover } from '../popover/popover';
 

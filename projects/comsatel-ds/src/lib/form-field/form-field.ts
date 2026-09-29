@@ -1,6 +1,6 @@
 import { NgStyle } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { fieldLabelTypography, type InputFieldSize } from '../input/input-tokens';
 import { textStyle } from '../tokens/typography';
 

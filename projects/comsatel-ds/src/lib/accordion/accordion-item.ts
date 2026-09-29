@@ -1,8 +1,8 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, effect, signal } from '@angular/core';
 import { gsap } from 'gsap';
-import { Icon } from '../icons/icon';
-import { tokenEase } from '../motion/eases';
-import { prefersReducedMotion, tokenSeconds } from '../motion/token-duration';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import { tokenEase } from '@iamacalupuenzo-ui/comsatel-ds/motion';
+import { prefersReducedMotion, tokenSeconds } from '@iamacalupuenzo-ui/comsatel-ds/motion';
 
 /** Superficie visual de una fila. No altera su semántica ni comportamiento. */
 export type AccordionItemSurface = 'outlined' | 'filled';

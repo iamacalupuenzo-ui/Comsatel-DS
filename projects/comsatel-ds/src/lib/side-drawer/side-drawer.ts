@@ -14,8 +14,8 @@ import {
   signal,
 } from '@angular/core';
 import { Button } from '../button/button';
-import { Icon } from '../icons/icon';
-import type { IconName } from '../icons/icon-registry';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 export type SideDrawerSurface = 'default' | 'canvas';
 

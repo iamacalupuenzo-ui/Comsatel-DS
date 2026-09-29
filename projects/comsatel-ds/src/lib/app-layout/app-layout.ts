@@ -1,6 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
-import { Icon } from '../icons/icon';
-import { PressScale } from '../directives/press-scale.directive';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import { PressScale } from '@iamacalupuenzo-ui/comsatel-ds/motion';
 import { AppLayoutState } from './app-layout-state';
 
 /**

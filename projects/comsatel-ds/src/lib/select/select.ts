@@ -1,6 +1,6 @@
 import { afterEveryRender, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild, input, signal } from '@angular/core';
 import { NgStyle } from '@angular/common';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { Badge, type BadgeSize } from '../badge/badge';
 import { INPUT_TOKENS } from '../dropdown/dropdown-tokens';
 import type { DropdownSize } from '../dropdown/dropdown-types';

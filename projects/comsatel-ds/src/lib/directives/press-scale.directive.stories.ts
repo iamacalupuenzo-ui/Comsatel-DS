@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { Button } from '../button/button';
-import { PressScale } from './press-scale.directive';
+import { PressScale } from '@iamacalupuenzo-ui/comsatel-ds/motion';
 
 // PressScale es una directiva de comportamiento y requiere un control real
 // como anfitrión. Esta misma composición se verificó antes en la ficha Angular.

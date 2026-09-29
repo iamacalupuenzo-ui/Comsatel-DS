@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostListener, OnDestroy, inject } from '@angular/core';
 import { gsap } from 'gsap';
-import { tokenEase } from '../motion/eases';
-import { prefersReducedMotion, tokenSeconds } from '../motion/token-duration';
+import { tokenEase } from './eases';
+import { prefersReducedMotion, tokenSeconds } from './token-duration';
 
 /**
  * Feedback de "presionado" para controles interactivos: encoge el elemento

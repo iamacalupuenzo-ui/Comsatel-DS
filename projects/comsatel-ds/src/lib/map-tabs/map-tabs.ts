@@ -1,6 +1,6 @@
 import { Component, ElementRef, inject, input, model, output, signal } from '@angular/core';
-import { Icon } from '../icons/icon';
-import type { IconName } from '../icons/icon-registry';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 /** Una pestaña del mapa: el mapa mismo, un grupo de seguimiento, una bitácora… */
 export interface MapTab {
