@@ -1,0 +1,40 @@
+<div class="cs-textarea-field">
+  @if (label) {
+    <label class="cs-textarea-field__label" [attr.for]="inputId">
+      {{ label }}
+      @if (required) {
+        <span class="cs-textarea-field__required" aria-hidden="true">*</span>
+      }
+    </label>
+  }
+  <textarea
+    class="cs-textarea"
+    [id]="inputId"
+    [rows]="rows"
+    [attr.maxlength]="maxLength ?? null"
+    [placeholder]="placeholder"
+    [required]="required"
+    [readonly]="readonly"
+    [disabled]="disabled"
+    [attr.aria-label]="label ? null : ariaLabel || null"
+    [attr.aria-required]="required ? 'true' : null"
+    [attr.aria-invalid]="invalid ? 'true' : null"
+    [attr.aria-errormessage]="invalid && errorMessage ? errorId : null"
+    [attr.aria-describedby]="describedBy"
+    [attr.data-resize]="resize"
+    [value]="value"
+    (input)="onInput($any($event.target).value)"
+  ></textarea>
+  @if (invalid && errorMessage || helperText || maxLength) {
+    <div class="cs-textarea-field__footer">
+      @if (invalid && errorMessage) {
+        <p class="cs-textarea-field__error" [id]="errorId">{{ errorMessage }}</p>
+      } @else if (helperText) {
+        <p class="cs-textarea-field__helper" [id]="helperId">{{ helperText }}</p>
+      }
+      @if (maxLength) {
+        <p class="cs-textarea-field__counter" [class.cs-textarea-field__counter--near]="nearLimit" [id]="counterId" aria-live="polite">{{ value.length }}/{{ maxLength }}</p>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,94 @@
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.cs-textarea-field {
+  display: grid;
+  gap: var(--layout-gap-xs);
+  min-width: 0;
+}
+.cs-textarea-field__label {
+  color: var(--color-text-base-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-ui);
+  font-weight: var(--font-weight-accent);
+  line-height: var(--font-line-height-content-ui);
+  letter-spacing: var(--font-letter-spacing-content);
+}
+.cs-textarea-field__required {
+  margin-left: var(--layout-gap-2xs);
+  color: var(--color-text-danger-default);
+}
+
+/* Mismos bordes, foco y error que Input. */
+.cs-textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: var(--layout-padding-sm) var(--layout-padding-md);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-default);
+  border-radius: var(--radius-sm);
+  background-color: var(--elevation-surface-default);
+  color: var(--color-text-base-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-ui);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-content-ui);
+  letter-spacing: var(--font-letter-spacing-content);
+  outline: none;
+  resize: vertical;
+  transition: border-color var(--motion-duration-fast) var(--motion-easing-default), box-shadow var(--motion-duration-fast) var(--motion-easing-default);
+}
+.cs-textarea[data-resize='none'] {
+  resize: none;
+}
+.cs-textarea::placeholder {
+  color: var(--color-text-base-subtlest);
+}
+.cs-textarea:hover:not(:disabled):not(:read-only):not(:focus-visible) {
+  border-color: var(--color-border-neutral-bolder);
+}
+.cs-textarea:focus-visible {
+  border-color: var(--color-border-brand-default);
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-brand-subtle);
+}
+.cs-textarea[aria-invalid='true'] {
+  border-color: var(--color-border-danger-default);
+  box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-danger-subtle);
+}
+.cs-textarea:disabled {
+  cursor: not-allowed;
+  background-color: var(--color-background-neutral-subtle);
+  color: var(--color-text-base-subtlest);
+  border-color: var(--color-border-neutral-subtle);
+}
+.cs-textarea:-webkit-autofill {
+  -webkit-text-fill-color: var(--color-text-base-default);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.cs-textarea-field__footer {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--layout-gap-md);
+}
+.cs-textarea-field__helper,
+.cs-textarea-field__error,
+.cs-textarea-field__counter {
+  margin: 0;
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+}
+.cs-textarea-field__helper { color: var(--color-text-base-subtle); }
+.cs-textarea-field__error { color: var(--color-text-danger-default); }
+.cs-textarea-field__counter {
+  margin-left: auto;
+  flex-shrink: 0;
+  color: var(--color-text-base-subtle);
+  font-variant-numeric: tabular-nums;
+}
+.cs-textarea-field__counter--near { color: var(--color-text-warning-default); }

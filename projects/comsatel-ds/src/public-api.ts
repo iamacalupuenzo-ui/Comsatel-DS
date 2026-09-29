@@ -30,6 +30,8 @@ export * from './lib/input/input-group-addon';
 export * from './lib/input/input-group-clear';
 export * from './lib/input/input-group-input';
 export * from './lib/autocomplete/autocomplete';
+export * from './lib/form-field/form-field';
+export * from './lib/textarea/textarea';
 export * from './lib/time-picker/time-picker';
 export * from './lib/date-range-picker/date-range-picker';
 export * from './lib/input/input-group-text';

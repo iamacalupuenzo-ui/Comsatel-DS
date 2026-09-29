@@ -1,0 +1,78 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Textarea</p>
+  <h1 class="title">Textarea<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.12</span></h1>
+  <p class="description">
+    Campo de texto de varias líneas para descripciones, observaciones y comentarios. Comparte los bordes, el foco y el
+    error de Input. Con un máximo de caracteres muestra un contador. Para un dato corto de una línea, usa Input.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Escribe en el campo y cambia el estado, las líneas y el contador. Arriba del ejemplo se explica cuándo usar el estado elegido.</p>
+    <ul class="section__intro state-list">
+      <li><strong>{{ pgStateInfo().label }}.</strong> {{ pgStateInfo().when }}</li>
+      <li><strong>Propiedades:</strong> <code>{{ pgStateInfo().props }}</code></li>
+    </ul>
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <div class="stage">
+        <cs-textarea
+          label="Descripción de la observación"
+          placeholder="Describe la observación"
+          [value]="pgValue()"
+          (valueChange)="pgValue.set($event)"
+          [rows]="pgRows()"
+          [maxLength]="pgCounter() ? 500 : undefined"
+          [resize]="pgResize() ? 'vertical' : 'none'"
+          [required]="pgRequired()"
+          [invalid]="pgState() === 'invalid'"
+          [errorMessage]="pgState() === 'invalid' ? 'Describe la observación antes de continuar.' : ''"
+          [readonly]="pgState() === 'readonly'"
+          [disabled]="pgState() === 'disabled'"
+        />
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Estados -->
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada estado en su propia caja, con cuándo usarlo y el código que lo produce.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'textarea-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="stateCode(state)">
+          <div class="stage">
+            @switch (state.key) {
+              @case ('empty') { <cs-textarea label="Descripción de la observación" placeholder="Describe la observación" /> }
+              @case ('filled') { <cs-textarea label="Descripción de la observación" [value]="sample" /> }
+              @case ('counter') { <cs-textarea label="Descripción de la observación" [maxLength]="120" [value]="counterValue()" (valueChange)="counterValue.set($event)" /> }
+              @case ('helper') { <cs-textarea label="Descripción de la observación" helperText="Incluye la dirección y la hora aproximada." /> }
+              @case ('invalid') { <cs-textarea label="Descripción de la observación" [invalid]="true" errorMessage="Describe la observación antes de continuar." /> }
+              @case ('required') { <cs-textarea label="Descripción de la observación" [required]="true" /> }
+              @case ('readonly') { <cs-textarea label="Descripción de la observación" [value]="sample" [readonly]="true" /> }
+              @case ('disabled') { <cs-textarea label="Descripción de la observación" [disabled]="true" /> }
+            }
+          </div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">value / (valueChange)</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Texto controlado.</span></div>
+      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Label visible; sin label, usa aria-label.</span></div>
+      <div class="table__row"><code class="table__name">rows</code><code class="table__type">number</code><code class="table__default">3</code><span class="table__desc">Alto inicial en líneas.</span></div>
+      <div class="table__row"><code class="table__name">maxLength</code><code class="table__type">number</code><code class="table__default">—</code><span class="table__desc">Máximo de caracteres; muestra el contador.</span></div>
+      <div class="table__row"><code class="table__name">resize</code><code class="table__type">"vertical" | "none"</code><code class="table__default">"vertical"</code><span class="table__desc">Permite estirar el alto o lo fija.</span></div>
+      <div class="table__row"><code class="table__name">helperText</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Ayuda debajo del campo.</span></div>
+      <div class="table__row"><code class="table__name">invalid / errorMessage</code><code class="table__type">boolean / string</code><code class="table__default">false / ''</code><span class="table__desc">Error con su mensaje.</span></div>
+      <div class="table__row"><code class="table__name">required / readonly / disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Requerido, solo lectura y deshabilitado.</span></div>
+    </div>
+  </section>
+</div>

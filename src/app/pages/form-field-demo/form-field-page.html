@@ -1,0 +1,58 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Form field</p>
+  <h1 class="title">Form field<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.12</span></h1>
+  <p class="description">
+    Envoltorio de un campo de formulario: label, el control, texto de ayuda y mensaje de error, con ids predecibles
+    para enlazarlos. Úsalo con controles que no traen su propio label, como Input o InputGroup. Select, Autocomplete,
+    Textarea y los selectores de fecha ya traen el suyo.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Cambia el mensaje y el requerido. El control usa como id el valor de <code>for</code>, y FormField genera los ids de la ayuda y del error.</p>
+    <ul class="section__intro state-list">
+      <li><strong>Ayuda:</strong> enlázala con <code>aria-describedby="{{ '{' }}for{{ '}' }}-help"</code>.</li>
+      <li><strong>Error:</strong> reemplaza a la ayuda; márcalo en el control con <code>[invalid]</code> y <code>aria-errormessage="{{ '{' }}for{{ '}' }}-error"</code>.</li>
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="code()" (stateChange)="onState($event)">
+      <div class="stage">
+        <cs-form-field for="ff-unit-code" label="Código de unidad" [required]="required()" [helperText]="helper()" [errorMessage]="error()">
+          <cs-input id="ff-unit-code" [invalid]="!!error()" [aria-errormessage]="error() ? 'ff-unit-code-error' : ''" [aria-describedby]="helper() ? 'ff-unit-code-help' : ''" [required]="required()" />
+        </cs-form-field>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Casos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-group">Con un campo con ícono</h3>
+      <p class="section__intro">El mismo envoltorio sirve para InputGroup: el label se enlaza con el campo interno por su id.</p>
+      <app-demo-shell [controls]="[]" [code]="groupCode">
+        <div class="stage">
+          <cs-form-field for="ff-email" label="Correo corporativo" helperText="Usa tu correo de la empresa.">
+            <cs-input-group>
+              <cs-input-group-addon><cs-icon name="mail" [size]="16" aria-hidden="true" /></cs-input-group-addon>
+              <cs-input-group-input id="ff-email" type="email" aria-describedby="ff-email-help" />
+            </cs-input-group>
+          </cs-form-field>
+        </div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">for</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Id del control; genera {{ '{' }}for{{ '}' }}-label, -help y -error.</span></div>
+      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Label del campo.</span></div>
+      <div class="table__row"><code class="table__name">required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Asterisco junto al label.</span></div>
+      <div class="table__row"><code class="table__name">helperText</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Ayuda debajo del control.</span></div>
+      <div class="table__row"><code class="table__name">errorMessage</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Mensaje de error; reemplaza a la ayuda.</span></div>
+    </div>
+  </section>
+</div>

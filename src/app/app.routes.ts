@@ -256,4 +256,12 @@ export const routes: Routes = [
     path: 'components/fleet-unit-list',
     loadComponent: () => import('./pages/fleet-unit-list-demo/fleet-unit-list-page').then((m) => m.FleetUnitListPage),
   },
+  {
+    path: 'components/textarea',
+    loadComponent: () => import('./pages/textarea-demo/textarea-page').then((m) => m.TextareaPage),
+  },
+  {
+    path: 'components/form-field',
+    loadComponent: () => import('./pages/form-field-demo/form-field-page').then((m) => m.FormFieldPage),
+  },
 ];

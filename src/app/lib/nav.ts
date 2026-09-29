@@ -112,6 +112,7 @@ export const NAVIGATION: NavSection[] = [
           { title: 'Date time range picker', href: '/components/datetime-range-picker' },
         ],
       },
+      { title: 'Form field', href: '/components/form-field', icon: 'rows', change: { kind: 'nuevo', version: '0.3.12' } },
       { title: 'Input', href: '/components/input', icon: 'text-cursor-input', change: { kind: 'actualizado', version: '0.3.2' } },
       { title: 'Radio', href: '/components/radio', icon: 'circle-dot' },
       {
@@ -125,6 +126,7 @@ export const NAVIGATION: NavSection[] = [
           { title: 'Autocomplete', href: '/components/autocomplete', change: { kind: 'nuevo', version: '0.3.7' } },
         ],
       },
+      { title: 'Textarea', href: '/components/textarea', icon: 'text-cursor-input', change: { kind: 'nuevo', version: '0.3.12' } },
       { title: 'Toggle', href: '/components/toggle', icon: 'toggle-left' },
     ],
   },
