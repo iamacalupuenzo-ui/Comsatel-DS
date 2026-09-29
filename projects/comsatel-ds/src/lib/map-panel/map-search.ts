@@ -1,6 +1,6 @@
 import { Component, ElementRef, computed, input, model, output, viewChild } from '@angular/core';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
-import { InputGroupInput } from '../input/input-group-input';
+import { InputGroupInput } from '@iamacalupuenzo-ui/comsatel-ds/input';
 import { MapPanel } from './map-panel';
 
 let nextMapSearchId = 0;

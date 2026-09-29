@@ -11,7 +11,7 @@ import { coverage } from './guidelines.mjs';
 import { components, parseMembers, readText } from './lib/ds.mjs';
 import { MISSING, regenerate, renderProps } from './props.mjs';
 import { looseValues } from './check-component-tokens.mjs';
-import { importViolations } from './check-secondary-entry-imports.mjs';
+import { findCycle, importViolations } from './check-secondary-entry-imports.mjs';
 
 test('tokens de componentes: rechaza colores, dimensiones, tiempos y capas literales', () => {
   assert.deepEqual(looseValues('a { color:#fff; padding: 8px; transition: opacity .2s; z-index: 8; }'), ['#fff', '8px', '2s', 'z-index: 8']);
@@ -134,4 +134,15 @@ test('entradas secundarias: importar la raíz o salir de la carpeta falla, un su
   assert.match(importViolations('import {\n  Button,\n} from "@iamacalupuenzo-ui/comsatel-ds";', file, entry).join(), /clear\.ts:3 importa desde la raíz/);
   assert.match(importViolations("const m = await import('@iamacalupuenzo-ui/comsatel-ds');", file, entry).join(), /importa desde la raíz/);
   assert.match(importViolations("export * from '../../src/lib/tag/tag';", file, entry).join(), /sale de su carpeta/);
+});
+
+test('entradas secundarias: un subpath inexistente, el propio o un ciclo fallan', () => {
+  const entry = join(tmpdir(), 'entrada', 'menu');
+  const file = join(entry, 'src', 'menu.ts');
+  const names = ['menu', 'popover', 'icons'];
+  assert.match(importViolations("import { X } from '@iamacalupuenzo-ui/comsatel-ds/nada';", file, entry, names).join(), /no es un punto de entrada/);
+  assert.match(importViolations("import { Menu } from '@iamacalupuenzo-ui/comsatel-ds/menu';", file, entry, names).join(), /su propio subpath/);
+  assert.equal(importViolations("import { Popover } from '@iamacalupuenzo-ui/comsatel-ds/popover';", file, entry, names).length, 0);
+  assert.equal(findCycle({ menu: ['popover'], popover: ['icons'], icons: [] }), null);
+  assert.equal(findCycle({ menu: ['popover'], popover: ['menu'] }), 'menu → popover → menu');
 });

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { Avatar } from './avatar';
 import { AvatarAddButton } from './avatar-add-button';
-import { componentTypography, textStyle } from '../tokens/typography';
+import { componentTypography, textStyle } from '@iamacalupuenzo-ui/comsatel-ds/tokens';
 
 export type AvatarGroupSize = 'xs' | 'sm' | 'md';
 

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, input, linkedSignal } from '@angular/core';
 import { DatePicker } from '../date-picker/date-picker';
-import type { InputFieldSize } from '../input/input-tokens';
+import type { InputFieldSize } from '@iamacalupuenzo-ui/comsatel-ds/input';
 import { TimePicker } from '../time-picker/time-picker';
 
 /** Fecha 'YYYY-MM-DD' y hora 'HH:mm' (24 h); cada parte vacía si falta. */

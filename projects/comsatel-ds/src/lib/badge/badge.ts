@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgStyle } from '@angular/common';
-import { componentTypography, textStyle } from '../tokens/typography';
+import { componentTypography, textStyle } from '@iamacalupuenzo-ui/comsatel-ds/tokens';
 
 export type BadgeVariant =
   | 'neutral'

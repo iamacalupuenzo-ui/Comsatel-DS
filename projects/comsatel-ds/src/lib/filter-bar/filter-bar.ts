@@ -1,11 +1,11 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, signal } from '@angular/core';
-import { Button } from '../button/button';
+import { Button } from '@iamacalupuenzo-ui/comsatel-ds/button';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
-import { InputGroup } from '../input/input-group';
-import { InputGroupAddon } from '../input/input-group-addon';
+import { InputGroup } from '@iamacalupuenzo-ui/comsatel-ds/input';
+import { InputGroupAddon } from '@iamacalupuenzo-ui/comsatel-ds/input';
 import { InputGroupClear } from '@iamacalupuenzo-ui/comsatel-ds/input';
-import { InputGroupInput } from '../input/input-group-input';
-import { Popover } from '../popover/popover';
+import { InputGroupInput } from '@iamacalupuenzo-ui/comsatel-ds/input';
+import { Popover } from '@iamacalupuenzo-ui/comsatel-ds/popover';
 
 let filterBarId = 0;
 

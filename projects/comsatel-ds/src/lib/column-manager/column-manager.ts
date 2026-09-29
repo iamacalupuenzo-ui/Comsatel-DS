@@ -3,9 +3,9 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, signal }
 import { INPUT_TOKENS } from '../dropdown/dropdown-tokens';
 import type { DropdownSize } from '../dropdown/dropdown-types';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
-import { fieldLabelTypography } from '../input/input-tokens';
-import { textStyle } from '../tokens/typography';
-import { Popover } from '../popover/popover';
+import { fieldLabelTypography } from '@iamacalupuenzo-ui/comsatel-ds/input';
+import { textStyle } from '@iamacalupuenzo-ui/comsatel-ds/tokens';
+import { Popover } from '@iamacalupuenzo-ui/comsatel-ds/popover';
 
 let nextColumnManagerId = 0;
 

@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, signal }
 import { DropdownItemComponent } from '../dropdown/dropdown-item';
 import type { DropdownItem } from '../dropdown/dropdown-types';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
-import { Popover } from '../popover/popover';
+import { Popover } from '@iamacalupuenzo-ui/comsatel-ds/popover';
 
 /**
  * Menú de acciones de una fila de Table: un botón de puntos suspensivos y un

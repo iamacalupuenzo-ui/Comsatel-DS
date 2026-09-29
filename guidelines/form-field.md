@@ -4,6 +4,7 @@ Envoltorio de un **campo de formulario**: label, el control proyectado, texto de
 con ids predecibles para enlazarlos. Evita repetir el mismo marcado en cada pantalla.
 
 - **Import:** `import { FormField } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { FormField } from '@iamacalupuenzo-ui/comsatel-ds/form-field';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-form-field>`
 
 ```html
@@ -40,7 +41,7 @@ debajo del valor escrito y se distingue por el peso.
 ## Props
 
 <!-- props:start FormField -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/form-field/form-field.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/form-field/src/form-field.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -55,7 +56,7 @@ debajo del valor escrito y se distingue por el peso.
 ## Accesibilidad
 
 <!-- a11y:start FormField -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/form-field/form-field.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/form-field/src/form-field.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-form-field`
 

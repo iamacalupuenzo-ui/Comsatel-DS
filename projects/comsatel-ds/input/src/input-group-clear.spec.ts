@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { InputGroup } from './input-group';
 import { InputGroupAddon } from './input-group-addon';
 import { InputGroupInput } from './input-group-input';
-import { InputGroupClear } from '@iamacalupuenzo-ui/comsatel-ds/input';
+import { InputGroupClear } from './input-group-clear';
 
 @Component({
   imports: [InputGroup, InputGroupInput, InputGroupClear],

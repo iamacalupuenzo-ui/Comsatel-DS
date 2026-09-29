@@ -4,9 +4,9 @@ import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { Badge, type BadgeSize } from '../badge/badge';
 import { INPUT_TOKENS } from '../dropdown/dropdown-tokens';
 import type { DropdownSize } from '../dropdown/dropdown-types';
-import { Popover } from '../popover/popover';
-import { fieldLabelTypography } from '../input/input-tokens';
-import { textStyle } from '../tokens/typography';
+import { Popover } from '@iamacalupuenzo-ui/comsatel-ds/popover';
+import { fieldLabelTypography } from '@iamacalupuenzo-ui/comsatel-ds/input';
+import { textStyle } from '@iamacalupuenzo-ui/comsatel-ds/tokens';
 
 export interface SelectOption {
   label: string;

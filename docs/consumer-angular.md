@@ -51,13 +51,21 @@ estilos de una pantalla de producto.
 
 ### Importar desde un subpath para cargar menos
 
-Desde la 0.4.0, algunas piezas tienen su propio punto de entrada:
+Desde la 0.4.0, cada vez más piezas tienen su propio punto de entrada (la migración va por olas, hasta cubrir todos los componentes):
 
 | Subpath | Qué trae |
 | :-- | :-- |
 | `@iamacalupuenzo-ui/comsatel-ds/icons` | `Icon`, `ICON_REGISTRY`, `IconName` |
 | `@iamacalupuenzo-ui/comsatel-ds/motion` | `Motion`, `PressScale`, eases y duraciones |
-| `@iamacalupuenzo-ui/comsatel-ds/input` | `InputGroupClear` |
+| `@iamacalupuenzo-ui/comsatel-ds/input` | `Input`, `InputGroup` y sus partes, `PasswordInput`, `InputGroupClear` |
+| `@iamacalupuenzo-ui/comsatel-ds/form-field` | `FormField` |
+| `@iamacalupuenzo-ui/comsatel-ds/button` | `Button` |
+| `@iamacalupuenzo-ui/comsatel-ds/brand` | `CFlotasLogo` (y el alias `CLocaterFlotasLogo`) |
+| `@iamacalupuenzo-ui/comsatel-ds/popover` | `Popover` y su posicionamiento |
+| `@iamacalupuenzo-ui/comsatel-ds/directives` | `Collapse` |
+| `@iamacalupuenzo-ui/comsatel-ds/menu` | `Menu` y sus tipos (`MenuGroupData`…) |
+| `@iamacalupuenzo-ui/comsatel-ds/app-layout` | `AppLayout`, `AppLayoutState` |
+| `@iamacalupuenzo-ui/comsatel-ds/tokens` | Tokens en TypeScript (`textStyle`, `primitiveColors`, `ALL_TOKENS`) |
 
 El import raíz `@iamacalupuenzo-ui/comsatel-ds` sigue exportando todo, pero trae la
 librería **entera** al chunk que lo usa, aunque importes una sola pieza. Importa desde

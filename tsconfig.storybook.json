@@ -8,7 +8,8 @@
   "include": [
     "src/**/*.ts",
     ".storybook/**/*.ts",
-    "projects/comsatel-ds/src/**/*.stories.ts"
+    "projects/comsatel-ds/src/**/*.stories.ts",
+    "projects/comsatel-ds/*/src/**/*.stories.ts"
   ],
   "exclude": [
     "src/**/*.spec.ts"

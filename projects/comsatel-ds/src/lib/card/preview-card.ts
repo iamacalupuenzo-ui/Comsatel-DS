@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Button } from '../button/button';
+import { Button } from '@iamacalupuenzo-ui/comsatel-ds/button';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 // Puerto 1:1 de PreviewCard — bloque de vista previa (imagen o placeholder

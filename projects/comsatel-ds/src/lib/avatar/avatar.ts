@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgStyle } from '@angular/common';
-import { componentTypography, textStyle } from '../tokens/typography';
+import { componentTypography, textStyle } from '@iamacalupuenzo-ui/comsatel-ds/tokens';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';

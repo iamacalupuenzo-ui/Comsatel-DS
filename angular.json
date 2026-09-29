@@ -144,7 +144,8 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/comsatel-ds/tsconfig.spec.json"
+            "tsConfig": "projects/comsatel-ds/tsconfig.spec.json",
+            "include": ["**/*.spec.ts", "../*/src/**/*.spec.ts"]
           }
         }
       }

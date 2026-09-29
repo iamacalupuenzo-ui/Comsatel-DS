@@ -5,9 +5,9 @@ import { INPUT_TOKENS } from './dropdown-tokens';
 import type { DropdownSize, InputDropdownOption } from './dropdown-types';
 import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { CountryFlag } from './country-flag';
-import { Popover } from '../popover/popover';
-import { fieldLabelTypography } from '../input/input-tokens';
-import { textStyle } from '../tokens/typography';
+import { Popover } from '@iamacalupuenzo-ui/comsatel-ds/popover';
+import { fieldLabelTypography } from '@iamacalupuenzo-ui/comsatel-ds/input';
+import { textStyle } from '@iamacalupuenzo-ui/comsatel-ds/tokens';
 
 let uid = 0;
 

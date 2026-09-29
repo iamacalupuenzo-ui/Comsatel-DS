@@ -5,6 +5,7 @@ calendarios, paneles. Es la pieza sobre la que se construyen otros componentes, 
 componente de producto por sí solo.
 
 - **Import:** `import { Popover } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Popover } from '@iamacalupuenzo-ui/comsatel-ds/popover';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-popover>`
 - **Clase raíz emitida:** `.cs-popover`
 
@@ -25,7 +26,7 @@ componente de producto por sí solo.
 ## Props
 
 <!-- props:start Popover -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/popover/popover.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/popover/src/popover.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -59,7 +60,7 @@ El contenido flotante va proyectado.
   responsabilidad de quien lo usa.
 
 <!-- a11y:start Popover -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/popover/popover.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/popover/src/popover.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-popover`
 
