@@ -45,11 +45,25 @@ Stepper, Skeleton, Column manager y Fleet unit list existen en la librería pero
 
 ## Estado al cierre
 
-Detenido el 2026-09-29 a las 0:15, con la sesión de Claude al 97 % (se restablece a la 1:00).
+Primera parada el 2026-09-29 a las 0:15, con la sesión de Claude al 97 %. Se retomó al restablecerse y el plan quedó **completo** a las 7:00 (sesión al 16 %, semana al 19 %).
 
 - **Bloque 1, hecho:** páginas de Skeleton, Column manager y Fleet unit list.
-- **Bloque 2, hecho:** Textarea y FormField, publicados en **0.3.12**. FO usa `cs-textarea` en «Observar captura» y «Editar observación» (commit `9c7b068`), verificado con Playwright. FormField no se adoptó todavía: los formularios de FO ya usan componentes con label propio.
-- **Sigue: Bloque 3 (Table).** Columna de acciones fija, estados de carga, vacío y error, y menú de acciones por fila. Luego se quitan las compensaciones de tabla de `src/styles.css` en FO.
-- **Después: Bloque 4.** Side drawer y Filter bar.
+- **Bloque 2, hecho (0.3.12):** Textarea y FormField. FO usa `cs-textarea` en «Observar captura» y «Editar observación» (commit `9c7b068`).
+- **Bloque 3, hecho (0.3.13):** Table con `sticky: 'end'`, sombra medida, estado de error con `(retry)`, `cs-table-row-actions` y encabezados de 12 px. FO adoptó todo en Capturas y Recuperos y retiró 112 líneas de compensación de `src/styles.css` (commit `e136740`).
+- **Bloque 4, hecho (0.3.14):** `cs-side-drawer` reemplaza `shared/side-drawer.component.ts` en seis archivos de FO. `cs-filter-bar` reemplaza las barras de Capturas y Recuperos (commit `d64c97c`).
 
-**Pregunta de comprobación:** ¿por qué los cuatro componentes sin página van antes que Table?
+La numeración se corrió una versión respecto del plan: Textarea y FormField salieron juntos en 0.3.12.
+
+### Decisiones tomadas en el camino
+
+- **Tablero sin Filter bar.** Su nota de «datos de demostración» va después de «Limpiar filtros» y no tiene panel de filtros. La Filter bar pondría el botón al final, así que se deja su flex simple.
+- **Solo `sticky: 'end'`.** No hay un caso de uso para `'start'`; se agrega cuando aparezca uno.
+- **FormField sin adoptar.** Los formularios de FO ya usan controles con label propio.
+
+### Pendientes
+
+- **Modal sin `surface`.** FO aún usa `.capture-surface-modal` en `styles.css` para darle el lienzo al Modal. SideDrawer ya tiene la propiedad; conviene llevarla a Modal.
+- **Label de Column manager.** En la página de Table, el label «Columnas» se ve más grande que los de Estado y Filas. Hay que revisarlo.
+- **Storybook.** Las historias de Textarea, FormField, TableRowActions, SideDrawer y FilterBar siguen pendientes (para Codex).
+
+**Pregunta de comprobación:** ¿por qué el tablero no usa la Filter bar aunque tiene «Limpiar filtros»?
