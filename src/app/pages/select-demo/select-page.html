@@ -1,6 +1,6 @@
 <div class="page">
   <p class="eyebrow">Componentes / Select</p>
-  <h1 class="title">Select<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.9</span></h1>
+  <h1 class="title">Select<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.11</span></h1>
   <p class="description">
     Select permite elegir uno o varios valores dentro de un formulario o de una barra de filtros, a diferencia
     de Dropdown, que dispara acciones. En modo múltiple, la selección se muestra como chips (una insignia por
@@ -40,6 +40,7 @@
             label="Equipo"
             placeholder="Selecciona un equipo…"
             [options]="teamOptions"
+            [showClear]="pgClear()"
             [size]="pgSize()"
             [required]="pgRequired()"
             [menuFit]="pgMenuFit()"
@@ -58,7 +59,7 @@
   <!-- Selección múltiple -->
   <section class="section">
     <h2 class="section__title" id="multiple">Selección múltiple</h2>
-    <p class="section__intro">Cambia la cantidad de opciones marcadas, la visualización y el tamaño para ver cómo responde el campo. Los chips muestran hasta dos opciones y luego «+N»; el resumen siempre ocupa una línea. Con una selección parcial, el campo se marca como filtro aplicado.</p>
+    <p class="section__intro">Cambia la cantidad de opciones marcadas, la visualización y el tamaño para ver cómo responde el campo. Los chips muestran una opción y luego «+N», con el texto recortado a 120 px; el resumen siempre ocupa una línea. Con una selección parcial, el campo se marca como filtro aplicado.</p>
     <ul class="section__intro state-list">
       <li><strong>{{ mCountInfo().label }} marcada{{ mCountInfo().count === 1 ? '' : 's' }}.</strong> {{ mCountInfo().when }}</li>
       <li><strong>Chips o resumen:</strong> usa chips en formularios, donde conviene ver y quitar cada opción; usa resumen en barras de filtro y en espacios angostos.</li>
@@ -97,9 +98,9 @@
 
     <div class="subsection">
       <h3 class="subsection__title" id="state-filled">Con valor</h3>
-      <p class="section__intro">Hay una opción elegida. Con la X se limpia, salvo que el valor sea obligatorio (<code>[showClear]="false"</code>).</p>
+      <p class="section__intro">Hay una opción elegida. Elegir otra la reemplaza. En campos no obligatorios puedes sumar la X para volver a vacío con <code>[showClear]="true"</code>.</p>
       <app-demo-shell [controls]="stateSizeControls" (stateChange)="onStateSize('filled', $event)" [code]="withSize(code.filled, 'filled')">
-        <div class="select-stage"><cs-select [size]="sizeOf('filled')" label="Equipo" [options]="teamOptions" [value]="stateValue()" (valueChange)="stateValue.set($any($event))" /></div>
+        <div class="select-stage"><cs-select [size]="sizeOf('filled')" label="Equipo" [options]="teamOptions" [showClear]="true" [value]="stateValue()" (valueChange)="stateValue.set($any($event))" /></div>
       </app-demo-shell>
     </div>
 
@@ -156,13 +157,13 @@
       <h3 class="subsection__title" id="long-single">Selección simple</h3>
       <p class="section__intro">Una opción larga se recorta en una línea. Aquí el valor es obligatorio, así que no se muestra la X de limpiar.</p>
       <app-demo-shell [controls]="[]" [code]="code.longSingle">
-        <div class="select-stage"><cs-select label="Operación" [options]="longOptions" [showClear]="false" [value]="longSingle()" (valueChange)="longSingle.set($event)" /></div>
+        <div class="select-stage"><cs-select label="Operación" [options]="longOptions" [value]="longSingle()" (valueChange)="longSingle.set($event)" /></div>
       </app-demo-shell>
     </div>
 
     <div class="subsection">
       <h3 class="subsection__title" id="long-chips">Selección múltiple con chips</h3>
-      <p class="section__intro">Cada chip recorta su texto y, pasadas las dos opciones, el resto se resume en «+N».</p>
+      <p class="section__intro">Se ve un chip, con su texto recortado a 120 px como máximo, y el resto se resume en «+N».</p>
       <app-demo-shell [controls]="[]" [code]="code.longChips">
         <div class="select-stage"><cs-select label="Operaciones" [multiple]="true" [options]="longOptions" [value]="longChips()" (valueChange)="longChips.set($event)" /></div>
       </app-demo-shell>
@@ -261,7 +262,7 @@
       <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita el trigger, oculta el menú y el control de limpiar.</span></div>
       <div class="table__row"><code class="table__name">required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Agrega un asterisco al label.</span></div>
       <div class="table__row"><code class="table__name">multipleDisplay</code><code class="table__type">"chips" | "summary"</code><code class="table__default">"chips"</code><span class="table__desc">En modo múltiple, chips por opción o un resumen de una línea (la opción o el conteo). En «summary», ninguna o todas equivalen a «todos».</span></div>
-      <div class="table__row"><code class="table__name">maxVisibleChips</code><code class="table__type">number</code><code class="table__default">2</code><span class="table__desc">Máximo de chips visibles antes de mostrar +N; mantiene el campo en una línea.</span></div>
+      <div class="table__row"><code class="table__name">maxVisibleChips</code><code class="table__type">number</code><code class="table__default">1</code><span class="table__desc">Máximo de chips visibles antes de mostrar +N; mantiene el campo en una línea.</span></div>
       <div class="table__row"><code class="table__name">summaryLabel</code><code class="table__type">(count: number) =&gt; string</code><code class="table__default">"{{ '{' }}n{{ '}' }} seleccionados"</code><span class="table__desc">Texto del resumen cuando hay varias opciones elegidas.</span></div>
       <div class="table__row"><code class="table__name">active</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Filtro aplicado: borde, fondo y texto de selección. Cede ante foco, apertura y error.</span></div>
       <div class="table__row"><code class="table__name">menuFit</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">La lista mide al menos el ancho del campo y crece con la opción más larga hasta el borde visible; recién ahí parte el texto.</span></div>
@@ -269,7 +270,7 @@
       <div class="table__row"><code class="table__name">readonly</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el valor sin permitir abrir la lista ni limpiar.</span></div>
       <div class="table__row"><code class="table__name">clearControlLabel</code><code class="table__type">string</code><code class="table__default">"Limpiar"</code><span class="table__desc">aria-label de la X que limpia una selección simple; la X va dentro del campo, antes del chevron.</span></div>
       <div class="table__row"><code class="table__name">removeOptionLabel</code><code class="table__type">(label: string) =&gt; string</code><code class="table__default">"Quitar {{ '{' }}label{{ '}' }}"</code><span class="table__desc">Arma el nombre accesible de la acción de quitar junto a cada chip en modo múltiple.</span></div>
-      <div class="table__row"><code class="table__name">showClear</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra el control para limpiar la selección simple.</span></div>
+      <div class="table__row"><code class="table__name">showClear</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">X dentro del campo para volver a vacío en selección simple. Opcional: úsala solo si el campo no es obligatorio.</span></div>
       <div class="table__row"><code class="table__name">surface</code><code class="table__type">"default" | "secondary"</code><code class="table__default">"default"</code><span class="table__desc">Obsoleto desde 0.3.5: la superficie crema se descartó y se eliminará en 0.4.0. No la uses.</span></div>
       <div class="table__row"><code class="table__name">aria-describedby</code><code class="table__type">string</code><code class="table__default">""</code><span class="table__desc">Identificador del mensaje de ayuda o error.</span></div>
     </div>

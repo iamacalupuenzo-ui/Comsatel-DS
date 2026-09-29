@@ -43,7 +43,8 @@ export class Select {
   @Input() size: DropdownSize = 'md';
   @Input() disabled = false;
   @Input() required = false;
-  readonly showClear = input(true);
+  /** X para volver a vacío en selección simple. Opcional (como Ant Design o react-select): úsala solo en campos no obligatorios; elegir otra opción ya reemplaza el valor. */
+  readonly showClear = input(false);
   /** @deprecated Desde 0.3.5: la superficie crema se descartó y se eliminará en 0.4.0. No la uses. */
   readonly surface = input<'default' | 'secondary'>('default');
   readonly invalid = input(false);
@@ -56,7 +57,7 @@ export class Select {
    */
   @Input() multipleDisplay: 'chips' | 'summary' = 'chips';
   /** Límite de chips visibles; el resto se resume como +N. */
-  @Input() maxVisibleChips = 2;
+  @Input() maxVisibleChips = 1;
   /** Texto del resumen cuando hay varias opciones elegidas. */
   @Input() summaryLabel: (count: number) => string = (count) => `${count} seleccionados`;
   /** Filtro aplicado: borde, fondo y texto de selección. Foco, apertura y error tienen prioridad. */

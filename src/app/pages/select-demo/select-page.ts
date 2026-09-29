@@ -39,7 +39,7 @@ const COUNT_OPTIONS: CountOption[] = [
   { value: '0', label: 'Ninguna', count: 0, when: 'Sin restricción: el placeholder comunica que se incluyen todas las opciones.' },
   { value: '1', label: 'Una', count: 1, when: 'Un solo criterio: resumen y chips muestran su nombre.' },
   { value: '2', label: 'Dos', count: 2, when: 'Pocos criterios: los chips caben completos; el resumen muestra el conteo.' },
-  { value: '5', label: 'Cinco', count: 5, when: 'Varios criterios: los chips muestran dos y «+N»; en barras de filtro usa el resumen.' },
+  { value: '5', label: 'Cinco', count: 5, when: 'Varios criterios: los chips muestran uno y «+N»; en barras de filtro usa el resumen.' },
   { value: 'all', label: 'Todas', count: 'all', when: 'Todas marcadas equivale a «todos»: se muestra el placeholder y no se marca como aplicado.' },
 ];
 
@@ -69,6 +69,7 @@ export class SelectPage {
     { kind: 'toggle', label: 'Requerido', key: 'required', default: false },
     { kind: 'toggle', label: 'Resumen en una línea', key: 'summary', default: false },
     { kind: 'toggle', label: 'Menú ajustado al campo', key: 'menuFit', default: false },
+    { kind: 'toggle', label: 'Botón limpiar (simple)', key: 'clear', default: false },
   ];
   protected readonly pgMultiple = signal(false);
   protected readonly pgSize = signal<Size>('md');
@@ -76,6 +77,7 @@ export class SelectPage {
   protected readonly pgRequired = signal(false);
   protected readonly pgSummary = signal(false);
   protected readonly pgMenuFit = signal(false);
+  protected readonly pgClear = signal(false);
   /** Con valor desde el inicio: el estado aplicado, el error o solo lectura se ven sobre un valor real. */
   protected readonly pgSingleValue = signal('design');
   protected readonly pgMultipleValue = signal<string[]>(['design', 'eng']);
@@ -88,6 +90,7 @@ export class SelectPage {
     if (s['required'] !== undefined) this.pgRequired.set(!!s['required']);
     if (s['summary'] !== undefined) this.pgSummary.set(!!s['summary']);
     if (s['menuFit'] !== undefined) this.pgMenuFit.set(!!s['menuFit']);
+    if (s['clear'] !== undefined) this.pgClear.set(!!s['clear']);
   }
 
   protected readonly pgCode = computed(() => {
@@ -97,6 +100,7 @@ export class SelectPage {
     if (this.pgSize() !== 'md') props.push(`size="${this.pgSize()}"`);
     if (this.pgRequired()) props.push('[required]="true"');
     if (this.pgMenuFit()) props.push('[menuFit]="true"');
+    if (!this.pgMultiple() && this.pgClear()) props.push('[showClear]="true"');
     const state = this.pgStateInfo();
     if (state.props !== '—') props.push(state.props);
     return `${PLAYGROUND_CODE_HEAD}${props.length ? '\n  ' + props.join('\n  ') : ''}\n/>`;
@@ -144,13 +148,13 @@ export class SelectPage {
   protected readonly stateValue = signal('design');
   protected readonly code = {
     empty: '<cs-select label="Equipo" placeholder="Selecciona un equipo…" [options]="teamOptions" />',
-    filled: '<cs-select label="Equipo" [options]="teamOptions" value="design" />',
+    filled: '<cs-select label="Equipo" [options]="teamOptions" value="design" [showClear]="true" />',
     active: '<cs-select label="Equipo" [options]="teamOptions" value="design" [active]="true" />',
     invalid: '<cs-select label="Equipo" [options]="teamOptions" [invalid]="true" aria-describedby="select-error" />\n<p id="select-error">Selecciona un equipo antes de continuar.</p>',
     required: '<cs-select label="Equipo" placeholder="Selecciona un equipo…" [options]="teamOptions" [required]="true" />',
     readonly: '<cs-select label="Equipo" [options]="teamOptions" value="design" [readonly]="true" />',
     disabled: '<cs-select label="Equipo" [options]="teamOptions" value="design" [disabled]="true" />',
-    longSingle: '<cs-select label="Operación" [options]="operaciones" value="north" [showClear]="false" />',
+    longSingle: '<cs-select label="Operación" [options]="operaciones" value="north" />',
     longChips: '<cs-select label="Operaciones" [multiple]="true" [options]="operaciones" [value]="[\'north\', \'south\', \'central\']" />',
     longSummary: '<cs-select label="Operaciones" [multiple]="true" multipleDisplay="summary" [options]="operaciones" [value]="[\'north\']" />',
   };

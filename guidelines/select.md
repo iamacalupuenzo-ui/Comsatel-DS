@@ -22,7 +22,7 @@ elegir varias opciones y quitarlas una por una.
 
 | Decisión | Usa | Motivo |
 | :-- | :-- | :-- |
-| Mostrar cada valor elegido | `multipleDisplay="chips"` | Formulario con espacio suficiente; los chips permiten quitar valores concretos. Muestra hasta `maxVisibleChips` (2 por defecto) y luego `+N`. |
+| Mostrar cada valor elegido | `multipleDisplay="chips"` | Formulario con espacio suficiente; los chips permiten quitar valores concretos. Muestra hasta `maxVisibleChips` (1 por defecto, con el texto recortado a 120 px) y luego `+N`. |
 | Filtrar en una barra o campo estrecho | `multipleDisplay="summary"` | Conserva una línea, muestra una opción o el conteo, y deja el texto completo en `title`. |
 | Elegir varios valores | `Select` múltiple | `InputDropdown` sirve para elegir un valor; no ofrece selección múltiple. |
 | Elegir uno entre pocos valores visibles | `RadioGroup` | Las alternativas permanecen a la vista. Para una condición binaria independiente, usa `Toggle`. |
@@ -65,13 +65,13 @@ en filtros pequeños y el caso «todos» ya se alcanza dejando la selección vac
 | `disabled` | `boolean` | `false` | Deshabilita el campo. |
 | `required` | `boolean` | `false` | Marca el campo como requerido. |
 | `multipleDisplay` | `'chips' \| 'summary'` | `'chips'` | En modo múltiple, una insignia por opción (chips) o un resumen de una línea (summary). En summary, ninguna o todas equivalen a «todos». |
-| `maxVisibleChips` | `number` | `2` | Limita los chips visibles; el resto se muestra como `+N` en una línea. |
+| `maxVisibleChips` | `number` | `1` | Limita los chips visibles; el resto se muestra como `+N` en una línea. |
 | `summaryLabel` | `(count: number) => string` | `` (count) => `${count} seleccionados` `` | Texto del resumen cuando hay varias opciones elegidas. |
 | `active` | `boolean` | `false` | Filtro aplicado: borde, fondo y texto de selección. Cede ante foco, apertura y error. |
 | `menuFit` | `boolean` | `false` | La lista mide al menos el ancho del campo y crece con la opción más larga hasta el borde visible; recién ahí parte el texto. |
 | `clearControlLabel` | `string` | `'Limpiar'` | Nombre accesible del botón que limpia todo. |
 | `removeOptionLabel` | `(label: string) => string` | `` (label) => `Quitar ${label}` `` | Nombre accesible del botón que quita un chip. |
-| `showClear` | `boolean` | `true` | Muestra la limpieza en selección simple; false evita overrides del consumidor. |
+| `showClear` | `boolean` | `false` | X dentro del campo para volver a vacío en selección simple. Opcional, como en Ant Design o react-select: úsala solo si el campo no es obligatorio. |
 | `surface` | `'default' \| 'secondary'` | `'default'` | **Obsoleto desde 0.3.5:** la superficie crema se descartó y se eliminará en 0.4.0. No la uses. |
 | `invalid` | `boolean` | `false` | Borde de error y aria-invalid; acompaña con una explicación. |
 | `readonly` | `boolean` | `false` | Conserva foco y lectura; bloquea apertura, limpieza y quitar chips. |
@@ -105,8 +105,7 @@ en filtros pequeños y el caso «todos» ya se alcanza dejando la selección vac
 
 ## Trampas
 
-- `showClear` conserva true por compatibilidad; usa `[showClear]="false"` para
-  campos obligatorios sin limpieza. Reelegir en simple emite el mismo valor.
+- `showClear` es opcional (false por defecto): elegir otra opción ya reemplaza el valor, así que la X solo aporta en campos no obligatorios.
 - El texto simple y los chips truncan dentro del contenedor, reservando quitar
   y chevron. El texto completo del chip sigue en su nombre y atributo title.
 - `readonly` bloquea cambios y apertura; `disabled` también deshabilita quitar

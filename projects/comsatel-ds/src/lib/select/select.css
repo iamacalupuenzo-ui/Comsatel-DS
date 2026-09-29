@@ -88,7 +88,8 @@
   overflow: hidden;
   column-gap: var(--layout-gap-2xs);
 }
-.cs-select__placeholder--empty { font-style: italic; }
+/* Placeholder recto y en tono tenue, igual que Input; la cursiva lo hacía ver como otro estilo tipográfico. */
+.cs-select__placeholder--empty { color: var(--color-text-base-subtlest); }
 .cs-select__chip { max-width: 100%; min-width: 0; flex: 0 1 auto; }
 .cs-select__chip:last-child { flex-shrink: 0; }
 .cs-select__chip-label {
@@ -96,7 +97,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: max(var(--layout-padding-none), calc(100cqw - 2 * var(--select-padding) - 2 * var(--select-chip-padding) - var(--select-chip-remove) - var(--layout-size-2xs) - var(--layout-padding-xs) - var(--layout-gap-xs) - 4 * var(--layout-border-thin)));
+  /* Un chip no muestra textos largos: se recorta a 120 px como máximo, o al espacio disponible. */
+  max-width: min(calc(var(--layout-size-3xl) * 1.5), max(var(--layout-padding-none), calc(100cqw - 2 * var(--select-padding) - 2 * var(--select-chip-padding) - var(--select-chip-remove) - var(--layout-size-2xs) - var(--layout-padding-xs) - var(--layout-gap-xs) - 4 * var(--layout-border-thin))));
 }
 .cs-select__chip-remove {
   display: inline-flex;
