@@ -2,21 +2,25 @@ import { Component, computed, signal } from '@angular/core';
 import { FilterBar, InputDropdown, type InputDropdownOption } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
-const STATUS_OPTIONS: InputDropdownOption[] = [
-  { label: 'Todos los estados', value: '' },
-  { label: 'Pendiente', value: 'pending' },
-  { label: 'En gestión', value: 'managing' },
-  { label: 'Capturado', value: 'captured' },
+type BarState = 'default' | 'applied' | 'no-search' | 'no-more' | 'open' | 'narrow';
+const STATES: { key: BarState; title: string; intro: string; props: string }[] = [
+  { key: 'default', title: 'Por defecto', intro: 'Búsqueda y filtros principales disponibles, sin criterios aplicados.', props: '[hasMoreFilters]="true" [hasActiveFilters]="false"' },
+  { key: 'applied', title: 'Con filtros aplicados', intro: 'Un filtro principal y uno secundario activan el contador y «Limpiar filtros».', props: '[moreFiltersCount]="1" [hasActiveFilters]="true"' },
+  { key: 'no-search', title: 'Sin búsqueda', intro: 'Úsala cuando la pantalla se filtra solo con criterios estructurados.', props: 'searchLabel=""' },
+  { key: 'no-more', title: 'Sin «Más filtros»', intro: 'Úsala cuando todos los filtros caben y son de uso frecuente.', props: '[hasMoreFilters]="false"' },
+  { key: 'open', title: 'Panel abierto', intro: 'Abre «Más filtros» para revisar los criterios secundarios. Escape y el clic fuera cierran el panel.', props: '[hasMoreFilters]="true"' },
+  { key: 'narrow', title: 'Pantalla angosta', intro: 'Reduce la ventana a 767 px o menos: los campos se apilan y ocupan el ancho disponible.', props: '[hasMoreFilters]="true"' },
 ];
-const GPS_OPTIONS: InputDropdownOption[] = [
-  { label: 'Todos', value: '' },
-  { label: 'Con GPS', value: 'with' },
-  { label: 'Sin señal', value: 'no-signal' },
-  { label: 'Sin GPS', value: 'no-gps' },
+const STATUS: InputDropdownOption[] = [
+  { label: 'Todos los estados', value: '' }, { label: 'Pendiente', value: 'pending' },
+  { label: 'En gestión', value: 'managing' }, { label: 'Capturado', value: 'captured' },
 ];
-const CONTRACT_OPTIONS: InputDropdownOption[] = [
-  { label: 'Todos los contratos', value: '' },
-  { label: 'Vigente', value: 'active' },
+const GPS: InputDropdownOption[] = [
+  { label: 'Todos', value: '' }, { label: 'Con GPS', value: 'with' },
+  { label: 'Sin señal', value: 'no-signal' }, { label: 'Sin GPS', value: 'no-gps' },
+];
+const CONTRACT: InputDropdownOption[] = [
+  { label: 'Todos los contratos', value: '' }, { label: 'Vigente', value: 'active' },
   { label: 'No vigente', value: 'expired' },
 ];
 
@@ -27,42 +31,42 @@ const CONTRACT_OPTIONS: InputDropdownOption[] = [
   styleUrl: './filter-bar-page.css',
 })
 export class FilterBarPage {
-  protected readonly statusOptions = STATUS_OPTIONS;
-  protected readonly gpsOptions = GPS_OPTIONS;
-  protected readonly contractOptions = CONTRACT_OPTIONS;
+  protected readonly statusOptions = STATUS;
+  protected readonly gpsOptions = GPS;
+  protected readonly contractOptions = CONTRACT;
+  protected readonly states = STATES;
   protected readonly controls: ControlDef[] = [
-    { kind: 'toggle', label: 'Búsqueda', key: 'search', default: true },
-    { kind: 'toggle', label: 'Más filtros', key: 'more', default: true },
+    { kind: 'select', label: 'Estado', key: 'state', options: STATES.map(({ key, title }) => ({ value: key, label: title })), default: 'default' },
   ];
-  protected readonly showSearch = signal(true);
-  protected readonly showMore = signal(true);
+  protected readonly pgState = signal<BarState>('default');
+  protected readonly pgInfo = computed(() => STATES.find((state) => state.key === this.pgState()) ?? STATES[0]);
   protected readonly query = signal('');
   protected readonly status = signal('');
   protected readonly gps = signal('');
   protected readonly contract = signal('');
-  protected readonly moreCount = computed(() => (this.gps() ? 1 : 0) + (this.contract() ? 1 : 0));
+  protected readonly moreCount = computed(() => Number(!!this.gps()) + Number(!!this.contract()));
   protected readonly hasActive = computed(() => !!this.query().trim() || !!this.status() || this.moreCount() > 0);
+  protected readonly appliedStatus = signal('pending');
+  protected readonly appliedGps = signal('with');
+  protected readonly appliedCount = computed(() => Number(!!this.appliedGps()));
+  protected readonly appliedHasActive = computed(() => !!this.appliedStatus() || !!this.appliedGps());
+  protected clearApplied(): void { this.appliedStatus.set(''); this.appliedGps.set(''); }
 
   protected onState(s: DemoState): void {
-    if (s['search'] !== undefined) this.showSearch.set(!!s['search']);
-    if (s['more'] !== undefined) this.showMore.set(!!s['more']);
+    if (s['state']) {
+      const state = s['state'] as BarState;
+      this.pgState.set(state);
+      this.clear();
+      if (state === 'applied') { this.status.set('pending'); this.gps.set('with'); }
+    }
   }
-
   protected clear(): void {
-    this.query.set('');
-    this.status.set('');
-    this.gps.set('');
-    this.contract.set('');
+    this.query.set(''); this.status.set(''); this.gps.set(''); this.contract.set('');
   }
-
-  protected readonly code = computed(() => {
-    const props = ['ariaLabel="Filtros de capturas"'];
-    if (this.showSearch()) props.push('searchLabel="Buscar orden o unidad"', 'searchPlaceholder="Buscar por orden o unidad"', '[searchValue]="busqueda()"', '(searchChange)="busqueda.set($event)"');
-    if (this.showMore()) props.push('[hasMoreFilters]="true"', '[moreFiltersCount]="filtrosExtra()"');
-    props.push('[hasActiveFilters]="hayFiltros()"', '(clear)="limpiar()"');
-    const more = this.showMore()
-      ? '\n  <div moreFilters>\n    <cs-input-dropdown label="GPS" [options]="gps" [fullWidth]="true" … />\n    <cs-input-dropdown label="Contrato" [options]="contratos" [fullWidth]="true" … />\n  </div>'
-      : '';
-    return `<cs-filter-bar\n  ${props.join('\n  ')}\n>\n  <cs-input-dropdown label="Estado" [options]="estados" [menuFit]="true" [active]="!!estado()" … />${more}\n</cs-filter-bar>`;
-  });
+  protected pgCode(): string { return this.codeFor(this.pgState()); }
+  protected codeFor(key: BarState): string {
+    const search = key === 'no-search' ? '' : '\n  searchLabel="Buscar orden o unidad"\n  [searchValue]="busqueda()"\n  (searchChange)="busqueda.set($event)"';
+    const more = key === 'no-more' ? '' : '\n  [hasMoreFilters]="true"\n  [moreFiltersCount]="filtrosExtra()"';
+    return `<cs-filter-bar ariaLabel="Filtros de capturas"${search}${more}\n  [hasActiveFilters]="hayFiltros()" (clear)="limpiar()">\n  <cs-input-dropdown label="Estado" [options]="estados" [menuFit]="true" [active]="!!estado()" />${key === 'no-more' ? '' : '\n  <div moreFilters>…filtros secundarios…</div>'}\n</cs-filter-bar>`;
+  }
 }

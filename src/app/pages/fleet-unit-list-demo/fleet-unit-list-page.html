@@ -1,9 +1,10 @@
 <div class="page">
   <p class="eyebrow">Componentes / Fleet unit list</p>
-  <h1 class="title">Fleet unit list<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo en el sitio · v0.3.12</span></h1>
+  <h1 class="title">Fleet unit list<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.12</span></h1>
   <p class="description">
     Lista de unidades de flota con su estado, último reporte y telemetría. Cada fila se puede seleccionar, fijar arriba
-    y abrir en detalle. Úsala en paneles laterales del mapa o en cualquier vista que muestre varias unidades a la vez.
+    y abrir en detalle. Úsala en paneles laterales del mapa o en cualquier vista con varias unidades. Si solo muestras
+    una unidad, presenta su detalle directamente.
   </p>
 
   <!-- Playground -->
@@ -11,13 +12,13 @@
     <h2 class="section__title" id="playground">Playground</h2>
     <p class="section__intro">Selecciona una unidad, fíjala desde el menú de sus acciones o cambia la apariencia.</p>
     <ul class="section__intro state-list">
-      <li><strong>Seleccionada:</strong> {{ selectedId() ?? 'ninguna' }}. Una sola a la vez; la barra azul de la izquierda la marca.</li>
-      <li><strong>Fijadas:</strong> {{ pinnedIds().length ? pinnedIds().join(', ') : 'ninguna' }}. Se muestran primero, separadas del resto.</li>
+      <li><strong>{{ pgState() === 'selected' ? 'Seleccionada' : pgState() === 'pinned' ? 'Fijada' : pgState() === 'disabled' ? 'Fila deshabilitada' : 'Por defecto' }}.</strong> {{ pgState() === 'pinned' ? 'La unidad prioritaria queda arriba.' : pgState() === 'selected' ? 'Una unidad conserva la selección.' : 'Consulta el estado y la telemetría de cada unidad.' }}</li>
+      <li><strong>Propiedades:</strong> <code>{{ pgState() === 'pinned' ? '[pinnable]="true" [pinnedIds]="fijadas"' : pgState() === 'selected' ? '[selectedId]="seleccionada"' : '[units]="unidades"' }}</code></li>
     </ul>
     <app-demo-shell [controls]="controls" [code]="code()" (stateChange)="onState($event)">
       <div class="stage">
         <cs-fleet-unit-list
-          [units]="units"
+          [units]="pgState() === 'disabled' ? disabledUnits : units"
           [appearance]="appearance()"
           [selectable]="selectable()"
           [pinnable]="pinnable()"
@@ -28,6 +29,31 @@
         />
       </div>
     </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada ejemplo conserva su propio estado inicial.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'fleet-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="stateCode(state.key)">
+          <div class="stage"><cs-fleet-unit-list [units]="state.key === 'disabled' ? disabledUnits : units" [selectedId]="state.key === 'selected' ? 'norte-04' : null" [pinnable]="state.key === 'pinned'" [pinnedIds]="state.key === 'pinned' ? ['sur-12'] : []" /></div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-map-panel">Panel lateral del mapa</h3>
+      <p class="section__intro">La persona elige una unidad y conserva las prioritarias arriba mientras revisa el mapa.</p>
+      <app-demo-shell [controls]="[]" code="&lt;cs-fleet-unit-list [units]=&quot;unidades&quot; [pinnable]=&quot;true&quot; [selectedId]=&quot;seleccionada&quot; /&gt;">
+        <div class="stage"><cs-fleet-unit-list [units]="units" [pinnable]="true" [selectedId]="selectedId()" (selectedIdChange)="selectedId.set($event)" [pinnedIds]="pinnedIds()" (pinnedIdsChange)="pinnedIds.set($event)" /></div>
+      </app-demo-shell>
+    </div>
   </section>
 
   <!-- Propiedades -->

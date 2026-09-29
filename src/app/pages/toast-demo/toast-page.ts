@@ -33,7 +33,7 @@ export class ToastPage {
 
   /* Playground */
   protected readonly playgroundControls: ControlDef[] = [
-    { kind: 'select', label: 'Variante', key: 'variant', options: VARIANTS, default: 'default' },
+    { kind: 'select', label: 'Estado', key: 'variant', options: VARIANTS, default: 'default' },
     { kind: 'select', label: 'Acciones', key: 'actionCount', options: ACTION_COUNTS, default: '0' },
     { kind: 'select', label: 'Apariencia', key: 'appearance', options: [{ value: 'solid', label: 'Sólida' }, { value: 'subtle', label: 'Sutil' }], default: 'solid' },
     { kind: 'toggle', label: 'Descartable', key: 'dismissible', default: false },
@@ -54,6 +54,7 @@ export class ToastPage {
   }
 
   protected readonly pgContent = computed(() => SAMPLE_CONTENT[this.pgVariant()]);
+  protected variantCode(variant: ToastVariant): string { return `<cs-toast title="${SAMPLE_CONTENT[variant].title}" variant="${variant}" />`; }
   protected readonly pgActions = computed<ToastAction[] | undefined>(() =>
     this.pgActionCount() > 0 ? SAMPLE_ACTIONS.slice(0, this.pgActionCount()) : undefined,
   );

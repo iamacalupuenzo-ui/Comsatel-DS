@@ -25,12 +25,19 @@ const CONTENT_INFO: Record<DrawerContent, { label: string; when: string; props: 
 })
 export class SideDrawerPage {
   protected readonly controls: ControlDef[] = [
-    { kind: 'select', label: 'Contenido', key: 'content', options: [{ value: 'detail', label: 'Detalle' }, { value: 'form', label: 'Formulario' }], default: 'form' },
+    { kind: 'select', label: 'Estado', key: 'content', options: [{ value: 'detail', label: 'Detalle' }, { value: 'form', label: 'Formulario' }], default: 'form' },
     { kind: 'select', label: 'Superficie', key: 'surface', options: [{ value: 'default', label: 'Blanca' }, { value: 'canvas', label: 'Lienzo' }], default: 'default' },
   ];
   protected readonly content = signal<DrawerContent>('form');
   protected readonly surface = signal<SideDrawerSurface>('default');
   protected readonly open = signal(false);
+  protected readonly stateOpen = signal<string | null>(null);
+  protected readonly states = [
+    { key: 'detail', title: 'Detalle', intro: 'Presenta datos de una fila sin pie de acciones.', props: '[isOpen]="abierto" sin acciones' },
+    { key: 'form', title: 'Formulario', intro: 'Edita varios campos con acciones fijas en el pie.', props: '[primaryAction]="guardar" [secondaryAction]="cancelar"' },
+    { key: 'canvas', title: 'Superficie de lienzo', intro: 'Separa visualmente tarjetas o campos blancos del fondo del cajón.', props: 'surface="canvas"' },
+  ];
+  protected stateCode(key: string): string { return `<cs-side-drawer [isOpen]="abierto" title="${key === 'detail' ? 'Recupero REC-0142' : 'Editar recupero'}"${key === 'canvas' ? ' surface="canvas"' : ''}${key === 'detail' ? '' : ' [primaryAction]="guardar"'} (closed)="abierto = false">…</cs-side-drawer>`; }
   protected readonly saving = signal(false);
   protected readonly info = computed(() => CONTENT_INFO[this.content()]);
   protected readonly secondaryAction: SideDrawerAction = { label: 'Cancelar' };

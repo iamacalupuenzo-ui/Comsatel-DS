@@ -24,7 +24,7 @@ export class ModalPage {
   protected readonly scrollModalBody = SCROLL_MODAL_BODY;
   /* Playground */
   protected readonly playgroundControls: ControlDef[] = [
-    { kind: 'select', label: 'Apariencia', key: 'appearance', options: APPEARANCES, default: 'default' },
+    { kind: 'select', label: 'Estado', key: 'appearance', options: APPEARANCES, default: 'default' },
     { kind: 'select', label: 'Ancho', key: 'width', options: WIDTHS, default: 'md' },
     { kind: 'select', label: 'Superficie', key: 'surface', options: [{ value: 'default', label: 'Blanca' }, { value: 'canvas', label: 'Lienzo' }], default: 'default' },
   ];
@@ -33,6 +33,12 @@ export class ModalPage {
   protected readonly pgWidth = signal<ModalWidthToken>('md');
   protected readonly pgOpen = signal(false);
   protected readonly pgSurface = signal<ModalSurface>('default');
+  protected readonly surfaceOpen = signal<ModalSurface | null>(null);
+  protected readonly surfaces: { key: ModalSurface; title: string; intro: string }[] = [
+    { key: 'default', title: 'Superficie blanca', intro: 'Para texto corrido y confirmaciones breves.' },
+    { key: 'canvas', title: 'Superficie de lienzo', intro: 'Para campos o tarjetas blancas que necesitan distinguirse del fondo.' },
+  ];
+  protected surfaceCode(surface: ModalSurface): string { return `<cs-modal [isOpen]="abierto" title="Editar unidad" surface="${surface}" (closed)="abierto = false">…</cs-modal>`; }
 
   protected onPlaygroundState(s: DemoState): void {
     if (s['appearance']) this.pgAppearance.set(s['appearance'] as ModalAppearance);

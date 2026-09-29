@@ -3,8 +3,8 @@
   <h1 class="title">Toast<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.17</span></h1>
   <p class="description">
     Un toast es una notificación breve, posicionada en una esquina, para confirmaciones y
-    acknowledgments que requieren mínima interacción. A diferencia de Banner, flota sobre la
-    página en vez de vivir inline dentro del contenido.
+    confirmaciones que requieren poca interacción. A diferencia de Banner, flota sobre la
+    página en vez de ocupar espacio dentro del contenido.
   </p>
 
   <!-- Playground -->
@@ -12,8 +12,8 @@
     <h2 class="section__title" id="playground">Playground</h2>
     <p class="section__intro">Ajusta los controles para explorar el toast.</p>
     <ul class="section__intro state-list">
-      <li><strong>Apariencia sutil.</strong> Fondo claro con borde y texto del tono, para avisos de resultado que se cierran solos, como «Ubicación copiada». La sólida es para avisos que piden una acción.</li>
-      <li><strong>Descartable.</strong> Por defecto solo <code>default</code> se descarta. Con <code>[dismissible]="true"</code> un tono también muestra «Descartar», útil cuando el aviso además se cierra solo.</li>
+      <li><strong>{{ pgVariant() === 'default' ? 'Por defecto' : pgVariant() }}.</strong> {{ pgVariant() === 'default' ? 'Aviso breve que se puede descartar.' : 'Comunica un resultado o una situación que requiere atención.' }}</li>
+      <li><strong>Propiedades:</strong> <code>variant="{{ pgVariant() }}" appearance="{{ pgAppearance() }}"</code></li>
     </ul>
     <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
       <div class="toast-playground">
@@ -36,25 +36,45 @@
 
   <!-- Variantes -->
   <section class="section">
-    <h2 class="section__title" id="variants">Variantes</h2>
+    <h2 class="section__title" id="states">Estados</h2>
     <p class="section__intro">
       default es sutil (fondo de superficie, borde fino) y siempre se puede cerrar. Las cuatro
       variantes con tono (info, success, warning, error) usan relleno sólido y a propósito no
       llevan botón de cerrar: exigen una acción directa en vez de descartarse sin leer.
     </p>
-    <div class="static-block">
-      <div class="static-block__preview toast-stack">
-        @for (v of variants; track v) {
+    @for (v of variants; track v) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'toast-state-' + v">{{ v }}</h3>
+        <p class="section__intro">{{ sampleContent[v].description }}</p>
+        <app-demo-shell [controls]="[]" [code]="variantCode(v)">
           <cs-toast [title]="sampleContent[v].title" [description]="sampleContent[v].description" [variant]="v" />
-        }
+        </app-demo-shell>
       </div>
-      <app-code-block
-        code="<cs-toast title=&quot;Nueva versión publicada&quot; description=&quot;Actualiza para ver los cambios.&quot; (dismissed)=&quot;...&quot; />
-<cs-toast variant=&quot;info&quot; title=&quot;No hay personas en este proyecto&quot; description=&quot;Agrega a tu equipo para comenzar.&quot; />
-<cs-toast variant=&quot;success&quot; title=&quot;Tarea creada correctamente&quot; description=&quot;START-42 se agregó al backlog.&quot; />
-<cs-toast variant=&quot;warning&quot; title=&quot;Esta página es visible externamente&quot; description=&quot;¿Seguro que quieres publicarla?&quot; />
-<cs-toast variant=&quot;error&quot; title=&quot;Hay un problema de conexión&quot; description=&quot;Revisa tu conexión e inténtalo de nuevo.&quot; />"
-      ></app-code-block>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <div class="subsection">
+      <h3 class="subsection__title" id="toast-subtle">Apariencia sutil</h3>
+      <p class="section__intro">Fondo claro para un resultado breve, como copiar una ubicación.</p>
+      <app-demo-shell [controls]="[]" code="&lt;cs-toast variant=&quot;success&quot; appearance=&quot;subtle&quot; title=&quot;Ubicación copiada&quot; /&gt;">
+        <cs-toast variant="success" appearance="subtle" title="Ubicación copiada" />
+      </app-demo-shell>
+    </div>
+    <div class="subsection">
+      <h3 class="subsection__title" id="toast-solid">Apariencia sólida</h3>
+      <p class="section__intro">Mayor énfasis para un aviso que pide atención o una acción.</p>
+      <app-demo-shell [controls]="[]" code="&lt;cs-toast variant=&quot;warning&quot; appearance=&quot;solid&quot; title=&quot;Revisa los permisos&quot; /&gt;">
+        <cs-toast variant="warning" appearance="solid" title="Revisa los permisos" />
+      </app-demo-shell>
+    </div>
+    <div class="subsection">
+      <h3 class="subsection__title" id="toast-dismissible">Descarte explícito</h3>
+      <p class="section__intro">Permite cerrar un aviso con tono cuando también existe otra forma de conocer el resultado.</p>
+      <app-demo-shell [controls]="[]" code="&lt;cs-toast variant=&quot;success&quot; [dismissible]=&quot;true&quot; title=&quot;Ubicación copiada&quot; /&gt;">
+        <cs-toast variant="success" [dismissible]="true" title="Ubicación copiada" />
+      </app-demo-shell>
     </div>
   </section>
 
@@ -172,13 +192,14 @@
   <section class="section">
     <h2 class="section__title" id="region">Región</h2>
     <p class="section__intro"><span class="change-badge" data-kind="nuevo">Nuevo · v0.3.17</span> <code>cs-toast-region</code> fija los avisos en una esquina, sobre el contenido, y los apila. En pantallas de hasta 767 px ocupa el ancho disponible. No encola ni programa el cierre: eso sigue en la pantalla.</p>
-    <p><cs-button variant="secondary" size="sm" (click)="showRegionToast()">Mostrar aviso</cs-button></p>
-    <cs-toast-region>
-      @if (regionMessage()) {
-        <cs-toast variant="success" appearance="subtle" [dismissible]="true" [title]="regionMessage()" (dismissed)="regionMessage.set('')" />
-      }
-    </cs-toast-region>
-    <app-code-block [code]="regionCode" />
+    <app-demo-shell [controls]="[]" [code]="regionCode">
+      <cs-button variant="secondary" size="sm" (click)="showRegionToast()">Mostrar aviso</cs-button>
+      <cs-toast-region>
+        @if (regionMessage()) {
+          <cs-toast variant="success" appearance="subtle" [dismissible]="true" [title]="regionMessage()" (dismissed)="regionMessage.set('')" />
+        }
+      </cs-toast-region>
+    </app-demo-shell>
   </section>
 
   <section class="section">

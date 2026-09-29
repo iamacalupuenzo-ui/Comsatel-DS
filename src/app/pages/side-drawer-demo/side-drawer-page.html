@@ -50,7 +50,28 @@
   </cs-side-drawer>
 
   <section class="section">
-    <h2 class="section__title" id="usage">Cuándo usarlo</h2>
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Abre cada cajón desde su propia caja para comparar contenido y superficie.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'drawer-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="stateCode(state.key)">
+          <div class="stage"><cs-button variant="secondary" size="sm" (click)="stateOpen.set(state.key)">Abrir {{ state.title.toLowerCase() }}</cs-button></div>
+        </app-demo-shell>
+        <cs-side-drawer [isOpen]="stateOpen() === state.key" [title]="state.key === 'detail' ? 'Recupero REC-0142' : 'Editar recupero'" [surface]="state.key === 'canvas' ? 'canvas' : 'default'" [primaryAction]="state.key === 'detail' ? undefined : { label: 'Guardar' }" [secondaryAction]="state.key === 'detail' ? undefined : secondaryAction" (closed)="stateOpen.set(null)" (primaryActionClick)="stateOpen.set(null)" (secondaryActionClick)="stateOpen.set(null)">
+          @if (state.key === 'detail') {
+            <dl class="drawer-detail"><div><dt>Estado</dt><dd>En gestión</dd></div><div><dt>Placa</dt><dd>BAB711</dd></div></dl>
+          } @else {
+            <div class="drawer-form"><cs-form-field [for]="'drawer-' + state.key" label="Placa"><cs-input [id]="'drawer-' + state.key" value="BAB711" /></cs-form-field><cs-textarea label="Observaciones" [rows]="4" /></div>
+          }
+        </cs-side-drawer>
+      </div>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
     <div class="table table--two-columns">
       <div class="table__head"><span>Caso</span><span>Componente</span></div>
       <div class="table__row"><strong>Ver el detalle de una fila</strong><span>Side drawer sin pie, abierto desde «Ver detalle» del menú de la fila.</span></div>

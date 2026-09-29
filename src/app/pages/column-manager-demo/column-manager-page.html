@@ -1,9 +1,10 @@
 <div class="page">
   <p class="eyebrow">Componentes / Column manager</p>
-  <h1 class="title">Column manager<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo en el sitio · v0.3.12</span></h1>
+  <h1 class="title">Column manager<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.12</span></h1>
   <p class="description">
     Column manager deja que cada persona elija qué columnas ve en una tabla y en qué orden. Úsalo en matrices con
-    muchas columnas, junto a la barra de la tabla. El consumidor guarda la elección y la aplica a Table.
+    muchas columnas, junto a la barra de la tabla. El consumidor guarda la elección y la aplica a Table. En una tabla
+    con pocas columnas fijas, muestra las columnas directamente sin este control.
   </p>
 
   <!-- Playground -->
@@ -11,14 +12,39 @@
     <h2 class="section__title" id="playground">Playground</h2>
     <p class="section__intro">Abre el menú, oculta o muestra columnas y cámbialas de orden. El mínimo visible impide ocultar todas.</p>
     <ul class="section__intro state-list">
-      <li><strong>Columnas visibles:</strong> {{ visibleLabels() }}.</li>
-      <li><strong>Mínimo visible:</strong> con <code>[minVisible]</code>, la última columna visible no se puede ocultar.</li>
+      <li><strong>{{ pgState() === 'custom' ? 'Personalizado' : pgState() === 'disabled' ? 'Deshabilitado' : 'Por defecto' }}.</strong> {{ pgState() === 'disabled' ? 'Bloquea cambios mientras la vista no está disponible.' : 'Permite elegir columnas y ordenarlas sin perder la tabla.' }}</li>
+      <li><strong>Propiedades:</strong> <code>{{ pgState() === 'disabled' ? '[disabled]="true"' : '[columns]="columnas"' }}</code></li>
     </ul>
     <app-demo-shell [controls]="controls" [code]="code()" (stateChange)="onState($event)">
       <div class="stage">
         <cs-column-manager [columns]="columns()" [size]="size()" [minVisible]="minVisible()" [disabled]="disabled()" (visibilityChange)="onVisibility($event)" (orderChange)="onOrder($event)" />
       </div>
     </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">El tamaño se elige dentro de cada caja.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'column-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="sizeControls" [code]="stateCode(state.key)" (stateChange)="onSize(state.key, $event)">
+          <div class="stage"><cs-column-manager [columns]="stateColumns(state.key)" [size]="sizeOf(state.key)" [disabled]="state.key === 'disabled'" /></div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-matrix">Matriz con columnas configurables</h3>
+      <p class="section__intro">Ubica el control junto a las herramientas de una matriz amplia; la pantalla conserva las columnas visibles y su orden.</p>
+      <app-demo-shell [controls]="[]" code="&lt;cs-column-manager [columns]=&quot;columnas&quot; (visibilityChange)=&quot;mostrar($event)&quot; (orderChange)=&quot;ordenar($event)&quot; /&gt;">
+        <div class="stage"><cs-column-manager [columns]="columns()" (visibilityChange)="onVisibility($event)" (orderChange)="onOrder($event)" /></div>
+      </app-demo-shell>
+    </div>
   </section>
 
   <!-- Propiedades -->
