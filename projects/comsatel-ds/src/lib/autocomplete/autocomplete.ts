@@ -1,10 +1,10 @@
 import { NgStyle } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, computed, signal } from '@angular/core';
-import { Icon } from '../icons/icon';
-import type { IconName } from '../icons/icon-registry';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { InputGroup } from '../input/input-group';
 import { InputGroupAddon } from '../input/input-group-addon';
-import { InputGroupClear } from '../input/input-group-clear';
+import { InputGroupClear } from '@iamacalupuenzo-ui/comsatel-ds/input';
 import { InputGroupInput } from '../input/input-group-input';
 import type { InputFieldSize } from '../input/input-tokens';
 import { Popover } from '../popover/popover';

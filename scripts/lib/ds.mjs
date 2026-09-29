@@ -63,10 +63,39 @@ function splitTop(text, char) {
 
 const squash = (s) => s.replace(/\s+/g, ' ').trim();
 
-/** Archivos que exporta `public-api.ts`, en orden. */
+/** Carpeta de la librería (padre de `src`): ahí viven también los puntos de entrada secundarios. */
+const LIB_ROOT = dirname(LIB_SRC);
+const PACKAGE = '@iamacalupuenzo-ui/comsatel-ds';
+
+/**
+ * Archivos que exporta `public-api.ts`, en orden. Sigue los reexports de los puntos de
+ * entrada secundarios (`export * from '@iamacalupuenzo-ui/comsatel-ds/icons'`) hasta sus
+ * fuentes en `projects/comsatel-ds/<entrada>/src`.
+ */
 export function exportedFiles() {
   const api = read(join(LIB_SRC, 'public-api.ts'));
-  return [...api.matchAll(/export \* from '\.\/(lib\/[^']+)'/g)].map((m) => join(LIB_SRC, `${m[1]}.ts`));
+  const files = [];
+  for (const m of api.matchAll(/export \* from '([^']+)'/g)) {
+    if (m[1].startsWith('./lib/')) files.push(join(LIB_SRC, `${m[1].slice(2)}.ts`));
+    else if (m[1].startsWith(`${PACKAGE}/`)) {
+      const entry = join(LIB_ROOT, m[1].slice(PACKAGE.length + 1));
+      const entryApi = read(join(entry, 'public-api.ts'));
+      for (const e of entryApi.matchAll(/export \* from '\.\/([^']+)'/g)) files.push(join(entry, `${e[1]}.ts`));
+    }
+  }
+  return files;
+}
+
+/** Carpetas `src` de los puntos de entrada secundarios (las que tienen ng-package.json propio). */
+function secondarySrcDirs() {
+  return readdirSync(LIB_ROOT, { withFileTypes: true })
+    .filter((e) => e.isDirectory() && existsSync(join(LIB_ROOT, e.name, 'ng-package.json')) && existsSync(join(LIB_ROOT, e.name, 'src')))
+    .map((e) => join(LIB_ROOT, e.name, 'src'));
+}
+
+/** Fuentes de la entrada raíz (src/lib) y de los puntos de entrada secundarios. */
+function allLibTsFiles() {
+  return [libTsFiles(), ...secondarySrcDirs().map((dir) => libTsFiles(dir, []))].flat();
 }
 
 function libTsFiles(dir = join(LIB_SRC, 'lib'), out = []) {
@@ -83,7 +112,7 @@ let aliasCache;
 export function typeAliases() {
   if (aliasCache) return aliasCache;
   const raw = new Map();
-  for (const file of libTsFiles()) {
+  for (const file of allLibTsFiles()) {
     const text = read(file);
     for (const m of text.matchAll(/export type (\w+)\s*=/g)) {
       const start = m.index + m[0].length;
@@ -289,7 +318,7 @@ export function exportedSymbols() {
 /** Atributos de proyección (`<ng-content select="[x]">`) de toda la librería. */
 export function projectionSlots() {
   const slots = new Set();
-  for (const file of libTsFiles()) {
+  for (const file of allLibTsFiles()) {
     const html = file.replace(/\.ts$/, '.html');
     const text = read(file) + (existsSync(html) ? read(html) : '');
     for (const m of text.matchAll(/ng-content select="\[([\w-]+)\]"/g)) slots.add(m[1]);

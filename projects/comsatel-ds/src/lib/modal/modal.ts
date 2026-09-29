@@ -14,7 +14,7 @@ import {
   signal,
 } from '@angular/core';
 import { Button, type ButtonVariant } from '../button/button';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 export type ModalAppearance = 'default' | 'warning' | 'danger';
 export type ModalWidthToken = 'sm' | 'md' | 'lg' | 'xl';

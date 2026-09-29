@@ -4,7 +4,9 @@ import { filter } from 'rxjs';
 import { NAVIGATION, type NavItem } from '../../lib/nav';
 import { SidenavState } from '../../lib/sidenav-state';
 import { TableOfContents } from '../table-of-contents/table-of-contents';
-import { Icon, PressScale } from '@iamacalupuenzo-ui/comsatel-ds';
+// Subpaths: el shell va en el bundle inicial y solo necesita estas dos piezas, no la librería entera.
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import { PressScale } from '@iamacalupuenzo-ui/comsatel-ds/motion';
 
 @Component({
   selector: 'app-shell',

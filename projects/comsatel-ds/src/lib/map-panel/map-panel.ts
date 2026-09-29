@@ -1,6 +1,6 @@
 import { Component, DestroyRef, ElementRef, afterRenderEffect, computed, inject, input, model, signal, viewChild } from '@angular/core';
-import { Icon } from '../icons/icon';
-import type { IconName } from '../icons/icon-registry';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 let nextMapPanelId = 0;
 

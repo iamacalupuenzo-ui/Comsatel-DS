@@ -1,5 +1,5 @@
 import { Component, ElementRef, computed, input, model, output, viewChild } from '@angular/core';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { InputGroupInput } from '../input/input-group-input';
 import { MapPanel } from './map-panel';
 

@@ -2,8 +2,8 @@ import { afterEveryRender, signal, ChangeDetectionStrategy, Component, EventEmit
 import { type AccordionType } from '../accordion/accordion';
 import { Popover } from '../popover/popover';
 import { Button } from '../button/button';
-import { Icon } from '../icons/icon';
-import type { IconName } from '../icons/icon-registry';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { Tag, type TagSeverity } from '../tag/tag';
 
 export type FleetUnitStatus = 'active' | 'stopped' | 'offline';

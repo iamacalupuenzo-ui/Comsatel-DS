@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Icon } from '../icons/icon';
-import type { IconName } from '../icons/icon-registry';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 export type BannerVariant = 'brand' | 'neutral' | 'danger' | 'success' | 'warning';
 

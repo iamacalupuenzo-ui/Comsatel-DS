@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, input, output } from '@angular/core';
 import { Button } from '../button/button';
 import { Toggle } from '../toggle/toggle';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 // Puerto 1:1 de ActionCard (card.tsx) — fila de acción con logo opcional,
 // título/descripción, y un control de la derecha (toggle real, botón, o

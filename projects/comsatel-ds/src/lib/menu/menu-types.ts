@@ -1,4 +1,4 @@
-import type { IconName } from '../icons/icon-registry';
+import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 export interface MenuItemData {
   label: string;

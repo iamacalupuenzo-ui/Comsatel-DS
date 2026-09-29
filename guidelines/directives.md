@@ -7,6 +7,7 @@ Dos comportamientos de movimiento reutilizables que se aplican sobre un elemento
 existe, en vez de envolverlo en un componente.
 
 - **Import:** `import { PressScale, Collapse } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { PressScale } from '@iamacalupuenzo-ui/comsatel-ds/motion';` (`Collapse` sigue en la raíz; ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `[csPressScale]`, `[csCollapse]`
 
 ## csPressScale
@@ -20,7 +21,7 @@ vuelve a su tamaño al soltar, al salir o al cancelar. Las duraciones salen de l
 ```
 
 <!-- props:start PressScale -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/directives/press-scale.directive.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/motion/src/press-scale.directive.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -60,7 +61,7 @@ ejemplo, los subniveles de `cs-menu`). El primer render aplica el estado sin ani
 - `csCollapse` respeta `prefers-reduced-motion: reduce`: cambia la altura sin animación.
 
 <!-- a11y:start PressScale -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/directives/press-scale.directive.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/motion/src/press-scale.directive.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `[csPressScale]`
 

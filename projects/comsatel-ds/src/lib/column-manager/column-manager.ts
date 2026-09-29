@@ -2,7 +2,7 @@ import { NgStyle } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, signal } from '@angular/core';
 import { INPUT_TOKENS } from '../dropdown/dropdown-tokens';
 import type { DropdownSize } from '../dropdown/dropdown-types';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { fieldLabelTypography } from '../input/input-tokens';
 import { textStyle } from '../tokens/typography';
 import { Popover } from '../popover/popover';

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Icon } from '../icons/icon';
-import { PressScale } from '../directives/press-scale.directive';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import { PressScale } from '@iamacalupuenzo-ui/comsatel-ds/motion';
 
 export type PaginationVariant = 'numbered' | 'simple';
 export type PageToken = number | 'ellipsis-start' | 'ellipsis-end';

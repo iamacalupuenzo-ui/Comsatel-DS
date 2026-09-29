@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
-import { Icon } from '../icons/icon';
-import type { IconName } from '../icons/icon-registry';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { InputGroup } from './input-group';
 import { InputGroupAddon } from './input-group-addon';
 import { InputGroupInput } from './input-group-input';

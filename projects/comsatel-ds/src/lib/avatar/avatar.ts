@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { componentTypography, textStyle } from '../tokens/typography';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type AvatarStatus = 'offline' | 'online' | 'busy' | 'company';

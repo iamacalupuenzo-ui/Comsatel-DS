@@ -3,7 +3,6 @@ import {
   Input,
   InputGroup,
   InputGroupAddon,
-  InputGroupClear,
   InputGroupInput,
   InputGroupText,
   PasswordInput,
@@ -13,6 +12,8 @@ import {
   type InputFieldSize,
   type InputDropdownOption,
 } from '@iamacalupuenzo-ui/comsatel-ds';
+// Prueba del punto de entrada /input: InputGroupClear desde su subpath.
+import { InputGroupClear } from '@iamacalupuenzo-ui/comsatel-ds/input';
 import { DemoShell, type ControlDef, type ControlOption, type DemoState } from '../../shared/docs/demo-shell';
 
 const SIZES: InputFieldSize[] = ['sm', 'md', 'lg'];

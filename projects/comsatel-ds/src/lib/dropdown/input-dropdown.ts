@@ -1,9 +1,9 @@
 import { afterEveryRender, AfterViewInit, Component, ElementRef, EventEmitter, HostBinding, Input, OnChanges, Output, ViewChild, signal } from '@angular/core';
 import { NgStyle } from '@angular/common';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { INPUT_TOKENS } from './dropdown-tokens';
 import type { DropdownSize, InputDropdownOption } from './dropdown-types';
-import type { IconName } from '../icons/icon-registry';
+import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { CountryFlag } from './country-flag';
 import { Popover } from '../popover/popover';
 import { fieldLabelTypography } from '../input/input-tokens';

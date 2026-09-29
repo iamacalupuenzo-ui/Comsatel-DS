@@ -5,6 +5,7 @@ campo con adornos (íconos, botones, prefijos, dropdowns) que se ven como un sol
 control.
 
 - **Import:** `import { Input, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText, PasswordInput } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { InputGroupClear } from '@iamacalupuenzo-ui/comsatel-ds/input';` (por ahora solo la X de limpiar; ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-input>`, `<cs-input-group>`, `<cs-input-group-addon>`, `<cs-input-group-input>`, `<cs-input-group-text>`, `<cs-password-input>`
 - **Clases raíz emitidas:** `.cs-input`, `.cs-input-group`, `.cs-input-group-addon`, `.cs-input-group-input`, `.cs-input-group-text`
 
@@ -144,7 +145,7 @@ escribir un `<input>` propio.
 ## Props de `InputGroupClear`
 
 <!-- props:start InputGroupClear -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/input/input-group-clear.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/input/src/input-group-clear.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -305,7 +306,7 @@ No renderiza controles nativos, roles ni atributos ARIA propios, y no maneja tec
 <!-- a11y:end -->
 
 <!-- a11y:start InputGroupClear -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/input/input-group-clear.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/input/src/input-group-clear.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-input-group-clear`
 

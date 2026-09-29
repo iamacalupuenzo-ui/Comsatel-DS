@@ -33,6 +33,9 @@ jobs:
       - name: Compilar librería
         run: npm run build:lib
 
+      - name: Verificar contenido del paquete
+        run: npm run verify:package
+
       - name: Ejecutar pruebas unitarias
         run: npm run test:ci
 

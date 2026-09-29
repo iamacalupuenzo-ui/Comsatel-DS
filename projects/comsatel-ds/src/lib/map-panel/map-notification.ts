@@ -1,7 +1,7 @@
 import { Component, computed, input, output } from '@angular/core';
 import { formatRelativeTime, toDate, type DateInput } from '../format/date-format';
-import { Icon } from '../icons/icon';
-import type { IconName } from '../icons/icon-registry';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 /**
  * Aviso de una unidad dentro del panel de notificaciones del mapa: qué

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { Tooltip } from './tooltip';
 import { Button } from '../button/button';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 // Tooltip usa <ng-content> para el elemento disparador (no un @Input) —
 // por eso cada story define su propio `template`. La visibilidad del

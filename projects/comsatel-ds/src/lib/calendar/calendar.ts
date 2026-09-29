@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, computed, input, signal } from '@angular/core';
 import { NgStyle } from '@angular/common';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { componentTypography, textStyle } from '../tokens/typography';
 import { buildWeeks, monthYearLabel, toISODate, weekdayLabels, type DayCellData } from './calendar-helpers';
 

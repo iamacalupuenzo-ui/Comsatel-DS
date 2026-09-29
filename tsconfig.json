@@ -3,9 +3,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "paths": {
-      "@iamacalupuenzo-ui/comsatel-ds": ["./dist/comsatel-ds"]
-    },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,

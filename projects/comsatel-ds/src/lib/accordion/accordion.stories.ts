@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { Accordion } from './accordion';
 import { AccordionItem } from './accordion-item';
 import { Badge } from '../badge/badge';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 const meta: Meta<Accordion> = {
   title: 'Componentes/Accordion',

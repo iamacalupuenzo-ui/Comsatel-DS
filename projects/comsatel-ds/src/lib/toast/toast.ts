@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Icon } from '../icons/icon';
-import type { IconName } from '../icons/icon-registry';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 export type ToastVariant = 'default' | 'info' | 'success' | 'warning' | 'error';
 /** `solid`: fondo del tono y texto claro. `subtle`: fondo claro con borde y texto del tono. */

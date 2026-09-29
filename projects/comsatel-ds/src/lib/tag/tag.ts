@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Badge, type BadgeSize, type BadgeVariant } from '../badge/badge';
-import { Icon } from '../icons/icon';
-import type { IconName } from '../icons/icon-registry';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 /** Severidades semánticas del tag. El componente no es interactivo. */
 export type TagSeverity = 'primary' | 'secondary' | 'success' | 'info' | 'warn' | 'danger' | 'contrast';

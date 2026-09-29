@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 export type ProgressStepState = 'done' | 'active' | 'pending';
 export type ProgressIndicatorOrientation = 'horizontal' | 'vertical';

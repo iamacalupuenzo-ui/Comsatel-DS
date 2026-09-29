@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output, computed, input, linkedSignal, 
 import { Button } from '../button/button';
 import { Calendar } from '../calendar/calendar';
 import { formatDate } from '../format/date-format';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { InputGroup } from '../input/input-group';
 import { InputGroupAddon } from '../input/input-group-addon';
 import { InputGroupInput } from '../input/input-group-input';

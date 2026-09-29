@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, Output, ViewChild, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Button } from '../button/button';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { Skeleton } from '../skeleton/skeleton';
 import type { SortOrder, TableCellValue, TableColumn, TableRow, TableTemplateCell } from './table-types';
 

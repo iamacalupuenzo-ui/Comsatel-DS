@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { Badge } from './badge';
-import { Icon } from '../icons/icon';
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 // Badge usa <ng-content> para la etiqueta (no un @Input) — por eso cada
 // story define su propio `template` en vez de dejar que Storybook infiera
