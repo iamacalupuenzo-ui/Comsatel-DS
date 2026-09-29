@@ -256,17 +256,6 @@
     }
   </section>
 
-  <!-- Input Dropdown — Superficie cálida -->
-  <section class="section">
-    <h2 class="section__title" id="input-dropdown-secondary">Input Dropdown — Superficie cálida</h2>
-    <p class="section__intro">surface="secondary" es optativo, para campos sobre la superficie crema. En buscadores de ancho acotado, usa fullWidth y matchTriggerWidth: el menú sigue al campo y el texto largo se recorta sin esconder el chevron.</p>
-    <app-demo-shell [controls]="[]" [code]="warmCode">
-      <div class="secondary-dropdown-stage">
-        <cs-input-dropdown [id]="'warm-dropdown'" label="Ubicación" [options]="warmOptions" [value]="warmValue()" (valueChange)="warmValue.set($event)" [fullWidth]="true" [matchTriggerWidth]="true" surface="secondary" />
-      </div>
-    </app-demo-shell>
-  </section>
-
   <!-- Accesibilidad -->
   <section class="section">
     <h2 class="section__title" id="accessibility">Accesibilidad</h2>

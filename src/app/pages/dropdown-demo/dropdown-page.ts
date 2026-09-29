@@ -258,8 +258,6 @@ export class DropdownPage {
     return `<cs-input-dropdown\n  ${attrs.join('\n  ')}\n/>${state.after ?? ''}`;
   }
 
-  /* Input Dropdown — Superficie cálida */
-  protected readonly warmCode = '<cs-input-dropdown\n  label="Ubicación"\n  [options]="options"\n  [value]="value"\n  (valueChange)="value = $event"\n  surface="secondary"\n  [fullWidth]="true"\n  [matchTriggerWidth]="true"\n/>';
 }
 
 interface InputDropdownStateDemo {
