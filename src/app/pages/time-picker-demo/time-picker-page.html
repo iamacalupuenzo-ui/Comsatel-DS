@@ -10,7 +10,12 @@
   <!-- Playground -->
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>
-    <p class="section__intro">Abre el panel y elige hora y minuto. Cambia el estado, el tamaño y el intervalo de minutos; debajo se explica cuándo usar el estado elegido.</p>
+    <p class="section__intro">Abre el panel y elige hora y minuto. Cambia el estado, el tamaño y el intervalo de minutos. Arriba del ejemplo se explica cuándo usar el estado elegido.</p>
+    <div class="state-note state-note--outside">
+      <strong>{{ pgStateInfo().label }}</strong>
+      <p><b>Cuándo usarlo:</b> {{ pgStateInfo().when }}</p>
+      <p><b>Propiedades:</b> <code>{{ pgStateInfo().props }}</code></p>
+    </div>
     <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
       <div class="stage">
         <cs-time-picker
@@ -25,11 +30,6 @@
           [errorMessage]="pgState() === 'invalid' ? 'La hora final debe ser posterior a la inicial.' : ''"
           [disabled]="pgState() === 'disabled'"
         />
-        <div class="state-note">
-          <strong>{{ pgStateInfo().label }}</strong>
-          <p><b>Cuándo usarlo:</b> {{ pgStateInfo().when }}</p>
-          <p><b>Propiedades:</b> <code>{{ pgStateInfo().props }}</code></p>
-        </div>
       </div>
     </app-demo-shell>
   </section>

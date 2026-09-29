@@ -40,3 +40,9 @@
   font-size: var(--font-size-content-note);
   line-height: var(--font-line-height-content-note);
 }
+
+/* Fuera de la caja del ejemplo: entre la descripción de la sección y el playground. */
+.state-note--outside {
+  margin-top: 0;
+  margin-bottom: var(--layout-gap-lg);
+}

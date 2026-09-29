@@ -31,3 +31,9 @@
   line-height: var(--font-line-height-content-note);
 }
 .state-note code { overflow-wrap: anywhere; }
+
+/* Fuera de la caja del ejemplo: entre la descripción de la sección y el playground. */
+.state-note--outside {
+  margin-top: 0;
+  margin-bottom: var(--layout-gap-lg);
+}

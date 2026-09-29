@@ -36,3 +36,9 @@
   grid-template-columns: 1fr 1fr;
   gap: var(--layout-gap-sm);
 }
+
+/* Fuera de la caja del ejemplo: entre la descripción de la sección y el playground. */
+.state-note--outside {
+  margin-top: 0;
+  margin-bottom: var(--layout-gap-lg);
+}
