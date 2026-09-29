@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Button, Icon, Input, Modal, type ModalAppearance, type ModalScrollBehavior, type ModalWidthToken } from '@iamacalupuenzo-ui/comsatel-ds';
+import { Button, Icon, Input, Modal, type ModalAppearance, type ModalScrollBehavior, type ModalSurface, type ModalWidthToken } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 import { CodeBlock } from '../../shared/docs/code-block';
 
@@ -26,15 +26,18 @@ export class ModalPage {
   protected readonly playgroundControls: ControlDef[] = [
     { kind: 'select', label: 'Apariencia', key: 'appearance', options: APPEARANCES, default: 'default' },
     { kind: 'select', label: 'Ancho', key: 'width', options: WIDTHS, default: 'md' },
+    { kind: 'select', label: 'Superficie', key: 'surface', options: [{ value: 'default', label: 'Blanca' }, { value: 'canvas', label: 'Lienzo' }], default: 'default' },
   ];
 
   protected readonly pgAppearance = signal<ModalAppearance>('default');
   protected readonly pgWidth = signal<ModalWidthToken>('md');
   protected readonly pgOpen = signal(false);
+  protected readonly pgSurface = signal<ModalSurface>('default');
 
   protected onPlaygroundState(s: DemoState): void {
     if (s['appearance']) this.pgAppearance.set(s['appearance'] as ModalAppearance);
     if (s['width']) this.pgWidth.set(s['width'] as ModalWidthToken);
+    if (s['surface']) this.pgSurface.set(s['surface'] as ModalSurface);
   }
 
   protected readonly pgCode = computed(() => {
@@ -43,6 +46,7 @@ export class ModalPage {
     lines.push(`  title="Duplicar este recorrido"`);
     if (this.pgAppearance() !== 'default') lines.push(`  appearance="${this.pgAppearance()}"`);
     if (this.pgWidth() !== 'md') lines.push(`  width="${this.pgWidth()}"`);
+    if (this.pgSurface() === 'canvas') lines.push(`  surface="canvas"`);
     lines.push(`  [primaryAction]="{ label: 'Confirmar' }"`);
     lines.push(`  [secondaryAction]="{ label: 'Cancelar' }"`);
     lines.push(`  (closed)="isOpen = false"`);

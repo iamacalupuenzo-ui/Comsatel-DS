@@ -151,7 +151,7 @@ export const NAVIGATION: NavSection[] = [
   {
     title: 'Superposiciones',
     items: [
-      { title: 'Modal', href: '/components/modal', icon: 'app-window' },
+      { title: 'Modal', href: '/components/modal', icon: 'app-window', change: { kind: 'actualizado', version: '0.3.15' } },
       { title: 'Popover', href: '/components/popover', icon: 'picture-in-picture-2', change: { kind: 'actualizado', version: '0.3.3' } },
       { title: 'Side drawer', href: '/components/side-drawer', icon: 'panels-top-left', change: { kind: 'nuevo', version: '0.3.14' } },
       { title: 'Tooltip', href: '/components/tooltip', icon: 'message-circle' },

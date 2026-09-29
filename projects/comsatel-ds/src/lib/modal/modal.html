@@ -9,6 +9,7 @@
       #panel
       class="cs-modal"
       [class.cs-modal--visible]="visible()"
+      [class.cs-modal--canvas]="surface === 'canvas'"
       [style.width.px]="widthPx"
       [style.max-height]="scrollBehavior === 'body' ? '85vh' : null"
       role="dialog"

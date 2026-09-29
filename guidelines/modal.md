@@ -22,6 +22,10 @@ puede convivir con la página, no es un modal.
 </cs-modal>
 ```
 
+## Superficie
+
+`surface="canvas"` usa `--color-background-canvas` cuando el modal lleva campos o tarjetas blancas encima, para que se distingan del fondo. La superficie blanca, la predeterminada, es para texto corrido y confirmaciones. Mismo contrato que `SideDrawer`. No sobrescribas `--elevation-surface-overlay` para lograrlo: es una variable compartida con Popover y Menu, y cambiarla a mano ata el modal a un detalle interno.
+
 ## Props
 
 <!-- props:start Modal -->
@@ -36,6 +40,7 @@ puede convivir con la página, no es un modal.
 | `hasCloseButton` | `boolean` | `true` | Muestra la X del encabezado. |
 | `closeLabel` | `string` | `'Cerrar'` | Nombre accesible de la X. |
 | `scrollBehavior` | `'body' \| 'viewport'` | `'body'` | Scrollea el cuerpo del diálogo, o toda la ventana. |
+| `surface` | `'default' \| 'canvas'` | `'default'` | Fondo blanco o lienzo de la página (canvas). |
 | `closeOnOverlayClick` | `boolean` | `true` | Cierra al hacer clic en el fondo. |
 | `primaryAction` | `ModalAction \| undefined` | `undefined` | `{ label, disabled?, loading? }`. |
 | `secondaryAction` | `ModalAction \| undefined` | `undefined` | Igual que la primaria. |

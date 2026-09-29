@@ -19,6 +19,8 @@ import { Icon } from '../icons/icon';
 export type ModalAppearance = 'default' | 'warning' | 'danger';
 export type ModalWidthToken = 'sm' | 'md' | 'lg' | 'xl';
 export type ModalScrollBehavior = 'body' | 'viewport';
+/** Mismo contrato que SideDrawerSurface: `canvas` usa el lienzo de la página. */
+export type ModalSurface = 'default' | 'canvas';
 
 export interface ModalAction {
   label: string;
@@ -81,6 +83,8 @@ export class Modal implements OnChanges, OnDestroy {
   @Input() hasCloseButton = true;
   @Input() closeLabel = 'Cerrar';
   @Input() scrollBehavior: ModalScrollBehavior = 'body';
+  /** `canvas` usa el lienzo de la página para contenido con campos o tarjetas blancas encima. */
+  @Input() surface: ModalSurface = 'default';
   @Input() closeOnOverlayClick = true;
   @Input() primaryAction?: ModalAction;
   @Input() secondaryAction?: ModalAction;

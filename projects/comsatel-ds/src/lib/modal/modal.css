@@ -23,6 +23,11 @@
   opacity: 1;
 }
 
+/* Lienzo: para contenido con campos o tarjetas blancas encima (surface="canvas"). */
+.cs-modal.cs-modal--canvas {
+  background-color: var(--color-background-canvas);
+}
+
 .cs-modal {
   display: flex;
   flex-direction: column;

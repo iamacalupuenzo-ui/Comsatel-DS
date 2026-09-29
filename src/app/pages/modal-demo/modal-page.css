@@ -50,3 +50,9 @@
   outline: none;
   box-shadow: 0 0 0 var(--layout-border-thick) var(--color-border-focused);
 }
+.state-list {
+  display: grid;
+  gap: var(--layout-gap-xs);
+  padding-inline-start: var(--layout-padding-xl);
+}
+.state-list code { overflow-wrap: anywhere; }

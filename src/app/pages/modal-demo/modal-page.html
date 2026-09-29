@@ -1,6 +1,6 @@
 <div class="page">
   <p class="eyebrow">Componentes / Modal</p>
-  <h1 class="title">Modal</h1>
+  <h1 class="title">Modal<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.15</span></h1>
   <p class="description">
     Un modal muestra contenido que necesita atención completa y una decisión antes de volver a la
     página de abajo — una confirmación, un formulario corto obligatorio, una acción destructiva.
@@ -10,7 +10,10 @@
   <!-- Playground -->
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>
-    <p class="section__intro">Abre el modal y ajusta apariencia y ancho.</p>
+    <p class="section__intro">Abre el modal y ajusta apariencia, ancho y superficie.</p>
+    <ul class="section__intro state-list">
+      <li><strong>Superficie.</strong> <code>surface="canvas"</code> usa el lienzo de la página cuando el modal lleva campos o tarjetas blancas; así se distinguen del fondo. La blanca, la predeterminada, es para texto corrido y confirmaciones.</li>
+    </ul>
 
     <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
       <cs-button variant="primary" (click)="pgOpen.set(true)">Abrir modal</cs-button>
@@ -19,6 +22,7 @@
         title="Duplicar este recorrido"
         [appearance]="pgAppearance()"
         [width]="pgWidth()"
+        [surface]="pgSurface()"
         [primaryAction]="{ label: 'Confirmar' }"
         [secondaryAction]="{ label: 'Cancelar' }"
         (closed)="pgOpen.set(false)"
@@ -351,6 +355,7 @@
       <div class="table__row"><code class="table__name">width</code><code class="table__type">ModalWidthToken | number</code><code class="table__default">"md"</code><span class="table__desc">"sm" | "md" | "lg" | "xl" o un número directo en píxeles.</span></div>
       <div class="table__row"><code class="table__name">hasCloseButton</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Oculta el botón de cerrar del encabezado cuando es false.</span></div>
       <div class="table__row"><code class="table__name">closeLabel</code><code class="table__type">string</code><code class="table__default">"Cerrar"</code><span class="table__desc">Nombre accesible del botón de cierre.</span></div>
+      <div class="table__row"><code class="table__name">surface</code><code class="table__type">"default" | "canvas"</code><code class="table__default">"default"</code><span class="table__desc">Fondo blanco o lienzo de la página. Nuevo en v0.3.15.</span></div>
       <div class="table__row"><code class="table__name">scrollBehavior</code><code class="table__type">ModalScrollBehavior</code><code class="table__default">"body"</code><span class="table__desc">"body" | "viewport".</span></div>
       <div class="table__row"><code class="table__name">closeOnOverlayClick</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Ponlo en false para un flujo que debe resolverse con una acción explícita.</span></div>
       <div class="table__row"><code class="table__name">initialFocusRef</code><code class="table__type">ElementRef&lt;HTMLElement&gt;</code><code class="table__default">—</code><span class="table__desc">A qué elemento enfocar al abrir en vez del botón de cerrar.</span></div>
