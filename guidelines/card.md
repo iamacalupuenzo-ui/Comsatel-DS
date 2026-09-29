@@ -33,7 +33,7 @@ slots libres: se elige la que corresponde al contenido.
 | `buttonLabel` | `string` | `'Action'` | Texto del botón. |
 | `showLabel` | `boolean` | `false` | Muestra una etiqueta de estado en vez del control. |
 | `label` | `string` | `'Coming soon'` | Texto de esa etiqueta. |
-| `surface` | `'default' \| 'secondary'` | `'default'` | Superficie cálida optativa. |
+| `surface` | `'default' \| 'secondary'` | `'default'` | **Obsoleto desde 0.3.5:** la superficie crema se descartó y se eliminará en 0.4.0. No la uses. |
 | `selectable` | `boolean` | `false` | Agrega un botón de selección independiente y permite envolver el contenido. |
 | `selected` | `boolean` | `false` | Estado controlado con check y borde seleccionado. |
 | `disabled` | `boolean` | `false` | Deshabilita selección, acción e interruptor sin ocultar contenido. |

@@ -71,7 +71,9 @@ solo se activa como variante explícita.
 
 `data-theme="glass"` es un contexto limitado a gráficos, no un tercer tema completo.
 
-## Color secundario cálido (0.3.0, borrador local)
+## Color secundario cálido (obsoleto desde 0.3.5)
+
+> **Obsoleto:** la superficie crema se descartó. Estos tokens y la opción `surface="secondary"` se mantienen solo por compatibilidad y se eliminarán en 0.4.0. No los uses en componentes ni pantallas nuevas.
 
 Escala **optativa**, visible completa (050–950) en Color / Paleta y con sus
 diez roles en Color / Tokens semánticos. No se usa por defecto en componentes:

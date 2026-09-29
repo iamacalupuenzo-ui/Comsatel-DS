@@ -42,7 +42,7 @@ const units: FleetUnit[] = [
 | `expandedIds` | `string[] \| undefined` | `undefined` | Obsoleto, conservado sin efecto. |
 | `detailLabel` | `string` | `'Ver detalle'` | Texto visible del botón de acción. Su nombre accesible le agrega el nombre de la unidad. |
 | `appearance` | `'outlined' \| 'filled'` | `'outlined'` | Delineado para separar unidades densas o relleno cuando la lista ya vive dentro de un panel. |
-| `surface` | `'default' \| 'secondary'` | `'default'` | Superficie cálida optativa, independiente de expansión y selección. |
+| `surface` | `'default' \| 'secondary'` | `'default'` | **Obsoleto desde 0.3.5:** la superficie crema se descartó y se eliminará en 0.4.0. No la uses. |
 | `selectable` | `boolean` | `true` | Habilita selección directa de fila, activa por defecto. |
 | `pinnable` | `boolean` | `false` | Muestra Fijar en el Popover. |
 | `selectedId` | `string \| null` | `null` | Unidad seleccionada controlada; no modifica expansión ni fijados. |

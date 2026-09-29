@@ -44,6 +44,7 @@ export class Select {
   @Input() disabled = false;
   @Input() required = false;
   readonly showClear = input(true);
+  /** @deprecated Desde 0.3.5: la superficie crema se descartó y se eliminará en 0.4.0. No la uses. */
   readonly surface = input<'default' | 'secondary'>('default');
   readonly invalid = input(false);
   readonly readonly = input(false);

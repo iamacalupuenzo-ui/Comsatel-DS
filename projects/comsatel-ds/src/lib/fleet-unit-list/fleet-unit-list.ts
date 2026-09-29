@@ -68,6 +68,7 @@ export class FleetUnitList {
   @Input() detailLabel = 'Ver detalle';
   /** Cambia solo la superficie de lectura; la jerarquía y la interacción son iguales. */
   @Input() appearance: FleetUnitListAppearance = 'outlined';
+  /** @deprecated Desde 0.3.5: la superficie crema se descartó y se eliminará en 0.4.0. No la uses. */
   readonly surface = input<'default' | 'secondary'>('default');
   readonly selectable = input(true);
   readonly pinnable = input(false);

@@ -24,6 +24,7 @@ export class ActionCard {
   @Input() buttonLabel = 'Action';
   @Input() showLabel = false;
   @Input() label = 'Coming soon';
+  /** @deprecated Desde 0.3.5: la superficie crema se descartó y se eliminará en 0.4.0. No la uses. */
   readonly surface = input<'default' | 'secondary'>('default');
   readonly selectable = input(false);
   readonly selected = input(false);

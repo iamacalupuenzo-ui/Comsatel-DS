@@ -75,7 +75,7 @@ dividerAfter?, selected? }`.
 | `embedded` | `boolean` | `false` | Para usarlo **dentro** de un `cs-input-group-addon`. |
 | `fullWidth` | `boolean` | `false` | Estira el trigger al 100%, conservando su marco. |
 | `matchTriggerWidth` | `boolean` | `false` | Iguala el menú al trigger. Recomendado junto a fullWidth en buscadores; false conserva el ancho por contenido. |
-| `surface` | `'default' \| 'secondary'` | `'default'` | Superficie cálida optativa para trigger y lista; seleccionado conserva azul y check. |
+| `surface` | `'default' \| 'secondary'` | `'default'` | **Obsoleto desde 0.3.5:** la superficie crema se descartó y se eliminará en 0.4.0. No la uses. |
 | `active` | `boolean` | `false` | Filtro aplicado: borde, fondo y texto de selección. Cede ante foco, apertura y error. |
 | `menuFit` | `boolean` | `false` | La lista mide al menos el ancho del campo y crece con la opción más larga hasta el borde visible; recién ahí parte el texto. |
 | `valueChange` | `EventEmitter<string>` | n/a | Emite el nuevo valor. |

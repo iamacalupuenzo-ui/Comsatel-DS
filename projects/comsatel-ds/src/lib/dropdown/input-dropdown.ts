@@ -60,6 +60,7 @@ export class InputDropdown implements AfterViewInit, OnChanges {
   @Input() fullWidth = false;
   /** Optativo: conserva por defecto el ancho por contenido del menú. */
   @Input() matchTriggerWidth = false;
+  /** @deprecated Desde 0.3.5: la superficie crema se descartó y se eliminará en 0.4.0. No la uses. */
   @Input() surface: 'default' | 'secondary' = 'default';
   /** Filtro aplicado: borde, fondo y texto de selección. Foco, apertura y error tienen prioridad. */
   @Input() active = false;

@@ -72,7 +72,7 @@ en filtros pequeños y el caso «todos» ya se alcanza dejando la selección vac
 | `clearControlLabel` | `string` | `'Limpiar'` | Nombre accesible del botón que limpia todo. |
 | `removeOptionLabel` | `(label: string) => string` | `` (label) => `Quitar ${label}` `` | Nombre accesible del botón que quita un chip. |
 | `showClear` | `boolean` | `true` | Muestra la limpieza en selección simple; false evita overrides del consumidor. |
-| `surface` | `'default' \| 'secondary'` | `'default'` | Superficie cálida optativa del campo y menú. |
+| `surface` | `'default' \| 'secondary'` | `'default'` | **Obsoleto desde 0.3.5:** la superficie crema se descartó y se eliminará en 0.4.0. No la uses. |
 | `invalid` | `boolean` | `false` | Borde de error y aria-invalid; acompaña con una explicación. |
 | `readonly` | `boolean` | `false` | Conserva foco y lectura; bloquea apertura, limpieza y quitar chips. |
 | `aria-describedby` | `string` | `''` | Identificador del texto de ayuda o error. |
