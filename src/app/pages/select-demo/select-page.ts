@@ -47,7 +47,7 @@ export class SelectPage {
     { kind: 'select', label: 'Tamaño', key: 'size', options: ['xs', 'sm', 'md', 'lg'], default: 'md' },
     { kind: 'toggle', label: 'Label', key: 'showLabel', default: true },
     { kind: 'toggle', label: 'Requerido', key: 'required', default: false },
-    { kind: 'select', label: 'Estado', key: 'state', options: [{ value: 'default', label: 'Vacío / todos' }, { value: 'one', label: 'Una opción' }, { value: 'several', label: 'Varias opciones' }, { value: 'all', label: 'Todas marcadas' }, { value: 'active', label: 'Filtro aplicado' }, { value: 'invalid', label: 'Error' }, { value: 'readonly', label: 'Solo lectura' }, { value: 'disabled', label: 'Deshabilitado' }], default: 'default' },
+    { kind: 'select', label: 'Estado', key: 'state', options: [{ value: 'default', label: 'Vacío / todos' }, { value: 'one', label: 'Una opción' }, { value: 'several', label: 'Varias opciones' }, { value: 'all', label: 'Todas marcadas' }, { value: 'active', label: 'Filtro aplicado' }, { value: 'open', label: 'Foco y abierto' }, { value: 'invalid', label: 'Error' }, { value: 'readonly', label: 'Solo lectura' }, { value: 'disabled', label: 'Deshabilitado' }], default: 'default' },
     { kind: 'toggle', label: 'Resumen en una línea', key: 'summary', default: false },
     { kind: 'toggle', label: 'Menú ajustado al campo', key: 'menuFit', default: false },
   ];
@@ -71,11 +71,12 @@ export class SelectPage {
     { name: 'Varias opciones', when: 'Cuando hay dos o más criterios; summary muestra el conteo y chips limita las insignias visibles.', props: '[multiple]="true" multipleDisplay="summary" [value]="[\'design\', \'eng\']"', value: ['design', 'eng'] },
     { name: 'Todas marcadas', when: 'Cuando todas las opciones se eligieron; equivale a todos y no muestra filtro aplicado.', props: '[multiple]="true" [value]="todosLosValores"', value: TEAM_OPTIONS.map(option => option.value) },
     { name: 'Filtro aplicado', when: 'Para filtros de barra con una selección parcial. Indica que el resultado está restringido.', props: '[multiple]="true" multipleDisplay="summary" [active]="true" [value]="[\'design\', \'eng\']"', value: ['design', 'eng'], active: true },
+    { name: 'Foco y abierto', when: 'Cuando el usuario está eligiendo opciones. Haz clic en el campo o usa Enter para abrirlo y recorrer la lista.', props: '[multiple]="true"; foco o clic en el trigger (sin prop adicional)', value: ['design'] },
     { name: 'Error', when: 'Cuando la selección no cumple una validación; acompáñalo con un mensaje asociado mediante aria-describedby.', props: '[multiple]="true" [invalid]="true" aria-describedby="error-id"', value: ['design'], invalid: true },
     { name: 'Solo lectura', when: 'Cuando el valor debe verse sin permitir cambios.', props: '[multiple]="true" [readonly]="true"', value: ['design'], readonly: true },
     { name: 'Deshabilitado', when: 'Cuando el control no está disponible en el flujo actual.', props: '[multiple]="true" [disabled]="true"', value: ['design'], disabled: true },
   ];
-  protected readonly selectedMultipleState = computed(() => this.multipleStates.find(state => state.name === ({ default: 'Vacío / todos', one: 'Una opción', several: 'Varias opciones', all: 'Todas marcadas', active: 'Filtro aplicado', invalid: 'Error', readonly: 'Solo lectura', disabled: 'Deshabilitado' } as Record<string, string>)[this.pgState()]) ?? this.multipleStates[0]);
+  protected readonly selectedMultipleState = computed(() => this.multipleStates.find(state => state.name === ({ default: 'Vacío / todos', one: 'Una opción', several: 'Varias opciones', all: 'Todas marcadas', active: 'Filtro aplicado', open: 'Foco y abierto', invalid: 'Error', readonly: 'Solo lectura', disabled: 'Deshabilitado' } as Record<string, string>)[this.pgState()]) ?? this.multipleStates[0]);
   protected readonly pgSelectedMultipleValue = computed(() => this.pgState() === 'default' ? this.pgMultipleValue() : this.selectedMultipleState().value);
   protected readonly stateMultipleValue = signal<string[]>(['design', 'eng']);
   protected readonly guideLabelValue = signal('');
