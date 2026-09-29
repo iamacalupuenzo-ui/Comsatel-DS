@@ -3,6 +3,8 @@ import { Icon } from '../icons/icon';
 import type { IconName } from '../icons/icon-registry';
 
 export type ToastVariant = 'default' | 'info' | 'success' | 'warning' | 'error';
+/** `solid`: fondo del tono y texto claro. `subtle`: fondo claro con borde y texto del tono. */
+export type ToastAppearance = 'solid' | 'subtle';
 
 export interface ToastAction {
   label: string;
@@ -45,6 +47,7 @@ const VARIANT_CONFIG: Record<ToastVariant, VariantConfig> = {
     'aria-live': 'polite',
     'aria-atomic': 'true',
     '[attr.data-variant]': 'variant',
+    '[attr.data-appearance]': 'appearance',
   },
 })
 export class Toast {
@@ -54,6 +57,11 @@ export class Toast {
   @Input() icon?: IconName;
   @Input() actions?: ToastAction[];
   @Input() dismissLabel = 'Descartar';
+  /** Solo aplica a los tonos; `default` siempre usa la superficie. */
+  @Input() appearance: ToastAppearance = 'solid';
+  /** Fuerza mostrar u ocultar «Descartar». Sin valor, sigue la regla de la variante:
+   * solo `default` se descarta. Úsalo en avisos que además se cierran solos. */
+  @Input() dismissible?: boolean;
   @Output() readonly actionClick = new EventEmitter<ToastAction>();
   @Output() readonly dismissed = new EventEmitter<void>();
 
@@ -66,7 +74,7 @@ export class Toast {
   }
 
   protected get showDismiss(): boolean {
-    return this.config.dismissible;
+    return this.dismissible ?? this.config.dismissible;
   }
 
   protected onActionClick(action: ToastAction): void {

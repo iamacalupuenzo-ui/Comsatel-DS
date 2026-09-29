@@ -42,3 +42,9 @@
   align-items: center;
   gap: var(--layout-gap-md);
 }
+.state-list {
+  display: grid;
+  gap: var(--layout-gap-xs);
+  padding-inline-start: var(--layout-padding-xl);
+}
+.state-list code { overflow-wrap: anywhere; }

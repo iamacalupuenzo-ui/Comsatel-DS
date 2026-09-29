@@ -145,7 +145,7 @@ export const NAVIGATION: NavSection[] = [
       { title: 'Skeleton', href: '/components/skeleton', icon: 'loader', change: { kind: 'nuevo', version: '0.3.12' } },
       { title: 'Spotlight', href: '/components/spotlight', icon: 'flashlight' },
       { title: 'Tag', href: '/components/tag', icon: 'tag' },
-      { title: 'Toast', href: '/components/toast', icon: 'bell-ring' },
+      { title: 'Toast', href: '/components/toast', icon: 'bell-ring', change: { kind: 'actualizado', version: '0.3.17' } },
     ],
   },
   {

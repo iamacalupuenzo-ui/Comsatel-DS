@@ -1,6 +1,6 @@
 <div class="page">
   <p class="eyebrow">Componentes / Toast</p>
-  <h1 class="title">Toast</h1>
+  <h1 class="title">Toast<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.17</span></h1>
   <p class="description">
     Un toast es una notificación breve, posicionada en una esquina, para confirmaciones y
     acknowledgments que requieren mínima interacción. A diferencia de Banner, flota sobre la
@@ -11,6 +11,10 @@
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>
     <p class="section__intro">Ajusta los controles para explorar el toast.</p>
+    <ul class="section__intro state-list">
+      <li><strong>Apariencia sutil.</strong> Fondo claro con borde y texto del tono, para avisos de resultado que se cierran solos, como «Ubicación copiada». La sólida es para avisos que piden una acción.</li>
+      <li><strong>Descartable.</strong> Por defecto solo <code>default</code> se descarta. Con <code>[dismissible]="true"</code> un tono también muestra «Descartar», útil cuando el aviso además se cierra solo.</li>
+    </ul>
     <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
       <div class="toast-playground">
         @if (pgVisible()) {
@@ -19,6 +23,8 @@
             [description]="pgContent().description"
             [variant]="pgVariant()"
             [actions]="pgActions()"
+            [appearance]="pgAppearance()"
+            [dismissible]="pgDismissible() || undefined"
             (actionClick)="reportAction($event.label)"
             (dismissed)="reportDismissed()"
           />
@@ -164,6 +170,18 @@
   </section>
 
   <section class="section">
+    <h2 class="section__title" id="region">Región</h2>
+    <p class="section__intro"><span class="change-badge" data-kind="nuevo">Nuevo · v0.3.17</span> <code>cs-toast-region</code> fija los avisos en una esquina, sobre el contenido, y los apila. En pantallas de hasta 767 px ocupa el ancho disponible. No encola ni programa el cierre: eso sigue en la pantalla.</p>
+    <p><cs-button variant="secondary" size="sm" (click)="showRegionToast()">Mostrar aviso</cs-button></p>
+    <cs-toast-region>
+      @if (regionMessage()) {
+        <cs-toast variant="success" appearance="subtle" [dismissible]="true" [title]="regionMessage()" (dismissed)="regionMessage.set('')" />
+      }
+    </cs-toast-region>
+    <app-code-block [code]="regionCode" />
+  </section>
+
+  <section class="section">
     <h2 class="section__title" id="accessibility">Accesibilidad</h2>
     <p class="section__intro">Toast anuncia un cambio breve sin mover el foco ni interrumpir la tarea activa.</p>
     <div class="table table--two-columns">
@@ -183,10 +201,12 @@
       <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">El titular del toast. Obligatorio: todo toast necesita uno.</span></div>
       <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Línea de apoyo opcional, una oración.</span></div>
       <div class="table__row"><code class="table__name">variant</code><code class="table__type">"default" | "info" | "success" | "warning" | "error"</code><code class="table__default">"default"</code><span class="table__desc">Controla el tono y el comportamiento de cierre: default es sutil y descartable; las otras cuatro son sólidas y exigen una acción en su lugar.</span></div>
+      <div class="table__row"><code class="table__name">appearance</code><code class="table__type">"solid" | "subtle"</code><code class="table__default">"solid"</code><span class="table__desc">Fondo del tono con texto claro, o fondo claro con borde y texto del tono. No afecta a default.</span></div>
+      <div class="table__row"><code class="table__name">dismissible</code><code class="table__type">boolean</code><code class="table__default">—</code><span class="table__desc">Fuerza mostrar u ocultar «Descartar». Sin valor, solo default se descarta.</span></div>
       <div class="table__row"><code class="table__name">icon</code><code class="table__type">IconName</code><code class="table__default">—</code><span class="table__desc">Sobrescribe el ícono por defecto de la variante.</span></div>
       <div class="table__row"><code class="table__name">actions</code><code class="table__type">{{ '{' }} label: string; href?: string {{ '}' }}[]</code><code class="table__default">—</code><span class="table__desc">Se muestran como links en default, como botones en las variantes con tono.</span></div>
       <div class="table__row"><code class="table__name">(actionClick)</code><code class="table__type">EventEmitter&lt;ToastAction&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en una acción sin href.</span></div>
-      <div class="table__row"><code class="table__name">(dismissed)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en el botón de cerrar. Solo se renderiza para variant="default".</span></div>
+      <div class="table__row"><code class="table__name">(dismissed)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Se emite al hacer clic en el botón de cerrar. Por defecto solo se renderiza para variant="default"; ver dismissible.</span></div>
     </div>
   </section>
 </div>

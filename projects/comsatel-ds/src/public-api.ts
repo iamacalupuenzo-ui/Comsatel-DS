@@ -61,6 +61,7 @@ export * from './lib/tab/tab';
 export * from './lib/tab/tabs';
 export * from './lib/pagination/pagination';
 export * from './lib/toast/toast';
+export * from './lib/toast/toast-region';
 export * from './lib/popover/popover-position';
 export * from './lib/popover/popover';
 export * from './lib/select/select';

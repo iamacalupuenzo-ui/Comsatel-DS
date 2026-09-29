@@ -1,7 +1,9 @@
 :host {
   display: flex;
   align-items: flex-start;
+  box-sizing: border-box;
   width: 344px;
+  max-width: 100%;
   gap: var(--layout-gap-md);
   padding: var(--layout-padding-lg);
   border: var(--layout-border-thin) solid var(--color-border-neutral-default);
@@ -30,6 +32,28 @@
   background-color: var(--color-background-danger-default);
   border-color: transparent;
   color: var(--color-text-inverse);
+}
+
+/* Tono sutil: fondo claro, borde y texto del tono (appearance="subtle"). */
+:host([data-appearance='subtle'][data-variant='info']) {
+  background-color: var(--color-background-brand-subtlest);
+  border-color: var(--color-border-brand-default);
+  color: var(--color-text-brand-default);
+}
+:host([data-appearance='subtle'][data-variant='success']) {
+  background-color: var(--color-background-success-subtlest);
+  border-color: var(--color-border-success-default);
+  color: var(--color-text-success-default);
+}
+:host([data-appearance='subtle'][data-variant='warning']) {
+  background-color: var(--color-background-warning-subtlest);
+  border-color: var(--color-border-warning-default);
+  color: var(--color-text-warning-default);
+}
+:host([data-appearance='subtle'][data-variant='error']) {
+  background-color: var(--color-background-danger-subtlest);
+  border-color: var(--color-border-danger-default);
+  color: var(--color-text-danger-default);
 }
 
 .cs-toast__icon {
@@ -131,4 +155,15 @@
 }
 .cs-toast__dismiss:hover {
   opacity: 0.6;
+}
+
+/* En los tonos, «Descartar» toma el color del texto del aviso. */
+:host(:not([data-variant='default'])) .cs-toast__dismiss {
+  color: inherit;
+}
+/* Acción del tono sutil: link del color del tono, no la insignia del sólido. */
+:host([data-appearance='subtle']:not([data-variant='default'])) .cs-toast__action {
+  padding: 0;
+  background: none;
+  text-decoration: underline;
 }

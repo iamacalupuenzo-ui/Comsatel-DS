@@ -4,8 +4,8 @@ Confirmación efímera de algo que acaba de pasar. No interrumpe y no exige resp
 la condición sigue siendo cierta hasta que alguien la resuelva, el componente es
 `Banner`; si hay que decidir antes de seguir, es `Modal`.
 
-- **Import:** `import { Toast } from '@iamacalupuenzo-ui/comsatel-ds';`
-- **Selector:** `<cs-toast>`
+- **Import:** `import { Toast, ToastRegion } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Selectores:** `<cs-toast>`, `<cs-toast-region>`
 - **Clase raíz emitida:** `.cs-toast`
 
 ```html
@@ -15,6 +15,27 @@ la condición sigue siendo cierta hasta que alguien la resuelva, el componente e
   description="El archivo se descargó correctamente."
   (dismissed)="visible = false"
 ></cs-toast>
+```
+
+## Apariencia y descarte
+
+| Caso | Usa | Motivo |
+| :-- | :-- | :-- |
+| Resultado que se cierra solo («Ubicación copiada») | `appearance="subtle"` y `[dismissible]="true"` | Informa sin pesar; la persona puede cerrarlo antes. |
+| Aviso que pide una acción | `appearance="solid"` (predeterminada) con `actions` | El fondo sólido marca que hay algo por hacer. |
+
+`dismissible` sin valor sigue la regla de la variante: solo `default` se descarta.
+
+## Región
+
+`cs-toast-region` fija los avisos arriba a la derecha (`placement="top-end"`) o abajo
+(`bottom-end`), sobre el contenido, y los apila. Hasta 767 px ocupa el ancho disponible.
+No encola ni programa el cierre: eso sigue en la pantalla.
+
+```html
+<cs-toast-region>
+  <cs-toast variant="success" appearance="subtle" [dismissible]="true" title="Ubicación copiada" (dismissed)="close()"></cs-toast>
+</cs-toast-region>
 ```
 
 ## Props
@@ -30,6 +51,8 @@ la condición sigue siendo cierta hasta que alguien la resuelva, el componente e
 | `icon` | `IconName \| undefined` | `undefined` | Reemplaza el ícono de la variante. |
 | `actions` | `ToastAction[] \| undefined` | `undefined` | Acciones inline. `{ label, href? }`. |
 | `dismissLabel` | `string` | `'Descartar'` | Nombre accesible del botón de cerrar. |
+| `appearance` | `'solid' \| 'subtle'` | `'solid'` | Tono sólido (fondo del tono) o sutil (fondo claro con borde y texto del tono). No afecta a default. |
+| `dismissible` | `boolean \| undefined` | `undefined` | Fuerza mostrar u ocultar «Descartar». Sin valor, solo default se descarta. |
 | `actionClick` | `EventEmitter<ToastAction>` | n/a | Emite la acción elegida. |
 | `dismissed` | `EventEmitter<void>` | n/a | Emite al descartar. |
 <!-- props:end -->
@@ -54,6 +77,24 @@ la condición sigue siendo cierta hasta que alguien la resuelva, el componente e
 | Roles | `status` |
 | Atributos ARIA | `aria-label`, `aria-live="polite"`, `aria-atomic="true"` |
 | Compone | `cs-icon` |
+<!-- a11y:end -->
+
+## Props de `ToastRegion`
+
+<!-- props:start ToastRegion -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/toast/toast-region.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+
+| Prop | Type | Default | Description |
+| :-- | :-- | :-- | :-- |
+| `placement` | `'top-end' \| 'bottom-end'` | `'top-end'` | Esquina donde se fijan los avisos: arriba o abajo a la derecha. |
+<!-- props:end -->
+
+<!-- a11y:start ToastRegion -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/toast/toast-region.ts: no editar a mano, corre npm run docs:a11y -->
+
+#### Contrato a11y generado desde el código: `cs-toast-region`
+
+No renderiza controles nativos, roles ni atributos ARIA propios, y no maneja teclado: es presentacional.
 <!-- a11y:end -->
 
 ## Trampas
