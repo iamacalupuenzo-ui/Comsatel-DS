@@ -10,6 +10,7 @@ no dibujan sus propios campos, componen los del sistema.
 
 - **Import:** `import { Calendar, DateTimePicker, DateTimeRangePicker, formatDate, formatDateTime } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selectores:** `<cs-calendar>`, `<cs-datetime-picker>`, `<cs-datetime-range-picker>`
+- **Clases raíz emitidas:** `.cs-calendar`, `.cs-datetime-picker`, `.cs-datetime-range-picker`
 
 ```html
 <cs-datetime-range-picker

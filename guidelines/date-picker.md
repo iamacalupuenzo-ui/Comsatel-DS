@@ -6,6 +6,7 @@ Selector de **una fecha**: campo de solo lectura con la fecha en el formato del 
 
 - **Import:** `import { DatePicker } from '@iamacalupuenzo-ui/comsatel-ds';`
 - **Selector:** `<cs-date-picker>`
+- **Clases raíz emitidas:** `.cs-date-picker-field`, `.cs-date-picker-panel` (las mismas que `DateRangePicker`)
 
 ```html
 <cs-date-picker label="Fecha de captura" [value]="capturedOn" (valueChange)="capturedOn = $event"></cs-date-picker>
