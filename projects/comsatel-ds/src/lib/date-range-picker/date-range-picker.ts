@@ -24,6 +24,8 @@ let uid = 0;
  */
 @Component({
   selector: 'cs-date-range-picker',
+  // El id va en el control interno; en el host quedaría duplicado y el label apuntaría al host.
+  host: { '[attr.id]': 'null' },
   imports: [Button, Calendar, Icon, InputGroup, InputGroupAddon, InputGroupInput, Popover],
   templateUrl: './date-range-picker.html',
   styleUrl: './date-range-picker.css',

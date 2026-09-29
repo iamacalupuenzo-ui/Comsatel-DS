@@ -17,6 +17,8 @@ let uid = 0;
 // corta o más larga.
 @Component({
   selector: 'cs-input-dropdown',
+  // El id va en el control interno; en el host quedaría duplicado y el label apuntaría al host.
+  host: { '[attr.id]': 'null' },
   imports: [NgStyle, CountryFlag, Icon, Popover],
   templateUrl: './input-dropdown.html',
   styleUrl: './input-dropdown.css',

@@ -31,6 +31,8 @@ let uid = 0;
  */
 @Component({
   selector: 'cs-datetime-range-picker',
+  // El id va en el control interno; en el host quedaría duplicado y el label apuntaría al host.
+  host: { '[attr.id]': 'null' },
   imports: [NgStyle, Icon, Calendar, InputDropdown],
   templateUrl: './datetime-range-picker.html',
   styleUrl: './datetime-range-picker.css',

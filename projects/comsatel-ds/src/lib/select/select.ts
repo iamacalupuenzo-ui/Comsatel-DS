@@ -27,6 +27,8 @@ let uid = 0;
  */
 @Component({
   selector: 'cs-select',
+  // El id va en el control interno; en el host quedaría duplicado y el label apuntaría al host.
+  host: { '[attr.id]': 'null' },
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgStyle, Icon, Badge, Popover],
   templateUrl: './select.html',

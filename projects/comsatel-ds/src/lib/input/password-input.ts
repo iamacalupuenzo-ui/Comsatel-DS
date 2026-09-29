@@ -11,6 +11,8 @@ import type { InputFieldSize } from './input-tokens';
 // reglas de longitud y recuperación permanecen en el formulario consumidor.
 @Component({
   selector: 'cs-password-input',
+  // El id va en el control interno; en el host quedaría duplicado y el label apuntaría al host.
+  host: { '[attr.id]': 'null' },
   imports: [Icon, InputGroup, InputGroupAddon, InputGroupInput],
   templateUrl: './password-input.html',
   styleUrl: './password-input.css',

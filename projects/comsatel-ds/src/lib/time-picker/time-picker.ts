@@ -16,6 +16,8 @@ let uid = 0;
  */
 @Component({
   selector: 'cs-time-picker',
+  // El id va en el control interno; en el host quedaría duplicado y el label apuntaría al host.
+  host: { '[attr.id]': 'null' },
   imports: [Button, Icon, InputGroup, InputGroupAddon, InputGroupInput, Popover],
   templateUrl: './time-picker.html',
   styleUrl: './time-picker.css',

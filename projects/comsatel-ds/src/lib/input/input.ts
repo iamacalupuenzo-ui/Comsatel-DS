@@ -13,6 +13,8 @@ let uid = 0;
 // el mismo archivo — sin el alias, TypeScript reporta "Duplicate identifier".
 @Component({
   selector: 'cs-input',
+  // El id va en el control interno; en el host quedaría duplicado y el label apuntaría al host.
+  host: { '[attr.id]': 'null' },
   templateUrl: './input.html',
   styleUrl: './input.css',
 })

@@ -8,6 +8,8 @@ let uid = 0;
 // para que InputGroup lo detecte vía :has().
 @Component({
   selector: 'cs-input-group-input',
+  // El id va en el control interno; en el host quedaría duplicado y el label apuntaría al host.
+  host: { '[attr.id]': 'null' },
   templateUrl: './input-group-input.html',
   styleUrl: './input-group-input.css',
 })
