@@ -74,6 +74,7 @@ El contenido flotante va proyectado.
 
 ## Trampas
 
+- Dentro de `.cs-modal` o `[aria-modal="true"]`, el panel usa la capa `overlay` para quedar por encima de la máscara; fuera conserva la capa `dropdown`.
 - **`closed` no cierra nada.** Hay que poner `isOpen` en `false`: si no, el clic
   afuera no tiene efecto visible.
 - `bare` existe para contenido que ya trae su propio fondo (por ejemplo un tooltip

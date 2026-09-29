@@ -1,5 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { Popover } from './popover';
+import { Modal } from '../modal/modal';
+import { Select } from '../select/select';
 
 const meta: Meta<Popover> = {
   title: 'Componentes/Popover',
@@ -32,4 +34,24 @@ export const RightEnd: Story = {
 export const MatchTriggerWidth: Story = {
   args: { isOpen: true, placement: 'bottom-start', matchTriggerWidth: true, ariaLabel: 'Opciones de recorrido' },
   render: renderPopover,
+};
+
+export const DentroDeUnModal: Story = {
+  name: 'Dentro de un modal',
+  decorators: [moduleMetadata({ imports: [Modal, Select] })],
+  render: () => ({
+    props: {
+      isOpen: true,
+      value: undefined as string | string[] | undefined,
+      options: [
+        { label: 'Mantener decisión', value: 'keep' },
+        { label: 'Revisar captura', value: 'review' },
+      ],
+    },
+    template: `
+      <cs-modal [isOpen]="isOpen" title="Revisión de captura" (closed)="isOpen = false">
+        <cs-select label="Decisión" [options]="options" [value]="value" (valueChange)="value = $event" />
+      </cs-modal>
+    `,
+  }),
 };

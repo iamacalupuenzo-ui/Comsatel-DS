@@ -1,6 +1,6 @@
 <div class="page">
   <p class="eyebrow">Componentes / Popover</p>
-  <h1 class="title">Popover</h1>
+  <h1 class="title">Popover<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.3</span></h1>
   <p class="description">
     Un popover muestra contenido breve y efímero anclado a un trigger — un menú de acciones, una
     lista de dispositivos, un detalle rápido. A diferencia de Modal, nunca bloquea el resto de la
@@ -68,7 +68,7 @@
     <h2 class="section__title" id="match-width">Igualar el ancho del trigger</h2>
     <p class="section__intro">
       matchTriggerWidth fija el ancho del panel al del trigger — la forma que necesita un combobox
-      o un select propio.
+      o un select propio. Dentro de un modal, su menú usa la capa overlay para quedar sobre la máscara.
     </p>
     <div class="static-block">
       <div class="static-block__preview">
@@ -83,6 +83,10 @@
             }
           </div>
         </cs-popover>
+        <cs-button variant="default" (click)="modalOpen.set(true)">Probar Select en modal</cs-button>
+        <cs-modal [isOpen]="modalOpen()" title="Revisión de captura" (closed)="modalOpen.set(false)">
+          <cs-select label="Decisión" [options]="modalOptions" [value]="modalValue()" (valueChange)="modalValue.set($event)" />
+        </cs-modal>
       </div>
       <app-code-block code="<cs-popover [matchTriggerWidth]=&quot;true&quot; placement=&quot;bottom-start&quot; ...></cs-popover>"></app-code-block>
     </div>

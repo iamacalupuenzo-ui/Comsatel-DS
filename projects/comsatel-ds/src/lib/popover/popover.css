@@ -21,6 +21,9 @@
   opacity: 1;
   transform: scale(1);
 }
+.cs-popover--modal-layer {
+  z-index: var(--elevation-z-index-overlay);
+}
 .cs-popover--bare {
   border-radius: 0;
   border: none;

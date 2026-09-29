@@ -1,5 +1,5 @@
 import { Component, ElementRef, QueryList, ViewChild, ViewChildren, computed, signal } from '@angular/core';
-import { Button, Icon, Popover, type IconName, type PopoverPlacement } from '@iamacalupuenzo-ui/comsatel-ds';
+import { Button, Icon, Modal, Popover, Select, type IconName, type PopoverPlacement } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 import { CodeBlock } from '../../shared/docs/code-block';
 
@@ -27,7 +27,7 @@ const MATCH_WIDTH_OPTIONS = ['Norte 04', 'Norte 07', 'Sur 12', 'Sur 18'];
 
 @Component({
   selector: 'app-popover-page',
-  imports: [Button, Icon, Popover, DemoShell, CodeBlock],
+  imports: [Button, Icon, Modal, Popover, Select, DemoShell, CodeBlock],
   templateUrl: './popover-page.html',
   styleUrl: './popover-page.css',
 })
@@ -73,6 +73,12 @@ export class PopoverPage {
   @ViewChild('mwTrigger', { read: ElementRef }) protected mwTriggerRef?: ElementRef<HTMLElement>;
   protected readonly mwOpen = signal(false);
   protected readonly mwValue = signal<string | null>(null);
+  protected readonly modalOpen = signal(false);
+  protected readonly modalValue = signal<string | string[] | undefined>(undefined);
+  protected readonly modalOptions = [
+    { label: 'Mantener decisión', value: 'keep' },
+    { label: 'Revisar captura', value: 'review' },
+  ];
 
   protected selectMatchWidth(opt: string): void {
     this.mwValue.set(opt);

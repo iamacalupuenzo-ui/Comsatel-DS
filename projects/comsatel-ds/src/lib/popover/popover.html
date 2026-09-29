@@ -8,6 +8,7 @@
     class="cs-popover"
     [class.cs-popover--visible]="visible()"
     [class.cs-popover--bare]="bare"
+    [class.cs-popover--modal-layer]="isTriggeredFromModal()"
     [style.top.px]="pos()?.top ?? -9999"
     [style.left.px]="pos()?.left ?? -9999"
     [style.width.px]="pos()?.width ?? null"

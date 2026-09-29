@@ -129,6 +129,11 @@ export class Popover implements OnChanges, OnDestroy {
     return this.triggerRef instanceof ElementRef ? this.triggerRef.nativeElement : this.triggerRef;
   }
 
+  /** El panel viaja a body; usa la capa overlay si el disparador está en un modal. */
+  protected isTriggeredFromModal(): boolean {
+    return !!this.resolvedTrigger()?.closest('.cs-modal, [aria-modal="true"]');
+  }
+
   /** `cs-button` encapsula un botón nativo. La relación ARIA y el retorno
    * de foco deben vivir en ese elemento enfocable, no solo en su host. */
   private accessibleTrigger(): HTMLElement | null {

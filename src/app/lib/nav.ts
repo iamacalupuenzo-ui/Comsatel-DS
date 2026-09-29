@@ -115,7 +115,7 @@ export const NAVIGATION: NavSection[] = [
       { title: 'Menu', href: '/components/menu', icon: 'menu' },
       { title: 'Modal', href: '/components/modal', icon: 'app-window' },
       { title: 'Pagination', href: '/components/pagination', icon: 'chevrons-right' },
-      { title: 'Popover', href: '/components/popover', icon: 'picture-in-picture-2' },
+      { title: 'Popover', href: '/components/popover', icon: 'picture-in-picture-2', change: { kind: 'actualizado', version: '0.3.3' } },
       { title: 'Progress indicator', href: '/components/progress-indicator', icon: 'loader' },
       { title: 'Radio', href: '/components/radio', icon: 'circle-dot' },
       { title: 'Select', href: '/components/select', icon: 'chevrons-up-down', change: { kind: 'actualizado', version: '0.3.0' } },
