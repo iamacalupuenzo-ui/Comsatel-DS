@@ -75,7 +75,11 @@
                             [attr.aria-current]="isActive(child.href) ? 'page' : null"
                             [routerLink]="child.href"
                             csPressScale
-                          >{{ child.title }}</a>
+                          ><span class="sidebar__item-text">{{ child.title }}</span>
+                            @if (child.change) {
+                              <span class="change-badge change-badge--nav" [attr.data-kind]="child.change.kind"
+                                [attr.title]="(child.change.kind === 'nuevo' ? 'Nuevo' : 'Actualizado') + ' en v' + child.change.version">v{{ child.change.version }}</span>
+                            }</a>
                         }
                       </li>
                     }
