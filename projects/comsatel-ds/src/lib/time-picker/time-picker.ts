@@ -1,3 +1,4 @@
+import { NgStyle } from '@angular/common';
 import { Component, EventEmitter, Input, Output, computed, input, linkedSignal, signal } from '@angular/core';
 import { Button } from '../button/button';
 import { Icon } from '../icons/icon';
@@ -6,6 +7,8 @@ import { InputGroupAddon } from '../input/input-group-addon';
 import { InputGroupInput } from '../input/input-group-input';
 import type { InputFieldSize } from '../input/input-tokens';
 import { Popover } from '../popover/popover';
+import { fieldLabelTypography } from '../input/input-tokens';
+import { textStyle } from '../tokens/typography';
 
 let uid = 0;
 
@@ -18,7 +21,7 @@ let uid = 0;
   selector: 'cs-time-picker',
   // El id va en el control interno; en el host quedaría duplicado y el label apuntaría al host.
   host: { '[attr.id]': 'null' },
-  imports: [Button, Icon, InputGroup, InputGroupAddon, InputGroupInput, Popover],
+  imports: [Button, Icon, InputGroup, InputGroupAddon, InputGroupInput, Popover, NgStyle],
   templateUrl: './time-picker.html',
   styleUrl: './time-picker.css',
 })
@@ -28,6 +31,11 @@ export class TimePicker {
   @Input('aria-label') ariaLabel = '';
   @Input() placeholder = '--:--';
   @Input() size: InputFieldSize = 'md';
+
+  /** Tipografía de label de la escala de campos (fieldLabelTypography), igual que Input dropdown. */
+  protected get labelStyle(): Record<string, string> {
+    return textStyle(fieldLabelTypography[this.size], 'accent');
+  }
   /** Intervalo de la columna de minutos (1 a 30). */
   readonly minuteStep = input(5);
   @Input() required = false;

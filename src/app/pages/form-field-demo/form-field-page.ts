@@ -12,13 +12,16 @@ export class FormFieldPage {
   protected readonly controls: ControlDef[] = [
     { kind: 'select', label: 'Mensaje', key: 'message', options: [{ value: 'none', label: 'Ninguno' }, { value: 'helper', label: 'Ayuda' }, { value: 'error', label: 'Error' }], default: 'helper' },
     { kind: 'toggle', label: 'Requerido', key: 'required', default: true },
+    { kind: 'select', label: 'Tamaño', key: 'size', options: [{ value: 'sm', label: 'sm' }, { value: 'md', label: 'md' }, { value: 'lg', label: 'lg' }], default: 'md' },
   ];
   protected readonly message = signal<'none' | 'helper' | 'error'>('helper');
   protected readonly required = signal(true);
+  protected readonly size = signal<'sm' | 'md' | 'lg'>('md');
 
   protected onState(s: DemoState): void {
     if (s['message']) this.message.set(s['message'] as 'none' | 'helper' | 'error');
     if (s['required'] !== undefined) this.required.set(!!s['required']);
+    if (s['size']) this.size.set(s['size'] as 'sm' | 'md' | 'lg');
   }
 
   protected readonly helper = computed(() => (this.message() === 'helper' ? 'Placa o código interno de la unidad.' : ''));
@@ -26,6 +29,7 @@ export class FormFieldPage {
 
   protected readonly code = computed(() => {
     const props = ['for="unit-code"', 'label="Código de unidad"'];
+    if (this.size() !== 'md') props.push(`size="${this.size()}"`);
     if (this.required()) props.push('[required]="true"');
     if (this.helper()) props.push(`helperText="${this.helper()}"`);
     if (this.error()) props.push(`errorMessage="${this.error()}"`);

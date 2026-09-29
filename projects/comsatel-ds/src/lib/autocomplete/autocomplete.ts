@@ -1,3 +1,4 @@
+import { NgStyle } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, computed, signal } from '@angular/core';
 import { Icon } from '../icons/icon';
 import type { IconName } from '../icons/icon-registry';
@@ -7,6 +8,8 @@ import { InputGroupClear } from '../input/input-group-clear';
 import { InputGroupInput } from '../input/input-group-input';
 import type { InputFieldSize } from '../input/input-tokens';
 import { Popover } from '../popover/popover';
+import { fieldLabelTypography } from '../input/input-tokens';
+import { textStyle } from '../tokens/typography';
 
 export interface AutocompleteOption {
   /** Valor que se emite al elegir la opción. */
@@ -34,7 +37,7 @@ let uid = 0;
   selector: 'cs-autocomplete',
   // El id va en el control interno; en el host quedaría duplicado y el label apuntaría al host.
   host: { '[attr.id]': 'null' },
-  imports: [Icon, InputGroup, InputGroupAddon, InputGroupClear, InputGroupInput, Popover],
+  imports: [Icon, InputGroup, InputGroupAddon, InputGroupClear, InputGroupInput, Popover, NgStyle],
   templateUrl: './autocomplete.html',
   styleUrl: './autocomplete.css',
 })
@@ -50,6 +53,11 @@ export class Autocomplete implements OnChanges {
   /** Caracteres mínimos para abrir la lista. */
   @Input() minChars = 1;
   @Input() size: InputFieldSize = 'md';
+
+  /** Tipografía de label de la escala de campos (fieldLabelTypography), igual que Input dropdown. */
+  protected get labelStyle(): Record<string, string> {
+    return textStyle(fieldLabelTypography[this.size], 'accent');
+  }
   @Input() leadingIcon: IconName = 'search';
   @Input() required = false;
   @Input() invalid = false;

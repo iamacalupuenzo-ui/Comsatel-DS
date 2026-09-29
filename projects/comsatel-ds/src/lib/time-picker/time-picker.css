@@ -10,11 +10,6 @@
 }
 .cs-time-picker-field__label {
   color: var(--color-text-base-default);
-  font-family: var(--font-family-content);
-  font-size: var(--font-size-content-ui);
-  font-weight: var(--font-weight-accent);
-  line-height: var(--font-line-height-content-ui);
-  letter-spacing: var(--font-letter-spacing-content);
 }
 .cs-time-picker-field__required {
   margin-left: var(--layout-gap-2xs);

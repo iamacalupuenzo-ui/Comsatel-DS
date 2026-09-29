@@ -12,9 +12,9 @@
 .cs-textarea-field__label {
   color: var(--color-text-base-default);
   font-family: var(--font-family-content);
-  font-size: var(--font-size-content-ui);
+  font-size: var(--font-size-content-note);
   font-weight: var(--font-weight-accent);
-  line-height: var(--font-line-height-content-ui);
+  line-height: var(--font-line-height-content-note);
   letter-spacing: var(--font-letter-spacing-content);
 }
 .cs-textarea-field__required {

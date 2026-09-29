@@ -1,7 +1,7 @@
 <div class="cs-date-picker-field">
   @if (label) {
     <!-- Texto, no <label>: el título nombra el campo, pero hacer clic en él no abre el calendario. -->
-    <span class="cs-date-picker-field__label" [id]="labelId">
+    <span class="cs-date-picker-field__label" [ngStyle]="labelStyle" [id]="labelId">
       {{ label }}
       @if (required) {
         <span class="cs-date-picker-field__required" aria-hidden="true">*</span>

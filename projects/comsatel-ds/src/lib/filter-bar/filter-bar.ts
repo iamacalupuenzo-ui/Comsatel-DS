@@ -103,8 +103,8 @@ let filterBarId = 0;
       .cs-filter-bar__label {
         color: var(--color-text-base-default);
         font-family: var(--font-family-content);
-        font-size: var(--font-size-content-ui);
-        line-height: var(--font-line-height-content-ui);
+        font-size: var(--font-size-content-note);
+        line-height: var(--font-line-height-content-note);
         font-weight: var(--font-weight-accent);
       }
       .cs-filter-bar__search-icon {

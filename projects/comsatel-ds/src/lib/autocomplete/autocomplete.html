@@ -1,6 +1,6 @@
 <div class="cs-autocomplete">
   @if (label) {
-    <label class="cs-autocomplete__label" [id]="labelId" [attr.for]="inputId">
+    <label class="cs-autocomplete__label" [ngStyle]="labelStyle" [id]="labelId" [attr.for]="inputId">
       {{ label }}
       @if (required) {
         <span class="cs-autocomplete__required" aria-hidden="true">*</span>

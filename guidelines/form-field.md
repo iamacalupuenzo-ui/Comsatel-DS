@@ -19,6 +19,19 @@ con ids predecibles para enlazarlos. Evita repetir el mismo marcado en cada pant
 | Control sin label propio (Input, InputGroup) | `FormField` | Da label, ayuda y error con el mismo estilo en todo el producto. |
 | Control que ya trae `label` (Select, Autocomplete, Textarea, pickers) | El `label` del control | No dupliques el título. |
 
+## Tamaño del label
+
+`size` debe coincidir con el `fieldSize` del control. El label sigue la escala de campos
+(`fieldLabelTypography`), la misma de Input dropdown, Select, Autocomplete y los pickers:
+12 px en `sm` y `md`, 14 px en `lg`, siempre en peso `accent`. Así el label queda por
+debajo del valor escrito y se distingue por el peso.
+
+```html
+<cs-form-field for="email" label="Correo corporativo" size="lg">
+  <cs-input id="email" fieldSize="lg"></cs-input>
+</cs-form-field>
+```
+
 ## Enlace de ids
 
 `for` es el id del control. FormField genera `{for}-label`, `{for}-help` y `{for}-error`; el control debe usar
@@ -33,6 +46,7 @@ con ids predecibles para enlazarlos. Evita repetir el mismo marcado en cada pant
 | :-- | :-- | :-- | :-- |
 | `for` | `string` | `''` | Id del control proyectado; genera {for}-label, {for}-help y {for}-error. |
 | `label` | `string` | `''` | Label visible encima del campo. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Mismo tamaño que el control; define la tipografía del label. |
 | `required` | `boolean` | `false` | Asterisco en el label y aria-required. |
 | `helperText` | `string` | `''` | Texto de ayuda debajo del campo. |
 | `errorMessage` | `string` | `''` | Mensaje de error visible, enlazado con aria-errormessage. |

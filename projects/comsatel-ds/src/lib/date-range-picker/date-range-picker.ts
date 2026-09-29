@@ -1,3 +1,4 @@
+import { NgStyle } from '@angular/common';
 import { Component, EventEmitter, Input, Output, computed, input, linkedSignal, signal } from '@angular/core';
 import { Button } from '../button/button';
 import { Calendar } from '../calendar/calendar';
@@ -7,6 +8,8 @@ import { InputGroupAddon } from '../input/input-group-addon';
 import { InputGroupInput } from '../input/input-group-input';
 import type { InputFieldSize } from '../input/input-tokens';
 import { Popover } from '../popover/popover';
+import { fieldLabelTypography } from '../input/input-tokens';
+import { textStyle } from '../tokens/typography';
 
 /** Rango de fechas en formato 'YYYY-MM-DD'; `to` vacío mientras se elige el segundo día. */
 export interface DateRangeValue {
@@ -26,7 +29,7 @@ let uid = 0;
   selector: 'cs-date-range-picker',
   // El id va en el control interno; en el host quedaría duplicado y el label apuntaría al host.
   host: { '[attr.id]': 'null' },
-  imports: [Button, Calendar, Icon, InputGroup, InputGroupAddon, InputGroupInput, Popover],
+  imports: [Button, Calendar, Icon, InputGroup, InputGroupAddon, InputGroupInput, Popover, NgStyle],
   templateUrl: './date-range-picker.html',
   styleUrl: './date-range-picker.css',
 })
@@ -36,6 +39,11 @@ export class DateRangePicker {
   @Input('aria-label') ariaLabel = '';
   @Input() placeholder = 'Selecciona un rango';
   @Input() size: InputFieldSize = 'md';
+
+  /** Tipografía de label de la escala de campos (fieldLabelTypography), igual que Input dropdown. */
+  protected get labelStyle(): Record<string, string> {
+    return textStyle(fieldLabelTypography[this.size], 'accent');
+  }
   @Input() required = false;
   @Input() invalid = false;
   /** Mensaje de error visible, enlazado con aria-errormessage. */

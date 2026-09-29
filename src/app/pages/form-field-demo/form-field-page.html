@@ -12,13 +12,14 @@
     <h2 class="section__title" id="playground">Playground</h2>
     <p class="section__intro">Cambia el mensaje y el requerido. El control usa como id el valor de <code>for</code>, y FormField genera los ids de la ayuda y del error.</p>
     <ul class="section__intro state-list">
+      <li><strong>Tamaño:</strong> usa el mismo que el control. El label sigue la escala de campos: 12 px en sm y md, 14 px en lg.</li>
       <li><strong>Ayuda:</strong> enlázala con <code>aria-describedby="{{ '{' }}for{{ '}' }}-help"</code>.</li>
       <li><strong>Error:</strong> reemplaza a la ayuda; márcalo en el control con <code>[invalid]</code> y <code>aria-errormessage="{{ '{' }}for{{ '}' }}-error"</code>.</li>
     </ul>
     <app-demo-shell [controls]="controls" [code]="code()" (stateChange)="onState($event)">
       <div class="stage">
-        <cs-form-field for="ff-unit-code" label="Código de unidad" [required]="required()" [helperText]="helper()" [errorMessage]="error()">
-          <cs-input id="ff-unit-code" [invalid]="!!error()" [aria-errormessage]="error() ? 'ff-unit-code-error' : ''" [aria-describedby]="helper() ? 'ff-unit-code-help' : ''" [required]="required()" />
+        <cs-form-field for="ff-unit-code" label="Código de unidad" [size]="size()" [required]="required()" [helperText]="helper()" [errorMessage]="error()">
+          <cs-input id="ff-unit-code" [fieldSize]="size()" [invalid]="!!error()" [aria-errormessage]="error() ? 'ff-unit-code-error' : ''" [aria-describedby]="helper() ? 'ff-unit-code-help' : ''" [required]="required()" />
         </cs-form-field>
       </div>
     </app-demo-shell>
@@ -50,6 +51,7 @@
       <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
       <div class="table__row"><code class="table__name">for</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Id del control; genera {{ '{' }}for{{ '}' }}-label, -help y -error.</span></div>
       <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Label del campo.</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">"sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Mismo tamaño que el control; define el label. Nuevo en v0.3.19.</span></div>
       <div class="table__row"><code class="table__name">required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Asterisco junto al label.</span></div>
       <div class="table__row"><code class="table__name">helperText</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Ayuda debajo del control.</span></div>
       <div class="table__row"><code class="table__name">errorMessage</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Mensaje de error; reemplaza a la ayuda.</span></div>
