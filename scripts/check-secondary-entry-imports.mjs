@@ -13,22 +13,21 @@ const PACKAGE = '@iamacalupuenzo-ui/comsatel-ds';
 /** Imports prohibidos de un archivo que vive dentro de la entrada `entryDir`. */
 export function importViolations(text, file, entryDir) {
   const out = [];
-  const lines = text.split('\n');
-  lines.forEach((line, index) => {
-    for (const m of line.matchAll(/(?:from|import)\s+'([^']+)'/g)) {
-      const spec = m[1];
-      const where = `${rel(file)}:${index + 1}`;
-      if (spec === PACKAGE) {
-        out.push(`Entrada secundaria: ${where} importa desde la raíz '${PACKAGE}'; importa por subpath ('${PACKAGE}/<entrada>').`);
-      } else if (spec.startsWith('.')) {
-        const target = resolve(dirname(file), spec);
-        const inside = relative(entryDir, target);
-        if (inside.startsWith('..') || inside.split(sep)[0] === '..') {
-          out.push(`Entrada secundaria: ${where} sale de su carpeta con '${spec}'; usa el subpath de la otra entrada.`);
-        }
+  // Sobre el texto completo, no por línea: cubre imports multilínea, comillas simples o dobles,
+  // `export … from` e `import('…')` dinámico.
+  const lineOf = (offset) => text.slice(0, offset).split('\n').length;
+  for (const m of text.matchAll(/(?:\bfrom\s*|\bimport\s*\(?\s*)(['"`])([^'"`]+)\1/g)) {
+    const spec = m[2];
+    const where = `${rel(file)}:${lineOf(m.index)}`;
+    if (spec === PACKAGE) {
+      out.push(`Entrada secundaria: ${where} importa desde la raíz '${PACKAGE}'; importa por subpath ('${PACKAGE}/<entrada>').`);
+    } else if (spec.startsWith('.')) {
+      const inside = relative(entryDir, resolve(dirname(file), spec));
+      if (inside.split(sep)[0] === '..') {
+        out.push(`Entrada secundaria: ${where} sale de su carpeta con '${spec}'; usa el subpath de la otra entrada.`);
       }
     }
-  });
+  }
   return out;
 }
 

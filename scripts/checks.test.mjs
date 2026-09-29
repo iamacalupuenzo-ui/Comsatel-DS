@@ -130,4 +130,8 @@ test('entradas secundarias: importar la raíz o salir de la carpeta falla, un su
   assert.equal(importViolations("import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';\nimport { x } from './util';", file, entry).length, 0);
   assert.match(importViolations("import { Button } from '@iamacalupuenzo-ui/comsatel-ds';", file, entry).join(), /importa desde la raíz/);
   assert.match(importViolations("import { Popover } from '../../src/lib/popover/popover';", file, entry).join(), /sale de su carpeta/);
+  // Variantes que un chequeo por línea con comillas simples no veía.
+  assert.match(importViolations('import {\n  Button,\n} from "@iamacalupuenzo-ui/comsatel-ds";', file, entry).join(), /clear\.ts:3 importa desde la raíz/);
+  assert.match(importViolations("const m = await import('@iamacalupuenzo-ui/comsatel-ds');", file, entry).join(), /importa desde la raíz/);
+  assert.match(importViolations("export * from '../../src/lib/tag/tag';", file, entry).join(), /sale de su carpeta/);
 });

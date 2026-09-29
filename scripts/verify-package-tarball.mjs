@@ -6,38 +6,51 @@ import { join } from 'node:path';
 import { ROOT, readText } from './lib/ds.mjs';
 
 const DIST = join(ROOT, 'dist', 'comsatel-ds');
-const REQUIRED = ['.', './icons', './input', './motion', './styles.css'];
+/** Entradas de JavaScript: cada una exige código (fesm2022/*.mjs) y tipos (types/*.d.ts). */
+const JS_ENTRIES = ['.', './icons', './input', './motion'];
+const CSS_FILES = ['styles.css', 'tokens.css', 'typography-tokens.css'];
+
+const fail = (message) => {
+  console.error(message);
+  process.exit(1);
+};
 
 const pack = spawnSync('npm pack --dry-run --json', { cwd: DIST, encoding: 'utf8', shell: true });
-if (pack.status !== 0) {
-  console.error(pack.stderr || 'npm pack --dry-run falló');
-  process.exit(1);
+if (pack.status !== 0) fail(`npm pack --dry-run falló en dist/comsatel-ds:\n${pack.stderr}`);
+let listing;
+try {
+  listing = JSON.parse(pack.stdout)[0];
+} catch {
+  fail(`npm pack --dry-run no devolvió JSON válido:\n${pack.stdout.slice(0, 500)}`);
 }
-const files = new Set(JSON.parse(pack.stdout)[0].files.map((f) => f.path.replace(/^\.\//, '')));
+if (!listing?.files?.length) fail('npm pack --dry-run no listó archivos: ¿se construyó la librería?');
+
+const files = new Set(listing.files.map((f) => f.path.replace(/^\.\//, '')));
 const manifest = JSON.parse(readText(join(DIST, 'package.json')));
 const exportsMap = manifest.exports ?? {};
 const failures = [];
+const inPackage = (target) => files.has(String(target).replace(/^\.\//, ''));
 
-for (const key of REQUIRED) {
-  if (!exportsMap[key]) failures.push(`exports no declara "${key}"`);
-}
-for (const [key, value] of Object.entries(exportsMap)) {
-  const targets = typeof value === 'string' ? [value] : Object.values(value);
-  for (const target of targets) {
-    const path = String(target).replace(/^\.\//, '');
-    if (!files.has(path)) failures.push(`exports["${key}"] apunta a ${target}, que no está en el tarball`);
+for (const key of JS_ENTRIES) {
+  const entry = exportsMap[key];
+  if (!entry || typeof entry !== 'object') {
+    failures.push(`exports no declara "${key}" con condiciones types y default`);
+    continue;
   }
-  // Cada entrada de JavaScript debe traer código y tipos.
-  if (key !== './package.json' && key !== './styles.css' && typeof value === 'object' && (!value.types || !value.default)) {
-    failures.push(`exports["${key}"] no declara "types" y "default"`);
+  if (!/^\.\/types\/.+\.d\.ts$/.test(entry.types ?? '')) failures.push(`exports["${key}"].types debe ser ./types/*.d.ts (es ${entry.types})`);
+  if (!/^\.\/fesm2022\/.+\.mjs$/.test(entry.default ?? '')) failures.push(`exports["${key}"].default debe ser ./fesm2022/*.mjs (es ${entry.default})`);
+  for (const condition of ['types', 'default']) {
+    if (entry[condition] && !inPackage(entry[condition])) failures.push(`exports["${key}"].${condition} apunta a ${entry[condition]}, que no está en el paquete`);
   }
-}
-for (const css of ['styles.css', 'tokens.css', 'typography-tokens.css']) {
-  if (!files.has(css)) failures.push(`falta ${css} en el tarball`);
 }
 
-if (failures.length) {
-  console.error(failures.join('\n'));
-  process.exit(1);
+const styles = exportsMap['./styles.css'];
+const stylesTarget = typeof styles === 'string' ? styles : styles?.default;
+if (!stylesTarget) failures.push('exports no declara "./styles.css"');
+else if (!inPackage(stylesTarget)) failures.push(`exports["./styles.css"] apunta a ${stylesTarget}, que no está en el paquete`);
+for (const css of CSS_FILES) {
+  if (!files.has(css)) failures.push(`falta ${css} en el paquete`);
 }
-console.log(`tarball: ${REQUIRED.length} exports obligatorios y ${files.size} archivos verificados`);
+
+if (failures.length) fail(failures.join('\n'));
+console.log(`paquete: ${JS_ENTRIES.length} entradas con código y tipos, estilos y ${files.size} archivos verificados`);
