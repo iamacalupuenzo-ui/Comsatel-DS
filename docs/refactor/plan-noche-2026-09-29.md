@@ -62,7 +62,7 @@ La numeración se corrió una versión respecto del plan: Textarea y FormField s
 
 ### Pendientes
 
-- **Modal sin `surface`.** FO aún usa `.capture-surface-modal` en `styles.css` para darle el lienzo al Modal. SideDrawer ya tiene la propiedad; conviene llevarla a Modal.
+- ~~**Modal sin `surface`.**~~ Hecho en 0.3.15: `surface="canvas"`; FO lo usa en 17 modales y retiró `.capture-surface-modal`.
 - **Label de Column manager.** En la página de Table, el label «Columnas» se ve más grande que los de Estado y Filas. Hay que revisarlo.
 - **Storybook.** Las historias de Textarea, FormField, TableRowActions, SideDrawer y FilterBar siguen pendientes (para Codex).
 
