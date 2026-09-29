@@ -45,6 +45,11 @@ Stepper, Skeleton, Column manager y Fleet unit list existen en la librería pero
 
 ## Estado al cierre
 
-_Se completa al detener el trabajo._
+Detenido el 2026-09-29 a las 0:15, con la sesión de Claude al 97 % (se restablece a la 1:00).
+
+- **Bloque 1, hecho:** páginas de Skeleton, Column manager y Fleet unit list.
+- **Bloque 2, hecho:** Textarea y FormField, publicados en **0.3.12**. FO usa  en «Observar captura» y «Editar observación» (commit ), verificado con Playwright. FormField no se adoptó todavía: los formularios de FO ya usan componentes con label propio.
+- **Sigue: Bloque 3 (Table).** Columna de acciones fija, estados de carga, vacío y error, y menú de acciones por fila. Luego se quitan las compensaciones de tabla de  en FO.
+- **Después: Bloque 4.** Side drawer y Filter bar.
 
 **Pregunta de comprobación:** ¿por qué los cuatro componentes sin página van antes que Table?
