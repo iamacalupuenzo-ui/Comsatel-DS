@@ -16,8 +16,10 @@ export interface TableColumn {
   truncate?: boolean;
   align?: 'left' | 'center' | 'right';
   /** Fija la columna al borde derecho mientras la tabla se desplaza en
-   * horizontal. Pensado para la columna de acciones, que debe ser la última.
-   * La celda fija es opaca y muestra una sombra mientras queda contenido
+   * horizontal. Pueden fijarse varias, siempre que sean las últimas y
+   * contiguas (por ejemplo «Actualizado» y «Acciones»): cada una se corre lo
+   * que miden las fijas que tiene a su derecha. Las celdas fijas son opacas y
+   * solo la primera del grupo muestra la sombra mientras queda contenido
    * oculto a su izquierda. */
   sticky?: 'end';
 }

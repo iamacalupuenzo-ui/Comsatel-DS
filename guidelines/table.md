@@ -46,6 +46,21 @@ panel compacto; no sustituye un selector de valores.
 Una celda es texto plano, o un template: `{ template: TemplateRef, context? }` para
 meter un `Badge`, un `Button` o cualquier componente en la celda.
 
+### Columnas fijas al final
+
+Pueden fijarse una o varias columnas con `sticky: 'end'`, siempre que sean las últimas y
+contiguas. Cada una se corre lo que miden las fijas a su derecha, y solo la primera del grupo
+lleva la sombra: con solo Acciones fija, la sombra está en Acciones; con Actualizado y Acciones,
+pasa a Actualizado. Dale un `width` en px a cada columna fija para que el corrimiento sea estable.
+
+```ts
+const columns: TableColumn[] = [
+  { key: 'unit', label: 'Unidad' },
+  { key: 'updated', label: 'Actualizado', width: '120px', sticky: 'end' },
+  { key: 'actions', label: 'Acciones', width: '72px', align: 'center', sticky: 'end' },
+];
+```
+
 ### Columna de acciones fija
 
 La columna de acciones va al final con `sticky: 'end'`. Queda fija al desplazar la

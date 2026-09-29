@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, Output, ViewChild, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Button } from '../button/button';
 import { Icon } from '../icons/icon';
@@ -24,7 +24,7 @@ import type { SortOrder, TableCellValue, TableColumn, TableRow, TableTemplateCel
   templateUrl: './table.html',
   styleUrl: './table.css',
 })
-export class Table implements AfterViewInit, OnDestroy {
+export class Table implements AfterViewInit, OnChanges, OnDestroy {
   @Input({ required: true }) columns: TableColumn[] = [];
   @Input({ required: true }) rows: TableRow[] = [];
   @Input() caption?: string;
@@ -49,11 +49,51 @@ export class Table implements AfterViewInit, OnDestroy {
   protected readonly overflowEnd = signal(false);
   @ViewChild('wrap', { static: true }) private wrapRef!: ElementRef<HTMLElement>;
   private resizeObserver?: ResizeObserver;
+  /** Desplazamiento a la derecha de cada columna fija, en px, medido del DOM. */
+  protected readonly stickyRight = signal<Record<number, number>>({});
   private readonly updateOverflow = (): void => {
     const wrap = this.wrapRef?.nativeElement;
     if (!wrap) return;
     this.overflowEnd.set(wrap.scrollWidth - wrap.clientWidth - wrap.scrollLeft > 1);
+    this.measureSticky(wrap);
   };
+
+  /** Índice de la primera columna del grupo fijo del final; -1 si no hay. Solo
+   * cuentan las columnas `sticky: 'end'` contiguas al final de la tabla. */
+  protected get stickyEdge(): number {
+    let i = this.columns.length - 1;
+    while (i >= 0 && this.columns[i]?.sticky === 'end') i--;
+    return i + 1 < this.columns.length ? i + 1 : -1;
+  }
+
+  protected isStickyEnd(index: number): boolean {
+    const edge = this.stickyEdge;
+    return edge >= 0 && index >= edge;
+  }
+
+  protected stickyRightOf(index: number): number | null {
+    return this.isStickyEnd(index) ? this.stickyRight()[index] ?? 0 : null;
+  }
+
+  private measureSticky(wrap: HTMLElement): void {
+    const edge = this.stickyEdge;
+    if (edge < 0) return;
+    const headers = wrap.querySelectorAll<HTMLTableCellElement>('thead th');
+    const next: Record<number, number> = {};
+    let acc = 0;
+    for (let i = this.columns.length - 1; i >= edge; i--) {
+      next[i] = acc;
+      acc += headers[i]?.getBoundingClientRect().width ?? 0;
+    }
+    const current = this.stickyRight();
+    const changed = Object.keys(next).length !== Object.keys(current).length
+      || Object.entries(next).some(([k, v]) => Math.abs((current[+k] ?? -1) - v) > 0.5);
+    if (changed) this.stickyRight.set(next);
+  }
+
+  ngOnChanges(): void {
+    if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(this.updateOverflow);
+  }
 
   ngAfterViewInit(): void {
     const wrap = this.wrapRef.nativeElement;

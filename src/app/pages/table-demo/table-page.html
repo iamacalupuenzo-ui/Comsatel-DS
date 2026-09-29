@@ -4,6 +4,7 @@
     <span class="unit-cell__text"><strong>{{ unit.name }}</strong><span>{{ unit.plate }}</span></span>
   </button>
 </ng-template>
+<ng-template #wideActionsCell let-name><cs-table-row-actions [items]="rowActions" [ariaLabel]="'Acciones para ' + name" /></ng-template>
 <ng-template #actionsCell let-unit><cs-table-row-actions [items]="rowActions" [ariaLabel]="'Acciones para ' + unit.name" (itemSelect)="runAction(unit, $event)" /></ng-template>
 <ng-template #statusCell let-status><cs-tag [severity]="statusSeverity(status)" [icon]="statusIcon(status)" [value]="statusText(status)" [rounded]="true" size="sm" /></ng-template>
 
@@ -12,7 +13,7 @@
   <h1 class="title">Table<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.13</span></h1>
   <p class="description">Table presenta datos tabulares con semántica nativa y mantiene el estado en quien la consume. La búsqueda, los filtros y la paginación se componen alrededor de ella; el componente recibe las filas visibles, comunica el orden solicitado y representa con fidelidad carga, actualización, vacío y error.</p>
   <ul class="section__intro state-list">
-    <li><strong>Novedades de v0.3.13.</strong> Columna de acciones fija al final (<code>sticky: 'end'</code>), estado de error con «Reintentar», menú de acciones por fila (<code>cs-table-row-actions</code>) y encabezados en la misma escala de 12 px que las filas.</li>
+    <li><strong>Novedades de v0.3.13.</strong> Columnas fijas al final (<code>sticky: 'end'</code>, una o varias contiguas), estado de error con «Reintentar», menú de acciones por fila (<code>cs-table-row-actions</code>) y encabezados en la misma escala de 12 px que las filas.</li>
   </ul>
 
   <section class="section">
@@ -29,7 +30,6 @@
             </cs-input-group>
           </div>
           <cs-input-dropdown label="Estado" size="sm" [options]="statusOptions" [value]="statusFilter()" (valueChange)="setStatusFilter($event)"></cs-input-dropdown>
-          @if (paginate()) { <cs-input-dropdown label="Filas" size="sm" [options]="pageSizeOptions" [value]="rowsPerPageValue()" (valueChange)="setRowsPerPage($event)"></cs-input-dropdown> }
           <cs-column-manager
             label="Columnas"
             size="sm"
@@ -67,13 +67,39 @@
           </cs-table>
         </div>
         <div class="table-demo__footer">
-          <p class="table-demo__summary" role="status" aria-live="polite">{{ tableSummary() }}</p>
+          <div class="table-demo__footer-start">
+            @if (paginate()) {
+              <div class="table-page-size">
+                <span aria-hidden="true">Filas</span>
+                <cs-input-dropdown aria-label="Filas por página" size="sm" [options]="pageSizeOptions" [value]="rowsPerPageValue()" (valueChange)="setRowsPerPage($event)"></cs-input-dropdown>
+              </div>
+            }
+            <p class="table-demo__summary" role="status" aria-live="polite">{{ tableSummary() }}</p>
+          </div>
           @if (paginate() && sortedUnits().length > rowsPerPage()) {
             <cs-pagination [totalPages]="totalPages()" [page]="page()" (pageChange)="setPage($event)"></cs-pagination>
           }
         </div>
       </div>
     </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="sticky">Columnas fijas</h2>
+    <p class="section__intro">Desplaza cada tabla en horizontal. Las columnas con <code>sticky: 'end'</code> deben ser las últimas y contiguas; cada una se corre lo que miden las fijas a su derecha.</p>
+    @for (ex of stickyExamples; track ex.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'sticky-' + ex.key">{{ ex.title }}</h3>
+        <p class="section__intro">{{ ex.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="ex.code">
+          <div class="table-demo">
+            <div class="table-frame">
+              <cs-table [caption]="'Unidades, ' + ex.title" [columns]="ex.columns" [rows]="stickyRows()" minWidth="60rem" />
+            </div>
+          </div>
+        </app-demo-shell>
+      </div>
+    }
   </section>
 
   <section class="section">

@@ -54,6 +54,25 @@ const COLUMNS: TableColumn[] = [
 // La columna de acciones no entra en el gestor de columnas: siempre va al
 // final y fija, para que las acciones sigan a mano al desplazar.
 const ACTIONS_COLUMN: TableColumn = { key: 'actions', label: 'Acciones', width: '72px', align: 'center', sticky: 'end' };
+// «Actualizado» fijo junto a Acciones: el ancho en px hace predecible el corrimiento.
+const UPDATED_STICKY: TableColumn = { key: 'updated', label: 'Actualizado', isSortable: true, width: '120px', align: 'right', sticky: 'end' };
+type StickyMode = 'actions' | 'updated-actions';
+
+// Ejemplos de la sección «Columnas fijas»: más columnas que el ancho de la caja.
+const WIDE_COLUMNS: TableColumn[] = [
+  { key: 'unit', label: 'Unidad', width: '160px' },
+  { key: 'plate', label: 'Placa', width: '110px' },
+  { key: 'driver', label: 'Conductor', width: '150px' },
+  { key: 'status', label: 'Estado', width: '120px' },
+  { key: 'zone', label: 'Zona', width: '140px' },
+  { key: 'contract', label: 'Contrato', width: '130px' },
+];
+const WIDE_ROWS = [
+  ['Camión Norte 04', 'ABC-123', 'J. Ramírez', 'Activo', 'Lima Norte', 'Vigente', 'hace 2 min'],
+  ['Furgón Sur 12', 'GHI-789', 'L. Vega', 'Sin señal', 'Lima Sur', 'No vigente', 'hace 3 h'],
+  ['Furgón Centro 09', 'PQR-678', 'A. Flores', 'Detenido', 'Cercado', 'Vigente', 'hace 26 min'],
+];
+
 const ROW_ACTIONS: DropdownItem[] = [
   { label: 'Ver detalle', value: 'view', icon: 'eye' },
   { label: 'Centrar en el mapa', value: 'map', icon: 'map-pin', dividerAfter: true },
@@ -75,6 +94,27 @@ export class TablePage {
   @ViewChild('statusCell', { static: true }) private statusCellRef!: TemplateRef<unknown>;
   @ViewChild('actionsCell', { static: true }) private actionsCellRef!: TemplateRef<unknown>;
   protected readonly rowActions = ROW_ACTIONS;
+  @ViewChild('wideActionsCell', { static: true }) private wideActionsCellRef!: TemplateRef<unknown>;
+  protected readonly stickyExamples = [
+    {
+      key: 'actions',
+      title: 'Solo Acciones',
+      intro: 'La columna de acciones queda fija y es la única con sombra mientras hay columnas ocultas a su izquierda.',
+      columns: [...WIDE_COLUMNS, { key: 'updated', label: 'Actualizado', width: '120px', align: 'right' as const }, ACTIONS_COLUMN],
+      code: "{ key: 'updated', label: 'Actualizado', width: '120px' },\n{ key: 'actions', label: 'Acciones', width: '72px', align: 'center', sticky: 'end' }",
+    },
+    {
+      key: 'updated-actions',
+      title: 'Actualizado y Acciones',
+      intro: 'Las dos últimas quedan fijas. La sombra pasa a Actualizado, la primera del grupo, y no aparece entre las dos columnas fijas.',
+      columns: [...WIDE_COLUMNS, UPDATED_STICKY, ACTIONS_COLUMN],
+      code: "{ key: 'updated', label: 'Actualizado', width: '120px', sticky: 'end' },\n{ key: 'actions', label: 'Acciones', width: '72px', align: 'center', sticky: 'end' }",
+    },
+  ];
+  private wideRows?: TableRow[];
+  protected stickyRows(): TableRow[] {
+    return this.wideRows ??= WIDE_ROWS.map((cells, i) => ({ key: 'w' + i, cells: [...cells, { template: this.wideActionsCellRef, context: { $implicit: cells[0] } }] }));
+  }
   protected readonly lastAction = signal('');
 
   protected readonly playgroundControls: ControlDef[] = [
@@ -83,10 +123,12 @@ export class TablePage {
       { value: 'loading-refetch', label: 'Actualizando datos' }, { value: 'empty', label: 'Sin datos' },
       { value: 'error', label: 'Error de carga' },
     ], default: 'loaded' },
+    { kind: 'select', label: 'Columnas fijas', key: 'sticky', options: [{ value: 'actions', label: 'Solo Acciones' }, { value: 'updated-actions', label: 'Actualizado y Acciones' }], default: 'actions' },
     { kind: 'toggle', label: 'Paginación', key: 'paginate', default: true },
   ];
   protected readonly loadState = signal<LoadState>('loaded');
   protected readonly paginate = signal(true);
+  protected readonly stickyMode = signal<StickyMode>('actions');
   protected readonly query = signal('');
   protected readonly statusFilter = signal<UnitStatus | 'all'>('all');
   protected readonly rowsPerPage = signal<5 | 10>(5);
@@ -108,7 +150,11 @@ export class TablePage {
   );
   protected readonly visibleColumns = computed<TableColumn[]>(() => {
     const hidden = this.hiddenKeys();
-    return [...this.orderedColumns().filter((column) => !hidden.has(column.key)), ACTIONS_COLUMN];
+    const visible = this.orderedColumns().filter((column) => !hidden.has(column.key));
+    if (this.stickyMode() === 'actions') return [...visible, ACTIONS_COLUMN];
+    // Las columnas fijas van contiguas al final: «Actualizado» se mueve junto a Acciones.
+    const updatedVisible = visible.some((column) => column.key === 'updated');
+    return [...visible.filter((column) => column.key !== 'updated'), ...(updatedVisible ? [UPDATED_STICKY] : []), ACTIONS_COLUMN];
   });
   protected readonly columnManagerItems = computed<ColumnManagerItem[]>(() => {
     const hidden = this.hiddenKeys();
@@ -160,6 +206,7 @@ export class TablePage {
   protected onPlaygroundState(state: DemoState): void {
     if (state['loadState']) this.loadState.set(state['loadState'] as LoadState);
     if (typeof state['paginate'] === 'boolean') this.paginate.set(state['paginate']);
+    if (state['sticky']) this.stickyMode.set(state['sticky'] as StickyMode);
     this.ensureValidPage();
   }
   protected setQuery(value: string): void { this.query.set(value); this.page.set(1); }
