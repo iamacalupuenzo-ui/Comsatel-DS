@@ -73,17 +73,35 @@ const PACKAGE = '@iamacalupuenzo-ui/comsatel-ds';
  * fuentes en `projects/comsatel-ds/<entrada>/src`.
  */
 export function exportedFiles() {
+  return rootExports();
+}
+
+/**
+ * Archivos que la raíz reexporta. Con una lista explícita (`export { A } from '@…/x'`) solo cuentan
+ * los archivos del subpath que declaran esos nombres: lo que el subpath expone solo para otras
+ * entradas (como los tokens internos de /dropdown) no es API pública.
+ */
+function rootExports() {
   const api = read(join(LIB_SRC, 'public-api.ts'));
   const files = [];
-  for (const m of api.matchAll(/export \* from '([^']+)'/g)) {
-    if (m[1].startsWith('./lib/')) files.push(join(LIB_SRC, `${m[1].slice(2)}.ts`));
-    else if (m[1].startsWith(`${PACKAGE}/`)) {
-      const entry = join(LIB_ROOT, m[1].slice(PACKAGE.length + 1));
-      const entryApi = read(join(entry, 'public-api.ts'));
-      for (const e of entryApi.matchAll(/export \* from '\.\/([^']+)'/g)) files.push(join(entry, `${e[1]}.ts`));
+  const entryFiles = (spec) => {
+    const entry = join(LIB_ROOT, spec.slice(PACKAGE.length + 1));
+    return [...read(join(entry, 'public-api.ts')).matchAll(/export \* from '\.\/([^']+)'/g)].map((e) => join(entry, `${e[1]}.ts`));
+  };
+  for (const m of api.matchAll(/export (\*|(?:type\s+)?\{([^}]*)\}) from '([^']+)'/g)) {
+    const spec = m[3];
+    if (m[1] === '*') {
+      if (spec.startsWith('./lib/')) files.push(join(LIB_SRC, `${spec.slice(2)}.ts`));
+      else if (spec.startsWith(`${PACKAGE}/`)) files.push(...entryFiles(spec));
+      continue;
+    }
+    // Lista explícita: solo los archivos del subpath que declaran alguno de esos nombres.
+    const names = m[2].split(',').map((n) => n.trim().split(/\s+as\s+/).pop()).filter(Boolean);
+    for (const file of entryFiles(spec)) {
+      if (names.some((n) => new RegExp(`export (?:declare )?(?:abstract )?(?:class|interface|type|const|let|function|enum)\\s+${n}\\b`).test(read(file)))) files.push(file);
     }
   }
-  return files;
+  return [...new Set(files)];
 }
 
 /** Carpetas `src` de los puntos de entrada secundarios (las que tienen ng-package.json propio). */
@@ -99,6 +117,8 @@ function allLibTsFiles() {
 }
 
 function libTsFiles(dir = join(LIB_SRC, 'lib'), out = []) {
+  // Desde la migración a subpaths, src/lib puede no existir (git no guarda carpetas vacías).
+  if (!existsSync(dir)) return out;
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     const path = join(dir, entry.name);
     if (entry.isDirectory()) libTsFiles(path, out);

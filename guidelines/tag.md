@@ -4,6 +4,7 @@ Etiqueta de clasificación con valor propio: categoría, severidad, filtro aplic
 A diferencia de `Badge`, recibe el texto por prop y acepta un ícono del sistema.
 
 - **Import:** `import { Tag } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Tag } from '@iamacalupuenzo-ui/comsatel-ds/tag';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-tag>`
 - **Clase raíz emitida:** `.cs-tag`
 
@@ -14,7 +15,7 @@ A diferencia de `Badge`, recibe el texto por prop y acepta un ícono del sistema
 ## Props
 
 <!-- props:start Tag -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/tag/tag.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/tag/src/tag.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -39,7 +40,7 @@ A diferencia de `Badge`, recibe el texto por prop y acepta un ícono del sistema
   significado dependa solo del ícono.
 
 <!-- a11y:start Tag -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/tag/tag.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/tag/src/tag.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-tag`
 

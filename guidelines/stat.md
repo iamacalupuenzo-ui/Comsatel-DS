@@ -4,6 +4,7 @@ Indicador de un **tablero**: etiqueta, cifra y una línea de contexto con la var
 periodo anterior.
 
 - **Import:** `import { Stat, type StatTrend } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Stat } from '@iamacalupuenzo-ui/comsatel-ds/stat';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-stat>`
 
 ```html
@@ -29,7 +30,7 @@ muchas cifras (58 px).
 ## Props
 
 <!-- props:start Stat -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/stat/stat.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/stat/src/stat.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -47,7 +48,7 @@ muchas cifras (58 px).
 - La variación se lee con su signo; el color solo la refuerza.
 
 <!-- a11y:start Stat -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/stat/stat.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/stat/src/stat.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-stat`
 

@@ -51,21 +51,21 @@ estilos de una pantalla de producto.
 
 ### Importar desde un subpath para cargar menos
 
-Desde la 0.4.0, cada vez más piezas tienen su propio punto de entrada (la migración va por olas, hasta cubrir todos los componentes):
+Desde la 0.6.0, **cada componente tiene su propio punto de entrada**. El subpath es el
+nombre de su carpeta, y la guía de cada componente lo indica en la línea «Import liviano».
+La lista completa está en `exports` del `package.json` publicado. Algunos ejemplos:
 
 | Subpath | Qué trae |
 | :-- | :-- |
-| `@iamacalupuenzo-ui/comsatel-ds/icons` | `Icon`, `ICON_REGISTRY`, `IconName` |
-| `@iamacalupuenzo-ui/comsatel-ds/motion` | `Motion`, `PressScale`, eases y duraciones |
-| `@iamacalupuenzo-ui/comsatel-ds/input` | `Input`, `InputGroup` y sus partes, `PasswordInput`, `InputGroupClear` |
-| `@iamacalupuenzo-ui/comsatel-ds/form-field` | `FormField` |
 | `@iamacalupuenzo-ui/comsatel-ds/button` | `Button` |
-| `@iamacalupuenzo-ui/comsatel-ds/brand` | `CFlotasLogo` (y el alias `CLocaterFlotasLogo`) |
-| `@iamacalupuenzo-ui/comsatel-ds/popover` | `Popover` y su posicionamiento |
-| `@iamacalupuenzo-ui/comsatel-ds/directives` | `Collapse` |
-| `@iamacalupuenzo-ui/comsatel-ds/menu` | `Menu` y sus tipos (`MenuGroupData`…) |
-| `@iamacalupuenzo-ui/comsatel-ds/app-layout` | `AppLayout`, `AppLayoutState` |
+| `@iamacalupuenzo-ui/comsatel-ds/input` | `Input`, `InputGroup` y sus partes, `PasswordInput`, `InputGroupClear` |
+| `@iamacalupuenzo-ui/comsatel-ds/table` | `Table`, `TableRowActions` y sus tipos |
+| `@iamacalupuenzo-ui/comsatel-ds/dropdown` | `Dropdown`, `InputDropdown`, `DropdownItemComponent` y sus tipos |
+| `@iamacalupuenzo-ui/comsatel-ds/icons` | `Icon`, `ICON_REGISTRY`, `IconName` |
+| `@iamacalupuenzo-ui/comsatel-ds/format` | `formatDate`, `formatDateTime`, `formatRelativeTime`… |
 | `@iamacalupuenzo-ui/comsatel-ds/tokens` | Tokens en TypeScript (`textStyle`, `primitiveColors`, `ALL_TOKENS`) |
+
+`/shared` es apoyo interno de otras entradas: no lo importes desde una aplicación.
 
 El import raíz `@iamacalupuenzo-ui/comsatel-ds` sigue exportando todo, pero trae la
 librería **entera** al chunk que lo usa, aunque importes una sola pieza. Importa desde

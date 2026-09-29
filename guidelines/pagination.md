@@ -4,6 +4,7 @@ Recorre páginas de un conjunto de resultados. El componente no sabe nada de los
 recibe la página actual y el total, y avisa cuándo el usuario pide otra.
 
 - **Import:** `import { Pagination } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Pagination } from '@iamacalupuenzo-ui/comsatel-ds/pagination';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-pagination>`
 - **Clase raíz emitida:** `.cs-pagination`
 
@@ -18,7 +19,7 @@ recibe la página actual y el total, y avisa cuándo el usuario pide otra.
 ## Props
 
 <!-- props:start Pagination -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/pagination/pagination.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/pagination/src/pagination.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -44,7 +45,7 @@ recibe la página actual y el total, y avisa cuándo el usuario pide otra.
   pantalla (arriba y abajo de una tabla), dales nombres distintos.
 
 <!-- a11y:start Pagination -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/pagination/pagination.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/pagination/src/pagination.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-pagination`
 

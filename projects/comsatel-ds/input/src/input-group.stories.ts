@@ -6,7 +6,7 @@ import { InputGroupInput } from './input-group-input';
 import { InputGroupClear } from './input-group-clear';
 import { InputGroupText } from './input-group-text';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
-import { InputDropdown } from '../../src/lib/dropdown/input-dropdown';
+import { InputDropdown } from '@iamacalupuenzo-ui/comsatel-ds/dropdown';
 import { Button } from '@iamacalupuenzo-ui/comsatel-ds/button';
 
 // InputGroup siempre se usa compuesto con cs-input-group-addon,

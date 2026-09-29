@@ -5,6 +5,7 @@ confirmación. Si el cambio recién se aplica al guardar un formulario, el compo
 correcto es `Checkbox`.
 
 - **Import:** `import { Toggle } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Toggle } from '@iamacalupuenzo-ui/comsatel-ds/toggle';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-toggle>`
 - **Clase raíz emitida:** `.cs-toggle`
 
@@ -19,7 +20,7 @@ correcto es `Checkbox`.
 ## Props
 
 <!-- props:start Toggle -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/toggle/toggle.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/toggle/src/toggle.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -44,7 +45,7 @@ correcto es `Checkbox`.
   label nombra *qué* controla, no cómo está.
 
 <!-- a11y:start Toggle -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/toggle/toggle.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/toggle/src/toggle.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-toggle`
 

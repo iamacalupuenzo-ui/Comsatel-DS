@@ -5,6 +5,7 @@ responsable. Se aplica sobre un `<dl>` nativo para conservar la semántica de t�
 definición.
 
 - **Import:** `import { DescriptionItem, DescriptionList } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { DescriptionList, DescriptionItem } from '@iamacalupuenzo-ui/comsatel-ds/description-list';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `dl[csDescriptionList]`, `div[csDescriptionItem]`
 
 ```html
@@ -37,7 +38,7 @@ nativos.
 ## Props de `DescriptionList`
 
 <!-- props:start DescriptionList -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/description-list/description-list.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/description-list/src/description-list.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -47,7 +48,7 @@ nativos.
 ## Props de `DescriptionItem`
 
 <!-- props:start DescriptionItem -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/description-list/description-list.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/description-list/src/description-list.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -64,7 +65,7 @@ nativos.
 - Hasta 767 px la lista pasa a una columna y mantiene el orden de lectura.
 
 <!-- a11y:start DescriptionList -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/description-list/description-list.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/description-list/src/description-list.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `dl[csDescriptionList]`
 
@@ -72,7 +73,7 @@ No renderiza controles nativos, roles ni atributos ARIA propios, y no maneja tec
 <!-- a11y:end -->
 
 <!-- a11y:start DescriptionItem -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/description-list/description-list.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/description-list/src/description-list.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `div[csDescriptionItem]`
 

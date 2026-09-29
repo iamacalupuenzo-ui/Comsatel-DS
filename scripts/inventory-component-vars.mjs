@@ -1,9 +1,11 @@
-import { readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const lib = resolve(root, 'projects/comsatel-ds/src/lib');
+// Fuentes de componentes: cada punto de entrada secundario (projects/comsatel-ds/<entrada>/src).
+const libRoot = resolve(root, 'projects/comsatel-ds');
+const entrySrcDirs = readdirSync(libRoot, { withFileTypes: true }).filter((e) => e.isDirectory() && e.name !== 'src').map((e) => join(libRoot, e.name, 'src'));
 const styles = resolve(root, 'projects/comsatel-ds/src/styles');
 const definitions = new Set();
 for (const file of ['tokens.css', 'typography-tokens.css']) {
@@ -20,7 +22,7 @@ function files(dir) {
 
 const missing = [];
 let references = 0;
-const sources = files(lib).filter(path => /\.(css|html|ts)$/.test(path))
+const sources = entrySrcDirs.filter((dir) => existsSync(dir)).flatMap((dir) => files(dir)).filter(path => /\.(css|html|ts)$/.test(path))
   .map(path => ({ path, source: readFileSync(path, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '') }));
 for (const { source } of sources) {
   for (const match of source.matchAll(/(--[\w-]+)\s*:/g)) definitions.add(match[1]);

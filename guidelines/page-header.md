@@ -3,6 +3,7 @@
 Encabezado de una pantalla: título, descripción y las acciones principales a la derecha.
 
 - **Import:** `import { PageHeader } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { PageHeader } from '@iamacalupuenzo-ui/comsatel-ds/page-header';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-page-header>`
 
 ```html
@@ -24,7 +25,7 @@ Encabezado de una pantalla: título, descripción y las acciones principales a l
 ## Props
 
 <!-- props:start PageHeader -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/page-header/page-header.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/page-header/src/page-header.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -39,7 +40,7 @@ Encabezado de una pantalla: título, descripción y las acciones principales a l
 - Las acciones mantienen el orden de lectura: después del título y la descripción.
 
 <!-- a11y:start PageHeader -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/page-header/page-header.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/page-header/src/page-header.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-page-header`
 

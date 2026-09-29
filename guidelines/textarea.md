@@ -3,6 +3,7 @@
 Campo de texto de **varias líneas** para descripciones, observaciones y comentarios.
 
 - **Import:** `import { Textarea } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Textarea } from '@iamacalupuenzo-ui/comsatel-ds/textarea';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-textarea>`
 
 ```html
@@ -38,7 +39,7 @@ Campo de texto de **varias líneas** para descripciones, observaciones y comenta
 ## Props
 
 <!-- props:start Textarea -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/textarea/textarea.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/textarea/src/textarea.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -62,7 +63,7 @@ Campo de texto de **varias líneas** para descripciones, observaciones y comenta
 ## Accesibilidad
 
 <!-- a11y:start Textarea -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/textarea/textarea.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/textarea/src/textarea.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-textarea`
 

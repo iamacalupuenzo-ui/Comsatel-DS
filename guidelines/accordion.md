@@ -4,6 +4,7 @@ Secciones colapsables para contenido secundario que no tiene que estar visible t
 tiempo. No lo uses para esconder algo que el usuario necesita para decidir.
 
 - **Import:** `import { Accordion, AccordionItem } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Accordion, AccordionItem } from '@iamacalupuenzo-ui/comsatel-ds/accordion';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-accordion>`, `<cs-accordion-item>`
 - **Clase raíz emitida:** `.cs-accordion-item`
 
@@ -23,7 +24,7 @@ tiempo. No lo uses para esconder algo que el usuario necesita para decidir.
 ## Props de `Accordion`
 
 <!-- props:start Accordion -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/accordion/accordion.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/accordion/src/accordion.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -36,7 +37,7 @@ tiempo. No lo uses para esconder algo que el usuario necesita para decidir.
 ## Props de `AccordionItem`
 
 <!-- props:start AccordionItem -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/accordion/accordion-item.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/accordion/src/accordion-item.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -57,7 +58,7 @@ tiempo. No lo uses para esconder algo que el usuario necesita para decidir.
 - Enter y Espacio abren o cierran, por ser un `<button>` nativo.
 
 <!-- a11y:start Accordion -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/accordion/accordion.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/accordion/src/accordion.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-accordion`
 
@@ -67,7 +68,7 @@ tiempo. No lo uses para esconder algo que el usuario necesita para decidir.
 <!-- a11y:end -->
 
 <!-- a11y:start AccordionItem -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/accordion/accordion-item.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/accordion/src/accordion-item.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-accordion-item`
 

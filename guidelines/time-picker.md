@@ -4,6 +4,7 @@ Selector de **hora** con dos columnas rotuladas (hora y minuto) y «Limpiar» en
 Reemplaza el `<input type="time">` nativo, cuyo popup no admite diseño ni acciones. Valor `'HH:mm'` (24 h).
 
 - **Import:** `import { TimePicker } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { TimePicker } from '@iamacalupuenzo-ui/comsatel-ds/time-picker';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-time-picker>`
 
 ```html
@@ -31,7 +32,7 @@ Reemplaza el `<input type="time">` nativo, cuyo popup no admite diseño ni accio
 ## Props
 
 <!-- props:start TimePicker -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/time-picker/time-picker.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/time-picker/src/time-picker.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -54,7 +55,7 @@ Reemplaza el `<input type="time">` nativo, cuyo popup no admite diseño ni accio
 ## Accesibilidad
 
 <!-- a11y:start TimePicker -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/time-picker/time-picker.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/time-picker/src/time-picker.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-time-picker`
 

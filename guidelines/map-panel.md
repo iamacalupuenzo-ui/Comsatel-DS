@@ -5,6 +5,7 @@ notificaciones a la derecha. Los tres comparten la misma superficie: abierta mue
 contenido con scroll propio; contraída queda como una píldora de 48 px con el encabezado.
 
 - **Import:** `import { MapPanel, MapSearch, MapNotification } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { MapPanel, MapSearch, MapNotification } from '@iamacalupuenzo-ui/comsatel-ds/map-panel';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-map-panel>`, `<cs-map-search>`, `<cs-map-notification>`
 - **Clases raíz emitidas:** `.cs-map-panel`, `.cs-map-search`, `.cs-map-notification`
 
@@ -67,7 +68,7 @@ fecha y hora del sistema (`formatRelativeTime`). La pantalla pasa `[now]` y lo r
 ## Props
 
 <!-- props:start MapPanel -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/map-panel/map-panel.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/map-panel/src/map-panel.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -84,7 +85,7 @@ fecha y hora del sistema (`formatRelativeTime`). La pantalla pasa `[now]` y lo r
 <!-- props:end -->
 
 <!-- props:start MapSearch -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/map-panel/map-search.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/map-panel/src/map-search.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -105,7 +106,7 @@ fecha y hora del sistema (`formatRelativeTime`). La pantalla pasa `[now]` y lo r
 <!-- props:end -->
 
 <!-- props:start MapNotification -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/map-panel/map-notification.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/map-panel/src/map-notification.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -137,7 +138,7 @@ fecha y hora del sistema (`formatRelativeTime`). La pantalla pasa `[now]` y lo r
   del panel, para que se escuchen aunque esté contraído.
 
 <!-- a11y:start MapPanel -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/map-panel/map-panel.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/map-panel/src/map-panel.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-map-panel`
 
@@ -153,7 +154,7 @@ fecha y hora del sistema (`formatRelativeTime`). La pantalla pasa `[now]` y lo r
 <!-- a11y:end -->
 
 <!-- a11y:start MapSearch -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/map-panel/map-search.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/map-panel/src/map-search.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-map-search`
 
@@ -166,7 +167,7 @@ fecha y hora del sistema (`formatRelativeTime`). La pantalla pasa `[now]` y lo r
 <!-- a11y:end -->
 
 <!-- a11y:start MapNotification -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/map-panel/map-notification.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/map-panel/src/map-notification.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-map-notification`
 

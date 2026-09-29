@@ -1,7 +1,7 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { Popover } from './popover';
-import { Modal } from '../../src/lib/modal/modal';
-import { Select } from '../../src/lib/select/select';
+import { Modal } from '@iamacalupuenzo-ui/comsatel-ds/modal';
+import { Select } from '@iamacalupuenzo-ui/comsatel-ds/select';
 
 const meta: Meta<Popover> = {
   title: 'Componentes/Popover',

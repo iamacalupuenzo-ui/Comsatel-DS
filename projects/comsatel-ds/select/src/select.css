@@ -1,0 +1,236 @@
+@import '../../shared/src/focus.css';
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.cs-select {
+  --select-padding: calc(var(--layout-padding-md) + var(--layout-padding-2xs));
+  --select-chip-padding: var(--layout-padding-md);
+  --select-chip-remove: calc(var(--layout-padding-lg) + var(--layout-border-thin));
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-xs);
+  width: 100%;
+}
+
+.cs-select[data-size='xs'] { --select-padding: var(--layout-padding-md); }
+.cs-select[data-size='xs'], .cs-select[data-size='sm'] { --select-chip-padding: var(--layout-padding-sm); --select-chip-remove: var(--layout-padding-lg); }
+.cs-select[data-size='lg'] { --select-padding: calc(var(--layout-padding-lg) + var(--layout-padding-2xs)); --select-chip-padding: calc(var(--layout-padding-md) + var(--layout-padding-2xs)); --select-chip-remove: calc(var(--layout-padding-lg) + var(--layout-padding-2xs)); }
+.cs-select--secondary .cs-select__trigger,
+.cs-select__menu--secondary { background: var(--elevation-surface-secondary); color: var(--color-text-secondary-default); border-color: var(--color-border-secondary-default); }
+.cs-select__menu--secondary .cs-select__option { color: var(--color-text-secondary-default); }
+.cs-select__menu--secondary .cs-select__option:hover:not(:disabled):not(.cs-select__option--selected) { background: var(--color-background-secondary-subtlest-hover); }
+.cs-select__menu--secondary .cs-select__option:active:not(:disabled):not(.cs-select__option--selected) { background: var(--color-background-secondary-subtlest-pressed); }
+.cs-select__menu--secondary .cs-select__option:disabled { opacity: 1; font-style: italic; font-weight: var(--font-weight-regular); }
+
+.cs-select__label {
+  color: var(--color-text-base-default);
+}
+.cs-select__required {
+  margin-left: var(--layout-gap-2xs);
+  color: var(--color-text-danger-default);
+}
+
+.cs-select__row {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--layout-gap-md);
+  width: 100%;
+}
+
+.cs-select__trigger-wrap {
+  container-type: inline-size;
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.cs-select__trigger {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  border: var(--layout-border-thin) solid;
+  padding-block: var(--layout-padding-xs);
+  border-radius: var(--radius-sm);
+  background-color: var(--elevation-surface-default);
+  font-family: var(--font-family-content);
+  letter-spacing: var(--font-letter-spacing-content);
+  font-weight: var(--font-weight-regular);
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--motion-duration-fast) var(--motion-easing-default);
+}
+.cs-select__trigger--disabled {
+  cursor: not-allowed;
+  background-color: var(--color-background-neutral-subtle);
+}
+
+.cs-select__placeholder {
+  min-width: 0;
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cs-select__chips {
+  min-width: 0;
+  display: flex;
+  flex: 1;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  column-gap: var(--layout-gap-2xs);
+}
+/* Placeholder recto y en tono tenue, igual que Input; la cursiva lo hacía ver como otro estilo tipográfico. */
+.cs-select__placeholder--empty { color: var(--color-text-base-subtlest); }
+.cs-select__chip { max-width: 100%; min-width: 0; flex: 0 1 auto; }
+.cs-select__chip:last-child { flex-shrink: 0; }
+.cs-select__chip-label {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* Un chip no muestra textos largos: se recorta a 120 px como máximo, o al espacio disponible. */
+  max-width: min(calc(var(--layout-size-3xl) * 1.5), max(var(--layout-padding-none), calc(100cqw - 2 * var(--select-padding) - 2 * var(--select-chip-padding) - var(--select-chip-remove) - var(--layout-size-2xs) - var(--layout-padding-xs) - var(--layout-gap-xs) - 4 * var(--layout-border-thin))));
+}
+.cs-select__chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-full);
+  background: none;
+  color: currentColor;
+  cursor: pointer;
+}
+.cs-select__chip-remove:hover,
+.cs-select__chip-remove:focus-visible {
+  background-color: var(--color-background-neutral-subtlest-hover);
+}
+.cs-select__chevron {
+  flex-shrink: 0;
+  margin-left: var(--layout-padding-xs);
+  color: var(--color-text-base-subtle);
+  transition: transform var(--motion-duration-fast) var(--motion-easing-default);
+}
+.cs-select__chevron--open {
+  transform: rotate(180deg);
+}
+
+.cs-select__menu {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: var(--color-background-base);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding-block: var(--layout-padding-xs);
+}
+.cs-select__menu-inner {
+  padding-inline: var(--layout-padding-xs);
+}
+
+.cs-select__option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-sm);
+  text-align: left;
+  overflow: hidden;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  font-family: var(--font-family-content);
+  letter-spacing: var(--font-letter-spacing-content);
+  font-weight: var(--font-weight-accent);
+  color: var(--color-text-base-default);
+  cursor: pointer;
+}
+.cs-select__option:hover:not(:disabled):not(.cs-select__option--selected) {
+  background-color: var(--color-background-neutral-subtlest-hover);
+}
+.cs-select__option:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+}
+.cs-select__option--selected {
+  font-weight: var(--font-weight-emphasis);
+  color: var(--color-text-selected);
+  background-color: var(--color-background-selected);
+}
+.cs-select__menu--secondary .cs-select__option--selected { color: var(--color-text-selected); }
+
+.cs-select__option-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cs-select__option-check {
+  flex-shrink: 0;
+  color: var(--color-text-selected);
+}
+
+/* Resumen de una línea (multipleDisplay='summary'): «todos» no es un placeholder vacío, es un valor. */
+.cs-select__summary--all {
+  color: var(--color-text-base-subtle);
+}
+.cs-select__trigger:hover:not(.cs-select__trigger--disabled):not([aria-expanded='true']):not([aria-invalid='true']):not(:focus-visible):not(.cs-select__trigger--active):not([aria-readonly='true']) {
+  border-color: var(--color-border-neutral-bolder) !important;
+}
+/* Filtro aplicado: el borde y el color vienen de los getters; aquí el fondo, el peso y el chevron. */
+.cs-select__trigger--active {
+  background-color: var(--color-background-selected);
+  font-weight: var(--font-weight-accent);
+}
+.cs-select__trigger--active .cs-select__summary--all {
+  color: inherit;
+}
+.cs-select__trigger--active .cs-select__chevron {
+  color: var(--color-icon-selected);
+}
+/* Menú ajustado al campo: ancho por contenido entre el mínimo (trigger) y el máximo (borde visible). */
+.cs-select__menu--fit {
+  width: max-content;
+}
+.cs-select__menu--fit .cs-select__option {
+  padding-block: var(--layout-padding-xs);
+}
+.cs-select__menu--fit .cs-select__option-label {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+/* X dentro del campo, antes del chevron: mismo tamaño y tono que la X de InputGroup. */
+.cs-select__clear {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--layout-size-2xs);
+  height: var(--layout-size-2xs);
+  margin-left: var(--layout-padding-xs);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-icon-neutral-subtle);
+  cursor: pointer;
+  transition: background-color var(--motion-duration-fast) var(--motion-easing-default);
+}
+.cs-select__clear:hover {
+  background-color: var(--color-background-neutral-subtlest-hover);
+}

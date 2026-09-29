@@ -5,6 +5,7 @@ Selector de **una fecha**: campo de solo lectura con la fecha en el formato del 
 `DateRangePicker`.
 
 - **Import:** `import { DatePicker } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { DatePicker } from '@iamacalupuenzo-ui/comsatel-ds/date-picker';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-date-picker>`
 - **Clases raíz emitidas:** `.cs-date-picker-field`, `.cs-date-picker-panel` (las mismas que `DateRangePicker`)
 
@@ -23,7 +24,7 @@ Selector de **una fecha**: campo de solo lectura con la fecha en el formato del 
 ## Props
 
 <!-- props:start DatePicker -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/date-picker/date-picker.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/date-picker/src/date-picker.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -52,7 +53,7 @@ Selector de **una fecha**: campo de solo lectura con la fecha en el formato del 
 - El label es un texto que nombra el campo con `aria-labelledby`.
 
 <!-- a11y:start DatePicker -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/date-picker/date-picker.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/date-picker/src/date-picker.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-date-picker`
 

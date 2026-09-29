@@ -4,6 +4,7 @@ Etiqueta breve que aparece al pasar el mouse o al enfocar el elemento que envuel
 Es texto complementario: nunca la única fuente de una instrucción necesaria.
 
 - **Import:** `import { Tooltip } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Tooltip } from '@iamacalupuenzo-ui/comsatel-ds/tooltip';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-tooltip>`
 - **Clase raíz emitida:** `.cs-tooltip`
 
@@ -18,7 +19,7 @@ Es texto complementario: nunca la única fuente de una instrucción necesaria.
 ## Props
 
 <!-- props:start Tooltip -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/tooltip/tooltip.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/tooltip/src/tooltip.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -42,7 +43,7 @@ El elemento que dispara el tooltip va proyectado como contenido.
 - La flecha es `aria-hidden`: no se anuncia.
 
 <!-- a11y:start Tooltip -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/tooltip/tooltip.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/tooltip/src/tooltip.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-tooltip`
 

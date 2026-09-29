@@ -4,6 +4,7 @@ Línea de tiempo vertical para el **historial** de un registro: cada paso con su
 detalle, unidos por una línea, con el paso actual resaltado.
 
 - **Import:** `import { Timeline, TimelineItem } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Timeline, TimelineItem } from '@iamacalupuenzo-ui/comsatel-ds/timeline';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `ol[csTimeline]`, `li[csTimelineItem]`
 
 ```html
@@ -29,7 +30,7 @@ normalmente el último: se anuncia con `aria-current="step"`.
 ## Props de `Timeline`
 
 <!-- props:start Timeline -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/timeline/timeline.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/timeline/src/timeline.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -39,7 +40,7 @@ normalmente el último: se anuncia con `aria-current="step"`.
 ## Props de `TimelineItem`
 
 <!-- props:start TimelineItem -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/timeline/timeline.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/timeline/src/timeline.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -57,7 +58,7 @@ normalmente el último: se anuncia con `aria-current="step"`.
 - La fecha va en `<time>`; con `dateTime` lleva además el valor ISO.
 
 <!-- a11y:start Timeline -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/timeline/timeline.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/timeline/src/timeline.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `ol[csTimeline]`
 
@@ -65,7 +66,7 @@ No renderiza controles nativos, roles ni atributos ARIA propios, y no maneja tec
 <!-- a11y:end -->
 
 <!-- a11y:start TimelineItem -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/timeline/timeline.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/timeline/src/timeline.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `li[csTimelineItem]`
 

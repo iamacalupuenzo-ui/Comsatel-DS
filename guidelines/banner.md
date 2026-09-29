@@ -5,6 +5,7 @@ hasta que alguien la resuelve. Para una confirmación efímera de algo que acaba
 pasar, el componente es `Toast`.
 
 - **Import:** `import { Banner } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Banner } from '@iamacalupuenzo-ui/comsatel-ds/banner';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-banner>`
 - **Clase raíz emitida:** `.cs-banner`
 
@@ -24,7 +25,7 @@ pasar, el componente es `Toast`.
 ## Props
 
 <!-- props:start Banner -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/banner/banner.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/banner/src/banner.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -51,7 +52,7 @@ El cuerpo del mensaje va proyectado como contenido.
   en el `title` o en el cuerpo, nunca solo en el color o en el ícono.
 
 <!-- a11y:start Banner -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/banner/banner.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/banner/src/banner.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-banner`
 

@@ -5,6 +5,7 @@ forma aproximada del contenido, no un spinner ni un texto de "cargando". Así la
 no salta cuando los datos llegan.
 
 - **Import:** `import { Skeleton } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Skeleton } from '@iamacalupuenzo-ui/comsatel-ds/skeleton';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-skeleton>`
 - **Clase raíz emitida:** `.cs-skeleton`
 
@@ -17,7 +18,7 @@ no salta cuando los datos llegan.
 ## Props
 
 <!-- props:start Skeleton -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/skeleton/skeleton.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/skeleton/src/skeleton.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -41,7 +42,7 @@ Los 12px de `text` no tienen token equivalente: es una excepción documentada en
 - La animación de brillo se detiene con `prefers-reduced-motion: reduce`.
 
 <!-- a11y:start Skeleton -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/skeleton/skeleton.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/skeleton/src/skeleton.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-skeleton`
 

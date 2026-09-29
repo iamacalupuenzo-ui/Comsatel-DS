@@ -5,6 +5,7 @@ un control de selección de formulario ni el organismo de telemetría
 `FleetUnitList`.
 
 - **Import:** `import { ListItem } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { ListItem } from '@iamacalupuenzo-ui/comsatel-ds/list-item';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-list-item>`
 - **Clase raíz emitida:** `.cs-list-item`. Se documenta para diagnóstico, no para
   que el consumidor copie o sobrescriba estilos internos.
@@ -23,7 +24,7 @@ un control de selección de formulario ni el organismo de telemetría
 ## Props
 
 <!-- props:start ListItem -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/list-item/list-item.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/list-item/src/list-item.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -52,7 +53,7 @@ un control de selección de formulario ni el organismo de telemetría
 - `disabled` es nativo: la fila no recibe foco ni emite `activate`.
 
 <!-- a11y:start ListItem -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/list-item/list-item.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/list-item/src/list-item.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-list-item`
 

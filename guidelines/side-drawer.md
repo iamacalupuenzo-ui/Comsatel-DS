@@ -4,6 +4,7 @@ Cajón lateral **modal**: encabezado con título y cierre, cuerpo con scroll pro
 Se abre desde la derecha sobre la pantalla actual, así la persona no pierde de vista de dónde vino.
 
 - **Import:** `import { SideDrawer, type SideDrawerAction } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { SideDrawer } from '@iamacalupuenzo-ui/comsatel-ds/side-drawer';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-side-drawer>`
 
 ```html
@@ -37,7 +38,7 @@ La superficie blanca, la predeterminada, es para texto corrido.
 ## Props
 
 <!-- props:start SideDrawer -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/side-drawer/side-drawer.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/side-drawer/src/side-drawer.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -61,7 +62,7 @@ La superficie blanca, la predeterminada, es para texto corrido.
 - Escape y el clic afuera piden el cierre con `(closed)`: el cajón no se cierra solo.
 
 <!-- a11y:start SideDrawer -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/side-drawer/side-drawer.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/side-drawer/src/side-drawer.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-side-drawer`
 

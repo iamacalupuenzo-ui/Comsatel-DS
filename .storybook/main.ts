@@ -3,7 +3,7 @@ import type { StorybookConfig } from '@storybook/angular';
 // Componentes reales de la librería y composiciones verificadas que consumen
 // únicamente su API pública. No incluye páginas completas del catálogo.
 const config: StorybookConfig = {
-  stories: ['../projects/comsatel-ds/src/lib/**/*.stories.ts', '../projects/comsatel-ds/*/src/**/*.stories.ts', '../src/app/pages/motion-demo/collapsible-panel-example.stories.ts'],
+  stories: ['../projects/comsatel-ds/*/src/**/*.stories.ts', '../src/app/pages/motion-demo/collapsible-panel-example.stories.ts'],
   addons: ['@storybook/addon-docs', '@storybook/addon-a11y'],
   framework: {
     name: '@storybook/angular',
