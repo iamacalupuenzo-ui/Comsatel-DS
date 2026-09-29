@@ -371,8 +371,10 @@ export class MapPanel {
     else this.expand();
   }
 
+  // Si un selector o menú de adentro ya usó el Escape para cerrarse (preventDefault), el panel sigue abierto:
+  // cada Escape cierra una sola capa.
   protected onEscape(event: Event): void {
-    if (!this.open()) return;
+    if (!this.open() || event.defaultPrevented) return;
     event.preventDefault();
     this.collapse();
     this.toggleButton().nativeElement.focus();

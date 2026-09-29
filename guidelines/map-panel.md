@@ -130,7 +130,8 @@ fecha y hora del sistema (`formatRelativeTime`). La pantalla pasa `[now]` y lo r
   `aria-controls`, y sus etiquetas dicen qué hace: «Contraer notificaciones».
 - Contraído, el cuerpo queda `inert` y `aria-hidden`: el teclado no entra a contenido
   invisible. Si el foco estaba adentro al contraer, vuelve al chevrón.
-- Escape contrae el panel y deja el foco en el chevrón.
+- Escape contrae el panel y deja el foco en el chevrón. Si un selector o menú de adentro está
+  abierto, ese Escape solo lo cierra a él: cada Escape cierra una capa.
 - El contador se lee con `badgeDescription` y se asocia al chevrón con `aria-describedby`.
 - Los avisos nuevos se anuncian desde la pantalla con una región `aria-live="polite"` fuera
   del panel, para que se escuchen aunque esté contraído.
