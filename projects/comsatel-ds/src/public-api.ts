@@ -31,6 +31,7 @@ export * from './lib/input/input-group-addon';
 export * from './lib/input/input-group-clear';
 export * from './lib/input/input-group-input';
 export * from './lib/autocomplete/autocomplete';
+export * from './lib/file-upload/file-upload';
 export * from './lib/form-field/form-field';
 export * from './lib/description-list/description-list';
 export * from './lib/empty-state/empty-state';
