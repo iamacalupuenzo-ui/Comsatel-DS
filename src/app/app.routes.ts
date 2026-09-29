@@ -272,4 +272,28 @@ export const routes: Routes = [
     path: 'components/filter-bar',
     loadComponent: () => import('./pages/filter-bar-demo/filter-bar-page').then((m) => m.FilterBarPage),
   },
+  {
+    path: 'components/description-list',
+    loadComponent: () => import('./pages/description-list-demo/description-list-page').then((m) => m.DescriptionListPage),
+  },
+  {
+    path: 'components/empty-state',
+    loadComponent: () => import('./pages/empty-state-demo/empty-state-page').then((m) => m.EmptyStatePage),
+  },
+  {
+    path: 'components/page-header',
+    loadComponent: () => import('./pages/page-header-demo/page-header-page').then((m) => m.PageHeaderPage),
+  },
+  {
+    path: 'components/timeline',
+    loadComponent: () => import('./pages/timeline-demo/timeline-page').then((m) => m.TimelinePage),
+  },
+  {
+    path: 'components/stat',
+    loadComponent: () => import('./pages/stat-demo/stat-page').then((m) => m.StatPage),
+  },
+  {
+    path: 'components/file-upload',
+    loadComponent: () => import('./pages/file-upload-demo/file-upload-page').then((m) => m.FileUploadPage),
+  },
 ];

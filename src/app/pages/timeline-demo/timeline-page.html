@@ -1,0 +1,74 @@
+<ng-template #example let-key>
+  <ol csTimeline aria-label="Historial de la orden">
+    <li csTimelineItem title="Creación" time="27 sep. 2026, 10:42" dateTime="2026-09-27T10:42" description="Carga masiva de MAF." [current]="key === 'single'"></li>
+    @if (key !== 'single') {
+      <li csTimelineItem title="Cambio de estado" time="28 sep. 2026, 09:15" dateTime="2026-09-28T09:15" description="Falta el oficio firmado." [current]="true">
+        @if (key === 'content') {
+          <cs-tag value="Observado" severity="danger" [rounded]="true" size="sm" />
+        }
+      </li>
+    }
+  </ol>
+</ng-template>
+
+<div class="page">
+  <p class="eyebrow">Componentes / Timeline</p>
+  <h1 class="title">Timeline<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.23</span></h1>
+  <p class="description">Historial de un registro: cada paso con su acción, fecha y detalle, unidos por una línea, y el paso actual resaltado. Para pasos que faltan completar usa Progress indicator; para listas que se seleccionan, una lista propia.</p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Elige un estado. Se aplica sobre un <code>&lt;ol&gt;</code> nativo: el lector de pantalla anuncia cuántos pasos hay y cuál es el actual.</p>
+    <ul class="section__intro state-list">
+      <li><strong>{{ pgInfo().title }}.</strong> {{ pgInfo().intro }}</li>
+      <li><strong>Propiedades:</strong> <code>{{ pgInfo().props }}</code></li>
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="codeFor(pgState())" (stateChange)="onState($event)">
+      <div class="stage"><ng-container *ngTemplateOutlet="example; context: { $implicit: pgState() }" /></div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada estado en su propia caja. La línea de tiempo no tiene tamaños.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'tl-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="codeFor(state.key)">
+          <div class="stage"><ng-container *ngTemplateOutlet="example; context: { $implicit: state.key }" /></div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-drawer">Historial en el detalle de un recupero</h3>
+      <p class="section__intro">En la pestaña Historial del cajón de detalle, con el título de la sección como nombre de la lista.</p>
+      <app-demo-shell [controls]="[]" [code]="'<h3 id=&quot;historial-title&quot;>Historial del recupero</h3>\n<ol csTimeline aria-labelledby=&quot;historial-title&quot;>…</ol>'">
+        <div class="stage stage--drawer">
+          <h3 class="case-title" id="tl-case-title">Historial del recupero</h3>
+          <ol csTimeline aria-labelledby="tl-case-title">
+            <li csTimelineItem title="Creación" time="19 sep. 2026, 16:56" description="Orden registrada a solicitud del propietario."></li>
+            <li csTimelineItem title="En gestión" time="20 sep. 2026, 09:40" description="Se coordinó con la comisaría de Surco."></li>
+            <li csTimelineItem title="Recuperado" time="21 sep. 2026, 18:12" description="Unidad ubicada en Av. Javier Prado Este 4200." [current]="true"></li>
+          </ol>
+        </div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades de TimelineItem</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Qué pasó: «Creación», «Observada».</span></div>
+      <div class="table__row"><code class="table__name">time</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Fecha y hora legibles.</span></div>
+      <div class="table__row"><code class="table__name">dateTime</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Fecha ISO para el atributo datetime.</span></div>
+      <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Detalle del paso.</span></div>
+      <div class="table__row"><code class="table__name">current</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Paso actual: marcador de marca y aria-current="step".</span></div>
+    </div>
+  </section>
+</div>

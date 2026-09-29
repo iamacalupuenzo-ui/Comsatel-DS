@@ -1,0 +1,100 @@
+<div class="page">
+  <p class="eyebrow">Componentes / File upload</p>
+  <h1 class="title">File upload<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.25</span></h1>
+  <p class="description">Carga de archivos: una zona para arrastrar o elegir archivos (<code>cs-file-dropzone</code>) y la fila de cada archivo adjunto (<code>cs-file-item</code>). La zona solo recoge los archivos; la pantalla decide qué acepta y qué mensaje mostrar.</p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Elige un estado y prueba a soltar o elegir un archivo: esta página valida como lo haría la carga masiva.</p>
+    <ul class="section__intro state-list">
+      <li><strong>{{ pgInfo().title }}.</strong> {{ pgInfo().intro }}</li>
+      <li><strong>Propiedades:</strong> <code>{{ pgInfo().props }}</code></li>
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="codeFor(pgState())" (stateChange)="onState($event)">
+      <div class="stage">
+        @if (pgState() === 'files') {
+          <ul class="file-list">
+            @for (file of files(); track file.name) {
+              <li><cs-file-item [fileName]="file.name" [fileSize]="file.size" [removeLabel]="'Quitar ' + file.name" (remove)="removeFile(file.name)" /></li>
+            } @empty {
+              <li class="file-list__empty">No quedan archivos.</li>
+            }
+          </ul>
+        } @else {
+          <cs-file-dropzone
+            accept=".xlsx,.xls,.csv"
+            hint="Formatos admitidos: XLSX, XLS o CSV. Tamaño máximo: 10 MB."
+            [errorMessage]="pgError()"
+            [disabled]="pgState() === 'disabled'"
+            (filesSelected)="validate($event)"
+          />
+          @if (pgFile()) {
+            <p class="file-result" aria-live="polite">Archivo aceptado: {{ pgFile() }}</p>
+          }
+        }
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada estado en su propia caja. Los componentes no tienen tamaños.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'fu-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="codeFor(state.key)">
+          <div class="stage">
+            @if (state.key === 'files') {
+              <ul class="file-list">
+                <li><cs-file-item fileName="foto-unidad.jpg" [fileSize]="850000" removeLabel="Quitar foto-unidad.jpg" /></li>
+                <li><cs-file-item fileName="video-recupero.mp4" [fileSize]="24500000" href="#fu-state-files" removeLabel="Quitar video-recupero.mp4" /></li>
+                <li><cs-file-item fileName="oficio-firmado.pdf" [fileSize]="120000" /></li>
+              </ul>
+            } @else {
+              <cs-file-dropzone
+                accept=".xlsx,.xls,.csv"
+                hint="Formatos admitidos: XLSX, XLS o CSV. Tamaño máximo: 10 MB."
+                [errorMessage]="state.key === 'error' ? 'Selecciona un archivo XLSX, XLS o CSV.' : ''"
+                [disabled]="state.key === 'disabled'"
+              />
+            }
+          </div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-evidence">Evidencias de un recupero</h3>
+      <p class="section__intro">Adjuntos opcionales: un botón «Adjuntar» y una fila por archivo, sin zona grande que ocupe espacio cuando no hay nada.</p>
+      <app-demo-shell [controls]="[]" [code]="codeFor('files')">
+        <div class="stage">
+          <div class="evidence-header">
+            <strong>Evidencias</strong>
+            <cs-button variant="default" size="sm"><cs-icon name="plus" [size]="16" aria-hidden="true" />Adjuntar evidencia</cs-button>
+          </div>
+          <ul class="file-list">
+            <li><cs-file-item fileName="foto-unidad.jpg" removeLabel="Quitar foto-unidad.jpg" /></li>
+            <li><cs-file-item fileName="audio-llamada.m4a" removeLabel="Quitar audio-llamada.m4a" /></li>
+          </ul>
+        </div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">accept / multiple (zona)</code><code class="table__type">string / boolean</code><code class="table__default">'' / false</code><span class="table__desc">Filtra el selector del sistema y permite varios archivos. No reemplaza la validación.</span></div>
+      <div class="table__row"><code class="table__name">title / hint / buttonLabel (zona)</code><code class="table__type">string</code><code class="table__default">textos por defecto</code><span class="table__desc">Textos de la zona.</span></div>
+      <div class="table__row"><code class="table__name">errorMessage / disabled (zona)</code><code class="table__type">string / boolean</code><code class="table__default">'' / false</code><span class="table__desc">Error que decide la pantalla y zona deshabilitada.</span></div>
+      <div class="table__row"><code class="table__name">(filesSelected) (zona)</code><code class="table__type">EventEmitter&lt;File[]&gt;</code><code class="table__default">—</code><span class="table__desc">Archivos elegidos o soltados.</span></div>
+      <div class="table__row"><code class="table__name">fileName / fileSize / href (fila)</code><code class="table__type">string / number | null / string</code><code class="table__default">— / null / ''</code><span class="table__desc">Nombre, tamaño en bytes y enlace para abrirlo.</span></div>
+      <div class="table__row"><code class="table__name">removeLabel / (remove) (fila)</code><code class="table__type">string / EventEmitter&lt;void&gt;</code><code class="table__default">'' / —</code><span class="table__desc">Botón de quitar y su nombre accesible.</span></div>
+    </div>
+  </section>
+</div>

@@ -112,6 +112,7 @@ export const NAVIGATION: NavSection[] = [
           { title: 'Date time range picker', href: '/components/datetime-range-picker' },
         ],
       },
+      { title: 'File upload', href: '/components/file-upload', icon: 'upload', change: { kind: 'nuevo', version: '0.3.25' } },
       { title: 'Form field', href: '/components/form-field', icon: 'rows', change: { kind: 'nuevo', version: '0.3.12' } },
       { title: 'Input', href: '/components/input', icon: 'text-cursor-input', change: { kind: 'actualizado', version: '0.3.2' } },
       { title: 'Radio', href: '/components/radio', icon: 'circle-dot' },
@@ -141,6 +142,7 @@ export const NAVIGATION: NavSection[] = [
     items: [
       { title: 'Badge', href: '/components/badge', icon: 'badge-check' },
       { title: 'Banner', href: '/components/banner', icon: 'megaphone' },
+      { title: 'Empty state', href: '/components/empty-state', icon: 'square', change: { kind: 'nuevo', version: '0.3.22' } },
       { title: 'Progress indicator', href: '/components/progress-indicator', icon: 'loader' },
       { title: 'Skeleton', href: '/components/skeleton', icon: 'loader', change: { kind: 'nuevo', version: '0.3.12' } },
       { title: 'Spotlight', href: '/components/spotlight', icon: 'flashlight' },
@@ -172,9 +174,12 @@ export const NAVIGATION: NavSection[] = [
       { title: 'Accordion', href: '/components/accordion', icon: 'chevrons-down-up' },
       { title: 'App Layout', href: '/components/app-layout', icon: 'layout-grid' },
       { title: 'Card', href: '/components/card', icon: 'credit-card' },
+      { title: 'Description list', href: '/components/description-list', icon: 'list-ordered', change: { kind: 'nuevo', version: '0.3.21' } },
       { title: 'Filter bar', href: '/components/filter-bar', icon: 'sliders', change: { kind: 'nuevo', version: '0.3.14' } },
       { title: 'Fleet unit list', href: '/components/fleet-unit-list', icon: 'truck', change: { kind: 'nuevo', version: '0.3.12' } },
       { title: 'List item', href: '/components/list-item', icon: 'list' },
+      { title: 'Page header', href: '/components/page-header', icon: 'panel-top', change: { kind: 'nuevo', version: '0.3.22' } },
+      { title: 'Stat', href: '/components/stat', icon: 'gauge', change: { kind: 'nuevo', version: '0.3.24' } },
       {
         title: 'Table',
         href: '/components/table-group',
@@ -186,6 +191,7 @@ export const NAVIGATION: NavSection[] = [
           { title: 'Column manager', href: '/components/column-manager', change: { kind: 'nuevo', version: '0.3.12' } },
         ],
       },
+      { title: 'Timeline', href: '/components/timeline', icon: 'history', change: { kind: 'nuevo', version: '0.3.23' } },
     ],
   },
   {

@@ -1,0 +1,73 @@
+<ng-template #example let-key>
+  <cs-page-header
+    title="Capturas"
+    [description]="key === 'no-desc' ? '' : 'Consulta y gestiona las órdenes de captura registradas para las unidades.'"
+  >
+    @if (key === 'two') {
+      <cs-button variant="default" size="sm"><cs-icon name="file-text" [size]="16" aria-hidden="true" />Historial de cargas</cs-button>
+    }
+    @if (key === 'two' || key === 'one') {
+      <cs-button variant="primary" size="sm"><cs-icon name="upload" [size]="16" aria-hidden="true" />Carga masiva de capturas</cs-button>
+    }
+  </cs-page-header>
+</ng-template>
+
+<div class="page">
+  <p class="eyebrow">Componentes / Page header</p>
+  <h1 class="title">Page header<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.22</span></h1>
+  <p class="description">Encabezado de una pantalla: título, una línea que explica para qué sirve y las acciones principales a la derecha. Va una sola vez por pantalla, porque su título es el <code>h1</code>.</p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Elige un estado. Hasta 960 px las acciones bajan debajo del título; hasta 767 px se apilan.</p>
+    <ul class="section__intro state-list">
+      <li><strong>{{ pgInfo().title }}.</strong> {{ pgInfo().intro }}</li>
+      <li><strong>Propiedades:</strong> <code>{{ pgInfo().props }}</code></li>
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="codeFor(pgState())" (stateChange)="onState($event)">
+      <div class="stage"><ng-container *ngTemplateOutlet="example; context: { $implicit: pgState() }" /></div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada estado en su propia caja. El encabezado no tiene tamaños.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'ph-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="codeFor(state.key)">
+          <div class="stage"><ng-container *ngTemplateOutlet="example; context: { $implicit: state.key }" /></div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-landmark">Nombre de la sección principal</h3>
+      <p class="section__intro">Con <code>titleId</code>, el <code>&lt;main&gt;</code> o la sección usan el título en <code>aria-labelledby</code>. El encabezado no es un <code>header</code>: fuera de una sección se anunciaría como el banner de toda la página.</p>
+      <app-demo-shell [controls]="[]" [code]="'<main aria-labelledby=&quot;capture-title&quot;>\n  <cs-page-header titleId=&quot;capture-title&quot; title=&quot;Capturas&quot; description=&quot;…&quot;>…</cs-page-header>\n</main>'">
+        <div class="stage">
+          <section aria-labelledby="ph-case-title">
+            <cs-page-header titleId="ph-case-title" title="Recuperos" description="Consulta y gestiona las órdenes de recupero registradas para las unidades.">
+              <cs-button variant="primary" size="sm"><cs-icon name="plus" [size]="16" aria-hidden="true" />Registrar recupero</cs-button>
+            </cs-page-header>
+          </section>
+        </div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Título de la pantalla; se renderiza como h1.</span></div>
+      <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Una línea que explica para qué sirve la pantalla.</span></div>
+      <div class="table__row"><code class="table__name">titleId</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Id del h1, para aria-labelledby.</span></div>
+      <div class="table__row"><code class="table__name">contenido proyectado</code><code class="table__type">cs-button…</code><code class="table__default">—</code><span class="table__desc">Acciones principales, a la derecha.</span></div>
+    </div>
+  </section>
+</div>

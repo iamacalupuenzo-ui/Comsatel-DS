@@ -1,0 +1,8 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+.stage { box-sizing: border-box; inline-size: min(100%, calc(var(--layout-size-3xl) * 3.5)); min-inline-size: 0; }
+.stage--row { inline-size: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--layout-gap-md); }
+.state-list { display: grid; gap: var(--layout-gap-xs); padding-inline-start: var(--layout-padding-xl); }
+.state-list code { overflow-wrap: anywhere; }
+@media (max-width: 767px) { .stage--row { grid-template-columns: minmax(0, 1fr); } }

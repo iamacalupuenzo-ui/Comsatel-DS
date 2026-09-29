@@ -1,0 +1,77 @@
+<ng-template #example let-key>
+  @switch (key) {
+    @case ('filters') {
+      <cs-empty-state icon="search" title="No encontramos capturas" description="Prueba con otra orden, unidad o estado.">
+        <cs-button variant="default" size="sm"><cs-icon name="x" [size]="16" aria-hidden="true" />Limpiar filtros</cs-button>
+      </cs-empty-state>
+    }
+    @case ('first') {
+      <cs-empty-state icon="file-text" title="Aún no hay cargas" description="Sube el primer archivo de órdenes para empezar.">
+        <cs-button variant="primary" size="sm">Carga masiva de capturas</cs-button>
+      </cs-empty-state>
+    }
+    @default {
+      <cs-empty-state title="Sin evidencias" description="Adjunta fotos o documentos que respalden el recupero." />
+    }
+  }
+</ng-template>
+
+<div class="page">
+  <p class="eyebrow">Componentes / Empty state</p>
+  <h1 class="title">Empty state<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.22</span></h1>
+  <p class="description">Explica por qué no hay contenido y qué puede hacer la persona. Úsalo en tablas y zonas sin resultados; si la carga falló, es un error y va con <code>error</code> de Table.</p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Elige un estado. El título dice qué pasó y la descripción, qué hacer.</p>
+    <ul class="section__intro state-list">
+      <li><strong>{{ pgInfo().title }}.</strong> {{ pgInfo().intro }}</li>
+      <li><strong>Propiedades:</strong> <code>{{ pgInfo().props }}</code></li>
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="codeFor(pgState())" (stateChange)="onState($event)">
+      <div class="stage"><ng-container *ngTemplateOutlet="example; context: { $implicit: pgState() }" /></div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada estado en su propia caja. El componente no tiene tamaños.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'empty-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="codeFor(state.key)">
+          <div class="stage"><ng-container *ngTemplateOutlet="example; context: { $implicit: state.key }" /></div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-table">Dentro de una tabla</h3>
+      <p class="section__intro">Va en el hueco <code>emptyState</code> de Table, que ya aporta el espacio alrededor.</p>
+      <app-demo-shell [controls]="[]" [code]="'<cs-table [columns]=&quot;columnas&quot; [rows]=&quot;[]&quot;>\n  <cs-empty-state emptyState icon=&quot;search&quot; title=&quot;No encontramos capturas&quot; description=&quot;Prueba con otra orden, unidad o estado.&quot; />\n</cs-table>'">
+        <div class="stage">
+          <div class="table-frame">
+            <cs-table caption="Capturas" [columns]="columns" [rows]="[]">
+              <cs-empty-state emptyState icon="search" title="No encontramos capturas" description="Prueba con otra orden, unidad o estado." />
+            </cs-table>
+          </div>
+        </div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">title</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Qué pasó, en una frase.</span></div>
+      <div class="table__row"><code class="table__name">description</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Qué puede hacer la persona.</span></div>
+      <div class="table__row"><code class="table__name">icon</code><code class="table__type">IconName</code><code class="table__default">—</code><span class="table__desc">Ícono ilustrativo opcional, 40 px en el color de marca.</span></div>
+      <div class="table__row"><code class="table__name">contenido proyectado</code><code class="table__type">cs-button…</code><code class="table__default">—</code><span class="table__desc">Acciones, centradas debajo del texto.</span></div>
+    </div>
+  </section>
+</div>

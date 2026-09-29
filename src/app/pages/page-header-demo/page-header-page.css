@@ -1,0 +1,6 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+.stage { box-sizing: border-box; inline-size: 100%; min-inline-size: 0; }
+.state-list { display: grid; gap: var(--layout-gap-xs); padding-inline-start: var(--layout-padding-xl); }
+.state-list code { overflow-wrap: anywhere; }

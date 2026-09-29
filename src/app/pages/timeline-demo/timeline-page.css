@@ -1,0 +1,8 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+.stage { box-sizing: border-box; inline-size: 100%; min-inline-size: 0; }
+.stage--drawer { inline-size: min(100%, calc(var(--layout-size-3xl) * 5)); }
+.state-list { display: grid; gap: var(--layout-gap-xs); padding-inline-start: var(--layout-padding-xl); }
+.state-list code { overflow-wrap: anywhere; }
+.case-title { margin: 0 0 var(--layout-gap-md); font-family: var(--font-family-heading); font-size: var(--font-size-content-caption); line-height: var(--font-line-height-content-caption); }
