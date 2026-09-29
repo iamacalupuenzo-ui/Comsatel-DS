@@ -49,6 +49,31 @@ System al repositorio consumidor:
 Ese punto de entrada incluye fuentes y tokens; no incorpora resets, demos ni
 estilos de una pantalla de producto.
 
+### Importar desde un subpath para cargar menos
+
+Desde la 0.4.0, algunas piezas tienen su propio punto de entrada:
+
+| Subpath | Qué trae |
+| :-- | :-- |
+| `@iamacalupuenzo-ui/comsatel-ds/icons` | `Icon`, `ICON_REGISTRY`, `IconName` |
+| `@iamacalupuenzo-ui/comsatel-ds/motion` | `Motion`, `PressScale`, eases y duraciones |
+| `@iamacalupuenzo-ui/comsatel-ds/input` | `InputGroupClear` |
+
+El import raíz `@iamacalupuenzo-ui/comsatel-ds` sigue exportando todo, pero trae la
+librería **entera** al chunk que lo usa, aunque importes una sola pieza. Importa desde
+el subpath cuando ese archivo necesita cargar poco, por ejemplo el shell que va en el
+bundle inicial:
+
+```ts
+import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+import { PressScale } from '@iamacalupuenzo-ui/comsatel-ds/motion';
+```
+
+El ahorro solo aparece si **ningún** import de ese mismo chunk usa la raíz: un solo
+`import { Menu } from '@iamacalupuenzo-ui/comsatel-ds'` vuelve a traerla completa. En el
+sitio del DS, pasar el shell a subpaths bajó la librería del bundle inicial de 627 kB a
+29 kB.
+
 ## 3. Estructura recomendada
 
 Esta es una arquitectura de aplicación, no una API que deba exportar la

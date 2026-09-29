@@ -11,6 +11,7 @@ import { coverage } from './guidelines.mjs';
 import { components, parseMembers, readText } from './lib/ds.mjs';
 import { MISSING, regenerate, renderProps } from './props.mjs';
 import { looseValues } from './check-component-tokens.mjs';
+import { importViolations } from './check-secondary-entry-imports.mjs';
 
 test('tokens de componentes: rechaza colores, dimensiones, tiempos y capas literales', () => {
   assert.deepEqual(looseValues('a { color:#fff; padding: 8px; transition: opacity .2s; z-index: 8; }'), ['#fff', '8px', '2s', 'z-index: 8']);
@@ -121,4 +122,12 @@ test('notas de versión: una versión sin archivo falla antes de publicar', () =
   });
   assert.equal(result.status, 1);
   assert.match(result.stderr, /Falta la nota de versión docs\/releases\/99\.99\.99\.md/);
+});
+
+test('entradas secundarias: importar la raíz o salir de la carpeta falla, un subpath pasa', () => {
+  const entry = join(tmpdir(), 'entrada', 'input');
+  const file = join(entry, 'src', 'clear.ts');
+  assert.equal(importViolations("import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';\nimport { x } from './util';", file, entry).length, 0);
+  assert.match(importViolations("import { Button } from '@iamacalupuenzo-ui/comsatel-ds';", file, entry).join(), /importa desde la raíz/);
+  assert.match(importViolations("import { Popover } from '../../src/lib/popover/popover';", file, entry).join(), /sale de su carpeta/);
 });

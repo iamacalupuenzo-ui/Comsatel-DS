@@ -5,6 +5,7 @@ duración y easing del sistema. Un preset elige qué se anima; las duraciones y 
 eligen cuánto tarda y cómo acelera.
 
 - **Import:** `import { Motion } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Motion } from '@iamacalupuenzo-ui/comsatel-ds/motion';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-motion>`
 - **Clase raíz emitida:** `.cs-motion`
 

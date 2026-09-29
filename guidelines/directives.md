@@ -7,6 +7,7 @@ Dos comportamientos de movimiento reutilizables que se aplican sobre un elemento
 existe, en vez de envolverlo en un componente.
 
 - **Import:** `import { PressScale, Collapse } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { PressScale } from '@iamacalupuenzo-ui/comsatel-ds/motion';` (`Collapse` sigue en la raíz; ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `[csPressScale]`, `[csCollapse]`
 
 ## csPressScale

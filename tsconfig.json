@@ -3,13 +3,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "paths": {
-      "@iamacalupuenzo-ui/comsatel-ds": ["./dist/comsatel-ds"],
-      // Puntos de entrada secundarios: esbuild toma el .mjs (primer destino) y TypeScript los tipos (segundo).
-      "@iamacalupuenzo-ui/comsatel-ds/icons": ["./dist/comsatel-ds/fesm2022/iamacalupuenzo-ui-comsatel-ds-icons", "./dist/comsatel-ds/types/iamacalupuenzo-ui-comsatel-ds-icons"],
-      "@iamacalupuenzo-ui/comsatel-ds/input": ["./dist/comsatel-ds/fesm2022/iamacalupuenzo-ui-comsatel-ds-input", "./dist/comsatel-ds/types/iamacalupuenzo-ui-comsatel-ds-input"],
-      "@iamacalupuenzo-ui/comsatel-ds/motion": ["./dist/comsatel-ds/fesm2022/iamacalupuenzo-ui-comsatel-ds-motion", "./dist/comsatel-ds/types/iamacalupuenzo-ui-comsatel-ds-motion"]
-    },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,

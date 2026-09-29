@@ -4,6 +4,7 @@
 registro curado del sistema (101 íconos de Lucide). No se usa otra librería de íconos.
 
 - **Import:** `import { Icon } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';` (solo el ícono y su registro; ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-icon>`
 
 ```html

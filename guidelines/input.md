@@ -5,6 +5,7 @@ campo con adornos (íconos, botones, prefijos, dropdowns) que se ven como un sol
 control.
 
 - **Import:** `import { Input, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText, PasswordInput } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { InputGroupClear } from '@iamacalupuenzo-ui/comsatel-ds/input';` (por ahora solo la X de limpiar; ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-input>`, `<cs-input-group>`, `<cs-input-group-addon>`, `<cs-input-group-input>`, `<cs-input-group-text>`, `<cs-password-input>`
 - **Clases raíz emitidas:** `.cs-input`, `.cs-input-group`, `.cs-input-group-addon`, `.cs-input-group-input`, `.cs-input-group-text`
 

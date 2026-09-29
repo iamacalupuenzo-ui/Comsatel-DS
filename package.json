@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build:lib": "ng build comsatel-ds && npm run verify:style-entry",
+    "build:lib": "ng build comsatel-ds && npm run verify:style-entry && node scripts/link-dist.mjs",
     "verify:style-entry": "node scripts/package-style.mjs",
     "pack:lib": "npm run build:lib && npm pack ./dist/comsatel-ds --dry-run",
     "build": "npm run build:lib && ng build",
@@ -21,8 +21,10 @@
     "check:a11y": "node scripts/a11y.mjs --check",
     "check:examples": "node scripts/examples.mjs",
     "check:release-notes": "node scripts/release-notes.mjs",
+    "verify:package": "node scripts/verify-package-tarball.mjs",
+    "check:entry-imports": "node scripts/check-secondary-entry-imports.mjs",
     "test:docs": "node --test scripts/checks.test.mjs",
-    "check:docs": "npm run check:guidelines && npm run check:props && npm run check:a11y && npm run check:examples && npm run check:release-notes && npm run check:secondary-tokens && npm run check:component-tokens && npm run test:docs",
+    "check:docs": "npm run check:guidelines && npm run check:entry-imports && npm run check:props && npm run check:a11y && npm run check:examples && npm run check:release-notes && npm run check:secondary-tokens && npm run check:component-tokens && npm run test:docs",
     "check:component-tokens": "node scripts/check-component-tokens.mjs",
     "check:secondary-tokens": "node scripts/check-secondary-tokens.mjs",
     "gap:report": "node scripts/gap.mjs"
