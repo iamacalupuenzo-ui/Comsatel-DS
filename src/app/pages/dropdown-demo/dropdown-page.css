@@ -59,3 +59,16 @@
     var(--layout-padding-xs)
   );
 }
+
+/* Caja de cada estado de Input Dropdown: ancho de referencia de un campo de formulario. */
+.state-stage {
+  display: grid;
+  gap: var(--layout-gap-sm);
+  width: min(100%, 280px);
+}
+.field-error {
+  margin: 0;
+  color: var(--color-text-danger-default);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+}

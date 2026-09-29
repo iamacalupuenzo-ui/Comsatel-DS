@@ -2,19 +2,11 @@
   <p class="eyebrow">Componentes / Dropdown</p>
   <h1 class="title">Dropdown<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.0</span></h1>
   <p class="description">
-    Los dropdowns presentan una lista de opciones activada por un botón, ícono o input. Admite
-    ítems agrupados, atajos de teclado, badges, variantes destructiva/éxito, y tamaños xs / sm / md / lg.
+    Esta página documenta dos componentes que se ven parecidos pero cumplen funciones distintas.
+    <strong>Dropdown</strong> es un menú de acciones: se abre desde un botón o un ícono y cada ítem hace algo
+    (editar, duplicar, eliminar). <strong>Input Dropdown</strong> es un campo de valor: muestra la opción elegida
+    y sirve para formularios y filtros de una sola selección. Para elegir varios valores, usa Select en modo múltiple.
   </p>
-
-  <section class="section" id="secondary-dropdown">
-    <h2 class="section__title">Campo sobre superficie cálida</h2>
-    <p class="section__intro">surface="secondary" es optativo. Para buscadores de ancho acotado, usa fullWidth y matchTriggerWidth: el menú sigue al campo y el texto largo trunca sin esconder el chevron. Sin matchTriggerWidth se conserva el ancho por contenido.</p>
-    <div class="secondary-dropdown-stage">
-      <cs-input-dropdown [id]="'warm-dropdown'" label="Ubicación" [options]="warmOptions" [value]="warmValue()" (valueChange)="warmValue.set($event)" [fullWidth]="true" [matchTriggerWidth]="true" surface="secondary" />
-      <cs-input-dropdown [id]="'warm-readonly'" label="Solo lectura" [options]="warmOptions" [value]="warmValue()" [fullWidth]="true" [readonly]="true" surface="secondary" />
-    </div>
-    <p class="section__intro">La opción elegida conserva check y azul. Flechas, Inicio/Fin, Enter y Escape operan la lista; foco y selección se dibujan por separado. Solo lectura no abre la lista tampoco con teclado.</p>
-  </section>
 
   <!-- Playground -->
   <section class="section">
@@ -223,21 +215,54 @@
   <!-- Input Dropdown — Estados -->
   <section class="section">
     <h2 class="section__title" id="input-dropdown-states">Input Dropdown — Estados</h2>
-    <p class="section__intro">Placeholder (vacío), lleno, filtro aplicado, error, solo lectura y deshabilitado. El foco y la apertura tienen prioridad sobre el estado aplicado, y el error sobre ambos. Al pasar el cursor, el borde se refuerza igual que en Input.</p>
-    <app-demo-shell
-      [controls]="[]"
-      code="<cs-input-dropdown label=&quot;Placeholder&quot; [options]=&quot;options&quot;></cs-input-dropdown>
-<cs-input-dropdown label=&quot;Filled&quot; [options]=&quot;options&quot; value=&quot;engineering&quot;></cs-input-dropdown>
-<cs-input-dropdown label=&quot;Disabled&quot; [options]=&quot;options&quot; value=&quot;design&quot; [disabled]=&quot;true&quot;></cs-input-dropdown>"
-    >
-      <div class="stage stage--col">
-        <cs-input-dropdown label="Placeholder" placeholder="Select a team…" [options]="inputOptions"></cs-input-dropdown>
-        <cs-input-dropdown label="Filled" [options]="inputOptions" [value]="stateValueFilled()"></cs-input-dropdown>
-        <cs-input-dropdown label="Disabled" [options]="inputOptions" value="design" [disabled]="true"></cs-input-dropdown>
-        <cs-input-dropdown label="Filtro aplicado" [options]="inputOptions" value="design" [active]="true"></cs-input-dropdown>
-        <cs-input-dropdown label="Error" [options]="inputOptions" value="design" [invalid]="true"></cs-input-dropdown>
-        <cs-input-dropdown label="Solo lectura" [options]="inputOptions" value="design" [readonly]="true"></cs-input-dropdown>
-        <cs-input-dropdown size="xs" aria-label="Celda de tabla (xs, 24 px)" [options]="inputOptions" value="design" [menuFit]="true"></cs-input-dropdown>
+    <p class="section__intro">Cada estado en su propia caja, con cuándo usarlo y el código que lo produce. Cambia el tamaño desde el control de cada caja. El foco y la apertura tienen prioridad sobre el filtro aplicado, y el error sobre ambos.</p>
+
+    @for (state of inputStates; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'input-dropdown-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="stateSizeControls" [code]="stateCode(state)" (stateChange)="onStateSize(state.key, $event)">
+          <div class="state-stage">
+            @switch (state.key) {
+              @case ('empty') {
+                <cs-input-dropdown label="Equipo" placeholder="Selecciona un equipo…" [options]="inputOptions" [size]="sizeOf(state.key)" [fullWidth]="true" />
+              }
+              @case ('filled') {
+                <cs-input-dropdown label="Equipo" [options]="inputOptions" [value]="stateValueFilled()" (valueChange)="stateValueFilled.set($event)" [size]="sizeOf(state.key)" [fullWidth]="true" />
+              }
+              @case ('active') {
+                <cs-input-dropdown label="Estado" [options]="inputOptions" value="design" [active]="true" [menuFit]="true" [size]="sizeOf(state.key)" [fullWidth]="true" />
+              }
+              @case ('invalid') {
+                <cs-input-dropdown label="Equipo" placeholder="Selecciona un equipo…" [options]="inputOptions" [invalid]="true" aria-errormessage="team-error" [size]="sizeOf(state.key)" [fullWidth]="true" />
+                <p class="field-error" id="team-error">Selecciona un equipo antes de continuar.</p>
+              }
+              @case ('required') {
+                <cs-input-dropdown label="Equipo" placeholder="Selecciona un equipo…" [options]="inputOptions" [required]="true" [size]="sizeOf(state.key)" [fullWidth]="true" />
+              }
+              @case ('readonly') {
+                <cs-input-dropdown label="Equipo" [options]="inputOptions" value="design" [readonly]="true" [size]="sizeOf(state.key)" [fullWidth]="true" />
+              }
+              @case ('disabled') {
+                <cs-input-dropdown label="Equipo" [options]="inputOptions" value="design" [disabled]="true" [size]="sizeOf(state.key)" [fullWidth]="true" />
+              }
+              @case ('tags') {
+                <cs-input-dropdown label="GPS" [options]="gpsOptions" [value]="gpsValue()" (valueChange)="gpsValue.set($event)" [menuFit]="true" [size]="sizeOf(state.key)" [fullWidth]="true" />
+              }
+            }
+          </div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <!-- Input Dropdown — Superficie cálida -->
+  <section class="section">
+    <h2 class="section__title" id="input-dropdown-secondary">Input Dropdown — Superficie cálida</h2>
+    <p class="section__intro">surface="secondary" es optativo, para campos sobre la superficie crema. En buscadores de ancho acotado, usa fullWidth y matchTriggerWidth: el menú sigue al campo y el texto largo se recorta sin esconder el chevron.</p>
+    <app-demo-shell [controls]="[]" [code]="warmCode">
+      <div class="secondary-dropdown-stage">
+        <cs-input-dropdown [id]="'warm-dropdown'" label="Ubicación" [options]="warmOptions" [value]="warmValue()" (valueChange)="warmValue.set($event)" [fullWidth]="true" [matchTriggerWidth]="true" surface="secondary" />
       </div>
     </app-demo-shell>
   </section>

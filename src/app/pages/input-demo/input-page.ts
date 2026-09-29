@@ -109,4 +109,56 @@ export class InputPage {
     }
   });
 
+
+  /* Estados: una caja por estado, cada una con su selector de tamaño. */
+  protected readonly stateSizeControls: ControlDef[] = [
+    { kind: 'select', label: 'Tamaño', key: 'size', options: SIZES, default: 'md' },
+  ];
+  protected readonly inputStates: InputStateDemo[] = INPUT_STATES;
+  private readonly stateSizes = signal<Record<string, InputFieldSize>>({});
+  protected stateSizeOf(key: string): InputFieldSize {
+    return this.stateSizes()[key] ?? 'md';
+  }
+  protected onStateSize(key: string, s: DemoState): void {
+    if (s['size']) this.stateSizes.update((sizes) => ({ ...sizes, [key]: s['size'] as InputFieldSize }));
+  }
+  protected stateCode(state: InputStateDemo): string {
+    const size = this.stateSizeOf(state.key);
+    const attrs = [...(size !== 'md' ? [`fieldSize="${size}"`] : []), ...state.attrs, `aria-label="${state.title}"`];
+    return `<cs-input ${attrs.join(' ')}></cs-input>${state.after ?? ''}`;
+  }
+  protected caseCode(kind: 'search' | 'date'): string {
+    const size = this.stateSizeOf(kind === 'search' ? 'case-search' : 'case-date');
+    const fieldSize = size !== 'md' ? ` fieldSize="${size}"` : '';
+    return kind === 'search'
+      ? `<cs-input-group [active]="!!busqueda">
+  <cs-input-group-addon><cs-icon name="search" [size]="16" aria-hidden="true" /></cs-input-group-addon>
+  <cs-input-group-input${fieldSize} aria-label="Buscar unidades" placeholder="Buscar unidades" [value]="busqueda" (valueChange)="busqueda = $event" />
+  <cs-input-group-clear label="Limpiar búsqueda" />
+</cs-input-group>`
+      : `<cs-input-group>
+  <cs-input-group-input${fieldSize} aria-label="Fecha de registro" [readonly]="true" [value]="fecha" />
+  <cs-input-group-addon align="inline-end"><cs-icon name="calendar" [size]="16" aria-hidden="true" /></cs-input-group-addon>
+</cs-input-group>`;
+  }
 }
+
+interface InputStateDemo {
+  key: string;
+  title: string;
+  intro: string;
+  placeholder?: string;
+  value?: string;
+  /** Atributos que producen el estado, tal como se muestran en el código. */
+  attrs: string[];
+  after?: string;
+}
+
+const INPUT_STATES: InputStateDemo[] = [
+  { key: 'default', title: 'Por defecto', intro: 'Campo editable, sin validación pendiente. Haz clic para ver el foco.', placeholder: 'nombre@empresa.com', attrs: ['placeholder="nombre@empresa.com"'] },
+  { key: 'required', title: 'Requerido', intro: 'El formulario no se puede enviar sin este valor. Acompáñalo con el asterisco del label.', placeholder: 'nombre@empresa.com', attrs: ['[required]="true"', 'placeholder="nombre@empresa.com"'] },
+  { key: 'invalid', title: 'Error', intro: 'El valor no cumple una validación. Siempre con un mensaje que explique cómo resolverlo.', value: 'enzo@', attrs: ['[invalid]="true"', 'aria-errormessage="email-error"', 'value="enzo@"'], after: '\n<p id="email-error">Ingresa un correo válido.</p>' },
+  { key: 'active', title: 'Filtro aplicado', intro: 'Solo en barras de filtro, cuando el texto restringe el resultado.', value: 'VHC-001', attrs: ['[active]="true"', 'value="VHC-001"'] },
+  { key: 'readonly', title: 'Solo lectura', intro: 'El valor se muestra y se puede copiar, pero no editar; por ejemplo, en un detalle ya confirmado.', value: 'enzo@empresa.com', attrs: ['[readonly]="true"', 'value="enzo@empresa.com"'] },
+  { key: 'disabled', title: 'Deshabilitado', intro: 'El campo no está disponible en el paso actual del flujo.', placeholder: 'nombre@empresa.com', attrs: ['[disabled]="true"', 'placeholder="nombre@empresa.com"'] },
+];

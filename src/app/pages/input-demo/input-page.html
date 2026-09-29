@@ -85,22 +85,66 @@
   <!-- Estados -->
   <section class="section">
     <h2 class="section__title" id="states">Estados</h2>
-    <p class="section__intro">Por defecto, focus (haz clic para activarlo), deshabilitado, inválido, requerido, solo lectura y filtro aplicado. El foco y el error tienen prioridad sobre el estado aplicado; en solo lectura el borde no cambia al pasar el cursor.</p>
-    <app-demo-shell
-      [controls]="[]"
-      code="<cs-input placeholder=&quot;Default&quot; aria-label=&quot;Default input&quot;></cs-input>
-<cs-input [disabled]=&quot;true&quot; placeholder=&quot;Disabled&quot; aria-label=&quot;Disabled input&quot;></cs-input>
-<cs-input [invalid]=&quot;true&quot; placeholder=&quot;Invalid&quot; aria-label=&quot;Invalid input&quot;></cs-input>"
-    >
-      <div class="field-wrap col">
-        <cs-input placeholder="Default" aria-label="Default input"></cs-input>
-        <cs-input [disabled]="true" placeholder="Disabled" aria-label="Disabled input"></cs-input>
-        <cs-input [invalid]="true" placeholder="Invalid" aria-label="Invalid input"></cs-input>
-        <cs-input [required]="true" placeholder="Requerido" aria-label="Campo requerido"></cs-input>
-        <cs-input [readonly]="true" value="Solo lectura" aria-label="Campo de solo lectura"></cs-input>
-        <cs-input [active]="true" value="Filtro aplicado" aria-label="Filtro aplicado"></cs-input>
+    <p class="section__intro">Cada estado en su propia caja, con cuándo usarlo y el código que lo produce. Cambia el tamaño desde el control de cada caja. El foco y el error tienen prioridad sobre el filtro aplicado; en solo lectura, el borde no cambia al pasar el cursor.</p>
+
+    @for (state of inputStates; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'input-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="stateSizeControls" [code]="stateCode(state)" (stateChange)="onStateSize(state.key, $event)">
+          <div class="field-wrap col">
+            <cs-input
+              [fieldSize]="stateSizeOf(state.key)"
+              [attr.aria-label]="state.title"
+              [placeholder]="state.placeholder ?? ''"
+              [value]="state.value ?? ''"
+              [disabled]="state.key === 'disabled'"
+              [invalid]="state.key === 'invalid'"
+              [required]="state.key === 'required'"
+              [readonly]="state.key === 'readonly'"
+              [active]="state.key === 'active'"
+              [aria-errormessage]="state.key === 'invalid' ? 'input-state-error' : ''"
+            ></cs-input>
+            @if (state.key === 'invalid') {
+              <p class="form-field__error" id="input-state-error"><cs-icon name="circle-alert" [size]="12"></cs-icon>Ingresa un correo válido.</p>
+            }
+          </div>
+        </app-demo-shell>
       </div>
-    </app-demo-shell>
+    }
+  </section>
+
+  <!-- Casos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <p class="section__intro">Composiciones reales del producto, cada una en su caja.</p>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-search-clear">Búsqueda con limpiar</h3>
+      <p class="section__intro">Búsquedas de barra: ícono de lupa al inicio y la X para limpiar, que solo aparece cuando hay texto. Mientras hay búsqueda, el grupo se ve como filtro aplicado.</p>
+      <app-demo-shell [controls]="stateSizeControls" [code]="caseCode('search')" (stateChange)="onStateSize('case-search', $event)">
+        <div class="field-wrap">
+          <cs-input-group [active]="!!searchValue()">
+            <cs-input-group-addon><cs-icon name="search" [size]="16" aria-hidden="true" /></cs-input-group-addon>
+            <cs-input-group-input [fieldSize]="stateSizeOf('case-search')" aria-label="Buscar unidades" placeholder="Buscar unidades" [value]="searchValue()" (valueChange)="searchValue.set($event)" />
+            <cs-input-group-clear label="Limpiar búsqueda" />
+          </cs-input-group>
+        </div>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-date-readonly">Fecha de solo lectura con calendario</h3>
+      <p class="section__intro">Filtros de fecha: el campo no se escribe a mano (solo lectura) y la fecha se elige con el calendario, que sigue siendo clicable.</p>
+      <app-demo-shell [controls]="stateSizeControls" [code]="caseCode('date')" (stateChange)="onStateSize('case-date', $event)">
+        <div class="field-wrap">
+          <cs-input-group>
+            <cs-input-group-input [fieldSize]="stateSizeOf('case-date')" aria-label="Fecha de registro" [readonly]="true" value="28/09/2026" />
+            <cs-input-group-addon align="inline-end"><cs-icon name="calendar" [size]="16" aria-hidden="true" /></cs-input-group-addon>
+          </cs-input-group>
+        </div>
+      </app-demo-shell>
+    </div>
   </section>
 
   <!-- Con etiqueta y texto de ayuda -->

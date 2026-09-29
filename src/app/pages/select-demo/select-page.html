@@ -92,33 +92,33 @@
     <div class="subsection">
       <h3 class="subsection__title" id="state-empty">Vacío</h3>
       <p class="section__intro">Todavía no se eligió nada. El placeholder dice qué se espera.</p>
-      <app-demo-shell [controls]="[]" [code]="code.empty">
-        <div class="select-stage"><cs-select label="Equipo" placeholder="Selecciona un equipo…" [options]="teamOptions" /></div>
+      <app-demo-shell [controls]="stateSizeControls" (stateChange)="onStateSize('empty', $event)" [code]="withSize(code.empty, 'empty')">
+        <div class="select-stage"><cs-select [size]="sizeOf('empty')" label="Equipo" placeholder="Selecciona un equipo…" [options]="teamOptions" /></div>
       </app-demo-shell>
     </div>
 
     <div class="subsection">
       <h3 class="subsection__title" id="state-filled">Con valor</h3>
       <p class="section__intro">Hay una opción elegida. Con la X se limpia, salvo que el valor sea obligatorio (<code>[showClear]="false"</code>).</p>
-      <app-demo-shell [controls]="[]" [code]="code.filled">
-        <div class="select-stage"><cs-select label="Equipo" [options]="teamOptions" [value]="stateValue()" (valueChange)="stateValue.set($any($event))" /></div>
+      <app-demo-shell [controls]="stateSizeControls" (stateChange)="onStateSize('filled', $event)" [code]="withSize(code.filled, 'filled')">
+        <div class="select-stage"><cs-select [size]="sizeOf('filled')" label="Equipo" [options]="teamOptions" [value]="stateValue()" (valueChange)="stateValue.set($any($event))" /></div>
       </app-demo-shell>
     </div>
 
     <div class="subsection">
       <h3 class="subsection__title" id="state-active">Filtro aplicado</h3>
       <p class="section__intro">Solo en barras de filtro: indica que el resultado está restringido por este campo.</p>
-      <app-demo-shell [controls]="[]" [code]="code.active">
-        <div class="select-stage"><cs-select label="Equipo" [options]="teamOptions" value="design" [active]="true" /></div>
+      <app-demo-shell [controls]="stateSizeControls" (stateChange)="onStateSize('active', $event)" [code]="withSize(code.active, 'active')">
+        <div class="select-stage"><cs-select [size]="sizeOf('active')" label="Equipo" [options]="teamOptions" value="design" [active]="true" /></div>
       </app-demo-shell>
     </div>
 
     <div class="subsection">
       <h3 class="subsection__title" id="state-invalid">Error</h3>
       <p class="section__intro">La selección no cumple una validación. Siempre con un mensaje que explique cómo resolverlo.</p>
-      <app-demo-shell [controls]="[]" [code]="code.invalid">
+      <app-demo-shell [controls]="stateSizeControls" (stateChange)="onStateSize('invalid', $event)" [code]="withSize(code.invalid, 'invalid')">
         <div class="select-stage">
-          <cs-select label="Equipo" placeholder="Selecciona un equipo…" [options]="teamOptions" [invalid]="true" aria-describedby="select-error" />
+          <cs-select [size]="sizeOf('invalid')" label="Equipo" placeholder="Selecciona un equipo…" [options]="teamOptions" [invalid]="true" aria-describedby="select-error" />
           <p class="field-error" id="select-error">Selecciona un equipo antes de continuar.</p>
         </div>
       </app-demo-shell>
@@ -127,24 +127,24 @@
     <div class="subsection">
       <h3 class="subsection__title" id="state-required">Requerido</h3>
       <p class="section__intro">El formulario no se puede enviar sin este valor. El asterisco aparece junto al label.</p>
-      <app-demo-shell [controls]="[]" [code]="code.required">
-        <div class="select-stage"><cs-select label="Equipo" placeholder="Selecciona un equipo…" [options]="teamOptions" [required]="true" /></div>
+      <app-demo-shell [controls]="stateSizeControls" (stateChange)="onStateSize('required', $event)" [code]="withSize(code.required, 'required')">
+        <div class="select-stage"><cs-select [size]="sizeOf('required')" label="Equipo" placeholder="Selecciona un equipo…" [options]="teamOptions" [required]="true" /></div>
       </app-demo-shell>
     </div>
 
     <div class="subsection">
       <h3 class="subsection__title" id="state-readonly">Solo lectura</h3>
       <p class="section__intro">El valor se muestra, pero no se puede cambiar en este contexto; por ejemplo, en un detalle ya confirmado.</p>
-      <app-demo-shell [controls]="[]" [code]="code.readonly">
-        <div class="select-stage"><cs-select label="Equipo" [options]="teamOptions" value="design" [readonly]="true" /></div>
+      <app-demo-shell [controls]="stateSizeControls" (stateChange)="onStateSize('readonly', $event)" [code]="withSize(code.readonly, 'readonly')">
+        <div class="select-stage"><cs-select [size]="sizeOf('readonly')" label="Equipo" [options]="teamOptions" value="design" [readonly]="true" /></div>
       </app-demo-shell>
     </div>
 
     <div class="subsection">
       <h3 class="subsection__title" id="state-disabled">Deshabilitado</h3>
       <p class="section__intro">El control no está disponible en el paso actual; por ejemplo, hasta completar un campo previo.</p>
-      <app-demo-shell [controls]="[]" [code]="code.disabled">
-        <div class="select-stage"><cs-select label="Equipo" [options]="teamOptions" value="design" [disabled]="true" /></div>
+      <app-demo-shell [controls]="stateSizeControls" (stateChange)="onStateSize('disabled', $event)" [code]="withSize(code.disabled, 'disabled')">
+        <div class="select-stage"><cs-select [size]="sizeOf('disabled')" label="Equipo" [options]="teamOptions" value="design" [disabled]="true" /></div>
       </app-demo-shell>
     </div>
   </section>

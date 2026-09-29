@@ -154,6 +154,21 @@ export class SelectPage {
     longChips: '<cs-select label="Operaciones" [multiple]="true" [options]="operaciones" [value]="[\'north\', \'south\', \'central\']" />',
     longSummary: '<cs-select label="Operaciones" [multiple]="true" multipleDisplay="summary" [options]="operaciones" [value]="[\'north\']" />',
   };
+  /** Cada caja de estado tiene su propio selector de tamaño. */
+  protected readonly stateSizeControls: ControlDef[] = [
+    { kind: 'select', label: 'Tamaño', key: 'size', options: ['xs', 'sm', 'md', 'lg'], default: 'md' },
+  ];
+  private readonly stateSizes = signal<Record<string, Size>>({});
+  protected sizeOf(key: string): Size {
+    return this.stateSizes()[key] ?? 'md';
+  }
+  protected onStateSize(key: string, s: DemoState): void {
+    if (s['size']) this.stateSizes.update((sizes) => ({ ...sizes, [key]: s['size'] as Size }));
+  }
+  protected withSize(code: string, key: string): string {
+    const size = this.sizeOf(key);
+    return size === 'md' ? code : code.replace('<cs-select ', `<cs-select size="${size}" `);
+  }
   protected readonly longSingle = signal<string | string[]>('north');
   protected readonly longChips = signal<string | string[]>(['north', 'south', 'central']);
   protected readonly longSummary = signal<string | string[]>(['north']);

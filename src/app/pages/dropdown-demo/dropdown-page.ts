@@ -238,6 +238,49 @@ export class DropdownPage {
     return lines.join('\n');
   });
 
-  /* Input Dropdown — Estados */
+  /* Input Dropdown — Estados: una caja por estado, cada una con su selector de tamaño. */
   protected readonly stateValueFilled = signal('engineering');
+  protected readonly stateSizeControls: ControlDef[] = [
+    { kind: 'select', label: 'Tamaño', key: 'size', options: SIZES, default: 'md' },
+  ];
+  protected readonly inputStates: InputDropdownStateDemo[] = INPUT_DROPDOWN_STATES;
+  private readonly stateSizes = signal<Record<string, DropdownSize>>({});
+  protected sizeOf(key: string): DropdownSize {
+    return this.stateSizes()[key] ?? 'md';
+  }
+  protected onStateSize(key: string, s: DemoState): void {
+    if (s['size']) this.stateSizes.update((sizes) => ({ ...sizes, [key]: s['size'] as DropdownSize }));
+  }
+  protected stateCode(state: InputDropdownStateDemo): string {
+    const size = this.sizeOf(state.key);
+    const attrs = [`label="${state.label}"`, ...(state.placeholder ? [`placeholder="${state.placeholder}"`] : []), ...(state.attrs.some((attr) => attr.startsWith('[options]')) ? [] : ['[options]="options"']), ...state.attrs];
+    if (size !== 'md') attrs.push(`size="${size}"`);
+    return `<cs-input-dropdown\n  ${attrs.join('\n  ')}\n/>${state.after ?? ''}`;
+  }
+
+  /* Input Dropdown — Superficie cálida */
+  protected readonly warmCode = '<cs-input-dropdown\n  label="Ubicación"\n  [options]="options"\n  [value]="value"\n  (valueChange)="value = $event"\n  surface="secondary"\n  [fullWidth]="true"\n  [matchTriggerWidth]="true"\n/>';
 }
+
+interface InputDropdownStateDemo {
+  key: string;
+  title: string;
+  intro: string;
+  label: string;
+  placeholder?: string;
+  /** Atributos que producen el estado, tal como se muestran en el código. */
+  attrs: string[];
+  /** Marcado adicional del código (por ejemplo, el mensaje de error). */
+  after?: string;
+}
+
+const INPUT_DROPDOWN_STATES: InputDropdownStateDemo[] = [
+  { key: 'empty', title: 'Vacío', intro: 'Todavía no se eligió nada. El placeholder dice qué se espera.', label: 'Equipo', placeholder: 'Selecciona un equipo…', attrs: [] },
+  { key: 'filled', title: 'Con valor', intro: 'Hay una opción elegida; al abrir, el foco va directo a ella.', label: 'Equipo', attrs: ['[value]="value"', '(valueChange)="value = $event"'] },
+  { key: 'active', title: 'Filtro aplicado', intro: 'Solo en barras de filtro, cuando el valor restringe el resultado. Usa [active]="!!value" para que se apague al volver a «todos».', label: 'Estado', attrs: ['value="design"', '[active]="true"', '[menuFit]="true"'] },
+  { key: 'invalid', title: 'Error', intro: 'El valor no cumple una validación. Siempre con un mensaje que explique cómo resolverlo.', label: 'Equipo', placeholder: 'Selecciona un equipo…', attrs: ['[invalid]="true"', 'aria-errormessage="team-error"'], after: '\n<p id="team-error">Selecciona un equipo antes de continuar.</p>' },
+  { key: 'required', title: 'Requerido', intro: 'El formulario no se puede enviar sin este valor. El asterisco aparece junto al label.', label: 'Equipo', placeholder: 'Selecciona un equipo…', attrs: ['[required]="true"'] },
+  { key: 'readonly', title: 'Solo lectura', intro: 'El valor se muestra, pero la lista no se abre, tampoco con el teclado.', label: 'Equipo', attrs: ['value="design"', '[readonly]="true"'] },
+  { key: 'disabled', title: 'Deshabilitado', intro: 'El control no está disponible en el paso actual del flujo.', label: 'Equipo', attrs: ['value="design"', '[disabled]="true"'] },
+  { key: 'tags', title: 'Con etiquetas de estado', intro: 'Cada opción puede llevar una etiqueta (tag) con tono success, danger o neutral; se ve en el campo y en la lista. Por ejemplo, la señal de cada GPS.', label: 'GPS', attrs: ['[options]="gpsOptions"', '[menuFit]="true"'] },
+];
