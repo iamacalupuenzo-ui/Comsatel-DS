@@ -2,7 +2,7 @@
    del anillo dibujado da teclado/foco/semántica de grupo gratis (arrow keys
    moviendo la selección entre radios del mismo name) — sin reimplementar
    ARIA a mano. */
-@import '../shared/selection-glyphs.css';
+@import '../../shared/src/selection-glyphs.css';
 
 :host {
   display: inline-flex;

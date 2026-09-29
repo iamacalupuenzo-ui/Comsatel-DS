@@ -1,10 +1,10 @@
 import { afterEveryRender, signal, ChangeDetectionStrategy, Component, EventEmitter, Input, Output, input, output } from '@angular/core';
-import { type AccordionType } from '../accordion/accordion';
+import { type AccordionType } from '@iamacalupuenzo-ui/comsatel-ds/accordion';
 import { Popover } from '@iamacalupuenzo-ui/comsatel-ds/popover';
 import { Button } from '@iamacalupuenzo-ui/comsatel-ds/button';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
-import { Tag, type TagSeverity } from '../tag/tag';
+import { Tag, type TagSeverity } from '@iamacalupuenzo-ui/comsatel-ds/tag';
 
 export type FleetUnitStatus = 'active' | 'stopped' | 'offline';
 export type FleetUnitListAppearance = 'outlined' | 'filled';

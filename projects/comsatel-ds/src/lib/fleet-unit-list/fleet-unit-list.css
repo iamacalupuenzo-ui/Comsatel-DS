@@ -1,4 +1,4 @@
-@import '../shared/focus.css';
+@import '../../../shared/src/focus.css';
 
 :host { display: block; }
 

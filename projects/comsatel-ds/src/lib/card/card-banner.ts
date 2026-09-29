@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AvatarGroup, type AvatarGroupItem } from '../avatar/avatar-group';
+import { AvatarGroup, type AvatarGroupItem } from '@iamacalupuenzo-ui/comsatel-ds/avatar';
 
 export type CardBannerVariant = 'neutral' | 'brand' | 'destructive' | 'warning' | 'success';
 

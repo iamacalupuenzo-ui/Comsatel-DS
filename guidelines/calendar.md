@@ -9,6 +9,7 @@ no dibujan sus propios campos, componen los del sistema.
 | `DateTimeRangePicker` | `DateRangePicker` + dos `TimePicker` | `{ startDate, endDate, startTime, endTime }` |
 
 - **Import:** `import { Calendar, DateTimePicker, DateTimeRangePicker, formatDate, formatDateTime } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Calendar } from '@iamacalupuenzo-ui/comsatel-ds/calendar';` y `import { formatDate, formatDateTime } from '@iamacalupuenzo-ui/comsatel-ds/format';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-calendar>`, `<cs-datetime-picker>`, `<cs-datetime-range-picker>`
 - **Clases raíz emitidas:** `.cs-calendar`, `.cs-datetime-picker`, `.cs-datetime-range-picker`
 
@@ -48,7 +49,7 @@ para que en Perú no se muestre el día anterior.
 ## Props de `Calendar`
 
 <!-- props:start Calendar -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/calendar/calendar.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/calendar/src/calendar.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -131,7 +132,7 @@ para que en Perú no se muestre el día anterior.
 - `invalid` va siempre acompañado de `errorMessage`: el borde rojo solo no comunica el error.
 
 <!-- a11y:start Calendar -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/calendar/calendar.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/calendar/src/calendar.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-calendar`
 

@@ -2,7 +2,7 @@
    para el primitivo accesible; acá el mismo comportamiento (teclado, foco,
    estado indeterminate) lo da un <input type="checkbox"> nativo oculto
    visualmente detrás del cuadrado dibujado — sin reimplementar ARIA a mano. */
-@import '../shared/selection-glyphs.css';
+@import '../../shared/src/selection-glyphs.css';
 
 :host {
   display: inline-flex;

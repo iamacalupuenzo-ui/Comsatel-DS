@@ -1,5 +1,5 @@
 import { Component, computed, input, output } from '@angular/core';
-import { formatRelativeTime, toDate, type DateInput } from '../format/date-format';
+import { formatRelativeTime, toDate, type DateInput } from '@iamacalupuenzo-ui/comsatel-ds/format';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 

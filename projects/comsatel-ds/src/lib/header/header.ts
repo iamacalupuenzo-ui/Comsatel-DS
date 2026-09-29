@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { Avatar } from '../avatar/avatar';
+import { Avatar } from '@iamacalupuenzo-ui/comsatel-ds/avatar';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { Popover } from '@iamacalupuenzo-ui/comsatel-ds/popover';
 

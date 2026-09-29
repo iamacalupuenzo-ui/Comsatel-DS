@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Badge, type BadgeSize, type BadgeVariant } from '../badge/badge';
+import { Badge, type BadgeSize, type BadgeVariant } from '@iamacalupuenzo-ui/comsatel-ds/badge';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 

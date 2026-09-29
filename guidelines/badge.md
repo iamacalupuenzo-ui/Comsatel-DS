@@ -4,6 +4,7 @@ Etiqueta corta de estado o conteo, no interactiva. Acompaña a otro elemento; nu
 el sujeto de la acción.
 
 - **Import:** `import { Badge } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Badge } from '@iamacalupuenzo-ui/comsatel-ds/badge';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-badge>`
 - **Clase raíz emitida:** `.cs-badge`
 
@@ -14,7 +15,7 @@ el sujeto de la acción.
 ## Props
 
 <!-- props:start Badge -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/badge/badge.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/badge/src/badge.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -39,7 +40,7 @@ El contenido va proyectado:
   el contenedor que lo envuelve con `aria-live`; Badge no lo hace por su cuenta.
 
 <!-- a11y:start Badge -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/badge/badge.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/badge/src/badge.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-badge`
 

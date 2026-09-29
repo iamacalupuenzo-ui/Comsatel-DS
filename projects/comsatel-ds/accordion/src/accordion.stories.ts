@@ -2,7 +2,7 @@ import { moduleMetadata } from '@storybook/angular';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { Accordion } from './accordion';
 import { AccordionItem } from './accordion-item';
-import { Badge } from '../badge/badge';
+import { Badge } from '@iamacalupuenzo-ui/comsatel-ds/badge';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 
 const meta: Meta<Accordion> = {

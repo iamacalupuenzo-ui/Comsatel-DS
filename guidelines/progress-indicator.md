@@ -5,6 +5,8 @@ y cuáles faltan. Es el único componente de pasos del sistema: `Stepper` quedó
 (ver al final).
 
 - **Import:** `import { ProgressIndicator } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { ProgressIndicator } from '@iamacalupuenzo-ui/comsatel-ds/progress-indicator';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
+- **Import liviano:** `import { Stepper } from '@iamacalupuenzo-ui/comsatel-ds/stepper';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-progress-indicator>`
 - **Clase raíz emitida:** `.cs-progress-indicator`
 
@@ -23,7 +25,7 @@ y cuáles faltan. Es el único componente de pasos del sistema: `Stepper` quedó
 ## Props
 
 <!-- props:start ProgressIndicator -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/progress-indicator/progress-indicator.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/progress-indicator/src/progress-indicator.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -49,7 +51,7 @@ y cuáles faltan. Es el único componente de pasos del sistema: `Stepper` quedó
 - Los conectores y los íconos de estado son `aria-hidden`.
 
 <!-- a11y:start ProgressIndicator -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/progress-indicator/progress-indicator.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/progress-indicator/src/progress-indicator.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-progress-indicator`
 
@@ -90,7 +92,7 @@ Para migrar, el cambio es de nombres, no de comportamiento:
 | `StepperOrientation` | `ProgressIndicatorOrientation` |
 
 <!-- props:start Stepper -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/stepper/stepper.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/stepper/src/stepper.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -102,7 +104,7 @@ Para migrar, el cambio es de nombres, no de comportamiento:
 <!-- props:end -->
 
 <!-- a11y:start Stepper -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/stepper/stepper.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/stepper/src/stepper.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-stepper`
 

@@ -5,6 +5,7 @@ Representación visual de una persona o empresa. `Avatar` es la pieza base;
 `AvatarAddButton` es el control para sumar a alguien.
 
 - **Import:** `import { Avatar, AvatarLabel, AvatarGroup, AvatarAddButton } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Avatar, AvatarGroup, AvatarLabel, AvatarAddButton } from '@iamacalupuenzo-ui/comsatel-ds/avatar';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-avatar>`, `<cs-avatar-label>`, `<cs-avatar-group>`, `<cs-avatar-add-button>`
 - **Clases raíz emitidas:** `.cs-avatar`, `.cs-avatar-label`, `.cs-avatar-group`, `.cs-avatar-add`
 
@@ -16,7 +17,7 @@ Representación visual de una persona o empresa. `Avatar` es la pieza base;
 ## Props de `Avatar`
 
 <!-- props:start Avatar -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/avatar/avatar.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/avatar/src/avatar.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -33,7 +34,7 @@ Representación visual de una persona o empresa. `Avatar` es la pieza base;
 ## Props de `AvatarGroup`
 
 <!-- props:start AvatarGroup -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/avatar/avatar-group.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/avatar/src/avatar-group.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -48,7 +49,7 @@ Representación visual de una persona o empresa. `Avatar` es la pieza base;
 ## Props de `AvatarLabel`
 
 <!-- props:start AvatarLabel -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/avatar/avatar-label.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/avatar/src/avatar-label.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -64,7 +65,7 @@ Representación visual de una persona o empresa. `Avatar` es la pieza base;
 ## Props de `AvatarAddButton`
 
 <!-- props:start AvatarAddButton -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/avatar/avatar-add-button.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/avatar/src/avatar-add-button.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -87,7 +88,7 @@ Representación visual de una persona o empresa. `Avatar` es la pieza base;
 - `AvatarAddButton` es un `<button>` real y ya trae nombre accesible por defecto.
 
 <!-- a11y:start Avatar -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/avatar/avatar.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/avatar/src/avatar.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-avatar`
 
@@ -99,7 +100,7 @@ Representación visual de una persona o empresa. `Avatar` es la pieza base;
 <!-- a11y:end -->
 
 <!-- a11y:start AvatarLabel -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/avatar/avatar-label.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/avatar/src/avatar-label.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-avatar-label`
 
@@ -109,7 +110,7 @@ Representación visual de una persona o empresa. `Avatar` es la pieza base;
 <!-- a11y:end -->
 
 <!-- a11y:start AvatarGroup -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/avatar/avatar-group.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/avatar/src/avatar-group.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-avatar-group`
 
@@ -119,7 +120,7 @@ Representación visual de una persona o empresa. `Avatar` es la pieza base;
 <!-- a11y:end -->
 
 <!-- a11y:start AvatarAddButton -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/avatar/avatar-add-button.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/avatar/src/avatar-add-button.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-avatar-add-button`
 

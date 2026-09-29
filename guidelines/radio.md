@@ -7,6 +7,7 @@ opciones independientes que se marcan por separado, el componente es `Checkbox`.
 compartido, el valor seleccionado y el estado deshabilitado.
 
 - **Import:** `import { Radio, RadioGroup } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { RadioGroup, Radio } from '@iamacalupuenzo-ui/comsatel-ds/radio';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selectores:** `<cs-radio-group>`, `<cs-radio>`
 - **Clases raíz emitidas:** `.cs-radio`, `.cs-radio-group`, `.cs-radio-ring`, `.cs-radio-dot`
 
@@ -25,7 +26,7 @@ compartido, el valor seleccionado y el estado deshabilitado.
 ## Props de `RadioGroup`
 
 <!-- props:start RadioGroup -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/radio/radio-group.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/radio/src/radio-group.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -48,7 +49,7 @@ compartido, el valor seleccionado y el estado deshabilitado.
 ## Props de `Radio`
 
 <!-- props:start Radio -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/radio/radio.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/radio/src/radio.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -78,7 +79,7 @@ compartido, el valor seleccionado y el estado deshabilitado.
   aparece.
 
 <!-- a11y:start RadioGroup -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/radio/radio-group.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/radio/src/radio-group.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-radio-group`
 
@@ -90,7 +91,7 @@ compartido, el valor seleccionado y el estado deshabilitado.
 <!-- a11y:end -->
 
 <!-- a11y:start Radio -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/radio/radio.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/radio/src/radio.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-radio`
 

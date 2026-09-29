@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Avatar } from '../avatar/avatar';
+import { Avatar } from '@iamacalupuenzo-ui/comsatel-ds/avatar';
 
 export interface AvatarPosition {
   size: 32 | 40;

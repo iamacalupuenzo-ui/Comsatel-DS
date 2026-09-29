@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import { Tag } from '../tag/tag';
+import { Tag } from '@iamacalupuenzo-ui/comsatel-ds/tag';
 import { DescriptionItem, DescriptionList } from './description-list';
 
 const meta: Meta<DescriptionList> = {

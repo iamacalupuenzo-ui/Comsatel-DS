@@ -8,7 +8,7 @@ export const componentStyles = [
   'projects/comsatel-ds/src/lib/dropdown/input-dropdown.css',
   'projects/comsatel-ds/src/lib/fleet-unit-list/fleet-unit-list.css',
   'projects/comsatel-ds/src/lib/card/action-card.css',
-  'projects/comsatel-ds/src/lib/shared/focus.css',
+  'projects/comsatel-ds/shared/src/focus.css',
   'projects/comsatel-ds/src/lib/select/select.css',
   'src/app/pages/motion-demo/collapsible-panel-example.css',
 ];

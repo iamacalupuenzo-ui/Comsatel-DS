@@ -1,7 +1,7 @@
 import { NgStyle } from '@angular/common';
 import { Component, EventEmitter, Input, Output, computed, input, linkedSignal, signal } from '@angular/core';
 import { Button } from '@iamacalupuenzo-ui/comsatel-ds/button';
-import { Calendar } from '../calendar/calendar';
+import { Calendar } from '@iamacalupuenzo-ui/comsatel-ds/calendar';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { InputGroup } from '@iamacalupuenzo-ui/comsatel-ds/input';
 import { InputGroupAddon } from '@iamacalupuenzo-ui/comsatel-ds/input';
@@ -10,7 +10,7 @@ import type { InputFieldSize } from '@iamacalupuenzo-ui/comsatel-ds/input';
 import { Popover } from '@iamacalupuenzo-ui/comsatel-ds/popover';
 import { fieldLabelTypography } from '@iamacalupuenzo-ui/comsatel-ds/input';
 import { textStyle } from '@iamacalupuenzo-ui/comsatel-ds/tokens';
-import { formatDate } from '../format/date-format';
+import { formatDate } from '@iamacalupuenzo-ui/comsatel-ds/format';
 
 /** Rango de fechas en formato 'YYYY-MM-DD'; `to` vacío mientras se elige el segundo día. */
 export interface DateRangeValue {

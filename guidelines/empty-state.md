@@ -4,6 +4,7 @@ Estado **vacío**: explica por qué no hay contenido y qué puede hacer la perso
 de `[emptyState]` de Table o en cualquier zona sin resultados.
 
 - **Import:** `import { EmptyState } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { EmptyState } from '@iamacalupuenzo-ui/comsatel-ds/empty-state';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-empty-state>`
 
 ```html
@@ -23,7 +24,7 @@ de `[emptyState]` de Table o en cualquier zona sin resultados.
 ## Props
 
 <!-- props:start EmptyState -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/empty-state/empty-state.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/empty-state/src/empty-state.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -38,7 +39,7 @@ de `[emptyState]` de Table o en cualquier zona sin resultados.
 - El ícono es decorativo (`aria-hidden`); el significado va en `title`.
 
 <!-- a11y:start EmptyState -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/empty-state/empty-state.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/empty-state/src/empty-state.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-empty-state`
 

@@ -4,6 +4,7 @@ Selección múltiple independiente: cada casilla se marca sin afectar a las dem�
 elegir una sola opción de un conjunto, el componente es `Radio`/`RadioGroup`.
 
 - **Import:** `import { Checkbox } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Import liviano:** `import { Checkbox } from '@iamacalupuenzo-ui/comsatel-ds/checkbox';` (ver «Importar desde un subpath» en `docs/consumer-angular.md`)
 - **Selector:** `<cs-checkbox>`
 - **Clase raíz emitida:** `.cs-checkbox`
 
@@ -19,7 +20,7 @@ elegir una sola opción de un conjunto, el componente es `Radio`/`RadioGroup`.
 ## Props
 
 <!-- props:start Checkbox -->
-<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/checkbox/checkbox.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/checkbox/src/checkbox.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
 
 | Prop | Type | Default | Description |
 | :-- | :-- | :-- | :-- |
@@ -46,7 +47,7 @@ elegir una sola opción de un conjunto, el componente es `Radio`/`RadioGroup`.
   tabla ("seleccionar fila") queda sin nombre accesible si no se lo pasas.
 
 <!-- a11y:start Checkbox -->
-<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/checkbox/checkbox.ts: no editar a mano, corre npm run docs:a11y -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/checkbox/src/checkbox.ts: no editar a mano, corre npm run docs:a11y -->
 
 #### Contrato a11y generado desde el código: `cs-checkbox`
 

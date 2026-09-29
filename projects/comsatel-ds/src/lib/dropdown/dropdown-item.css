@@ -1,4 +1,4 @@
-@import '../shared/selection-glyphs.css';
+@import '../../../shared/src/selection-glyphs.css';
 
 :host {
   display: block;

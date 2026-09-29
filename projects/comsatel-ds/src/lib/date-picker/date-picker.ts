@@ -1,8 +1,8 @@
 import { NgStyle } from '@angular/common';
 import { Component, EventEmitter, Input, Output, computed, input, linkedSignal, signal } from '@angular/core';
 import { Button } from '@iamacalupuenzo-ui/comsatel-ds/button';
-import { Calendar } from '../calendar/calendar';
-import { formatDate } from '../format/date-format';
+import { Calendar } from '@iamacalupuenzo-ui/comsatel-ds/calendar';
+import { formatDate } from '@iamacalupuenzo-ui/comsatel-ds/format';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import { InputGroup } from '@iamacalupuenzo-ui/comsatel-ds/input';
 import { InputGroupAddon } from '@iamacalupuenzo-ui/comsatel-ds/input';

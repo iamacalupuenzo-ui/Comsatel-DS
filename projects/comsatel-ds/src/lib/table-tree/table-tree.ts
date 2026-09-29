@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
-import { Skeleton } from '../skeleton/skeleton';
+import { Skeleton } from '@iamacalupuenzo-ui/comsatel-ds/skeleton';
 import type { TableCellValue, TableTemplateCell } from '../table/table-types';
 import type { TableTreeColumn, TableTreeItem } from './table-tree-types';
 

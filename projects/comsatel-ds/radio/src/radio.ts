@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { textStyle, type StyleName } from '@iamacalupuenzo-ui/comsatel-ds/tokens';
-import { radioDotSize } from '../shared/radio-glyph';
+import { radioDotSize } from '@iamacalupuenzo-ui/comsatel-ds/shared';
 
 export type RadioSize = 'sm' | 'md' | 'lg';
 

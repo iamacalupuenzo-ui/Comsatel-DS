@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import type { DropdownItem, DropdownSelectionMode, DropdownSize } from './dropdown-types';
 import { ITEM_TOKENS, hoverBgFor } from './dropdown-tokens';
-import { radioDotSize } from '../shared/radio-glyph';
+import { radioDotSize } from '@iamacalupuenzo-ui/comsatel-ds/shared';
 
 // Puerto 1:1 de MenuItem en dropdown.tsx. El glyph de checkbox/radio calca
 // exactamente el cuadrado/anillo real de Checkbox/Radio (mismas clases CSS

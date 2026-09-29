@@ -66,6 +66,26 @@ Desde la 0.4.0, cada vez más piezas tienen su propio punto de entrada (la migra
 | `@iamacalupuenzo-ui/comsatel-ds/menu` | `Menu` y sus tipos (`MenuGroupData`…) |
 | `@iamacalupuenzo-ui/comsatel-ds/app-layout` | `AppLayout`, `AppLayoutState` |
 | `@iamacalupuenzo-ui/comsatel-ds/tokens` | Tokens en TypeScript (`textStyle`, `primitiveColors`, `ALL_TOKENS`) |
+| `@iamacalupuenzo-ui/comsatel-ds/format` | `formatDate`, `formatTime`, `formatDateTime`, `formatDayMonth`, `formatRelativeTime` |
+| `@iamacalupuenzo-ui/comsatel-ds/accordion` | `Accordion` y sus ítems |
+| `@iamacalupuenzo-ui/comsatel-ds/avatar` | `Avatar` y su grupo |
+| `@iamacalupuenzo-ui/comsatel-ds/badge` | `Badge` |
+| `@iamacalupuenzo-ui/comsatel-ds/banner` | `Banner` |
+| `@iamacalupuenzo-ui/comsatel-ds/calendar` | `Calendar` |
+| `@iamacalupuenzo-ui/comsatel-ds/checkbox` | `Checkbox` |
+| `@iamacalupuenzo-ui/comsatel-ds/description-list` | `DescriptionList` |
+| `@iamacalupuenzo-ui/comsatel-ds/empty-state` | `EmptyState` |
+| `@iamacalupuenzo-ui/comsatel-ds/list-item` | `ListItem` |
+| `@iamacalupuenzo-ui/comsatel-ds/progress-indicator` | `ProgressIndicator` |
+| `@iamacalupuenzo-ui/comsatel-ds/radio` | `Radio` y su grupo |
+| `@iamacalupuenzo-ui/comsatel-ds/skeleton` | `Skeleton` |
+| `@iamacalupuenzo-ui/comsatel-ds/stat` | `Stat` |
+| `@iamacalupuenzo-ui/comsatel-ds/stepper` | `Stepper` |
+| `@iamacalupuenzo-ui/comsatel-ds/tag` | `Tag` |
+| `@iamacalupuenzo-ui/comsatel-ds/textarea` | `Textarea` |
+| `@iamacalupuenzo-ui/comsatel-ds/timeline` | `Timeline` |
+| `@iamacalupuenzo-ui/comsatel-ds/toggle` | `Toggle` |
+| `@iamacalupuenzo-ui/comsatel-ds/tooltip` | `Tooltip` |
 
 El import raíz `@iamacalupuenzo-ui/comsatel-ds` sigue exportando todo, pero trae la
 librería **entera** al chunk que lo usa, aunque importes una sola pieza. Importa desde

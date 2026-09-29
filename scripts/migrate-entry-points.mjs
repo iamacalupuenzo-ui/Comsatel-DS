@@ -10,7 +10,7 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative } from 'node:path';
-import { ROOT } from './lib/ds.mjs';
+import { ROOT, exportedSymbols } from './lib/ds.mjs';
 
 const PKG = '@iamacalupuenzo-ui/comsatel-ds';
 const LIB_ROOT = join(ROOT, 'projects', 'comsatel-ds');
@@ -34,6 +34,16 @@ const walk = (dir, out = []) => {
   return out;
 };
 
+// 0. Guardas. Una carpeta con reexports indirectos (`export { X } from`, `export * from`) no se
+// migra a ciegas: el mapa de símbolos de abajo solo entiende declaraciones exportadas.
+for (const name of wave) {
+  for (const f of walk(join(LIB, name)).filter((f) => f.endsWith('.ts') && !/\.(stories|spec)\.ts$/.test(f))) {
+    if (/^export\s+(\*|\{[^}]*\})\s+from\s/m.test(read(f))) throw new Error(`${relative(ROOT, f)} tiene reexports: migra esa carpeta a mano.`);
+  }
+}
+// La API pública antes de mover: al final debe ser idéntica.
+const apiBefore = [...exportedSymbols()].sort();
+
 // 1. Exports que la raíz tenía de cada carpeta de la ola (el contrato a conservar).
 let api = norm(read(API));
 const rootExports = {};
@@ -55,7 +65,10 @@ for (const name of wave) {
   const entryApi = join(LIB_ROOT, name, 'public-api.ts');
   const previous = existsSync(entryApi) ? read(entryApi).replace(/\r\n/g, '\n') : `// Punto de entrada secundario: ${PKG}/${name}\n`;
   const lines = previous.split('\n').filter(Boolean);
-  for (const file of rootExports[name] ?? []) {
+  // Una carpeta sin exports en la raíz (como `shared`) es de apoyo interno: su subpath expone sus
+  // archivos .ts para las otras entradas, pero la raíz no los reexporta (no amplía la API pública).
+  const files = rootExports[name] ?? readdirSync(to).filter((f) => f.endsWith('.ts') && !/\.(stories|spec)\.ts$/.test(f)).map((f) => f.replace(/\.ts$/, ''));
+  for (const file of files) {
     const line = `export * from './src/${file}';`;
     if (!lines.includes(line)) lines.push(line);
   }
@@ -116,4 +129,37 @@ for (const file of files) {
     changed.push(relative(ROOT, file).replace(/\\/g, '/'));
   }
 }
-console.log(`entradas: ${wave.join(', ')}\n${changed.length} archivos con imports reescritos`);
+
+// 5. @import de CSS entre carpetas: son recursos de compilación, no subpaths; se corrige la ruta
+// relativa según dónde quedaron el archivo y su destino.
+const locate = (folder) => (isEntry(folder) ? join(LIB_ROOT, folder, 'src') : join(LIB, folder));
+for (const file of files.filter((f) => f.endsWith('.css'))) {
+  const { crlf, text } = norm(read(file));
+  const out = text.replace(/@import\s+'\.\.\/([a-z-]+)\/([^']+)'/g, (all, folder, rest) => {
+    const target = join(locate(folder), rest);
+    if (!existsSync(target)) return all;
+    const spec = relative(dirname(file), target).replace(/\\/g, '/');
+    return `@import '${spec.startsWith('.') ? spec : './' + spec}'`;
+  });
+  if (out !== text) {
+    write(file, out, crlf);
+    changed.push(relative(ROOT, file).replace(/\\/g, '/'));
+  }
+}
+
+// 6. La API pública después de mover debe ser la misma.
+const apiAfter = [...exportedSymbols()].sort();
+const lost = apiBefore.filter((s) => !apiAfter.includes(s));
+const gained = apiAfter.filter((s) => !apiBefore.includes(s));
+if (lost.length || gained.length) {
+  console.error(`La API pública cambió.\nFaltan: ${lost.join(', ') || '—'}\nSobran: ${gained.join(', ') || '—'}`);
+  process.exit(1);
+}
+// 7. La auditoría de readiness (adsa) lee las fuentes de las carpetas de adsa.config.json: sin
+// las entradas nuevas, cuenta los componentes movidos como no documentados y el gate baja de 45.
+const adsa = join(ROOT, 'adsa.config.json');
+const config = JSON.parse(read(adsa));
+config.source = ['projects/comsatel-ds/src/lib', ...readdirSync(LIB_ROOT).filter((d) => isEntry(d)).sort().map((d) => `projects/comsatel-ds/${d}/src`)];
+writeFileSync(adsa, JSON.stringify(config, null, 2) + '\n');
+
+console.log(`entradas: ${wave.join(', ')}\n${changed.length} archivos reescritos; API pública intacta (${apiAfter.length} símbolos)`);
