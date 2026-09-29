@@ -108,7 +108,11 @@
 }
 /* En pantallas chicas solo quedan los íconos; el nombre sigue disponible para lectores de pantalla. */
 @media (max-width: 767px) {
+  /* 44 × 44 px: objetivo táctil cómodo cuando solo queda el ícono. */
   .topnav__tool {
+    justify-content: center;
+    min-width: 44px;
+    height: 44px;
     padding-inline: var(--layout-padding-sm);
   }
   .topnav__tool > span:not(.topnav__sr-only) {
