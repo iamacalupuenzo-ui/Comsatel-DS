@@ -104,6 +104,18 @@
   white-space: nowrap;
 }
 
+/* Ícono inicial decorativo: mismo tono que el chevron; toma el color de selección en el filtro aplicado. */
+.cs-input-dropdown__leading-icon {
+  flex-shrink: 0;
+  color: var(--color-icon-neutral-subtle);
+}
+.cs-input-dropdown__trigger--active .cs-input-dropdown__leading-icon {
+  color: var(--color-icon-selected);
+}
+.cs-input-dropdown__trigger:disabled .cs-input-dropdown__leading-icon {
+  color: var(--color-text-disabled);
+}
+
 .cs-input-dropdown__chevron {
   flex-shrink: 0;
   margin-left: auto;

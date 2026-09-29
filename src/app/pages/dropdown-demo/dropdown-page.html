@@ -1,6 +1,6 @@
 <div class="page">
   <p class="eyebrow">Componentes / Dropdown</p>
-  <h1 class="title">Dropdown<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.0</span></h1>
+  <h1 class="title">Dropdown<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.6</span></h1>
   <p class="description">
     Esta página documenta dos componentes que se ven parecidos pero cumplen funciones distintas.
     <strong>Dropdown</strong> es un menú de acciones: se abre desde un botón o un ícono y cada ítem hace algo
@@ -207,6 +207,7 @@
           [invalid]="ipgInvalid()"
           [active]="ipgActive()"
           [menuFit]="ipgMenuFit()"
+          [leadingIcon]="ipgIcon() ? 'tag' : undefined"
         ></cs-input-dropdown>
       </div>
     </app-demo-shell>
@@ -245,6 +246,9 @@
               }
               @case ('disabled') {
                 <cs-input-dropdown label="Equipo" [options]="inputOptions" value="design" [disabled]="true" [size]="sizeOf(state.key)" [fullWidth]="true" />
+              }
+              @case ('icon') {
+                <cs-input-dropdown label="Estado" leadingIcon="tag" [options]="inputOptions" value="design" [active]="true" [menuFit]="true" [size]="sizeOf(state.key)" [fullWidth]="true" />
               }
               @case ('tags') {
                 <cs-input-dropdown label="GPS" [options]="gpsOptions" [value]="gpsValue()" (valueChange)="gpsValue.set($event)" [menuFit]="true" [size]="sizeOf(state.key)" [fullWidth]="true" />
@@ -411,6 +415,7 @@
       <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
       <div class="table__row"><code class="table__name">options</code><code class="table__type">InputDropdownOption[]</code><code class="table__default">—</code><span class="table__desc">Array de opciones {{ '{' }} value, label, disabled?, tag? {{ '}' }}. <code class="inline-code">tag</code> es {{ '{' }} label, tone: 'success' | 'danger' | 'neutral' {{ '}' }}.</span></div>
       <div class="table__row"><code class="table__name">active</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Filtro aplicado: borde, fondo y texto de selección. Cede ante foco, apertura y error.</span></div>
+      <div class="table__row"><code class="table__name">leadingIcon</code><code class="table__type">IconName</code><code class="table__default">—</code><span class="table__desc">Ícono decorativo al inicio del campo, para filtros compactos que se reconocen por su ícono. En el filtro aplicado toma el color de selección.</span></div>
       <div class="table__row"><code class="table__name">menuFit</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">La lista mide al menos el ancho del campo y crece con la opción más larga hasta el borde visible; recién ahí parte el texto.</span></div>
       <div class="table__row"><code class="table__name">fullWidth</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">El campo ocupa todo el ancho de su contenedor.</span></div>
       <div class="table__row"><code class="table__name">value</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Valor seleccionado, controlado.</span></div>

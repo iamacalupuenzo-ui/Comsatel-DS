@@ -181,6 +181,7 @@ export class DropdownPage {
     { kind: 'select', label: 'Estado', key: 'state', options: [{ value: 'default', label: 'Por defecto' }, { value: 'active', label: 'Filtro aplicado' }, { value: 'invalid', label: 'Error' }, { value: 'readonly', label: 'Solo lectura' }, { value: 'disabled', label: 'Deshabilitado' }], default: 'default' },
     { kind: 'toggle', label: 'Menú ajustado al campo', key: 'menuFit', default: false },
     { kind: 'toggle', label: 'Etiquetas de estado', key: 'tags', default: false },
+    { kind: 'toggle', label: 'Ícono al inicio', key: 'icon', default: false },
   ];
 
   protected readonly ipgSize = signal<DropdownSize>('md');
@@ -194,6 +195,7 @@ export class DropdownPage {
   protected readonly ipgActive = computed(() => this.ipgState() === 'active');
   protected readonly ipgMenuFit = signal(false);
   protected readonly ipgTags = signal(false);
+  protected readonly ipgIcon = signal(false);
   protected readonly ipgValue = signal('');
   protected readonly ipgOptions = computed<InputDropdownOption[]>(() =>
     this.ipgTags()
@@ -208,6 +210,7 @@ export class DropdownPage {
     if (s['state']) this.ipgState.set(String(s['state']));
     if (s['menuFit'] !== undefined) this.ipgMenuFit.set(!!s['menuFit']);
     if (s['tags'] !== undefined) this.ipgTags.set(!!s['tags']);
+    if (s['icon'] !== undefined) this.ipgIcon.set(!!s['icon']);
   }
 
   /* Input Dropdown — Filtro de barra */
@@ -234,6 +237,7 @@ export class DropdownPage {
     if (this.ipgInvalid()) lines.push(`  [invalid]="true"`);
     if (this.ipgActive()) lines.push(`  [active]="true"`);
     if (this.ipgMenuFit()) lines.push(`  [menuFit]="true"`);
+    if (this.ipgIcon()) lines.push(`  leadingIcon="tag"`);
     lines.push(`  [options]="options"`, `  [value]="value"`, `  (valueChange)="value = $event"`, `></cs-input-dropdown>`);
     return lines.join('\n');
   });
@@ -280,5 +284,6 @@ const INPUT_DROPDOWN_STATES: InputDropdownStateDemo[] = [
   { key: 'required', title: 'Requerido', intro: 'El formulario no se puede enviar sin este valor. El asterisco aparece junto al label.', label: 'Equipo', placeholder: 'Selecciona un equipo…', attrs: ['[required]="true"'] },
   { key: 'readonly', title: 'Solo lectura', intro: 'El valor se muestra, pero la lista no se abre, tampoco con el teclado.', label: 'Equipo', attrs: ['value="design"', '[readonly]="true"'] },
   { key: 'disabled', title: 'Deshabilitado', intro: 'El control no está disponible en el paso actual del flujo.', label: 'Equipo', attrs: ['value="design"', '[disabled]="true"'] },
+  { key: 'icon', title: 'Con ícono al inicio', intro: 'Filtros compactos que se reconocen por su ícono, como estado o financiera en el panel del mapa. El ícono es decorativo: el label o el aria-label siguen nombrando el campo.', label: 'Estado', attrs: ['leadingIcon="tag"', 'size="sm"', 'value="design"', '[active]="true"', '[menuFit]="true"'] },
   { key: 'tags', title: 'Con etiquetas de estado', intro: 'Cada opción puede llevar una etiqueta (tag) con tono success, danger o neutral; se ve en el campo y en la lista. Por ejemplo, la señal de cada GPS.', label: 'GPS', attrs: ['[options]="gpsOptions"', '[menuFit]="true"'] },
 ];

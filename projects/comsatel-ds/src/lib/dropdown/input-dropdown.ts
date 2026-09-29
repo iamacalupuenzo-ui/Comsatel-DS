@@ -3,6 +3,7 @@ import { NgStyle } from '@angular/common';
 import { Icon } from '../icons/icon';
 import { INPUT_TOKENS } from './dropdown-tokens';
 import type { DropdownSize, InputDropdownOption } from './dropdown-types';
+import type { IconName } from '../icons/icon-registry';
 import { CountryFlag } from './country-flag';
 import { Popover } from '../popover/popover';
 import { fieldLabelTypography } from '../input/input-tokens';
@@ -70,6 +71,8 @@ export class InputDropdown implements AfterViewInit, OnChanges {
    * Pensado para filtros de barra, donde el menú no debe quedar más angosto que el campo.
    */
   @Input() menuFit = false;
+  /** Ícono decorativo al inicio del campo, para filtros compactos que se reconocen por su ícono (por ejemplo, estado o financiera). */
+  @Input() leadingIcon?: IconName;
 
   @HostBinding('class.cs-input-dropdown-host--embedded') get isEmbeddedHost(): boolean {
     return this.embedded;

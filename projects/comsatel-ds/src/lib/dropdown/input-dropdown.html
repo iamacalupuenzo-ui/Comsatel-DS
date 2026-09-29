@@ -20,7 +20,7 @@
       class="cs-input-dropdown__measure"
       [style.font-size]="tok.fontSize"
       [style.padding-inline-start.px]="tok.paddingX"
-      [style.padding-inline-end.px]="tok.paddingX + (hasVisualPrefix ? 40 : 20)"
+      [style.padding-inline-end.px]="tok.paddingX + (hasVisualPrefix ? 40 : 20) + (leadingIcon ? 20 : 0)"
     >{{ widestLabel }}</span>
 
     @if (name) {
@@ -63,6 +63,9 @@
       (focus)="onFocus()"
       (blur)="onBlur()"
     >
+      @if (leadingIcon) {
+        <cs-icon [name]="leadingIcon" [size]="tok.height <= 28 ? 14 : 16" class="cs-input-dropdown__leading-icon" aria-hidden="true"></cs-icon>
+      }
       @if (selectedOption?.countryFlag) {
         <cs-country-flag [country]="selectedOption!.countryFlag!" [size]="16"></cs-country-flag>
       } @else if (selectedOption?.leadingText) {

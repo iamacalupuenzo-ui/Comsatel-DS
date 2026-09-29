@@ -108,7 +108,7 @@ export const NAVIGATION: NavSection[] = [
       { title: 'Checkbox', href: '/components/checkbox', icon: 'check-square' },
       { title: 'Date time picker', href: '/components/datetime-picker', icon: 'calendar-clock' },
       { title: 'Date time range picker', href: '/components/datetime-range-picker', icon: 'calendar-range' },
-      { title: 'Dropdown', href: '/components/dropdown', icon: 'chevron-down', change: { kind: 'actualizado', version: '0.3.0' } },
+      { title: 'Dropdown', href: '/components/dropdown', icon: 'chevron-down', change: { kind: 'actualizado', version: '0.3.6' } },
       { title: 'Header', href: '/components/header', icon: 'panel-top' },
       { title: 'Input', href: '/components/input', icon: 'text-cursor-input', change: { kind: 'actualizado', version: '0.3.2' } },
       { title: 'List item', href: '/components/list-item', icon: 'list' },

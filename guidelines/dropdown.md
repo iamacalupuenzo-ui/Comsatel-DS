@@ -78,6 +78,7 @@ dividerAfter?, selected? }`.
 | `surface` | `'default' \| 'secondary'` | `'default'` | **Obsoleto desde 0.3.5:** la superficie crema se descartó y se eliminará en 0.4.0. No la uses. |
 | `active` | `boolean` | `false` | Filtro aplicado: borde, fondo y texto de selección. Cede ante foco, apertura y error. |
 | `menuFit` | `boolean` | `false` | La lista mide al menos el ancho del campo y crece con la opción más larga hasta el borde visible; recién ahí parte el texto. |
+| `leadingIcon` | `IconName \| undefined` | `undefined` | Ícono decorativo al inicio, para filtros compactos que se reconocen por su ícono. En el filtro aplicado toma el color de selección. |
 | `valueChange` | `EventEmitter<string>` | n/a | Emite el nuevo valor. |
 <!-- props:end -->
 
@@ -149,7 +150,7 @@ dividerAfter?, selected? }`.
 | Atributos ARIA | `aria-hidden="true"`, `aria-haspopup="listbox"`, `aria-orientation="vertical"`, `aria-label`, `aria-labelledby`, `aria-describedby`, `aria-errormessage`, `aria-required`, `aria-invalid`, `aria-readonly`, `aria-expanded`, `aria-controls`, `aria-selected` |
 | Teclas que maneja el código | `ArrowDown`, `ArrowUp`, `Enter`, `Escape`, `Tab`, `Home`, `End` |
 | Foco | Mueve el foco por código (`.focus()`) |
-| Compone | `cs-country-flag`, `cs-icon`, `cs-popover` |
+| Compone | `cs-icon`, `cs-country-flag`, `cs-popover` |
 <!-- a11y:end -->
 
 ## Trampas
