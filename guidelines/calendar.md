@@ -30,6 +30,7 @@ Todo el sistema usa un solo formato, con las funciones `formatDate`, `formatTime
 | Fecha | «27 sep. 2026» | El mes en letras evita confundir día y mes. |
 | Hora | «16:56» (24 h) | Más corta y sin «a. m.»; es el estándar en operación. |
 | Fecha y hora | «27 sep. 2026, 16:56» | Las dos reglas juntas. |
+| Tiempo reciente | «Ahora», «Hace 8 min», «Hace 3 h» | Para avisos (`formatRelativeTime`); desde 24 h pasa a fecha y hora. |
 
 No usan `Intl.DateTimeFormat` a propósito: cada locale y cada navegador devuelve algo distinto
 («sept», «set.», «sep», «4:56 p. m.»). Una fecha sola `'YYYY-MM-DD'` se lee en horario local,

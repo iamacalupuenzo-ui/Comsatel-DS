@@ -1,0 +1,29 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+.card-stage { display: grid; inline-size: min(100%, 290px); }
+/* Mismo aspecto que el chevrón del panel: la acción proyectada no desentona. */
+.voice-button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-inline-size: 24px;
+  min-block-size: 24px;
+  padding: var(--layout-padding-2xs);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-base-subtlest);
+  cursor: pointer;
+}
+.voice-button:hover { background: var(--color-background-neutral-subtle); color: var(--color-text-base-default); }
+.voice-button:focus-visible { outline: var(--layout-border-thick) solid var(--color-border-focused); outline-offset: 2px; }
+.voice-button--muted::after {
+  content: '';
+  position: absolute;
+  inline-size: 18px;
+  block-size: var(--layout-border-thick);
+  border-radius: var(--radius-full);
+  background: currentColor;
+  transform: rotate(-45deg);
+}

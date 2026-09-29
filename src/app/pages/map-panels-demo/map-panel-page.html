@@ -1,0 +1,101 @@
+<div class="page">
+  <p class="eyebrow">Mapa / Panel flotante</p>
+  <h1 class="title">Panel flotante<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.29</span></h1>
+  <p class="description">
+    La superficie que flota sobre el mapa: la usan el buscador de unidades y las notificaciones. Abierto muestra su
+    contenido con scroll propio; contraído queda como una píldora con el encabezado, para liberar el mapa sin perder
+    el acceso.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Elige un estado. El chevrón del encabezado lo abre y lo contrae; Escape también lo contrae y deja el foco en el chevrón.</p>
+    <ul class="section__intro state-list">
+      <li><strong>{{ pgInfo().title }}.</strong> {{ pgInfo().intro }}</li>
+      <li><strong>Propiedades:</strong> <code>{{ pgInfo().props }}</code></li>
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="codeFor(pgInfo())" (stateChange)="onState($event)">
+      <div class="map-stage">
+        <cs-map-panel class="map-stage__left" label="Unidades en seguimiento" title="Seguimiento" icon="eye" [badge]="pgInfo().badge" badgeDescription="3 avisos pendientes" [open]="pgOpen()" (openChange)="pgOpen.set($event)">
+          <ng-container *ngTemplateOutlet="items; context: { $implicit: pgInfo().items }" />
+        </cs-map-panel>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada estado en su propia caja. Todos se pueden abrir y contraer.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'map-panel-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="codeFor(state)">
+          <div class="map-stage map-stage--short">
+            <cs-map-panel class="map-stage__left" label="Unidades en seguimiento" title="Seguimiento" icon="eye" [badge]="state.badge" badgeDescription="3 avisos pendientes" [open]="isOpen(state)" (openChange)="setOpen(state, $event)">
+              <ng-container *ngTemplateOutlet="items; context: { $implicit: state.items }" />
+            </cs-map-panel>
+          </div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="anatomy">Partes que se proyectan</h2>
+    <p class="section__intro">El panel no sabe qué muestra: cada parte llega con un atributo.</p>
+    <ul class="section__intro state-list">
+      <li><code>[csMapPanelHeader]</code>: reemplaza título e ícono cuando el encabezado es un campo, como en el buscador.</li>
+      <li><code>[csMapPanelActions]</code>: botones del encabezado antes del chevrón, como silenciar la voz de los avisos.</li>
+      <li><code>[csMapPanelToolbar]</code>: una barra fija arriba del scroll, como los filtros del buscador.</li>
+      <li><code>[csMapPanelFooter]</code>: un pie fijo, como «Limpiar notificaciones».</li>
+      <li>El resto del contenido va al área con scroll. Con <code>listLabel</code>, esa área toma <code>role="list"</code>.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-mobile">Un solo panel abierto a la vez</h3>
+      <p class="section__intro">En el celular los dos paneles se tapan. La pantalla coordina: al abrir uno, contrae el otro. El panel no lo hace solo porque no sabe qué otros paneles hay.</p>
+      <app-demo-shell [controls]="[]" [code]="mobileCode">
+        <div class="map-stage map-stage--short">
+          <cs-map-panel class="map-stage__left" label="Unidades en seguimiento" title="Seguimiento" icon="eye" [open]="activePanel() === 'a'" (openChange)="activePanel.set($event ? 'a' : null)">
+            <ng-container *ngTemplateOutlet="items; context: { $implicit: 2 }" />
+          </cs-map-panel>
+          <cs-map-panel class="map-stage__right" label="Avisos" title="Avisos" icon="bell" [badge]="2" badgeDescription="2 avisos pendientes" [open]="activePanel() === 'b'" (openChange)="activePanel.set($event ? 'b' : null)">
+            <ng-container *ngTemplateOutlet="items; context: { $implicit: 2 }" />
+          </cs-map-panel>
+        </div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="full-map">Sobre el mapa del producto</h2>
+    <p class="section__intro">Los tres organismos juntos sobre el mapa real (Leaflet y CARTO Voyager): pestañas arriba, buscador a la izquierda y notificaciones a la derecha, con el mismo margen de 16 px del producto.</p>
+    <app-map-full-demo />
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Nombre accesible del panel.</span></div>
+      <div class="table__row"><code class="table__name">title / icon</code><code class="table__type">string / IconName</code><code class="table__default">'' / —</code><span class="table__desc">Encabezado visible.</span></div>
+      <div class="table__row"><code class="table__name">badge</code><code class="table__type">number | null</code><code class="table__default">null</code><span class="table__desc">Contador rojo; 0 o null lo ocultan.</span></div>
+      <div class="table__row"><code class="table__name">badgeDescription</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Lectura del contador para lectores de pantalla.</span></div>
+      <div class="table__row"><code class="table__name">listLabel</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Si el contenido es una lista, su nombre.</span></div>
+      <div class="table__row"><code class="table__name">expandLabel / collapseLabel</code><code class="table__type">string</code><code class="table__default">«Expandir …» / «Contraer …»</code><span class="table__desc">Etiquetas del chevrón.</span></div>
+      <div class="table__row"><code class="table__name">open</code><code class="table__type">boolean (model)</code><code class="table__default">true</code><span class="table__desc">Abierto o contraído; admite <code>[(open)]</code>.</span></div>
+    </div>
+  </section>
+</div>
+
+<ng-template #items let-count>
+  @for (unit of units.slice(0, count); track unit.id) {
+    <div class="demo-item"><strong>{{ unit.plate }}</strong><span>{{ unit.engine }}</span></div>
+  } @empty {
+    <p class="demo-empty">Sin unidades en seguimiento</p>
+  }
+</ng-template>

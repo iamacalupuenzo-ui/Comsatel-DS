@@ -56,3 +56,21 @@ export function formatDayMonth(value: DateInput | null | undefined): string {
   if (!date) return '';
   return `${date.getDate()} ${MONTHS[date.getMonth()]}`;
 }
+
+/**
+ * Tiempo relativo para avisos recientes: «Ahora», «Hace 5 min», «Hace 2 h».
+ * Desde las 24 horas pasa a la fecha y hora del sistema, porque «Hace 30 h»
+ * se lee peor que una fecha. `now` se pasa para que la pantalla lo refresque.
+ */
+export function formatRelativeTime(value: DateInput | null | undefined, now: DateInput = Date.now()): string {
+  const date = toDate(value);
+  const reference = toDate(now);
+  if (!date || !reference) return '';
+  const seconds = Math.max(0, Math.round((reference.getTime() - date.getTime()) / 1000));
+  if (seconds < 60) return 'Ahora';
+  const minutes = Math.round(seconds / 60);
+  if (minutes < 60) return `Hace ${minutes} min`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 24) return `Hace ${hours} h`;
+  return formatDateTime(date);
+}

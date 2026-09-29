@@ -1,4 +1,4 @@
-import { Component, ComponentRef, ElementRef, EnvironmentInjector, OnDestroy, OnInit, ViewChild, createComponent, inject, signal } from '@angular/core';
+import { Component, ComponentRef, ElementRef, EnvironmentInjector, OnDestroy, OnInit, ViewChild, createComponent, inject, input, signal } from '@angular/core';
 import * as L from 'leaflet';
 import { VehiclePill, type VehicleStatus } from '../markers-demo/vehicle-pill';
 
@@ -31,7 +31,11 @@ const UNITS: DemoUnit[] = [
 @Component({
   selector: 'app-product-map-preview',
   template: `
-    <div #mapEl class="product-map" role="img" aria-label="Mapa del producto centrado en Lima con tres unidades de ejemplo"></div>
+    <div class="product-map__frame" [style.height.px]="height()">
+      <div #mapEl class="product-map" role="img" aria-label="Mapa del producto centrado en Lima con tres unidades de ejemplo"></div>
+      <!-- Paneles flotantes que la página monta encima (buscador, notificaciones). -->
+      <ng-content />
+    </div>
     <p class="product-map__source" aria-live="polite">
       @if (provider() === 'carto') {
         Mosaicos: CARTO Voyager, los mismos del producto.
@@ -43,9 +47,10 @@ const UNITS: DemoUnit[] = [
   styles: [
     `
       :host { display: grid; gap: var(--layout-gap-sm); }
+      .product-map__frame { position: relative; }
       .product-map {
         width: 100%;
-        height: 400px;
+        height: 100%;
         overflow: hidden;
         border: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
         border-radius: var(--radius-lg);
@@ -64,8 +69,11 @@ export class ProductMapPreview implements OnInit, OnDestroy {
   @ViewChild('mapEl', { static: true }) private mapElRef!: ElementRef<HTMLDivElement>;
   private readonly environmentInjector = inject(EnvironmentInjector);
   private map?: L.Map;
+  private resizeObserver?: ResizeObserver;
   private readonly markers: ComponentRef<VehiclePill>[] = [];
   protected readonly provider = signal<'carto' | 'osm' | null>(null);
+  /** Alto del mapa en píxeles. */
+  readonly height = input(400);
 
   ngOnInit(): void {
     this.map = L.map(this.mapElRef.nativeElement, {
@@ -77,9 +85,13 @@ export class ProductMapPreview implements OnInit, OnDestroy {
     });
     void this.addTiles();
     this.addMarkers();
+    // El alto llega por input después de crear el mapa: Leaflet vuelve a medir cuando cambia.
+    this.resizeObserver = new ResizeObserver(() => this.map?.invalidateSize());
+    this.resizeObserver.observe(this.mapElRef.nativeElement);
   }
 
   ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
     this.map?.remove();
     for (const ref of this.markers) ref.destroy();
   }

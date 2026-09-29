@@ -1,0 +1,85 @@
+<div class="page">
+  <p class="eyebrow">Mapa / Pestañas</p>
+  <h1 class="title">Pestañas del mapa<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.29</span></h1>
+  <p class="description">
+    Las vistas abiertas sobre el mapa: la del mapa fija al inicio y después los grupos de seguimiento, las bitácoras y
+    los recuperos. Se cierran con la X y los grupos se renombran como una hoja de cálculo. No son las pestañas de una
+    página: para eso está Tab.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Elige un estado. Cambia de pestaña con clic o con las flechas, renombra un seguimiento con doble clic o F2 y cierra con la X.</p>
+    <ul class="section__intro state-list">
+      <li><strong>{{ pgInfo().title }}.</strong> {{ pgInfo().intro }}</li>
+      <li><strong>Cerrar un seguimiento</strong> pide confirmación, porque se pierde la lista de unidades. Una bitácora se cierra directo.</li>
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="codeFor(pgInfo())" (stateChange)="onState($event)">
+      <div class="tabs-stage">
+        <cs-map-tabs [tabs]="tabs('playground')" [active]="active('playground')" (activeChange)="setActive('playground', $event)" (closeRequest)="requestClose('playground', $event)" (renamed)="rename('playground', $event)" />
+        <div class="tabs-stage__map" role="tabpanel" [id]="panelId('playground')" [attr.aria-labelledby]="labelledBy('playground')">Vista activa: <strong>{{ active('playground') }}</strong></div>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada estado en su propia caja; en todas se puede cerrar y renombrar.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'map-tabs-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="codeFor(state)">
+          <div class="tabs-stage">
+            @if (tabs(state.key).length > 1) {
+              <cs-map-tabs [tabs]="tabs(state.key)" [active]="active(state.key)" (activeChange)="setActive(state.key, $event)" (closeRequest)="requestClose(state.key, $event)" (renamed)="rename(state.key, $event)" />
+            }
+            <div class="tabs-stage__map" role="tabpanel" [id]="panelId(state.key)" [attr.aria-labelledby]="labelledBy(state.key)">
+              @if (tabs(state.key).length > 1) {
+                Vista activa: <strong>{{ active(state.key) }}</strong>
+              } @else {
+                Solo queda el mapa: la barra de pestañas se oculta.
+              }
+            </div>
+          </div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="keyboard">Teclado</h2>
+    <ul class="section__intro state-list">
+      <li><strong>Flechas izquierda y derecha, Inicio y Fin:</strong> mueven el foco entre pestañas y las activan.</li>
+      <li><strong>F2 o doble clic</strong> en un seguimiento: renombrar. Enter confirma, Escape cancela; un nombre vacío vuelve a «Seguimiento N».</li>
+      <li><strong>Tab</strong> pasa por la X de cada pestaña, que tiene su propio nombre: «Cerrar Bitácora de ABC-123».</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">tabs</code><code class="table__type">MapTab[]</code><code class="table__default">—</code><span class="table__desc">Pestañas: id, label, icon, count, closable, renamable y description.</span></div>
+      <div class="table__row"><code class="table__name">active</code><code class="table__type">string (model)</code><code class="table__default">''</code><span class="table__desc">Id de la activa; admite <code>[(active)]</code>.</span></div>
+      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">«Vistas abiertas del mapa»</code><span class="table__desc">Nombre accesible del grupo.</span></div>
+      <div class="table__row"><code class="table__name">maxNameLength</code><code class="table__type">number</code><code class="table__default">30</code><span class="table__desc">Largo máximo de un nombre propio.</span></div>
+      <div class="table__row"><code class="table__name">(closeRequest)</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Id de la pestaña a cerrar; la pantalla la quita o pide confirmar.</span></div>
+      <div class="table__row"><code class="table__name">(renamed)</code><code class="table__type">MapTabRename</code><code class="table__default">—</code><span class="table__desc">Id y nombre nuevo; vacío si se borró.</span></div>
+    </div>
+  </section>
+</div>
+
+<cs-modal
+  [isOpen]="!!confirming()"
+  title="¿Cerrar el seguimiento?"
+  appearance="warning"
+  width="sm"
+  [primaryAction]="{ label: 'Cerrar seguimiento' }"
+  [secondaryAction]="{ label: 'Cancelar' }"
+  (primaryActionClick)="confirmClose()"
+  (secondaryActionClick)="confirming.set(null)"
+  (closed)="confirming.set(null)"
+>
+  <p class="confirm-text">Se pierde la lista de unidades de «{{ confirming()?.tab?.label }}». Puedes volver a armarla desde el buscador.</p>
+</cs-modal>

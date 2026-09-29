@@ -224,6 +224,16 @@ export function parseMembers(source) {
     if (defaultValue === undefined && !m[2]) type += ' | undefined';
     inputs.push({ name: alias ? alias[1] : m[1], property: m[1], type, defaultValue, required: Boolean(m[2]), optional: defaultValue === undefined });
   }
+  // model(): input con enlace de dos vías; Angular le agrega la salida `<nombre>Change`.
+  for (const m of body.matchAll(/readonly\s+(\w+)\s*=\s*model(\.required)?\s*(?:<([^>]*(?:<[^>]*>[^>]*)*)>)?\s*\(/g)) {
+    const open = m.index + m[0].length - 1;
+    const args = splitTop(body.slice(open + 1, matching(body, open)), ',');
+    const defaultValue = args[0] && !args[0].startsWith('{') ? squash(args[0]) : undefined;
+    let type = m[3] ? squash(m[3]) : inferType(defaultValue);
+    if (defaultValue === undefined && !m[2]) type += ' | undefined';
+    inputs.push({ name: m[1], property: m[1], type, defaultValue, required: Boolean(m[2]), optional: defaultValue === undefined });
+    outputs.push({ name: `${m[1]}Change`, type: `ModelSignal<${type}>` });
+  }
   for (const m of body.matchAll(/readonly\s+(\w+)\s*=\s*output\s*(?:<([^>]*(?:<[^>]*>[^>]*)*)>)?\s*\(/g)) {
     const open = m.index + m[0].length - 1;
     const args = body.slice(open + 1, matching(body, open));

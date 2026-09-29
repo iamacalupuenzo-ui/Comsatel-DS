@@ -233,6 +233,22 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/markers-demo/markers-page').then((m) => m.MarkersPage),
   },
   {
+    path: 'map/panel',
+    loadComponent: () => import('./pages/map-panels-demo/map-panel-page').then((m) => m.MapPanelPage),
+  },
+  {
+    path: 'map/search',
+    loadComponent: () => import('./pages/map-panels-demo/map-search-page').then((m) => m.MapSearchPage),
+  },
+  {
+    path: 'map/notifications',
+    loadComponent: () => import('./pages/map-panels-demo/map-notifications-page').then((m) => m.MapNotificationsPage),
+  },
+  {
+    path: 'map/tabs',
+    loadComponent: () => import('./pages/map-panels-demo/map-tabs-page').then((m) => m.MapTabsPage),
+  },
+  {
     path: 'animations/tokens',
     loadComponent: () => import('./pages/motion-tokens-demo/motion-tokens-page').then((m) => m.MotionTokensPage),
   },

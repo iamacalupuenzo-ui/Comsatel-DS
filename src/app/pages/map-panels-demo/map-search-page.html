@@ -1,0 +1,91 @@
+<div class="page">
+  <p class="eyebrow">Mapa / Buscador</p>
+  <h1 class="title">Buscador<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.29</span></h1>
+  <p class="description">
+    Busca y filtra las unidades del mapa desde un panel flotante a la izquierda. Es un <code>cs-map-panel</code> cuyo
+    encabezado es el campo de búsqueda: contraído sigue sirviendo para escribir, y la lista se abre al hacerlo.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Elige un estado y prueba: escribe una placa, cambia los filtros, contrae el panel con el chevrón o con Escape.</p>
+    <ul class="section__intro state-list">
+      <li><strong>{{ pgInfo().title }}.</strong> {{ pgInfo().intro }}</li>
+      <li><strong>Propiedades:</strong> <code>{{ pgInfo().props }}</code></li>
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="codeFor(pgInfo())" (stateChange)="onState($event)">
+      <div class="map-stage">
+        <ng-container *ngTemplateOutlet="search; context: { $implicit: 'playground' }" />
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada estado en su propia caja; todas se pueden usar.</p>
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'map-search-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="codeFor(state)">
+          <div class="map-stage">
+            <ng-container *ngTemplateOutlet="search; context: { $implicit: state.key }" />
+          </div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="behavior">Qué decide la pantalla</h2>
+    <ul class="section__intro state-list">
+      <li><strong>Los resultados:</strong> el buscador no filtra nada; la pantalla recibe <code>query</code> y los filtros y dibuja la lista.</li>
+      <li><strong>La tarjeta de cada unidad</strong> es del producto (placa, motor, GPS, encendido, menú de acciones). Cada una lleva <code>role="listitem"</code>.</li>
+      <li><strong>Unidades fijadas</strong> arriba de la lista: la pantalla las ordena primero.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">query</code><code class="table__type">string (model)</code><code class="table__default">''</code><span class="table__desc">Texto buscado; admite <code>[(query)]</code>.</span></div>
+      <div class="table__row"><code class="table__name">open</code><code class="table__type">boolean (model)</code><code class="table__default">true</code><span class="table__desc">Abierto o contraído.</span></div>
+      <div class="table__row"><code class="table__name">filterCount / filterDescription</code><code class="table__type">number / string</code><code class="table__default">0 / ''</code><span class="table__desc">Contador de filtros y su lectura.</span></div>
+      <div class="table__row"><code class="table__name">placeholder / inputLabel</code><code class="table__type">string</code><code class="table__default">«Buscar unidades…»</code><span class="table__desc">Texto guía y nombre accesible del campo.</span></div>
+      <div class="table__row"><code class="table__name">label / listLabel</code><code class="table__type">string</code><code class="table__default">«Buscar y filtrar unidades»</code><span class="table__desc">Nombres del panel y de la lista.</span></div>
+      <div class="table__row"><code class="table__name">clearLabel / expandLabel / collapseLabel</code><code class="table__type">string</code><code class="table__default">en español</code><span class="table__desc">Etiquetas de la X y del chevrón.</span></div>
+      <div class="table__row"><code class="table__name">(searched)</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Enter en el campo.</span></div>
+    </div>
+  </section>
+</div>
+
+<ng-template #search let-key>
+  <cs-map-search
+    class="map-stage__left"
+    [query]="model(key).query"
+    (queryChange)="patch(key, { query: $event })"
+    [open]="model(key).open"
+    (openChange)="patch(key, { open: $event })"
+    [filterCount]="filterCount(key)"
+    [filterDescription]="filterDescription(key)"
+  >
+    <div csMapSearchFilters class="filters">
+      <cs-input-dropdown size="sm" leadingIcon="tag" aria-label="Filtrar por estado" [options]="statusOptions" [value]="model(key).status" (valueChange)="patch(key, { status: $event })" [active]="model(key).status !== 'all'" [menuFit]="true" [fullWidth]="true" />
+      <cs-input-dropdown size="sm" leadingIcon="sliders" aria-label="Filtrar por financiera" [options]="financieraOptions" [value]="model(key).financiera" (valueChange)="patch(key, { financiera: $event })" [active]="model(key).financiera !== 'all'" [menuFit]="true" [fullWidth]="true" />
+    </div>
+    @for (unit of results(key); track unit.id) {
+      <div role="listitem" class="unit-item">
+      <button type="button" class="unit-card" [class.unit-card--selected]="selectedId() === unit.id" [attr.aria-pressed]="selectedId() === unit.id" (click)="selectedId.set(unit.id)">
+        <span class="unit-card__avatar" [class.unit-card__avatar--on]="unit.signal"><cs-icon [name]="unit.icon" [size]="18" aria-hidden="true" /></span>
+        <span class="unit-card__body">
+          <span class="unit-card__title"><strong>{{ unit.plate }}</strong><span>{{ unit.engine }}</span></span>
+          <span class="unit-card__date">{{ formatDateTime(unit.lastReport) }}</span>
+        </span>
+      </button>
+      </div>
+    } @empty {
+      <p class="demo-empty unit-empty" role="status">Sin resultados</p>
+    }
+  </cs-map-search>
+</ng-template>

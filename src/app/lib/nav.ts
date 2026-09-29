@@ -200,6 +200,10 @@ export const NAVIGATION: NavSection[] = [
     items: [
       { title: 'Tema del mapa', href: '/map/theme', icon: 'map-pin', change: { kind: 'actualizado', version: '0.3.28' } },
       { title: 'Marcadores', href: '/map/markers', icon: 'locate-fixed' },
+      { title: 'Panel flotante', href: '/map/panel', icon: 'panels-top-left', change: { kind: 'nuevo', version: '0.3.29' } },
+      { title: 'Buscador', href: '/map/search', icon: 'search', change: { kind: 'nuevo', version: '0.3.29' } },
+      { title: 'Notificaciones', href: '/map/notifications', icon: 'bell', change: { kind: 'nuevo', version: '0.3.29' } },
+      { title: 'Pestañas del mapa', href: '/map/tabs', icon: 'app-window', change: { kind: 'nuevo', version: '0.3.29' } },
     ],
   },
   {

@@ -1,0 +1,41 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+.filters { display: flex; flex: 1 1 auto; gap: var(--layout-gap-xs); min-inline-size: 0; }
+.filters cs-input-dropdown { flex: 1 1 0; min-inline-size: 0; }
+/* Tarjeta de ejemplo: en el producto es la del buscador, con GPS, encendido y menú. */
+.unit-item { display: grid; }
+.unit-card {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--layout-gap-md);
+  padding: var(--layout-padding-md) var(--layout-padding-lg);
+  border: var(--layout-border-thin) solid var(--color-border-divider);
+  border-radius: var(--radius-md);
+  background: var(--elevation-surface-default);
+  color: var(--color-text-base-default);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.unit-card:hover { border-color: var(--color-border-neutral-default); box-shadow: var(--shadow-sm); }
+.unit-card:focus-visible { outline: var(--layout-border-thick) solid var(--color-border-focused); outline-offset: 2px; }
+.unit-card--selected { border-color: var(--color-border-selected); background: var(--color-background-selected); }
+.unit-card__avatar {
+  display: grid;
+  place-items: center;
+  inline-size: 36px;
+  block-size: 36px;
+  border-radius: var(--radius-full);
+  background: var(--color-background-neutral-subtlest);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-default);
+  color: var(--color-text-base-subtle);
+}
+.unit-card__avatar--on { border-color: var(--color-map-vehicle-active); color: var(--color-map-vehicle-active); }
+.unit-card__body { display: grid; min-inline-size: 0; gap: var(--layout-gap-2xs); }
+.unit-card__title { display: flex; align-items: baseline; gap: var(--layout-gap-xs); min-inline-size: 0; }
+.unit-card__title strong { flex-shrink: 0; font-size: var(--font-size-content-ui); line-height: var(--font-line-height-content-ui); }
+.unit-card__title span,
+.unit-card__date { overflow: hidden; color: var(--color-text-base-subtle); font-size: var(--font-size-content-note); line-height: var(--font-line-height-content-note); text-overflow: ellipsis; white-space: nowrap; }
+.unit-empty { padding: var(--layout-padding-2xl); text-align: center; }

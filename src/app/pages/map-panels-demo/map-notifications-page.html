@@ -1,0 +1,155 @@
+<div class="page">
+  <p class="eyebrow">Mapa / Notificaciones</p>
+  <h1 class="title">Notificaciones<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.29</span></h1>
+  <p class="description">
+    Avisos de las unidades sobre el mapa, como una unidad detenida que retoma movimiento. Viven en un panel flotante a la
+    derecha: cada aviso centra la unidad con un clic y se descarta con la X. Se arman con <code>cs-map-panel</code> y
+    <code>cs-map-notification</code>.
+  </p>
+
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Elige un estado del panel. Descarta avisos con la X, contrae y abre el panel: al abrirlo, los avisos nuevos pasan a vistos.</p>
+    <ul class="section__intro state-list">
+      <li><strong>{{ pgInfo().title }}.</strong> {{ pgInfo().intro }}</li>
+      <li><strong>Voz:</strong> el megáfono es una acción proyectada en <code>[csMapPanelActions]</code>; el panel no la conoce.</li>
+      @if (lastAction()) {
+        <li><strong>Último clic:</strong> {{ lastAction() }}</li>
+      }
+    </ul>
+    <app-demo-shell [controls]="controls" [code]="panelCode" (stateChange)="onState($event)">
+      <div class="map-stage">
+        <cs-map-panel
+          class="map-stage__right"
+          label="Notificaciones de unidades"
+          title="Notificaciones"
+          icon="bell"
+          listLabel="Lista de notificaciones"
+          [badge]="pending()"
+          [badgeDescription]="pendingDescription()"
+          [open]="pgOpen()"
+          (openChange)="onOpen($event)"
+        >
+          <button
+            csMapPanelActions
+            type="button"
+            class="voice-button"
+            [class.voice-button--muted]="!voice()"
+            [attr.aria-pressed]="voice()"
+            [attr.aria-label]="voice() ? 'Silenciar avisos de voz' : 'Activar avisos de voz'"
+            (click)="voice.set(!voice())"
+          >
+            <cs-icon name="megaphone" [size]="16" aria-hidden="true" />
+          </button>
+          @for (entry of entries(); track entry.id) {
+            <cs-map-notification
+              [eventLabel]="entry.eventLabel"
+              [unitName]="entry.unitName"
+              [unitCode]="entry.unitCode"
+              [time]="entry.time"
+              [now]="now()"
+              [count]="entry.count"
+              [unread]="entry.unread"
+              (selected)="lastAction.set('centrar ' + entry.unitName)"
+              (dismissed)="dismiss(entry.id)"
+            >
+              <cs-button variant="link" size="xs" (click)="lastAction.set('seguir ' + entry.unitName); dismiss(entry.id)">Seguir unidad</cs-button>
+            </cs-map-notification>
+          } @empty {
+            <p class="demo-empty">Sin notificaciones</p>
+          }
+          @if (entries().length) {
+            <cs-button csMapPanelFooter variant="link" size="sm" [fullWidth]="true" (click)="entries.set([])">Limpiar notificaciones</cs-button>
+          }
+        </cs-map-panel>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="card-states">Estados del aviso</h2>
+    <p class="section__intro">Cada estado de <code>cs-map-notification</code> en su propia caja. El tiempo es relativo hasta las 24 horas («Ahora», «Hace 8 min», «Hace 3 h») y después pasa a fecha y hora.</p>
+    @for (state of cardStates; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'notification-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="cardCode(state)">
+          <div class="card-stage" role="list" aria-label="Ejemplo de notificación">
+            <cs-map-notification
+              [eventLabel]="state.entry.eventLabel"
+              [unitName]="state.entry.unitName"
+              [unitCode]="state.entry.unitCode"
+              [time]="state.entry.time"
+              [now]="now()"
+              [count]="state.entry.count"
+              [unread]="state.entry.unread"
+            >
+              @if (state.action) {
+                <cs-button variant="link" size="xs">Seguir unidad</cs-button>
+              }
+            </cs-map-notification>
+          </div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="panel-states">Estados del panel</h2>
+    <p class="section__intro">El mismo panel en sus tres momentos.</p>
+    @for (state of panelStates; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'notifications-panel-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="[]" [code]="panelCode">
+          <div class="map-stage">
+            <cs-map-panel
+              class="map-stage__right"
+              label="Notificaciones de unidades"
+              title="Notificaciones"
+              icon="bell"
+              listLabel="Lista de notificaciones"
+              [badge]="entriesFor(state.key).length"
+              [badgeDescription]="entriesFor(state.key).length + ' notificaciones pendientes'"
+              [open]="state.key !== 'collapsed'"
+            >
+              @for (entry of entriesFor(state.key); track entry.id) {
+                <cs-map-notification [eventLabel]="entry.eventLabel" [unitName]="entry.unitName" [unitCode]="entry.unitCode" [time]="entry.time" [now]="now()" [count]="entry.count" [unread]="entry.unread" />
+              } @empty {
+                <p class="demo-empty">Sin notificaciones</p>
+              }
+              @if (entriesFor(state.key).length) {
+                <cs-button csMapPanelFooter variant="link" size="sm" [fullWidth]="true">Limpiar notificaciones</cs-button>
+              }
+            </cs-map-panel>
+          </div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="behavior">Qué decide la pantalla</h2>
+    <ul class="section__intro state-list">
+      <li><strong>Cuándo nace un aviso</strong> y cómo se agrupan: la política vive en el servicio de notificaciones del producto.</li>
+      <li><strong>Marcar como vistos</strong> al abrir el panel: se hace en <code>(openChange)</code>.</li>
+      <li><strong>Anunciar avisos nuevos</strong> a lectores de pantalla: una región <code>aria-live="polite"</code> de la pantalla, fuera del panel, para que se escuche aunque esté contraído.</li>
+      <li><strong>Refrescar el tiempo relativo:</strong> la pantalla pasa <code>[now]</code> y lo actualiza cada 30 segundos.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades de cs-map-notification</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">eventLabel</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Qué pasó.</span></div>
+      <div class="table__row"><code class="table__name">unitName / unitCode</code><code class="table__type">string</code><code class="table__default">— / ''</code><span class="table__desc">Unidad y su placa o código.</span></div>
+      <div class="table__row"><code class="table__name">time / now</code><code class="table__type">Date | string | number</code><code class="table__default">— / al crear</code><span class="table__desc">Cuándo ocurrió y la referencia del tiempo relativo.</span></div>
+      <div class="table__row"><code class="table__name">count</code><code class="table__type">number</code><code class="table__default">1</code><span class="table__desc">Avisos agrupados; desde 2 muestra «N avisos».</span></div>
+      <div class="table__row"><code class="table__name">unread</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra la marca «Nueva».</span></div>
+      <div class="table__row"><code class="table__name">icon / newLabel</code><code class="table__type">IconName / string</code><code class="table__default">'bell-ring' / 'Nueva'</code><span class="table__desc">Ícono y texto de la marca.</span></div>
+      <div class="table__row"><code class="table__name">selectLabel / dismissLabel</code><code class="table__type">string</code><code class="table__default">«Centrar en mapa: …» / «Descartar …»</code><span class="table__desc">Nombres accesibles de los dos botones.</span></div>
+      <div class="table__row"><code class="table__name">(selected) / (dismissed)</code><code class="table__type">void</code><code class="table__default">—</code><span class="table__desc">Clic en la tarjeta o en la X.</span></div>
+    </div>
+  </section>
+</div>
