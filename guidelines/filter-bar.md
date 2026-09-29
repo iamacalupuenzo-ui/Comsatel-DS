@@ -50,6 +50,7 @@ Escape, con un clic fuera de él o con el mismo botón.
 | `searchPlaceholder` | `string` | `''` | Placeholder de la búsqueda. |
 | `searchValue` | `string` | `''` | Texto actual de la búsqueda. |
 | `searchId` | `string` | autogenerado | Id del campo de búsqueda. |
+| `clearSearchLabel` | `string` | `'Limpiar búsqueda'` | Nombre accesible del botón que limpia la búsqueda. |
 | `hasMoreFilters` | `boolean` | `false` | Muestra «Más filtros» con el contenido marcado con moreFilters. |
 | `moreFiltersLabel` | `string` | `'Más filtros'` | Texto del botón y nombre del panel. |
 | `moreFiltersCount` | `number` | `0` | Filtros secundarios aplicados; se muestra entre paréntesis y activa el botón. |
@@ -76,5 +77,5 @@ Escape, con un clic fuera de él o con el mismo botón.
 | Roles | `group`, `dialog` |
 | Atributos ARIA | `aria-hidden="true"`, `aria-haspopup="dialog"`, `aria-label`, `aria-expanded`, `aria-controls` |
 | Clic afuera | Escucha `document:click` para cerrarse |
-| Compone | `cs-input-group`, `cs-input-group-addon`, `cs-icon`, `cs-input-group-input`, `cs-popover`, `cs-button` |
+| Compone | `cs-input-group`, `cs-input-group-addon`, `cs-icon`, `cs-input-group-input`, `cs-input-group-clear`, `cs-popover`, `cs-button` |
 <!-- a11y:end -->

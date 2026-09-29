@@ -3,6 +3,7 @@ import { Button } from '../button/button';
 import { Icon } from '../icons/icon';
 import { InputGroup } from '../input/input-group';
 import { InputGroupAddon } from '../input/input-group-addon';
+import { InputGroupClear } from '../input/input-group-clear';
 import { InputGroupInput } from '../input/input-group-input';
 import { Popover } from '../popover/popover';
 
@@ -21,7 +22,7 @@ let filterBarId = 0;
  */
 @Component({
   selector: 'cs-filter-bar',
-  imports: [Button, Icon, InputGroup, InputGroupAddon, InputGroupInput, Popover],
+  imports: [Button, Icon, InputGroup, InputGroupAddon, InputGroupClear, InputGroupInput, Popover],
   template: `
     <div class="cs-filter-bar" role="group" [attr.aria-label]="ariaLabel || null">
       @if (searchLabel) {
@@ -34,11 +35,13 @@ let filterBarId = 0;
             <cs-input-group-input
               [id]="searchId"
               fieldSize="md"
-              type="search"
+              type="text"
               [placeholder]="searchPlaceholder"
               [value]="searchValue"
               (valueChange)="searchChange.emit($event)"
             />
+            <!-- La X del DS, no la del navegador: type="search" dibuja una distinta en cada navegador. -->
+            <cs-input-group-clear [label]="clearSearchLabel" (cleared)="searchChange.emit('')" />
           </cs-input-group>
         </div>
       }
@@ -184,6 +187,8 @@ export class FilterBar {
   @Input() searchPlaceholder = '';
   @Input() searchValue = '';
   @Input() searchId = `cs-filter-bar-search-${++filterBarId}`;
+  /** Nombre accesible del botón que limpia la búsqueda. */
+  @Input() clearSearchLabel = 'Limpiar búsqueda';
   @Output() readonly searchChange = new EventEmitter<string>();
 
   /** Muestra «Más filtros» con el contenido marcado con `moreFilters`. */
