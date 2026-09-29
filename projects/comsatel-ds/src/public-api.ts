@@ -8,6 +8,7 @@ export * from './lib/icons/icon';
 export * from './lib/icons/icon-registry';
 export * from './lib/badge/badge';
 export * from './lib/tag/tag';
+export * from './lib/timeline/timeline';
 export * from './lib/list-item/list-item';
 export * from './lib/progress-indicator/progress-indicator';
 export * from './lib/stepper/stepper';
