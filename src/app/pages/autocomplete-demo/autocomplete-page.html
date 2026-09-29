@@ -1,0 +1,136 @@
+<div class="page">
+  <p class="eyebrow">Componentes / Autocomplete</p>
+  <h1 class="title">Autocomplete<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.7</span></h1>
+  <p class="description">
+    Autocomplete es un campo de búsqueda que filtra una lista larga mientras escribes y permite elegir
+    <strong>una</strong> opción; por ejemplo, una unidad por su placa, motor o DNI. Si las opciones caben en una
+    lista corta, usa Input Dropdown; para elegir varias, usa Select en modo múltiple.
+  </p>
+
+  <!-- Playground -->
+  <section class="section">
+    <h2 class="section__title" id="playground">Playground</h2>
+    <p class="section__intro">Escribe una placa o un motor (por ejemplo, «MTR» o «CTQ») y elige el estado, el tamaño y los caracteres mínimos. Debajo del campo se explica cuándo usar el estado elegido.</p>
+    <app-demo-shell [controls]="playgroundControls" [code]="pgCode()" (stateChange)="onPlaygroundState($event)">
+      <div class="stage">
+        <cs-autocomplete
+          label="Código de unidad"
+          placeholder="Placa o motor"
+          [options]="units"
+          [value]="pgValue()"
+          (valueChange)="pgValue.set($event)"
+          [minChars]="pgMinChars()"
+          [size]="pgSize()"
+          [required]="pgRequired()"
+          [clearable]="pgClearable()"
+          [active]="pgState() === 'active'"
+          [invalid]="pgState() === 'invalid'"
+          [errorMessage]="pgState() === 'invalid' ? 'Elige una unidad de la lista.' : ''"
+          [readonly]="pgState() === 'readonly'"
+          [disabled]="pgState() === 'disabled'"
+        />
+        <div class="state-note">
+          <strong>{{ pgStateInfo().label }}</strong>
+          <p><b>Cuándo usarlo:</b> {{ pgStateInfo().when }}</p>
+          <p><b>Propiedades:</b> <code>{{ pgStateInfo().props }}</code></p>
+        </div>
+      </div>
+    </app-demo-shell>
+  </section>
+
+  <!-- Estados -->
+  <section class="section">
+    <h2 class="section__title" id="states">Estados</h2>
+    <p class="section__intro">Cada estado en su propia caja, con cuándo usarlo y el código que lo produce. Cambia el tamaño desde el control de cada caja.</p>
+
+    @for (state of states; track state.key) {
+      <div class="subsection">
+        <h3 class="subsection__title" [id]="'autocomplete-state-' + state.key">{{ state.title }}</h3>
+        <p class="section__intro">{{ state.intro }}</p>
+        <app-demo-shell [controls]="stateSizeControls" [code]="stateCode(state)" (stateChange)="onStateSize(state.key, $event)">
+          <div class="stage">
+            @switch (state.key) {
+              @case ('empty') {
+                <cs-autocomplete label="Código de unidad" placeholder="Escribe 3 caracteres para buscar" [minChars]="3" [options]="units" [size]="sizeOf(state.key)" />
+              }
+              @case ('results') {
+                <cs-autocomplete label="Código de unidad" placeholder="Escribe «MTR»" [minChars]="2" [options]="units" [size]="sizeOf(state.key)" />
+              }
+              @case ('no-results') {
+                <cs-autocomplete label="Código de unidad" placeholder="Escribe «zzz»" emptyText="No encontramos una unidad con ese código." [options]="units" [size]="sizeOf(state.key)" />
+              }
+              @case ('filled') {
+                <cs-autocomplete label="Código de unidad" [options]="units" value="CTQ527" [size]="sizeOf(state.key)" />
+              }
+              @case ('active') {
+                <cs-autocomplete label="Código de unidad" [options]="units" value="MTR-3001" [active]="true" [size]="sizeOf(state.key)" />
+              }
+              @case ('invalid') {
+                <cs-autocomplete label="Código de unidad" placeholder="Placa o motor" [options]="units" [invalid]="true" errorMessage="Elige una unidad de la lista." [size]="sizeOf(state.key)" />
+              }
+              @case ('required') {
+                <cs-autocomplete label="Código de unidad" placeholder="Placa o motor" [options]="units" [required]="true" [size]="sizeOf(state.key)" />
+              }
+              @case ('readonly') {
+                <cs-autocomplete label="Código de unidad" [options]="units" value="CTQ527" [readonly]="true" [size]="sizeOf(state.key)" />
+              }
+              @case ('disabled') {
+                <cs-autocomplete label="Código de unidad" placeholder="Placa o motor" [options]="units" [disabled]="true" [size]="sizeOf(state.key)" />
+              }
+            }
+          </div>
+        </app-demo-shell>
+      </div>
+    }
+  </section>
+
+  <!-- Casos de uso -->
+  <section class="section">
+    <h2 class="section__title" id="use-cases">Casos de uso</h2>
+    <p class="section__intro">Composiciones reales del producto, cada una en su caja.</p>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-unit">Buscar una unidad por placa, motor o DNI</h3>
+      <p class="section__intro">Cada opción muestra la placa, el motor y el ícono del tipo de unidad. Con <code>searchText</code> también se busca por el DNI del cliente, que no se muestra. Prueba con «4587».</p>
+      <app-demo-shell [controls]="[]" [code]="unitCaseCode">
+        <div class="stage">
+          <cs-autocomplete label="Buscar unidad" placeholder="Placa, motor o DNI" [minChars]="2" [options]="units" [value]="unitValue()" (valueChange)="unitValue.set($event)" />
+        </div>
+      </app-demo-shell>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection__title" id="case-command">Buscar un comando GPS</h3>
+      <p class="section__intro">El mismo componente sirve para cualquier lista larga: aquí filtra comandos por nombre o descripción, con otro ícono inicial.</p>
+      <app-demo-shell [controls]="[]" [code]="commandCaseCode">
+        <div class="stage">
+          <cs-autocomplete label="Buscar comando" placeholder="Por ejemplo, «res»" leadingIcon="satellite" [options]="commands" [value]="commandValue()" (valueChange)="commandValue.set($event)" />
+        </div>
+      </app-demo-shell>
+    </div>
+  </section>
+
+  <!-- Propiedades -->
+  <section class="section">
+    <h2 class="section__title" id="props">Propiedades</h2>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">options</code><code class="table__type">AutocompleteOption[]</code><code class="table__default">[]</code><span class="table__desc">Opciones {{ '{' }} value, label, description?, icon?, searchText?, disabled? {{ '}' }}.</span></div>
+      <div class="table__row"><code class="table__name">value</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Valor elegido (el value de una opción); vacío si no hay selección.</span></div>
+      <div class="table__row"><code class="table__name">(valueChange)</code><code class="table__type">EventEmitter&lt;string&gt;</code><code class="table__default">—</code><span class="table__desc">Emite el value elegido, o vacío al borrar la selección escribiendo o limpiando.</span></div>
+      <div class="table__row"><code class="table__name">label</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Label visible encima del campo. Sin label, usa aria-label.</span></div>
+      <div class="table__row"><code class="table__name">placeholder</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Texto de ayuda dentro del campo vacío.</span></div>
+      <div class="table__row"><code class="table__name">minChars</code><code class="table__type">number</code><code class="table__default">1</code><span class="table__desc">Caracteres mínimos para abrir la lista. La lista no se abre al enfocar.</span></div>
+      <div class="table__row"><code class="table__name">size</code><code class="table__type">"sm" | "md" | "lg"</code><code class="table__default">"md"</code><span class="table__desc">Altura y tipografía del campo.</span></div>
+      <div class="table__row"><code class="table__name">leadingIcon</code><code class="table__type">IconName</code><code class="table__default">"search"</code><span class="table__desc">Ícono decorativo al inicio; por defecto, la lupa.</span></div>
+      <div class="table__row"><code class="table__name">required</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Agrega el asterisco al label y aria-required.</span></div>
+      <div class="table__row"><code class="table__name">invalid</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Borde y anillo de error.</span></div>
+      <div class="table__row"><code class="table__name">errorMessage</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Mensaje de error visible debajo del campo, enlazado con aria-errormessage.</span></div>
+      <div class="table__row"><code class="table__name">active</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Filtro aplicado (con texto escrito): borde, fondo y texto de selección.</span></div>
+      <div class="table__row"><code class="table__name">readonly</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Muestra el valor sin permitir buscar ni limpiar.</span></div>
+      <div class="table__row"><code class="table__name">disabled</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Deshabilita el campo.</span></div>
+      <div class="table__row"><code class="table__name">clearable</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Muestra la X para limpiar cuando hay texto.</span></div>
+      <div class="table__row"><code class="table__name">emptyText</code><code class="table__type">string</code><code class="table__default">"Sin resultados"</code><span class="table__desc">Texto cuando ninguna opción coincide.</span></div>
+    </div>
+  </section>
+</div>

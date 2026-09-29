@@ -1,0 +1,100 @@
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.cs-autocomplete {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-xs);
+  min-width: 0;
+}
+
+.cs-autocomplete__label {
+  color: var(--color-text-base-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-ui);
+  font-weight: var(--font-weight-accent);
+  line-height: var(--font-line-height-content-ui);
+  letter-spacing: var(--font-letter-spacing-content);
+}
+.cs-autocomplete__required {
+  margin-left: var(--layout-gap-2xs);
+  color: var(--color-text-danger-default);
+}
+
+.cs-autocomplete cs-input-group-addon {
+  color: var(--color-icon-neutral-subtle);
+}
+
+.cs-autocomplete__menu {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(var(--layout-size-base) * 7 + var(--layout-padding-xs) * 2);
+  overflow-y: auto;
+  padding: var(--layout-padding-xs);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-default);
+  border-radius: var(--radius-lg);
+  background: var(--color-background-base);
+  box-shadow: var(--shadow-xl);
+}
+
+.cs-autocomplete__option {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap-sm);
+  min-height: var(--layout-size-base);
+  padding: var(--layout-padding-2xs) var(--layout-padding-md);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-base-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+  letter-spacing: var(--font-letter-spacing-content);
+  cursor: pointer;
+}
+.cs-autocomplete__option--active {
+  background: var(--color-background-neutral-subtlest-hover);
+}
+.cs-autocomplete__option--selected {
+  color: var(--color-text-selected);
+  background: var(--color-background-selected);
+}
+.cs-autocomplete__option--disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+.cs-autocomplete__option-icon {
+  flex-shrink: 0;
+  color: var(--color-icon-neutral-subtle);
+}
+.cs-autocomplete__option-label {
+  flex-shrink: 0;
+  font-weight: var(--font-weight-accent);
+}
+.cs-autocomplete__option-description {
+  overflow: hidden;
+  min-width: 0;
+  color: var(--color-text-base-subtle);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cs-autocomplete__empty {
+  margin: 0;
+  padding: var(--layout-padding-md);
+  color: var(--color-text-base-subtle);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+}
+
+.cs-autocomplete__error {
+  margin: 0;
+  color: var(--color-text-danger-default);
+  font-family: var(--font-family-content);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+}

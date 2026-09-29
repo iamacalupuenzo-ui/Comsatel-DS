@@ -1,0 +1,83 @@
+<div class="cs-autocomplete">
+  @if (label) {
+    <label class="cs-autocomplete__label" [id]="labelId" [attr.for]="inputId">
+      {{ label }}
+      @if (required) {
+        <span class="cs-autocomplete__required" aria-hidden="true">*</span>
+      }
+    </label>
+  }
+
+  <cs-input-group #group [active]="active && !!query()">
+    <cs-input-group-addon>
+      <cs-icon [name]="leadingIcon" [size]="iconSize" aria-hidden="true" />
+    </cs-input-group-addon>
+    <cs-input-group-input
+      [id]="inputId"
+      [fieldSize]="size"
+      type="text"
+      autocomplete="off"
+      role="combobox"
+      ariaHasPopup="listbox"
+      [ariaExpanded]="isOpen()"
+      [ariaControls]="listboxId"
+      [ariaActivedescendant]="activeDescendant"
+      [aria-label]="label ? '' : ariaLabel"
+      [aria-errormessage]="invalid && errorMessage ? errorId : ''"
+      [placeholder]="placeholder"
+      [required]="required"
+      [invalid]="invalid"
+      [readonly]="readonly"
+      [disabled]="disabled"
+      [value]="query()"
+      (valueChange)="onInput($event)"
+      (keydown)="onKeydown($event)"
+      (blurred)="onBlur()"
+    />
+    @if (clearable && !readonly && !disabled) {
+      <cs-input-group-clear [label]="clearLabel" (cleared)="onCleared()" />
+    }
+  </cs-input-group>
+
+  <cs-popover
+    [isOpen]="isOpen()"
+    [triggerRef]="groupRef ?? null"
+    placement="bottom-start"
+    [offset]="4"
+    [matchTriggerWidth]="true"
+    [role]="null"
+    [bare]="true"
+    (closed)="onBlur()"
+  >
+    <div class="cs-autocomplete__menu" [id]="listboxId" role="listbox" [attr.aria-labelledby]="label ? labelId : null" [attr.aria-label]="label ? null : ariaLabel">
+      @for (option of results(); track option.value; let index = $index) {
+        <div
+          class="cs-autocomplete__option"
+          role="option"
+          [id]="optionId(index)"
+          [attr.aria-selected]="option.value === value"
+          [attr.aria-disabled]="option.disabled ? 'true' : null"
+          [class.cs-autocomplete__option--active]="index === activeIndex()"
+          [class.cs-autocomplete__option--selected]="option.value === value"
+          [class.cs-autocomplete__option--disabled]="option.disabled"
+          (mousedown)="select(option, $event)"
+          (mouseenter)="option.disabled || activeIndex.set(index)"
+        >
+          @if (option.icon) {
+            <cs-icon class="cs-autocomplete__option-icon" [name]="option.icon" [size]="16" aria-hidden="true" />
+          }
+          <span class="cs-autocomplete__option-label">{{ option.label }}</span>
+          @if (option.description) {
+            <span class="cs-autocomplete__option-description">{{ option.description }}</span>
+          }
+        </div>
+      } @empty {
+        <p class="cs-autocomplete__empty" role="status">{{ emptyText }}</p>
+      }
+    </div>
+  </cs-popover>
+
+  @if (invalid && errorMessage) {
+    <p class="cs-autocomplete__error" [id]="errorId">{{ errorMessage }}</p>
+  }
+</div>

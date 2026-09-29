@@ -29,6 +29,7 @@ export * from './lib/input/input-group';
 export * from './lib/input/input-group-addon';
 export * from './lib/input/input-group-clear';
 export * from './lib/input/input-group-input';
+export * from './lib/autocomplete/autocomplete';
 export * from './lib/input/input-group-text';
 export * from './lib/input/password-input';
 export * from './lib/calendar/calendar';

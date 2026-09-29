@@ -99,6 +99,7 @@ export const NAVIGATION: NavSection[] = [
     items: [
       { title: 'Accordion', href: '/components/accordion', icon: 'chevrons-down-up' },
       { title: 'App Layout', href: '/components/app-layout', icon: 'layout-grid' },
+      { title: 'Autocomplete', href: '/components/autocomplete', icon: 'search', change: { kind: 'nuevo', version: '0.3.7' } },
       { title: 'Avatar', href: '/components/avatar', icon: 'user' },
       { title: 'Badge', href: '/components/badge', icon: 'badge-check' },
       { title: 'Banner', href: '/components/banner', icon: 'megaphone' },

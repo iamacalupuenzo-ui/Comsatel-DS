@@ -1,0 +1,33 @@
+@import '../../shared/styles/doc-page.css';
+
+:host { display: block; }
+
+/* 320px es el ancho de referencia de un campo de búsqueda en formulario; no hay un token equivalente. */
+.stage {
+  display: grid;
+  gap: var(--layout-gap-sm);
+  width: 320px;
+  max-width: 100%;
+}
+
+/* Explicación del estado elegido en el playground: cuándo usarlo y qué props lo producen. */
+.state-note {
+  display: grid;
+  gap: var(--layout-gap-xs);
+  margin-top: var(--layout-gap-md);
+  padding: var(--layout-padding-md);
+  border-radius: var(--radius-sm);
+  background: var(--color-background-neutral-subtlest);
+}
+.state-note strong {
+  color: var(--color-text-base-default);
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+}
+.state-note p {
+  margin: 0;
+  color: var(--color-text-base-subtle);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+}
+.state-note code { overflow-wrap: anywhere; }

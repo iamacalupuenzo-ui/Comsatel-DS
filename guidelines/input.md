@@ -122,6 +122,8 @@ escribir un `<input>` propio.
 | `ariaHasPopup` | `string \| undefined` | `undefined` | Emite `aria-haspopup`, para un campo que abre un popup (combobox). |
 | `ariaExpanded` | `boolean \| undefined` | `undefined` | Emite `aria-expanded` cuando se define. |
 | `ariaControls` | `string \| undefined` | `undefined` | Emite `aria-controls` apuntando al popup. |
+| `role` | `string \| undefined` | `undefined` | Rol ARIA del campo; por ejemplo, `combobox` en un autocompletado. |
+| `ariaActivedescendant` | `string \| undefined` | `undefined` | Opción activa de la lista asociada (patrón combobox); el foco se queda en el campo. |
 | `valueChange` | `EventEmitter<string>` | n/a | Emite en cada tecla. |
 | `focused` | `EventEmitter<void>` | n/a | Emite al recibir el foco. |
 | `blurred` | `EventEmitter<void>` | n/a | Emite al perder el foco. |
@@ -289,7 +291,8 @@ omitir con `[leadingIcon]="null"`. Para una contraseña nueva, cambia
 | Aspecto | Qué hace el código |
 | :-- | :-- |
 | Elementos nativos | `input[type="text"]` |
-| Atributos ARIA | `aria-invalid`, `aria-required`, `aria-label`, `aria-labelledby`, `aria-describedby`, `aria-errormessage`, `aria-haspopup`, `aria-expanded`, `aria-controls` |
+| Roles | `[attr.role] (dinámico)` |
+| Atributos ARIA | `aria-invalid`, `aria-required`, `aria-label`, `aria-labelledby`, `aria-describedby`, `aria-errormessage`, `aria-haspopup`, `aria-expanded`, `aria-controls`, `aria-activedescendant`, `aria-autocomplete` |
 | Teclas que maneja el código | `Enter`, `Escape` |
 <!-- a11y:end -->
 

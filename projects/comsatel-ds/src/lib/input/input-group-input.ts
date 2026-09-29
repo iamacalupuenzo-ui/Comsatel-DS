@@ -39,6 +39,10 @@ export class InputGroupInput implements OnChanges {
   @Input() ariaHasPopup?: string;
   @Input() ariaExpanded?: boolean;
   @Input() ariaControls?: string;
+  /** Rol ARIA del campo; por ejemplo, `combobox` en un autocompletado. */
+  @Input() role?: string;
+  /** Opción activa de la lista asociada (patrón combobox): el foco se queda en el campo. */
+  @Input() ariaActivedescendant?: string;
   @Output() focused = new EventEmitter<void>();
   @Output() blurred = new EventEmitter<void>();
   @Output() enterKey = new EventEmitter<void>();

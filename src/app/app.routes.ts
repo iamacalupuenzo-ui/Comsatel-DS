@@ -98,6 +98,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/app-layout-demo/app-layout-page').then((m) => m.AppLayoutPage),
   },
   {
+    path: 'components/autocomplete',
+    loadComponent: () => import('./pages/autocomplete-demo/autocomplete-page').then((m) => m.AutocompletePage),
+  },
+  {
     path: 'components/avatar',
     loadComponent: () => import('./pages/avatar-demo/avatar-page').then((m) => m.AvatarPage),
   },
