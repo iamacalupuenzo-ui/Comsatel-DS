@@ -1,12 +1,12 @@
 import { Component, TemplateRef, ViewChild, computed, signal } from '@angular/core';
 import {
-  Avatar, Button, ColumnManager, Icon, Input, InputDropdown, InputGroup, InputGroupAddon, InputGroupInput, Pagination, Skeleton, Table, Tag,
-  type ColumnManagerItem, type IconName, type InputDropdownOption, type SortOrder, type TableCellValue, type TableColumn, type TableRow, type TagSeverity,
+  Avatar, Button, ColumnManager, Icon, Input, InputDropdown, InputGroup, InputGroupAddon, InputGroupInput, Pagination, Skeleton, Table, TableRowActions, Tag,
+  type ColumnManagerItem, type DropdownItem, type IconName, type InputDropdownOption, type SortOrder, type TableCellValue, type TableColumn, type TableRow, type TagSeverity,
 } from '@iamacalupuenzo-ui/comsatel-ds';
 import { DemoShell, type ControlDef, type DemoState } from '../../shared/docs/demo-shell';
 
 type UnitStatus = 'active' | 'stopped' | 'offline';
-type LoadState = 'loaded' | 'loading-empty' | 'loading-refetch' | 'empty';
+type LoadState = 'loaded' | 'loading-empty' | 'loading-refetch' | 'empty' | 'error';
 
 interface FleetUnit {
   id: string;
@@ -51,10 +51,18 @@ const COLUMNS: TableColumn[] = [
   { key: 'driver', label: 'Conductor', isSortable: true, width: '25%' },
   { key: 'updated', label: 'Actualizado', isSortable: true, width: '22%', align: 'right' },
 ];
+// La columna de acciones no entra en el gestor de columnas: siempre va al
+// final y fija, para que las acciones sigan a mano al desplazar.
+const ACTIONS_COLUMN: TableColumn = { key: 'actions', label: 'Acciones', width: '72px', align: 'center', sticky: 'end' };
+const ROW_ACTIONS: DropdownItem[] = [
+  { label: 'Ver detalle', value: 'view', icon: 'eye' },
+  { label: 'Centrar en el mapa', value: 'map', icon: 'map-pin', dividerAfter: true },
+  { label: 'Desactivar unidad', value: 'disable', icon: 'trash-2', variant: 'destructive' },
+];
 
 @Component({
   selector: 'app-table-page',
-  imports: [Avatar, Button, ColumnManager, DemoShell, Icon, Input, InputDropdown, InputGroup, InputGroupAddon, InputGroupInput, Pagination, Skeleton, Table, Tag],
+  imports: [Avatar, Button, ColumnManager, DemoShell, Icon, Input, InputDropdown, InputGroup, InputGroupAddon, InputGroupInput, Pagination, Skeleton, Table, TableRowActions, Tag],
   templateUrl: './table-page.html',
   styleUrl: './table-page.css',
 })
@@ -65,11 +73,15 @@ export class TablePage {
   protected readonly pageSizeOptions = PAGE_SIZE_OPTIONS;
   @ViewChild('unitCell', { static: true }) private unitCellRef!: TemplateRef<unknown>;
   @ViewChild('statusCell', { static: true }) private statusCellRef!: TemplateRef<unknown>;
+  @ViewChild('actionsCell', { static: true }) private actionsCellRef!: TemplateRef<unknown>;
+  protected readonly rowActions = ROW_ACTIONS;
+  protected readonly lastAction = signal('');
 
   protected readonly playgroundControls: ControlDef[] = [
     { kind: 'select', label: 'Carga', key: 'loadState', options: [
       { value: 'loaded', label: 'Datos cargados' }, { value: 'loading-empty', label: 'Carga inicial (skeleton)' },
       { value: 'loading-refetch', label: 'Actualizando datos' }, { value: 'empty', label: 'Sin datos' },
+      { value: 'error', label: 'Error de carga' },
     ], default: 'loaded' },
     { kind: 'toggle', label: 'Paginación', key: 'paginate', default: true },
   ];
@@ -96,14 +108,14 @@ export class TablePage {
   );
   protected readonly visibleColumns = computed<TableColumn[]>(() => {
     const hidden = this.hiddenKeys();
-    return this.orderedColumns().filter((column) => !hidden.has(column.key));
+    return [...this.orderedColumns().filter((column) => !hidden.has(column.key)), ACTIONS_COLUMN];
   });
   protected readonly columnManagerItems = computed<ColumnManagerItem[]>(() => {
     const hidden = this.hiddenKeys();
     return this.orderedColumns().map((column) => ({ key: column.key, label: column.label, visible: !hidden.has(column.key) }));
   });
   protected readonly filteredUnits = computed(() => {
-    if (this.loadState() === 'empty') return [];
+    if (this.loadState() === 'empty' || this.loadState() === 'error') return [];
     const query = this.query().trim().toLocaleLowerCase();
     const status = this.statusFilter();
     return UNITS.filter((unit) => {
@@ -136,12 +148,14 @@ export class TablePage {
   protected readonly tableSummary = computed(() => {
     const total = this.sortedUnits().length;
     if (this.isLoading()) return 'Cargando unidades';
+    if (this.loadState() === 'error') return 'No se pudieron cargar las unidades';
+    if (this.lastAction()) return this.lastAction();
     if (total === 0) return '0 unidades encontradas';
     if (!this.paginate()) return `${total} unidades encontradas`;
     const first = (this.page() - 1) * this.rowsPerPage() + 1;
     return `${first}–${Math.min(this.page() * this.rowsPerPage(), total)} de ${total} unidades`;
   });
-  protected readonly usageCode = `<cs-table\n  caption="Unidades de flota"\n  [columns]="visibleColumns()"\n  [rows]="rows()"\n  [sortKey]="sortKey()"\n  [sortOrder]="sortOrder()"\n  (sort)="onSort($event)"\n  [isLoading]="isLoading()"\n  minWidth="40rem"\n>\n  <div emptyState>Sin resultados</div>\n</cs-table>`;
+  protected readonly usageCode = `<cs-table\n  caption="Unidades de flota"\n  [columns]="visibleColumns()"\n  [rows]="rows()"\n  [sortKey]="sortKey()"\n  [sortOrder]="sortOrder()"\n  (sort)="onSort($event)"\n  [isLoading]="isLoading()"\n  minWidth="48rem"\n  [error]="error()"\n  (retry)="reload()"\n>\n  <div emptyState>Sin resultados</div>\n</cs-table>\n\n<!-- Columna de acciones: fija al final -->\n{ key: 'actions', label: 'Acciones', width: '72px', align: 'center', sticky: 'end' }\n\n<!-- Celda de acciones -->\n<cs-table-row-actions\n  [items]="acciones"\n  [ariaLabel]="'Acciones para ' + unidad.name"\n  (itemSelect)="ejecutar(unidad, $event)"\n/>`;
 
   protected onPlaygroundState(state: DemoState): void {
     if (state['loadState']) this.loadState.set(state['loadState'] as LoadState);
@@ -157,6 +171,12 @@ export class TablePage {
     this.page.set(1);
   }
   protected setPage(page: number): void { this.page.set(page); }
+  protected runAction(unit: FleetUnit, item: DropdownItem): void {
+    if (item.value === 'view') this.selectUnit(unit.id);
+    this.lastAction.set(`${item.label}: ${unit.name}`);
+  }
+  protected readonly loadError = computed(() => (this.loadState() === 'error' ? 'No pudimos cargar las unidades' : ''));
+  protected reload(): void { this.loadState.set('loaded'); }
   protected selectUnit(id: string): void { this.selectedId.set(id); }
   protected clearFilters(): void { this.query.set(''); this.statusFilter.set('all'); this.page.set(1); }
   protected setGuideQuery(value: string): void { this.guideQuery.set(value); }
@@ -180,6 +200,7 @@ export class TablePage {
       case 'status': return { template: this.statusCellRef, context: { $implicit: unit.status } };
       case 'driver': return unit.driver;
       case 'updated': return unit.updated;
+      case 'actions': return { template: this.actionsCellRef, context: { $implicit: unit } };
       default: return '';
     }
   }

@@ -177,8 +177,9 @@ export const NAVIGATION: NavSection[] = [
         title: 'Table',
         href: '/components/table-group',
         icon: 'table-2',
+        change: { kind: 'actualizado', version: '0.3.13' },
         children: [
-          { title: 'Table', href: '/components/table' },
+          { title: 'Table', href: '/components/table', change: { kind: 'actualizado', version: '0.3.13' } },
           { title: 'Table tree', href: '/components/table-tree' },
           { title: 'Column manager', href: '/components/column-manager', change: { kind: 'nuevo', version: '0.3.12' } },
         ],

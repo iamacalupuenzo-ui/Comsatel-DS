@@ -4,16 +4,20 @@
     <span class="unit-cell__text"><strong>{{ unit.name }}</strong><span>{{ unit.plate }}</span></span>
   </button>
 </ng-template>
+<ng-template #actionsCell let-unit><cs-table-row-actions [items]="rowActions" [ariaLabel]="'Acciones para ' + unit.name" (itemSelect)="runAction(unit, $event)" /></ng-template>
 <ng-template #statusCell let-status><cs-tag [severity]="statusSeverity(status)" [icon]="statusIcon(status)" [value]="statusText(status)" [rounded]="true" size="sm" /></ng-template>
 
 <div class="page">
   <p class="eyebrow">Componentes / Table</p>
-  <h1 class="title">Table</h1>
-  <p class="description">Table presenta datos tabulares con semántica nativa y mantiene el estado en quien la consume. La búsqueda, los filtros y la paginación se componen alrededor de ella; el componente recibe las filas visibles, comunica el orden solicitado y representa con fidelidad carga, actualización y vacío.</p>
+  <h1 class="title">Table<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.13</span></h1>
+  <p class="description">Table presenta datos tabulares con semántica nativa y mantiene el estado en quien la consume. La búsqueda, los filtros y la paginación se componen alrededor de ella; el componente recibe las filas visibles, comunica el orden solicitado y representa con fidelidad carga, actualización, vacío y error.</p>
+  <ul class="section__intro state-list">
+    <li><strong>Novedades de v0.3.13.</strong> Columna de acciones fija al final (<code>sticky: 'end'</code>), estado de error con «Reintentar», menú de acciones por fila (<code>cs-table-row-actions</code>) y encabezados en la misma escala de 12 px que las filas.</li>
+  </ul>
 
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>
-    <p class="section__intro">Filtra, ordena, selecciona una unidad y alterna la paginación. El control de carga permite revisar skeleton, refetch y vacío sin simular datos en el componente.</p>
+    <p class="section__intro">Filtra, ordena, selecciona una unidad y alterna la paginación. El control de carga permite revisar skeleton, refetch, vacío y error. Desplaza la tabla en horizontal: la columna Acciones queda fija y muestra una sombra mientras hay columnas ocultas a su izquierda.</p>
     <app-demo-shell [controls]="playgroundControls" [code]="usageCode" (stateChange)="onPlaygroundState($event)">
       <div class="table-demo">
         <div class="table-toolbar">
@@ -49,7 +53,9 @@
             [isLoading]="isLoading()"
             [highlightedRowKey]="selectedId()"
             [skeletonRowCount]="5"
-            minWidth="40rem"
+            minWidth="48rem"
+            [error]="loadError()"
+            (retry)="reload()"
             (sort)="onSort($event)"
           >
             <div emptyState class="empty-state">
@@ -78,6 +84,8 @@
       <div class="table__row"><strong>Búsqueda y filtros</strong><span>Viven arriba de la tabla y reducen las filas antes de entregarlas. El estado vacío explica si no hay datos o si no hay coincidencias.</span></div>
       <div class="table__row"><strong>Paginación</strong><span>Es opcional. Si se conoce el total, Pagination recibe solo page y totalPages; sin paginación Table recibe todas las filas filtradas.</span></div>
       <div class="table__row"><strong>Densidad</strong><span>Table no expone tamaños arbitrarios: conserva una densidad legible y consistente. Para información jerárquica o filas expandibles usa Table Tree, no una tabla regular colapsada.</span></div>
+      <div class="table__row"><strong>Acciones por fila</strong><span>Van en la última columna, con <code>sticky: 'end'</code> y <code>cs-table-row-actions</code>. El menú se abre en la capa de Popover, así que el desplazamiento de la tabla no lo recorta, y su ancho sigue el contenido como Dropdown.</span></div>
+      <div class="table__row"><strong>Error</strong><span>Con <code>error</code> la tabla reemplaza las filas por el mensaje y, si escuchas <code>(retry)</code>, muestra «Reintentar». El vacío y el error son estados distintos: no uses el vacío para decir que la carga falló.</span></div>
       <div class="table__row"><strong>Espacio reducido</strong><span>Con minWidth la tabla conserva encabezados, celdas y relaciones; cuando no cabe, el wrapper permite desplazamiento horizontal en lugar de convertirla en tarjetas.</span></div>
     </div>
   </section>
@@ -91,6 +99,8 @@
       <div class="table__row"><strong>Carga</strong><span>El contenedor marca aria-busy mientras carga. Skeleton es decorativo (aria-hidden) y un estado vivo anuncia que las filas se están actualizando.</span></div>
       <div class="table__row"><strong>Controles externos</strong><span>La búsqueda tiene label asociado; filtros y filas por página usan combobox con label. Columnas abre un panel de administración con nombre accesible. Pagination expone navegación, página actual y botones con nombre accesible.</span></div>
       <div class="table__row"><strong>Selección y acciones</strong><span>Una fila visualmente seleccionable contiene un botón con un nombre específico; no depende de un clic silencioso sobre tr.</span></div>
+      <div class="table__row"><strong>Menú de acciones</strong><span>El botón expone aria-haspopup y aria-expanded, y su nombre incluye la fila («Acciones para Camión Norte 04»). El menú tiene role="menu"; Escape lo cierra y el foco vuelve al botón.</span></div>
+      <div class="table__row"><strong>Error</strong><span>El mensaje de error usa role="alert" para anunciarse al aparecer.</span></div>
       <div class="table__row"><strong>Responsividad</strong><span>El scroll horizontal conserva el orden de lectura y evita ocultar columnas sin una alternativa equivalente.</span></div>
       <div class="table__row"><strong>Administrar columnas</strong><span>Column Manager se abre fuera de los headers y reúne las dos tareas relacionadas: arrastrar para reordenar y usar el ojo para mostrar u ocultar. Comparte el tamaño, fondo, borde y foco del estándar de select, sin fingir una selección de valor. No permite dejar la tabla sin columnas visibles.</span></div>
     </div>
@@ -114,7 +124,7 @@
     <h2 class="section__title" id="props">Propiedades</h2>
     <div class="table">
       <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
-      <div class="table__row"><code class="table__name">columns</code><code class="table__type">TableColumn[]</code><code class="table__default">—</code><span class="table__desc">Columnas con key, label, isSortable?, width? y align?.</span></div>
+      <div class="table__row"><code class="table__name">columns</code><code class="table__type">TableColumn[]</code><code class="table__default">—</code><span class="table__desc">Columnas con key, label, isSortable?, width?, align? y sticky? ('end' fija la columna al borde derecho).</span></div>
       <div class="table__row"><code class="table__name">rows</code><code class="table__type">TableRow[]</code><code class="table__default">—</code><span class="table__desc">Filas visibles; cada celda es texto o un TemplateRef con contexto.</span></div>
       <div class="table__row"><code class="table__name">caption</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Nombre de la tabla para lectores de pantalla; se presenta visualmente oculto.</span></div>
       <div class="table__row"><code class="table__name">minWidth</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Ancho mínimo opcional; al no caber, el wrapper habilita scroll horizontal.</span></div>
@@ -123,7 +133,22 @@
       <div class="table__row"><code class="table__name">sortKey / sortOrder</code><code class="table__type">string / asc | desc</code><code class="table__default">—</code><span class="table__desc">Estado de orden controlado por quien consume Table.</span></div>
       <div class="table__row"><code class="table__name">(sort)</code><code class="table__type">EventEmitter&lt;string&gt;</code><code class="table__default">—</code><span class="table__desc">Emite la key de una columna ordenable; no ordena datos internamente.</span></div>
       <div class="table__row"><code class="table__name">highlightedRowKey</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Resalta una fila indicada por la aplicación, por ejemplo una selección.</span></div>
+      <div class="table__row"><code class="table__name">error</code><code class="table__type">string</code><code class="table__default">''</code><span class="table__desc">Mensaje de error de la carga; reemplaza las filas por el estado de error.</span></div>
+      <div class="table__row"><code class="table__name">errorDescription</code><code class="table__type">string</code><code class="table__default">'Verifica tu conexión…'</code><span class="table__desc">Segunda línea del error: qué puede hacer la persona.</span></div>
+      <div class="table__row"><code class="table__name">(retry)</code><code class="table__type">EventEmitter&lt;void&gt;</code><code class="table__default">—</code><span class="table__desc">Si lo escuchas, el error muestra «Reintentar».</span></div>
       <div class="table__row"><code class="table__name">[emptyState]</code><code class="table__type">contenido proyectado</code><code class="table__default">—</code><span class="table__desc">Estado vacío específico del contexto cuando no hay filas y no está cargando.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="row-actions-props">Propiedades de Table row actions</h2>
+    <p class="section__intro"><span class="change-badge" data-kind="nuevo">Nuevo · v0.3.13</span> Botón y menú de acciones para la celda fija de una fila.</p>
+    <div class="table">
+      <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+      <div class="table__row"><code class="table__name">items</code><code class="table__type">DropdownItem[]</code><code class="table__default">[]</code><span class="table__desc">Acciones de la fila; sin acciones, el botón queda deshabilitado.</span></div>
+      <div class="table__row"><code class="table__name">ariaLabel</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Nombre del botón y del menú; incluye el identificador de la fila.</span></div>
+      <div class="table__row"><code class="table__name">heading</code><code class="table__type">string</code><code class="table__default">'Acciones'</code><span class="table__desc">Título del menú; vacío para omitirlo.</span></div>
+      <div class="table__row"><code class="table__name">(itemSelect)</code><code class="table__type">EventEmitter&lt;DropdownItem&gt;</code><code class="table__default">—</code><span class="table__desc">Acción elegida; el menú se cierra solo.</span></div>
     </div>
   </section>
 </div>

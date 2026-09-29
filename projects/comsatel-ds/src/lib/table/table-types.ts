@@ -15,6 +15,11 @@ export interface TableColumn {
   /** Recorta el contenido visualmente sin alterar el valor disponible al consumidor. */
   truncate?: boolean;
   align?: 'left' | 'center' | 'right';
+  /** Fija la columna al borde derecho mientras la tabla se desplaza en
+   * horizontal. Pensado para la columna de acciones, que debe ser la última.
+   * La celda fija es opaca y muestra una sombra mientras queda contenido
+   * oculto a su izquierda. */
+  sticky?: 'end';
 }
 
 /** Celda con contenido propio (ej. un `cs-badge` de estado, no texto) — el

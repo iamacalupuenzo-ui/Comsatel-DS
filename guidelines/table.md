@@ -5,8 +5,8 @@ jerarquía: filas que se expanden para mostrar hijos, con carga perezosa.
 `ColumnManager` administra el orden y la visibilidad de las columnas desde un
 panel compacto; no sustituye un selector de valores.
 
-- **Import:** `import { ColumnManager, Table, TableTree } from '@iamacalupuenzo-ui/comsatel-ds';`
-- **Selectores:** `<cs-table>`, `<cs-table-tree>`, `<cs-column-manager>`
+- **Import:** `import { ColumnManager, Table, TableRowActions, TableTree } from '@iamacalupuenzo-ui/comsatel-ds';`
+- **Selectores:** `<cs-table>`, `<cs-table-row-actions>`, `<cs-table-tree>`, `<cs-column-manager>`
 - **Clases raíz emitidas:** `.cs-table`, `.cs-table-tree`, `.cs-column-manager`.
   Son detalles para inspección; la integración usa los selectores públicos.
 
@@ -37,11 +37,62 @@ panel compacto; no sustituye un selector de valores.
 | `highlightedRowKey` | `string \| undefined` | `undefined` | Resalta una fila. |
 | `skeletonRowCount` | `number` | `5` | Cuántas filas skeleton dibujar. |
 | `minWidth` | `string \| undefined` | `undefined` | Ancho mínimo antes de scrollear horizontal. |
+| `error` | `string` | `''` | Mensaje de error de la carga; reemplaza las filas por el estado de error. |
+| `errorDescription` | `string` | `'Verifica tu conexión e inténtalo nuevamente.'` | Segunda línea del error: qué puede hacer la persona. |
 | `sort` | `EventEmitter<string>` | n/a | Emite el `key` de la columna al pedir orden. |
+| `retry` | `EventEmitter<void>` | n/a | Si lo escuchas, el error muestra «Reintentar». |
 <!-- props:end -->
 
 Una celda es texto plano, o un template: `{ template: TemplateRef, context? }` para
 meter un `Badge`, un `Button` o cualquier componente en la celda.
+
+### Columna de acciones fija
+
+La columna de acciones va al final con `sticky: 'end'`. Queda fija al desplazar la
+tabla en horizontal, es opaca y muestra una sombra mientras hay columnas ocultas a
+su izquierda. En su celda va `cs-table-row-actions`, que abre el menú en la capa de
+Popover (el desplazamiento de la tabla no lo recorta) con el ancho por contenido de
+Dropdown.
+
+```ts
+const columns: TableColumn[] = [
+  { key: 'unit', label: 'Unidad' },
+  { key: 'actions', label: 'Acciones', width: '72px', align: 'center', sticky: 'end' },
+];
+```
+
+```html
+<ng-template #actionsCell let-unit>
+  <cs-table-row-actions
+    [items]="actions"
+    [ariaLabel]="'Acciones para ' + unit.name"
+    (itemSelect)="run(unit, $event)"
+  />
+</ng-template>
+```
+
+### Error de carga
+
+Con `error` la tabla reemplaza las filas por el mensaje de error, y con `(retry)`
+muestra «Reintentar». El vacío y el error son estados distintos: no uses el
+`emptyState` para decir que la carga falló.
+
+```html
+<cs-table [columns]="columns" [rows]="rows" [error]="loadError" (retry)="reload()"></cs-table>
+```
+
+## Props de `TableRowActions`
+
+<!-- props:start TableRowActions -->
+<!-- generado por scripts/props.mjs desde projects/comsatel-ds/src/lib/table/table-row-actions.ts: nombre, tipo y default salen del código, la descripción se edita a mano en esta tabla -->
+
+| Prop | Type | Default | Description |
+| :-- | :-- | :-- | :-- |
+| `items` | `DropdownItem[]` | `[]` | Acciones de la fila; sin acciones, el botón queda deshabilitado. |
+| `ariaLabel` | `string` | requerido | Nombre del botón y del menú; incluye el identificador de la fila. |
+| `heading` | `string` | `'Acciones'` | Título del menú; vacío para omitirlo. |
+| `itemSelect` | `EventEmitter<DropdownItem>` | n/a | Acción elegida; el menú se cierra solo. |
+<!-- props:end -->
 
 ## Props de `ColumnManager`
 
@@ -86,6 +137,22 @@ meter un `Badge`, un `Button` o cualquier componente en la celda.
 - Durante la carga, la tabla marca `aria-busy` y hay una región `role="status"` con
   `aria-live="polite"` que anuncia el cambio de estado.
 - En `TableTree`, el control de expandir es un `<button>` con `aria-expanded`.
+- El error de carga usa `role="alert"` para anunciarse al aparecer.
+- El botón de `TableRowActions` expone `aria-haspopup` y `aria-expanded`, y su nombre
+  incluye la fila. El menú tiene `role="menu"`; Escape lo cierra y el foco vuelve al botón.
+
+<!-- a11y:start TableRowActions -->
+<!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/table/table-row-actions.ts: no editar a mano, corre npm run docs:a11y -->
+
+#### Contrato a11y generado desde el código: `cs-table-row-actions`
+
+| Aspecto | Qué hace el código |
+| :-- | :-- |
+| Elementos nativos | `button` |
+| Roles | `menu` |
+| Atributos ARIA | `aria-haspopup="menu"`, `aria-hidden="true"`, `aria-expanded`, `aria-label` |
+| Compone | `cs-icon`, `cs-popover`, `cs-dropdown-item` |
+<!-- a11y:end -->
 
 <!-- a11y:start Table -->
 <!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/src/lib/table/table.ts: no editar a mano, corre npm run docs:a11y -->
@@ -95,9 +162,9 @@ meter un `Badge`, un `Button` o cualquier componente en la celda.
 | Aspecto | Qué hace el código |
 | :-- | :-- |
 | Elementos nativos | `table`, `button` |
-| Roles | `status` |
+| Roles | `alert`, `status` |
 | Atributos ARIA | `aria-hidden="true"`, `aria-live="polite"`, `aria-busy`, `aria-sort`, `aria-label` |
-| Compone | `cs-icon`, `cs-skeleton` |
+| Compone | `cs-icon`, `cs-skeleton`, `cs-button` |
 <!-- a11y:end -->
 
 <!-- a11y:start ColumnManager -->

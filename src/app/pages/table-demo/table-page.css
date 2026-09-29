@@ -38,3 +38,9 @@
 
 @media (max-width: 760px) { .table-toolbar { grid-template-columns: 1fr 1fr; } .table-toolbar__search { grid-column: 1 / -1; } .table-demo__footer cs-pagination { overflow-x: auto; } }
 @media (max-width: 560px) { .table-toolbar { grid-template-columns: 1fr; } .table-demo__footer { align-items: flex-start; flex-direction: column; } .guide-search { align-items: stretch; flex-direction: column; } }
+.state-list {
+  display: grid;
+  gap: var(--layout-gap-xs);
+  padding-inline-start: var(--layout-padding-xl);
+}
+.state-list code { overflow-wrap: anywhere; }

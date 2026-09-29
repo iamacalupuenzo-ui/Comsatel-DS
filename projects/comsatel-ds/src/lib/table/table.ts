@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
+import { Button } from '../button/button';
 import { Icon } from '../icons/icon';
 import { Skeleton } from '../skeleton/skeleton';
 import type { SortOrder, TableCellValue, TableColumn, TableRow, TableTemplateCell } from './table-types';
@@ -19,11 +20,11 @@ import type { SortOrder, TableCellValue, TableColumn, TableRow, TableTemplateCel
  */
 @Component({
   selector: 'cs-table',
-  imports: [Icon, Skeleton, NgTemplateOutlet],
+  imports: [Button, Icon, Skeleton, NgTemplateOutlet],
   templateUrl: './table.html',
   styleUrl: './table.css',
 })
-export class Table {
+export class Table implements AfterViewInit, OnDestroy {
   @Input({ required: true }) columns: TableColumn[] = [];
   @Input({ required: true }) rows: TableRow[] = [];
   @Input() caption?: string;
@@ -36,6 +37,47 @@ export class Table {
   /** Ancho mínimo opcional. Si el espacio disponible es menor, el wrapper
    * conserva la semántica de tabla y habilita desplazamiento horizontal. */
   @Input() minWidth?: string;
+  /** Mensaje de error de la carga. Si tiene texto y no hay una carga en curso,
+   * la tabla reemplaza las filas por el estado de error. */
+  @Input() error = '';
+  /** Segunda línea del estado de error: qué puede hacer la persona. */
+  @Input() errorDescription = 'Verifica tu conexión e inténtalo nuevamente.';
+  /** Si el consumidor lo escucha, el estado de error muestra «Reintentar». */
+  @Output() readonly retry = new EventEmitter<void>();
+
+  /** Hay contenido oculto a la izquierda de la columna fija. */
+  protected readonly overflowEnd = signal(false);
+  @ViewChild('wrap', { static: true }) private wrapRef!: ElementRef<HTMLElement>;
+  private resizeObserver?: ResizeObserver;
+  private readonly updateOverflow = (): void => {
+    const wrap = this.wrapRef?.nativeElement;
+    if (!wrap) return;
+    this.overflowEnd.set(wrap.scrollWidth - wrap.clientWidth - wrap.scrollLeft > 1);
+  };
+
+  ngAfterViewInit(): void {
+    const wrap = this.wrapRef.nativeElement;
+    wrap.addEventListener('scroll', this.updateOverflow, { passive: true });
+    if (typeof ResizeObserver !== 'undefined') {
+      this.resizeObserver = new ResizeObserver(this.updateOverflow);
+      this.resizeObserver.observe(wrap);
+      const table = wrap.querySelector('table');
+      if (table) this.resizeObserver.observe(table);
+    }
+    requestAnimationFrame(this.updateOverflow);
+  }
+
+  ngOnDestroy(): void {
+    this.wrapRef.nativeElement.removeEventListener('scroll', this.updateOverflow);
+    this.resizeObserver?.disconnect();
+  }
+
+  protected get showError(): boolean {
+    return !!this.error && !this.isLoading;
+  }
+  protected get canRetry(): boolean {
+    return this.retry.observed;
+  }
 
   protected get showSkeleton(): boolean {
     return this.isLoading && this.rows.length === 0;
@@ -44,7 +86,7 @@ export class Table {
     return this.isLoading && this.rows.length > 0;
   }
   protected get isEmpty(): boolean {
-    return !this.isLoading && this.rows.length === 0;
+    return !this.isLoading && !this.error && this.rows.length === 0;
   }
   protected get skeletonRowIndices(): number[] {
     return Array.from({ length: this.skeletonRowCount }, (_, i) => i);

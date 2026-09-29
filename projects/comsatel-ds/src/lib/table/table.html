@@ -1,4 +1,4 @@
-<div class="cs-table__wrap" [attr.aria-busy]="isLoading ? 'true' : null">
+<div #wrap class="cs-table__wrap" [class.cs-table__wrap--overflow-end]="overflowEnd()" [attr.aria-busy]="isLoading ? 'true' : null">
   <table class="cs-table" [style.min-width]="minWidth">
     @if (caption) {
       <caption class="cs-table__caption">{{ caption }}</caption>
@@ -9,6 +9,7 @@
           <th
             scope="col"
             class="cs-table__th"
+            [class.cs-table__cell--sticky-end]="col.sticky === 'end'"
             [attr.aria-sort]="ariaSortFor(col)"
             [style.width]="col.width"
             [style.min-width]="col.minWidth"
@@ -36,12 +37,27 @@
         @for (i of skeletonRowIndices; track i) {
           <tr class="cs-table__row">
             @for (col of columns; track col.key) {
-              <td class="cs-table__td" [class.cs-table__cell--truncate]="col.truncate">
+              <td class="cs-table__td" [class.cs-table__cell--truncate]="col.truncate" [class.cs-table__cell--sticky-end]="col.sticky === 'end'">
                 <cs-skeleton [width]="col.width ? '70%' : undefined" />
               </td>
             }
           </tr>
         }
+      } @else if (showError) {
+        <tr>
+          <td [attr.colspan]="columns.length" class="cs-table__empty">
+            <div class="cs-table__error" role="alert">
+              <cs-icon name="circle-alert" [size]="32" aria-hidden="true" class="cs-table__error-icon" />
+              <p class="cs-table__error-title">{{ error }}</p>
+              @if (errorDescription) {
+                <p class="cs-table__error-description">{{ errorDescription }}</p>
+              }
+              @if (canRetry) {
+                <cs-button variant="secondary" size="sm" (click)="retry.emit()">Reintentar</cs-button>
+              }
+            </div>
+          </td>
+        </tr>
       } @else if (isEmpty) {
         <tr>
           <td [attr.colspan]="columns.length" class="cs-table__empty">
@@ -55,6 +71,7 @@
               <td
                 class="cs-table__td"
                 [class.cs-table__cell--truncate]="columns[i]?.truncate"
+                [class.cs-table__cell--sticky-end]="columns[i]?.sticky === 'end'"
                 [style.min-width]="columns[i]?.minWidth"
                 [style.max-width]="columns[i]?.maxWidth"
                 [style.text-align]="columns[i]?.align ?? 'left'"

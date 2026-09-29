@@ -6,6 +6,17 @@
   position: relative;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
+  /* La pista de desplazamiento es parte de la superficie de la tabla. */
+  scrollbar-color: var(--color-border-neutral-default) var(--elevation-surface-default);
+  scrollbar-width: thin;
+}
+.cs-table__wrap::-webkit-scrollbar-track {
+  background: var(--elevation-surface-default);
+}
+.cs-table__wrap::-webkit-scrollbar-thumb {
+  border: var(--layout-border-thick) solid var(--elevation-surface-default);
+  border-radius: var(--radius-full);
+  background: var(--color-border-neutral-default);
 }
 
 .cs-table {
@@ -34,10 +45,11 @@
 
 .cs-table__th {
   padding: var(--layout-padding-md) var(--layout-padding-lg);
-  font-size: var(--font-size-label-small);
-  line-height: var(--font-line-height-label-small);
+  /* Misma escala content/note de 12 px que las filas. */
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
   font-weight: var(--font-weight-emphasis);
-  color: var(--color-text-base-subtle);
+  color: var(--color-text-base-subtlest);
   white-space: nowrap;
 }
 
@@ -96,6 +108,59 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* Columna fija al borde derecho (TableColumn.sticky = 'end'). Opaca para
+   tapar las celdas que se desplazan por debajo. */
+.cs-table__cell--sticky-end {
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  background-color: var(--elevation-surface-default);
+}
+.cs-table__th.cs-table__cell--sticky-end {
+  z-index: 2;
+}
+/* --color-interaction-hovered es rgba: se compone sobre una superficie opaca
+   para conservar el tono de la fila. */
+.cs-table__row:hover .cs-table__cell--sticky-end {
+  background-image: linear-gradient(var(--color-interaction-hovered), var(--color-interaction-hovered));
+}
+.cs-table__row--highlighted .cs-table__cell--sticky-end {
+  background-color: var(--color-background-brand-subtlest);
+  background-image: none;
+}
+/* Sombra mientras queda contenido oculto a la izquierda de la columna fija. */
+.cs-table__wrap--overflow-end .cs-table__cell--sticky-end::before {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: calc(var(--layout-gap-lg) * -1);
+  width: var(--layout-gap-lg);
+  background: linear-gradient(to left, color-mix(in srgb, var(--color-text-base-default) 8%, transparent), transparent);
+  content: '';
+  pointer-events: none;
+}
+
+.cs-table__error {
+  display: grid;
+  justify-items: center;
+  gap: var(--layout-gap-xs);
+}
+.cs-table__error-icon {
+  color: var(--color-text-danger-default);
+}
+.cs-table__error-title {
+  margin: 0;
+  color: var(--color-text-base-default);
+  font-size: var(--font-size-content-ui);
+  line-height: var(--font-line-height-content-ui);
+  font-weight: var(--font-weight-accent);
+}
+.cs-table__error-description {
+  margin: 0 0 var(--layout-gap-xs);
+  color: var(--color-text-base-subtle);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
 }
 
 .cs-table__empty {
