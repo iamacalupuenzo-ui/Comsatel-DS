@@ -53,3 +53,6 @@ debug-storybook.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Clave de CARTO solo local: el repositorio es público (ver map-theme-demo/product-map-preview.ts).
+public/map-config.local.json

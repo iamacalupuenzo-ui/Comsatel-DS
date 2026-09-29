@@ -1,11 +1,25 @@
 <div class="page">
   <p class="eyebrow">Mapa / Tema del mapa</p>
-  <h1 class="title">Tema del mapa</h1>
+  <h1 class="title">Tema del mapa<span class="change-badge change-badge--title" data-kind="actualizado">Actualizado · v0.3.28</span></h1>
   <p class="description">
     El mapa tiene su propio tema, independiente del tema de la interfaz. No se controla con
     <code>data-theme</code>: se resuelve eligiendo el proveedor de tiles correcto según un estado
     propio del mapa.
   </p>
+
+  <section class="section">
+    <h2 class="section__title" id="product-map">Mapa del producto</h2>
+    <p class="section__intro">
+      Es el mapa que usa FleetOperations: Leaflet con los mosaicos raster <strong>CARTO Voyager</strong>,
+      centrado en Lima con la misma configuración del mapa operativo (zoom 13, máximo 20). Los
+      marcadores son los <code>VehiclePill</code> de la página de Marcadores.
+    </p>
+    <ul class="section__intro state-list">
+      <li><strong>Clave de API:</strong> CARTO exige clave en todos sus mosaicos; sin ella muestra «API KEY REQUIRED». El repositorio es público, así que la clave no se sube: el sitio la lee de <code>public/map-config.local.json</code>, que git ignora. Sin ese archivo, el mapa usa OpenStreetMap y lo avisa debajo.</li>
+      <li><strong>Atribución obligatoria:</strong> OpenStreetMap contributors y CARTO, visible en la esquina del mapa.</li>
+    </ul>
+    <app-product-map-preview />
+  </section>
 
   <section class="section">
     <h2 class="section__title" id="why-independent">Por qué es independiente</h2>
@@ -22,9 +36,9 @@
   </section>
 
   <section class="section">
-    <h2 class="section__title" id="providers">Proveedores de tiles</h2>
+    <h2 class="section__title" id="providers">Alternativas evaluadas</h2>
     <p class="section__intro">
-      Dos estilos vectoriales de OpenFreeMap, uno por modo. Ambos corren sobre datos de
+      El producto hoy no las usa: son dos estilos vectoriales de OpenFreeMap, uno por modo, evaluados para un tema claro y uno oscuro. Ambos corren sobre datos de
       OpenStreetMap, sin API key ni cuenta: se sirven gratis desde
       <code>tiles.openfreemap.org</code>, sin el límite de requests que sí tienen CARTO y Stadia
       Maps en sus planes gratuitos.

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CodeBlock } from '../../shared/docs/code-block';
 import { LiveMapPreview } from './live-map-preview';
+import { ProductMapPreview } from './product-map-preview';
 
 interface ColorSwatchEntry {
   name: string;
@@ -43,7 +44,7 @@ new Map({
 
 @Component({
   selector: 'app-map-theme-page',
-  imports: [CodeBlock, LiveMapPreview],
+  imports: [CodeBlock, LiveMapPreview, ProductMapPreview],
   templateUrl: './map-theme-page.html',
   styleUrl: './map-theme-page.css',
 })

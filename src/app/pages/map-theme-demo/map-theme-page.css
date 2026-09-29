@@ -78,3 +78,5 @@
   line-height: var(--font-line-height-label-small);
   color: var(--color-text-base-subtlest);
 }
+
+.state-list { display: grid; gap: var(--layout-gap-xs); padding-inline-start: var(--layout-padding-xl); }

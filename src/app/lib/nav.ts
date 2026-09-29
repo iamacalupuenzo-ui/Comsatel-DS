@@ -198,7 +198,7 @@ export const NAVIGATION: NavSection[] = [
   {
     title: 'Mapa',
     items: [
-      { title: 'Tema del mapa', href: '/map/theme', icon: 'map-pin' },
+      { title: 'Tema del mapa', href: '/map/theme', icon: 'map-pin', change: { kind: 'actualizado', version: '0.3.28' } },
       { title: 'Marcadores', href: '/map/markers', icon: 'locate-fixed' },
     ],
   },
