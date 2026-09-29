@@ -37,8 +37,13 @@ for (const key of JS_ENTRIES) {
     failures.push(`exports no declara "${key}" con condiciones types y default`);
     continue;
   }
-  if (!/^\.\/types\/.+\.d\.ts$/.test(entry.types ?? '')) failures.push(`exports["${key}"].types debe ser ./types/*.d.ts (es ${entry.types})`);
-  if (!/^\.\/fesm2022\/.+\.mjs$/.test(entry.default ?? '')) failures.push(`exports["${key}"].default debe ser ./fesm2022/*.mjs (es ${entry.default})`);
+  // Ruta exacta de cada entrada, para que un export no apunte al archivo de otra:
+  // '@iamacalupuenzo-ui/comsatel-ds' + '/icons' → iamacalupuenzo-ui-comsatel-ds-icons.
+  const base = manifest.name.replace(/^@/, '').replace('/', '-') + (key === '.' ? '' : `-${key.slice(2)}`);
+  const expected = { types: `./types/${base}.d.ts`, default: `./fesm2022/${base}.mjs` };
+  for (const condition of ['types', 'default']) {
+    if (entry[condition] !== expected[condition]) failures.push(`exports["${key}"].${condition} debe ser ${expected[condition]} (es ${entry[condition]})`);
+  }
   for (const condition of ['types', 'default']) {
     if (entry[condition] && !inPackage(entry[condition])) failures.push(`exports["${key}"].${condition} apunta a ${entry[condition]}, que no está en el paquete`);
   }
