@@ -2,19 +2,61 @@
 
 :host { display: block; }
 
-/* 360px es el ancho de referencia de la muestra; no hay un token equivalente. */
 .stage {
   display: grid;
-  gap: var(--layout-gap-sm);
-  width: 360px;
+  gap: var(--layout-gap-md);
+  width: calc(var(--layout-size-3xl) * 4.5);
   max-width: 100%;
 }
 
-
-/* Cuándo usar el estado elegido y sus propiedades: mismo estilo que la descripción de la sección, en lista. */
-.state-list {
-  display: grid;
-  gap: var(--layout-gap-xs);
-  padding-inline-start: var(--layout-padding-xl);
+/* Lista rellena: vive dentro de una superficie blanca ya delimitada. */
+.stage--surface {
+  box-sizing: border-box;
+  padding: var(--layout-padding-lg);
+  border: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--elevation-surface-default);
 }
-.state-list code { overflow-wrap: anywhere; }
+
+/* El contenedor define el scroll; la lista mantiene las filas y el grupo fijado. */
+.panel-frame {
+  --fleet-panel-surface: var(--color-background-canvas);
+  position: relative;
+}
+.panel-frame--surface { --fleet-panel-surface: var(--elevation-surface-default); }
+.panel {
+  --cs-fleet-unit-list-sticky-inset: var(--layout-padding-sm);
+  box-sizing: border-box;
+  max-height: calc(var(--layout-size-3xl) * 4.5);
+  padding: var(--layout-padding-sm);
+  overflow-y: auto;
+  border: var(--layout-border-thin) solid var(--color-border-neutral-subtle);
+  border-radius: var(--radius-md);
+  background: var(--color-background-canvas);
+  box-shadow: var(--shadow-lg);
+}
+.panel--scrollbar-hidden { scrollbar-width: none; }
+.panel--scrollbar-hidden::-webkit-scrollbar { display: none; }
+.panel--surface {
+  --cs-fleet-unit-list-surface: var(--elevation-surface-default);
+  background: var(--elevation-surface-default);
+}
+.panel-scroll-hint {
+  position: absolute;
+  inset-inline: var(--layout-border-thin);
+  inset-block-end: var(--layout-border-thin);
+  display: flex;
+  justify-content: center;
+  padding-block: var(--layout-padding-lg) var(--layout-padding-xs);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  background: linear-gradient(to bottom, transparent, var(--fleet-panel-surface));
+  color: var(--color-text-base-subtlest);
+  pointer-events: none;
+}
+
+.result {
+  margin: 0;
+  color: var(--color-text-base-subtle);
+  font-size: var(--font-size-content-note);
+  line-height: var(--font-line-height-content-note);
+}

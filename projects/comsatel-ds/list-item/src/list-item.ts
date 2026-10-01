@@ -1,15 +1,19 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Icon } from '@iamacalupuenzo-ui/comsatel-ds/icons';
 import type { IconName } from '@iamacalupuenzo-ui/comsatel-ds/icons';
+
+let nextListItemId = 0;
 
 /** Fila compacta para navegar o ejecutar una acción sobre un recurso. */
 @Component({
   selector: 'cs-list-item',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon],
   templateUrl: './list-item.html',
   styleUrl: './list-item.css',
 })
 export class ListItem {
+  protected readonly descriptionId = `cs-list-item-description-${++nextListItemId}`;
   /** Nombre principal del recurso. */
   @Input({ required: true }) label = '';
   /** Contexto secundario, por ejemplo ubicación o última actualización. */
@@ -39,9 +43,14 @@ export class ListItem {
     ].filter(Boolean).join(' ');
   }
 
+  /** Un estado seleccionado también necesita semántica de selección. */
+  protected get isSelectable(): boolean {
+    return this.selectable || this.selected;
+  }
+
   protected onActivate(): void {
     if (this.disabled) return;
-    if (this.selectable) this.selectedChange.emit(!this.selected);
+    if (this.isSelectable) this.selectedChange.emit(!this.selected);
     this.activate.emit();
   }
 }

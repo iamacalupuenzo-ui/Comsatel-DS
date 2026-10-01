@@ -2,57 +2,133 @@
   <p class="eyebrow">Componentes / Fleet unit list</p>
   <h1 class="title">Fleet unit list<span class="change-badge change-badge--title" data-kind="nuevo">Nuevo · v0.3.12</span></h1>
   <p class="description">
-    Lista de unidades de flota con su estado, último reporte y telemetría. Cada fila se puede seleccionar, fijar arriba
-    y abrir en detalle. Úsala en paneles laterales del mapa o en cualquier vista con varias unidades. Si solo muestras
-    una unidad, presenta su detalle directamente.
+    Lista de unidades de flota para paneles laterales del mapa. Cada fila muestra el tipo de vehículo, la señal GPS,
+    el encendido, la placa con su motor y el último reporte. La fila selecciona la unidad; el botón de tres puntos abre
+    sus acciones. Si solo muestras una unidad, presenta su detalle directamente.
   </p>
 
   <!-- Playground -->
   <section class="section">
     <h2 class="section__title" id="playground">Playground</h2>
-    <p class="section__intro">Selecciona una unidad, fíjala desde el menú de sus acciones o cambia la apariencia.</p>
-    <ul class="section__intro state-list">
-      <li><strong>{{ pgState() === 'selected' ? 'Seleccionada' : pgState() === 'pinned' ? 'Fijada' : pgState() === 'disabled' ? 'Fila deshabilitada' : 'Por defecto' }}.</strong> {{ pgState() === 'pinned' ? 'La unidad prioritaria queda arriba.' : pgState() === 'selected' ? 'Una unidad conserva la selección.' : 'Consulta el estado y la telemetría de cada unidad.' }}</li>
-      <li><strong>Propiedades:</strong> <code>{{ pgState() === 'pinned' ? '[pinnable]="true" [pinnedIds]="fijadas"' : pgState() === 'selected' ? '[selectedId]="seleccionada"' : '[units]="unidades"' }}</code></li>
-    </ul>
+    <p class="section__intro">
+      Selecciona una unidad, abre su menú y fíjala. Elige si el panel muestra la barra de scroll; sin barra, la flecha
+      inferior indica que quedan unidades por ver. Las fijadas quedan arriba mientras recorres el resto.
+    </p>
     <app-demo-shell [controls]="controls" [code]="code()" (stateChange)="onState($event)">
       <div class="stage">
-        <cs-fleet-unit-list
-          [units]="pgState() === 'disabled' ? disabledUnits : units"
-          [appearance]="appearance()"
-          [selectable]="selectable()"
-          [pinnable]="pinnable()"
-          [selectedId]="selectedId()"
-          (selectedIdChange)="selectedId.set($event)"
-          [pinnedIds]="pinnedIds()"
-          (pinnedIdsChange)="pinnedIds.set($event)"
-        />
+        <div class="panel-frame" [class.panel-frame--surface]="appearance() === 'filled'">
+          <div #panel class="panel" [class.panel--surface]="appearance() === 'filled'"
+            [class.panel--scrollbar-hidden]="scrollbar() === 'hidden'" (scroll)="updateScrollHint()">
+            <div #panelContent>
+              <cs-fleet-unit-list
+                [units]="playgroundUnits()"
+                [appearance]="appearance()"
+                [selectable]="selectable()"
+                [pinnable]="pinnable()"
+                [stickyPinned]="stickyPinned()"
+                [showTelemetry]="showTelemetry()"
+                [selectedId]="selectedId()"
+                (selectedIdChange)="selectedId.set($event)"
+                [pinnedIds]="pinnedIds()"
+                (pinnedIdsChange)="pinnedIds.set($event)"
+                detailLabel="Ver bitácora"
+                (detailClick)="onDetail($event)"
+                [actions]="actions"
+                (actionSelect)="onAction($event)"
+              />
+            </div>
+          </div>
+          @if (showScrollHint()) {
+            <div class="panel-scroll-hint" aria-hidden="true">
+              <cs-icon name="chevron-down" [size]="16" />
+            </div>
+          }
+        </div>
+        <p class="result" role="status">{{ lastAction() ? 'Última acción: ' + lastAction() : 'Elige una acción del menú de una unidad.' }}</p>
       </div>
     </app-demo-shell>
+    <div class="subsection">
+      <h3 class="subsection__title" id="data">Datos y acciones</h3>
+      <p class="section__intro">
+        La placa, el motor, el tipo de vehículo, la señal GPS, el encendido y el último reporte van en cada unidad.
+        Las acciones propias del producto llegan por <code class="inline-code">actions</code> y el componente avisa
+        cuál se eligió con <code class="inline-code">actionSelect</code>. La barra de scroll pertenece al panel que contiene
+        la lista; el selector del Playground cambia ese panel, no la API de <code class="inline-code">FleetUnitList</code>.
+      </p>
+      <app-code-block [code]="unitCode"></app-code-block>
+    </div>
   </section>
 
   <section class="section">
     <h2 class="section__title" id="states">Estados</h2>
-    <p class="section__intro">Cada ejemplo conserva su propio estado inicial.</p>
+    <p class="section__intro">Cada ejemplo conserva su propio estado y responde a la selección y al menú.</p>
     @for (state of states; track state.key) {
       <div class="subsection">
         <h3 class="subsection__title" [id]="'fleet-state-' + state.key">{{ state.title }}</h3>
         <p class="section__intro">{{ state.intro }}</p>
         <app-demo-shell [controls]="[]" [code]="stateCode(state.key)">
-          <div class="stage"><cs-fleet-unit-list [units]="state.key === 'disabled' ? disabledUnits : units" [selectedId]="state.key === 'selected' ? 'norte-04' : null" [pinnable]="state.key === 'pinned'" [pinnedIds]="state.key === 'pinned' ? ['sur-12'] : []" /></div>
+          <div class="stage" [class.stage--surface]="state.key === 'filled'">
+            <cs-fleet-unit-list
+              [units]="state.key === 'disabled' ? disabledUnits : shortUnits"
+              [appearance]="state.key === 'filled' ? 'filled' : 'outlined'"
+              [pinnable]="state.key === 'pinned'"
+              [showTelemetry]="state.key === 'telemetry'"
+              [selectedId]="stateSelected(state.key)"
+              (selectedIdChange)="selectIn(state.key, $event)"
+              [pinnedIds]="statePinned(state.key)"
+              (pinnedIdsChange)="pinIn(state.key, $event)"
+            />
+          </div>
         </app-demo-shell>
       </div>
     }
   </section>
 
   <section class="section">
-    <h2 class="section__title" id="use-cases">Casos de uso</h2>
-    <div class="subsection">
-      <h3 class="subsection__title" id="case-map-panel">Panel lateral del mapa</h3>
-      <p class="section__intro">La persona elige una unidad y conserva las prioritarias arriba mientras revisa el mapa.</p>
-      <app-demo-shell [controls]="[]" code="&lt;cs-fleet-unit-list [units]=&quot;unidades&quot; [pinnable]=&quot;true&quot; [selectedId]=&quot;seleccionada&quot; /&gt;">
-        <div class="stage"><cs-fleet-unit-list [units]="units" [pinnable]="true" [selectedId]="selectedId()" (selectedIdChange)="selectedId.set($event)" [pinnedIds]="pinnedIds()" (pinnedIdsChange)="pinnedIds.set($event)" /></div>
-      </app-demo-shell>
+    <h2 class="section__title" id="guidelines">Lineamientos de uso</h2>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon name="check" [size]="13" aria-hidden="true" class="guide-card__header-icon" /><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Informa la señal GPS y el encendido en cada unidad: son dos indicadores independientes y la fila los muestra sobre el avatar.</p>
+          <code class="guide-card__code">gps: 'on', ignition: 'off'</code>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon name="x" [size]="13" aria-hidden="true" class="guide-card__header-icon" /><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No resumas ambos en una sola etiqueta de estado dentro de la fila: una unidad puede tener señal con el motor apagado.</p>
+          <code class="guide-card__code">statusLabel: 'Detenida'</code>
+        </div>
+      </div>
+      <div class="guide-card guide-card--do">
+        <div class="guide-card__header"><cs-icon name="check" [size]="13" aria-hidden="true" class="guide-card__header-icon" /><span class="guide-card__header-label">Recomendado</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">Pasa las acciones del producto por <code class="inline-code">actions</code> y resuélvelas en <code class="inline-code">actionSelect</code>. Fijar ya viene con <code class="inline-code">pinnable</code>.</p>
+          <code class="guide-card__code">[actions]="acciones" (actionSelect)="ejecutar($event)"</code>
+        </div>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-card__header"><cs-icon name="x" [size]="13" aria-hidden="true" class="guide-card__header-icon" /><span class="guide-card__header-label">Evita</span></div>
+        <div class="guide-card__body">
+          <p class="guide-card__text">No armes una fila propia con un menú aparte para sumar acciones: pierdes el foco, el teclado y el grupo de fijadas.</p>
+          <code class="guide-card__code">&lt;li&gt;… &lt;cs-dropdown trigger="icon" /&gt;&lt;/li&gt;</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title" id="accessibility">Accesibilidad</h2>
+    <p class="section__intro">La fila y el botón de acciones son dos controles nativos independientes.</p>
+    <div class="table table--two-columns">
+      <div class="table__head"><span>Aspecto</span><span>Comportamiento</span></div>
+      <div class="table__row"><strong>Selección</strong><span>Botón nativo con <code class="inline-code">aria-pressed</code> y nombre «Seleccionar, placa». El motor, la señal GPS, el encendido, el último reporte y «Fijada» se leen como su descripción.</span></div>
+      <div class="table__row"><strong>Indicadores</strong><span>La señal GPS y el encendido no dependen solo del color: el encendido cambia de ícono y ambos tienen texto para lectores de pantalla y al pasar el cursor.</span></div>
+      <div class="table__row"><strong>Menú</strong><span>El botón de tres puntos anuncia <code class="inline-code">aria-expanded</code> y abre un <code class="inline-code">role="menu"</code> con nombre. El foco entra a la primera acción.</span></div>
+      <div class="table__row"><strong>Teclado</strong><span>Tab recorre fila y botón de acciones. En el menú, Flecha arriba y abajo, Inicio y Fin recorren las acciones; Enter o Espacio eligen; Escape o Tab cierran y devuelven el foco al botón.</span></div>
+      <div class="table__row"><strong>Fijar</strong><span>Al fijar o desfijar, la fila cambia de grupo y el foco la sigue hasta su botón de acciones.</span></div>
+      <div class="table__row"><strong>Grupos</strong><span>Las fijadas son una lista con nombre «Unidades fijadas»; el resto, «Unidades de flota».</span></div>
     </div>
   </section>
 
@@ -61,13 +137,30 @@
     <h2 class="section__title" id="props">Propiedades</h2>
     <div class="table">
       <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
-      <div class="table__row"><code class="table__name">units</code><code class="table__type">FleetUnit[]</code><code class="table__default">—</code><span class="table__desc">Unidades con id, name, status, statusLabel, lastSeen, speed, battery, location, diagnostics?, alert?, disabled?.</span></div>
+      <div class="table__row"><code class="table__name">units</code><code class="table__type">FleetUnit[]</code><code class="table__default">—</code><span class="table__desc">Unidades a listar. Cada id tiene que ser único.</span></div>
       <div class="table__row"><code class="table__name">selectedId / (selectedIdChange)</code><code class="table__type">string | null</code><code class="table__default">null</code><span class="table__desc">Unidad seleccionada, controlada.</span></div>
-      <div class="table__row"><code class="table__name">pinnable</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Permite fijar unidades arriba de la lista.</span></div>
-      <div class="table__row"><code class="table__name">pinnedIds / (pinnedIdsChange)</code><code class="table__type">string[]</code><code class="table__default">[]</code><span class="table__desc">Unidades fijadas, controladas.</span></div>
       <div class="table__row"><code class="table__name">selectable</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Permite seleccionar una fila.</span></div>
-      <div class="table__row"><code class="table__name">appearance</code><code class="table__type">"outlined" | "filled"</code><code class="table__default">"outlined"</code><span class="table__desc">Superficie de las filas.</span></div>
-      <div class="table__row"><code class="table__name">detailLabel / (detailClick)</code><code class="table__type">string / FleetUnit</code><code class="table__default">"Ver detalle"</code><span class="table__desc">Acción de detalle de cada unidad.</span></div>
+      <div class="table__row"><code class="table__name">pinnable</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Agrega Fijar o Desfijar al menú.</span></div>
+      <div class="table__row"><code class="table__name">pinnedIds / (pinnedIdsChange)</code><code class="table__type">string[]</code><code class="table__default">[]</code><span class="table__desc">Unidades fijadas, controladas. Forman un grupo aparte arriba de la lista.</span></div>
+      <div class="table__row"><code class="table__name">stickyPinned</code><code class="table__type">boolean</code><code class="table__default">true</code><span class="table__desc">Deja el grupo de fijadas pegado arriba mientras el contenedor se desplaza.</span></div>
+      <div class="table__row"><code class="table__name">actions / (actionSelect)</code><code class="table__type">FleetUnitActions / FleetUnitActionEvent</code><code class="table__default">[]</code><span class="table__desc">Acciones del producto en el menú: una lista fija o una función por unidad. El evento trae la unidad y la acción elegida.</span></div>
+      <div class="table__row"><code class="table__name">detailLabel / (detailClick)</code><code class="table__type">string / FleetUnit</code><code class="table__default">"Ver detalle"</code><span class="table__desc">Acción de detalle del menú. Con el texto vacío no se muestra.</span></div>
+      <div class="table__row"><code class="table__name">showTelemetry</code><code class="table__type">boolean</code><code class="table__default">false</code><span class="table__desc">Agrega el estado, la alerta y la telemetría debajo de las acciones del menú.</span></div>
+      <div class="table__row"><code class="table__name">appearance</code><code class="table__type">"outlined" | "filled"</code><code class="table__default">"outlined"</code><span class="table__desc">Con borde sobre el lienzo, o relleno sin borde dentro de una superficie blanca.</span></div>
+    </div>
+    <div class="subsection">
+      <h3 class="subsection__title">FleetUnit</h3>
+      <div class="table">
+        <div class="table__head"><span>Propiedad</span><span>Tipo</span><span>Predeterminado</span><span>Descripción</span></div>
+        <div class="table__row"><code class="table__name">id, name</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Identificador único y nombre. El nombre es el título cuando no hay placa.</span></div>
+        <div class="table__row"><code class="table__name">plate</code><code class="table__type">string</code><code class="table__default">name</code><span class="table__desc">Placa: título de la fila. No se recorta.</span></div>
+        <div class="table__row"><code class="table__name">engine</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Motor, junto a la placa. Se recorta con puntos suspensivos.</span></div>
+        <div class="table__row"><code class="table__name">vehicleType</code><code class="table__type">"car" | "truck" | "bus" | "motorcycle"</code><code class="table__default">"truck"</code><span class="table__desc">Ícono del avatar.</span></div>
+        <div class="table__row"><code class="table__name">gps, ignition</code><code class="table__type">"on" | "off"</code><code class="table__default">según status</code><span class="table__desc">Señal GPS y encendido. Sin valor se deducen de status.</span></div>
+        <div class="table__row"><code class="table__name">lastReportAt</code><code class="table__type">Date | string | number</code><code class="table__default">—</code><span class="table__desc">Último reporte, con el formato de fecha y hora del sistema. Sin valor, la fila muestra lastSeen.</span></div>
+        <div class="table__row"><code class="table__name">status, statusLabel, lastSeen, speed, battery, location</code><code class="table__type">string</code><code class="table__default">—</code><span class="table__desc">Estado y telemetría ya formateados. Se muestran en el menú con showTelemetry.</span></div>
+        <div class="table__row"><code class="table__name">diagnostics, alert, disabled</code><code class="table__type">string, string, boolean</code><code class="table__default">—</code><span class="table__desc">Opcionales: diagnóstico y alerta del menú, y fila deshabilitada.</span></div>
+      </div>
     </div>
   </section>
 </div>

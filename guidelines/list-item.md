@@ -44,13 +44,18 @@ un control de selección de formulario ni el organismo de telemetría
 
 - La superficie es un `<button>` nativo: Tab, Enter y Espacio funcionan sin
   handlers adicionales.
-- Solo usa `selectable` si el consumidor administra una selección persistente;
-  en ese caso enlaza `selected` con `selectedChange`, y `aria-pressed` anuncia
-  el estado. Para opciones de formulario
+- Usa `selectable` cuando el consumidor administra una selección persistente;
+  enlaza `selected` con `selectedChange`. Si una fila recibe `selected=true`,
+  también anuncia ese estado con `aria-pressed` aunque se omita `selectable`.
+  Para opciones de formulario
   usa `Select`, que implementa el patrón `listbox`.
 - Proyecta un `Tag` con el atributo `cs-list-item-trailing` para un estado;
-  este conserva texto e ícono, así el color no es la única señal.
+  este conserva texto e ícono, así el color no es la única señal. No proyectes
+  botones, enlaces ni otros controles interactivos dentro de la fila.
 - `disabled` es nativo: la fila no recibe foco ni emite `activate`.
+- `leadingIcon` y `trailingIcon` son opcionales; quitarlos no reserva columnas
+  vacías. Si se proporciona `aria-label`, la descripción sigue vinculada con
+  `aria-describedby`.
 
 <!-- a11y:start ListItem -->
 <!-- generado por scripts/a11y.mjs desde projects/comsatel-ds/list-item/src/list-item.ts: no editar a mano, corre npm run docs:a11y -->
@@ -60,7 +65,7 @@ un control de selección de formulario ni el organismo de telemetría
 | Aspecto | Qué hace el código |
 | :-- | :-- |
 | Elementos nativos | `button` |
-| Atributos ARIA | `aria-hidden="true"`, `aria-label`, `aria-pressed` |
+| Atributos ARIA | `aria-hidden="true"`, `aria-label`, `aria-describedby`, `aria-pressed` |
 | Compone | `cs-icon` |
 <!-- a11y:end -->
 
@@ -68,5 +73,7 @@ un control de selección de formulario ni el organismo de telemetría
 
 - Muestra una entidad por fila y deja el detalle completo para su vista o
   panel específico.
+- En una colección semántica, coloca cada `cs-list-item` dentro de un `<li>`;
+  el componente aporta el botón de la fila, no el contenedor de lista.
 - Usa un solo estado corto y metadatos comparables entre filas.
 - No lo uses como sustituto de Select, Table o FleetUnitList.

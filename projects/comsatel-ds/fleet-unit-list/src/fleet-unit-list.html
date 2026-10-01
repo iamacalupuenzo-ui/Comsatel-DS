@@ -1,57 +1,114 @@
-<ul class="cs-fleet-unit-list" aria-label="Unidades de flota">
-  @for (unit of orderedUnits; track unit.id) {
-    <li class="cs-fleet-unit-list__item cs-focus-within"
-      [class.cs-fleet-unit-list__item--secondary]="surface() === 'secondary'"
-      [class.cs-fleet-unit-list__item--interactive]="!unit.disabled"
-      [class.cs-fleet-unit-list__item--selected]="selectedId() === unit.id"
-      [class.cs-fleet-unit-list__item--pinned]="pinnedIds().includes(unit.id)"
-      [attr.data-unit-id]="unit.id">
-      <button type="button" class="cs-fleet-unit-list__header"
-        [disabled]="unit.disabled || !selectable()" [attr.aria-pressed]="selectedId() === unit.id"
-        [attr.aria-label]="'Seleccionar, ' + unit.name" (click)="select(unit)">
-        <span class="cs-fleet-unit-list__vehicle-icon">
-          <cs-icon name="truck" [size]="16" aria-hidden="true" />
-          @if (pinnedIds().includes(unit.id)) { <cs-icon class="cs-fleet-unit-list__pin" name="star" [size]="12" aria-label="Fijada" /> }
-        </span>
-        <span class="cs-fleet-unit-list__identity">
-          <span class="cs-fleet-unit-list__name">{{ unit.name }}</span>
-          <span class="cs-fleet-unit-list__signal">{{ unit.lastSeen }}</span>
-        </span>
-        <cs-tag [severity]="statusSeverity[unit.status]" [icon]="statusIcon[unit.status]" [value]="unit.statusLabel" [rounded]="true" />
-      </button>
-      <span #actionAnchor class="cs-fleet-unit-list__action-trigger">
-        <cs-button variant="tertiary" size="xs" [disabled]="unit.disabled ?? false"
-          [aria-label]="'Más acciones para ' + unit.name" (click)="toggleActions(unit, actionAnchor.querySelector('button')!)">
-          <cs-icon name="more-horizontal" [size]="16" aria-hidden="true" />
-        </cs-button>
-      </span>
-      <cs-popover [isOpen]="actionUnitId() === unit.id" [triggerRef]="actionAnchor" placement="bottom-end"
-        [ariaLabel]="'Acciones y detalle de ' + unit.name" (closed)="closeActions()">
-        <div class="cs-fleet-unit-list__body">
-          <div class="cs-fleet-unit-list__actions">
-            @if (pinnable()) {
-              <cs-button variant="tertiary" size="sm" [disabled]="unit.disabled ?? false" (click)="pin(unit)">{{ pinnedIds().includes(unit.id) ? 'Desfijar' : 'Fijar' }}</cs-button>
-            }
-            <cs-button variant="tertiary" size="sm" [disabled]="unit.disabled ?? false" (click)="showDetail(unit)">{{ detailLabel }}</cs-button>
-          </div>
-        @if (unit.alert) {
-          <p class="cs-fleet-unit-list__alert"><cs-icon name="alert-triangle" [size]="14" aria-hidden="true" />{{ unit.alert }}</p>
+@let pinned = pinnedUnits;
+@let unpinned = unpinnedUnits;
+<div class="cs-fleet-unit-list" [class.cs-fleet-unit-list--filled]="appearance === 'filled'">
+  @if (pinned.length) {
+    <div class="cs-fleet-unit-list__pinned" [class.cs-fleet-unit-list__pinned--sticky]="stickyPinned()">
+      <ul class="cs-fleet-unit-list__group" aria-label="Unidades fijadas">
+        @for (unit of pinned; track unit.id) {
+          <ng-container [ngTemplateOutlet]="row" [ngTemplateOutletContext]="{ $implicit: unit, key: uid + '-pinned-' + $index }" />
         }
-        <dl class="cs-fleet-unit-list__telemetry">
-          @for (field of telemetryFields; track field.key) {
-            @if (field.key !== 'diagnostics' || unit.diagnostics) {
-              <div class="cs-fleet-unit-list__telemetry-item">
-                <div class="cs-fleet-unit-list__telemetry-icon"><cs-icon [name]="field.icon" [size]="14" aria-hidden="true" /></div>
-                <div class="cs-fleet-unit-list__telemetry-content">
-                  <dt>{{ field.label }}</dt>
-                  <dd>{{ unit[field.key] }}</dd>
-                </div>
+      </ul>
+      @if (unpinned.length) { <div class="cs-fleet-unit-list__divider" aria-hidden="true"></div> }
+    </div>
+  }
+  @if (unpinned.length || !pinned.length) {
+    <ul class="cs-fleet-unit-list__group" aria-label="Unidades de flota">
+      @for (unit of unpinned; track unit.id) {
+        <ng-container [ngTemplateOutlet]="row" [ngTemplateOutletContext]="{ $implicit: unit, key: uid + '-unit-' + $index }" />
+      }
+    </ul>
+  }
+</div>
+
+<ng-template #row let-unit let-key="key">
+  @let selected = selectedId() === unit.id;
+  @let unitPinned = isPinned(unit);
+  @let open = actionUnitId() === unit.id;
+  <li class="cs-fleet-unit-list__item"
+    [class.cs-fleet-unit-list__item--secondary]="surface() === 'secondary'"
+    [class.cs-fleet-unit-list__item--disabled]="unit.disabled"
+    [class.cs-fleet-unit-list__item--selected]="selected"
+    [class.cs-fleet-unit-list__item--pinned]="unitPinned"
+    [class.cs-fleet-unit-list__item--plain]="!hasMenu"
+    [attr.data-unit-id]="unit.id">
+    <button type="button" class="cs-fleet-unit-list__main"
+      [disabled]="unit.disabled || !selectable()" [attr.aria-pressed]="selected"
+      [attr.aria-label]="'Seleccionar, ' + titleOf(unit)" [attr.aria-describedby]="key" (click)="select(unit)">
+      <span class="cs-fleet-unit-list__avatar">
+        <cs-icon [name]="vehicleIcon(unit)" [size]="20" aria-hidden="true" />
+        <span class="cs-fleet-unit-list__indicator cs-fleet-unit-list__indicator--gps"
+          [class.cs-fleet-unit-list__indicator--on]="gpsOn(unit)" [attr.title]="gpsLabel(unit)" aria-hidden="true">
+          <cs-icon name="satellite" [size]="10" />
+        </span>
+        <span class="cs-fleet-unit-list__indicator cs-fleet-unit-list__indicator--ignition"
+          [class.cs-fleet-unit-list__indicator--on]="ignitionOn(unit)" [attr.title]="ignitionLabel(unit)" aria-hidden="true">
+          <cs-icon [name]="ignitionOn(unit) ? 'activity' : 'power-off'" [size]="10" />
+        </span>
+      </span>
+      <span class="cs-fleet-unit-list__body">
+        <span class="cs-fleet-unit-list__title">
+          <span class="cs-fleet-unit-list__plate">{{ titleOf(unit) }}</span>
+          @if (unit.engine) { <span class="cs-fleet-unit-list__engine">{{ unit.engine }}</span> }
+          @if (unitPinned) { <cs-icon class="cs-fleet-unit-list__pin" name="star" [size]="12" aria-hidden="true" /> }
+        </span>
+        <span class="cs-fleet-unit-list__report">{{ reportOf(unit) }}</span>
+      </span>
+    </button>
+    <!-- El nombre del botón es estable; el resto de la fila se lee como descripción. -->
+    <span class="cs-fleet-unit-list__sr-only" [id]="key">
+      @if (unit.engine) { {{ unit.engine }}. } {{ gpsLabel(unit) }}. {{ ignitionLabel(unit) }}. Último reporte: {{ reportOf(unit) }}. @if (unitPinned) { Fijada. }
+    </span>
+    @if (hasMenu) {
+      <span class="cs-fleet-unit-list__action">
+        <!-- El menú se ancla al botón, no a la celda, que ocupa todo el alto de la fila. -->
+        <span #actionAnchor class="cs-fleet-unit-list__anchor">
+          <button #trigger type="button" class="cs-fleet-unit-list__trigger cs-focus-ring"
+            [class.cs-fleet-unit-list__trigger--open]="open" [disabled]="unit.disabled ?? false"
+            [attr.aria-haspopup]="showTelemetry() ? 'dialog' : 'menu'" [attr.aria-expanded]="open"
+            [attr.aria-label]="'Más acciones para ' + titleOf(unit)" (click)="toggleActions(unit, trigger)">
+            <cs-icon name="more-horizontal" [size]="18" aria-hidden="true" />
+          </button>
+        </span>
+      </span>
+      <cs-popover [isOpen]="open" [triggerRef]="actionAnchor" placement="bottom-end" [offset]="4"
+        [role]="showTelemetry() ? 'dialog' : null"
+        [ariaLabel]="showTelemetry() ? 'Acciones y detalle de ' + titleOf(unit) : null" (closed)="closeActions()">
+        @if (menuUnitId() === unit.id) {
+          @let entries = menuEntries(unit);
+          <div class="cs-fleet-unit-list__popover" [class.cs-fleet-unit-list__popover--details]="showTelemetry()">
+            @if (entries.length) {
+              <div class="cs-fleet-unit-list__menu" role="menu" aria-orientation="vertical"
+                [attr.aria-label]="'Acciones para ' + titleOf(unit)" (keydown)="onMenuKeydown($event)">
+                @for (entry of entries; track $index) {
+                  <cs-dropdown-item [item]="entry.item" size="sm" selectionMode="none" (itemSelect)="choose(unit, entry)" />
+                  @if (entry.item.dividerAfter) { <div class="cs-fleet-unit-list__menu-divider" aria-hidden="true"></div> }
+                }
               </div>
             }
-          }
-        </dl>
-        </div>
+            @if (showTelemetry()) {
+              <div class="cs-fleet-unit-list__details">
+                <cs-tag class="cs-fleet-unit-list__status" [severity]="statusSeverity(unit)" [icon]="statusIcon(unit)" [value]="unit.statusLabel" [rounded]="true" />
+                @if (unit.alert) {
+                  <p class="cs-fleet-unit-list__alert"><cs-icon name="alert-triangle" [size]="14" aria-hidden="true" />{{ unit.alert }}</p>
+                }
+                <dl class="cs-fleet-unit-list__telemetry">
+                  @for (field of telemetryFields; track field.key) {
+                    @if (unit[field.key]) {
+                      <div class="cs-fleet-unit-list__telemetry-item">
+                        <div class="cs-fleet-unit-list__telemetry-icon"><cs-icon [name]="field.icon" [size]="14" aria-hidden="true" /></div>
+                        <div class="cs-fleet-unit-list__telemetry-content">
+                          <dt>{{ field.label }}</dt>
+                          <dd>{{ unit[field.key] }}</dd>
+                        </div>
+                      </div>
+                    }
+                  }
+                </dl>
+              </div>
+            }
+          </div>
+        }
       </cs-popover>
-    </li>
-  }
-</ul>
+    }
+  </li>
+</ng-template>

@@ -3,7 +3,8 @@
   [class]="classes"
   [disabled]="disabled"
   [attr.aria-label]="ariaLabel || null"
-  [attr.aria-pressed]="selectable ? selected : null"
+  [attr.aria-describedby]="ariaLabel && description ? descriptionId : null"
+  [attr.aria-pressed]="isSelectable ? selected : null"
   (click)="onActivate()"
 >
   @if (leadingIcon) {
@@ -12,7 +13,7 @@
 
   <span class="cs-list-item__content">
     <span class="cs-list-item__label">{{ label }}</span>
-    @if (description) { <span class="cs-list-item__description">{{ description }}</span> }
+    @if (description) { <span class="cs-list-item__description" [id]="descriptionId">{{ description }}</span> }
   </span>
 
   <span class="cs-list-item__trailing"><ng-content select="[cs-list-item-trailing]"></ng-content></span>

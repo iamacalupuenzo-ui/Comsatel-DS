@@ -20,7 +20,7 @@ por sí solo. Usa el mismo ciclo pendiente, en curso y hecho con hash.
 | Button | Estados cálidos optativos y ancho durante carga | P1 / pendiente | Evaluación individual pendiente |
 | Badge | Énfasis cálido del contador de filtros | P1 / pendiente | Evaluación individual pendiente |
 | Tag | Filtro activo, eliminación y foco | P1 / pendiente | Evaluación individual pendiente |
-| ListItem | Selección, metadatos y superficie | P1 / pendiente | Evaluación individual pendiente |
+| ListItem | Conservar como fila genérica: selección, metadatos y superficie | P1 / en curso | API pública vigente; refactor de layout opcional, foco y selección en `list-item/`. Librería y catálogo compilan; pruebas del usuario pendientes. |
 | DropdownItemComponent | Fila seleccionada y señales no cromáticas | P1 / pendiente | Evaluación individual pendiente |
 | Dropdown | Superficie y estados de opciones | P1 / pendiente | Evaluación individual pendiente |
 | Input | Contraste de texto y estados en panel cálido | P1 / pendiente | Evaluación individual pendiente |
